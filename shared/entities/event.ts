@@ -20,3 +20,7 @@ export interface Event {
   /** Owner of the event */
   liver: Liver;
 }
+
+export interface EventList {
+  events: Event[];
+}

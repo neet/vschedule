@@ -1,6 +1,7 @@
 /.git
 /node_modules
 /dist
+/static
 *.d.ts
 package.json
 lerna.json

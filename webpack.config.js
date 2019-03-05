@@ -1,23 +1,27 @@
 const webpack = require('webpack');
 const path = require('path');
 const WebpackNotifierPlugin = require('webpack-notifier');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackBar = require('webpackbar');
 
-require('dotenv');
+require('dotenv').config();
 const { env } = process;
 
 module.exports = (isProd, isDevServer) => ({
   context: path.resolve(__dirname, 'client'),
 
+  stats: 'errors-only',
   devtool: isProd ? false : 'source-map',
 
   entry: {
-    client: './client/ui/main.ts',
+    client: './ui/main.tsx',
   },
 
   output: {
     filename: '[name].js',
     chunkFilename: '[name].js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'static'),
     // publicPath: isDevServer ? '/dist' : path.resolve(__dirname, 'dist'),
   },
 
@@ -39,7 +43,7 @@ module.exports = (isProd, isDevServer) => ({
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              publicPath: isDevServer ? '/dist' : path.resolve(__dirname, '../dist'),
+              publicPath: isDevServer ? '/static' : path.resolve(__dirname, '../static'),
             },
           },
         ],
@@ -58,26 +62,38 @@ module.exports = (isProd, isDevServer) => ({
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(env.NODE_ENV),
-        IS_WATCH: JSON.stringify(env.IS_WATCH),
+        API_URL: JSON.stringify(env.API_URL),
       },
     }),
+
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './ui/index.html',
+      alwaysWriteToDisk: true,
+    }),
+
+    new HtmlWebpackHarddiskPlugin(),
 
     new WebpackNotifierPlugin({
       title: 'Refined Itsukara Link',
       alwaysNotify: true,
     }),
+
+    new WebpackBar(),
   ],
 
   devServer: {
     compress: true,
-    contentBase: path.resolve(__dirname, '../dist'),
+    overlay: true,
+    contentBase: path.resolve(__dirname, '../static'),
     disableHostCheck: true,
     historyApiFallback: true,
     hot: true,
-    inline: true,
-    open: false,
-    port: 8080,
     index: 'index.html',
+    inline: true,
+    open: true,
+    port: 8080,
+    stats: 'errors-only',
     watchOptions: {
       ignored: /node_modules/,
     },
