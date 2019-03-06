@@ -9,7 +9,8 @@
   "scripts": {
     "watch": "run-p watch:*",
     "watch:client": "webpack-dev-server --development",
-    "watch:server": "tsc -w -p ./server"
+    "watch:server": "tsc -w -p ./server",
+    "manage:translations": "i18next-scanner 'client/**/*.{ts,tsx}' --config=i18next-scanner.config.js"
   },
   "dependencies": {
     "@babel/core": "^7.3.4",
@@ -51,7 +52,6 @@
     "html-webpack-plugin": "^3.2.0",
     "i18next": "^15.0.4",
     "i18next-browser-languagedetector": "^3.0.1",
-    "i18next-scanner": "^2.9.2",
     "immer": "^2.1.0",
     "polished": "^3.0.0",
     "react": "^16.8.3",
@@ -82,6 +82,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "husky": "^1.3.1",
+    "i18next-scanner": "^2.10.0",
+    "i18next-scanner-typescript": "^1.0.2",
     "jest": "^24.1.0",
     "lint-staged": "^8.1.4",
     "npm-run-all": "^4.1.5",

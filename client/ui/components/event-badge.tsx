@@ -14,7 +14,7 @@ export interface EventBadgeProps {
 export const Badge = styled.a`
   display: flex;
   position: absolute;
-  top: 48px;
+  top: 79px;
   left: 0;
   box-sizing: border-box;
   align-items: center;

@@ -1,0 +1,12 @@
+{
+  "banner": {
+    "open_original": "Open Original"
+  },
+  "event_card": {
+    "date": "Streaming on {{ value, fromNow }}"
+  },
+  "sidebar": {
+    "title": "<0>{{count}}</0> streaming now on air",
+    "title_plural": "<0>{{count}}</0> streamings now on air"
+  }
+}

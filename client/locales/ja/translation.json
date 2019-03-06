@@ -1,0 +1,11 @@
+{
+  "banner": {
+    "open_original": "元サイトを表示"
+  },
+  "event_card": {
+    "date": "{{ value, fromNow }}に配信開始"
+  },
+  "sidebar": {
+    "title": "<0>{{count}}人</0>が配信中"
+  }
+}

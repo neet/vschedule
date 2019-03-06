@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 const Date = styled.div`
   box-sizing: border-box;
   flex-shrink: 0;
-  padding: 12px;
+  padding: 18px;
   color: ${({ theme }) => theme.foregroundLight};
   font-size: 14px;
   font-weight: bold;

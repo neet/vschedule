@@ -3,38 +3,48 @@ import { styled } from '../styles';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
+import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
-export const Wrapper = styled.header`
+const Wrapper = styled.header`
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   height: 60px;
-  background-color: ${({ theme }) => theme.bannerBackground};
+  padding: 8px 18px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
 `;
 
-export const Inner = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
-  height: 100%;
-  margin: auto;
-  color: ${({ theme }) => theme.foregroundReverse};
+const Title = styled.h1`
+  /* stylelint-disable */
+  font-family: 'Avenir';
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  color: ${({ theme }) => theme.highlightNormal};
 `;
 
-export const Title = styled.div`
-  font-family: 'Avenir';
-  font-size: 32;
-  font-weight: 500;
+const Toolbox = styled.div`
+  display: flex;
+  align-items: center;
 
-  span {
-    margin-right: 0.25em;
-    color: ${({ theme }) => theme.highlightNormal};
+  & > *:not(:last-child) {
+    margin-right: 18px;
   }
 `;
 
-export const OriginalLink = styled.div`
-  padding: 8px 18px;
-  border-radius: 99px;
+const Icon = styled(FontAwesomeIcon)`
+  font-size: 24px;
+  margin: auto;
+  color: ${({ theme }) => theme.highlightNormal};
+`;
+
+const OriginalLink = styled.div`
+  padding: 8px 14px;
+  font-size: 12px;
+  border-radius: 4px;
   background-color: ${({ theme }) => theme.highlightNormal};
   font-weight: bold;
 
@@ -52,21 +62,32 @@ export const Banner = React.memo(() => {
 
   return (
     <Wrapper>
-      <Inner>
-        <Title>
-          <h1>
-            <span>refined</span>
-            Itsukara.link
-          </h1>
-        </Title>
+      <Title>refined Itsukara.link</Title>
+
+      <Toolbox>
+        <a
+          href="https://twitter.com/thegodofneet"
+          target="__blank"
+          rel="noreferrer"
+        >
+          <Icon icon={faTwitter} />
+        </a>
+
+        <a
+          href="https://github.com/neet/refined-itsukara-link"
+          target="__blank"
+          rel="noreferrer"
+        >
+          <Icon icon={faGithub} />
+        </a>
 
         <OriginalLink>
           <a href="https://www.itsukaralink.jp">
-            <FontAwesomeIcon icon={faExternalLinkSquareAlt } />
+            <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
             {t('banner.open_original', { defaultValue: 'Open Original' })}
           </a>
         </OriginalLink>
-      </Inner>
+      </Toolbox>
     </Wrapper>
   );
 });
