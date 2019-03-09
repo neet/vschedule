@@ -1,7 +1,7 @@
-import { Reducer } from '../types';
+import { Reducer } from 'client/ui/redux/types';
 import produce from 'immer';
 import { isType } from 'typescript-fsa';
-import { fetchEventsProcess } from '../actions/events';
+import { fetchEventsProcess } from 'client/ui/redux/actions/events';
 
 export interface EventListsState {
   readonly all: number[];

@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from 'react';
-import { EventsTimeline } from '../components/events-timeline';
-import { RootState } from '../redux/types';
+import { EventsTimeline } from 'client/ui/components/events-timeline';
+import { RootState } from 'client/ui/redux/types';
 import { useDispatch, useMappedState } from 'redux-react-hook';
-import { fetchEvents } from '../redux/actions/events';
-import { eventSelector } from '../redux/selectors';
+import { fetchEvents } from 'client/ui/redux/actions/events';
+import { eventSelector } from 'client/ui/redux/selectors';
 
 export interface EventsTimelineContainerProps {
   eventListId: 'all';

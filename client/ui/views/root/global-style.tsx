@@ -1,4 +1,4 @@
-import { createGlobalStyle } from '../../styles';
+import { createGlobalStyle } from 'client/ui/styles';
 import { reset } from './reset.css';
 
 export const GlobalStyle = createGlobalStyle`

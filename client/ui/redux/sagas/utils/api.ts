@@ -1,6 +1,6 @@
 import * as querystring from 'querystring';
-import { EventList } from '../../../../../shared/entities/event';
-import { Response } from '../../../../../shared/entities/response';
+import { EventList } from 'shared/entities/event';
+import { Response } from 'shared/entities/response';
 
 export class ItsukaraLink {
   protected baseUrl: string;

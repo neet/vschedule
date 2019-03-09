@@ -1,6 +1,6 @@
 import React from 'react';
 import dayjs, { Dayjs } from 'dayjs';
-import { styled } from '../styles';
+import { styled } from 'client/ui/styles';
 import { useTranslation } from 'react-i18next';
 import { faFire } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

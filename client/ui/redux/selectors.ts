@@ -1,5 +1,5 @@
 import { RootState } from "./types";
-import { Event } from "../../../shared/entities/event";
+import { Event } from "shared/entities/event";
 
 export const eventSelector = (state: RootState, id: number): Event => ({
   ...state.events[id],

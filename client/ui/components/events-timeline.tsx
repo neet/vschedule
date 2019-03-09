@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useMemo, useCallback } from 'react';
-import { Event } from '../../../shared/entities/event';
-import { TimelineGrids } from './timeline-grids';
-import { styled } from '../styles';
+import { Event } from 'shared/entities/event';
+import { TimelineGrids } from 'client/ui/components/timeline-grids';
+import { styled } from 'client/ui/styles';
 import dayjs from 'dayjs';
-import { EventBadge } from './event-badge';
-import { TimelineDates } from './timeline-dates';
-import transparentToWhiteGradient from '../../assets/transparent-to-white-gradient.png';
+import { EventBadge } from 'client/ui/components/event-badge';
+import { TimelineDates } from 'client/ui/components/timeline-dates';
+import transparentToWhiteGradient from 'client/assets/transparent-to-white-gradient.png';
 
 export interface EventsTimelineProps {
   events: Event[];

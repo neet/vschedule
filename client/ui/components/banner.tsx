@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled } from '../styles';
+import { styled } from 'client/ui/styles';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';

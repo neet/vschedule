@@ -4,6 +4,10 @@
     "target": "es5",
     "noEmit": true,
     "baseUrl": ".",
+    "paths": {
+      "client/*": ["./*"],
+      "shared/*": ["../shared/*"]
+    }
   },
   "include": ["./**/*"],
 }

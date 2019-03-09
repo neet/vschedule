@@ -1,8 +1,8 @@
-import { fetchEventsProcess } from '../actions/events';
+import { fetchEventsProcess } from 'client/ui/redux/actions/events';
 import produce, { Draft } from 'immer';
 import { isType } from 'typescript-fsa';
-import { Liver } from '../../../../shared/entities/liver';
-import { Reducer } from '../types';
+import { Liver } from 'shared/entities/liver';
+import { Reducer } from 'client/ui/redux/types';
 
 export interface LiversState {
   readonly [K: number]: Liver;

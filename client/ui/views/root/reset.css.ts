@@ -1,4 +1,4 @@
-import { css } from '../../styles';
+import { css } from 'client/ui/styles';
 
 export const reset = css`
   /* http://meyerweb.com/eric/tools/css/reset/

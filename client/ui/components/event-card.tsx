@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
-import { Event } from '../../../shared/entities/event';
-import { styled, css } from '../styles';
+import { Event } from 'shared/entities/event';
+import { styled, css } from 'client/ui/styles';
 import * as querystring from 'querystring';
-import { getThumbnailImageUrl } from '../helpers/get-thumbnail-image-url';
+import { getThumbnailImageUrl } from 'client/ui/helpers/get-thumbnail-image-url';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 

@@ -1,8 +1,8 @@
-import { fetchEventsProcess } from '../actions/events';
+import { fetchEventsProcess } from 'client/ui/redux/actions/events';
 import produce, { Draft } from 'immer';
 import { isType } from 'typescript-fsa';
-import { Event } from '../../../../shared/entities/event';
-import { Reducer } from '../types';
+import { Event } from 'shared/entities/event';
+import { Reducer } from 'client/ui/redux/types';
 import { Overwrite } from 'type-zoo';
 
 export type NormalizedEvent = Overwrite<Event, {

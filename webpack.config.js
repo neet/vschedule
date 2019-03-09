@@ -4,6 +4,7 @@ const WebpackNotifierPlugin = require('webpack-notifier');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackBar = require('webpackbar');
+const TSConfigPathsWebpackPlugin = require('tsconfig-paths-webpack-plugin');
 
 require('dotenv').config();
 const { env } = process;
@@ -54,6 +55,13 @@ const config = (isProd, isDevServer) => ({
 
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+
+    plugins: [
+      new TSConfigPathsWebpackPlugin({
+        configFile: path.resolve(__dirname, '../tsconfig.json'),
+        extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+      })
+    ]
   },
 
   plugins: [

@@ -1,6 +1,6 @@
 import React from 'react';
-import { styled } from '../styles';
-import { Event } from '../../../shared/entities/event';
+import { styled } from 'client/ui/styles';
+import { Event } from 'shared/entities/event';
 import { EventCard } from './event-card';
 import { Trans } from 'react-i18next';
 import dayjs from 'dayjs';

@@ -1,4 +1,4 @@
-import { styled } from '../styles';
+import { styled } from 'client/ui/styles';
 
 export const Page = styled.main`
   display: grid;

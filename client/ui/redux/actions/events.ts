@@ -1,5 +1,5 @@
 import { actionCreatorFactory } from 'typescript-fsa';
-import { EventList } from '../../../../shared/entities/event';
+import { EventList } from 'shared/entities/event';
 
 const actionCreator = actionCreatorFactory('Events');
 

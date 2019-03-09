@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled } from '../styles';
+import { styled } from 'client/ui/styles';
 import { Dayjs } from 'dayjs';
 
 export interface TimelineGridsProps {

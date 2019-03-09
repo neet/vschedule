@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
-import { Event } from '../../../shared/entities/event';
-import { styled } from '../styles';
+import { Event } from 'shared/entities/event';
+import { styled } from 'client/ui/styles';
 import dayjs, { Dayjs } from 'dayjs';
 import { opacify, parseToRgb } from 'polished';
 
