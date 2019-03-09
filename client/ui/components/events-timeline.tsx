@@ -1,19 +1,21 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useRef, useMemo, useCallback } from 'react';
 import { Event } from '../../../shared/entities/event';
 import { TimelineGrids } from './timeline-grids';
 import { styled } from '../styles';
 import dayjs from 'dayjs';
 import { EventBadge } from './event-badge';
 import { TimelineDates } from './timeline-dates';
+import transparentToWhiteGradient from '../../assets/transparent-to-white-gradient.png';
 
 export interface EventsTimelineProps {
   events: Event[];
 }
 
 const Wrapper = styled.div`
+  display: flex;
   position: relative;
-  width: 100%;
-  height: 100%;
+  grid-area: 1 / 2;
+  flex-direction: column;
   overflow-x: scroll;
 `;
 
@@ -23,6 +25,18 @@ const Feed = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+`;
+
+const Fade = styled.div`
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 100%;
+  background-image: url(${transparentToWhiteGradient});
+  background-repeat: repeat-y;
+  background-size: contain;
 `;
 
 function isOverlapping(eventX: Event, eventY: Event) {
@@ -73,16 +87,30 @@ export const EventsTimeline = (props: EventsTimelineProps) => {
 
   const ref = useRef<HTMLDivElement>(null);
 
+  const handleWheel = useCallback((e: WheelEvent) => {
+    if (!ref.current || !e.deltaY) return;
+    ref.current.scrollBy({ left: e.deltaY });
+  }, []);
+
   useEffect(() => {
-    if (!ref.current) {
-      return;
-    }
+    if (!ref.current) return;
 
     const fromNowToEarliest = dayjs().diff(earliestDate, 'minute');
-    const x = (gridWidth / 30) * fromNowToEarliest;
+    const screenWidth = window.screen.availWidth;
+    const x = (gridWidth / 30) * fromNowToEarliest - (screenWidth - 300) / 2;
 
     ref.current.scrollTo(x, 0);
-  }, [ref.current]);
+  }, [ref]);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    ref.current.addEventListener('wheel', handleWheel, { passive: true });
+
+    return () => {
+      if (!ref.current) return;
+      ref.current.removeEventListener('wheel', handleWheel);
+    };
+  }, [ref]);
 
   const offsets = events.map(event => {
     const offset = events
@@ -101,7 +129,7 @@ export const EventsTimeline = (props: EventsTimelineProps) => {
     Math.max(...events.map(event => dayjs(event.end_date).valueOf())),
   );
 
-  const gridWidth = 120;
+  const gridWidth = 120 + 18 * 2;
   const gridSize = dayjs(latestDate).diff(earliestDate, 'minute') / 30;
 
   const roundedDates = useMemo(() => {
@@ -115,8 +143,13 @@ export const EventsTimeline = (props: EventsTimelineProps) => {
     return Array.from({ length: gridSize }, (_, i) => {
       let childDate = basisDate.add(i / 2, 'hour');
 
-      if ((i + 1) % 2 === 0) {
-        childDate = childDate.add(30, 'minute');
+      if (
+        // Starts from 0
+        (basisDate.minute() === 0 && (i + 1) % 2 === 0) ||
+        // Starts from 30
+        (basisDate.minute() === 30 && (i + 1) % 2 === 1)
+      ) {
+        childDate = childDate.set('minute', 30);
       }
 
       return childDate;
@@ -125,7 +158,12 @@ export const EventsTimeline = (props: EventsTimelineProps) => {
 
   return (
     <Wrapper ref={ref}>
-      <TimelineDates dates={roundedDates} gridWidth={gridWidth} />
+      <TimelineDates
+        dates={roundedDates}
+        gridWidth={gridWidth}
+        basisDate={earliestDate}
+      />
+
       <TimelineGrids dates={roundedDates} gridWidth={gridWidth} />
 
       <Feed role="feed">
@@ -139,6 +177,8 @@ export const EventsTimeline = (props: EventsTimelineProps) => {
           />
         ))}
       </Feed>
+
+      <Fade />
     </Wrapper>
   );
 };

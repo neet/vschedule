@@ -10,13 +10,16 @@ export interface SidebarProps {
 }
 
 const Wrapper = styled.aside`
-  width: 300px;
+  box-sizing: border-box;
+  grid-area: 1 / 1;
   padding: 18px;
+  overflow: scroll;
   background-color: ${({ theme }) => theme.backgroundDark};
   box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.16);
 `;
 
 const Title = styled.h2`
+  margin-bottom: 8px;
   font-size: 16px;
 
   & > strong {

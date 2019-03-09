@@ -24,6 +24,7 @@ const Border = styled.div`
   flex-shrink: 0;
   justify-content: center;
   height: 100%;
+  border-left: 1px solid ${({ theme }) => theme.borderNormal};
 
   &::before {
     content: '';

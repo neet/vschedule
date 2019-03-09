@@ -8,7 +8,9 @@ import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
 const Wrapper = styled.header`
   display: flex;
   position: relative;
+  z-index: 999;
   box-sizing: border-box;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: space-between;
   width: 100%;

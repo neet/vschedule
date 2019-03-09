@@ -2,7 +2,7 @@ import React, { useMemo, useCallback } from 'react';
 import { Event } from '../../../shared/entities/event';
 import { styled } from '../styles';
 import dayjs, { Dayjs } from 'dayjs';
-import { opacify } from 'polished';
+import { opacify, parseToRgb } from 'polished';
 
 export interface EventBadgeProps {
   event: Event;
@@ -11,7 +11,11 @@ export interface EventBadgeProps {
   gridWidth: number;
 }
 
-export const Badge = styled.a`
+interface BadgeProps {
+  isLight: boolean;
+}
+
+export const Badge = styled.a<BadgeProps>`
   display: flex;
   position: absolute;
   top: 79px;
@@ -20,7 +24,12 @@ export const Badge = styled.a`
   align-items: center;
   padding: 4px 6px;
   border-radius: 99px;
-  color: ${({ theme }) => theme.foregroundReverse};
+  color: ${({ theme, isLight }) =>
+    isLight ? theme.foregroundDark : theme.foregroundReverse};
+
+  &:hover {
+    text-decoration: none;
+  }
 `;
 
 export const Avatar = styled.img`
@@ -48,6 +57,7 @@ export const Title = styled.h4`
 export const LiverName = styled.span`
   display: block;
   overflow: hidden;
+  opacity: 0.8;
   font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -67,7 +77,7 @@ export const EventBadge = (props: EventBadgeProps) => {
   const xyCoord = useMemo(() => {
     // Compare current date vs start date in minutes
     const diff = dayjs(event.start_date).diff(basisDate, 'minute');
-    const x = convertMinuteToPixel(diff);
+    const x = convertMinuteToPixel(diff) + 18;
 
     const BADGE_HEIGHT = 50 + 18;
     const y = BADGE_HEIGHT * offset;
@@ -77,7 +87,13 @@ export const EventBadge = (props: EventBadgeProps) => {
 
   const width = useMemo(() => {
     const diff = dayjs(event.end_date).diff(event.start_date, 'minute');
-    return convertMinuteToPixel(diff);
+    return convertMinuteToPixel(diff) - (18 * 2);
+  }, [event]);
+
+  const isLight = useMemo(() => {
+    // Calc color brightness difference
+    const { red, green, blue } = parseToRgb(event.liver.color);
+    return red * 0.299 + green * 0.587 + blue * 0.114 > 186;
   }, [event]);
 
   return (
@@ -86,6 +102,7 @@ export const EventBadge = (props: EventBadgeProps) => {
       href={event.url}
       target="__blank"
       rel="noreferrer"
+      isLight={isLight}
       style={{
         width: `${width}px`,
         transform: `translate(${xyCoord[0]}px, ${xyCoord[1]}px)`,

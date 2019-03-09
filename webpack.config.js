@@ -8,7 +8,7 @@ const WebpackBar = require('webpackbar');
 require('dotenv').config();
 const { env } = process;
 
-module.exports = (isProd, isDevServer) => ({
+const config = (isProd, isDevServer) => ({
   context: path.resolve(__dirname, 'client'),
 
   stats: 'errors-only',
@@ -22,7 +22,7 @@ module.exports = (isProd, isDevServer) => ({
     filename: '[name].js',
     chunkFilename: '[name].js',
     path: path.resolve(__dirname, 'static'),
-    // publicPath: isDevServer ? '/dist' : path.resolve(__dirname, 'dist'),
+    publicPath: isDevServer ? '/static' : path.resolve(__dirname, 'static'),
   },
 
   module: {
@@ -43,7 +43,8 @@ module.exports = (isProd, isDevServer) => ({
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              publicPath: isDevServer ? '/static' : path.resolve(__dirname, '../static'),
+              path: path.resolve(__dirname, 'static'),
+              publicPath: isDevServer ? '/static' : path.resolve(__dirname, 'static'),
             },
           },
         ],
@@ -85,7 +86,7 @@ module.exports = (isProd, isDevServer) => ({
   devServer: {
     compress: true,
     overlay: true,
-    contentBase: path.resolve(__dirname, '../static'),
+    contentBase: path.resolve(__dirname, 'static'),
     disableHostCheck: true,
     historyApiFallback: true,
     hot: true,
@@ -99,3 +100,6 @@ module.exports = (isProd, isDevServer) => ({
     },
   },
 });
+
+module.exports = (command, { mode }) =>
+  config(mode === 'production', command === 'webpack-dev-server')

@@ -52,10 +52,11 @@ const Thumbnail = styled.div`
   position: relative;
   flex-grow: 0;
   flex-shrink: 0;
-  width: 72px;
-  height: 72px;
+  width: 112px;
+  height: 63px;
   margin-right: 8px;
   border-radius: 4px;
+  background-position: center;
   background-size: cover;
 `;
 

@@ -6,6 +6,7 @@
     "date": "Streaming on {{ value, fromNow }}"
   },
   "sidebar": {
+    "title_0": "Nobody's streaming",
     "title": "<0>{{count}}</0> streaming now on air",
     "title_plural": "<0>{{count}}</0> streamings now on air"
   }

@@ -11,8 +11,11 @@ import { GlobalStyle } from './global-style';
 const locale = getLocale();
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   background-color: ${({ theme }) => theme.backgroundNormal};
 `;
 
