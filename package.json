@@ -9,8 +9,8 @@
   "scripts": {
     "watch": "run-p watch:*",
     "watch:client": "webpack-dev-server --development",
-    "watch:server": "tsc -w -p ./server",
-    "manage:translations": "i18next-scanner 'client/**/*.{ts,tsx}' --config=i18next-scanner.config.js"
+    "watch:server": "tsc -w -p ./src",
+    "manage:translations": "i18next-scanner 'src/locales/**/*.{ts,tsx}' --config=i18next-scanner.config.js"
   },
   "dependencies": {
     "@babel/core": "^7.3.4",

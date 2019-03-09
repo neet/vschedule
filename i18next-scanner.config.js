@@ -3,7 +3,7 @@ const path = require('path');
 const typescriptTransform = require('i18next-scanner-typescript');
 
 const lngs = glob
-  .sync('client/locales/!(*.*)')
+  .sync('src/locales/!(*.*)')
   .map(dir => dir.match(/.*\/(.+?)$/)[1]);
 
 const isPluralLng = lng => !['ja'].includes(lng);
@@ -26,8 +26,8 @@ module.exports = {
     },
     plural: isPluralLng,
     resource: {
-      loadPath: path.resolve(__dirname, 'client/locales/{{lng}}/{{ns}}.json'),
-      savePath: path.resolve(__dirname, 'client/locales/{{lng}}/{{ns}}.json'),
+      loadPath: path.resolve(__dirname, 'src/locales/{{lng}}/{{ns}}.json'),
+      savePath: path.resolve(__dirname, 'src/locales/{{lng}}/{{ns}}.json'),
     },
   },
   transform: typescriptTransform({ extensions: ['.tsx'] }),

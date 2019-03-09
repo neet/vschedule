@@ -32,7 +32,8 @@ const Fade = styled.div`
   z-index: 99;
   top: 0;
   right: 0;
-  width: 200px;
+  /* Last 8% of the timeline is fade-out */
+  width: 8%;
   height: 100%;
   background-image: url(${transparentToWhiteGradient});
   background-repeat: repeat-y;
