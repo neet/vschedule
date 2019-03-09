@@ -58,7 +58,7 @@ const config = (isProd, isDevServer) => ({
 
     plugins: [
       new TSConfigPathsWebpackPlugin({
-        configFile: path.resolve(__dirname, '../tsconfig.json'),
+        configFile: path.resolve(__dirname, 'client/tsconfig.json'),
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
       })
     ]
