@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { EventsTimelineContainer } from 'client/ui/containers/events-timeline-container';
+import { TimetableContainer } from 'client/ui/containers/timetable-container';
 import { SidebarContainer } from 'client/ui/containers/sidebar-container';
 import { Page } from 'client/ui/components/page';
 
@@ -7,7 +7,7 @@ export const Events = React.memo(() => {
   return (
     <Page>
       <SidebarContainer />
-      <EventsTimelineContainer eventListId="all" />
+      <TimetableContainer eventListId="all" />
     </Page>
   );
 });

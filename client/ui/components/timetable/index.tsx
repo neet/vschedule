@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useMemo, useCallback } from 'react';
 import { Event } from 'shared/entities/event';
-import { TimelineGrids } from 'client/ui/components/timeline-grids';
+import { Grids } from 'client/ui/components/timetable/grids';
 import { styled } from 'client/ui/styles';
 import dayjs from 'dayjs';
-import { EventBadge } from 'client/ui/components/event-badge';
-import { TimelineDates } from 'client/ui/components/timeline-dates';
+import { EventBadge } from 'client/ui/components/timetable/event';
+import { Dates } from 'client/ui/components/timetable/dates';
 import transparentToWhiteGradient from 'client/assets/transparent-to-white-gradient.png';
 import { isOverlapping } from 'client/ui/helpers/is-overlapping';
 import { sortEvents } from 'client/ui/helpers/sort-events';
 
-export interface EventsTimelineProps {
+export interface TimetableProps {
   events: Event[];
 }
 
@@ -46,7 +46,7 @@ const Fade = styled.div`
   background-size: contain;
 `;
 
-export const EventsTimeline = (props: EventsTimelineProps) => {
+export const Timetable = (props: TimetableProps) => {
   const { events } = props;
   if (!props.events || !props.events.length) return null;
 
@@ -138,13 +138,13 @@ export const EventsTimeline = (props: EventsTimelineProps) => {
 
   return (
     <Wrapper ref={ref}>
-      <TimelineDates
+      <Dates
         dates={roundedDates}
         gridWidth={gridWidth}
         basisDate={earliestDate}
       />
 
-      <TimelineGrids dates={roundedDates} gridWidth={gridWidth} />
+      <Grids dates={roundedDates} gridWidth={gridWidth} />
 
       <Feed role="feed">
         {events.map((event, i) => (

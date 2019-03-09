@@ -2,13 +2,9 @@ import React from 'react';
 import { styled } from 'client/ui/styles';
 import { Dayjs } from 'dayjs';
 
-export interface TimelineGridsProps {
+export interface GridsProps {
   dates: Dayjs[];
   gridWidth: number;
-}
-
-export interface VerticalBarProps {
-  width: string;
 }
 
 const Wrapper = styled.div`
@@ -17,7 +13,7 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-const Border = styled.div`
+const Grid = styled.div`
   display: flex;
   box-sizing: border-box;
   flex-grow: 0;
@@ -34,13 +30,13 @@ const Border = styled.div`
   }
 `;
 
-export const TimelineGrids = (props: TimelineGridsProps) => {
+export const Grids = (props: GridsProps) => {
   const { dates, gridWidth } = props;
 
   return (
     <Wrapper style={{ marginLeft: `${(gridWidth / 2) * -1}px` }}>
       {dates.map((roundedDate, i) => (
-        <Border key={`${roundedDate}-${i}`} style={{ width: gridWidth }} />
+        <Grid key={`${roundedDate}-${i}`} style={{ width: gridWidth }} />
       ))}
     </Wrapper>
   );

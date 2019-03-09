@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { faFire } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export interface TimelineDatesProps {
+export interface DatesProps {
   dates: Dayjs[];
   basisDate: Dayjs;
   gridWidth: number;
@@ -45,7 +45,7 @@ const Now = styled.div`
   }
 `;
 
-export const TimelineDates = (props: TimelineDatesProps) => {
+export const Dates = (props: DatesProps) => {
   const { basisDate, gridWidth } = props;
   const { t } = useTranslation();
   const gapFromOrigin = (dayjs().diff(basisDate, 'minute') * gridWidth) / 30;

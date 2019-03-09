@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect } from 'react';
-import { EventsTimeline } from 'client/ui/components/events-timeline';
+import { Timetable } from 'client/ui/components/timetable';
 import { RootState } from 'client/ui/redux/types';
 import { useDispatch, useMappedState } from 'redux-react-hook';
 import { fetchEvents } from 'client/ui/redux/actions/events';
 import { eventSelector } from 'client/ui/redux/selectors';
 
-export interface EventsTimelineContainerProps {
+export interface TimetableContainerProps {
   eventListId: 'all';
 }
 
-export const EventsTimelineContainer = (
-  props: EventsTimelineContainerProps,
+export const TimetableContainer = (
+  props: TimetableContainerProps,
 ) => {
   const { eventListId } = props;
 
@@ -32,5 +32,5 @@ export const EventsTimelineContainer = (
     handleFetchEvents();
   }, []);
 
-  return <EventsTimeline events={events} />;
+  return <Timetable events={events} />;
 };
