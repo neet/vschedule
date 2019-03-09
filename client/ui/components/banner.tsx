@@ -64,7 +64,7 @@ export const Banner = React.memo(() => {
 
   return (
     <Wrapper>
-      <Title>Haab</Title>
+      <Title>refined Itsukara.link</Title>
 
       <Toolbox>
         <a
@@ -76,7 +76,7 @@ export const Banner = React.memo(() => {
         </a>
 
         <a
-          href="https://github.com/neet/haab"
+          href="https://github.com/neet/refined-itsukara-link"
           target="__blank"
           rel="noreferrer"
         >
