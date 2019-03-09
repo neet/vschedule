@@ -9,13 +9,13 @@ require('dotenv').config();
 const { env } = process;
 
 const config = (isProd, isDevServer) => ({
-  context: path.resolve(__dirname, 'src/client'),
+  context: path.resolve(__dirname, 'client'),
 
   stats: 'errors-only',
   devtool: isProd ? false : 'source-map',
 
   entry: {
-    client: './main.tsx',
+    client: './ui/main.tsx',
   },
 
   output: {

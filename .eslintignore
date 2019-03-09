@@ -5,4 +5,3 @@
 *.d.ts
 package.json
 lerna.json
-webpack.config.js

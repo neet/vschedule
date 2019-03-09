@@ -1,11 +1,25 @@
 {
-  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "target": "es5",
-    "baseUrl": "./src",
-    "outDir": "./dist",
-    "declaration": false,
-  },
-  "include": ["./src/**/*"],
-  "exclude": ["./src/client/*"]
+    "module": "commonjs",
+    "jsx": "react",
+    "lib": [
+      "es2017",
+      "dom",
+      "esnext.asynciterable",
+      "esnext.array"
+    ],
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "pretty": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "resolveJsonModule": true,
+  }
 }
