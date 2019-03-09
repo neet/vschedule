@@ -6,9 +6,16 @@ import dayjs from 'dayjs';
 import { EventBadge } from 'client/ui/components/event-badge';
 import { TimelineDates } from 'client/ui/components/timeline-dates';
 import transparentToWhiteGradient from 'client/assets/transparent-to-white-gradient.png';
+import { isOverlapping } from 'client/ui/helpers/is-overlapping';
+import { sortEvents } from 'client/ui/helpers/sort-events';
 
 export interface EventsTimelineProps {
   events: Event[];
+}
+
+export interface Position {
+  id: number;
+  row: number;
 }
 
 const Wrapper = styled.div`
@@ -39,48 +46,6 @@ const Fade = styled.div`
   background-size: contain;
 `;
 
-function isOverlapping(eventX: Event, eventY: Event) {
-  const xStartAt = dayjs(eventX.start_date).valueOf();
-  const xEndAt = dayjs(eventX.end_date).valueOf();
-  const yStartAt = dayjs(eventY.start_date).valueOf();
-  const yEndAt = dayjs(eventY.end_date).valueOf();
-
-  /**
-   * Pattern 1:
-   * [ event x ]
-   *       [ event y ]
-   */
-  if (xStartAt <= yStartAt && xEndAt <= yEndAt && xEndAt > yStartAt) {
-    return true;
-  }
-
-  /**
-   * Pattern 2
-   *       [ event x ]
-   * [ event y ]
-   */
-  if (yStartAt <= xStartAt && yEndAt <= xEndAt && yEndAt > xStartAt) {
-    return true;
-  }
-
-  return false;
-}
-
-function sortEvents(eventX: Event, eventY: Event) {
-  const xStartAt = dayjs(eventX.start_date).valueOf();
-  const yStartAt = dayjs(eventY.start_date).valueOf();
-
-  if (xStartAt < yStartAt) {
-    return -1;
-  }
-
-  if (xStartAt === yStartAt) {
-    return 0;
-  }
-
-  return 1;
-}
-
 export const EventsTimeline = (props: EventsTimelineProps) => {
   const { events } = props;
   if (!props.events || !props.events.length) return null;
@@ -92,34 +57,29 @@ export const EventsTimeline = (props: EventsTimelineProps) => {
     ref.current.scrollBy({ left: e.deltaY });
   }, []);
 
-  useEffect(() => {
-    if (!ref.current) return;
+  const positions = useMemo(
+    () =>
+      events.reduce(
+        (positions, event) => {
+          const overlappingEvents = events
+            .filter(event2 => isOverlapping(event, event2))
+            .sort(sortEvents);
 
-    const fromNowToEarliest = dayjs().diff(earliestDate, 'minute');
-    const screenWidth = window.screen.availWidth;
-    const x = (gridWidth / 30) * fromNowToEarliest - (screenWidth - 300) / 2;
+          const positionGroup = overlappingEvents
+            .map(event2 => positions.find(({ id }) => id === event2.id))
+            .filter((pos): pos is Position => !!pos);
 
-    ref.current.scrollTo(x, 0);
-  }, [ref]);
+          const nextOffset = positionGroup.length
+            ? positionGroup[positionGroup.length - 1].row + 1
+            : 0;
 
-  useEffect(() => {
-    if (!ref.current) return;
-    ref.current.addEventListener('wheel', handleWheel, { passive: true });
-
-    return () => {
-      if (!ref.current) return;
-      ref.current.removeEventListener('wheel', handleWheel);
-    };
-  }, [ref]);
-
-  const offsets = events.map(event => {
-    const offset = events
-      .filter(_event => isOverlapping(event, _event))
-      .sort(sortEvents)
-      .findIndex(_event => _event.id === event.id);
-
-    return offset ? offset : 0;
-  });
+          positions.push({ id: event.id, row: nextOffset });
+          return positions;
+        },
+        ([] as any) as Position[],
+      ),
+    [events],
+  );
 
   const earliestDate = dayjs(
     Math.min(...events.map(event => dayjs(event.start_date).valueOf())),
@@ -156,6 +116,26 @@ export const EventsTimeline = (props: EventsTimelineProps) => {
     });
   }, []);
 
+  useEffect(() => {
+    if (!ref.current) return;
+
+    const fromNowToEarliest = dayjs().diff(earliestDate, 'minute');
+    const screenWidth = window.screen.availWidth;
+    const x = (gridWidth / 30) * fromNowToEarliest - (screenWidth - 300) / 2;
+
+    ref.current.scrollTo(x, 0);
+  }, [ref]);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    ref.current.addEventListener('wheel', handleWheel, { passive: true });
+
+    return () => {
+      if (!ref.current) return;
+      ref.current.removeEventListener('wheel', handleWheel);
+    };
+  }, [ref]);
+
   return (
     <Wrapper ref={ref}>
       <TimelineDates
@@ -172,7 +152,7 @@ export const EventsTimeline = (props: EventsTimelineProps) => {
             key={`${event.id}-${i}`}
             basisDate={earliestDate}
             event={event}
-            offset={offsets[i]}
+            offset={positions[i].row}
             gridWidth={gridWidth}
           />
         ))}
