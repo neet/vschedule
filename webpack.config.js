@@ -84,7 +84,7 @@ const config = (isProd, isDevServer) => ({
     new HtmlWebpackHarddiskPlugin(),
 
     new WebpackNotifierPlugin({
-      title: 'Refined Itsukara Link',
+      title: 'Haab',
       alwaysNotify: true,
     }),
 
