@@ -3,17 +3,23 @@ import { Event } from 'shared/entities/event';
 import { Grids } from 'client/ui/components/timetable/grids';
 import { styled } from 'client/ui/styles';
 import dayjs from 'dayjs';
-import { EventBadge } from 'client/ui/components/timetable/event';
+import { EventBadge } from 'client/ui/components/timetable/event-badge';
 import { Dates } from 'client/ui/components/timetable/dates';
 import transparentToWhiteGradient from 'client/assets/transparent-to-white-gradient.png';
 import { isOverlapping } from 'client/ui/helpers/is-overlapping';
 import { sortEvents } from 'client/ui/helpers/sort-events';
+import {
+  timetableEventBadgeGap,
+  timetableEventBadgeWidth,
+  timetableGridTerm,
+  sidebarWidth,
+} from 'client/ui/styles/constants';
 
 export interface TimetableProps {
   events: Event[];
 }
 
-export interface Position {
+export interface Row {
   id: number;
   row: number;
 }
@@ -48,8 +54,6 @@ const Fade = styled.div`
 
 export const Timetable = (props: TimetableProps) => {
   const { events } = props;
-  if (!props.events || !props.events.length) return null;
-
   const ref = useRef<HTMLDivElement>(null);
 
   const handleWheel = useCallback((e: WheelEvent) => {
@@ -57,7 +61,7 @@ export const Timetable = (props: TimetableProps) => {
     ref.current.scrollBy({ left: e.deltaY });
   }, []);
 
-  const positions = useMemo(
+  const rows = useMemo(
     () =>
       events.reduce(
         (positions, event) => {
@@ -67,7 +71,7 @@ export const Timetable = (props: TimetableProps) => {
 
           const positionGroup = overlappingEvents
             .map(event2 => positions.find(({ id }) => id === event2.id))
-            .filter((pos): pos is Position => !!pos);
+            .filter((row): row is Row => !!row);
 
           const nextOffset = positionGroup.length
             ? positionGroup[positionGroup.length - 1].row + 1
@@ -76,7 +80,7 @@ export const Timetable = (props: TimetableProps) => {
           positions.push({ id: event.id, row: nextOffset });
           return positions;
         },
-        ([] as any) as Position[],
+        ([] as any) as Row[],
       ),
     [events],
   );
@@ -89,25 +93,26 @@ export const Timetable = (props: TimetableProps) => {
     Math.max(...events.map(event => dayjs(event.end_date).valueOf())),
   );
 
-  const gridWidth = 120 + 18 * 2;
-  const gridSize = dayjs(latestDate).diff(earliestDate, 'minute') / 30;
+  const gridWidth = timetableEventBadgeWidth + timetableEventBadgeGap * 2;
+  const gridNumber =
+    dayjs(latestDate).diff(earliestDate, 'minute') / timetableGridTerm;
 
   const roundedDates = useMemo(() => {
     // Rond down the minutes less than 30 mintues
     const basisDate = earliestDate.set(
       'minute',
-      earliestDate.minute() >= 30 ? 30 : 0,
+      earliestDate.minute() >= timetableEventBadgeWidth ? timetableGridTerm : 0,
     );
 
     // Make array of dates, every 30 minutes
-    return Array.from({ length: gridSize }, (_, i) => {
+    return Array.from({ length: gridNumber }, (_, i) => {
       let childDate = basisDate.add(i / 2, 'hour');
 
       if (
         // Starts from 0
         (basisDate.minute() === 0 && (i + 1) % 2 === 0) ||
         // Starts from 30
-        (basisDate.minute() === 30 && (i + 1) % 2 === 1)
+        (basisDate.minute() === timetableGridTerm && (i + 1) % 2 === 1)
       ) {
         childDate = childDate.set('minute', 30);
       }
@@ -121,7 +126,9 @@ export const Timetable = (props: TimetableProps) => {
 
     const fromNowToEarliest = dayjs().diff(earliestDate, 'minute');
     const screenWidth = window.screen.availWidth;
-    const x = (gridWidth / 30) * fromNowToEarliest - (screenWidth - 300) / 2;
+    const x =
+      (gridWidth / timetableGridTerm) * fromNowToEarliest -
+      (screenWidth - sidebarWidth) / 2;
 
     ref.current.scrollTo(x, 0);
   }, [ref]);
@@ -150,9 +157,9 @@ export const Timetable = (props: TimetableProps) => {
         {events.map((event, i) => (
           <EventBadge
             key={`${event.id}-${i}`}
-            basisDate={earliestDate}
             event={event}
-            offset={positions[i].row}
+            row={rows[i].row}
+            basisDate={earliestDate}
             gridWidth={gridWidth}
           />
         ))}

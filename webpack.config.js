@@ -71,7 +71,8 @@ const config = (isProd, isDevServer) => ({
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(env.NODE_ENV),
-        API_URL: JSON.stringify(env.API_URL),
+        APP_HOST: JSON.stringify(env.APP_HOST),
+        APP_PORT: JSON.stringify(env.APP_PORT),
       },
     }),
 

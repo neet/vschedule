@@ -16,7 +16,7 @@ export class ItsukaraLink {
   }
 
   protected async get<T>(url: string, params?: { [K: string]: any }) {
-    return this.request<T>(`${url}?${querystring.stringify(params)}`);
+    return this.request<T>(`http://${url}?${querystring.stringify(params)}`);
   }
 
   public fetchEvents = async () => {
@@ -24,4 +24,8 @@ export class ItsukaraLink {
   };
 }
 
-export const api = new ItsukaraLink(process.env.API_URL as string);
+export const api = new ItsukaraLink(
+  `${process.env.APP_HOST}${
+    process.env.APP_PORT ? ':' + process.env.APP_PORT : ''
+  }`,
+);

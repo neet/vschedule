@@ -3,11 +3,15 @@ import { Event } from 'shared/entities/event';
 import { styled } from 'client/ui/styles';
 import dayjs, { Dayjs } from 'dayjs';
 import { opacify, parseToRgb } from 'polished';
+import {
+  timetableGridTerm,
+  timetableEventBadgeGap,
+} from 'client/ui/styles/constants';
 
 export interface EventBadgeProps {
   event: Event;
   basisDate: Dayjs;
-  offset: number;
+  row: number;
   gridWidth: number;
 }
 
@@ -64,30 +68,27 @@ export const LiverName = styled.span`
 `;
 
 export const EventBadge = (props: EventBadgeProps) => {
-  const { event, basisDate, offset, gridWidth } = props;
+  const { event, basisDate, row, gridWidth } = props;
 
   const convertMinuteToPixel = useCallback((minute: number) => {
-    // Width of the grid of the timeline in pixel
-    // 1 grid represents 1 hour
-    const perMinute = gridWidth / 30;
-
-    return minute * perMinute;
+    const pixelPerMinute = gridWidth / timetableGridTerm;
+    return minute * pixelPerMinute;
   }, []);
 
   const xyCoord = useMemo(() => {
     // Compare current date vs start date in minutes
     const diff = dayjs(event.start_date).diff(basisDate, 'minute');
-    const x = convertMinuteToPixel(diff) + 18;
+    const x = convertMinuteToPixel(diff) + timetableEventBadgeGap;
 
-    const BADGE_HEIGHT = 50 + 18;
-    const y = BADGE_HEIGHT * offset;
+    const BADGE_HEIGHT = 50 + timetableEventBadgeGap;
+    const y = BADGE_HEIGHT * row;
 
     return [x, y];
   }, [event]);
 
   const width = useMemo(() => {
     const diff = dayjs(event.end_date).diff(event.start_date, 'minute');
-    return convertMinuteToPixel(diff) - (18 * 2);
+    return convertMinuteToPixel(diff) - timetableEventBadgeGap * 2;
   }, [event]);
 
   const isLight = useMemo(() => {
