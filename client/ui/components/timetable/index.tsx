@@ -1,17 +1,13 @@
 import React, { useEffect, useRef, useMemo, useCallback } from 'react';
 import { Event } from 'shared/entities/event';
-import { Grids } from 'client/ui/components/timetable/grids';
 import { styled } from 'client/ui/styles';
 import dayjs from 'dayjs';
-import { EventBadge } from 'client/ui/components/timetable/event-badge';
-import { Dates } from 'client/ui/components/timetable/dates';
-import transparentToWhiteGradient from 'client/assets/transparent-to-white-gradient.png';
+import { Marker } from './marker';
+import { Background } from './background';
 import { isOverlapping } from 'client/ui/helpers/is-overlapping';
 import { sortEvents } from 'client/ui/helpers/sort-events';
 import {
-  timetableEventBadgeGap,
-  timetableEventBadgeWidth,
-  timetableGridTerm,
+  markerWidth,
   sidebarWidth,
 } from 'client/ui/styles/constants';
 
@@ -25,10 +21,8 @@ export interface Row {
 }
 
 const Wrapper = styled.div`
-  display: flex;
   position: relative;
   grid-area: 1 / 2;
-  flex-direction: column;
   overflow-x: scroll;
 `;
 
@@ -40,20 +34,13 @@ const Feed = styled.div`
   height: 100%;
 `;
 
-const Fade = styled.div`
-  position: fixed;
-  z-index: 99;
-  top: 0;
-  right: 0;
-  width: 200px;
-  height: 100%;
-  background-image: url(${transparentToWhiteGradient});
-  background-repeat: repeat-y;
-  background-size: contain;
-`;
-
 export const Timetable = (props: TimetableProps) => {
   const { events } = props;
+
+  if (!events || !events.length) {
+    return null;
+  }
+
   const ref = useRef<HTMLDivElement>(null);
 
   const handleWheel = useCallback((e: WheelEvent) => {
@@ -85,50 +72,21 @@ export const Timetable = (props: TimetableProps) => {
     [events],
   );
 
-  const earliestDate = dayjs(
+  const startDate = dayjs(
     Math.min(...events.map(event => dayjs(event.start_date).valueOf())),
   );
 
-  const latestDate = dayjs(
+  const endDate = dayjs(
     Math.max(...events.map(event => dayjs(event.end_date).valueOf())),
   );
-
-  const gridWidth = timetableEventBadgeWidth + timetableEventBadgeGap * 2;
-  const gridNumber =
-    dayjs(latestDate).diff(earliestDate, 'minute') / timetableGridTerm;
-
-  const roundedDates = useMemo(() => {
-    // Rond down the minutes less than 30 mintues
-    const basisDate = earliestDate.set(
-      'minute',
-      earliestDate.minute() >= timetableEventBadgeWidth ? timetableGridTerm : 0,
-    );
-
-    // Make array of dates, every 30 minutes
-    return Array.from({ length: gridNumber }, (_, i) => {
-      let childDate = basisDate.add(i / 2, 'hour');
-
-      if (
-        // Starts from 0
-        (basisDate.minute() === 0 && (i + 1) % 2 === 0) ||
-        // Starts from 30
-        (basisDate.minute() === timetableGridTerm && (i + 1) % 2 === 1)
-      ) {
-        childDate = childDate.set('minute', 30);
-      }
-
-      return childDate;
-    });
-  }, []);
 
   useEffect(() => {
     if (!ref.current) return;
 
-    const fromNowToEarliest = dayjs().diff(earliestDate, 'minute');
+    const fromNowToStart = dayjs().diff(startDate, 'minute');
     const screenWidth = window.screen.availWidth;
     const x =
-      (gridWidth / timetableGridTerm) * fromNowToEarliest -
-      (screenWidth - sidebarWidth) / 2;
+      (markerWidth / 30) * fromNowToStart - (screenWidth - sidebarWidth) / 2;
 
     ref.current.scrollTo(x, 0);
   }, [ref]);
@@ -145,27 +103,21 @@ export const Timetable = (props: TimetableProps) => {
 
   return (
     <Wrapper ref={ref}>
-      <Dates
-        dates={roundedDates}
-        gridWidth={gridWidth}
-        basisDate={earliestDate}
-      />
-
-      <Grids dates={roundedDates} gridWidth={gridWidth} />
-
       <Feed role="feed">
         {events.map((event, i) => (
-          <EventBadge
+          <Marker
             key={`${event.id}-${i}`}
             event={event}
             row={rows[i].row}
-            basisDate={earliestDate}
-            gridWidth={gridWidth}
+            startDate={startDate}
           />
         ))}
       </Feed>
 
-      <Fade />
+      <Background
+        startDate={startDate}
+        endDate={endDate}
+      />
     </Wrapper>
   );
 };

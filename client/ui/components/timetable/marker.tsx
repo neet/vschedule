@@ -4,22 +4,21 @@ import { styled } from 'client/ui/styles';
 import dayjs, { Dayjs } from 'dayjs';
 import { opacify, parseToRgb } from 'polished';
 import {
-  timetableGridTerm,
-  timetableEventBadgeGap,
+  markerGap,
+  markerWidth,
 } from 'client/ui/styles/constants';
 
-export interface EventBadgeProps {
+export interface MarkerProps {
   event: Event;
-  basisDate: Dayjs;
   row: number;
-  gridWidth: number;
+  startDate: Dayjs;
 }
 
-interface BadgeProps {
+interface WrapperProps {
   isLight: boolean;
 }
 
-export const Badge = styled.a<BadgeProps>`
+export const Wrapper = styled.a<WrapperProps>`
   display: flex;
   position: absolute;
   top: 79px;
@@ -67,28 +66,29 @@ export const LiverName = styled.span`
   white-space: nowrap;
 `;
 
-export const EventBadge = (props: EventBadgeProps) => {
-  const { event, basisDate, row, gridWidth } = props;
+export const Marker = (props: MarkerProps) => {
+  const { event, startDate, row } = props;
 
   const convertMinuteToPixel = useCallback((minute: number) => {
-    const pixelPerMinute = gridWidth / timetableGridTerm;
+    const pixelPerMinute = markerWidth / 30;
     return minute * pixelPerMinute;
   }, []);
 
   const xyCoord = useMemo(() => {
     // Compare current date vs start date in minutes
-    const diff = dayjs(event.start_date).diff(basisDate, 'minute');
-    const x = convertMinuteToPixel(diff) + timetableEventBadgeGap;
+    const diff = dayjs(event.start_date).diff(startDate, 'minute');
+    const x = convertMinuteToPixel(diff) + markerGap;
 
-    const BADGE_HEIGHT = 50 + timetableEventBadgeGap;
-    const y = BADGE_HEIGHT * row;
+    // Fixme: Using constant of avatar height + padding which is fragile
+    const markerHeight = 50 + markerGap;
+    const y = markerHeight * row;
 
     return [x, y];
   }, [event]);
 
   const width = useMemo(() => {
     const diff = dayjs(event.end_date).diff(event.start_date, 'minute');
-    return convertMinuteToPixel(diff) - timetableEventBadgeGap * 2;
+    return convertMinuteToPixel(diff) - markerGap * 2;
   }, [event]);
 
   const isLight = useMemo(() => {
@@ -98,7 +98,7 @@ export const EventBadge = (props: EventBadgeProps) => {
   }, [event]);
 
   return (
-    <Badge
+    <Wrapper
       tabIndex={0}
       href={event.url}
       target="__blank"
@@ -117,6 +117,6 @@ export const EventBadge = (props: EventBadgeProps) => {
         <Title>{event.name}</Title>
         <LiverName>{event.liver.name}</LiverName>
       </Meta>
-    </Badge>
+    </Wrapper>
   );
 };

@@ -1,10 +1,10 @@
 import React from 'react';
 import { styled } from 'client/ui/styles';
 import { Dayjs } from 'dayjs';
+import { markerWidth } from 'client/ui/styles/constants';
 
-export interface GridsProps {
+export interface BordersProps {
   dates: Dayjs[];
-  gridWidth: number;
 }
 
 const Wrapper = styled.div`
@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-const Grid = styled.div`
+const Border = styled.div`
   display: flex;
   box-sizing: border-box;
   flex-grow: 0;
@@ -30,13 +30,13 @@ const Grid = styled.div`
   }
 `;
 
-export const Grids = (props: GridsProps) => {
-  const { dates, gridWidth } = props;
+export const Borders = (props: BordersProps) => {
+  const { dates } = props;
 
   return (
-    <Wrapper style={{ marginLeft: `${(gridWidth / 2) * -1}px` }}>
+    <Wrapper style={{ marginLeft: `${(markerWidth / 2) * -1}px` }}>
       {dates.map((roundedDate, i) => (
-        <Grid key={`${roundedDate}-${i}`} style={{ width: gridWidth }} />
+        <Border key={`${roundedDate}-${i}`} style={{ width: markerWidth }} />
       ))}
     </Wrapper>
   );

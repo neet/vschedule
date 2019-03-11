@@ -4,14 +4,14 @@ import { styled } from 'client/ui/styles';
 import { useTranslation } from 'react-i18next';
 import { faFire } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { markerWidth } from 'client/ui/styles/constants';
 
-export interface DatesProps {
+export interface HeaderProps {
   dates: Dayjs[];
-  basisDate: Dayjs;
-  gridWidth: number;
+  startDate: Dayjs;
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.header`
   display: flex;
   position: relative;
 `;
@@ -26,6 +26,7 @@ const Date = styled.div`
   text-align: center;
 `;
 
+// TODO: Move this to background/index.ts
 const Now = styled.div`
   position: absolute;
   box-sizing: border-box;
@@ -45,21 +46,21 @@ const Now = styled.div`
   }
 `;
 
-export const Dates = (props: DatesProps) => {
-  const { basisDate, gridWidth } = props;
+export const Header = (props: HeaderProps) => {
+  const { dates, startDate } = props;
   const { t } = useTranslation();
-  const gapFromOrigin = (dayjs().diff(basisDate, 'minute') * gridWidth) / 30;
+  const gapFromOrigin = (dayjs().diff(startDate, 'minute') * markerWidth ) / 30;
 
   return (
-    <Wrapper style={{ marginLeft: `${(gridWidth / 2) * -1}px` }}>
+    <Wrapper style={{ marginLeft: `${(markerWidth / 2) * -1}px` }}>
       <Now style={{ transform: `translateX(${gapFromOrigin}px)` }}>
         <FontAwesomeIcon icon={faFire} />
         {t('timeline.now', { defaultValue: 'LIVE' })}
       </Now>
 
-      {props.dates.map((date, i) => (
-        <Date key={`${i}-${date.toString()}`} style={{ width: gridWidth }}>
-          <span>{date.format('HH:mm')}</span>
+      {dates.map((date, i) => (
+        <Date key={`${i}-${date.toString()}`} style={{ width: markerWidth }}>
+          <time dateTime={date.toString()}>{date.format('HH:mm')}</time>
         </Date>
       ))}
     </Wrapper>
