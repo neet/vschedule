@@ -3,6 +3,7 @@ import { styled } from 'client/ui/styles';
 import transparentToWhiteGradient from 'client/assets/transparent-to-white-gradient.png';
 import { Borders } from './borders';
 import { Header } from './header';
+import { MinuteHand } from './minute-hand';
 import dayjs, { Dayjs } from 'dayjs';
 
 export interface BackgroundProps {
@@ -60,8 +61,9 @@ export const Background = (props: BackgroundProps) => {
 
   return (
     <Wrapper>
-      <Header dates={dates} startDate={startDate} />
+      <Header dates={dates} />
       <Borders dates={dates} />
+      <MinuteHand startDate={startDate} />
       <Fade />
     </Wrapper>
   );

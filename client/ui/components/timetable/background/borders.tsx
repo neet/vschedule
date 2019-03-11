@@ -25,6 +25,7 @@ const Border = styled.div`
   &::before {
     content: '';
     display: block;
+    box-sizing: border-box;
     height: 100%;
     border-left: 1px solid ${({ theme }) => theme.borderNormal};
   }

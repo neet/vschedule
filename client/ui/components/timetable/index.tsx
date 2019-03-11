@@ -103,6 +103,11 @@ export const Timetable = (props: TimetableProps) => {
 
   return (
     <Wrapper ref={ref}>
+      <Background
+        startDate={startDate}
+        endDate={endDate}
+      />
+
       <Feed role="feed">
         {events.map((event, i) => (
           <Marker
@@ -113,11 +118,6 @@ export const Timetable = (props: TimetableProps) => {
           />
         ))}
       </Feed>
-
-      <Background
-        startDate={startDate}
-        endDate={endDate}
-      />
     </Wrapper>
   );
 };
