@@ -3,7 +3,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/cb0ea5f83783975442db/maintainability)](https://codeclimate.com/github/neet/refined-itsukara-link/maintainability)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
-## Teck stacks
+## Tech stacks
 - React with Hooks
 - Fully-typed redux, using TypeScript FSA and Redux Saga
 - WAI-ARIA powers screen reader compatibility.
