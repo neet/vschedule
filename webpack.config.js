@@ -45,7 +45,9 @@ const config = (isProd, isDevServer) => ({
             options: {
               name: '[name].[ext]',
               path: path.resolve(__dirname, 'static'),
-              publicPath: isDevServer ? '/static' : path.resolve(__dirname, 'static'),
+              publicPath: isDevServer
+                ? '/static'
+                : path.resolve(__dirname, 'static'),
             },
           },
         ],
@@ -60,8 +62,8 @@ const config = (isProd, isDevServer) => ({
       new TSConfigPathsWebpackPlugin({
         configFile: path.resolve(__dirname, 'client/tsconfig.json'),
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
-      })
-    ]
+      }),
+    ],
   },
 
   plugins: [
@@ -71,6 +73,7 @@ const config = (isProd, isDevServer) => ({
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(env.NODE_ENV),
+        APP_PROTOCOL: JSON.stringify(env.APP_PROTOCOL),
         APP_HOST: JSON.stringify(env.APP_HOST),
         APP_PORT: JSON.stringify(env.APP_PORT),
       },
@@ -112,4 +115,4 @@ const config = (isProd, isDevServer) => ({
 });
 
 module.exports = (command, { mode }) =>
-  config(mode === 'production', command === 'webpack-dev-server')
+  config(mode === 'production', command === 'webpack-dev-server');

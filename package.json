@@ -76,6 +76,8 @@
     "webpack-notifier": "^1.7.0"
   },
   "devDependencies": {
+    "@redux-saga/testing-utils": "^1.0.2",
+    "@types/jest": "^24.0.11",
     "@typescript-eslint/eslint-plugin": "^1.4.2",
     "@typescript-eslint/parser": "^1.4.2",
     "eslint": "^5.14.1",
@@ -87,6 +89,8 @@
     "i18next-scanner": "^2.10.0",
     "i18next-scanner-typescript": "^1.0.2",
     "jest": "^24.5.0",
+    "jest-fetch-mock": "^2.1.1",
+    "jest-styled-components": "^6.3.1",
     "lint-staged": "^8.1.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.16.4",
