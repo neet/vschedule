@@ -4,7 +4,6 @@ import i18next from 'i18next';
 import en from './en/translation.json';
 import ja from './ja/translation.json';
 import LanguageDetector from 'i18next-browser-languagedetector';
-
 import 'dayjs/locale/ja';
 
 function customFormatter(
@@ -18,16 +17,33 @@ function customFormatter(
   }
 }
 
+function normalizeLanguageForDayjs (lng: string) {
+  return [
+    'de-at',
+    'en-gb',
+    'es-do',
+    'es-us',
+    'pt-br',
+    'sr-cyrl',
+    'zh-cn',
+    'zh-hk',
+    'zh-tw',
+  ].includes(lng)
+    ? lng
+    : lng.split('-')[0];
+}
+
 export const getLocale = () => {
-  dayjs.extend(relativeTime);
+  dayjs.extend(relativeTime).locale('en');
 
   i18next.on('initialized', options => {
     if (!options.lng) return;
-    dayjs.locale(options.lng);
+    dayjs.locale(normalizeLanguageForDayjs(options.lng));
   });
 
   i18next.on('languageChanged', lng => {
-    dayjs.locale(lng);
+    if (!lng) return;
+    dayjs.locale(normalizeLanguageForDayjs(lng));
   });
 
   i18next.use(LanguageDetector).init({
