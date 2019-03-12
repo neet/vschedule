@@ -19,6 +19,11 @@ app.use('/api', (req, res) => {
 
 // Serve static files
 app.use('/static', express.static(staticDir));
+
+app.use('/sw.js', (_, res) => {
+  res.sendFile(path.resolve(staticDir, 'sw.js'));
+});
+
 app.use('/*', (_, res) => {
   res.sendFile(path.resolve(staticDir, 'index.html'));
 });

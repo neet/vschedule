@@ -5,6 +5,7 @@ const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const TSConfigPathsWebpackPlugin = require('tsconfig-paths-webpack-plugin');
+const OfflinePlugin = require('offline-plugin');
 
 require('dotenv').config();
 const { env } = process;
@@ -20,8 +21,8 @@ const config = (isProd, isDevServer) => ({
   },
 
   output: {
-    filename: '[name].js',
-    chunkFilename: '[name].js',
+    filename: isProd ? '[name]-[hash].js' : '[name].js',
+    chunkFilename: isProd ? '[name]-[hash].js' : '[name].js',
     path: path.resolve(__dirname, 'static'),
     publicPath: isDevServer ? '/static' : path.resolve(__dirname, 'static'),
   },
@@ -43,7 +44,7 @@ const config = (isProd, isDevServer) => ({
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]',
+              name: isProd ? '[name]-[hash].[ext]' : '[name].[ext]',
               path: path.resolve(__dirname, 'static'),
               publicPath: isDevServer
                 ? '/static'
@@ -76,6 +77,18 @@ const config = (isProd, isDevServer) => ({
         APP_PROTOCOL: JSON.stringify(env.APP_PROTOCOL),
         APP_HOST: JSON.stringify(env.APP_HOST),
         APP_PORT: JSON.stringify(env.APP_PORT),
+      },
+    }),
+
+    new OfflinePlugin({
+      caches: {
+        main: [':rest:'],
+      },
+      ServiceWorker: {
+        output: 'sw.js',
+        publicPath: '/sw.js',
+        cacheName: 'refined-itsukara-link',
+        minify: true,
       },
     }),
 
