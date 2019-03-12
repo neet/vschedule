@@ -63,11 +63,12 @@ export const Timetable = (props: TimetableProps) => {
             .map(event2 => positions.find(({ id }) => id === event2.id))
             .filter((row): row is Row => !!row);
 
-          const deepestRow = oeRows.reduce(
-            (result, event2) => Math.max(result, event2.row),
-            0,
-          ) + 1;
-          const previousRow = oeRows.length ? oeRows[oeRows.length - 1].row + 1 : 0;
+          const deepestRow =
+            oeRows.reduce((result, event2) => Math.max(result, event2.row), 0) +
+            1;
+          const previousRow = oeRows.length
+            ? oeRows[oeRows.length - 1].row + 1
+            : 0;
           const somethingNice = previousRow > oeRows.length ? 0 : previousRow;
           const nextRow =
             deepestRow > oeRows.length ? somethingNice : deepestRow;

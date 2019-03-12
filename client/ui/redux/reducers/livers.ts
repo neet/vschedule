@@ -26,7 +26,10 @@ export const liversReducer: Reducer<LiversState> = (
 ) =>
   produce(state, draft => {
     if (isType(action, fetchEventsProcess.done)) {
-      normalizeLivers(state, action.payload.result.events.map(event => event.liver));
+      normalizeLivers(
+        state,
+        action.payload.result.events.map(event => event.liver),
+      );
     }
 
     return draft;

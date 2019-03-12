@@ -27,7 +27,7 @@ test('pattern 2', () => {
   expect(isOverlapping(event1, event2)).toBe(true);
 });
 
-test('return false if both aren\'t overlapping', () => {
+test("return false if both aren't overlapping", () => {
   const event1 = {
     start_date: '2019-03-12T01:00:00.000+09:00',
     end_date: '2019-03-12T02:00:00.000+09:00',
@@ -38,4 +38,4 @@ test('return false if both aren\'t overlapping', () => {
   } as Event;
 
   expect(isOverlapping(event1, event2)).toBe(false);
-})
+});

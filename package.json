@@ -7,10 +7,31 @@
   "author": "Ryo Igarashi <n33t5hin@gmail.com>",
   "license": "AGPL-3.0",
   "scripts": {
+    "test": "run-s test:*",
+    "test:jest": "jest --coverage",
+    "test:eslint": "eslint '{client,server}/**/*.{ts,tsx}'",
+    "test:prettier": "prettier -c '{client,server}/**/*.{ts,tsx}'",
+    "test:stylelint": "stylelint 'client/**/*.{tsx,tsx}'",
+    "test:static-type-check": "tsc -p ./client",
     "watch": "run-p watch:*",
     "watch:client": "webpack-dev-server --development",
     "watch:server": "tsc -w -p ./server",
     "manage:translations": "i18next-scanner 'client/**/*.{ts,tsx}' --config=i18next-scanner.config.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.{ts,tsx}": [
+        "eslint --fix",
+        "prettier --write",
+        "stylelint",
+        "git add"
+      ]
+    }
   },
   "dependencies": {
     "@babel/core": "^7.3.4",

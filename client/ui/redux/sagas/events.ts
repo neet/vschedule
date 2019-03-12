@@ -1,5 +1,8 @@
 import { SagaIterator } from 'redux-saga';
-import { fetchEvents, fetchEventsProcess } from 'client/ui/redux/actions/events';
+import {
+  fetchEvents,
+  fetchEventsProcess,
+} from 'client/ui/redux/actions/events';
 import { call, put, all, takeEvery } from 'redux-saga/effects';
 import { api } from 'client/ui/redux/api';
 

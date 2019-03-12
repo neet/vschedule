@@ -14,6 +14,18 @@ interface WrapperProps {
   isStreaming: boolean;
 }
 
+const Thumbnail = styled.div`
+  position: relative;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 112px;
+  height: 63px;
+  margin-right: 8px;
+  border-radius: 4px;
+  background-position: center;
+  background-size: cover;
+`;
+
 const Wrapper = styled.a<WrapperProps>`
   display: flex;
   align-items: center;
@@ -46,18 +58,6 @@ const Wrapper = styled.a<WrapperProps>`
         background-color: ${({ theme }) => theme.highlightNormal};
       }
     `}
-`;
-
-const Thumbnail = styled.div`
-  position: relative;
-  flex-grow: 0;
-  flex-shrink: 0;
-  width: 112px;
-  height: 63px;
-  margin-right: 8px;
-  border-radius: 4px;
-  background-position: center;
-  background-size: cover;
 `;
 
 const Meta = styled.div`

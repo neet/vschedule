@@ -8,6 +8,6 @@ export const reducerMap = {
   events: eventsReducer,
   livers: liversReducer,
   eventLists: eventListsReducer,
-}
+};
 
 export const reducers = combineReducers<RootState, RootAction>(reducerMap);

@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import * as React from 'react';
 import { styled } from 'client/ui/styles';
 import { useTranslation } from 'react-i18next';

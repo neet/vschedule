@@ -5,9 +5,12 @@ import { Event } from 'shared/entities/event';
 import { Reducer } from 'client/ui/redux/types';
 import { Overwrite } from 'type-zoo';
 
-export type NormalizedEvent = Overwrite<Event, {
-  liver: number;
-}>;
+export type NormalizedEvent = Overwrite<
+  Event,
+  {
+    liver: number;
+  }
+>;
 
 export interface EventsState {
   readonly [K: number]: NormalizedEvent;

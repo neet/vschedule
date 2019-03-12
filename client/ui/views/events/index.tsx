@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import * as React from 'react';
 import { TimetableContainer } from 'client/ui/containers/timetable-container';
 import { SidebarContainer } from 'client/ui/containers/sidebar-container';

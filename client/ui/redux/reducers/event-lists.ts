@@ -11,11 +11,15 @@ const initialState: EventListsState = {
   all: [],
 };
 
-export const eventListsReducer: Reducer<EventListsState> = (state = initialState, action) => produce(state, (draft) => {
-  if (isType(action, fetchEventsProcess.done)) {
-    draft.all = action.payload.result.events.map(event => event.id);
-    return;
-  }
+export const eventListsReducer: Reducer<EventListsState> = (
+  state = initialState,
+  action,
+) =>
+  produce(state, draft => {
+    if (isType(action, fetchEventsProcess.done)) {
+      draft.all = action.payload.result.events.map(event => event.id);
+      return;
+    }
 
-  return draft;
-})
+    return draft;
+  });

@@ -3,10 +3,7 @@ import { Event } from 'shared/entities/event';
 import { styled } from 'client/ui/styles';
 import dayjs, { Dayjs } from 'dayjs';
 import { opacify, parseToRgb } from 'polished';
-import {
-  markerGap,
-  markerWidth,
-} from 'client/ui/styles/constants';
+import { markerGap, markerWidth } from 'client/ui/styles/constants';
 
 export interface MarkerProps {
   event: Event;

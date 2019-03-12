@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import * as React from 'react';
 import { ThemeProvider, styled } from 'client/ui/styles';
 import { theme } from 'client/ui/styles/theme';
@@ -20,7 +21,6 @@ const Wrapper = styled.div`
 `;
 
 export const Root: React.SFC = React.memo(() => {
-
   return (
     <I18nextProvider i18n={locale}>
       <ThemeProvider theme={theme}>
@@ -28,13 +28,13 @@ export const Root: React.SFC = React.memo(() => {
           <Banner />
 
           <Switch>
-            <Redirect exact from='/' to='/events' />
-            <Route path='/events' component={Events} />
+            <Redirect exact from="/" to="/events" />
+            <Route path="/events" component={Events} />
           </Switch>
 
           <GlobalStyle />
         </Wrapper>
       </ThemeProvider>
     </I18nextProvider>
-  )
+  );
 });

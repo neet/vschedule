@@ -15,4 +15,3 @@ export function sortEvents(eventX: Event, eventY: Event) {
 
   return 1;
 }
-

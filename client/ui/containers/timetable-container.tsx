@@ -9,9 +9,7 @@ export interface TimetableContainerProps {
   eventListId: 'all';
 }
 
-export const TimetableContainer = (
-  props: TimetableContainerProps,
-) => {
+export const TimetableContainer = (props: TimetableContainerProps) => {
   const { eventListId } = props;
 
   const mapState = useCallback(
