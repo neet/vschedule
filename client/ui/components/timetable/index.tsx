@@ -19,8 +19,12 @@ export interface Row {
 
 const Wrapper = styled.div`
   position: relative;
-  grid-area: 1 / 2;
+  grid-area: 1 / 1;
   overflow-x: scroll;
+
+  @media screen and (min-width: 700px) {
+    grid-area: 1 / 2;
+  }
 `;
 
 const Feed = styled.div`
@@ -88,7 +92,7 @@ export const Timetable = (props: TimetableProps) => {
     if (!ref.current) return;
 
     const fromNowToStart = dayjs().diff(startDate, 'minute');
-    const screenWidth = window.screen.availWidth;
+    const screenWidth = window.innerWidth;
     const x =
       (markerWidth / 30) * fromNowToStart - (screenWidth - sidebarWidth) / 2;
 

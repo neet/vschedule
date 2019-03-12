@@ -19,15 +19,20 @@ const Wrapper = styled.div`
 `;
 
 const Fade = styled.div`
+  display: none;
   position: fixed;
   z-index: 99;
   top: 0;
   right: 0;
-  width: 200px;
+  width: 8%;
   height: 100%;
   background-image: url(${transparentToWhiteGradient});
   background-repeat: repeat-y;
   background-size: contain;
+
+  @media screen and (min-width: 700px) {
+    display: block;
+  }
 `;
 
 export const Background = (props: BackgroundProps) => {

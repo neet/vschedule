@@ -93,6 +93,7 @@ const config = (isProd, isDevServer) => ({
   ],
 
   devServer: {
+    host: '192.168.0.11',
     compress: true,
     overlay: true,
     contentBase: path.resolve(__dirname, 'static'),

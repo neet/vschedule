@@ -97,7 +97,12 @@ export const EventCard = (props: EventCard) => {
   );
 
   return (
-    <Wrapper href={event.url} target='__blank' rel='norefferer' isStreaming={isStreaming}>
+    <Wrapper
+      href={event.url}
+      target="__blank"
+      rel="norefferer"
+      isStreaming={isStreaming}
+    >
       <Thumbnail style={{ backgroundImage: `url(${thumbnailImageUrl})` }} />
 
       <Meta>
