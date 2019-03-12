@@ -24,7 +24,7 @@ const config = (isProd, isDevServer) => ({
     filename: isProd ? '[name]-[hash].js' : '[name].js',
     chunkFilename: isProd ? '[name]-[hash].js' : '[name].js',
     path: path.resolve(__dirname, 'static'),
-    publicPath: isDevServer ? '/static' : path.resolve(__dirname, 'static'),
+    publicPath: '/static',
   },
 
   module: {
@@ -46,9 +46,7 @@ const config = (isProd, isDevServer) => ({
             options: {
               name: isProd ? '[name]-[hash].[ext]' : '[name].[ext]',
               path: path.resolve(__dirname, 'static'),
-              publicPath: isDevServer
-                ? '/static'
-                : path.resolve(__dirname, 'static'),
+              publicPath: '/static',
             },
           },
         ],

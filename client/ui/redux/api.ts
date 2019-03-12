@@ -3,10 +3,12 @@ import { EventList } from 'shared/entities/event';
 import { Response } from 'shared/entities/response';
 
 export class ItsukaraLink {
-  protected baseUrl: string;
+  protected baseUrl: string = '';
 
-  public constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
+  public constructor(baseUrl?: string) {
+    if (baseUrl) {
+      this.baseUrl = baseUrl;
+    }
   }
 
   protected async request<T>(url: string, params: RequestInit = {}) {
@@ -24,8 +26,11 @@ export class ItsukaraLink {
   };
 }
 
-export const api = new ItsukaraLink(
-  `${process.env.APP_PROTOCOL}://${process.env.APP_HOST}${
-    process.env.APP_PORT ? ':' + process.env.APP_PORT : ''
-  }`,
-);
+const apiUrl =
+  process.env.NODE_END === 'development'
+    ? `${process.env.APP_PROTOCOL}://${process.env.APP_HOST}${
+        process.env.APP_PORT ? ':' + process.env.APP_PORT : ''
+      }`
+    : undefined;
+
+export const api = new ItsukaraLink(apiUrl);

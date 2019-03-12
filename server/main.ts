@@ -5,7 +5,7 @@ import * as path from 'path';
 import { APP_PORT, RESOURCE_HOST, RESOURCE_PROTOCOL } from './config';
 
 const app = express();
-const staticDir = path.resolve(__dirname, 'static');
+const staticDir = path.resolve(__dirname, '../static');
 
 // Add cors headers
 app.use(cors());
