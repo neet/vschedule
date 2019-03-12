@@ -41,10 +41,8 @@ const Now = styled.div`
 const Border = styled.div`
   display: flex;
   box-sizing: border-box;
-  flex-grow: 0;
-  flex-shrink: 0;
+  flex: 1 0 auto;
   justify-content: center;
-  height: 100%;
   border-left: 1px solid ${({ theme }) => theme.highlightNormal};
 `;
 
@@ -63,4 +61,4 @@ export const MinuteHand = (props: MinuteHandProps) => {
       <Border />
     </Wrapper>
   );
-}
+};
