@@ -4,7 +4,7 @@
 
 <img src="https://raw.githubusercontent.com/neet/refined-itsukara-link/master/public/screenshot.png" alt="Screenshot">
 
-<p align="center">✨ itsukara.link with delightful interface! ✨</p>
+<p align="center">✨ itsukara.link with refined interface! ✨</p>
 
 <p align="center">
   <a href="https://travis-ci.com/neet/refined-itsukara-link"><img src="https://travis-ci.com/neet/refined-itsukara-link.svg?branch=master" alt="Build Status" /></a>
@@ -15,10 +15,12 @@
 
 
 ## Tech stacks
-- React with Hooks
-- Fully-typed redux, using TypeScript FSA, Immer and Redux Saga
+- [React](https://github.com/facebook/react) with Hooks
+- PWA supported
+- Fully-typed [Redux](https://github.com/reduxjs/redux), using [TypeScript FSA](https://github.com/aikoven/typescript-fsa), [Immer](https://github.com/mweststrate/immer) and [Redux Saga](https://github.com/redux-saga/redux-saga)
 - WAI-ARIA powers screen reader compatibility.
-- Styled-components powers gorgeous design.
+- [styled components](https://github.com/styled-components/styled-components) powers gorgeous design.
+- [i18next](https://github.com/i18next/i18next) powers multi-language support
 
 ## License
 AGPL v3 or later
