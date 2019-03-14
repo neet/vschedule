@@ -23,8 +23,8 @@ app.use('/static', express.static(staticDir));
 // Serve public directory
 app.use(express.static(publicDir));
 // Service worker
-app.use('/sw.js', express.static(path.resolve(staticDir, 'sw.js')));
+app.use('/sw.js', (_, res) => res.sendFile(path.resolve(staticDir, 'sw.js')));
 // SPA
-app.use('/*', express.static(path.resolve(staticDir, 'index.html')));
+app.use('/*', (_, res) => res.sendFile(path.resolve(staticDir, 'index.html')));
 
 app.listen(APP_PORT);
