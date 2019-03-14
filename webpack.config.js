@@ -99,7 +99,7 @@ const config = (isProd, isDevServer) => ({
     new HtmlWebpackHarddiskPlugin(),
 
     new WebpackNotifierPlugin({
-      title: 'Refined Itsukara Link',
+      title: 'Refined itsukara.link',
       alwaysNotify: true,
     }),
 
@@ -107,7 +107,6 @@ const config = (isProd, isDevServer) => ({
   ],
 
   devServer: {
-    host: '192.168.0.11',
     compress: true,
     overlay: true,
     contentBase: path.resolve(__dirname, 'static'),
@@ -122,6 +121,13 @@ const config = (isProd, isDevServer) => ({
     watchOptions: {
       ignored: /node_modules/,
     },
+    proxy: [
+      {
+        // Proxy everything but index.html (/)
+        context: ['**', '!/'],
+        target: 'http://localhost:3000',
+      },
+    ],
   },
 });
 

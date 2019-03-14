@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { bannerHeight } from 'client/ui/styles/constants';
+import logoLarge from 'client/assets/logo-large.png';
+import logoSmall from 'client/assets/logo-small.png';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.header`
   display: flex;
@@ -21,16 +24,36 @@ const Wrapper = styled.header`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
 `;
 
+const LogoSmall = styled.img`
+  display: block;
+  height: 40px;
+  margin: auto;
+`;
+
+const LogoLarge = styled.img`
+  display: block;
+  height: 40px;
+`;
+
 const Title = styled.h1`
-  /* stylelint-disable */
-  font-family: 'Avenir';
-  font-size: 21px;
-  font-weight: bold;
-  margin: 0;
-  color: ${({ theme }) => theme.highlightNormal};
+  display: none;
+`;
+
+const Hgroup = styled.div`
+  flex: 1 1 auto;
+
+  ${LogoLarge} {
+    display: none;
+  }
 
   @media screen and (min-width: 700px) {
-    font-size: 24px;
+    ${LogoLarge} {
+      display: block;
+    }
+
+    ${LogoSmall} {
+      display: none;
+    }
   }
 `;
 
@@ -48,16 +71,16 @@ const Toolbox = styled.div`
 `;
 
 const Icon = styled(FontAwesomeIcon)`
-  font-size: 24px;
   margin: auto;
   color: ${({ theme }) => theme.highlightNormal};
+  font-size: 24px;
 `;
 
 const OriginalLink = styled.div`
   padding: 8px 14px;
-  font-size: 12px;
   border-radius: 4px;
   background-color: ${({ theme }) => theme.highlightNormal};
+  font-size: 12px;
   font-weight: bold;
 
   a {
@@ -74,7 +97,13 @@ export const Banner = React.memo(() => {
 
   return (
     <Wrapper>
-      <Title>refined Itsukara.link</Title>
+      <Hgroup>
+        <Link to="/">
+          <Title>Refined itsukara.link</Title>
+          <LogoLarge src={logoLarge} alt="Refined itsukara.link" />
+          <LogoSmall src={logoSmall} alt="Refiend itsukara.link" />
+        </Link>
+      </Hgroup>
 
       <Toolbox>
         <a

@@ -26,11 +26,8 @@ export class ItsukaraLink {
   };
 }
 
-const apiUrl =
-  process.env.NODE_ENV === 'development'
-    ? `${process.env.APP_PROTOCOL}://${process.env.APP_HOST}${
-        process.env.APP_PORT ? ':' + process.env.APP_PORT : ''
-      }`
-    : undefined;
+const apiUrl = `${process.env.APP_PROTOCOL}://${process.env.APP_HOST}${
+  process.env.APP_PORT ? ':' + process.env.APP_PORT : ''
+}`;
 
 export const api = new ItsukaraLink(apiUrl);

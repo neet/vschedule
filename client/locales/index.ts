@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 import i18next from 'i18next';
 import en from './en/translation.json';
 import ja from './ja/translation.json';
@@ -34,7 +35,9 @@ function normalizeLanguageForDayjs(lng: string) {
 }
 
 export const getLocale = () => {
-  dayjs.extend(relativeTime).locale('en');
+  dayjs.extend(localizedFormat);
+  dayjs.extend(relativeTime);
+  dayjs.locale('en');
 
   i18next.on('initialized', options => {
     if (!options.lng) return;

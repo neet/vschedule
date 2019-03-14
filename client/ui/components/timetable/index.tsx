@@ -20,7 +20,7 @@ export interface Row {
 const Wrapper = styled.div`
   position: relative;
   grid-area: 1 / 1;
-  overflow-x: scroll;
+  overflow: scroll;
 
   @media screen and (min-width: 700px) {
     grid-area: 1 / 2;
