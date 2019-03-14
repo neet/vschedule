@@ -1,5 +1,4 @@
 export const theme = {
-  bannerBackground: '#101c28',
   borderNormal: '#eeeeee',
   highlightNormal: '#f80652',
 
