@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { Timetable } from 'client/ui/components/timetable';
 import { RootState } from 'client/ui/redux/types';
 import { useDispatch, useMappedState } from 'redux-react-hook';
@@ -22,13 +22,9 @@ export const TimetableContainer = (props: TimetableContainerProps) => {
   const { events } = useMappedState(mapState);
   const dispatch = useDispatch();
 
-  const handleFetchEvents = useCallback(() => {
+  const onFetchEvents = useCallback(() => {
     dispatch(fetchEvents());
   }, [events]);
 
-  useEffect(() => {
-    handleFetchEvents();
-  }, []);
-
-  return <Timetable events={events} />;
+  return <Timetable events={events} onFetchEvents={onFetchEvents} />;
 };

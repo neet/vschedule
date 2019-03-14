@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { styled } from 'client/ui/styles';
 import { Event } from 'shared/entities/event';
 import { EventCard } from './event-card';
@@ -35,13 +35,23 @@ const Title = styled.h2`
 
 export const Sidebar = (props: SidebarProps) => {
   const { events } = props;
-  const upcomingEvents = events.filter(
-    event => dayjs(event.end_date).valueOf() > dayjs().valueOf(),
+
+  const upcomingEvents = useMemo(
+    () =>
+      events.filter(
+        event => dayjs(event.end_date).valueOf() > dayjs().valueOf(),
+      ),
+    [event],
   );
-  const streamingEvents = events.filter(
-    event =>
-      dayjs(event.start_date).valueOf() <= dayjs().valueOf() &&
-      dayjs(event.end_date).valueOf() > dayjs().valueOf(),
+
+  const streamingEvents = useMemo(
+    () =>
+      events.filter(
+        event =>
+          dayjs(event.start_date).valueOf() <= dayjs().valueOf() &&
+          dayjs(event.end_date).valueOf() > dayjs().valueOf(),
+      ),
+    [event],
   );
 
   return (

@@ -10,6 +10,7 @@ import { markerWidth, sidebarWidth } from 'client/ui/styles/constants';
 
 export interface TimetableProps {
   events: Event[];
+  onFetchEvents: () => void;
 }
 
 export interface Row {
@@ -36,7 +37,7 @@ const Feed = styled.div`
 `;
 
 export const Timetable = (props: TimetableProps) => {
-  const { events } = props;
+  const { events, onFetchEvents } = props;
 
   if (!events || !events.length) {
     return null;
@@ -81,12 +82,18 @@ export const Timetable = (props: TimetableProps) => {
     [events],
   );
 
-  const startDate = dayjs(
-    Math.min(...events.map(event => dayjs(event.start_date).valueOf())),
+  const startDate = useMemo(
+    () =>
+      dayjs(
+        Math.min(...events.map(event => dayjs(event.start_date).valueOf())),
+      ),
+    [events],
   );
 
-  const endDate = dayjs(
-    Math.max(...events.map(event => dayjs(event.end_date).valueOf())),
+  const endDate = useMemo(
+    () =>
+      dayjs(Math.max(...events.map(event => dayjs(event.end_date).valueOf()))),
+    [events],
   );
 
   useEffect(() => {
@@ -109,6 +116,10 @@ export const Timetable = (props: TimetableProps) => {
       ref.current.removeEventListener('wheel', handleWheel);
     };
   }, [ref]);
+
+  useEffect(() => {
+    onFetchEvents();
+  }, []);
 
   return (
     <Wrapper ref={ref}>

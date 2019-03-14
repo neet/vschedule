@@ -12,7 +12,7 @@
     "test:eslint": "eslint '{client,server}/**/*.{ts,tsx}'",
     "test:prettier": "prettier -c '{client,server}/**/*.{ts,tsx}'",
     "test:stylelint": "stylelint 'client/**/*.{tsx,tsx}'",
-    "test:static-type-check": "tsc -p ./client",
+    "test:tsc": "tsc -p ./client",
     "build": "run-p build:*",
     "build:server": "tsc -p ./server",
     "build:client": "webpack --mode=production",

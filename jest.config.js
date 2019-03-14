@@ -2,6 +2,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/setup-test.ts'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  collectCoverageFrom: ['<rootDir>/**/*.{ts,tsx}', '!**/node_modules/**'],
   testMatch: ['<rootDir>/client/**/?(*.)+(spec|test).ts?(x)'],
   moduleNameMapper: {
     'client/(.*)': '<rootDir>/client/$1',

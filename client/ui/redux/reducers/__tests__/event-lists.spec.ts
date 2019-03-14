@@ -17,4 +17,9 @@ describe('event lists reducer', () => {
     expect(state.all[1]).toBe(456);
     expect(state.all[2]).toBe(789);
   });
+
+  test('do nothing if inrelevant action dispatched', () => {
+    const state = eventListsReducer(undefined, fetchEventsProcess.started());
+    expect(state.all).toEqual([]);
+  });
 });

@@ -32,4 +32,9 @@ describe('livers reducer', () => {
 
     expect(state[37]).toEqual(pseudoEvents[0].liver);
   });
+
+  test('do nothing if inrelevant action dispatched', () => {
+    const state = liversReducer(undefined, fetchEventsProcess.started());
+    expect(state).toEqual({});
+  });
 });

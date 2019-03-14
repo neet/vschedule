@@ -18,7 +18,7 @@ function customFormatter(
   }
 }
 
-function normalizeLanguageForDayjs(lng: string) {
+export function normalizeLanguageForDayjs(lng: string) {
   return [
     'de-at',
     'en-gb',

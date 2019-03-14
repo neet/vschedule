@@ -1,10 +1,10 @@
 import { Reducer } from 'client/ui/redux/types';
-import produce from 'immer';
+import produce, { Immutable } from 'immer';
 import { isType } from 'typescript-fsa';
 import { fetchEventsProcess } from 'client/ui/redux/actions/events';
 
 export interface EventListsState {
-  readonly all: number[];
+  readonly all: Immutable<number[]>;
 }
 
 const initialState: EventListsState = {

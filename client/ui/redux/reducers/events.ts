@@ -1,5 +1,5 @@
 import { fetchEventsProcess } from 'client/ui/redux/actions/events';
-import produce, { Draft } from 'immer';
+import produce, { Draft, Immutable } from 'immer';
 import { isType } from 'typescript-fsa';
 import { Event } from 'shared/entities/event';
 import { Reducer } from 'client/ui/redux/types';
@@ -13,19 +13,19 @@ export type NormalizedEvent = Overwrite<
 >;
 
 export interface EventsState {
-  readonly [K: number]: NormalizedEvent;
+  readonly [K: number]: Immutable<NormalizedEvent>;
 }
 
-function normalizeEvent(state: Draft<EventsState>, event: Event) {
-  state[event.id] = {
+function normalizeEvent(draft: Draft<EventsState>, event: Event) {
+  draft[event.id] = {
     ...event,
     liver: event.liver.id,
   };
 }
 
-function normalizeEvents(state: Draft<EventsState>, events: Event[]) {
+function normalizeEvents(draft: Draft<EventsState>, events: Event[]) {
   for (const event of events) {
-    normalizeEvent(state, event);
+    normalizeEvent(draft, event);
   }
 }
 
@@ -37,7 +37,7 @@ export const eventsReducer: Reducer<EventsState> = (
 ) =>
   produce(state, draft => {
     if (isType(action, fetchEventsProcess.done)) {
-      normalizeEvents(state, action.payload.result.events);
+      normalizeEvents(draft, action.payload.result.events);
       return;
     }
 

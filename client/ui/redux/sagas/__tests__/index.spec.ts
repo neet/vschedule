@@ -1,7 +1,7 @@
 import { all, fork } from 'redux-saga/effects';
 import { cloneableGenerator } from '@redux-saga/testing-utils';
 import { sagas } from 'client/ui/redux/sagas';
-import { eventsSaga } from '../sagas/events';
+import { eventsSaga } from '../events';
 
 describe('root saga', () => {
   const rootSagaGen = cloneableGenerator(sagas)();

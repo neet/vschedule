@@ -35,4 +35,9 @@ describe('events reducer', () => {
     expect(state[1053]).toEqual(expect.objectContaining(eventWithoutLiver));
     expect(state[1053].liver).toBe(liver.id);
   });
+
+  test('do nothing if inrelevant action dispatched', () => {
+    const state = eventsReducer(undefined, fetchEventsProcess.started());
+    expect(state).toEqual({});
+  });
 });
