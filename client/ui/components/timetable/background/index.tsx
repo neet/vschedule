@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { styled } from 'client/ui/styles';
-import transparentToWhiteGradient from 'client/assets/transparent-to-white-gradient.png';
 import { Borders } from './borders';
 import { Header } from './header';
 import { MinuteHand } from './minute-hand';
 import dayjs, { Dayjs } from 'dayjs';
+import { parseToRgb } from 'polished';
 
 export interface BackgroundProps {
   startDate: Dayjs;
@@ -26,9 +26,10 @@ const Fade = styled.div`
   right: 0;
   width: 8%;
   height: 100%;
-  background-image: url(${transparentToWhiteGradient});
-  background-repeat: repeat-y;
-  background-size: contain;
+  background-image: ${({ theme }) => {
+    const { red, blue, green } = parseToRgb(theme.backgroundNormal);
+    return `linear-gradient(90deg, rgba(${red}, ${blue}, ${green}, 0%) 0%, rgba(${red}, ${blue}, ${green}, 100%) 100%)`;
+  }};
 
   @media screen and (min-width: 700px) {
     display: block;
