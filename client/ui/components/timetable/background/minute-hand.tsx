@@ -24,7 +24,7 @@ const Now = styled.div`
   box-sizing: border-box;
   flex-grow: 0;
   flex-shrink: 0;
-  margin: 16px;
+  margin: 55px 16px 16px;
   padding: 4px 12px;
   border-radius: 99px;
   background-color: ${({ theme }) => theme.highlightNormal};

@@ -2,9 +2,16 @@ import React from 'react';
 import { styled } from 'client/ui/styles';
 import { markerWidth } from 'client/ui/styles/constants';
 import dayjs, { Dayjs } from 'dayjs';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 
 export interface HeaderProps {
   dates: Dayjs[];
+}
+
+interface DatePosition {
+  date: number;
+  width: number;
 }
 
 const Wrapper = styled.header`
@@ -19,18 +26,30 @@ const Horizontal = styled.div`
 `;
 
 const Date = styled.div`
-  position: sticky;
-  top: 1px;
-  left: 2px;
   flex: 0 0 auto;
   width: 200px;
+  padding: 18px 18px 8px;
   background-color: ${({ theme }) => theme.backgroundNormal};
+  color: ${({ theme }) => theme.foregroundNormal};
+  font-size: 16px;
+  font-weight: bold;
+
+  time {
+    position: sticky;
+    top: 0px;
+    left: 18px;
+    flex: 0 0 auto;
+
+    svg {
+      margin-right: 0.5em;
+    }
+  }
 `;
 
 const Time = styled.div`
   box-sizing: border-box;
   flex-shrink: 0;
-  padding: 18px;
+  padding: 8px 18px 18px;
   color: ${({ theme }) => theme.foregroundLight};
   font-size: 14px;
   font-weight: bold;
@@ -40,29 +59,42 @@ const Time = styled.div`
 export const Header = (props: HeaderProps) => {
   const { dates: dateTimes } = props;
 
-  const dates = dateTimes
-    .reduce(
-      (result, date) => {
-        const roundedDate = date
-          .minute(0)
-          .hour(0)
-          .valueOf();
+  const dates = dateTimes.reduce(
+    (result, date) => {
+      const roundedDate = date
+        .minute(0)
+        .hour(0)
+        .valueOf();
 
-        if (!result.includes(roundedDate)) {
-          result.push(roundedDate);
-        }
+      const prev = result.findIndex(({ date }) => date === roundedDate);
 
-        return result;
-      },
-      [] as number[],
-    )
-    .map(date => dayjs(date));
+      if (prev === -1) {
+        result.push({
+          width: markerWidth,
+          date: roundedDate,
+        });
+      } else {
+        result[prev].width += markerWidth;
+      }
+
+      return result;
+    },
+    [] as DatePosition[],
+  );
 
   return (
     <Wrapper style={{ marginLeft: `${(markerWidth / 2) * -1}px` }}>
       <Horizontal>
         {dates.map((date, i) => (
-          <Date key={`${i}-${date.toString()}`}>{date.format('LL')}</Date>
+          <Date
+            key={`${i}-${date.date.toString()}`}
+            style={{ width: `${date.width}px` }}
+          >
+            <time dateTime={date.date.toString()}>
+              <FontAwesomeIcon icon={faCalendar} />
+              {dayjs(date.date).format('LL')}
+            </time>
+          </Date>
         ))}
       </Horizontal>
 

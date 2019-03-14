@@ -18,7 +18,7 @@ interface WrapperProps {
 export const Wrapper = styled.a<WrapperProps>`
   display: flex;
   position: absolute;
-  top: 79px;
+  top: 115px;
   left: 0;
   box-sizing: border-box;
   align-items: center;
@@ -74,7 +74,7 @@ export const Marker = (props: MarkerProps) => {
   const xyCoord = useMemo(() => {
     // Compare current date vs start date in minutes
     const diff = dayjs(event.start_date).diff(startDate, 'minute');
-    const x = convertMinuteToPixel(diff) + markerGap;
+    const x = convertMinuteToPixel(diff) + markerGap / 2;
 
     // Fixme: Using constant of avatar height + padding which is fragile
     const markerHeight = 50 + markerGap;
@@ -85,7 +85,7 @@ export const Marker = (props: MarkerProps) => {
 
   const width = useMemo(() => {
     const diff = dayjs(event.end_date).diff(event.start_date, 'minute');
-    return convertMinuteToPixel(diff) - markerGap * 2;
+    return convertMinuteToPixel(diff) - markerGap;
   }, [event]);
 
   const isLight = useMemo(() => {
