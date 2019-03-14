@@ -5,7 +5,7 @@ import { Response } from 'shared/entities/response';
 export class ItsukaraLink {
   protected baseUrl: string = '';
 
-  public constructor(baseUrl?: string) {
+  public constructor(baseUrl = '') {
     if (baseUrl) {
       this.baseUrl = baseUrl;
     }
@@ -26,8 +26,4 @@ export class ItsukaraLink {
   };
 }
 
-const apiUrl = `${process.env.APP_PROTOCOL}://${process.env.APP_HOST}${
-  process.env.APP_PORT ? ':' + process.env.APP_PORT : ''
-}`;
-
-export const api = new ItsukaraLink(apiUrl);
+export const api = new ItsukaraLink();
