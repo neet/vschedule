@@ -5,6 +5,7 @@ import { styled } from 'client/ui/styles';
 import { Background } from './background';
 import { markerWidth, sidebarWidth } from 'client/ui/styles/constants';
 import { Feed } from './feed';
+import { Placeholder } from './placeholder';
 
 export interface TimetableProps {
   events: Event[];
@@ -77,14 +78,10 @@ export const Timetable = (props: TimetableProps) => {
     onFetchEvents();
   }, []);
 
-  if (!startDate || !endDate) {
-    return null;
-  }
-
-  if (!events.length) {
+  if (!events.length || !startDate || !endDate) {
     return (
       <Wrapper>
-        <p>loading...</p>
+        <Placeholder />
       </Wrapper>
     );
   }
