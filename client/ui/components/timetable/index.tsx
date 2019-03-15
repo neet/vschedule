@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   position: relative;
   grid-area: 1 / 1;
   overflow: scroll;
+  -webkit-overflow-scrolling: touch;
 
   @media screen and (min-width: 700px) {
     grid-area: 1 / 2;

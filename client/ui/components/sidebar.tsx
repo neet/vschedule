@@ -17,6 +17,7 @@ const Wrapper = styled.aside`
   overflow: scroll;
   background-color: ${({ theme }) => theme.backgroundDark};
   box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.16);
+  -webkit-overflow-scrolling: touch;
 
   @media screen and (min-width: 700px) {
     display: block;
