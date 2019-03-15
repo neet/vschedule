@@ -14,5 +14,8 @@
   },
   "timeline": {
     "now": "LIVE"
+  },
+  "timetable": {
+    "loading": "Loading Timetable..."
   }
 }

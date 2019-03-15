@@ -13,5 +13,8 @@
   },
   "timeline": {
     "now": "LIVE"
+  },
+  "timetable": {
+    "loading": "スケジュールを読み込んでいます"
   }
 }
