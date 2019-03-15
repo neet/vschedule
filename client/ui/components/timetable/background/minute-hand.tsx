@@ -17,6 +17,7 @@ const Wrapper = styled.div`
   left: 0;
   flex-direction: column;
   align-items: center;
+  width: ${markerWidth}px;
   height: 100%;
 `;
 
@@ -49,7 +50,8 @@ const Border = styled.div`
 export const MinuteHand = (props: MinuteHandProps) => {
   const { startDate } = props;
   const { t } = useTranslation();
-  const gapFromOrigin = (dayjs().diff(startDate, 'minute') * markerWidth) / 30;
+  const gapFromOrigin =
+    (dayjs().diff(startDate, 'minute') * markerWidth) / 30 - markerWidth / 2;
 
   return (
     <Wrapper style={{ transform: `translateX(${gapFromOrigin}px)` }}>
