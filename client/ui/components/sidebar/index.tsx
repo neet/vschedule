@@ -46,8 +46,8 @@ export const Sidebar = (props: SidebarProps) => {
   const { events } = props;
   const { t } = useTranslation();
 
-  const upcomingEvents = useMemo(
-    () => events.filter(event => dayjs(event.start_date).isAfter(dayjs())),
+  const unfinishedEvents = useMemo(
+    () => events.filter(event => dayjs(event.end_date).isAfter(dayjs())),
     [events],
   );
 
@@ -77,8 +77,8 @@ export const Sidebar = (props: SidebarProps) => {
       </Title>
 
       <List>
-        {upcomingEvents.length ? (
-          upcomingEvents.map((event, i) => (
+        {unfinishedEvents.length ? (
+          unfinishedEvents.map((event, i) => (
             <ListItem
               key={event.id}
               aria-setsize={events.length}
