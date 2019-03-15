@@ -26,13 +26,14 @@ const Wrapper = styled.header`
 
 const LogoSmall = styled.img`
   display: block;
-  height: 40px;
+  height: 34px;
   margin: auto;
 `;
 
 const LogoLarge = styled.img`
   display: block;
-  height: 40px;
+  height: 34px;
+  margin: 4px 0;
 `;
 
 const Title = styled.h1`
