@@ -59,28 +59,25 @@ const Time = styled.div`
 export const Header = (props: HeaderProps) => {
   const { dates: dateTimes } = props;
 
-  const dates = dateTimes.reduce(
-    (result, date) => {
-      const roundedDate = date
-        .minute(0)
-        .hour(0)
-        .valueOf();
+  const dates = dateTimes.reduce<DatePosition[]>((result, date) => {
+    const roundedDate = date
+      .minute(0)
+      .hour(0)
+      .valueOf();
 
-      const prev = result.findIndex(({ date }) => date === roundedDate);
+    const prev = result.findIndex(({ date }) => date === roundedDate);
 
-      if (prev === -1) {
-        result.push({
-          width: markerWidth,
-          date: roundedDate,
-        });
-      } else {
-        result[prev].width += markerWidth;
-      }
+    if (prev === -1) {
+      result.push({
+        width: markerWidth,
+        date: roundedDate,
+      });
+    } else {
+      result[prev].width += markerWidth;
+    }
 
-      return result;
-    },
-    [] as DatePosition[],
-  );
+    return result;
+  }, []);
 
   return (
     <Wrapper style={{ marginLeft: `${(markerWidth / 2) * -1}px` }}>

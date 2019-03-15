@@ -37,22 +37,23 @@ export const Sidebar = (props: SidebarProps) => {
   const { events } = props;
 
   const upcomingEvents = useMemo(
-    () =>
-      events.filter(
-        event => dayjs(event.end_date).valueOf() > dayjs().valueOf(),
-      ),
-    [event],
+    () => events.filter(event => dayjs(event.start_date).isAfter(dayjs())),
+    [events],
   );
 
   const streamingEvents = useMemo(
     () =>
       events.filter(
         event =>
-          dayjs(event.start_date).valueOf() <= dayjs().valueOf() &&
-          dayjs(event.end_date).valueOf() > dayjs().valueOf(),
+          dayjs(event.start_date).isBefore(dayjs()) &&
+          dayjs(event.end_date).isAfter(dayjs()),
       ),
-    [event],
+    [events],
   );
+
+  if (!events.length) {
+    return <p>loading</p>;
+  }
 
   return (
     <Wrapper>
