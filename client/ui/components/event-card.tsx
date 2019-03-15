@@ -14,7 +14,7 @@ interface WrapperProps {
   isStreaming: boolean;
 }
 
-const Thumbnail = styled.div`
+export const Thumbnail = styled.div`
   position: relative;
   flex-grow: 0;
   flex-shrink: 0;
@@ -22,11 +22,12 @@ const Thumbnail = styled.div`
   height: 63px;
   margin-right: 8px;
   border-radius: 4px;
+  background-color: ${({ theme }) => theme.borderNormal};
   background-position: center;
   background-size: cover;
 `;
 
-const Wrapper = styled.a<WrapperProps>`
+export const Wrapper = styled.a<WrapperProps>`
   display: flex;
   align-items: center;
   padding: 8px 0px;
@@ -35,10 +36,6 @@ const Wrapper = styled.a<WrapperProps>`
 
   &:hover {
     text-decoration: none;
-  }
-
-  &:not(:last-child) {
-    margin-bottom: 8px;
   }
 
   ${({ isStreaming }) =>
@@ -60,7 +57,7 @@ const Wrapper = styled.a<WrapperProps>`
     `}
 `;
 
-const Meta = styled.div`
+export const Meta = styled.div`
   flex-grow: 1;
   min-width: 0;
 `;
@@ -70,7 +67,6 @@ const Title = styled.span`
   width: 100%;
   overflow: hidden;
   color: ${({ theme }) => theme.foregroundNormal};
-  font-size: 14px;
   font-weight: bold;
   text-overflow: ellipsis;
   white-space: nowrap;

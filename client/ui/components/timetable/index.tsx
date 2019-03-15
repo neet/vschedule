@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useMemo, useCallback } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
 import { Event } from 'shared/entities/event';
 import { styled } from 'client/ui/styles';
-import dayjs, { Dayjs } from 'dayjs';
 import { Background } from './background';
 import { markerWidth, sidebarWidth } from 'client/ui/styles/constants';
 import { Feed } from './feed';
@@ -82,7 +82,11 @@ export const Timetable = (props: TimetableProps) => {
   }
 
   if (!events.length) {
-    return <p>loading...</p>;
+    return (
+      <Wrapper>
+        <p>loading...</p>
+      </Wrapper>
+    );
   }
 
   return (

@@ -9,8 +9,8 @@
   },
   "sidebar": {
     "no_streaming": "There's no streaming on air",
-    "title": "<0>{{count}}</0> streaming now on air",
-    "title_plural": "<0>{{count}}</0> streamings now on air"
+    "title": "<0>{{count}}</0> streaming is on air",
+    "title_plural": "<0>{{count}}</0> streamings are on air"
   },
   "timeline": {
     "now": "LIVE"
