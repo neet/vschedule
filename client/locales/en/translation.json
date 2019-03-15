@@ -1,13 +1,18 @@
 {
   "banner": {
-    "open_original": "Open Original"
+    "open_original": "Open Original",
+    "view_source": "View Source",
+    "view_twitter": "View Twitter"
   },
   "event_card": {
     "date": "Streaming on {{ value, fromNow }}"
   },
   "sidebar": {
-    "title_0": "Nobody's streaming",
+    "no_streaming": "There's no streaming on air",
     "title": "<0>{{count}}</0> streaming now on air",
     "title_plural": "<0>{{count}}</0> streamings now on air"
+  },
+  "timeline": {
+    "now": "LIVE"
   }
 }

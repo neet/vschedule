@@ -110,6 +110,9 @@ export const Banner = React.memo(() => {
           href="https://twitter.com/thegodofneet"
           target="__blank"
           rel="noreferrer"
+          aria-label={t('banner.view_twitter', {
+            defaultValue: 'View Twitter',
+          })}
         >
           <Icon icon={faTwitter} />
         </a>
@@ -118,6 +121,7 @@ export const Banner = React.memo(() => {
           href="https://github.com/neet/refined-itsukara-link"
           target="__blank"
           rel="noreferrer"
+          aria-label={t('banner.view_source', { defaultValue: 'View Source' })}
         >
           <Icon icon={faGithub} />
         </a>

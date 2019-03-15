@@ -89,6 +89,10 @@ export const EventCard = (props: EventCard) => {
     return getThumbnailImageUrl(videoId);
   }, [event]);
 
+  const textForScreenReader = useMemo(() => {
+    return event.name + ' ' + event.liver.name + ' ' + event.description;
+  }, [event]);
+
   const isStreaming = useMemo(
     () =>
       dayjs(event.start_date).valueOf() <= dayjs().valueOf() &&
@@ -101,6 +105,8 @@ export const EventCard = (props: EventCard) => {
       href={event.url}
       target="__blank"
       rel="norefferer"
+      title={event.name}
+      aria-label={textForScreenReader}
       isStreaming={isStreaming}
     >
       <Thumbnail style={{ backgroundImage: `url(${thumbnailImageUrl})` }} />

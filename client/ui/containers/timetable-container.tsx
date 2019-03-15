@@ -4,9 +4,10 @@ import { RootState } from 'client/ui/redux/types';
 import { useDispatch, useMappedState } from 'redux-react-hook';
 import { fetchEvents } from 'client/ui/redux/actions/events';
 import { eventSelector } from 'client/ui/redux/selectors';
+import { EventListsState } from '../redux/reducers/event-lists';
 
 export interface TimetableContainerProps {
-  eventListId: 'all';
+  eventListId: keyof EventListsState;
 }
 
 export const TimetableContainer = (props: TimetableContainerProps) => {

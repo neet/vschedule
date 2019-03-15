@@ -68,9 +68,9 @@ export const Background = (props: BackgroundProps) => {
   return (
     <Wrapper>
       <Header dates={dates} />
-      <Borders dates={dates} />
       <MinuteHand startDate={startDate} />
-      <Fade />
+      <Borders dates={dates} aria-hidden />
+      <Fade aria-hidden />
     </Wrapper>
   );
 };

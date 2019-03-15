@@ -1,11 +1,11 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
-import i18next from 'i18next';
-import en from './en/translation.json';
-import ja from './ja/translation.json';
-import LanguageDetector from 'i18next-browser-languagedetector';
 import 'dayjs/locale/ja';
+import i18next from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import en from 'client/locales/en/translation.json';
+import ja from 'client/locales/ja/translation.json';
 
 function customFormatter(
   ...[value, format]: Parameters<i18next.FormatFunction>

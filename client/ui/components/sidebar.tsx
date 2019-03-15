@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { styled } from 'client/ui/styles';
 import { Event } from 'shared/entities/event';
 import { EventCard } from './event-card';
-import { Trans } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 
 export interface SidebarProps {
@@ -33,8 +33,17 @@ const Title = styled.h2`
   }
 `;
 
+const List = styled.ul`
+  display: block;
+`;
+
+const ListItem = styled.li`
+  display: block;
+`;
+
 export const Sidebar = (props: SidebarProps) => {
   const { events } = props;
+  const { t } = useTranslation();
 
   const upcomingEvents = useMemo(
     () => events.filter(event => dayjs(event.start_date).isAfter(dayjs())),
@@ -58,15 +67,29 @@ export const Sidebar = (props: SidebarProps) => {
   return (
     <Wrapper>
       <Title>
-        <Trans i18nKey="sidebar.title" count={streamingEvents.length}>
-          <strong>{{ count: streamingEvents.length }}</strong> streamings now on
-          air
-        </Trans>
+        {streamingEvents.length > 0 ? (
+          <Trans i18nKey="sidebar.title" count={streamingEvents.length}>
+            <strong>{{ count: streamingEvents.length }}</strong> streamings now
+            on air
+          </Trans>
+        ) : (
+          t('sidebar.no_streaming', {
+            defaultValue: "There's no streaming on air",
+          })
+        )}
       </Title>
 
-      {upcomingEvents.map(event => (
-        <EventCard key={event.id} event={event} />
-      ))}
+      <List>
+        {upcomingEvents.map((event, i) => (
+          <ListItem
+            key={event.id}
+            aria-setsize={events.length}
+            aria-posinset={i + 1}
+          >
+            <EventCard event={event} />
+          </ListItem>
+        ))}
+      </List>
     </Wrapper>
   );
 };

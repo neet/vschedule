@@ -1,10 +1,10 @@
 /* eslint-disable react/display-name */
 import * as React from 'react';
 import { ThemeProvider, styled } from 'client/ui/styles';
-import { theme } from 'client/ui/styles/theme';
 import { I18nextProvider } from 'react-i18next';
-import { getLocale } from 'locales';
 import { Switch, Redirect, Route } from 'react-router-dom';
+import { getLocale } from 'client/ui/locales';
+import { theme } from 'client/ui/styles/theme';
 import { Events } from 'client/ui/views/events';
 import { Banner } from 'client/ui/components/banner';
 import { GlobalStyle } from './global-style';
