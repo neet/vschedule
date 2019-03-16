@@ -64,29 +64,24 @@ export const LiverName = styled.span`
 `;
 
 export const Marker = (props: MarkerProps) => {
-  const { event, startDate, row } = props;
+  const { event, startDate: basisDate, row } = props;
+  const startDate = dayjs(event.start_date);
+  const endDate = dayjs(event.end_date);
 
   const convertMinuteToPixel = useCallback((minute: number) => {
     const pixelPerMinute = markerWidth / 30;
     return minute * pixelPerMinute;
   }, []);
 
-  const xyCoord = useMemo(() => {
-    // Compare current date vs start date in minutes
-    const diff = dayjs(event.start_date).diff(startDate, 'minute');
-    const x = convertMinuteToPixel(diff) + markerGap / 2;
+  // Compare current date vs start date in minutes
+  const x =
+    convertMinuteToPixel(startDate.diff(basisDate, 'minute')) + markerGap / 2;
 
-    // Fixme: Using constant of avatar height + padding which is fragile
-    const markerHeight = 50 + markerGap;
-    const y = markerHeight * row;
+  // Fixme: Using constant of avatar height + padding which is fragile
+  const y = (50 + markerGap) * row;
 
-    return [x, y];
-  }, [event]);
-
-  const width = useMemo(() => {
-    const diff = dayjs(event.end_date).diff(event.start_date, 'minute');
-    return convertMinuteToPixel(diff) - markerGap;
-  }, [event]);
+  const width =
+    convertMinuteToPixel(endDate.diff(startDate, 'minute')) - markerGap;
 
   const isLight = useMemo(() => {
     // Calc color brightness difference
@@ -104,7 +99,7 @@ export const Marker = (props: MarkerProps) => {
       isLight={isLight}
       style={{
         width: `${width}px`,
-        transform: `translate(${xyCoord[0]}px, ${xyCoord[1]}px)`,
+        transform: `translate(${x}px, ${y}px)`,
         backgroundColor: event.liver.color,
         boxShadow: `0 2px 6px ${opacify(0.48, event.liver.color)}`,
       }}

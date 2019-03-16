@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { styled } from 'client/ui/styles';
 import { faFire } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -51,11 +51,8 @@ const Border = styled.div`
 export const MinuteHand = (props: MinuteHandProps) => {
   const { now, startDate } = props;
   const { t } = useTranslation();
-
-  const gapFromOrigin = useMemo(
-    () => (now.diff(startDate, 'minute') * markerWidth) / 30 - markerWidth / 2,
-    [now],
-  );
+  const gapFromOrigin =
+    (now.diff(startDate, 'minute') * markerWidth) / 30 - markerWidth / 2;
 
   return (
     <Wrapper style={{ transform: `translateX(${gapFromOrigin}px)` }}>

@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import dayjs from 'dayjs';
 import { Trans, useTranslation } from 'react-i18next';
 import { styled } from 'client/ui/styles';
@@ -90,19 +90,14 @@ export const Sidebar = (props: SidebarProps) => {
   const { t } = useTranslation();
   const [expanded, changeIfExpanded] = useState(false);
 
-  const unfinishedEvents = useMemo(
-    () => events.filter(event => dayjs(event.end_date).isAfter(dayjs())),
-    [events],
+  const unfinishedEvents = events.filter(event =>
+    dayjs(event.end_date).isAfter(dayjs()),
   );
 
-  const streamingEvents = useMemo(
-    () =>
-      events.filter(
-        event =>
-          dayjs(event.start_date).isBefore(dayjs()) &&
-          dayjs(event.end_date).isAfter(dayjs()),
-      ),
-    [events],
+  const streamingEvents = events.filter(
+    event =>
+      dayjs(event.start_date).isBefore(dayjs()) &&
+      dayjs(event.end_date).isAfter(dayjs()),
   );
 
   const toggleIfExpanded = useCallback(() => changeIfExpanded(!expanded), [

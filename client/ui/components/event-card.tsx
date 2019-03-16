@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Event } from 'shared/entities/event';
 import { styled, css } from 'client/ui/styles';
 import * as querystring from 'querystring';
@@ -82,24 +82,15 @@ export const EventCard = (props: EventCard) => {
 
   const startDate = dayjs(event.start_date);
   const endDate = dayjs(event.end_date);
-
-  const thumbnailImageUrl = useMemo(() => {
-    const videoId = querystring.parse(event.url.split('?')[1]).v as string;
-    return getThumbnailImageUrl(videoId);
-  }, [event]);
-
-  const textForScreenReader = useMemo(() => {
-    return event.name + ' ' + event.liver.name + ' ' + event.description;
-  }, [event]);
-
-  const isStreaming = useMemo(
-    () =>
-      (startDate.isBefore(now) || startDate.isSame(now)) &&
-      endDate.isAfter(now),
-    [event, now],
-  );
-
   const fromNow = startDate.from(now);
+
+  const isStreaming =
+    (startDate.isBefore(now) || startDate.isSame(now)) && endDate.isAfter(now);
+
+  const videoId = querystring.parse(event.url.split('?')[1]).v as string;
+  const thumbnailImageUrl = getThumbnailImageUrl(videoId);
+  const textForScreenReader =
+    event.name + ' ' + event.liver.name + ' ' + event.description;
 
   return (
     <Wrapper
