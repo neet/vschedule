@@ -3,7 +3,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { Event } from 'shared/entities/event';
 import { styled } from 'client/ui/styles';
 import { Background } from './background';
-import { markerWidth, sidebarWidth } from 'client/ui/styles/constants';
+import { borderGap, sidebarWidth } from 'client/ui/styles/constants';
 import { Feed } from './feed';
 import { Placeholder } from './placeholder';
 import isMobile from 'ismobilejs';
@@ -66,7 +66,7 @@ export const Timetable = (props: TimetableProps) => {
     const fromNowToStart = now.diff(startDate, 'minute');
     const screenWidth = window.innerWidth;
     const x =
-      (markerWidth / 30) * fromNowToStart - (screenWidth - sidebarWidth) / 2;
+      (borderGap / 30) * fromNowToStart - (screenWidth - sidebarWidth) / 2;
 
     ref.current.scrollTo(x, 0);
   }, [startDate, endDate, now]);

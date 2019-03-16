@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'client/ui/styles';
 import { Dayjs } from 'dayjs';
-import { markerWidth } from 'client/ui/styles/constants';
+import { borderGap } from 'client/ui/styles/constants';
 
 export interface BordersProps {
   dates: Dayjs[];
@@ -33,9 +33,9 @@ export const Borders = (props: BordersProps) => {
   const { dates } = props;
 
   return (
-    <Wrapper style={{ marginLeft: `${(markerWidth / 2) * -1}px` }}>
+    <Wrapper style={{ marginLeft: `${(borderGap / 2) * -1}px` }}>
       {dates.map((roundedDate, i) => (
-        <Border key={`${roundedDate}-${i}`} style={{ width: markerWidth }} />
+        <Border key={`${roundedDate}-${i}`} style={{ width: borderGap }} />
       ))}
     </Wrapper>
   );

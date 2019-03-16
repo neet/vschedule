@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from 'client/ui/styles';
-import { markerWidth } from 'client/ui/styles/constants';
+import { borderGap } from 'client/ui/styles/constants';
 import dayjs, { Dayjs } from 'dayjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
@@ -69,18 +69,18 @@ export const Header = (props: HeaderProps) => {
 
     if (prev === -1) {
       result.push({
-        width: markerWidth,
+        width: borderGap,
         date: roundedDate,
       });
     } else {
-      result[prev].width += markerWidth;
+      result[prev].width += borderGap;
     }
 
     return result;
   }, []);
 
   return (
-    <Wrapper style={{ marginLeft: `${(markerWidth / 2) * -1}px` }}>
+    <Wrapper style={{ marginLeft: `${(borderGap / 2) * -1}px` }}>
       <Horizontal>
         {dates.map((date, i) => (
           <Date
@@ -97,7 +97,7 @@ export const Header = (props: HeaderProps) => {
 
       <Horizontal>
         {dateTimes.map((date, i) => (
-          <Time key={`${i}-${date.toString()}`} style={{ width: markerWidth }}>
+          <Time key={`${i}-${date.toString()}`} style={{ width: borderGap }}>
             <time dateTime={date.toString()}>{date.format('HH:mm')}</time>
           </Time>
         ))}

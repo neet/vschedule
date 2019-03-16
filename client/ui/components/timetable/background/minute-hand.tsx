@@ -4,7 +4,7 @@ import { faFire } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslation } from 'react-i18next';
 import { Dayjs } from 'dayjs';
-import { markerWidth } from 'client/ui/styles/constants';
+import { borderGap } from 'client/ui/styles/constants';
 
 export interface MinuteHandProps {
   now: Dayjs;
@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   left: 0;
   flex-direction: column;
   align-items: center;
-  width: ${markerWidth}px;
+  width: ${borderGap}px;
   height: 100%;
 `;
 
@@ -52,7 +52,7 @@ export const MinuteHand = (props: MinuteHandProps) => {
   const { now, startDate } = props;
   const { t } = useTranslation();
   const gapFromOrigin =
-    (now.diff(startDate, 'minute') * markerWidth) / 30 - markerWidth / 2;
+    (now.diff(startDate, 'minute') * borderGap) / 30 - borderGap / 2;
 
   return (
     <Wrapper style={{ transform: `translateX(${gapFromOrigin}px)` }}>
