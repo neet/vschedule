@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import * as React from 'react';
 import { ThemeProvider, styled } from 'client/ui/styles';
 import { I18nextProvider } from 'react-i18next';

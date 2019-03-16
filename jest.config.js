@@ -1,6 +1,6 @@
 module.exports = {
   testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['<rootDir>/setup-test.ts'],
+  setupFilesAfterEnv: ['<rootDir>/client/ui/setup-test.ts'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   collectCoverageFrom: ['<rootDir>/**/*.{ts,tsx}', '!**/node_modules/**'],
   testMatch: ['<rootDir>/client/**/?(*.)+(spec|test).ts?(x)'],

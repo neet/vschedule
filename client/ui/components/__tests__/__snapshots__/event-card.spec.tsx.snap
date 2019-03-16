@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<EventCard /> renders event card with given props 1`] = `
+.c1 {
+  position: relative;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 112px;
+  height: 63px;
+  margin-right: 8px;
+  border-radius: 4px;
+  background-color: #eeeeee;
+  background-position: center;
+  background-size: cover;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 8px 0px;
+  border-bottom: 1px solid #eeeeee;
+  opacity: 0.5;
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c2 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.c3 {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  color: #333333;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c4 {
+  color: #707070;
+}
+
+<a
+  aria-label="神ゲーらしい【The Beginner's Guide】 剣持刀也 にじさんじ所属バーチャルライバー剣持刀也 防御力：ちくわの700倍 【Twitter】https://twitter.com/rei_Toya_rei"
+  class="c0"
+  href="https://www.youtube.com/watch?v=nm5VvO9Z4gY"
+  rel="norefferer"
+  tabindex="0"
+  target="__blank"
+  title="神ゲーらしい【The Beginner's Guide】"
+>
+  <div
+    class="c1"
+    style="background-image: url(https://img.youtube.com/vi/nm5VvO9Z4gY/hqdefault.jpg);"
+  />
+  <div
+    class="c2"
+  >
+    <span
+      class="c3"
+    >
+      神ゲーらしい【The Beginner's Guide】
+    </span>
+    <time
+      class="c4"
+      datetime="2019-02-28T00:00:00.000+09:00"
+    >
+      18 days ago
+    </time>
+  </div>
+</a>
+`;

@@ -1,5 +1,8 @@
 import { GlobalWithFetchMock } from 'jest-fetch-mock';
 import 'jest-styled-components';
+import { getLocale } from './locales';
+
+getLocale();
 
 const customGlobal: GlobalWithFetchMock = global as GlobalWithFetchMock;
 customGlobal.fetch = require('jest-fetch-mock');
