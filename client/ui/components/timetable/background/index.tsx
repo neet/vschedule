@@ -7,6 +7,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { parseToRgb } from 'polished';
 
 export interface BackgroundProps {
+  now: Dayjs;
   startDate: Dayjs;
   endDate: Dayjs;
 }
@@ -37,7 +38,7 @@ const Fade = styled.div`
 `;
 
 export const Background = (props: BackgroundProps) => {
-  const { startDate, endDate } = props;
+  const { now, startDate, endDate } = props;
 
   const dates = useMemo(() => {
     // Rond down the minutes which less than 30 mintues
@@ -68,7 +69,7 @@ export const Background = (props: BackgroundProps) => {
   return (
     <Wrapper>
       <Header dates={dates} />
-      <MinuteHand startDate={startDate} />
+      <MinuteHand now={now} startDate={startDate} />
       <Borders dates={dates} aria-hidden />
       <Fade aria-hidden />
     </Wrapper>

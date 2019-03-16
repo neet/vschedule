@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslation } from 'react-i18next';
 import { Dayjs } from 'dayjs';
 import { markerWidth } from 'client/ui/styles/constants';
-import { useNow } from 'client/ui/hooks/use-now';
 
 export interface MinuteHandProps {
+  now: Dayjs;
   startDate: Dayjs;
 }
 
@@ -49,8 +49,7 @@ const Border = styled.div`
 `;
 
 export const MinuteHand = (props: MinuteHandProps) => {
-  const { startDate } = props;
-  const { now } = useNow(1000 * 60);
+  const { now, startDate } = props;
   const { t } = useTranslation();
 
   const gapFromOrigin = useMemo(

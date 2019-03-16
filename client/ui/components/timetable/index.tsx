@@ -91,7 +91,7 @@ export const Timetable = (props: TimetableProps) => {
 
   return (
     <Wrapper ref={ref}>
-      <Background startDate={startDate} endDate={endDate} />
+      <Background now={now} startDate={startDate} endDate={endDate} />
       <Feed events={events} startDate={startDate} />
     </Wrapper>
   );
