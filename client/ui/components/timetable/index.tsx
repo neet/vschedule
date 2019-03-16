@@ -13,13 +13,19 @@ export interface TimetableProps {
 }
 
 const Wrapper = styled.div`
-  position: relative;
-  grid-area: 1 / 1;
-  overflow: scroll;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin-left: 0;
+  overflow-x: scroll;
+  overflow-y: hidden; /* fixme */
   -webkit-overflow-scrolling: touch;
 
   @media screen and (min-width: 700px) {
-    grid-area: 1 / 2;
+    width: calc(100% - ${sidebarWidth}px);
+    margin-left: ${sidebarWidth}px;
   }
 `;
 

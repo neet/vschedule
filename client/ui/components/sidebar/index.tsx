@@ -1,27 +1,61 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import dayjs from 'dayjs';
 import { Trans, useTranslation } from 'react-i18next';
 import { styled } from 'client/ui/styles';
 import { Event } from 'shared/entities/event';
 import { EventCard } from 'client/ui/components/event-card';
 import { EventCardPlaceholders } from './placeholder';
+import { sidebarWidth } from 'client/ui/styles/constants';
 
 export interface SidebarProps {
   events: Event[];
 }
 
-const Wrapper = styled.aside`
-  display: none;
+interface WrapperProps {
+  expanded: boolean;
+}
+
+const Wrapper = styled.aside<WrapperProps>`
+  display: block;
+  position: absolute;
+  z-index: 999;
+  bottom: 0;
+  left: 0;
   box-sizing: border-box;
-  grid-area: 1 / 1;
+  width: 100%;
+  height: ${({ expanded }) => (expanded ? '100%' : '20%')};
   padding: 18px;
   overflow: scroll;
+  transition: 0.3s ease-out;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
   background-color: ${({ theme }) => theme.backgroundDark};
-  box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.16);
   -webkit-overflow-scrolling: touch;
+  box-shadow: 0 -1.5px 3px rgba(0, 0, 0, 0.16);
 
   @media screen and (min-width: 700px) {
     display: block;
+    z-index: auto;
+    top: 0;
+    left: 0;
+    width: ${sidebarWidth}px;
+    height: auto;
+    border-radius: 0;
+    box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.16);
+  }
+`;
+
+const ExpandButton = styled.button`
+  display: block;
+  width: 100px;
+  height: 5px;
+  margin: 0 auto 12px;
+  border: none;
+  border-radius: 99px;
+  background-color: ${({ theme }) => theme.foregroundLight};
+
+  @media screen and (min-width: 700px) {
+    display: none;
   }
 `;
 
@@ -45,6 +79,7 @@ const ListItem = styled.li`
 export const Sidebar = (props: SidebarProps) => {
   const { events } = props;
   const { t } = useTranslation();
+  const [expanded, changeIfExpanded] = useState(false);
 
   const unfinishedEvents = useMemo(
     () => events.filter(event => dayjs(event.end_date).isAfter(dayjs())),
@@ -61,8 +96,14 @@ export const Sidebar = (props: SidebarProps) => {
     [events],
   );
 
+  const toggleIfExpanded = useCallback(() => changeIfExpanded(!expanded), [
+    expanded,
+  ]);
+
   return (
-    <Wrapper>
+    <Wrapper id="sidebar" expanded={expanded} aria-expanded={expanded}>
+      <ExpandButton aria-controls="sidebar" onClick={toggleIfExpanded} />
+
       <Title>
         {streamingEvents.length > 0 ? (
           <Trans i18nKey="sidebar.title" count={streamingEvents.length}>
