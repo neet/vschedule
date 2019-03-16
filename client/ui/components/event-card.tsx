@@ -91,9 +91,10 @@ export const EventCard = (props: EventCard) => {
 
   const isStreaming = useMemo(
     () =>
-      dayjs(event.start_date).valueOf() <= dayjs().valueOf() &&
-      dayjs(event.end_date).valueOf() > dayjs().valueOf(),
-    [event],
+      (dayjs(event.start_date).isBefore(dayjs()) ||
+        dayjs(event.start_date).isSame(dayjs())) &&
+      dayjs(event.end_date).isAfter(dayjs()),
+    [],
   );
 
   return (
