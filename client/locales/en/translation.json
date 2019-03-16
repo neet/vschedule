@@ -4,9 +4,6 @@
     "view_source": "View Source",
     "view_twitter": "View Twitter"
   },
-  "event_card": {
-    "date": "Streaming on {{ value, fromNow }}"
-  },
   "sidebar": {
     "no_streaming": "There's no streaming on air",
     "title": "<0>{{count}}</0> streaming is on air",

@@ -7,17 +7,6 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import en from 'client/locales/en/translation.json';
 import ja from 'client/locales/ja/translation.json';
 
-function customFormatter(
-  ...[value, format]: Parameters<i18next.FormatFunction>
-): ReturnType<i18next.FormatFunction> {
-  switch (format) {
-    case 'fromNow':
-      return (dayjs(value) as any).fromNow();
-    default:
-      return '';
-  }
-}
-
 export function normalizeLanguageForDayjs(lng: string) {
   return [
     'de-at',
@@ -63,7 +52,6 @@ export const getLocale = () => {
     },
     interpolation: {
       escapeValue: true,
-      format: customFormatter,
     },
   });
 

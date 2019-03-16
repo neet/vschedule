@@ -4,7 +4,7 @@ import { styled, css } from 'client/ui/styles';
 import * as querystring from 'querystring';
 import { getThumbnailImageUrl } from 'client/ui/helpers/get-thumbnail-image-url';
 import dayjs from 'dayjs';
-import { useTranslation } from 'react-i18next';
+import { useNow } from 'client/ui/hooks/use-now';
 
 export interface EventCard {
   event: Event;
@@ -78,7 +78,10 @@ const Time = styled.time`
 
 export const EventCard = (props: EventCard) => {
   const { event } = props;
-  const { t } = useTranslation();
+  const { now } = useNow();
+
+  const startDate = dayjs(event.start_date);
+  const endDate = dayjs(event.end_date);
 
   const thumbnailImageUrl = useMemo(() => {
     const videoId = querystring.parse(event.url.split('?')[1]).v as string;
@@ -91,11 +94,12 @@ export const EventCard = (props: EventCard) => {
 
   const isStreaming = useMemo(
     () =>
-      (dayjs(event.start_date).isBefore(dayjs()) ||
-        dayjs(event.start_date).isSame(dayjs())) &&
-      dayjs(event.end_date).isAfter(dayjs()),
-    [],
+      (startDate.isBefore(now) || startDate.isSame(now)) &&
+      endDate.isAfter(now),
+    [event, now],
   );
+
+  const fromNow = startDate.from(now);
 
   return (
     <Wrapper
@@ -111,12 +115,7 @@ export const EventCard = (props: EventCard) => {
 
       <Meta>
         <Title>{event.name}</Title>
-        <Time dateTime={event.start_date}>
-          {t('event_card.date', {
-            defaultValue: 'Streaming on {{ value, fromNow }}',
-            value: event.start_date,
-          })}
-        </Time>
+        <Time dateTime={event.start_date}>{fromNow}</Time>
       </Meta>
     </Wrapper>
   );
