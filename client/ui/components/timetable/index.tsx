@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useMemo, useCallback } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useMemo,
+  useCallback,
+  useState,
+} from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { Event } from 'shared/entities/event';
 import { styled } from 'client/ui/styles';
@@ -7,6 +13,7 @@ import { markerWidth, sidebarWidth } from 'client/ui/styles/constants';
 import { Feed } from './feed';
 import { Placeholder } from './placeholder';
 import isMobile from 'ismobilejs';
+import { useInterval } from 'client/ui/hooks/use-interval';
 
 export interface TimetableProps {
   events: Event[];
@@ -31,7 +38,7 @@ const Wrapper = styled.div`
 
 export const Timetable = (props: TimetableProps) => {
   const { events } = props;
-
+  const [now, updateNow] = useState(dayjs());
   const ref = useRef<HTMLDivElement>(null);
 
   const handleWheel = useCallback((e: WheelEvent) => {
@@ -59,16 +66,20 @@ export const Timetable = (props: TimetableProps) => {
     [events],
   );
 
+  useInterval(() => {
+    updateNow(dayjs());
+  }, 1000 * 60);
+
   useEffect(() => {
     if (!ref.current || !startDate) return;
 
-    const fromNowToStart = dayjs().diff(startDate, 'minute');
+    const fromNowToStart = now.diff(startDate, 'minute');
     const screenWidth = window.innerWidth;
     const x =
       (markerWidth / 30) * fromNowToStart - (screenWidth - sidebarWidth) / 2;
 
     ref.current.scrollTo(x, 0);
-  }, [startDate, endDate]);
+  }, [startDate, endDate, now]);
 
   useEffect(() => {
     if (isMobile.any || !ref.current) return;
