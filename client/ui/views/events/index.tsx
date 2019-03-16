@@ -8,7 +8,7 @@ export const Events = React.memo(() => {
   return (
     <Page>
       <SidebarContainer />
-      <TimetableContainer eventListId="all" />
+      <TimetableContainer />
     </Page>
   );
 });
