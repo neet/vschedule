@@ -10,7 +10,6 @@ import isMobile from 'ismobilejs';
 
 export interface TimetableProps {
   events: Event[];
-  onFetchEvents: () => void;
 }
 
 const Wrapper = styled.div`
@@ -31,7 +30,7 @@ const Wrapper = styled.div`
 `;
 
 export const Timetable = (props: TimetableProps) => {
-  const { events, onFetchEvents } = props;
+  const { events } = props;
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -80,10 +79,6 @@ export const Timetable = (props: TimetableProps) => {
       ref.current.removeEventListener('wheel', handleWheel);
     };
   });
-
-  useEffect(() => {
-    onFetchEvents();
-  }, []);
 
   if (!events.length || !startDate || !endDate) {
     return (
