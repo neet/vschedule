@@ -6,6 +6,7 @@ import { Background } from './background';
 import { markerWidth, sidebarWidth } from 'client/ui/styles/constants';
 import { Feed } from './feed';
 import { Placeholder } from './placeholder';
+import isMobile from 'ismobilejs';
 
 export interface TimetableProps {
   events: Event[];
@@ -71,11 +72,11 @@ export const Timetable = (props: TimetableProps) => {
   }, [startDate, endDate]);
 
   useEffect(() => {
-    if (!ref.current) return;
+    if (isMobile.any || !ref.current) return;
     ref.current.addEventListener('wheel', handleWheel, { passive: true });
 
     return () => {
-      if (!ref.current) return;
+      if (isMobile.any || !ref.current) return;
       ref.current.removeEventListener('wheel', handleWheel);
     };
   });

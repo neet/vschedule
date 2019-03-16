@@ -1156,6 +1156,11 @@
   dependencies:
     "@types/react" "*"
 
+"@types/ismobilejs@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@types/ismobilejs/-/ismobilejs-0.4.1.tgz#d8bf8b139d3e47ae6afa1d4bca57bbc5a786cc9e"
+  integrity sha512-h7d/EWxHjRNY/VuIWBsciHahuIRmSVvtK+34cal0m/UBN75wcuEXxzfn91PRr7iyyJqMccW+oiwp6T+T9khamQ==
+
 "@types/istanbul-lib-coverage@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-1.1.0.tgz#2cc2ca41051498382b43157c8227fea60363f94a"
@@ -5234,6 +5239,11 @@ isexe@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
+
+ismobilejs@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/ismobilejs/-/ismobilejs-0.5.1.tgz#0e3f825e29e32f84ad5ddbb60e9e04a894046488"
+  integrity sha512-QX4STsOcBYqlTjVGuAdP1MiRVxtiUbRHOKH0v7Gn1EvfUVIQnrSdgCM4zB4VCZuIejnb2NUMUx0Bwd3EIG6yyA==
 
 isobject@^2.0.0:
   version "2.1.0"
