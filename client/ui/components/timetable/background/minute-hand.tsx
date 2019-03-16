@@ -1,11 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { styled } from 'client/ui/styles';
 import { faFire } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslation } from 'react-i18next';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import { markerWidth } from 'client/ui/styles/constants';
-import { useInterval } from 'client/ui/hooks/use-interval';
+import { useNow } from 'client/ui/hooks/use-now';
 
 export interface MinuteHandProps {
   startDate: Dayjs;
@@ -50,17 +50,13 @@ const Border = styled.div`
 
 export const MinuteHand = (props: MinuteHandProps) => {
   const { startDate } = props;
-  const [now, updateNow] = useState(dayjs());
+  const { now } = useNow(1000 * 60);
   const { t } = useTranslation();
 
   const gapFromOrigin = useMemo(
     () => (now.diff(startDate, 'minute') * markerWidth) / 30 - markerWidth / 2,
     [now],
   );
-
-  useInterval(() => {
-    updateNow(dayjs());
-  }, 1000 * 60);
 
   return (
     <Wrapper style={{ transform: `translateX(${gapFromOrigin}px)` }}>

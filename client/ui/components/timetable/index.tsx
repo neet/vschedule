@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useRef,
-  useMemo,
-  useCallback,
-  useState,
-} from 'react';
+import React, { useEffect, useRef, useMemo, useCallback } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { Event } from 'shared/entities/event';
 import { styled } from 'client/ui/styles';
@@ -13,7 +7,7 @@ import { markerWidth, sidebarWidth } from 'client/ui/styles/constants';
 import { Feed } from './feed';
 import { Placeholder } from './placeholder';
 import isMobile from 'ismobilejs';
-import { useInterval } from 'client/ui/hooks/use-interval';
+import { useNow } from 'client/ui/hooks/use-now';
 
 export interface TimetableProps {
   events: Event[];
@@ -38,7 +32,7 @@ const Wrapper = styled.div`
 
 export const Timetable = (props: TimetableProps) => {
   const { events } = props;
-  const [now, updateNow] = useState(dayjs());
+  const { now } = useNow(1000 * 60);
   const ref = useRef<HTMLDivElement>(null);
 
   const handleWheel = useCallback((e: WheelEvent) => {
@@ -65,10 +59,6 @@ export const Timetable = (props: TimetableProps) => {
       }, undefined),
     [events],
   );
-
-  useInterval(() => {
-    updateNow(dayjs());
-  }, 1000 * 60);
 
   useEffect(() => {
     if (!ref.current || !startDate) return;
