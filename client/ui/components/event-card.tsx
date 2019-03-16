@@ -102,6 +102,7 @@ export const EventCard = (props: EventCard) => {
       target="__blank"
       rel="norefferer"
       title={event.name}
+      tabIndex={0}
       aria-label={textForScreenReader}
       isStreaming={isStreaming}
     >
