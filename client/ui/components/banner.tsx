@@ -77,15 +77,17 @@ const Icon = styled(FontAwesomeIcon)`
   font-size: 24px;
 `;
 
-const OriginalLink = styled.div`
+const OriginalLink = styled.a`
+  display: block;
   padding: 8px 14px;
   border-radius: 4px;
   background-color: ${({ theme }) => theme.highlightNormal};
+  color: ${({ theme }) => theme.foregroundReverse};
   font-size: 12px;
   font-weight: bold;
 
-  a {
-    color: ${({ theme }) => theme.foregroundReverse};
+  &:hover {
+    text-decoration: none;
   }
 
   svg {
@@ -111,6 +113,9 @@ export const Banner = React.memo(() => {
           href="https://twitter.com/thegodofneet"
           target="__blank"
           rel="noreferrer"
+          title={t('banner.view_twitter', {
+            defaultValue: 'View Twitter',
+          })}
           aria-label={t('banner.view_twitter', {
             defaultValue: 'View Twitter',
           })}
@@ -122,16 +127,21 @@ export const Banner = React.memo(() => {
           href="https://github.com/neet/refined-itsukara-link"
           target="__blank"
           rel="noreferrer"
+          title={t('banner.view_source', { defaultValue: 'View Source' })}
           aria-label={t('banner.view_source', { defaultValue: 'View Source' })}
         >
           <Icon icon={faGithub} />
         </a>
 
-        <OriginalLink>
-          <a href="https://www.itsukaralink.jp">
-            <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
+        <OriginalLink
+          href="https://www.itsukaralink.jp"
+          target="__blank"
+          rel="noreferrer"
+        >
+          <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
+          <span>
             {t('banner.open_original', { defaultValue: 'Open Original' })}
-          </a>
+          </span>
         </OriginalLink>
       </Toolbox>
     </Wrapper>
