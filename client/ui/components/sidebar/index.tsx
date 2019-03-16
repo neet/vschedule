@@ -47,12 +47,21 @@ const Wrapper = styled.aside<WrapperProps>`
 
 const ExpandButton = styled.button`
   display: block;
-  width: 100px;
-  height: 5px;
-  margin: 0 auto 12px;
+  width: 100%;
+  margin-top: -8px;
+  padding: 8px 0 12px;
   border: none;
-  border-radius: 99px;
-  background-color: ${({ theme }) => theme.foregroundLight};
+  background-color: transparent;
+
+  hr {
+    display: block;
+    width: 100px;
+    height: 5px;
+    margin: auto;
+    border: none;
+    border-radius: 99px;
+    background-color: ${({ theme }) => theme.foregroundLight};
+  }
 
   @media screen and (min-width: 700px) {
     display: none;
@@ -102,7 +111,9 @@ export const Sidebar = (props: SidebarProps) => {
 
   return (
     <Wrapper id="sidebar" expanded={expanded} aria-expanded={expanded}>
-      <ExpandButton aria-controls="sidebar" onClick={toggleIfExpanded} />
+      <ExpandButton aria-controls="sidebar" onClick={toggleIfExpanded}>
+        <hr />
+      </ExpandButton>
 
       <Title>
         {streamingEvents.length > 0 ? (
