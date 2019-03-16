@@ -65,8 +65,11 @@ export const Timetable = (props: TimetableProps) => {
 
     const fromNowToStart = now.diff(startDate, 'minute');
     const screenWidth = window.innerWidth;
-    const x =
-      (borderGap / 30) * fromNowToStart - (screenWidth - sidebarWidth) / 2;
+    let x = (borderGap / 30) * fromNowToStart - screenWidth / 2;
+
+    if (screenWidth < 700) {
+      x - sidebarWidth;
+    }
 
     ref.current.scrollTo(x, 0);
   }, [startDate, endDate, now]);
