@@ -98,6 +98,7 @@ export const Marker = (props: MarkerProps) => {
     <Wrapper
       tabIndex={0}
       href={event.url}
+      title={event.name}
       target="__blank"
       rel="noreferrer"
       isLight={isLight}
