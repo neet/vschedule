@@ -3,10 +3,11 @@
   "private": true,
   "version": "0.0.1",
   "description": "Refined itsukara.link",
-  "main": "dist/index.js",
+  "main": "./dist/main.js",
   "author": "Ryo Igarashi <n33t5hin@gmail.com>",
   "license": "AGPL-3.0",
   "scripts": {
+    "start": "node ./dist/main.js",
     "test": "run-s test:*",
     "test:jest": "jest --coverage",
     "test:eslint": "eslint '{client,server}/**/*.{ts,tsx}'",
