@@ -1,0 +1,83 @@
+type Content {
+  # ID of the content
+  id: ID!
+  # Name of the content
+  name: String!
+  # Description of the streaming
+  description: String!
+  # Whether public
+  public: Int!
+  # URL of the content
+  url: String!
+  # Start date time on ISO 8601
+  startDate: String!
+  # End date time on ISO 8601
+  endDate: String!
+  # Whether the streaming is recommended for the user
+  recommend: Boolean!
+  # Source of the content
+  source: Source!
+}
+
+type Source {
+  # ID of the source
+  id: ID!
+  # Name of the source
+  name: String!
+  # Romanized name of the source
+  latinName: String!
+  # Ruby for name of the source
+  ruby: String!
+  # URL of the avatar for the source
+  avatar: String!
+  # Hex colour code
+  color: String!
+  # Description of the source
+  description: String!
+  # If the source is public
+  public: Int!
+  # Unknown...
+  position: Int!
+  # External services' information
+  association: SourceAssociation
+}
+
+type SourceAssociation {
+  # Associated YouTube channel
+  youtube: YoutubeChannel
+  # Associated Twitter account
+  twitter: TwitterAccount
+}
+
+type YoutubeChannel {
+  # Internal ID of the channel
+  id: ID!
+  # Associated source id
+  source: ID!
+  # ID of the channel
+  channel: ID!
+  # Name of the channel
+  channelName: String!
+  # Order of creation
+  creationOrder: Int!
+}
+
+type TwitterAccount {
+  # Internal ID of the account
+  id: ID!
+  # Associated source id
+  source: ID!
+  # Screenname of the account like @twitter
+  screenName: String!
+}
+
+type Query {
+  content(id: ID!): Content!
+  contents: [Content!]!
+  source(id: ID!): Source!
+  sources: [Source!]!
+}
+
+schema {
+  query: Query
+}
