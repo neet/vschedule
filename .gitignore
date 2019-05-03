@@ -61,3 +61,5 @@ jspm_packages/
 .next
 
 dist/
+generated/
+!.keep
