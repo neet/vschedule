@@ -24,21 +24,29 @@ class ItsukaraLinkAPI extends apollo_datasource_rest_1.RESTDataSource {
             source: liverTwitterAccount.liver_id.toString(),
             screenName: liverTwitterAccount.screen_name,
         });
-        this.reduceSource = (liver, youtube, twitter) => ({
-            id: liver.id.toString(),
-            name: liver.name,
-            latinName: liver.english_name,
-            ruby: liver.furigana,
-            avatar: liver.avatar,
-            color: liver.color,
-            description: liver.description || '',
-            public: liver.public || 1,
-            position: liver.public || 0,
-            association: {
-                youtube: youtube && this.reduceYoutubeChannel(youtube),
-                twitter: twitter && this.reduceTwitterAccount(twitter),
-            },
-        });
+        this.reduceSource = (liver, twitter, youtubes) => {
+            const source = {
+                id: liver.id.toString(),
+                name: liver.name,
+                latinName: liver.english_name || '',
+                ruby: liver.furigana || '',
+                avatar: liver.avatar,
+                color: liver.color,
+                description: liver.description || '',
+                public: liver.public || 1,
+                position: liver.public || 0,
+                socialAccounts: [],
+            };
+            if (youtubes) {
+                youtubes.forEach(youtube => {
+                    source.socialAccounts.push(this.reduceYoutubeChannel(youtube));
+                });
+            }
+            if (twitter) {
+                source.socialAccounts.push(this.reduceTwitterAccount(twitter));
+            }
+            return source;
+        };
         this.reduceContent = (event) => ({
             id: event.id.toString(),
             name: event.name,
@@ -60,12 +68,12 @@ class ItsukaraLinkAPI extends apollo_datasource_rest_1.RESTDataSource {
         });
         this.fetchSources = () => __awaiter(this, void 0, void 0, function* () {
             const res = yield this.get('livers.json');
-            return res.data.liver_relationships.map(data => this.reduceSource(data.liver, data.liver_youtube_channel, data.liver_twitter_account));
+            return res.data.liver_relationships.map(data => this.reduceSource(data.liver, data.liver_twitter_account, data.liver_youtube_channel));
         });
         this.fetchSource = (id) => __awaiter(this, void 0, void 0, function* () {
             const res = yield this.get(`livers/${id}.json`);
             const data = res.data;
-            return this.reduceSource(data.liver, data.liver_youtube_channel, data.liver_twitter_account);
+            return this.reduceSource(data.liver, data.liver_twitter_account, data.liver_youtube_channel);
         });
         this.baseURL = baseURL;
     }

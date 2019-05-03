@@ -39,17 +39,17 @@ type Source {
   # Unknown...
   position: Int!
   # External services' information
-  association: SourceAssociation
+  socialAccounts: [SocialAccount]!
 }
 
-type SourceAssociation {
-  # Associated YouTube channel
-  youtube: YoutubeChannel
-  # Associated Twitter account
-  twitter: TwitterAccount
+interface SocialAccount {
+  # Internal ID of the channel
+  id: ID!
+  # Associated source id
+  source: ID!
 }
 
-type YoutubeChannel {
+type YoutubeChannel implements SocialAccount {
   # Internal ID of the channel
   id: ID!
   # Associated source id
@@ -62,8 +62,8 @@ type YoutubeChannel {
   creationOrder: Int!
 }
 
-type TwitterAccount {
-  # Internal ID of the account
+type TwitterAccount implements SocialAccount {
+  # Internal ID of the channel
   id: ID!
   # Associated source id
   source: ID!
@@ -73,9 +73,9 @@ type TwitterAccount {
 
 type Query {
   content(id: ID!): Content!
-  contents: [Content!]!
+  contents: [Content]!
   source(id: ID!): Source!
-  sources: [Source!]!
+  sources: [Source]!
 }
 
 schema {

@@ -22,9 +22,9 @@ export interface Content {
 
 export interface Query {
   content: Content;
-  contents: Content[];
+  contents: Maybe<Content>[];
   source: Source;
-  sources: Source[];
+  sources: Maybe<Source>[];
 }
 
 export interface QueryContentArgs {
@@ -33,6 +33,11 @@ export interface QueryContentArgs {
 
 export interface QuerySourceArgs {
   id: Scalars['ID'];
+}
+
+export interface SocialAccount {
+  id: Scalars['ID'];
+  source: Scalars['ID'];
 }
 
 export interface Source {
@@ -45,27 +50,22 @@ export interface Source {
   description: Scalars['String'];
   public: Scalars['Int'];
   position: Scalars['Int'];
-  association?: Maybe<SourceAssociation>;
+  socialAccounts: Maybe<SocialAccount>[];
 }
 
-export interface SourceAssociation {
-  youtube?: Maybe<YoutubeChannel>;
-  twitter?: Maybe<TwitterAccount>;
-}
-
-export interface TwitterAccount {
+export type TwitterAccount = SocialAccount & {
   id: Scalars['ID'];
   source: Scalars['ID'];
   screenName: Scalars['String'];
-}
+};
 
-export interface YoutubeChannel {
+export type YoutubeChannel = SocialAccount & {
   id: Scalars['ID'];
   source: Scalars['ID'];
   channel: Scalars['ID'];
   channelName: Scalars['String'];
   creationOrder: Scalars['Int'];
-}
+};
 import { Context } from '../context';
 
 import { GraphQLResolveInfo } from 'graphql';
@@ -151,7 +151,7 @@ export type ResolversTypes = ResolversObject<{
   Int: Scalars['Int'];
   boolean: Scalars['Boolean'];
   Source: Source;
-  SourceAssociation: SourceAssociation;
+  SocialAccount: SocialAccount;
   YoutubeChannel: YoutubeChannel;
   TwitterAccount: TwitterAccount;
 }>;
@@ -181,14 +181,35 @@ export type QueryResolvers<
     ContextType,
     QueryContentArgs
   >;
-  contents?: Resolver<ResolversTypes['Content'][], ParentType, ContextType>;
+  contents?: Resolver<
+    Maybe<ResolversTypes['Content']>[],
+    ParentType,
+    ContextType
+  >;
   source?: Resolver<
     ResolversTypes['Source'],
     ParentType,
     ContextType,
     QuerySourceArgs
   >;
-  sources?: Resolver<ResolversTypes['Source'][], ParentType, ContextType>;
+  sources?: Resolver<
+    Maybe<ResolversTypes['Source']>[],
+    ParentType,
+    ContextType
+  >;
+}>;
+
+export type SocialAccountResolvers<
+  ContextType = Context,
+  ParentType = ResolversTypes['SocialAccount']
+> = ResolversObject<{
+  __resolveType: TypeResolveFn<
+    'YoutubeChannel' | 'TwitterAccount',
+    ParentType,
+    ContextType
+  >;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  source?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
 }>;
 
 export type SourceResolvers<
@@ -204,24 +225,8 @@ export type SourceResolvers<
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   public?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   position?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  association?: Resolver<
-    Maybe<ResolversTypes['SourceAssociation']>,
-    ParentType,
-    ContextType
-  >;
-}>;
-
-export type SourceAssociationResolvers<
-  ContextType = Context,
-  ParentType = ResolversTypes['SourceAssociation']
-> = ResolversObject<{
-  youtube?: Resolver<
-    Maybe<ResolversTypes['YoutubeChannel']>,
-    ParentType,
-    ContextType
-  >;
-  twitter?: Resolver<
-    Maybe<ResolversTypes['TwitterAccount']>,
+  socialAccounts?: Resolver<
+    Maybe<ResolversTypes['SocialAccount']>[],
     ParentType,
     ContextType
   >;
@@ -250,8 +255,8 @@ export type YoutubeChannelResolvers<
 export type Resolvers<ContextType = Context> = ResolversObject<{
   Content?: ContentResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  SocialAccount?: SocialAccountResolvers;
   Source?: SourceResolvers<ContextType>;
-  SourceAssociation?: SourceAssociationResolvers<ContextType>;
   TwitterAccount?: TwitterAccountResolvers<ContextType>;
   YoutubeChannel?: YoutubeChannelResolvers<ContextType>;
 }>;

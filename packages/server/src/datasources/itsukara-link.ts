@@ -14,10 +14,10 @@ export interface Response<Data = any> {
 export interface Liver {
   id: number;
   name: string;
-  english_name: string;
-  furigana: string;
   avatar: string;
   color: string;
+  english_name?: string;
+  furigana?: string;
   description?: string;
   public?: number;
   position?: number;
@@ -40,7 +40,7 @@ export interface LiverYoutubeChannel {
 export interface LiverRelationships {
   liver: Liver;
   liver_twitter_account: LiverTwitterAccount;
-  liver_youtube_channel: LiverYoutubeChannel;
+  liver_youtube_channel: LiverYoutubeChannel[];
 }
 
 export interface Event {
@@ -87,23 +87,34 @@ export class ItsukaraLinkAPI extends RESTDataSource {
 
   private reduceSource = (
     liver: Liver,
-    youtube?: LiverYoutubeChannel,
     twitter?: LiverTwitterAccount,
-  ): Source => ({
-    id: liver.id.toString(),
-    name: liver.name,
-    latinName: liver.english_name,
-    ruby: liver.furigana,
-    avatar: liver.avatar,
-    color: liver.color,
-    description: liver.description || '',
-    public: liver.public || 1,
-    position: liver.public || 0,
-    association: {
-      youtube: youtube && this.reduceYoutubeChannel(youtube),
-      twitter: twitter && this.reduceTwitterAccount(twitter),
-    },
-  });
+    youtubes?: LiverYoutubeChannel[],
+  ): Source => {
+    const source: Source = {
+      id: liver.id.toString(),
+      name: liver.name,
+      latinName: liver.english_name || '',
+      ruby: liver.furigana || '',
+      avatar: liver.avatar,
+      color: liver.color,
+      description: liver.description || '',
+      public: liver.public || 1,
+      position: liver.public || 0,
+      socialAccounts: [],
+    };
+
+    if (youtubes) {
+      youtubes.forEach(youtube => {
+        source.socialAccounts.push(this.reduceYoutubeChannel(youtube));
+      });
+    }
+
+    if (twitter) {
+      source.socialAccounts.push(this.reduceTwitterAccount(twitter));
+    }
+
+    return source;
+  };
 
   private reduceContent = (event: Event): Content => ({
     id: event.id.toString(),
@@ -133,8 +144,8 @@ export class ItsukaraLinkAPI extends RESTDataSource {
     return res.data.liver_relationships.map(data =>
       this.reduceSource(
         data.liver,
-        data.liver_youtube_channel,
         data.liver_twitter_account,
+        data.liver_youtube_channel,
       ),
     );
   };
@@ -145,8 +156,8 @@ export class ItsukaraLinkAPI extends RESTDataSource {
 
     return this.reduceSource(
       data.liver,
-      data.liver_youtube_channel,
       data.liver_twitter_account,
+      data.liver_youtube_channel,
     );
   };
 }
