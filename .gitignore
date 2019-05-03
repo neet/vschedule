@@ -60,5 +60,4 @@ jspm_packages/
 # next.js build output
 .next
 
-dist/*
-static/*
+dist/
