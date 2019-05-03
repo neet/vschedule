@@ -10,6 +10,7 @@ const schemaPath = path.resolve(
   __dirname,
   '../node_modules/@ril/schema/schema.gql',
 );
+const staticDir = path.resolve(__dirname, '../static');
 
 (async () => {
   const schema = await fs.readFile(schemaPath, 'utf-8').then(gql);
@@ -23,6 +24,12 @@ const schemaPath = path.resolve(
   const app = express();
   server.applyMiddleware({ app, path: '/graphql' });
 
+  // CORS
   app.use(cors());
+  app.options('*', cors());
+
+  // Static files
+  app.use('/static', express.static(staticDir));
+
   app.listen({ port: 3000 });
 })();
