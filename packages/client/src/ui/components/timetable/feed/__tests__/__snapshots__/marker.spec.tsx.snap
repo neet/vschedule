@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Marker /> renders marker with given props 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  top: 115px;
+  left: 0;
+  box-sizing: border-box;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 4px 6px;
+  border-radius: 99px;
+  color: #ffffff;
+}
+
+.c0:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1 {
+  width: 40px;
+  height: 40px;
+  margin-right: 4px;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+
+.c2 {
+  min-width: 0;
+}
+
+.c3 {
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c4 {
+  display: block;
+  overflow: hidden;
+  opacity: 0.8;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<a
+  class="c0"
+  href="https://www.youtube.com/watch?v=nm5VvO9Z4gY"
+  rel="noreferrer"
+  style="width: 282px; transform: translate(9px, 0px); background-color: rgb(165, 144, 175); box-shadow: 0 2px 6px #a590af;"
+  tabindex="0"
+  target="__blank"
+  title="神ゲーらしい【The Beginner's Guide】"
+>
+  <img
+    class="c1"
+    src="https://s3-ap-northeast-1.amazonaws.com/liver-icons/400x400/Kenmochi_Touya.png"
+  />
+  <div
+    class="c2"
+  >
+    <h4
+      class="c3"
+    >
+      神ゲーらしい【The Beginner's Guide】
+    </h4>
+    <span
+      class="c4"
+    >
+      剣持刀也
+    </span>
+  </div>
+</a>
+`;

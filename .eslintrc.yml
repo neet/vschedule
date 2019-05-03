@@ -1,0 +1,50 @@
+---
+root: true
+parser: '@typescript-eslint/parser'
+
+env:
+  browser: true
+  es6: true
+  node: true
+  jest: true
+
+plugins:
+  - react
+  - jsx-a11y
+  - '@typescript-eslint'
+
+extends:
+  - eslint:recommended
+  - plugin:jsx-a11y/recommended
+  - plugin:react/recommended
+  # Disabling temporarily: benmosher/eslint-plugin-import#1285
+  # - plugin:import/errors
+  # - plugin:import/warnings
+  # - plugin:import/typescript
+  - plugin:@typescript-eslint/recommended
+  - prettier
+  - prettier/@typescript-eslint
+
+settings:
+  react:
+    version: ditect
+
+rules:
+  react/prop-types: off
+  react/display-name: off
+  '@typescript-eslint/explicit-function-return-type': off
+  '@typescript-eslint/camelcase': off
+  '@typescript-eslint/no-explicit-any': off
+  '@typescript-eslint/no-parameter-properties': off
+  '@typescript-eslint/no-unused-vars':
+    - error
+    - argsIgnorePattern: ^_
+  # no-relative-parent-imports: error
+  # no-unassigned-import: error
+
+overrides:
+  - files:
+      - '*.ts'
+      - '*.tsx'
+    rules:
+      no-dupe-class-members: off

@@ -1,0 +1,18 @@
+{
+  "banner": {
+    "open_original": "Open Original",
+    "view_source": "View Source",
+    "view_twitter": "View Twitter"
+  },
+  "sidebar": {
+    "no_streaming": "There's no streaming on air",
+    "title": "<0>{{count}}</0> streaming is on air",
+    "title_plural": "<0>{{count}}</0> streamings are on air"
+  },
+  "timeline": {
+    "now": "LIVE"
+  },
+  "timetable": {
+    "loading": "Loading Timetable..."
+  }
+}

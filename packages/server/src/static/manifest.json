@@ -1,0 +1,15 @@
+{
+  "name": "Refined Itsukara.link",
+  "short_name": "Ril",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/android-chrome.png",
+      "size": "250x250",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "theme_color": "#F80652",
+  "background_color": "#C70542"
+}

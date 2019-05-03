@@ -1,0 +1,17 @@
+{
+  "banner": {
+    "open_original": "元サイトを表示",
+    "view_source": "ソースを表示",
+    "view_twitter": "Twitterを表示"
+  },
+  "sidebar": {
+    "no_streaming": "放送中の配信はありません",
+    "title": "<0>{{count}}人</0>が配信中"
+  },
+  "timeline": {
+    "now": "LIVE"
+  },
+  "timetable": {
+    "loading": "スケジュールを読み込んでいます"
+  }
+}

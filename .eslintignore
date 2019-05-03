@@ -1,0 +1,10 @@
+/.git
+/node_modules
+/dist
+/static
+*.d.ts
+*.spec.ts
+*.test.ts
+package.json
+lerna.json
+webpack.config.js
