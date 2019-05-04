@@ -4,8 +4,8 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import 'dayjs/locale/ja';
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import en from 'client/locales/en/translation.json';
-import ja from 'client/locales/ja/translation.json';
+import en from 'src/locales/en/translation.json';
+import ja from 'src/locales/ja/translation.json';
 
 export function normalizeLanguageForDayjs(lng: string) {
   return [

@@ -1,8 +1,12 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "es6",
-    "baseUrl": "./src",
+    "target": "es5",
+    "baseUrl": ".",
+    "noEmit": true,
+    "paths": {
+      "src/*": ["./src/*"],
+    }
   },
   "include": ["./src/**/*"],
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled } from 'client/ui/styles';
+import { styled } from 'src/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';

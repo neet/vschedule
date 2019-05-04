@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { styled } from 'client/ui/styles';
+import { styled } from 'src/styles';
 import { Borders } from './borders';
 import { Header } from './header';
 import { MinuteHand } from './minute-hand';

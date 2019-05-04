@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useMemo, useCallback } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
-import { Event } from 'shared/entities/event';
-import { styled } from 'client/ui/styles';
+import { Content } from 'src/generated/graphql';
+import { styled } from 'src/styles';
 import { Background } from './background';
-import { borderGap, sidebarWidth } from 'client/ui/styles/constants';
+import { borderGap, sidebarWidth } from 'src/styles/constants';
 import { Feed } from './feed';
 import { Placeholder } from './placeholder';
 import isMobile from 'ismobilejs';
-import { useNow } from 'client/ui/hooks/use-now';
+import { useNow } from 'src/hooks/use-now';
 
 export interface TimetableProps {
-  events: Event[];
+  contents: Content[];
 }
 
 const Wrapper = styled.div`
@@ -31,7 +31,7 @@ const Wrapper = styled.div`
 `;
 
 export const Timetable = (props: TimetableProps) => {
-  const { events } = props;
+  const { contents } = props;
   const { now } = useNow(1000 * 60);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -42,22 +42,22 @@ export const Timetable = (props: TimetableProps) => {
 
   const startDate = useMemo(
     () =>
-      events.reduce<Dayjs | undefined>((result, event) => {
-        const date = dayjs(event.start_date);
+      contents.reduce<Dayjs | undefined>((result, content) => {
+        const date = dayjs(content.startDate);
         if (!result || date.isBefore(result)) return date;
         return result;
       }, undefined),
-    [events],
+    [contents],
   );
 
   const endDate = useMemo(
     () =>
-      events.reduce<Dayjs | undefined>((result, event) => {
-        const date = dayjs(event.end_date);
+      contents.reduce<Dayjs | undefined>((result, content) => {
+        const date = dayjs(content.endDate);
         if (!result || date.isAfter(result)) return date;
         return result;
       }, undefined),
-    [events],
+    [contents],
   );
 
   useEffect(() => {
@@ -84,7 +84,7 @@ export const Timetable = (props: TimetableProps) => {
     };
   });
 
-  if (!events.length || !startDate || !endDate) {
+  if (!contents.length || !startDate || !endDate) {
     return (
       <Wrapper>
         <Placeholder />
@@ -95,7 +95,7 @@ export const Timetable = (props: TimetableProps) => {
   return (
     <Wrapper ref={ref}>
       <Background now={now} startDate={startDate} endDate={endDate} />
-      <Feed events={events} startDate={startDate} />
+      <Feed contents={contents} startDate={startDate} />
     </Wrapper>
   );
 };

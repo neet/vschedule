@@ -11,13 +11,13 @@ require('dotenv').config();
 const { env } = process;
 
 const config = (isProd, isDevServer) => ({
-  context: path.resolve(__dirname, 'client'),
+  context: path.resolve(__dirname, 'src'),
 
   stats: 'errors-only',
   devtool: isProd ? false : 'source-map',
 
   entry: {
-    client: './ui/main.tsx',
+    client: './main.tsx',
   },
 
   output: {
@@ -29,6 +29,11 @@ const config = (isProd, isDevServer) => ({
 
   module: {
     rules: [
+      {
+        test: /.(graphql|gql)/,
+        exclude: /node_modules/,
+        use: 'graphql-tag/loader',
+      },
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
@@ -59,7 +64,7 @@ const config = (isProd, isDevServer) => ({
 
     plugins: [
       new TSConfigPathsWebpackPlugin({
-        configFile: path.resolve(__dirname, 'client/tsconfig.json'),
+        configFile: path.resolve(__dirname, 'tsconfig.json'),
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
       }),
     ],
@@ -92,7 +97,7 @@ const config = (isProd, isDevServer) => ({
 
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './ui/index.html',
+      template: './index.html',
       alwaysWriteToDisk: true,
     }),
 

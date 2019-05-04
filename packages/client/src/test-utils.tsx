@@ -1,6 +1,6 @@
 import React from 'react';
-import { ThemeProvider } from 'client/ui/styles';
-import { theme as defaultTheme } from 'client/ui/styles/theme';
+import { ThemeProvider } from 'src/styles';
+import { theme as defaultTheme } from 'src/styles/theme';
 
 export const withTheme = <P extends object>(
   Component: React.ComponentType<P>,

@@ -39,7 +39,7 @@ type Source {
   # Unknown...
   position: Int!
   # External services' information
-  socialAccounts: [SocialAccount]!
+  socialAccounts: [SocialAccount!]!
 }
 
 interface SocialAccount {
@@ -73,9 +73,9 @@ type TwitterAccount implements SocialAccount {
 
 type Query {
   content(id: ID!): Content!
-  contents: [Content]!
+  contents: [Content!]!
   source(id: ID!): Source!
-  sources: [Source]!
+  sources: [Source!]!
 }
 
 schema {

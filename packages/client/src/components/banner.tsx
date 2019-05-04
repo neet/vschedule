@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { styled } from 'client/ui/styles';
+import { styled } from 'src/styles';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { bannerHeight } from 'client/ui/styles/constants';
-import logoLarge from 'client/assets/logo-large.png';
-import logoSmall from 'client/assets/logo-small.png';
+import { bannerHeight } from 'src/styles/constants';
+import logoLarge from 'src/assets/logo-large.png';
+import logoSmall from 'src/assets/logo-small.png';
 import { Link } from 'react-router-dom';
 
 const Wrapper = styled.header`

@@ -1,8 +1,14 @@
 import React from 'react';
-import { Timetable } from 'client/ui/components/timetable';
-import { useEvents } from 'client/ui/hooks/use-events';
+import { Timetable } from 'src/components/timetable';
+import { FetchContentsComponent } from 'src/generated/graphql';
 
 export const TimetableContainer = () => {
-  const { events } = useEvents();
-  return <Timetable events={events} />;
+  return (
+    <FetchContentsComponent>
+      {result => {
+        if (!result.data || !result.data.contents) return null;
+        return <Timetable contents={result.data.contents} />;
+      }}
+    </FetchContentsComponent>
+  );
 };

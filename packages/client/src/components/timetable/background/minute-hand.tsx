@@ -1,10 +1,10 @@
 import React from 'react';
-import { styled } from 'client/ui/styles';
+import { styled } from 'src/styles';
 import { faFire } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslation } from 'react-i18next';
 import { Dayjs } from 'dayjs';
-import { borderGap } from 'client/ui/styles/constants';
+import { borderGap } from 'src/styles/constants';
 
 export interface MinuteHandProps {
   now: Dayjs;

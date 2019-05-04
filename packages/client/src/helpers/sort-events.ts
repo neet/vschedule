@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
-import { Event } from 'shared/entities/event';
+import { Content } from 'src/generated/graphql';
 
-export function sortEvents(eventX: Event, eventY: Event) {
-  const xStartAt = dayjs(eventX.start_date);
-  const yStartAt = dayjs(eventY.start_date);
+export function sortEvents(contentX: Content, contentY: Content) {
+  const xStartAt = dayjs(contentX.startDate);
+  const yStartAt = dayjs(contentY.startDate);
 
   if (xStartAt.isBefore(yStartAt)) {
     return -1;

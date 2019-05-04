@@ -1,3 +1,4 @@
+declare module '*.gql';
 declare module '*.json';
 declare module '*.yml';
 declare module '*.png';

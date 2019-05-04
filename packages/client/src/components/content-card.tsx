@@ -1,13 +1,13 @@
+import { Content } from 'src/generated/graphql';
 import React from 'react';
-import { Event } from 'shared/entities/event';
-import { styled, css } from 'client/ui/styles';
+import { styled, css } from 'src/styles';
 import * as querystring from 'querystring';
-import { getThumbnailImageUrl } from 'client/ui/helpers/get-thumbnail-image-url';
+import { getThumbnailImageUrl } from 'src/helpers/get-thumbnail-image-url';
 import dayjs from 'dayjs';
-import { useNow } from 'client/ui/hooks/use-now';
+import { useNow } from 'src/hooks/use-now';
 
-export interface EventCard {
-  event: Event;
+export interface ContentCardProps {
+  content: Content;
 }
 
 interface WrapperProps {
@@ -76,28 +76,28 @@ const Time = styled.time`
   color: ${({ theme }) => theme.foregroundLight};
 `;
 
-export const EventCard = (props: EventCard) => {
-  const { event } = props;
+export const ContentCard = (props: ContentCardProps) => {
+  const { content } = props;
   const { now } = useNow();
 
-  const startDate = dayjs(event.start_date);
-  const endDate = dayjs(event.end_date);
+  const startDate = dayjs(content.startDate);
+  const endDate = dayjs(content.endDate);
   const fromNow = startDate.from(now);
 
   const isStreaming =
     (startDate.isBefore(now) || startDate.isSame(now)) && endDate.isAfter(now);
 
-  const videoId = querystring.parse(event.url.split('?')[1]).v as string;
+  const videoId = querystring.parse(content.url.split('?')[1]).v as string;
   const thumbnailImageUrl = getThumbnailImageUrl(videoId);
   const textForScreenReader =
-    event.name + ' ' + event.liver.name + ' ' + event.description;
+    content.name + ' ' + content.source.name + ' ' + content.description;
 
   return (
     <Wrapper
-      href={event.url}
+      href={content.url}
       target="__blank"
       rel="norefferer"
-      title={event.name}
+      title={content.name}
       tabIndex={0}
       aria-label={textForScreenReader}
       isStreaming={isStreaming}
@@ -105,8 +105,8 @@ export const EventCard = (props: EventCard) => {
       <Thumbnail style={{ backgroundImage: `url(${thumbnailImageUrl})` }} />
 
       <Meta>
-        <Title>{event.name}</Title>
-        <Time dateTime={event.start_date}>{fromNow}</Time>
+        <Title>{content.name}</Title>
+        <Time dateTime={content.startDate}>{fromNow}</Time>
       </Meta>
     </Wrapper>
   );

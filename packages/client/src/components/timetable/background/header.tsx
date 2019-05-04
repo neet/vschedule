@@ -1,6 +1,6 @@
 import React from 'react';
-import { styled } from 'client/ui/styles';
-import { borderGap } from 'client/ui/styles/constants';
+import { styled } from 'src/styles';
+import { borderGap } from 'src/styles/constants';
 import dayjs, { Dayjs } from 'dayjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';

@@ -1,12 +1,12 @@
 import React, { useMemo, useCallback } from 'react';
-import { Event } from 'shared/entities/event';
-import { styled } from 'client/ui/styles';
+import { Content } from 'src/generated/graphql';
+import { styled } from 'src/styles';
 import dayjs, { Dayjs } from 'dayjs';
 import { opacify, parseToRgb } from 'polished';
-import { markerGap, borderGap } from 'client/ui/styles/constants';
+import { markerGap, borderGap } from 'src/styles/constants';
 
 export interface MarkerProps {
-  event: Event;
+  content: Content;
   row: number;
   startDate: Dayjs;
 }
@@ -64,9 +64,9 @@ export const LiverName = styled.span`
 `;
 
 export const Marker = (props: MarkerProps) => {
-  const { event, startDate: basisDate, row } = props;
-  const startDate = dayjs(event.start_date);
-  const endDate = dayjs(event.end_date);
+  const { content, startDate: basisDate, row } = props;
+  const startDate = dayjs(content.startDate);
+  const endDate = dayjs(content.endDate);
 
   const convertMinuteToPixel = useCallback((minute: number) => {
     const pixelPerMinute = borderGap / 30;
@@ -85,30 +85,30 @@ export const Marker = (props: MarkerProps) => {
 
   const isLight = useMemo(() => {
     // Calc color brightness difference
-    const { red, green, blue } = parseToRgb(event.liver.color);
+    const { red, green, blue } = parseToRgb(content.source.color);
     return red * 0.299 + green * 0.587 + blue * 0.114 > 186;
   }, [event]);
 
   return (
     <Wrapper
       tabIndex={0}
-      href={event.url}
-      title={event.name}
+      href={content.url}
+      title={content.name}
       target="__blank"
       rel="noreferrer"
       isLight={isLight}
       style={{
         width: `${width}px`,
         transform: `translate(${x}px, ${y}px)`,
-        backgroundColor: event.liver.color,
-        boxShadow: `0 2px 6px ${opacify(0.48, event.liver.color)}`,
+        backgroundColor: content.source.color,
+        boxShadow: `0 2px 6px ${opacify(0.48, content.source.color)}`,
       }}
     >
-      <Avatar src={event.liver.avatar} />
+      <Avatar src={content.source.avatar} />
 
       <Meta>
-        <Title>{event.name}</Title>
-        <LiverName>{event.liver.name}</LiverName>
+        <Title>{content.name}</Title>
+        <LiverName>{content.source.name}</LiverName>
       </Meta>
     </Wrapper>
   );

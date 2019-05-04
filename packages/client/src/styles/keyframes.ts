@@ -1,4 +1,4 @@
-import { keyframes } from 'client/ui/styles';
+import { keyframes } from 'src/styles';
 
 export const pulse = keyframes`
   0% {

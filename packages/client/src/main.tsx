@@ -1,25 +1,35 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { StoreContext } from 'redux-react-hook';
+import { ApolloClient } from 'apollo-client';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloProvider } from 'react-apollo-hooks';
 import { Root } from './views/root';
-import { configureStore } from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import * as OfflinePluginRuntime from 'offline-plugin/runtime';
+import typeDefs from '@ril/schema/schema.gql';
 
-const mountNode = document.getElementById('root');
-const store = configureStore();
+async () => {
+  if (process.env.NODE_ENV === 'production') {
+    OfflinePluginRuntime.install();
+  }
 
-if (process.env.NODE_ENV === 'production') {
-  OfflinePluginRuntime.install();
-}
+  const mountNode = document.getElementById('root');
 
-if (mountNode) {
+  if (!mountNode) {
+    return;
+  }
+
+  const cache = new InMemoryCache();
+  const link = new HttpLink({ uri: 'https://localhost:3000/graphql' });
+  const client = new ApolloClient({ cache, link, typeDefs });
+
   ReactDOM.render(
-    <StoreContext.Provider value={store}>
+    <ApolloProvider client={client}>
       <BrowserRouter>
         <Root />
       </BrowserRouter>
-    </StoreContext.Provider>,
+    </ApolloProvider>,
     mountNode,
   );
-}
+};

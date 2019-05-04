@@ -1,14 +1,14 @@
 import React, { useState, useCallback } from 'react';
 import dayjs from 'dayjs';
 import { Trans, useTranslation } from 'react-i18next';
-import { styled } from 'client/ui/styles';
-import { Event } from 'shared/entities/event';
-import { EventCard } from 'client/ui/components/event-card';
+import { styled } from 'src/styles';
+import { Content } from 'src/generated/graphql';
+import { ContentCard } from 'src/components/content-card';
 import { EventCardPlaceholders } from './placeholder';
-import { sidebarWidth } from 'client/ui/styles/constants';
+import { sidebarWidth } from 'src/styles/constants';
 
 export interface SidebarProps {
-  events: Event[];
+  contents: Content[];
 }
 
 interface WrapperProps {
@@ -86,18 +86,18 @@ const ListItem = styled.li`
 `;
 
 export const Sidebar = (props: SidebarProps) => {
-  const { events } = props;
+  const { contents } = props;
   const { t } = useTranslation();
   const [expanded, changeIfExpanded] = useState(false);
 
-  const unfinishedEvents = events.filter(event =>
-    dayjs(event.end_date).isAfter(dayjs()),
+  const unfinishedContents = contents.filter(content =>
+    dayjs(content.endDate).isAfter(dayjs()),
   );
 
-  const streamingEvents = events.filter(
-    event =>
-      dayjs(event.start_date).isBefore(dayjs()) &&
-      dayjs(event.end_date).isAfter(dayjs()),
+  const streamingContents = contents.filter(
+    content =>
+      dayjs(content.startDate).isBefore(dayjs()) &&
+      dayjs(content.endDate).isAfter(dayjs()),
   );
 
   const toggleIfExpanded = useCallback(() => changeIfExpanded(!expanded), [
@@ -111,10 +111,10 @@ export const Sidebar = (props: SidebarProps) => {
       </ExpandButton>
 
       <Title>
-        {streamingEvents.length > 0 ? (
-          <Trans i18nKey="sidebar.title" count={streamingEvents.length}>
-            <strong>{{ count: streamingEvents.length }}</strong> streaming is on
-            air
+        {streamingContents.length > 0 ? (
+          <Trans i18nKey="sidebar.title" count={streamingContents.length}>
+            <strong>{{ count: streamingContents.length }}</strong> streaming is
+            on air
           </Trans>
         ) : (
           t('sidebar.no_streaming', {
@@ -124,14 +124,14 @@ export const Sidebar = (props: SidebarProps) => {
       </Title>
 
       <List>
-        {unfinishedEvents.length ? (
-          unfinishedEvents.map((event, i) => (
+        {unfinishedContents.length ? (
+          unfinishedContents.map((content, i) => (
             <ListItem
-              key={event.id}
-              aria-setsize={events.length}
+              key={content.id}
+              aria-setsize={contents.length}
               aria-posinset={i + 1}
             >
-              <EventCard event={event} />
+              <ContentCard content={content} />
             </ListItem>
           ))
         ) : (

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { ThemeProvider, styled } from 'client/ui/styles';
+import { ThemeProvider, styled } from 'src/styles';
 import { I18nextProvider } from 'react-i18next';
 import { Switch, Redirect, Route } from 'react-router-dom';
-import { getLocale } from 'client/ui/locales';
-import { theme } from 'client/ui/styles/theme';
-import { Events } from 'client/ui/views/events';
-import { Banner } from 'client/ui/components/banner';
+import { getLocale } from 'src/locales';
+import { theme } from 'src/styles/theme';
+import { Events } from 'src/views/events';
+import { Banner } from 'src/components/banner';
 import { GlobalStyle } from './global-style';
 
 const locale = getLocale();

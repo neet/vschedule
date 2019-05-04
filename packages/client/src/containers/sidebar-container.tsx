@@ -1,8 +1,14 @@
 import React from 'react';
-import { useEvents } from 'client/ui/hooks/use-events';
-import { Sidebar } from 'client/ui/components/sidebar';
+import { Sidebar } from 'src/components/sidebar';
+import { FetchContentsComponent } from 'src/generated/graphql';
 
 export const SidebarContainer = () => {
-  const { events } = useEvents();
-  return <Sidebar events={events} />;
+  return (
+    <FetchContentsComponent>
+      {result => {
+        if (!result.data || !result.data.contents) return null;
+        return <Sidebar contents={result.data.contents} />;
+      }}
+    </FetchContentsComponent>
+  );
 };

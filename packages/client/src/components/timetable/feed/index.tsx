@@ -1,14 +1,14 @@
 import React, { useMemo, useCallback } from 'react';
-import { styled } from 'client/ui/styles';
+import { styled } from 'src/styles';
 import { Marker, MarkerProps } from './marker';
-import { Event } from 'shared/entities/event';
+import { Content } from 'src/generated/graphql';
 import { Dayjs } from 'dayjs';
-import { sortEvents } from 'client/ui/helpers/sort-events';
-import { isOverlapping } from 'client/ui/helpers/is-overlapping';
+import { sortEvents } from 'src/helpers/sort-events';
+import { isOverlapping } from 'src/helpers/is-overlapping';
 import { Omit } from 'type-zoo';
 
 export interface FeedProps {
-  events: Event[];
+  contents: Content[];
   startDate: Dayjs;
 }
 
@@ -26,7 +26,7 @@ const ListItem = styled.li`
 `;
 
 export const Feed = (props: FeedProps) => {
-  const { events, startDate } = props;
+  const { contents, startDate } = props;
 
   /**
    * Calculate the position of markers as a 2-dimentional array.
@@ -35,8 +35,8 @@ export const Feed = (props: FeedProps) => {
    * @param result A 2-dimentional array of events per each row
    */
   const getMarkerPositions = useCallback(
-    (events: Event[], result: Event[][] = []): Event[][] => {
-      if (!events.length) {
+    (contents: Content[], result: Content[][] = []): Content[][] => {
+      if (!contents.length) {
         return result;
       }
 
@@ -44,20 +44,20 @@ export const Feed = (props: FeedProps) => {
       result.push([]);
       const current = result[result.length - 1];
 
-      const rest = events.reduce<Event[]>((rest, event) => {
+      const rest = contents.reduce<Content[]>((rest, content) => {
         if (!current.length) {
-          current.push(event);
+          current.push(content);
           return rest;
         }
 
         const prev = current[current.length - 1];
 
-        if (!isOverlapping(event, prev)) {
-          current.push(event);
+        if (!isOverlapping(content, prev)) {
+          current.push(content);
           return rest;
         }
 
-        rest.push(event);
+        rest.push(content);
         return rest;
       }, []);
 
@@ -69,29 +69,29 @@ export const Feed = (props: FeedProps) => {
   // Map rows and events
   const markers = useMemo(
     () =>
-      getMarkerPositions(events.sort(sortEvents))
+      getMarkerPositions(contents.sort(sortEvents))
         .map((row, i) =>
           row.map(
-            (event): Required<Omit<MarkerProps, 'startDate'>> => ({
-              event,
+            (content): Required<Omit<MarkerProps, 'startDate'>> => ({
+              content,
               row: i,
             }),
           ),
         )
         .flat()
-        .sort((a, b) => sortEvents(a.event, b.event)),
-    [events],
+        .sort((a, b) => sortEvents(a.content, b.content)),
+    [contents],
   );
 
   return (
     <List role="feed">
-      {markers.map(({ event, row }, i) => (
+      {markers.map(({ content, row }, i) => (
         <ListItem
-          key={`${event.id}-${i}`}
-          aria-setsize={events.length}
+          key={`${content.id}-${i}`}
+          aria-setsize={contents.length}
           aria-posinset={i + 1}
         >
-          <Marker event={event} row={row} startDate={startDate} />
+          <Marker content={content} row={row} startDate={startDate} />
         </ListItem>
       ))}
     </List>

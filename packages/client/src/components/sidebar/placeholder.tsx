@@ -1,7 +1,7 @@
 import React from 'react';
-import { styled } from 'client/ui/styles';
-import { Wrapper, Thumbnail, Meta } from 'client/ui/components/event-card';
-import { pulse } from 'client/ui/styles/keyframes';
+import { styled } from 'src/styles';
+import { Wrapper, Thumbnail, Meta } from 'src/components/content-card';
+import { pulse } from 'src/styles/keyframes';
 
 const PlaceholderWrapper = styled.div`
   animation: ${pulse} 1s infinite ease-in-out;

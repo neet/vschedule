@@ -3,5 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0-or-later",
-  "main": "./schema.gql"
+  "main": "./schema.gql",
+  "types": "./index.d.ts"
 }

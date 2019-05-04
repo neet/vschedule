@@ -1,11 +1,11 @@
-import { Event } from 'shared/entities/event';
+import { Content } from 'src/generated/graphql';
 import dayjs from 'dayjs';
 
-export function isOverlapping(eventX: Event, eventY: Event) {
-  const xStartAt = dayjs(eventX.start_date);
-  const xEndAt = dayjs(eventX.end_date);
-  const yStartAt = dayjs(eventY.start_date);
-  const yEndAt = dayjs(eventY.end_date);
+export function isOverlapping(contentX: Content, contentY: Content) {
+  const xStartAt = dayjs(contentX.startDate);
+  const xEndAt = dayjs(contentX.endDate);
+  const yStartAt = dayjs(contentY.startDate);
+  const yEndAt = dayjs(contentY.endDate);
 
   /**
    * Pattern 1:

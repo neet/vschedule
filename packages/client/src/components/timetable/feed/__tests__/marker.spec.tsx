@@ -1,6 +1,6 @@
 import React from 'react';
 import { cleanup, render } from 'react-testing-library';
-import { withTheme } from 'client/ui/test-utils';
+import { withTheme } from 'src/test-utils';
 import { Marker } from '../marker';
 import dayjs from 'dayjs';
 

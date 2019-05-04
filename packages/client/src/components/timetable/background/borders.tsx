@@ -1,7 +1,7 @@
 import React from 'react';
-import { styled } from 'client/ui/styles';
+import { styled } from 'src/styles';
 import { Dayjs } from 'dayjs';
-import { borderGap } from 'client/ui/styles/constants';
+import { borderGap } from 'src/styles/constants';
 
 export interface BordersProps {
   dates: Dayjs[];

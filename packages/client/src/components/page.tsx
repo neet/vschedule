@@ -1,4 +1,4 @@
-import { styled } from 'client/ui/styles';
+import { styled } from 'src/styles';
 
 export const Page = styled.main`
   position: relative;
