@@ -5,6 +5,7 @@ import { promises as fs } from 'fs';
 import { gql, ApolloServer } from 'apollo-server-express';
 import { resolvers } from './resolvers';
 import { dataSources } from './datasources';
+import { APP_PORT } from './config';
 
 const schemaPath = path.resolve(
   __dirname,
@@ -31,5 +32,5 @@ const staticDir = path.resolve(__dirname, '../static');
   // Static files
   app.use('/static', express.static(staticDir));
 
-  app.listen({ port: 3000 });
+  app.listen({ port: APP_PORT });
 })();

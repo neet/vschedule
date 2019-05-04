@@ -4,7 +4,7 @@ import { I18nextProvider } from 'react-i18next';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { getLocale } from 'src/locales';
 import { theme } from 'src/styles/theme';
-import { Events } from 'src/views/events';
+import { Contents } from 'src/views/contents';
 import { Banner } from 'src/components/banner';
 import { GlobalStyle } from './global-style';
 
@@ -27,8 +27,8 @@ export const Root: React.SFC = React.memo(() => {
           <Banner />
 
           <Switch>
-            <Redirect exact from="/" to="/events" />
-            <Route path="/events" component={Events} />
+            <Redirect exact from="/" to="/contents" />
+            <Route path="/contents" component={Contents} />
           </Switch>
 
           <GlobalStyle />

@@ -62,7 +62,7 @@ type LiversResponse = Response<{ liver_relationships: LiverRelationships[] }>;
 type LiverResponse = Response<LiverRelationships>;
 
 export class ItsukaraLinkAPI extends RESTDataSource {
-  public constructor(baseURL = 'https://api.itsukaralink.jp/app') {
+  public constructor(baseURL: string) {
     super();
     this.baseURL = baseURL;
   }

@@ -3,7 +3,7 @@ import { TimetableContainer } from 'src/containers/timetable-container';
 import { SidebarContainer } from 'src/containers/sidebar-container';
 import { Page } from 'src/components/page';
 
-export const Events = React.memo(() => {
+export const Contents = React.memo(() => {
   return (
     <Page>
       <SidebarContainer />

@@ -7,7 +7,6 @@ const WebpackBar = require('webpackbar');
 const TSConfigPathsWebpackPlugin = require('tsconfig-paths-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 
-require('dotenv').config();
 const { env } = process;
 
 const config = (isProd, isDevServer) => ({
@@ -30,14 +29,14 @@ const config = (isProd, isDevServer) => ({
   module: {
     rules: [
       {
-        test: /.(graphql|gql)/,
-        exclude: /node_modules/,
-        use: 'graphql-tag/loader',
-      },
-      {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: 'babel-loader',
+      },
+      {
+        test: /.(graphql|gql)$/,
+        exclude: /node_modules/,
+        use: 'graphql-tag/loader',
       },
       {
         test: /\.(css)$/,
