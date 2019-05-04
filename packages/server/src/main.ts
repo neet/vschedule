@@ -11,7 +11,7 @@ const schemaPath = path.resolve(
   __dirname,
   '../node_modules/@ril/schema/schema.gql',
 );
-const staticDir = path.resolve(__dirname, '../static');
+const staticDir = path.resolve(__dirname, '../node_modules/@ril/client/static');
 
 (async () => {
   const schema = await fs.readFile(schemaPath, 'utf-8').then(gql);
@@ -30,7 +30,15 @@ const staticDir = path.resolve(__dirname, '../static');
   app.options('*', cors());
 
   // Static files
-  app.use('/static', express.static(staticDir));
+  app.use(express.static(staticDir));
+  // Service worker
+  app.use('/sw.js', (_, res) =>
+    res.sendFile(path.resolve(staticDir, 'build/sw.js')),
+  );
+  // SPA
+  app.use('/*', (_, res) =>
+    res.sendFile(path.resolve(staticDir, 'build/index.html')),
+  );
 
   app.listen({ port: APP_PORT });
 })();

@@ -1,14 +1,10 @@
 import React from 'react';
 import { Sidebar } from 'src/components/sidebar';
-import { FetchContentsComponent } from 'src/generated/graphql';
+import { useFetchContentsQuery } from 'src/generated/graphql';
+import { oc } from 'ts-optchain';
 
 export const SidebarContainer = () => {
-  return (
-    <FetchContentsComponent>
-      {result => {
-        if (!result.data || !result.data.contents) return null;
-        return <Sidebar contents={result.data.contents} />;
-      }}
-    </FetchContentsComponent>
-  );
+  const { data, loading } = useFetchContentsQuery();
+
+  return <Sidebar contents={oc(data).contents()} loading={loading} />;
 };

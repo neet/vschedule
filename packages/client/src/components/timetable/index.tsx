@@ -10,7 +10,8 @@ import isMobile from 'ismobilejs';
 import { useNow } from 'src/hooks/use-now';
 
 export interface TimetableProps {
-  contents: Content[];
+  contents?: Content[];
+  loading: boolean;
 }
 
 const Wrapper = styled.div`
@@ -31,7 +32,7 @@ const Wrapper = styled.div`
 `;
 
 export const Timetable = (props: TimetableProps) => {
-  const { contents } = props;
+  const { contents = [], loading } = props;
   const { now } = useNow(1000 * 60);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -84,7 +85,11 @@ export const Timetable = (props: TimetableProps) => {
     };
   });
 
-  if (!contents.length || !startDate || !endDate) {
+  if (!startDate || !endDate) {
+    return null;
+  }
+
+  if (loading) {
     return (
       <Wrapper>
         <Placeholder />

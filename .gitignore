@@ -60,7 +60,7 @@ jspm_packages/
 # next.js build output
 .next
 
-packages/client/static
+packages/client/static/build/
 dist/
 generated/
 !.keep

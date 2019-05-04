@@ -8,7 +8,8 @@ import { EventCardPlaceholders } from './placeholder';
 import { sidebarWidth } from 'src/styles/constants';
 
 export interface SidebarProps {
-  contents: Content[];
+  contents?: Content[];
+  loading: boolean;
 }
 
 interface WrapperProps {
@@ -86,7 +87,7 @@ const ListItem = styled.li`
 `;
 
 export const Sidebar = (props: SidebarProps) => {
-  const { contents } = props;
+  const { contents = [], loading } = props;
   const { t } = useTranslation();
   const [expanded, changeIfExpanded] = useState(false);
 
@@ -124,7 +125,7 @@ export const Sidebar = (props: SidebarProps) => {
       </Title>
 
       <List>
-        {unfinishedContents.length ? (
+        {!loading ? (
           unfinishedContents.map((content, i) => (
             <ListItem
               key={content.id}

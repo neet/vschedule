@@ -22,8 +22,8 @@ const config = (isProd, isDevServer) => ({
   output: {
     filename: isProd ? '[name]-[hash].js' : '[name].js',
     chunkFilename: isProd ? '[name]-[hash].js' : '[name].js',
-    path: path.resolve(__dirname, 'static'),
-    publicPath: '/static',
+    path: path.resolve(__dirname, 'static/build'),
+    publicPath: '/build',
   },
 
   module: {
@@ -49,8 +49,8 @@ const config = (isProd, isDevServer) => ({
             loader: 'file-loader',
             options: {
               name: isProd ? '[name]-[hash].[ext]' : '[name].[ext]',
-              path: path.resolve(__dirname, 'static'),
-              publicPath: '/static',
+              path: path.resolve(__dirname, 'static/build'),
+              publicPath: '/build',
             },
           },
         ],
