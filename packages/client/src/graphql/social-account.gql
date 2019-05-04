@@ -1,7 +1,9 @@
 fragment SocialAccountFields on SocialAccount {
-  __typename
-  id
-  source
+  ...on SocialAccount {
+    __typename
+    id
+    source
+  }
 
   ...on YoutubeChannel {
     channel

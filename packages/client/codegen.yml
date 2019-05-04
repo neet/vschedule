@@ -7,3 +7,6 @@ generates:
       - typescript
       - typescript-operations
       - typescript-react-apollo
+  src/generated/introspection-result.ts:
+      plugins:
+        - fragment-matcher
