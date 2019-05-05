@@ -11,9 +11,9 @@
     "test:prettier": "prettier -c '{client,server}/**/*.{ts,tsx}'",
     "test:stylelint": "stylelint 'client/**/*.{tsx,tsx}'",
     "test:tsc": "tsc -p ./client",
-    "build": "lerna run build",
-    "start": "lerna run start --scope @ril/server",
-    "manage:translations": "lerna run manage:translations"
+    "build": "lerna run build --stream",
+    "start": "lerna run start --scope @ril/server --stream",
+    "manage:translations": "lerna run manage:translations --stream"
   },
   "husky": {
     "hooks": {

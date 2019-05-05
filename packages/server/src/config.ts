@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 dotenv.config({ path: '../../.env' });
 
 export const APP_HOST = process.env.APP_HOST as string;
