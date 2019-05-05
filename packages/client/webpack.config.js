@@ -7,7 +7,7 @@ const TSConfigPathsWebpackPlugin = require('tsconfig-paths-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 const dotenv = require('dotenv');
 
-dotenv.config({ path: '../../.env' });
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 module.exports = (command, argv) => {
   const isProd = argv.mode === 'production';
@@ -115,9 +115,10 @@ module.exports = (command, argv) => {
       overlay: true,
       contentBase: path.resolve(__dirname, 'static'),
       disableHostCheck: true,
-      historyApiFallback: true,
+      historyApiFallback: {
+        index: '/build/index.html'
+      },
       hot: true,
-      index: 'index.html',
       inline: true,
       open: true,
       port: 8080,
@@ -127,9 +128,9 @@ module.exports = (command, argv) => {
       },
       proxy: [
         {
-          // Proxy everything but index.html (/)
-          context: ['**', '!/'],
-          target: 'http://localhost:3000',
+          // Proxy GraphQL endpoints
+          context: ['/graphql'],
+          target: `${process.env.APP_PROTOCOL}://${process.env.APP_HOST}:${process.env.APP_PORT}/graphql`,
         },
       ],
     },

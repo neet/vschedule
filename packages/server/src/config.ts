@@ -1,5 +1,7 @@
 import * as dotenv from 'dotenv';
-dotenv.config({ path: '../../.env' });
+import * as path from 'path';
+
+dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
 export const APP_HOST = process.env.APP_HOST as string;
 export const APP_PORT = Number(process.env.APP_PORT as string);
