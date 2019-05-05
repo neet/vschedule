@@ -3,14 +3,13 @@ const path = require('path');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackBar = require('webpackbar');
 const TSConfigPathsWebpackPlugin = require('tsconfig-paths-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 const dotenv = require('dotenv');
 
 dotenv.config({ path: '../../.env' });
 
-module.export = (command, argv) => {
+module.exports = (command, argv) => {
   const isProd = argv.mode === 'production';
 
   return {
@@ -109,8 +108,6 @@ module.export = (command, argv) => {
         title: 'Refined itsukara.link',
         alwaysNotify: true,
       }),
-
-      new WebpackBar(),
     ],
 
     devServer: {

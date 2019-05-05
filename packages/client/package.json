@@ -70,8 +70,7 @@
     "use-react-router": "^1.0.5",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1",
-    "webpack-notifier": "^1.7.0",
-    "webpackbar": "^3.2.0"
+    "webpack-notifier": "^1.7.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.1.3",
