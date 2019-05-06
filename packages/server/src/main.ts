@@ -14,6 +14,7 @@ const schemaPath = path.resolve(
 const staticDir = path.resolve(__dirname, '../node_modules/@ril/client/static');
 
 (async () => {
+  // tslint:disable-next-line:non-literal-fs-path
   const schema = await fs.readFile(schemaPath, 'utf-8').then(gql);
 
   const server = new ApolloServer({

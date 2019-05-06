@@ -89,8 +89,9 @@ export const ContentCard = (props: ContentCardProps) => {
 
   const videoId = querystring.parse(content.url.split('?')[1]).v as string;
   const thumbnailImageUrl = getThumbnailImageUrl(videoId);
-  const textForScreenReader =
-    content.name + ' ' + content.source.name + ' ' + content.description;
+  const textForScreenReader = `${content.name} ${content.source.name} ${
+    content.description
+  }`;
 
   return (
     <Wrapper

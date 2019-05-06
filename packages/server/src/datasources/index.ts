@@ -1,4 +1,4 @@
-import { RESOURCE_HOST, RESOURCE_PROTOCOL } from '../config';
+import { RESOURCE_HOST, RESOURCE_PROTOCOL } from 'src/config';
 import { ItsukaraLinkAPI } from './itsukara-link';
 
 export const dataSources = () => ({

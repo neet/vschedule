@@ -4,7 +4,7 @@ import {
   Source,
   TwitterAccount,
   YoutubeChannel,
-} from '../generated/graphql';
+} from 'src/generated/graphql';
 
 export interface Response<Data = any> {
   status: 'ok';
@@ -61,6 +61,7 @@ type EventResponse = Response<{ event: Event }>;
 type LiversResponse = Response<{ liver_relationships: LiverRelationships[] }>;
 type LiverResponse = Response<LiverRelationships>;
 
+// tslint:disable-next-line:completed-docs
 export class ItsukaraLinkAPI extends RESTDataSource {
   public constructor(baseURL: string) {
     super();

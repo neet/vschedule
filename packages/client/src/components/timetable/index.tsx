@@ -64,14 +64,14 @@ export const Timetable = (props: TimetableProps) => {
   );
 
   useEffect(() => {
-    if (!ref.current === null || !startDate === undefined) return;
+    if (!ref.current || !startDate) return;
 
     const fromNowToStart = now.diff(startDate, 'minute');
     const screenWidth = window.innerWidth;
-    const x = (borderGap / 30) * fromNowToStart - screenWidth / 2;
+    let x = (borderGap / 30) * fromNowToStart - screenWidth / 2;
 
     if (screenWidth < 700) {
-      x - sidebarWidth;
+      x -= sidebarWidth;
     }
 
     ref.current.scrollTo(x, 0);

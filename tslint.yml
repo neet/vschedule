@@ -12,6 +12,8 @@ linterOptions:
     - '**/node_modules/**'
     - '**/dist/**'
     - '**/static/**'
+    - '**/generated/**'
+    - '**/*.spec.{ts,tsx}'
     - '**/*.d.ts'
 
 rules:
