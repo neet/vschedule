@@ -36,7 +36,7 @@ export const Feed = (props: FeedProps) => {
    */
   const getMarkerPositions = useCallback(
     (sortedContents: Content[], result: Content[][] = []): Content[][] => {
-      if (sortedContents.length <= 0) {
+      if (!sortedContents.length) {
         return result;
       }
 
@@ -44,8 +44,8 @@ export const Feed = (props: FeedProps) => {
       result.push([]);
       const current = result[result.length - 1];
 
-      const rest = contents.reduce<Content[]>((restContents, content) => {
-        if (sortedContents.length <= 0) {
+      const rest = sortedContents.reduce<Content[]>((restContents, content) => {
+        if (!current.length) {
           current.push(content);
 
           return restContents;
