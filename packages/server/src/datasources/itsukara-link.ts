@@ -2,8 +2,8 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 import {
   Content,
   Source,
-  YoutubeChannel,
   TwitterAccount,
+  YoutubeChannel,
 } from '../generated/graphql';
 
 export interface Response<Data = any> {
@@ -130,11 +130,13 @@ export class ItsukaraLinkAPI extends RESTDataSource {
 
   public fetchContents = async () => {
     const res = await this.get<EventsResponse>('events.json');
+
     return res.data.events.map(this.reduceContent);
   };
 
   public fetchContent = async (id: string) => {
     const res = await this.get<EventResponse>(`events/${id}.json`);
+
     return this.reduceContent(res.data.event);
   };
 

@@ -7,9 +7,9 @@
   "scripts": {
     "test": "run-s test:*",
     "test:jest": "jest --coverage",
-    "test:eslint": "eslint '{client,server}/**/*.{ts,tsx}'",
-    "test:prettier": "prettier -c '{client,server}/**/*.{ts,tsx}'",
-    "test:stylelint": "stylelint 'client/**/*.{tsx,tsx}'",
+    "test:tslint": "tslint -c tslint.yml 'packages/**/*.{ts,tsx}'",
+    "test:prettier": "prettier -c 'packages/**/*.{ts,tsx}'",
+    "test:stylelint": "stylelint 'packages/**/*.{tsx,tsx}'",
     "test:tsc": "tsc -p ./client",
     "build": "lerna run build --stream",
     "start": "lerna run start --scope @ril/server --stream",
@@ -23,7 +23,7 @@
   "lint-staged": {
     "linters": {
       "*.{ts,tsx}": [
-        "eslint --fix",
+        "tslint --fix",
         "prettier --write",
         "stylelint",
         "git add"
@@ -35,26 +35,21 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
-    "@typescript-eslint/eslint-plugin": "^1.4.2",
-    "@typescript-eslint/parser": "^1.4.2",
     "coveralls": "^3.0.3",
-    "eslint": "^5.14.1",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4",
     "husky": "^2.1.0",
     "jest": "^24.5.0",
-    "jest-fetch-mock": "^2.1.1",
-    "jest-styled-components": "^6.3.1",
     "lint-staged": "^8.1.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.16.4",
-    "react-testing-library": "^7.0.0",
     "stylelint": "^10.0.1",
     "stylelint-config-property-sort-order-smacss": "^4.0.2",
     "stylelint-config-recommended": "^2.1.0",
     "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-processor-styled-components": "^1.5.2"
+    "stylelint-processor-styled-components": "^1.5.2",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-microsoft-contrib": "^6.1.1",
+    "tslint-react": "^4.0.0",
+    "typescript": "^3.4.5"
   }
 }

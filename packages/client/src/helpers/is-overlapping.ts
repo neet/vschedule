@@ -1,5 +1,5 @@
-import { Content } from 'src/generated/graphql';
 import dayjs from 'dayjs';
+import { Content } from 'src/generated/graphql';
 
 export function isOverlapping(contentX: Content, contentY: Content) {
   const xStartAt = dayjs(contentX.startDate);

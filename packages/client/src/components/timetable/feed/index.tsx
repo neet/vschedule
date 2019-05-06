@@ -1,11 +1,11 @@
-import React, { useMemo, useCallback } from 'react';
-import { styled } from 'src/styles';
-import { Marker, MarkerProps } from './marker';
-import { Content } from 'src/generated/graphql';
 import { Dayjs } from 'dayjs';
-import { sortEvents } from 'src/helpers/sort-events';
+import React, { useCallback, useMemo } from 'react';
+import { Content } from 'src/generated/graphql';
 import { isOverlapping } from 'src/helpers/is-overlapping';
+import { sortEvents } from 'src/helpers/sort-events';
+import { styled } from 'src/styles';
 import { Omit } from 'type-zoo';
+import { Marker, MarkerProps } from './marker';
 
 export interface FeedProps {
   contents: Content[];
@@ -35,8 +35,8 @@ export const Feed = (props: FeedProps) => {
    * @param result A 2-dimentional array of events per each row
    */
   const getMarkerPositions = useCallback(
-    (contents: Content[], result: Content[][] = []): Content[][] => {
-      if (!contents.length) {
+    (sortedContents: Content[], result: Content[][] = []): Content[][] => {
+      if (sortedContents.length <= 0) {
         return result;
       }
 
@@ -44,21 +44,24 @@ export const Feed = (props: FeedProps) => {
       result.push([]);
       const current = result[result.length - 1];
 
-      const rest = contents.reduce<Content[]>((rest, content) => {
-        if (!current.length) {
+      const rest = contents.reduce<Content[]>((restContents, content) => {
+        if (sortedContents.length <= 0) {
           current.push(content);
-          return rest;
+
+          return restContents;
         }
 
         const prev = current[current.length - 1];
 
         if (!isOverlapping(content, prev)) {
           current.push(content);
-          return rest;
+
+          return restContents;
         }
 
-        rest.push(content);
-        return rest;
+        restContents.push(content);
+
+        return restContents;
       }, []);
 
       return getMarkerPositions(rest, result);

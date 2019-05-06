@@ -18,31 +18,37 @@ export const resolvers: Resolvers = {
   Source: {
     latinName: async (source, _, { dataSources }) => {
       const data = await dataSources.itsukaraLink.fetchSource(source.id);
+
       return data.latinName;
     },
 
     ruby: async (source, _, { dataSources }) => {
       const data = await dataSources.itsukaraLink.fetchSource(source.id);
+
       return data.ruby;
     },
 
     description: async (source, _, { dataSources }) => {
       const data = await dataSources.itsukaraLink.fetchSource(source.id);
+
       return data.description;
     },
 
     public: async (source, _, { dataSources }) => {
       const data = await dataSources.itsukaraLink.fetchSource(source.id);
+
       return data.public;
     },
 
     position: async (source, _, { dataSources }) => {
       const data = await dataSources.itsukaraLink.fetchSource(source.id);
+
       return data.position;
     },
 
     socialAccounts: async (source, _, { dataSources }) => {
       const data = await dataSources.itsukaraLink.fetchSource(source.id);
+
       return data.socialAccounts;
     },
   },

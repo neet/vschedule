@@ -1,6 +1,6 @@
 import React from 'react';
-import { useInterval } from '../use-interval';
 import { render } from 'react-testing-library';
+import { useInterval } from '../use-interval';
 
 jest.useFakeTimers();
 
@@ -9,6 +9,7 @@ test('run callback after {delay}ms', () => {
 
   const Component = () => {
     useInterval(fn, 1000);
+
     return <div />;
   };
 

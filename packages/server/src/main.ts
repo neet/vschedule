@@ -1,11 +1,11 @@
-import * as express from 'express';
+import { ApolloServer, gql } from 'apollo-server-express';
 import * as cors from 'cors';
-import * as path from 'path';
+import * as express from 'express';
 import { promises as fs } from 'fs';
-import { gql, ApolloServer } from 'apollo-server-express';
-import { resolvers } from './resolvers';
-import { dataSources } from './datasources';
+import * as path from 'path';
 import { APP_PORT } from './config';
+import { dataSources } from './datasources';
+import { resolvers } from './resolvers';
 
 const schemaPath = path.resolve(
   __dirname,

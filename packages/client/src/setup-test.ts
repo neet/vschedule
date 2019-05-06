@@ -13,6 +13,7 @@ customGlobal.fetchMock = customGlobal.fetch;
 jest.mock('react-i18next', () => ({
   withNamespaces: () => (Component: React.ComponentType) => {
     Component.defaultProps = { ...Component.defaultProps, t: () => '' };
+
     return Component;
   },
 }));

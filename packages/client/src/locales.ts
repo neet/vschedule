@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
 import 'dayjs/locale/ja';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import en from 'src/locales/en/translation.json';

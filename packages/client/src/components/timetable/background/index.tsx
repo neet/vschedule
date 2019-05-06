@@ -1,10 +1,10 @@
+import dayjs, { Dayjs } from 'dayjs';
+import { parseToRgb } from 'polished';
 import React, { useMemo } from 'react';
 import { styled } from 'src/styles';
 import { Borders } from './borders';
 import { Header } from './header';
 import { MinuteHand } from './minute-hand';
-import dayjs, { Dayjs } from 'dayjs';
-import { parseToRgb } from 'polished';
 
 export interface BackgroundProps {
   now: Dayjs;
@@ -30,6 +30,7 @@ const Fade = styled.div`
   height: 100%;
   background-image: ${({ theme }) => {
     const { red, blue, green } = parseToRgb(theme.backgroundNormal);
+
     return `linear-gradient(90deg, rgba(${red}, ${blue}, ${green}, 0%) 0%, rgba(${red}, ${blue}, ${green}, 100%) 100%)`;
   }};
 

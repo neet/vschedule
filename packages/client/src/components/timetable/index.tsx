@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useMemo, useCallback } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
+import isMobile from 'ismobilejs';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Content } from 'src/generated/graphql';
+import { useNow } from 'src/hooks/use-now';
 import { styled } from 'src/styles';
-import { Background } from './background';
 import { borderGap, sidebarWidth } from 'src/styles/constants';
+import { Background } from './background';
 import { Feed } from './feed';
 import { Placeholder } from './placeholder';
-import isMobile from 'ismobilejs';
-import { useNow } from 'src/hooks/use-now';
 
 export interface TimetableProps {
   contents?: Content[];
@@ -46,6 +46,7 @@ export const Timetable = (props: TimetableProps) => {
       contents.reduce<Dayjs | undefined>((result, content) => {
         const date = dayjs(content.startDate);
         if (!result || date.isBefore(result)) return date;
+
         return result;
       }, undefined),
     [contents],
@@ -56,17 +57,18 @@ export const Timetable = (props: TimetableProps) => {
       contents.reduce<Dayjs | undefined>((result, content) => {
         const date = dayjs(content.endDate);
         if (!result || date.isAfter(result)) return date;
+
         return result;
       }, undefined),
     [contents],
   );
 
   useEffect(() => {
-    if (!ref.current || !startDate) return;
+    if (!ref.current === null || !startDate === undefined) return;
 
     const fromNowToStart = now.diff(startDate, 'minute');
     const screenWidth = window.innerWidth;
-    let x = (borderGap / 30) * fromNowToStart - screenWidth / 2;
+    const x = (borderGap / 30) * fromNowToStart - screenWidth / 2;
 
     if (screenWidth < 700) {
       x - sidebarWidth;

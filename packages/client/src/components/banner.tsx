@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { styled } from 'src/styles';
-import { useTranslation } from 'react-i18next';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { bannerHeight } from 'src/styles/constants';
+import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import logoLarge from 'src/assets/logo-large.png';
 import logoSmall from 'src/assets/logo-small.png';
-import { Link } from 'react-router-dom';
+import { styled } from 'src/styles';
+import { bannerHeight } from 'src/styles/constants';
 
 const Wrapper = styled.header`
   display: flex;
@@ -122,6 +122,7 @@ export const Banner = React.memo(() => {
           <Icon icon={faTwitter} />
         </a>
 
+        {/* tslint:disable:react-a11y-anchors */}
         <a
           href="https://github.com/neet/refined-itsukara-link"
           target="__blank"
@@ -131,6 +132,7 @@ export const Banner = React.memo(() => {
         >
           <Icon icon={faGithub} />
         </a>
+        {/* tslint:enable:react-a11y-anchors */}
 
         <OriginalLink
           href="https://www.itsukaralink.jp"

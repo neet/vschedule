@@ -1,6 +1,6 @@
 import React from 'react';
+import { Meta, Thumbnail, Wrapper } from 'src/components/content-card';
 import { styled } from 'src/styles';
-import { Wrapper, Thumbnail, Meta } from 'src/components/content-card';
 import { pulse } from 'src/styles/keyframes';
 
 const PlaceholderWrapper = styled.div`

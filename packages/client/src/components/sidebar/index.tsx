@@ -1,11 +1,11 @@
-import React, { useState, useCallback } from 'react';
 import dayjs from 'dayjs';
+import React, { useCallback, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { styled } from 'src/styles';
-import { Content } from 'src/generated/graphql';
 import { ContentCard } from 'src/components/content-card';
-import { EventCardPlaceholders } from './placeholder';
+import { Content } from 'src/generated/graphql';
+import { styled } from 'src/styles';
 import { sidebarWidth } from 'src/styles/constants';
+import { EventCardPlaceholders } from './placeholder';
 
 export interface SidebarProps {
   contents?: Content[];
@@ -101,9 +101,9 @@ export const Sidebar = (props: SidebarProps) => {
       dayjs(content.endDate).isAfter(dayjs()),
   );
 
-  const toggleIfExpanded = useCallback(() => changeIfExpanded(!expanded), [
-    expanded,
-  ]);
+  const toggleIfExpanded = useCallback(() => {
+    changeIfExpanded(!expanded);
+  }, [expanded]);
 
   return (
     <Wrapper id="sidebar" expanded={expanded} aria-expanded={expanded}>

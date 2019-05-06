@@ -1,18 +1,18 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { ApolloClient } from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
+import typeDefs from '@ril/schema/schema.gql';
 import {
   InMemoryCache,
   IntrospectionFragmentMatcher,
 } from 'apollo-cache-inmemory';
+import { ApolloClient } from 'apollo-client';
+import { HttpLink } from 'apollo-link-http';
+import * as OfflinePluginRuntime from 'offline-plugin/runtime';
+import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
-import { Root } from './views/root';
+import * as ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import * as OfflinePluginRuntime from 'offline-plugin/runtime';
-import typeDefs from '@ril/schema/schema.gql';
 import introspectionResult from 'src/generated/introspection-result';
+import { Root } from './views/root';
 
 (async () => {
   if (process.env.NODE_ENV === 'production') {

@@ -1,6 +1,6 @@
+import { Dayjs } from 'dayjs';
 import React from 'react';
 import { styled } from 'src/styles';
-import { Dayjs } from 'dayjs';
 import { borderGap } from 'src/styles/constants';
 
 export interface BordersProps {

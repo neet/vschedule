@@ -1,8 +1,8 @@
+import dayjs from 'dayjs';
 import React from 'react';
 import { cleanup, render } from 'react-testing-library';
 import { withTheme } from 'src/test-utils';
 import { Marker } from '../marker';
-import dayjs from 'dayjs';
 
 const event = {
   id: 1069,

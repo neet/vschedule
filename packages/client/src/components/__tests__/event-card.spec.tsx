@@ -1,7 +1,7 @@
 import React from 'react';
 import { cleanup, render } from 'react-testing-library';
+import { ContentCard } from 'src/components/content-card';
 import { withTheme } from 'src/test-utils';
-import { ContentCard } from '../content-card';
 
 const content = {
   id: '1069',

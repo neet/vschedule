@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { ThemeProvider, styled } from 'src/styles';
 import { I18nextProvider } from 'react-i18next';
-import { Switch, Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { Banner } from 'src/components/banner';
 import { getLocale } from 'src/locales';
+import { styled, ThemeProvider } from 'src/styles';
 import { theme } from 'src/styles/theme';
 import { Contents } from 'src/views/contents';
-import { Banner } from 'src/components/banner';
 import { GlobalStyle } from './global-style';
 
 const locale = getLocale();

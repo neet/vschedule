@@ -1,9 +1,9 @@
-import React, { useMemo, useCallback } from 'react';
-import { Content } from 'src/generated/graphql';
-import { styled } from 'src/styles';
 import dayjs, { Dayjs } from 'dayjs';
 import { opacify, parseToRgb } from 'polished';
-import { markerGap, borderGap } from 'src/styles/constants';
+import React, { useCallback, useMemo } from 'react';
+import { Content } from 'src/generated/graphql';
+import { styled } from 'src/styles';
+import { borderGap, markerGap } from 'src/styles/constants';
 
 export interface MarkerProps {
   content: Content;
@@ -70,6 +70,7 @@ export const Marker = (props: MarkerProps) => {
 
   const convertMinuteToPixel = useCallback((minute: number) => {
     const pixelPerMinute = borderGap / 30;
+
     return minute * pixelPerMinute;
   }, []);
 
@@ -77,8 +78,8 @@ export const Marker = (props: MarkerProps) => {
   const x =
     convertMinuteToPixel(startDate.diff(basisDate, 'minute')) + markerGap / 2;
 
-  // Fixme: Using constant of avatar height + padding which is fragile
-  const y = (50 + markerGap) * row;
+  // Avatar height + padding
+  const y = (markerGap + 50) * row;
 
   const width =
     convertMinuteToPixel(endDate.diff(startDate, 'minute')) - markerGap;
@@ -86,6 +87,7 @@ export const Marker = (props: MarkerProps) => {
   const isLight = useMemo(() => {
     // Calc color brightness difference
     const { red, green, blue } = parseToRgb(content.source.color);
+
     return red * 0.299 + green * 0.587 + blue * 0.114 > 186;
   }, [event]);
 
