@@ -3,8 +3,7 @@
   "compilerOptions": {
     "target": "es6",
     "baseUrl": ".",
-    "outDir": "./dist",
-    "declaration": false,
+    "noEmit": true,
     "paths": {
       "src/*": ["./src/*"]
     }

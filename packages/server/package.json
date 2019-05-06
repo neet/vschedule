@@ -6,8 +6,7 @@
   "main": "dist/app.js",
   "scripts": {
     "postinstall": "graphql-codegen --config codegen.yml",
-    "build": "tsc -p ./",
-    "start": "node -r tsconfig-paths/register dist/main.js"
+    "start": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/main.ts"
   },
   "dependencies": {
     "@graphql-codegen/cli": "^1.1.3",
@@ -19,7 +18,6 @@
     "@types/dotenv": "^6.1.1",
     "@types/graphql": "^14.2.0",
     "@types/node": "^11.13.8",
-    "@types/node-fetch": "^2.3.3",
     "apollo": "^2.9.0",
     "apollo-datasource": "^0.3.1",
     "apollo-datasource-rest": "^0.3.2",
@@ -30,7 +28,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
     "graphql": "^14.2.1",
-    "node-fetch": "^2.4.1",
+    "ts-node": "^8.1.0",
     "tsconfig-paths": "^3.8.0"
   }
 }
