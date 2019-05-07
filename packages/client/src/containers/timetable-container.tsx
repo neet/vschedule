@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Timetable } from 'src/components/timetable';
 import { useFetchContentsQuery } from 'src/generated/graphql';
 import { oc } from 'ts-optchain';

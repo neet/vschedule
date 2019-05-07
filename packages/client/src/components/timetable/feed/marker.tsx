@@ -1,6 +1,8 @@
-import dayjs, { Dayjs } from 'dayjs';
+import * as dayjs from 'dayjs';
 import { opacify, parseToRgb } from 'polished';
-import React, { useCallback, useMemo } from 'react';
+import * as React from 'react';
+// tslint:disable-next-line:no-duplicate-imports
+import { useCallback, useMemo } from 'react';
 import { Content } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { borderGap, markerGap } from 'src/styles/constants';
@@ -8,7 +10,7 @@ import { borderGap, markerGap } from 'src/styles/constants';
 export interface MarkerProps {
   content: Content;
   row: number;
-  startDate: Dayjs;
+  startDate: dayjs.Dayjs;
 }
 
 interface WrapperProps {
@@ -89,7 +91,7 @@ export const Marker = (props: MarkerProps) => {
     const { red, green, blue } = parseToRgb(content.source.color);
 
     return red * 0.299 + green * 0.587 + blue * 0.114 > 186;
-  }, [event]);
+  }, [content]);
 
   return (
     <Wrapper

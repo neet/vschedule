@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from 'dayjs';
+import * as dayjs from 'dayjs';
 import isMobile from 'ismobilejs';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Content } from 'src/generated/graphql';
@@ -43,7 +43,7 @@ export const Timetable = (props: TimetableProps) => {
 
   const startDate = useMemo(
     () =>
-      contents.reduce<Dayjs | undefined>((result, content) => {
+      contents.reduce<dayjs.Dayjs | undefined>((result, content) => {
         const date = dayjs(content.startDate);
         if (!result || date.isBefore(result)) return date;
 
@@ -54,7 +54,7 @@ export const Timetable = (props: TimetableProps) => {
 
   const endDate = useMemo(
     () =>
-      contents.reduce<Dayjs | undefined>((result, content) => {
+      contents.reduce<dayjs.Dayjs | undefined>((result, content) => {
         const date = dayjs(content.endDate);
         if (!result || date.isAfter(result)) return date;
 

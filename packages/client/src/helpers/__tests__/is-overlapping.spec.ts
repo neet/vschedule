@@ -1,4 +1,4 @@
-import { Content } from 'src/generated/graphql';
+import { Content } from '../../generated/graphql';
 import { isOverlapping } from '../is-overlapping';
 
 test('pattern 1', () => {

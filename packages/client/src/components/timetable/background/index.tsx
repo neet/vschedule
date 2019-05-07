@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from 'dayjs';
+import * as dayjs from 'dayjs';
 import { parseToRgb } from 'polished';
 import React, { useMemo } from 'react';
 import { styled } from 'src/styles';
@@ -7,9 +7,9 @@ import { Header } from './header';
 import { MinuteHand } from './minute-hand';
 
 export interface BackgroundProps {
-  now: Dayjs;
-  startDate: Dayjs;
-  endDate: Dayjs;
+  now: dayjs.Dayjs;
+  startDate: dayjs.Dayjs;
+  endDate: dayjs.Dayjs;
 }
 
 const Wrapper = styled.div`

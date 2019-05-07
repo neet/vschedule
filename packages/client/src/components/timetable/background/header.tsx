@@ -1,12 +1,12 @@
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import dayjs, { Dayjs } from 'dayjs';
-import React from 'react';
+import * as dayjs from 'dayjs';
+import * as React from 'react';
 import { styled } from 'src/styles';
 import { borderGap } from 'src/styles/constants';
 
 export interface HeaderProps {
-  dates: Dayjs[];
+  dates: dayjs.Dayjs[];
 }
 
 interface DatePosition {
@@ -65,7 +65,9 @@ export const Header = (props: HeaderProps) => {
       .hour(0)
       .valueOf();
 
-    const prev = result.findIndex(resultDate => resultDate.date === roundedDate);
+    const prev = result.findIndex(
+      resultDate => resultDate.date === roundedDate,
+    );
 
     if (prev === -1) {
       result.push({

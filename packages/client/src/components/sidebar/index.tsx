@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 import React, { useCallback, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { ContentCard } from 'src/components/content-card';

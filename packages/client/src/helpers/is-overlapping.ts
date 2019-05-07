@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 import { Content } from 'src/generated/graphql';
 
 export function isOverlapping(contentX: Content, contentY: Content) {

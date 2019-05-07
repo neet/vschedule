@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { render } from 'react-testing-library';
 import { useInterval } from '../use-interval';
 import { useNow } from '../use-now';

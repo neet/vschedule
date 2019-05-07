@@ -1,5 +1,5 @@
 import { Dayjs } from 'dayjs';
-import React from 'react';
+import * as React from 'react';
 import { styled } from 'src/styles';
 import { borderGap } from 'src/styles/constants';
 

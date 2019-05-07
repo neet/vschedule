@@ -1,4 +1,4 @@
-import { normalizeLanguageForDayjs } from 'src/locales';
+import { normalizeLanguageForDayjs } from '../locales';
 
 test('normalizes language code when the language is not available on dayjs', () => {
   const result = normalizeLanguageForDayjs('ja-JP');

@@ -7,11 +7,8 @@ import { APP_PORT } from './config';
 import { dataSources } from './datasources';
 import { resolvers } from './resolvers';
 
-const schemaPath = path.resolve(
-  __dirname,
-  '../node_modules/@ril/schema/schema.gql',
-);
-const staticDir = path.resolve(__dirname, '../node_modules/@ril/client/static');
+const schemaPath = require.resolve('@ril/schema/schema.gql');
+const staticDir = require.resolve('@ril/client/static');
 
 (async () => {
   // tslint:disable-next-line:non-literal-fs-path

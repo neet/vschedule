@@ -1,5 +1,5 @@
-import { Content } from 'src/generated/graphql';
-import { sortEvents } from 'src/helpers/sort-events';
+import { Content } from '../../generated/graphql';
+import { sortEvents } from '../../helpers/sort-events';
 
 test('return 1 if 1st is later than 2nd', () => {
   const result = sortEvents(
