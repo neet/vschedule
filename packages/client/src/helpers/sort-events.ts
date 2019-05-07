@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { Content } from 'src/generated/graphql';
 
 export function sortEvents(contentX: Content, contentY: Content) {

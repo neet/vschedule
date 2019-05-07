@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { parseToRgb } from 'polished';
 import React, { useMemo } from 'react';
 import { styled } from 'src/styles';

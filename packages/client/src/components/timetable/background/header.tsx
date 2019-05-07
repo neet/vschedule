@@ -1,7 +1,7 @@
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as dayjs from 'dayjs';
-import * as React from 'react';
+import dayjs from 'dayjs';
+import React from 'react';
 import { styled } from 'src/styles';
 import { borderGap } from 'src/styles/constants';
 

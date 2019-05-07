@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Banner } from 'src/components/banner';

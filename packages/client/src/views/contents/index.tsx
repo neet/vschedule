@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Page } from 'src/components/page';
 import { SidebarContainer } from 'src/containers/sidebar-container';
 import { TimetableContainer } from 'src/containers/timetable-container';

@@ -5,11 +5,11 @@ import {
 } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
-import * as OfflinePluginRuntime from 'offline-plugin/runtime';
-import * as React from 'react';
+import OfflinePluginRuntime from 'offline-plugin/runtime';
+import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
-import * as ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import introspectionResult from 'src/generated/introspection-result';
 import { Root } from './views/root';

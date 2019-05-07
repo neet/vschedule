@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import isMobile from 'ismobilejs';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Content } from 'src/generated/graphql';

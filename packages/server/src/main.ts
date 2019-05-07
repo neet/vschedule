@@ -1,16 +1,16 @@
 import { ApolloServer, gql } from 'apollo-server-express';
-import * as cors from 'cors';
-import * as express from 'express';
+import cors from 'cors';
+import express from 'express';
 import { promises as fs } from 'fs';
-import * as path from 'path';
+import path from 'path';
 import { APP_PORT } from './config';
 import { dataSources } from './datasources';
 import { resolvers } from './resolvers';
 
-const schemaPath = require.resolve('@ril/schema/schema.gql');
-const staticDir = require.resolve('@ril/client/static');
-
 (async () => {
+  const schemaPath = require.resolve('@ril/schema');
+  const staticDir = path.resolve(require.resolve('@ril/client'), '..');
+
   // tslint:disable-next-line:non-literal-fs-path
   const schema = await fs.readFile(schemaPath, 'utf-8').then(gql);
 

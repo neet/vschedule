@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useInterval } from './use-interval';
 

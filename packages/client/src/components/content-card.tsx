@@ -1,6 +1,6 @@
-import * as dayjs from 'dayjs';
-import * as querystring from 'querystring';
-import * as React from 'react';
+import dayjs from 'dayjs';
+import querystring from 'querystring';
+import React from 'react';
 import { Content } from 'src/generated/graphql';
 import { getThumbnailImageUrl } from 'src/helpers/get-thumbnail-image-url';
 import { useNow } from 'src/hooks/use-now';

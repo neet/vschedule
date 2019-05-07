@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { ThemeProvider } from 'src/styles';
 import { theme as defaultTheme } from 'src/styles/theme';
 

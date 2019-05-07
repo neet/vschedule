@@ -1,7 +1,7 @@
 import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as React from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import logoLarge from 'src/assets/logo-large.png';

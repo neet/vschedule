@@ -1,8 +1,6 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { opacify, parseToRgb } from 'polished';
-import * as React from 'react';
-// tslint:disable-next-line:no-duplicate-imports
-import { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Content } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { borderGap, markerGap } from 'src/styles/constants';
