@@ -3,7 +3,7 @@ import ja from '@ril/locales/ja/translation.json';
 import i18next from 'i18next';
 import i18nextMiddleware from 'i18next-express-middleware';
 
-export const getLocale = () => {
+export const getI18n = () => {
   i18next.use(i18nextMiddleware.LanguageDetector).init({
     resources: {
       en: { translation: en },

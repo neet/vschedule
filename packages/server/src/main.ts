@@ -9,7 +9,7 @@ import path from 'path';
 import { BIND_PORT } from './config';
 import { dataSources } from './datasources';
 import { resolvers } from './resolvers';
-import { getLocale } from './utils/locale';
+import { getI18n } from './utils/locale';
 
 (async () => {
   const schemaPath = require.resolve('@ril/schema');
@@ -37,7 +37,7 @@ import { getLocale } from './utils/locale';
   app.options('*', cors());
 
   // I18next
-  app.use(i18nextMiddleware.handle(getLocale()));
+  app.use(i18nextMiddleware.handle(getI18n()));
 
   // Static files
   app.use(express.static(staticPath));
