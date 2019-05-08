@@ -1,11 +1,10 @@
 # Contributing
 ## Dependencies
 - Node.js >= 10
-- Yarn
 
 ## Installation
 ```
-yarn
+npm install & ./node_modules/.bin/lerna bootstrap
 ```
 
 ## Build
@@ -16,24 +15,18 @@ cp .env.exmaple .env
 
 Watch changes:
 ```
-yarn run watch
-yarn run start
+npm run watch
+npm run start
 ```
 
 Production build:
 ```
-yarn run build
-yarn start
-```
-
-### Alternative Way (Docker)
-```
-docker build . -t refined-itsukara-link:latest
-dokcer run -d --env-file=.env refined-itsukara-link:latest
+npm run build
+npm run start
 ```
 
 ## i18n
 Follow base locale:
 ```
-yarn run manage:translations
+npm run manage:translations
 ```
