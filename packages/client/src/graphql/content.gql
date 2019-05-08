@@ -14,8 +14,22 @@ fragment ContentFields on Content {
   }
 }
 
+fragment PartialContentFields on Content {
+  id
+  name
+  description
+  public
+  url
+  startDate
+  endDate
+  recommend
+  source {
+    ...PartialSourceFields
+  }
+}
+
 query fetchContents {
   contents {
-    ...ContentFields
+    ...PartialContentFields
   }
 }

@@ -14,3 +14,10 @@ fragment SourceFields on Source {
     ...SocialAccountFields
   }
 }
+
+fragment PartialSourceFields on Source {
+  id
+  name
+  avatar
+  color
+}
