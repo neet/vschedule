@@ -1,8 +1,8 @@
 <h1 align="center">
-  <img src="https://raw.githubusercontent.com/neet/refined-itsukara-link/master/client/assets/logo-large.png" alt="Refined itsukara.link" width="300px"/>
+  <img src="https://github.com/neet/refined-itsukara-link/blob/master/packages/client/src/assets/logo-large.png?raw=true" alt="Refined itsukara.link" width="300px"/>
 </h1>
 
-<img src="https://raw.githubusercontent.com/neet/refined-itsukara-link/master/public/screenshot.png" alt="Screenshot">
+<img src="https://github.com/neet/refined-itsukara-link/blob/master/packages/client/static/screenshot.png?raw=true" alt="Screenshot">
 
 <p align="center">✨ itsukara.link with refined interface! ✨</p>
 
@@ -16,8 +16,9 @@
 
 ## Tech stacks
 - [React](https://github.com/facebook/react) with Hooks
+- [GraphQL](https://github.com/graphql/graphql-js) and [Apollo](https://github.com/apollographql/apollo-server) powers simple APIs.
 - PWA supported
-- Fully-typed [Redux](https://github.com/reduxjs/redux), using [TypeScript FSA](https://github.com/aikoven/typescript-fsa), [Immer](https://github.com/mweststrate/immer) and [Redux Saga](https://github.com/redux-saga/redux-saga)
+- Server-side rendering supported
 - WAI-ARIA powers screen reader compatibility.
 - [styled components](https://github.com/styled-components/styled-components) powers gorgeous design.
 - [i18next](https://github.com/i18next/i18next) and [day.js](https://github.com/iamkun/dayjs) powers multi-language support
