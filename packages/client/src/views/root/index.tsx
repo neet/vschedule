@@ -20,8 +20,7 @@ export const Root: React.SFC = React.memo(() => {
       <Banner />
 
       <Switch>
-        <Redirect exact from="/" to="/contents" />
-        <Route path="/contents" component={Contents} />
+        <Route exact path="/" component={Contents} />
       </Switch>
 
       <GlobalStyle />

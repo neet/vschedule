@@ -1,5 +1,7 @@
 // tslint:disable:react-no-dangerous-html
-import React from 'react';
+import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
+import { ThemeContext } from 'src/styles';
 
 export interface HtmlProps {
   state: any;
@@ -10,33 +12,36 @@ export interface HtmlProps {
 }
 
 export const Html = (props: HtmlProps) => {
+  const { t } = useTranslation();
+  const theme = useContext(ThemeContext);
+
+  const title = t('title', { defaultValue: 'Refined itsukara.link' });
+  const description = t('description', {
+    defaultValue: '✨ itsukara.link with refined interface!',
+  });
+  const themeColor = theme.highlightNormal;
+
   return (
     <html lang="en">
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-        <title>Refined itsukara.link</title>
-        <meta
-          name="description"
-          content="✨ itsukara.link with refined interface!"
-        />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+
+        <meta name="theme-color" content={themeColor} />
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#f80652" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="mask-icon" href="/mask-icon.svg" color="#f80652" />
-        <meta
-          name="apple-mobile-web-app-title"
-          content="Refined itsukara.link"
-        />
+        <link rel="mask-icon" href="/mask-icon.svg" color={themeColor} />
+
+        <meta name="apple-mobile-web-app-title" content={title} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <meta property="og:title" content="Refined itsukara.link" />
-        <meta
-          property="og:description"
-          content="✨ itsukara.link with refined interface!"
-        />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
         <meta
           property="og:url"
           content="https://refined-itsukara-link.neet.love"
