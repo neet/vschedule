@@ -5,6 +5,9 @@
     "view_twitter": "View Twitter"
   },
   "description": "✨ itsukara.link with refined interface!",
+  "not_found": {
+    "title": "Page Not Found"
+  },
   "sidebar": {
     "no_streaming": "There's no streaming on air",
     "title": "<0>{{count}}</0> streaming is on air",

@@ -5,6 +5,9 @@
     "view_twitter": "Twitterを表示"
   },
   "description": "✨ いつから.linkに洗練されたインターフェースを添えて",
+  "not_found": {
+    "title": "ページが見つかりませんでした"
+  },
   "sidebar": {
     "no_streaming": "放送中の配信はありません",
     "title": "<0>{{count}}人</0>が配信中"

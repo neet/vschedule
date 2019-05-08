@@ -49,13 +49,14 @@ import { getLocale } from './utils/locale';
 
   // SSR
   app.use(async (req, res) => {
-    res.send(
-      `<!DOCTYPE html>\n${await SSR({
-        manifest,
-        i18n: req.i18n,
-        location: req.url,
-      })}`,
-    );
+    const result = await SSR({
+      manifest,
+      i18n: req.i18n,
+      location: req.url,
+    });
+
+    res.status(result.statusCode);
+    res.send(`<!DOCTYPE html>\n${result.staticMarkup}`);
   });
 
   app.listen({ port: APP_PORT });

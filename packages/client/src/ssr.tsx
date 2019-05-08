@@ -16,11 +16,11 @@ import {
 import ReactDOMServer from 'react-dom/server';
 import { I18nextProvider } from 'react-i18next';
 import { StaticRouter } from 'react-router-dom';
-import { ThemeProvider } from 'src/styles';
-import { theme } from 'src/styles/theme';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import { Html } from './components/html';
 import introspectionResult from './generated/introspection-result';
+import { ThemeProvider } from './styles';
+import { theme } from './styles/theme';
 import { initDayjs } from './utils/locale';
 import { Root } from './views/root';
 
@@ -33,8 +33,13 @@ export interface SSRParams {
   manifest: { [K: string]: string };
 }
 
+export interface SSRResult {
+  statusCode: number;
+  staticMarkup: string;
+}
+
 // tslint:disable-next-line:no-default-export function-name
-export default async function SSR(params: SSRParams) {
+export default async function SSR(params: SSRParams): Promise<SSRResult> {
   const uri = `${process.env.APP_PROTOCOL}://${process.env.APP_HOST}:${
     process.env.APP_PORT
   }/graphql`;
@@ -52,7 +57,7 @@ export default async function SSR(params: SSRParams) {
     }),
     cache: new InMemoryCache({ fragmentMatcher }),
   });
-  const context = {};
+  const context = { statusCode: 200 };
   const sheet = new ServerStyleSheet();
 
   initDayjs();
@@ -80,7 +85,7 @@ export default async function SSR(params: SSRParams) {
   const additionalElements = sheet.getStyleElement();
   const styles = dom.css();
 
-  return ReactDOMServer.renderToStaticMarkup(
+  const staticMarkup = ReactDOMServer.renderToStaticMarkup(
     // We need to use i18next/styled-components
     // in the Html component
     <I18nextProvider i18n={params.i18n}>
@@ -95,4 +100,9 @@ export default async function SSR(params: SSRParams) {
       </ThemeProvider>
     </I18nextProvider>,
   );
+
+  return {
+    staticMarkup,
+    statusCode: context.statusCode,
+  };
 }

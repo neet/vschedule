@@ -7,8 +7,13 @@ declare module '@ril/client' {
     /** Request pathname */
     location: string;
     /** Built files manifest */
-    manifest: { [K: string]: string };
+    manifest: { [K: string]: string } | any;
   }
 
-  export default function SSR(params: SSRParams): string;
+  export interface SSRResult {
+    statusCode: number;
+    staticMarkup: string;
+  }
+
+  export default function SSR(params: SSRParams): SSRResult;
 }

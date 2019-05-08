@@ -1,8 +1,10 @@
+// tslint:disable react-this-binding-issue jsx-no-lambda
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { Banner } from 'src/components/banner';
 import { styled } from 'src/styles';
 import { Contents } from 'src/views/contents';
+import { notFoundRender } from 'src/views/not-found';
 import { GlobalStyle } from './global-style';
 
 const Wrapper = styled.div`
@@ -21,6 +23,7 @@ export const Root: React.SFC = React.memo(() => {
 
       <Switch>
         <Route exact path="/" component={Contents} />
+        <Route render={notFoundRender} />
       </Switch>
 
       <GlobalStyle />
