@@ -6,7 +6,7 @@ import express from 'express';
 import { promises as fs } from 'fs';
 import i18nextMiddleware from 'i18next-express-middleware';
 import path from 'path';
-import { APP_PORT } from './config';
+import { BIND_PORT } from './config';
 import { dataSources } from './datasources';
 import { resolvers } from './resolvers';
 import { getLocale } from './utils/locale';
@@ -59,5 +59,5 @@ import { getLocale } from './utils/locale';
     res.send(`<!DOCTYPE html>\n${result.staticMarkup}`);
   });
 
-  app.listen({ port: APP_PORT });
+  app.listen({ port: BIND_PORT });
 })();

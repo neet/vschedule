@@ -40,10 +40,6 @@ export interface SSRResult {
 
 // tslint:disable-next-line:no-default-export function-name
 export default async function SSR(params: SSRParams): Promise<SSRResult> {
-  const uri = `${process.env.APP_PROTOCOL}://${process.env.APP_HOST}:${
-    process.env.APP_PORT
-  }/graphql`;
-
   const fragmentMatcher = new IntrospectionFragmentMatcher({
     introspectionQueryResultData: introspectionResult,
   });
@@ -51,12 +47,13 @@ export default async function SSR(params: SSRParams): Promise<SSRResult> {
   const client = new ApolloClient({
     ssrMode: true,
     link: new HttpLink({
-      uri,
+      uri: `${process.env.PUBLIC_URL}/graphql`,
       fetch: (fetch as any) as GlobalFetch['fetch'],
       credentials: 'same-origin',
     }),
     cache: new InMemoryCache({ fragmentMatcher }),
   });
+
   const context = { statusCode: 200 };
   const sheet = new ServerStyleSheet();
 

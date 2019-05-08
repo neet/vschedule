@@ -20,6 +20,7 @@ export const Html = (props: HtmlProps) => {
     defaultValue: '✨ itsukara.link with refined interface!',
   });
   const themeColor = theme.highlightNormal;
+  const url = process.env.PUBLIC_URL;
 
   return (
     <html lang="en">
@@ -42,15 +43,10 @@ export const Html = (props: HtmlProps) => {
 
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta
-          property="og:url"
-          content="https://refined-itsukara-link.neet.love"
-        />
-        <meta
-          property="og:image"
-          content="https://refined-itsukara-link.neet.love/screenshot.png"
-        />
+        <meta property="og:url" content={url} />
+        <meta property="og:image" content={`${url}/screenshot.png`} />
         <meta name="twitter:card" content="summary_large_image" />
+
         <style dangerouslySetInnerHTML={{ __html: props.styles }} />
         {props.elements}
       </head>

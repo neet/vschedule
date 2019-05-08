@@ -73,9 +73,8 @@ function shared(command, argv) {
 
       new webpack.DefinePlugin({
         'process.env': {
-          APP_PROTOCOL: JSON.stringify(process.env.APP_PROTOCOL),
-          APP_HOST: JSON.stringify(process.env.APP_HOST),
-          APP_PORT: JSON.stringify(process.env.APP_PORT),
+          PUBLIC_URL: JSON.stringify(process.env.PUBLIC_URL),
+          BIND_PORT: JSON.stringify(process.env.BIND_PORT),
         },
       }),
     ],
@@ -100,7 +99,7 @@ function shared(command, argv) {
         {
           // Proxy GraphQL endpoints
           context: ['/graphql'],
-          target: `${process.env.APP_PROTOCOL}://${process.env.APP_HOST}:${process.env.APP_PORT}/graphql`,
+          target: `${process.env.PUBLIC_URL}/graphql`,
         },
       ],
     },
