@@ -7,8 +7,8 @@
   "types": "index.d.ts",
   "scripts": {
     "postinstall": "graphql-codegen --config codegen.yml",
-    "build": "webpack --mode development --config=webpack/webpack.config.js",
-    "watch": "webpack-dev-server --mode development --config=webpack/webpack.config.js"
+    "build": "webpack --mode production --config=webpack/webpack.config.js",
+    "watch": "webpack-dev-server --mode production --config=webpack/webpack.config.js"
   },
   "dependencies": {
     "@babel/core": "^7.4.4",
