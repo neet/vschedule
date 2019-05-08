@@ -85,7 +85,7 @@ function shared(command, argv) {
       contentBase: path.resolve(__dirname, '../static'),
       disableHostCheck: true,
       historyApiFallback: {
-        index: '/build/index.html'
+        index: '/debug.html'
       },
       hot: true,
       inline: true,
