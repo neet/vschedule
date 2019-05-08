@@ -1,10 +1,10 @@
+import en from '@ril/locales/en/translation.json';
+import ja from '@ril/locales/ja/translation.json';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import en from 'src/locales/en/translation.json';
-import ja from 'src/locales/ja/translation.json';
 
 // tslint:disable:no-import-side-effect
 import 'dayjs/locale/ja';
@@ -25,11 +25,12 @@ export function normalizeLanguageForDayjs(lng: string) {
     : lng.split('-')[0];
 }
 
-export const getLocale = () => {
+export function initDayjs(): void {
   dayjs.extend(localizedFormat);
   dayjs.extend(relativeTime);
-  dayjs.locale('en');
+}
 
+export function getI18n() {
   i18next.on('initialized', options => {
     if (!options.lng) return;
     dayjs.locale(normalizeLanguageForDayjs(options.lng));
@@ -58,4 +59,4 @@ export const getLocale = () => {
   });
 
   return i18next;
-};
+}

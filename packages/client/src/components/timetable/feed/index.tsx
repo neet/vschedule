@@ -1,9 +1,9 @@
 import { Dayjs } from 'dayjs';
 import React, { useCallback, useMemo } from 'react';
 import { Content } from 'src/generated/graphql';
-import { isOverlapping } from 'src/helpers/is-overlapping';
-import { sortEvents } from 'src/helpers/sort-events';
 import { styled } from 'src/styles';
+import { isOverlapping } from 'src/utils/is-overlapping';
+import { sortEvents } from 'src/utils/sort-events';
 import { Omit } from 'type-zoo';
 import { Marker, MarkerProps } from './marker';
 

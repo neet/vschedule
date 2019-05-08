@@ -1,9 +1,9 @@
 // tslint:disable:no-import-side-effect
 import 'jest-styled-components';
 import React from 'react';
-import { getLocale } from './locales';
+import { initDayjs } from './utils/locale';
 
-getLocale();
+initDayjs();
 
 // React-i18next
 // See: https://react.i18next.com/misc/testing

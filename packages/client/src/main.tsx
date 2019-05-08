@@ -10,8 +10,12 @@ import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import ReactDOM from 'react-dom';
+import { I18nextProvider } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
 import introspectionResult from 'src/generated/introspection-result';
+import { ThemeProvider } from 'src/styles';
+import { theme } from 'src/styles/theme';
+import { getI18n, initDayjs } from 'src/utils/locale';
 import { Root } from './views/root';
 
 (async () => {
@@ -20,10 +24,7 @@ import { Root } from './views/root';
   }
 
   const mountNode = document.getElementById('root');
-
-  if (!mountNode) {
-    return;
-  }
+  if (!mountNode) return;
 
   const fragmentMatcher = new IntrospectionFragmentMatcher({
     introspectionQueryResultData: introspectionResult,
@@ -40,11 +41,18 @@ import { Root } from './views/root';
     ssrForceFetchDelay: 100,
   });
 
+  initDayjs();
+  const i18n = getI18n();
+
   ReactDOM.render(
     <ApolloProvider client={client}>
       <ApolloHooksProvider client={client}>
         <BrowserRouter>
-          <Root />
+          <I18nextProvider i18n={i18n}>
+            <ThemeProvider theme={theme}>
+              <Root />
+            </ThemeProvider>
+          </I18nextProvider>
         </BrowserRouter>
       </ApolloHooksProvider>
     </ApolloProvider>,

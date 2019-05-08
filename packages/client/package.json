@@ -7,9 +7,8 @@
   "types": "index.d.ts",
   "scripts": {
     "postinstall": "graphql-codegen --config codegen.yml",
-    "build": "webpack --mode production --config=webpack/webpack.config.js",
-    "watch": "webpack-dev-server --mode development --config=webpack/webpack.config.js",
-    "manage:translations": "i18next-scanner 'src/**/*.{ts,tsx}' --config=i18next-scanner.config.js"
+    "build": "webpack --mode development --config=webpack/webpack.config.js",
+    "watch": "webpack-dev-server --mode development --config=webpack/webpack.config.js"
   },
   "dependencies": {
     "@babel/core": "^7.4.4",
@@ -29,6 +28,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.8.1",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "@ril/locales": "^0.0.0",
     "@ril/schema": "^0.0.0",
     "@types/dotenv": "^6.1.1",
     "@types/ismobilejs": "^0.4.1",
@@ -87,8 +87,6 @@
     "@graphql-codegen/typescript": "1.1.3",
     "@graphql-codegen/typescript-operations": "1.1.3",
     "@graphql-codegen/typescript-react-apollo": "1.1.3",
-    "i18next-scanner": "^2.10.1",
-    "i18next-scanner-typescript": "^1.0.2",
     "jest-styled-components": "^6.3.1",
     "react-testing-library": "^7.0.0",
     "webpack-dev-server": "^3.3.1"
