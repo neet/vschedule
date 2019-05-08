@@ -9,12 +9,13 @@ extends:
 
 linterOptions:
   exclude:
-    - '**/node_modules/**'
-    - '**/dist/**'
-    - '**/static/**'
-    - '**/generated/**'
     - '**/*.spec.{ts,tsx}'
     - '**/*.d.ts'
+    - node_modules
+    - packages/*/node_modules/**
+    - packages/*/dist/**
+    - packages/*/static/**
+    - packages/*/src/generated/**
 
 rules:
   curly:

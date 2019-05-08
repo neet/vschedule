@@ -10,7 +10,7 @@
     "test:tslint": "tslint -c tslint.yml 'packages/**/*.{ts,tsx}'",
     "test:prettier": "prettier -c 'packages/**/*.{ts,tsx}'",
     "test:stylelint": "stylelint 'packages/**/*.{tsx,tsx}'",
-    "test:tsc": "tsc -p ./client",
+    "test:tsc": "tsc -p packages/client & tsc -p packages/server",
     "build": "lerna run build --stream",
     "start": "lerna run start --scope @ril/server --stream",
     "manage:translations": "lerna run manage:translations --stream"
