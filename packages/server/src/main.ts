@@ -1,3 +1,5 @@
+import SSR from '@ril/client';
+import manifest from '@ril/client/static/build/manifest.json';
 import { ApolloServer, gql } from 'apollo-server-express';
 import cors from 'cors';
 import express from 'express';
@@ -9,7 +11,10 @@ import { resolvers } from './resolvers';
 
 (async () => {
   const schemaPath = require.resolve('@ril/schema');
-  const staticDir = path.resolve(require.resolve('@ril/client'), '..');
+  const staticPath = path.resolve(
+    require.resolve('@ril/client'),
+    '../../static',
+  );
 
   // tslint:disable-next-line:non-literal-fs-path
   const schema = await fs.readFile(schemaPath, 'utf-8').then(gql);
@@ -28,15 +33,20 @@ import { resolvers } from './resolvers';
   app.options('*', cors());
 
   // Static files
-  app.use(express.static(staticDir));
+  app.use(express.static(staticPath));
   // Service worker
-  app.use('/sw.js', (_, res) =>
-    res.sendFile(path.resolve(staticDir, 'build/sw.js')),
-  );
-  // SPA
-  app.use('/*', (_, res) =>
-    res.sendFile(path.resolve(staticDir, 'build/index.html')),
-  );
+  app.use('/sw.js', (_, res) => {
+    res.sendFile(path.resolve(staticPath, 'build/sw.js'));
+  });
+  // SSR
+  app.use(async (req, res) => {
+    res.send(
+      `<!DOCTYPE html>\n${await SSR({
+        manifest,
+        location: req.url,
+      })}`,
+    );
+  });
 
   app.listen({ port: APP_PORT });
 })();

@@ -11,3 +11,7 @@ declare module '*.eot';
 declare module '*.svg';
 declare module '*.woff';
 declare module '*.woff2';
+declare module '@ril/schema' {
+  const typeDefs: string;
+  export default typeDefs;
+}

@@ -1,4 +1,4 @@
-import typeDefs from '@ril/schema/schema.gql';
+import typeDefs from '@ril/schema';
 import {
   InMemoryCache,
   IntrospectionFragmentMatcher,
@@ -29,9 +29,16 @@ import { Root } from './views/root';
     introspectionQueryResultData: introspectionResult,
   });
 
-  const cache = new InMemoryCache({ fragmentMatcher });
-  const link = new HttpLink({ uri: '/graphql' });
-  const client = new ApolloClient({ cache, link, typeDefs });
+  const cache = new InMemoryCache({ fragmentMatcher }).restore(
+    (window as any).__APOLLO_STATE__,
+  );
+
+  const client = new ApolloClient({
+    cache,
+    typeDefs,
+    link: new HttpLink({ uri: '/graphql' }),
+    ssrForceFetchDelay: 100,
+  });
 
   ReactDOM.render(
     <ApolloProvider client={client}>

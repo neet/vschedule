@@ -3,11 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0-or-later",
-  "main": "static/build/index.html",
+  "main": "dist/ssr.js",
+  "types": "index.d.ts",
   "scripts": {
     "postinstall": "graphql-codegen --config codegen.yml",
-    "build": "webpack --mode production",
-    "watch": "webpack-dev-server --mode development"
+    "build": "webpack --mode production --config=webpack/webpack.config.js",
+    "watch": "webpack-dev-server --mode development --config=webpack/webpack.config.js",
+    "manage:translations": "i18next-scanner 'src/**/*.{ts,tsx}' --config=i18next-scanner.config.js"
   },
   "dependencies": {
     "@babel/core": "^7.4.4",
@@ -30,6 +32,7 @@
     "@ril/schema": "^0.0.0",
     "@types/dotenv": "^6.1.1",
     "@types/ismobilejs": "^0.4.1",
+    "@types/node-fetch": "^2.3.3",
     "@types/react": "^16.8.15",
     "@types/react-dom": "^16.8.4",
     "@types/react-router": "^4.4.5",
@@ -40,6 +43,7 @@
     "apollo-client": "^2.5.1",
     "apollo-link-http": "^1.5.14",
     "babel-loader": "^8.0.5",
+    "babel-plugin-styled-components": "^1.10.0",
     "core-js": "^3.0.1",
     "css-loader": "^2.1.1",
     "dayjs": "^1.8.13",
@@ -52,6 +56,7 @@
     "i18next": "^15.1.0",
     "i18next-browser-languagedetector": "^3.0.1",
     "ismobilejs": "^0.5.1",
+    "node-fetch": "^2.5.0",
     "offline-plugin": "^5.0.7",
     "polished": "^3.2.0",
     "react": "^16.8.6",
@@ -62,6 +67,7 @@
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "regenerator-runtime": "^0.13.2",
+    "style-loader": "^0.23.1",
     "styled-components": "^4.2.0",
     "styled-system": "^4.1.0",
     "ts-optchain": "^0.1.6",
@@ -71,6 +77,8 @@
     "use-react-router": "^1.0.5",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1",
+    "webpack-manifest-plugin": "^2.0.4",
+    "webpack-merge": "^4.2.1",
     "webpack-notifier": "^1.7.0"
   },
   "devDependencies": {

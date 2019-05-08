@@ -1,32 +1,28 @@
-const webpack = require('webpack');
-const path = require('path');
-const WebpackNotifierPlugin = require('webpack-notifier');
-const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TSConfigPathsWebpackPlugin = require('tsconfig-paths-webpack-plugin');
-const OfflinePlugin = require('offline-plugin');
 const dotenv = require('dotenv');
+const path = require('path');
+const TSConfigPathsWebpackPlugin = require('tsconfig-paths-webpack-plugin');
+const webpack = require('webpack');
+const WebpackNotifierPlugin = require('webpack-notifier');
 
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+/**
+ * Shared webpack config
+ * @param {String} command Command kind (should be either `webpack` or `webpack-dev-server`)
+ * @param {Array} argv Argv passed to CLI
+ */
+function shared(command, argv) {
+  dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
-module.exports = (command, argv) => {
   const isProd = argv.mode === 'production';
 
-  return {
-    context: path.resolve(__dirname, 'src'),
-
+  const config = {
+    context: path.resolve(__dirname, '../src'),
     stats: 'errors-only',
     devtool: isProd ? false : 'source-map',
 
-    entry: {
-      client: './main.tsx',
-    },
-
     output: {
       filename: isProd ? '[name]-[hash].js' : '[name].js',
-      chunkFilename: isProd ? '[name]-[hash].js' : '[name].js',
-      path: path.resolve(__dirname, 'static/build'),
-      publicPath: '/build',
+      path: path.resolve(__dirname, '../static/build'),
+      publicPath: '/build/',
     },
 
     module: {
@@ -52,8 +48,8 @@ module.exports = (command, argv) => {
               loader: 'file-loader',
               options: {
                 name: isProd ? '[name]-[hash].[ext]' : '[name].[ext]',
-                path: path.resolve(__dirname, 'static/build'),
-                publicPath: '/build',
+                path: path.resolve(__dirname, '../static/build'),
+                publicPath: '/build/',
               },
             },
           ],
@@ -66,7 +62,7 @@ module.exports = (command, argv) => {
 
       plugins: [
         new TSConfigPathsWebpackPlugin({
-          configFile: path.resolve(__dirname, 'tsconfig.json'),
+          configFile: path.resolve(__dirname, '../tsconfig.json'),
           extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
         }),
       ],
@@ -74,7 +70,6 @@ module.exports = (command, argv) => {
 
     plugins: [
       new webpack.NamedModulesPlugin(),
-      new webpack.HotModuleReplacementPlugin(),
 
       new webpack.DefinePlugin({
         'process.env': {
@@ -83,37 +78,12 @@ module.exports = (command, argv) => {
           APP_PORT: JSON.stringify(process.env.APP_PORT),
         },
       }),
-
-      new OfflinePlugin({
-        caches: {
-          main: [':rest:'],
-        },
-        ServiceWorker: {
-          output: 'sw.js',
-          publicPath: '/sw.js',
-          cacheName: 'refined-itsukara-link',
-          minify: true,
-        },
-      }),
-
-      new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: './index.html',
-        alwaysWriteToDisk: true,
-      }),
-
-      new HtmlWebpackHarddiskPlugin(),
-
-      new WebpackNotifierPlugin({
-        title: 'Refined itsukara.link',
-        alwaysNotify: true,
-      }),
     ],
 
     devServer: {
       compress: true,
       overlay: true,
-      contentBase: path.resolve(__dirname, 'static'),
+      contentBase: path.resolve(__dirname, '../static'),
       disableHostCheck: true,
       historyApiFallback: {
         index: '/build/index.html'
@@ -134,5 +104,21 @@ module.exports = (command, argv) => {
         },
       ],
     },
+  };
+
+  if (isProd) {
+    config.plugins.push(
+      new webpack.HotModuleReplacementPlugin(),
+
+      new WebpackNotifierPlugin({
+        title: 'Refined itsukara.link',
+        alwaysNotify: true,
+        contentImage: path.resolve(__dirname, '../src/assets/logo-small.png'),
+      }),
+    );
   }
-};
+
+  return config;
+}
+
+module.exports = shared;
