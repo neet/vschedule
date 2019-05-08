@@ -1,0 +1,23 @@
+# import "./social-account.gql"
+
+fragment SourceFields on Source {
+  id
+  name
+  latinName
+  ruby
+  avatar
+  color
+  description
+  public
+  position
+  socialAccounts {
+    ...SocialAccountFields
+  }
+}
+
+fragment PartialSourceFields on Source {
+  id
+  name
+  avatar
+  color
+}

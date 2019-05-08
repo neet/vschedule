@@ -17,13 +17,14 @@ notifications:
 cache: npm
 
 install:
-  - yarn
+  - npm install
+  - lerna bootstrap
 
 before_script:
-  - yarn run build
+  - lerna run build
 
 script:
-  - yarn run test
+  - npm run test
 
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls

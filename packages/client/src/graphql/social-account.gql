@@ -1,0 +1,17 @@
+fragment SocialAccountFields on SocialAccount {
+  ...on SocialAccount {
+    __typename
+    id
+    source
+  }
+
+  ...on YoutubeChannel {
+    channel
+    channelName
+    creationOrder
+  }
+
+  ...on TwitterAccount {
+    screenName
+  }
+}

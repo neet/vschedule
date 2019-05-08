@@ -1,0 +1,71 @@
+---
+defaultSeverity: error
+
+extends:
+  - tslint:recommended
+  - tslint-react
+  - tslint-microsoft-contrib
+  - tslint-config-prettier
+
+linterOptions:
+  exclude:
+    - '**/*.spec.{ts,tsx}'
+    - '**/*.d.ts'
+    - node_modules
+    - packages/*/node_modules/**
+    - packages/*/dist/**
+    - packages/*/static/**
+    - packages/*/src/generated/**
+
+rules:
+  curly:
+    - true
+    - ignore-same-line
+  export-name: false
+  import-name: false
+  indent:
+    - true
+    - spaces
+    - 2
+  interface-name:
+    - true
+    - never-prefix
+  jsx-alignment: true
+  jsx-ban-props: true
+  jsx-boolean-value:
+    - true
+    - never
+  jsx-curly-spacing: false
+  jsx-key:
+    - true
+    - always
+  max-line-length: false
+  member-ordering: false
+  no-angle-bracket-type-assertion: true
+  no-any: false
+  no-backbone-get-set-outside-model: false
+  no-consecutive-blank-lines: false
+  no-constant-condition:
+    - true
+    - checkLoops: false
+  no-dynamic-delete: false
+  no-implicit-dependencies:
+    - true
+    - dev
+    - - src
+  no-null-keyword: false
+  no-parameter-properties: false
+  no-relative-imports:
+    - true
+    - allow-siblings
+  no-reserved-keywords: false
+  no-single-line-block-comment: false
+  no-submodule-imports: false
+  object-literal-sort-keys: false
+  prefer-for-of: true
+  prefer-type-cast: false
+  react-a11y-proptypes: false
+  react-unused-props-and-state: false
+  typedef: false
+  use-simple-attributes: false
+  variable-name: false

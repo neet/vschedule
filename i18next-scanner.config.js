@@ -3,10 +3,10 @@ const path = require('path');
 const typescriptTransform = require('i18next-scanner-typescript');
 
 const lngs = glob
-  .sync('client/locales/!(*.*)')
+  .sync('packages/locales/!(*.*)')
   .map(dir => dir.match(/.*\/(.+?)$/)[1]);
 
-const isPluralLng = lng => !['ja'].includes(lng);
+const checkIfUsePlural = lng => !['ja'].includes(lng);
 
 module.exports = {
   options: {
@@ -24,10 +24,10 @@ module.exports = {
       component: 'Trans',
       extensions: ['.tsx'],
     },
-    plural: isPluralLng,
+    plural: checkIfUsePlural,
     resource: {
-      loadPath: path.resolve(__dirname, 'client/locales/{{lng}}/{{ns}}.json'),
-      savePath: path.resolve(__dirname, 'client/locales/{{lng}}/{{ns}}.json'),
+      loadPath: path.resolve(__dirname, 'packages/locales/{{lng}}/{{ns}}.json'),
+      savePath: path.resolve(__dirname, 'packages/locales/{{lng}}/{{ns}}.json'),
     },
   },
   transform: typescriptTransform({ extensions: ['.tsx'] }),

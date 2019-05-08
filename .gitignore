@@ -60,5 +60,11 @@ jspm_packages/
 # next.js build output
 .next
 
-dist/*
-static/*
+#### ADDED ####
+# Export files
+packages/*/dist/
+# Webpack dists
+packages/client/static/build/
+# GraphQL generated files
+packages/*/src/generated/*
+!packages/*/src/generated/.keep

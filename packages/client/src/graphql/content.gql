@@ -1,0 +1,35 @@
+# import "./source.gql"
+
+fragment ContentFields on Content {
+  id
+  name
+  description
+  public
+  url
+  startDate
+  endDate
+  recommend
+  source {
+    ...SourceFields
+  }
+}
+
+fragment PartialContentFields on Content {
+  id
+  name
+  description
+  public
+  url
+  startDate
+  endDate
+  recommend
+  source {
+    ...PartialSourceFields
+  }
+}
+
+query fetchContents {
+  contents {
+    ...PartialContentFields
+  }
+}
