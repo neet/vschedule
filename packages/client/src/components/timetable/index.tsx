@@ -70,8 +70,8 @@ export const Timetable = (props: TimetableProps) => {
     const screenWidth = window.innerWidth;
     let x = (borderGap / 30) * fromNowToStart - screenWidth / 2;
 
-    if (screenWidth < 700) {
-      x -= sidebarWidth;
+    if (screenWidth >= 700) {
+      x += sidebarWidth;
     }
 
     ref.current.scrollTo(x, 0);
