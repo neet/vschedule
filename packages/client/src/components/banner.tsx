@@ -31,7 +31,7 @@ const LogoSmall = styled.img`
 
 const LogoLarge = styled.img`
   display: block;
-  height: 34px;
+  height: 30px;
   margin: 4px 0;
 `;
 
