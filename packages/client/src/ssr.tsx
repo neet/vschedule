@@ -83,8 +83,7 @@ export default async function SSR(params: SSRParams): Promise<SSRResult> {
   const styles = dom.css();
 
   const staticMarkup = ReactDOMServer.renderToStaticMarkup(
-    // We need to use i18next/styled-components
-    // in the Html component
+    // To use i18next/styled-components inside the Html component, we need to wrap it with providers
     <I18nextProvider i18n={params.i18n}>
       <ThemeProvider theme={theme}>
         <Html
