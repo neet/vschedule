@@ -31,13 +31,13 @@ import { getI18n } from './utils/locale';
 
   // Apollo
   server.applyMiddleware({ app, path: '/graphql' });
-  
+
   // CORS
   app.use(cors());
-  
+
   // I18next
   app.use(i18nextMiddleware.handle(getI18n()));
-  
+
   // Static files
   app.use(express.static(staticPath));
 
