@@ -21,38 +21,36 @@
     }
   },
   "lint-staged": {
-    "linters": {
-      "*.{ts,tsx}": [
-        "tslint --fix",
-        "prettier --write",
-        "stylelint",
-        "git add"
-      ]
-    }
+    "*.{ts,tsx}": [
+      "tslint --fix",
+      "prettier --write",
+      "stylelint",
+      "git add"
+    ]
   },
   "dependencies": {
-    "lerna": "^3.13.4"
+    "lerna": "^3.16.4"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.11",
-    "coveralls": "^3.0.3",
-    "husky": "^2.1.0",
-    "i18next-scanner": "^2.10.1",
-    "i18next-scanner-typescript": "^1.0.2",
+    "@types/jest": "^24.0.15",
+    "coveralls": "^3.0.5",
+    "husky": "^3.0.1",
+    "i18next-scanner": "^2.10.2",
+    "i18next-scanner-typescript": "^1.0.3",
     "jest": "^24.5.0",
-    "lint-staged": "^8.1.4",
+    "lint-staged": "^9.2.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.16.4",
-    "stylelint": "^10.0.1",
-    "stylelint-config-property-sort-order-smacss": "^4.0.2",
+    "stylelint": "^10.1.0",
+    "stylelint-config-property-sort-order-smacss": "^5.0.0",
     "stylelint-config-recommended": "^2.1.0",
     "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-processor-styled-components": "^1.5.2",
+    "stylelint-processor-styled-components": "^1.8.0",
     "ts-jest": "^24.0.2",
-    "tslint": "^5.16.0",
+    "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-microsoft-contrib": "^6.1.1",
+    "tslint-microsoft-contrib": "^6.2.0",
     "tslint-react": "^4.0.0",
-    "typescript": "^3.4.5"
+    "typescript": "^3.5.3"
   }
 }
