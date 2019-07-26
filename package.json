@@ -7,8 +7,7 @@
   "scripts": {
     "test": "run-s test:*",
     "test:jest": "jest --coverage",
-    "test:tslint": "tslint -c tslint.yml 'packages/**/*.{ts,tsx}'",
-    "test:prettier": "prettier -c 'packages/**/*.{ts,tsx}'",
+    "test:eslint": "eslint -c .eslintrc.json 'packages/**/*.{ts,tsx}'",
     "test:stylelint": "stylelint 'packages/**/*.{tsx,tsx}'",
     "test:tsc": "tsc -p packages/client & tsc -p packages/server",
     "build": "lerna run build --stream",
@@ -22,7 +21,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "tslint --fix",
+      "eslint --fix",
       "prettier --write",
       "stylelint",
       "git add"
@@ -33,7 +32,15 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
     "coveralls": "^3.0.5",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.3",
     "husky": "^3.0.1",
     "i18next-scanner": "^2.10.2",
     "i18next-scanner-typescript": "^1.0.3",
@@ -47,10 +54,6 @@
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.8.0",
     "ts-jest": "^24.0.2",
-    "tslint": "^5.18.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-microsoft-contrib": "^6.2.0",
-    "tslint-react": "^4.0.0",
     "typescript": "^3.5.3"
   }
 }

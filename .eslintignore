@@ -1,0 +1,6 @@
+# Export files
+packages/*/dist/
+# GraphQL generated files
+packages/*/src/generated/*
+# Webpack dists
+packages/client/static/build/
