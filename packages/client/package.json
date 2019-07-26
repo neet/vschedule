@@ -87,8 +87,8 @@
     "@graphql-codegen/typescript": "^1.4.0",
     "@graphql-codegen/typescript-operations": "^1.4.0",
     "@graphql-codegen/typescript-react-apollo": "^1.4.0",
+    "@testing-library/react": "^8.0.6",
     "jest-styled-components": "^6.3.3",
-    "react-testing-library": "^8.0.1",
     "webpack-dev-server": "^3.7.2"
   }
 }

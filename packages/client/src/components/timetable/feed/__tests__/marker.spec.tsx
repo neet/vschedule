@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import React from 'react';
-import { cleanup, render } from 'react-testing-library';
+import { cleanup, render } from '@testing-library/react';
 import { withTheme } from '../../../../test-utils';
 import { Marker } from '../marker';
 import { Content } from '../../../../generated/graphql';
