@@ -44,5 +44,5 @@ jobs:
           command: ./node_modules/.bin/codecov
 
       - run:
-          name: Build rollup.js
+          name: Build
           command: yarn run build

@@ -21,7 +21,7 @@
     "@types/jest": "^24.0.15",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
-    "coveralls": "^3.0.5",
+    "codecov": "^3.5.0",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.2",
