@@ -4,7 +4,7 @@
 
 ## Installation
 ```
-npm install & ./node_modules/.bin/lerna bootstrap
+yarn
 ```
 
 ## Build

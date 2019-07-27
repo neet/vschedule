@@ -13,8 +13,9 @@
     "test:eslint": "eslint -c .eslintrc.json 'packages/**/*.{ts,tsx}'",
     "test:stylelint": "stylelint 'packages/**/*.{tsx,tsx}'",
     "test:tsc": "tsc -p packages/client & tsc -p packages/server",
-    "build": "lerna run build --stream",
-    "start": "lerna run start --scope @ril/server --stream",
+    "build": "yarn workspace @ril/client run build",
+    "watch": "yarn workspace @ril/client run watch",
+    "start": "yarn workspace @ril/server run start",
     "manage:translations": "i18next-scanner 'packages/**/*.{ts,tsx}'"
   },
   "devDependencies": {
