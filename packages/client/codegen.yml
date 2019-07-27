@@ -1,5 +1,5 @@
 overwrite: true
-schema: node_modules/@ril/schema/schema.gql
+schema: ../../node_modules/@ril/schema/schema.gql
 documents: src/graphql/**/*.gql
 generates:
   src/generated/graphql.tsx:
