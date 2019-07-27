@@ -1,11 +1,11 @@
+import { promises as fs } from 'fs';
+import path from 'path';
 import SSR from '@ril/client';
 import manifest from '@ril/client/static/build/manifest.json';
 import { ApolloServer, gql } from 'apollo-server-express';
 import cors from 'cors';
 import express from 'express';
-import { promises as fs } from 'fs';
 import i18nextMiddleware from 'i18next-express-middleware';
-import path from 'path';
 import { BIND_PORT } from './config';
 import { dataSources } from './datasources';
 import { resolvers } from './resolvers';
@@ -18,7 +18,6 @@ import { getI18n } from './utils/locale';
     '../../static',
   );
 
-  // tslint:disable-next-line:non-literal-fs-path
   const schema = await fs.readFile(schemaPath, 'utf-8').then(gql);
 
   const server = new ApolloServer({

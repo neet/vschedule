@@ -1,4 +1,4 @@
-// tslint:disable:no-import-side-effect
+// eslint-disable-next-line import/no-unassigned-import
 import 'jest-styled-components';
 import React from 'react';
 import { initDayjs } from './utils/locale';
@@ -9,7 +9,6 @@ initDayjs();
 // See: https://react.i18next.com/misc/testing
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
-    // tslint:disable:function-name
     t() {
       return '';
     },

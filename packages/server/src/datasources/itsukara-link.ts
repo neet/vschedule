@@ -61,9 +61,8 @@ type EventResponse = Response<{ event: Event }>;
 type LiversResponse = Response<{ liver_relationships: LiverRelationships[] }>;
 type LiverResponse = Response<LiverRelationships>;
 
-// tslint:disable-next-line:completed-docs
 export class ItsukaraLinkAPI extends RESTDataSource {
-  public constructor(baseURL: string) {
+  constructor(baseURL: string) {
     super();
     this.baseURL = baseURL;
   }
@@ -129,19 +128,19 @@ export class ItsukaraLinkAPI extends RESTDataSource {
     source: this.reduceSource(event.liver),
   });
 
-  public fetchContents = async () => {
+  fetchContents = async () => {
     const res = await this.get<EventsResponse>('events.json');
 
     return res.data.events.map(this.reduceContent);
   };
 
-  public fetchContent = async (id: string) => {
+  fetchContent = async (id: string) => {
     const res = await this.get<EventResponse>(`events/${id}.json`);
 
     return this.reduceContent(res.data.event);
   };
 
-  public fetchSources = async () => {
+  fetchSources = async () => {
     const res = await this.get<LiversResponse>('livers.json');
 
     return res.data.liver_relationships.map(data =>
@@ -153,7 +152,7 @@ export class ItsukaraLinkAPI extends RESTDataSource {
     );
   };
 
-  public fetchSource = async (id: string) => {
+  fetchSource = async (id: string) => {
     const res = await this.get<LiverResponse>(`livers/${id}.json`);
     const data = res.data;
 
