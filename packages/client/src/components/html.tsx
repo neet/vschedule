@@ -1,4 +1,3 @@
-// tslint:disable:react-no-dangerous-html
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ThemeContext } from 'src/styles';

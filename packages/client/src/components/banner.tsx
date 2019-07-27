@@ -94,7 +94,7 @@ const OriginalLink = styled.a`
   }
 `;
 
-export const Banner = React.memo(() => {
+export const Banner: React.SFC = React.memo(() => {
   const { t } = useTranslation();
 
   return (
@@ -122,7 +122,6 @@ export const Banner = React.memo(() => {
           <Icon icon={faTwitter} />
         </a>
 
-        {/* tslint:disable:react-a11y-anchors */}
         <a
           href="https://github.com/neet/refined-itsukara-link"
           target="__blank"
@@ -132,7 +131,6 @@ export const Banner = React.memo(() => {
         >
           <Icon icon={faGithub} />
         </a>
-        {/* tslint:enable:react-a11y-anchors */}
 
         <OriginalLink
           href="https://www.itsukaralink.jp"

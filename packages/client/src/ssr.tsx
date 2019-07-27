@@ -38,7 +38,6 @@ export interface SSRResult {
   staticMarkup: string;
 }
 
-// tslint:disable-next-line:no-default-export function-name
 export default async function SSR(params: SSRParams): Promise<SSRResult> {
   const fragmentMatcher = new IntrospectionFragmentMatcher({
     introspectionQueryResultData: introspectionResult,

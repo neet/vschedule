@@ -4,7 +4,6 @@ import { Content } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { isOverlapping } from 'src/utils/is-overlapping';
 import { sortEvents } from 'src/utils/sort-events';
-import { Omit } from 'type-zoo';
 import { Marker, MarkerProps } from './marker';
 
 export interface FeedProps {

@@ -1,4 +1,3 @@
-// tslint:disable react-this-binding-issue jsx-no-lambda
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Banner } from 'src/components/banner';

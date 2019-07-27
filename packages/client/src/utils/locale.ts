@@ -1,12 +1,15 @@
 import en from '@ril/locales/en/translation.json';
 import ja from '@ril/locales/ja/translation.json';
 import dayjs from 'dayjs';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-// tslint:disable:no-import-side-effect
+/* eslint-disable import/default */
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import relativeTime from 'dayjs/plugin/relativeTime';
+/* eslint-enable import/default */
+
+// eslint-disable-next-line import/no-unassigned-import
 import 'dayjs/locale/ja';
 
 export function normalizeLanguageForDayjs(lng: string) {

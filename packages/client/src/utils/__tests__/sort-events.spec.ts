@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Content } from '../../generated/graphql';
 import { sortEvents } from '../sort-events';
 
