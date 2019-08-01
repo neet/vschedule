@@ -69,7 +69,7 @@
     "regenerator-runtime": "^0.13.3",
     "style-loader": "^0.23.1",
     "styled-components": "^4.3.2",
-    "styled-system": "^5.0.16",
+    "styled-system": "^5.0.18",
     "ts-optchain": "^0.1.7",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "type-zoo": "^3.4.0",
