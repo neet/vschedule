@@ -18,7 +18,7 @@
     "@types/cors": "^2.8.5",
     "@types/dotenv": "^6.1.1",
     "@types/graphql": "^14.2.3",
-    "@types/node": "^12.6.8",
+    "@types/node": "^12.6.9",
     "apollo": "^2.16.2",
     "apollo-datasource": "^0.6.1",
     "apollo-datasource-rest": "^0.6.1",
