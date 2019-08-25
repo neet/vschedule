@@ -78,11 +78,13 @@ export const Timetable = (props: TimetableProps) => {
   }, [startDate, endDate, now]);
 
   useEffect(() => {
-    if (isMobile.any || !ref.current) return;
+    const isAnyMobile = isMobile(navigator.userAgent).any;
+
+    if (isAnyMobile || !ref.current) return;
     ref.current.addEventListener('wheel', handleWheel, { passive: true });
 
     return () => {
-      if (isMobile.any || !ref.current) return;
+      if (isAnyMobile || !ref.current) return;
       ref.current.removeEventListener('wheel', handleWheel);
     };
   });
