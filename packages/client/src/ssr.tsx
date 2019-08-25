@@ -8,11 +8,8 @@ import { HttpLink } from 'apollo-link-http';
 import i18next from 'i18next';
 import fetch from 'node-fetch';
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
-import {
-  ApolloProvider as ApolloHooksProvider,
-  getMarkupFromTree,
-} from 'react-apollo-hooks';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { getDataFromTree } from '@apollo/react-ssr';
 import ReactDOMServer from 'react-dom/server';
 import { I18nextProvider } from 'react-i18next';
 import { StaticRouter } from 'react-router-dom';
@@ -60,21 +57,19 @@ export default async function SSR(params: SSRParams): Promise<SSRResult> {
 
   const App = (
     <ApolloProvider client={client}>
-      <ApolloHooksProvider client={client}>
-        <StaticRouter location={params.location} context={context}>
-          <StyleSheetManager sheet={sheet.instance}>
-            <I18nextProvider i18n={params.i18n}>
-              <ThemeProvider theme={theme}>
-                <Root />
-              </ThemeProvider>
-            </I18nextProvider>
-          </StyleSheetManager>
-        </StaticRouter>
-      </ApolloHooksProvider>
+      <StaticRouter location={params.location} context={context}>
+        <StyleSheetManager sheet={sheet.instance}>
+          <I18nextProvider i18n={params.i18n}>
+            <ThemeProvider theme={theme}>
+              <Root />
+            </ThemeProvider>
+          </I18nextProvider>
+        </StyleSheetManager>
+      </StaticRouter>
     </ApolloProvider>
   );
 
-  const content = await getMarkupFromTree({
+  const content = await getDataFromTree({
     renderFunction: ReactDOMServer.renderToString,
     tree: App,
   });

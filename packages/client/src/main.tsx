@@ -7,8 +7,7 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import * as OfflinePluginRuntime from 'offline-plugin/runtime';
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
-import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
+import { ApolloProvider } from '@apollo/react-hooks';
 import ReactDOM from 'react-dom';
 import { I18nextProvider } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
@@ -46,15 +45,13 @@ import { Root } from './views/root';
 
   ReactDOM.render(
     <ApolloProvider client={client}>
-      <ApolloHooksProvider client={client}>
-        <BrowserRouter>
-          <I18nextProvider i18n={i18n}>
-            <ThemeProvider theme={theme}>
-              <Root />
-            </ThemeProvider>
-          </I18nextProvider>
-        </BrowserRouter>
-      </ApolloHooksProvider>
+      <BrowserRouter>
+        <I18nextProvider i18n={i18n}>
+          <ThemeProvider theme={theme}>
+            <Root />
+          </ThemeProvider>
+        </I18nextProvider>
+      </BrowserRouter>
     </ApolloProvider>,
     mountNode,
   );
