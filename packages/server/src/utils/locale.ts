@@ -1,10 +1,10 @@
 import en from '@ril/locales/en/translation.json';
 import ja from '@ril/locales/ja/translation.json';
 import i18next from 'i18next';
-import i18nextMiddleware from 'i18next-express-middleware';
+import { LanguageDetector } from 'i18next-express-middleware';
 
-export const getI18n = () => {
-  i18next.use(i18nextMiddleware.LanguageDetector).init({
+export const createI18n = () => {
+  i18next.use(LanguageDetector).init({
     resources: {
       en: { translation: en },
       ja: { translation: ja },

@@ -15,7 +15,7 @@ import { BrowserRouter } from 'react-router-dom';
 import introspectionResult from 'src/generated/introspection-result';
 import { ThemeProvider } from 'src/styles';
 import { theme } from 'src/styles/theme';
-import { getI18n, initDayjs } from 'src/utils/locale';
+import { createI18n, initDayjs } from 'src/utils/locale';
 import { Root } from './views/root';
 
 (async () => {
@@ -42,7 +42,7 @@ import { Root } from './views/root';
   });
 
   initDayjs();
-  const i18n = getI18n();
+  const i18n = createI18n();
 
   ReactDOM.render(
     <ApolloProvider client={client}>
