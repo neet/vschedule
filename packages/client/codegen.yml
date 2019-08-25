@@ -9,6 +9,8 @@ generates:
       - typescript-react-apollo
     config:
       withHooks: true
+      withHOC: false
+      withComponent: false
   src/generated/introspection-result.ts:
       plugins:
         - fragment-matcher
