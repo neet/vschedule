@@ -11,6 +11,8 @@
     "watch": "webpack-dev-server --mode development --config=webpack/webpack.config.js"
   },
   "dependencies": {
+    "@apollo/react-hooks": "^3.0.1",
+    "@apollo/react-ssr": "^3.0.1",
     "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-decorators": "^7.4.4",
@@ -60,8 +62,6 @@
     "offline-plugin": "^5.0.7",
     "polished": "^3.4.1",
     "react": "^16.9.0",
-    "react-apollo": "^3.0.1",
-    "react-apollo-hooks": "^0.5.0",
     "react-dom": "^16.9.0",
     "react-i18next": "^10.12.2",
     "react-router": "^5.0.1",
