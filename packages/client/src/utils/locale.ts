@@ -28,12 +28,12 @@ export function normalizeLanguageForDayjs(lng: string) {
     : lng.split('-')[0];
 }
 
-export function initDayjs(): void {
+export const initDayjs = () => {
   dayjs.extend(localizedFormat);
   dayjs.extend(relativeTime);
-}
+};
 
-export function getI18n() {
+export const createI18n = () => {
   i18next.on('initialized', options => {
     if (!options.lng) return;
     dayjs.locale(normalizeLanguageForDayjs(options.lng));
@@ -62,4 +62,4 @@ export function getI18n() {
   });
 
   return i18next;
-}
+};

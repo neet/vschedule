@@ -9,7 +9,7 @@ import i18nextMiddleware from 'i18next-express-middleware';
 import { BIND_PORT } from './config';
 import { dataSources } from './datasources';
 import { resolvers } from './resolvers';
-import { getI18n } from './utils/locale';
+import { createI18n } from './utils/locale';
 
 (async () => {
   const schemaPath = require.resolve('@ril/schema');
@@ -35,7 +35,7 @@ import { getI18n } from './utils/locale';
   app.use(cors());
 
   // I18next
-  app.use(i18nextMiddleware.handle(getI18n()));
+  app.use(i18nextMiddleware.handle(createI18n()));
 
   // Static files
   app.use(express.static(staticPath));
