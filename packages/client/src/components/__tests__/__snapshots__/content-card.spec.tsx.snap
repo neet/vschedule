@@ -61,17 +61,17 @@ exports[`<EventCard /> renders event card with given props 1`] = `
 }
 
 <a
-  aria-label="神ゲーらしい【The Beginner's Guide】 剣持刀也 にじさんじ所属バーチャルライバー剣持刀也 防御力：ちくわの700倍 【Twitter】https://twitter.com/rei_Toya_rei"
+  aria-label="神ゲーらしい【The Beginner's Guide】"
   class="c0"
   href="https://www.youtube.com/watch?v=nm5VvO9Z4gY"
-  rel="norefferer"
+  rel="noopener noreferrer"
   tabindex="0"
   target="_blank"
   title="神ゲーらしい【The Beginner's Guide】"
 >
   <div
     class="c1"
-    style="background-image: url(https://img.youtube.com/vi/nm5VvO9Z4gY/hqdefault.jpg);"
+    style="background-image: url(undefined);"
   />
   <div
     class="c2"
