@@ -60,7 +60,7 @@ export interface Event {
 }
 
 // DEAR ICHIKARA.
-// Stop using envelope pattern and and use HTTP status codes instead.
+// Stop using envelope pattern and use HTTP status codes instead.
 type EventsResponse = Response<{ events: Event[] }>;
 type EventResponse = Response<{ event: Event }>;
 type LiversResponse = Response<{ liver_relationships: LiverRelationships[] }>;

@@ -21,36 +21,9 @@ export const resolvers: Resolvers = {
   },
 
   Source: {
-    latinName: async (source, _, { dataSources }) => {
-      const data = await dataSources.itsukaraLink.fetchSource(source.id);
-
-      return data.latinName;
-    },
-
-    ruby: async (source, _, { dataSources }) => {
-      const data = await dataSources.itsukaraLink.fetchSource(source.id);
-
-      return data.ruby;
-    },
-
-    description: async (source, _, { dataSources }) => {
-      const data = await dataSources.itsukaraLink.fetchSource(source.id);
-
-      return data.description;
-    },
-
-    public: async (source, _, { dataSources }) => {
-      const data = await dataSources.itsukaraLink.fetchSource(source.id);
-
-      return data.public;
-    },
-
-    position: async (source, _, { dataSources }) => {
-      const data = await dataSources.itsukaraLink.fetchSource(source.id);
-
-      return data.position;
-    },
-
+    // The value of property `liver_youtube_channel` is either an array of object
+    // or just a single object depending on whether it is fetched from `/livers` or `/livers/${id}`
+    // so when `socialAccounts` field requested, we fill the missing data by fetching it from `/livers/${id}`
     socialAccounts: async (source, _, { dataSources }) => {
       const data = await dataSources.itsukaraLink.fetchSource(source.id);
 
