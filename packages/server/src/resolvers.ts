@@ -8,7 +8,7 @@ export const resolvers: Resolvers = {
     contents: (_1, _2, { dataSources }) =>
       dataSources.itsukaraLink.fetchContents(),
 
-    source: (_1, { id }, { dataSources }) =>
+    source: (_, { id }, { dataSources }) =>
       dataSources.itsukaraLink.fetchSource(id),
 
     sources: (_1, _2, { dataSources }) =>
@@ -16,7 +16,7 @@ export const resolvers: Resolvers = {
 
     genres: (_1, _2, { dataSources }) => dataSources.itsukaraLink.fetchGenres(),
 
-    genre: (_1, { id }, { dataSources }) =>
+    genre: (_, { id }, { dataSources }) =>
       dataSources.itsukaraLink.fetchGenre(id),
   },
 

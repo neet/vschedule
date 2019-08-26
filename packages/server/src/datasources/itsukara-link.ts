@@ -157,7 +157,7 @@ export class ItsukaraLinkAPI extends RESTDataSource {
   };
 
   fetchGenre = async (id: string) => {
-    const res = await this.get<GenresResponse>(`/v1.2/genre.json`);
+    const res = await this.get<GenresResponse>(`/v1.2/genres.json`);
 
     const genre = res.data.genres
       .map(genre => this.reduceGenre(genre))
@@ -171,7 +171,7 @@ export class ItsukaraLinkAPI extends RESTDataSource {
   };
 
   fetchGenres = async () => {
-    const res = await this.get<GenresResponse>(`/v1.2/genre.json`);
+    const res = await this.get<GenresResponse>(`/v1.2/genres.json`);
 
     return res.data.genres.map(genre => this.reduceGenre(genre));
   };
