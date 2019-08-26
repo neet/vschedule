@@ -44,7 +44,7 @@ type Source {
   socialAccounts: [SocialAccount!]!
 }
 
-interface Genre {
+type Genre {
   # ID of the genre
   id: ID!
   # name
