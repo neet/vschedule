@@ -159,9 +159,15 @@ export class ItsukaraLinkAPI extends RESTDataSource {
   fetchGenre = async (id: string) => {
     const res = await this.get<GenresResponse>(`/v1.2/genre.json`);
 
-    return res.data.genres
+    const genre = res.data.genres
       .map(genre => this.reduceGenre(genre))
       .find(genre => genre.id === id);
+
+    if (!genre) {
+      throw new Error('Genre not found');
+    }
+
+    return genre;
   };
 
   fetchGenres = async () => {
