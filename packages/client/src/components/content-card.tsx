@@ -1,10 +1,8 @@
-import querystring from 'querystring';
 import dayjs from 'dayjs';
 import React from 'react';
 import { Content } from 'src/generated/graphql';
 import { useNow } from 'src/hooks/use-now';
 import { css, styled } from 'src/styles';
-import { getThumbnailImageUrl } from 'src/utils/get-thumbnail-image-url';
 
 export interface ContentCardProps {
   content: Content;
@@ -86,22 +84,19 @@ export const ContentCard = (props: ContentCardProps) => {
 
   const isStreaming =
     (startDate.isBefore(now) || startDate.isSame(now)) && endDate.isAfter(now);
-
-  const videoId = querystring.parse(content.url.split('?')[1]).v as string;
-  const thumbnailImageUrl = getThumbnailImageUrl(videoId);
-  const textForScreenReader = `${content.name} ${content.source.name} ${content.description}`;
+  const textualContent = content.name;
 
   return (
     <Wrapper
       href={content.url}
-      target="__blank"
-      rel="norefferer"
-      title={content.name}
+      target="_blank"
+      rel="noopener noreferrer"
       tabIndex={0}
-      aria-label={textForScreenReader}
+      title={textualContent}
+      aria-label={textualContent}
       isStreaming={isStreaming}
     >
-      <Thumbnail style={{ backgroundImage: `url(${thumbnailImageUrl})` }} />
+      <Thumbnail style={{ backgroundImage: `url(${content.thumbnail})` }} />
 
       <Meta>
         <Title>{content.name}</Title>

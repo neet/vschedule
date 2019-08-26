@@ -61,7 +61,7 @@ exports[`<Marker /> renders marker with given props 1`] = `
   rel="noreferrer"
   style="width: 282px; transform: translate(9px, 0px); background-color: rgb(165, 144, 175); box-shadow: 0 2px 6px #a590af;"
   tabindex="0"
-  target="__blank"
+  target="_blank"
   title="神ゲーらしい【The Beginner's Guide】"
 >
   <img
