@@ -39,6 +39,6 @@ fragment PartialContentFields on Content {
 
 query fetchContents {
   contents {
-    ...ContentFields
+    ...PartialContentFields
   }
 }
