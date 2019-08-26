@@ -3,7 +3,7 @@ import React from 'react';
 import { cleanup, render } from '@testing-library/react';
 import { withTheme } from '../../../../test-utils';
 import { Marker } from '../marker';
-import { Content } from '../../../../generated/graphql';
+import { PartialContentFieldsFragment } from '../../../../generated/graphql';
 
 const content = {
   id: '1069',
@@ -33,7 +33,7 @@ describe('<Marker />', () => {
     const Component = withTheme(Marker);
     const result = render(
       <Component
-        content={(content as any) as Content}
+        content={(content as any) as PartialContentFieldsFragment}
         row={0}
         startDate={dayjs('2019-02-28T00:00:00.000+09:00')}
       />,
