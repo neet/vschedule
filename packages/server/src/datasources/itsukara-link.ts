@@ -137,6 +137,7 @@ export class ItsukaraLinkAPI extends RESTDataSource {
     description: event.description,
     public: event.public,
     url: event.url,
+    thunbnail: event.thumbnail,
     startDate: event.start_date,
     endDate: event.end_date,
     recommend: event.recommend,

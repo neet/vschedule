@@ -9,6 +9,8 @@ type Content {
   public: Int!
   # URL of the content
   url: String!
+  # Thumbnail of the content
+  thunbnail: String!
   # Start date time on ISO 8601
   startDate: String!
   # End date time on ISO 8601
