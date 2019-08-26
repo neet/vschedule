@@ -140,7 +140,7 @@ export class ItsukaraLinkAPI extends RESTDataSource {
     startDate: event.start_date,
     endDate: event.end_date,
     recommend: event.recommend,
-    source: event.livers.map(live => this.reduceSource(live)),
+    sources: event.livers.map(live => this.reduceSource(live)),
     genre: event.genre ? this.reduceGenre(event.genre) : undefined,
   });
 

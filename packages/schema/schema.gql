@@ -15,8 +15,8 @@ type Content {
   endDate: String!
   # Whether the streaming is recommended for the user
   recommend: Boolean!
-  # Source of the content
-  source: [Source!]!
+  # Sources of the content
+  sources: [Source!]!
   # Associated genre
   genre: Genre
 }

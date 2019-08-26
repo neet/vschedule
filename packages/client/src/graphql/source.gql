@@ -18,6 +18,11 @@ fragment SourceFields on Source {
 fragment PartialSourceFields on Source {
   id
   name
+  latinName
+  ruby
   avatar
   color
+  description
+  public
+  position
 }

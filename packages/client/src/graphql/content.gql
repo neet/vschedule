@@ -1,3 +1,4 @@
+# import "./genre.gql"
 # import "./source.gql"
 
 fragment ContentFields on Content {
@@ -9,7 +10,10 @@ fragment ContentFields on Content {
   startDate
   endDate
   recommend
-  source {
+  genre {
+    ...GenreFields
+  }
+  sources {
     ...SourceFields
   }
 }
@@ -23,7 +27,10 @@ fragment PartialContentFields on Content {
   startDate
   endDate
   recommend
-  source {
+  genre {
+    ...GenreFields
+  }
+  sources {
     ...PartialSourceFields
   }
 }
