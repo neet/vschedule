@@ -16,7 +16,9 @@ type Content {
   # Whether the streaming is recommended for the user
   recommend: Boolean!
   # Source of the content
-  source: Source!
+  source: [Source!]!
+  # Associated genre
+  genre: Genre
 }
 
 type Source {
@@ -40,6 +42,13 @@ type Source {
   position: Int!
   # External services' information
   socialAccounts: [SocialAccount!]!
+}
+
+interface Genre {
+  # ID of the genre
+  id: ID!
+  # name
+  name: String!
 }
 
 interface SocialAccount {
@@ -72,10 +81,12 @@ type TwitterAccount implements SocialAccount {
 }
 
 type Query {
-  content(id: ID!): Content!
+  content(id: ID!): Content
   contents: [Content!]!
-  source(id: ID!): Source!
+  source(id: ID!): Source
   sources: [Source!]!
+  genre(id: ID!): Genre
+  genres: [Genre!]!
 }
 
 schema {
