@@ -1,7 +1,10 @@
 import dayjs from 'dayjs';
-import { Content } from 'src/generated/graphql';
+import { PartialContentFieldsFragment } from 'src/generated/graphql';
 
-export function isOverlapping(contentX: Content, contentY: Content) {
+export function isOverlapping(
+  contentX: PartialContentFieldsFragment,
+  contentY: PartialContentFieldsFragment,
+) {
   const xStartAt = dayjs(contentX.startDate);
   const xEndAt = dayjs(contentX.endDate);
   const yStartAt = dayjs(contentY.startDate);

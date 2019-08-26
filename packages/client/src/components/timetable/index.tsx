@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import isMobile from 'ismobilejs';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { Content } from 'src/generated/graphql';
+import { PartialContentFieldsFragment } from 'src/generated/graphql';
 import { useNow } from 'src/hooks/use-now';
 import { styled } from 'src/styles';
 import { borderGap, sidebarWidth } from 'src/styles/constants';
@@ -10,7 +10,7 @@ import { Feed } from './feed';
 import { Placeholder } from './placeholder';
 
 export interface TimetableProps {
-  contents?: Content[];
+  contents?: PartialContentFieldsFragment[];
   loading: boolean;
 }
 

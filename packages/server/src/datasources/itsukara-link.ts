@@ -1,13 +1,8 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
-import {
-  Content,
-  Source,
-  TwitterAccount,
-  YoutubeChannel,
-} from 'src/generated/graphql';
+import * as G from 'src/generated/graphql';
 
 export interface Response<Data = any> {
-  status: 'ok';
+  status: 'ok' | 'ng';
   data: Data;
 }
 
@@ -16,11 +11,11 @@ export interface Liver {
   name: string;
   avatar: string;
   color: string;
-  english_name?: string;
-  furigana?: string;
-  description?: string;
-  public?: number;
-  position?: number;
+  english_name?: string | null;
+  furigana?: string | null;
+  description?: string | null;
+  public?: number | null;
+  position?: number | null;
 }
 
 export interface LiverTwitterAccount {
@@ -40,7 +35,14 @@ export interface LiverYoutubeChannel {
 export interface LiverRelationships {
   liver: Liver;
   liver_twitter_account: LiverTwitterAccount;
-  liver_youtube_channel: LiverYoutubeChannel[];
+  liver_youtube_channel: LiverYoutubeChannel | LiverYoutubeChannel[];
+  liver_platform?: [];
+  user_liver?: null;
+}
+
+export interface Genre {
+  id: number;
+  name: string;
 }
 
 export interface Event {
@@ -49,17 +51,21 @@ export interface Event {
   description: string;
   public: number;
   url: string;
+  thumbnail: string;
   start_date: string;
   end_date: string;
   recommend: boolean;
-  liver: Liver;
+  genre?: Genre | null;
+  livers: Liver[];
 }
 
-// What's the heck...
+// DEAR ICHIKARA.
+// Stop using envelope pattern and and use HTTP status codes instead.
 type EventsResponse = Response<{ events: Event[] }>;
 type EventResponse = Response<{ event: Event }>;
 type LiversResponse = Response<{ liver_relationships: LiverRelationships[] }>;
 type LiverResponse = Response<LiverRelationships>;
+type GenresResponse = Response<{ genres: Genre[] }>;
 
 export class ItsukaraLinkAPI extends RESTDataSource {
   constructor(baseURL: string) {
@@ -69,7 +75,7 @@ export class ItsukaraLinkAPI extends RESTDataSource {
 
   private reduceYoutubeChannel = (
     liverYoutubeChannel: LiverYoutubeChannel,
-  ): YoutubeChannel => ({
+  ): G.YoutubeChannel => ({
     id: liverYoutubeChannel.id.toString(),
     source: liverYoutubeChannel.liver_id.toString(),
     channel: liverYoutubeChannel.channel,
@@ -79,7 +85,7 @@ export class ItsukaraLinkAPI extends RESTDataSource {
 
   private reduceTwitterAccount = (
     liverTwitterAccount: LiverTwitterAccount,
-  ): TwitterAccount => ({
+  ): G.TwitterAccount => ({
     id: liverTwitterAccount.id.toString(),
     source: liverTwitterAccount.liver_id.toString(),
     screenName: liverTwitterAccount.screen_name,
@@ -88,9 +94,9 @@ export class ItsukaraLinkAPI extends RESTDataSource {
   private reduceSource = (
     liver: Liver,
     twitter?: LiverTwitterAccount,
-    youtubes?: LiverYoutubeChannel[],
-  ): Source => {
-    const source: Source = {
+    youtube?: LiverYoutubeChannel | LiverYoutubeChannel[],
+  ): G.Source => {
+    const source: G.Source = {
       id: liver.id.toString(),
       name: liver.name,
       latinName: liver.english_name || '',
@@ -103,10 +109,14 @@ export class ItsukaraLinkAPI extends RESTDataSource {
       socialAccounts: [],
     };
 
-    if (youtubes) {
-      youtubes.forEach(youtube => {
+    if (youtube) {
+      if (Array.isArray(youtube)) {
+        for (const item of youtube) {
+          source.socialAccounts.push(this.reduceYoutubeChannel(item));
+        }
+      } else {
         source.socialAccounts.push(this.reduceYoutubeChannel(youtube));
-      });
+      }
     }
 
     if (twitter) {
@@ -116,50 +126,76 @@ export class ItsukaraLinkAPI extends RESTDataSource {
     return source;
   };
 
-  private reduceContent = (event: Event): Content => ({
+  private reduceGenre = (genre: Genre): G.Genre => ({
+    id: genre.id.toString(),
+    name: genre.name,
+  });
+
+  private reduceContent = (event: Event): G.Content => ({
     id: event.id.toString(),
     name: event.name,
     description: event.description,
     public: event.public,
     url: event.url,
+    thumbnail: event.thumbnail,
     startDate: event.start_date,
     endDate: event.end_date,
     recommend: event.recommend,
-    source: this.reduceSource(event.liver),
+    sources: event.livers.map(live => this.reduceSource(live)),
+    genre: event.genre ? this.reduceGenre(event.genre) : undefined,
   });
 
   fetchContents = async () => {
-    const res = await this.get<EventsResponse>('events.json');
+    const res = await this.get<EventsResponse>('/v1.2/events.json');
 
     return res.data.events.map(this.reduceContent);
   };
 
   fetchContent = async (id: string) => {
-    const res = await this.get<EventResponse>(`events/${id}.json`);
+    const res = await this.get<EventResponse>(`/v1.2/events/${id}.json`);
 
     return this.reduceContent(res.data.event);
   };
 
-  fetchSources = async () => {
-    const res = await this.get<LiversResponse>('livers.json');
+  fetchGenre = async (id: string) => {
+    const res = await this.get<GenresResponse>(`/v1.2/genres.json`);
 
-    return res.data.liver_relationships.map(data =>
+    const genre = res.data.genres
+      .map(genre => this.reduceGenre(genre))
+      .find(genre => genre.id === id);
+
+    if (!genre) {
+      throw new Error('Genre not found');
+    }
+
+    return genre;
+  };
+
+  fetchGenres = async () => {
+    const res = await this.get<GenresResponse>(`/v1.2/genres.json`);
+
+    return res.data.genres.map(genre => this.reduceGenre(genre));
+  };
+
+  fetchSources = async () => {
+    const res = await this.get<LiversResponse>('/v1.2/livers.json');
+
+    return res.data.liver_relationships.map(liverRelationship =>
       this.reduceSource(
-        data.liver,
-        data.liver_twitter_account,
-        data.liver_youtube_channel,
+        liverRelationship.liver,
+        liverRelationship.liver_twitter_account,
+        liverRelationship.liver_youtube_channel,
       ),
     );
   };
 
   fetchSource = async (id: string) => {
-    const res = await this.get<LiverResponse>(`livers/${id}.json`);
-    const data = res.data;
+    const res = await this.get<LiverResponse>(`/v1.2/livers/${id}.json`);
 
     return this.reduceSource(
-      data.liver,
-      data.liver_twitter_account,
-      data.liver_youtube_channel,
+      res.data.liver,
+      res.data.liver_twitter_account,
+      res.data.liver_youtube_channel,
     );
   };
 }

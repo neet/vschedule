@@ -110,8 +110,8 @@ export const Banner: React.SFC = React.memo(() => {
       <Toolbox>
         <a
           href="https://twitter.com/thegodofneet"
-          target="__blank"
-          rel="noreferrer"
+          target="_blank"
+          rel="noopener noreferrer"
           title={t('banner.view_twitter', {
             defaultValue: 'View Twitter',
           })}
@@ -124,8 +124,8 @@ export const Banner: React.SFC = React.memo(() => {
 
         <a
           href="https://github.com/neet/refined-itsukara-link"
-          target="__blank"
-          rel="noreferrer"
+          target="_blank"
+          rel="noopener noreferrer"
           title={t('banner.view_source', { defaultValue: 'View Source' })}
           aria-label={t('banner.view_source', { defaultValue: 'View Source' })}
         >
@@ -134,8 +134,8 @@ export const Banner: React.SFC = React.memo(() => {
 
         <OriginalLink
           href="https://www.itsukaralink.jp"
-          target="__blank"
-          rel="noreferrer"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
           <span>

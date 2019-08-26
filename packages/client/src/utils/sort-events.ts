@@ -1,7 +1,10 @@
 import dayjs from 'dayjs';
-import { Content } from 'src/generated/graphql';
+import { PartialContentFieldsFragment } from 'src/generated/graphql';
 
-export function sortEvents(contentX: Content, contentY: Content) {
+export function sortEvents(
+  contentX: PartialContentFieldsFragment,
+  contentY: PartialContentFieldsFragment,
+) {
   const xStartAt = dayjs(contentX.startDate);
   const yStartAt = dayjs(contentY.startDate);
 

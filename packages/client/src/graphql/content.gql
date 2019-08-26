@@ -1,3 +1,4 @@
+# import "./genre.gql"
 # import "./source.gql"
 
 fragment ContentFields on Content {
@@ -6,10 +7,14 @@ fragment ContentFields on Content {
   description
   public
   url
+  thumbnail
   startDate
   endDate
   recommend
-  source {
+  genre {
+    ...GenreFields
+  }
+  sources {
     ...SourceFields
   }
 }
@@ -20,16 +25,20 @@ fragment PartialContentFields on Content {
   description
   public
   url
+  thumbnail
   startDate
   endDate
   recommend
-  source {
+  genre {
+    ...GenreFields
+  }
+  sources {
     ...PartialSourceFields
   }
 }
 
 query fetchContents {
   contents {
-    ...ContentFields
+    ...PartialContentFields
   }
 }

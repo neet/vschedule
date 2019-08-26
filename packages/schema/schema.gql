@@ -9,14 +9,18 @@ type Content {
   public: Int!
   # URL of the content
   url: String!
+  # Thumbnail of the content
+  thumbnail: String!
   # Start date time on ISO 8601
   startDate: String!
   # End date time on ISO 8601
   endDate: String!
   # Whether the streaming is recommended for the user
   recommend: Boolean!
-  # Source of the content
-  source: Source!
+  # Sources of the content
+  sources: [Source!]!
+  # Associated genre
+  genre: Genre
 }
 
 type Source {
@@ -40,6 +44,13 @@ type Source {
   position: Int!
   # External services' information
   socialAccounts: [SocialAccount!]!
+}
+
+type Genre {
+  # ID of the genre
+  id: ID!
+  # name
+  name: String!
 }
 
 interface SocialAccount {
@@ -72,10 +83,12 @@ type TwitterAccount implements SocialAccount {
 }
 
 type Query {
-  content(id: ID!): Content!
+  content(id: ID!): Content
   contents: [Content!]!
-  source(id: ID!): Source!
+  source(id: ID!): Source
   sources: [Source!]!
+  genre(id: ID!): Genre
+  genres: [Genre!]!
 }
 
 schema {

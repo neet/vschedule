@@ -1,4 +1,4 @@
-import { Resolvers, YoutubeChannel } from './generated/graphql';
+import { Resolvers } from './generated/graphql';
 
 export const resolvers: Resolvers = {
   Query: {
@@ -8,11 +8,16 @@ export const resolvers: Resolvers = {
     contents: (_1, _2, { dataSources }) =>
       dataSources.itsukaraLink.fetchContents(),
 
-    source: (_1, { id }, { dataSources }) =>
+    source: (_, { id }, { dataSources }) =>
       dataSources.itsukaraLink.fetchSource(id),
 
     sources: (_1, _2, { dataSources }) =>
       dataSources.itsukaraLink.fetchSources(),
+
+    genres: (_1, _2, { dataSources }) => dataSources.itsukaraLink.fetchGenres(),
+
+    genre: (_, { id }, { dataSources }) =>
+      dataSources.itsukaraLink.fetchGenre(id),
   },
 
   Source: {
@@ -55,7 +60,7 @@ export const resolvers: Resolvers = {
 
   SocialAccount: {
     __resolveType: socialAccount => {
-      if ((socialAccount as YoutubeChannel).channel) {
+      if ('channel' in socialAccount) {
         return 'YoutubeChannel';
       }
 
