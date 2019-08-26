@@ -2,13 +2,13 @@ import dayjs from 'dayjs';
 import React, { useCallback, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { ContentCard } from 'src/components/content-card';
-import { Content } from 'src/generated/graphql';
+import { PartialContentFieldsFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { sidebarWidth } from 'src/styles/constants';
 import { EventCardPlaceholders } from './placeholder';
 
 export interface SidebarProps {
-  contents?: Content[];
+  contents?: PartialContentFieldsFragment[];
   loading: boolean;
 }
 

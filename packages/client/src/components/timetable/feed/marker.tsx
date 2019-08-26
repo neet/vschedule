@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
 import { opacify, parseToRgb } from 'polished';
 import React, { useCallback, useMemo } from 'react';
-import { Content } from 'src/generated/graphql';
+import { PartialContentFieldsFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { borderGap, markerGap } from 'src/styles/constants';
 
 export interface MarkerProps {
-  content: Content;
+  content: PartialContentFieldsFragment;
   row: number;
   startDate: dayjs.Dayjs;
 }

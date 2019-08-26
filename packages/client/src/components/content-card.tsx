@@ -1,11 +1,11 @@
 import dayjs from 'dayjs';
 import React from 'react';
-import { Content } from 'src/generated/graphql';
+import { PartialContentFieldsFragment } from 'src/generated/graphql';
 import { useNow } from 'src/hooks/use-now';
 import { css, styled } from 'src/styles';
 
 export interface ContentCardProps {
-  content: Content;
+  content: PartialContentFieldsFragment;
 }
 
 interface WrapperProps {

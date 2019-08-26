@@ -1,13 +1,13 @@
 import { Dayjs } from 'dayjs';
 import React, { useCallback, useMemo } from 'react';
-import { Content } from 'src/generated/graphql';
+import { PartialContentFieldsFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { isOverlapping } from 'src/utils/is-overlapping';
 import { sortEvents } from 'src/utils/sort-events';
 import { Marker, MarkerProps } from './marker';
 
 export interface FeedProps {
-  contents: Content[];
+  contents: PartialContentFieldsFragment[];
   startDate: Dayjs;
 }
 
@@ -34,7 +34,10 @@ export const Feed = (props: FeedProps) => {
    * @param result A 2-dimentional array of events per each row
    */
   const getMarkerPositions = useCallback(
-    (sortedContents: Content[], result: Content[][] = []): Content[][] => {
+    (
+      sortedContents: PartialContentFieldsFragment[],
+      result: PartialContentFieldsFragment[][] = [],
+    ): PartialContentFieldsFragment[][] => {
       if (!sortedContents.length) {
         return result;
       }
@@ -43,25 +46,28 @@ export const Feed = (props: FeedProps) => {
       result.push([]);
       const current = result[result.length - 1];
 
-      const rest = sortedContents.reduce<Content[]>((restContents, content) => {
-        if (!current.length) {
-          current.push(content);
+      const rest = sortedContents.reduce<PartialContentFieldsFragment[]>(
+        (restContents, content) => {
+          if (!current.length) {
+            current.push(content);
+
+            return restContents;
+          }
+
+          const prev = current[current.length - 1];
+
+          if (!isOverlapping(content, prev)) {
+            current.push(content);
+
+            return restContents;
+          }
+
+          restContents.push(content);
 
           return restContents;
-        }
-
-        const prev = current[current.length - 1];
-
-        if (!isOverlapping(content, prev)) {
-          current.push(content);
-
-          return restContents;
-        }
-
-        restContents.push(content);
-
-        return restContents;
-      }, []);
+        },
+        [],
+      );
 
       return getMarkerPositions(rest, result);
     },
