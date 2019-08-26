@@ -109,14 +109,14 @@ export class ItsukaraLinkAPI extends RESTDataSource {
       socialAccounts: [],
     };
 
-    if (youtube && Array.isArray(youtube)) {
-      for (const item of youtube) {
-        source.socialAccounts.push(this.reduceYoutubeChannel(item));
+    if (youtube) {
+      if (Array.isArray(youtube)) {
+        for (const item of youtube) {
+          source.socialAccounts.push(this.reduceYoutubeChannel(item));
+        }
+      } else {
+        source.socialAccounts.push(this.reduceYoutubeChannel(youtube));
       }
-    }
-
-    if (youtube && !Array.isArray(youtube)) {
-      source.socialAccounts.push(this.reduceYoutubeChannel(youtube));
     }
 
     if (twitter) {
