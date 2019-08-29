@@ -93,723 +93,723 @@ export const groups = [
     ids: [MitoTsukino, KaedeHiguchi, RinShizuka],
   },
   {
-    name: "あくまどーじょー",
+    name: 'あくまどーじょー',
     ids: [DebidebiDebiru, RoaYuzuki],
   },
   {
-    name: "悪夢組",
+    name: '悪夢組',
     ids: [DebidebiDebiru, JoeRikiichi],
   },
   {
-    name: "アズゆず",
+    name: 'アズゆず',
     ids: [AzumaNakao, YuzuHassaku],
   },
   {
-    name: "aho",
+    name: 'aho',
     ids: [AkinaSaegusa, EraOtogibara, TokoInui],
   },
   {
-    name: "雨森久遠",
+    name: '雨森久遠',
     ids: [SayoAmemori, ChitoseKudo],
   },
   {
-    name: "アリストロベリー",
+    name: 'アリストロベリー',
     ids: [IchigoUshimi, AliceMononobe],
   },
   {
-    name: "ありめいじす",
+    name: 'ありめいじす',
     ids: [AliceMononobe, MeijiWarabeda],
   },
   {
-    name: "あん・で・とこ",
+    name: 'あん・で・とこ',
     ids: [DebidebiDebiru, TokoInui, AngeKatrina],
   },
   {
-    name: "いずもるる",
+    name: 'いずもるる',
     ids: [MoruruYamiyono, KasumiIzumo],
   },
   {
-    name: "いちガク",
+    name: 'いちガク',
     ids: [IchigoUshimi, GakuFushimi],
   },
   {
-    name: "いちひま",
+    name: 'いちひま',
     ids: [IchigoUshimi, HimawariHonma],
   },
   {
-    name: "1期生出身",
+    name: '1期生出身',
     ids: [MitoTsukino, ChihiroYuki, Elu, KaedeHiguchi, RinShizuka, HajimeShibuya, AkiSuzuya, Moira],
   },
   {
-    name: "うーちー",
+    name: 'うーちー',
     ids: [ChihiroYuki, UtakoSuzuka],
   },
   {
-    name: "うさちゃんクラブwithB",
+    name: 'うさちゃんクラブwithB',
     ids: [ShoichiKanda, AirHarusaki, MireiGundo, RoaYuzuki],
   },
   {
-    name: "うたかざ",
+    name: 'うたかざ',
     ids: [UtakoSuzuka, KazakiMorinaka],
   },
   {
-    name: "うたみこ",
+    name: 'うたみこ',
     ids: [UtakoSuzuka, MikotoRindou],
   },
   {
-    name: "うたみこバネ卍",
+    name: 'うたみこバネ卍',
     ids: [UtakoSuzuka, YoukoAkabane, Setsuna, MikotoRindou],
   },
   {
-    name: "ATM",
+    name: 'ATM',
     ids: [AliceMononobe, ToyaKenmochi, KazakiMorinaka],
   },
   {
-    name: "エクレア",
+    name: 'エクレア',
     ids: [Elu, SisterClaire],
   },
   {
-    name: "エビ仙",
+    name: 'エビ仙',
     ids: [Ryushen, ExAlbio],
   },
   {
-    name: "エビチリ",
+    name: 'エビチリ',
     ids: [AkinaSaegusa, ExAlbio],
   },
   {
-    name: "ERRors",
+    name: 'ERRors',
     ids: [Elu, RiriYuhi, Ryushen],
   },
   {
-    name: "えるかざガク",
+    name: 'えるかざガク',
     ids: [Elu, GakuFushimi, KazakiMorinaka],
   },
   {
-    name: "OTN組",
+    name: 'OTN組',
     ids: [AzumaNakao, ChaikaHanabatake, KizukuYashiro],
   },
   {
-    name: "おしぃりぃ",
+    name: 'おしぃりぃ',
     ids: [MakainoRirimu, YuikaShiina],
   },
   {
-    name: "おしぃりぃまわり",
+    name: 'おしぃりぃまわり',
     ids: [HimawariHonma, MakainoRirimu, YuikaShiina],
   },
   {
-    name: "おっさんゲームス",
+    name: 'おっさんゲームス',
     ids: [KizukuYashiro, KeisukeMaimoto],
   },
   {
-    name: "漢組(初代)",
+    name: '漢組(初代)',
     ids: [HajimeShibuya, AkiSuzuya],
   },
   {
-    name: "漢組",
+    name: '漢組',
     ids: [HajimeShibuya, AkiSuzuya, GakuFushimi, GilzarenIII, ToyaKenmochi],
   },
   {
-    name: "おなえどし組",
+    name: 'おなえどし組',
     ids: [KasumiIzumo, MasaruSuzuki, KouUzuki],
   },
   {
-    name: "おののみれい",
+    name: 'おののみれい',
     ids: [MireiGundo, HarukaOnomachi],
   },
   {
-    name: "おりコウ",
+    name: 'おりコウ',
     ids: [MakainoRirimu, KouUzuki],
   },
   {
-    name: "女の嫌なところ",
+    name: '女の嫌なところ',
     ids: [SakuSasaki, YuikaShiina, MireiGundo, EraOtogibara],
   },
   {
-    name: "解散GIG",
+    name: '解散GIG',
     ids: [YoukoAkabane, SakuSasaki, YuikaShiina, Ryushen],
   },
   {
-    name: "楓と美兎",
+    name: '楓と美兎',
     ids: [MitoTsukino, KaedeHiguchi],
   },
   {
-    name: "かえる",
+    name: 'かえる',
     ids: [Elu, KaedeHiguchi],
   },
   {
-    name: "ガチ屑農家",
+    name: 'ガチ屑農家',
     ids: [MakainoRirimu, YuikaShiina, ChaikaHanabatake, KeisukeMaimoto],
   },
   {
-    name: "叶え葉",
+    name: '叶え葉',
     ids: [Kanae, YoukoAkabane],
   },
   {
-    name: "かなしいくず",
+    name: 'かなしいくず',
     ids: [Kanae, YuikaShiina, Kuzuha],
   },
   {
-    name: "かなしいな",
+    name: 'かなしいな',
     ids: [Kanae, YuikaShiina],
   },
   {
-    name: "かなふぇあ",
+    name: 'かなふぇあ',
     ids: [Kanae, Fairys],
   },
   {
-    name: "かなめいじー",
+    name: 'かなめいじー',
     ids: [Kanae, MeijiWarabeda],
   },
   {
-    name: "がぶりえら",
+    name: 'がぶりえら',
     ids: [MeijiWarabeda, EraOtogibara],
   },
   {
-    name: "ギバライカ",
+    name: 'ギバライカ',
     ids: [ChaikaHanabatake, EraOtogibara],
   },
   {
-    name: "くさおしぃりぃ",
+    name: 'くさおしぃりぃ',
     ids: [SakuSasaki, MakainoRirimu, Kuzuha, YuikaShiina],
   },
   {
-    name: "葛神社",
+    name: '葛神社',
     ids: [Kuzuha, KizukuYashiro, ShoichiKanda],
   },
   {
-    name: "くずばねおしぃりぃ",
+    name: 'くずばねおしぃりぃ',
     ids: [YoukoAkabane, MakainoRirimu, Kuzuha, YuikaShiina],
   },
   {
-    name: "くずンボ",
+    name: 'くずンボ',
     ids: [Kuzuha, RitsukiSakura],
   },
   {
-    name: "くそざこGaming",
+    name: 'くそざこGaming',
     ids: [KouUzuki, RionTakamiya, BelmondBanderas],
   },
   {
-    name: "くまもっさん",
+    name: 'くまもっさん',
     ids: [HimawariHonma, Kuzuha],
   },
   {
-    name: "海月",
+    name: '海月',
     ids: [UmiyashanoKami, RitsukiSakura],
   },
   {
-    name: "グリーンルージュ",
+    name: 'グリーンルージュ',
     ids: [ChaikaHanabatake, JoeRikiichi],
   },
   {
-    name: "cresc.",
+    name: 'cresc.',
     ids: [Dola, SisterClaire, Ryushen],
   },
   {
-    name: "黒ノ火廻",
+    name: '黒ノ火廻',
     ids: [Kanae, HimawariHonma, Kuzuha],
   },
   {
-    name: "ChroNoiR",
+    name: 'ChroNoiR',
     ids: [Kanae, Kuzuha],
   },
   {
-    name: "ぐんかん",
+    name: 'ぐんかん',
     ids: [ShoichiKanda, MireiGundo],
   },
   {
-    name: "月下美人",
+    name: '月下美人',
     ids: [YoukoAkabane, YuikaShiina, MikotoRindou],
   },
   {
-    name: "こあくまん",
+    name: 'こあくまん',
     ids: [MakainoRirimu, RoaYuzuki],
   },
   {
-    name: "紅白アホ合戦",
+    name: '紅白アホ合戦',
     ids: [MeijiWarabeda, ChitoseKudo],
   },
   {
-    name: "黒夢町",
+    name: '黒夢町',
     ids: [ChimaMachita, KakeruYumeoi, ShibaKuroi],
   },
   {
-    name: "サイコ組",
+    name: 'サイコ組',
     ids: [ChihiroYuki, Elu],
   },
   {
-    name: "さくゆい",
+    name: 'さくゆい',
     ids: [SakuSasaki, YuikaShiina],
   },
   {
-    name: "三者面団",
+    name: '三者面団',
     ids: [BelmondBanderas, MireiGundo, RoaYuzuki],
   },
   {
-    name: "さんばか",
+    name: 'さんばか',
     ids: [TokoInui, AngeKatrina, LizeHelesta],
   },
   {
-    name: "シージ部",
+    name: 'シージ部',
     ids: [YuikaShiina, Kanae, Kuzuha, ShizukuTsukimi, AngeKatrina, RenaYorumi],
   },
   {
-    name: "JS組",
+    name: 'JS組',
     ids: [ChihiroYuki, IchigoUshimi, KazakiMorinaka],
   },
   {
-    name: "JK組",
+    name: 'JK組',
     ids: [MitoTsukino, KaedeHiguchi, RinShizuka],
   },
   {
-    name: "JCグミ",
+    name: 'JCグミ',
     ids: [KasumiIzumo, MomoAzuchi, YuzuHassaku],
   },
   {
-    name: "しかばねぱんだ",
+    name: 'しかばねぱんだ',
     ids: [YoukoAkabane, Ryushen],
   },
   {
-    name: "渋谷大ガク",
+    name: '渋谷大ガク',
     ids: [HajimeShibuya, GakuFushimi],
   },
   {
-    name: "囚人組",
+    name: '囚人組',
     ids: [HajimeShibuya, Kanae, Kuzuha, TsukasaTenkai, Fairys],
   },
   {
-    name: "十人十色",
+    name: '十人十色',
     ids: [SakuSasaki, MakainoRirimu, YuikaShiina, RionTakamiya, MikotoRindou, ChitoseKudo, MireiGundo, RoaYuzuki, AngeKatrina, LizeHelesta],
   },
   {
-    name: "女子校花畑",
+    name: '女子校花畑',
     ids: [YuikaShiina, ChaikaHanabatake, KouUzuki, JoeRikiichi],
   },
   {
-    name: "シリンソウ",
+    name: 'シリンソウ',
     ids: [Kanae, YoukoAkabane, HimawariHonma, Kuzuha],
   },
   {
-    name: "深夜三傑RKS",
+    name: '深夜三傑RKS',
     ids: [RinShizuka, HajimeShibuya, Kanae],
   },
   {
-    name: "すとろべあ",
+    name: 'すとろべあ',
     ids: [IchigoUshimi, KazakiMorinaka],
   },
   {
-    name: "ストロベル",
+    name: 'ストロベル',
     ids: [IchigoUshimi, BelmondBanderas],
   },
   {
-    name: "SMC組",
+    name: 'SMC組',
     ids: [FuyukiHakase, HayatoKagami, RenaYorumi],
   },
   {
-    name: "すもも幼稚園",
+    name: 'すもも幼稚園',
     ids: [IchigoUshimi, SakuSasaki, MoruruYamiyono, HimawariHonma, MakainoRirimu],
   },
   {
-    name: "だいさんじ杯",
+    name: 'だいさんじ杯',
     ids: [HajimeShibuya, Kanae, MakainoRirimu, Kuzuha, YuikaShiina, ChaikaHanabatake, KouUzuki, KeisukeMaimoto, TsukasaTenkai],
   },
   {
-    name: "鷹匠",
+    name: '鷹匠',
     ids: [RionTakamiya, JoeRikiichi],
   },
   {
-    name: "ダブルスリーブ",
+    name: 'ダブルスリーブ',
     ids: [KizukuYashiro, HayatoKagami],
   },
   {
-    name: "ダレパンダ",
+    name: 'ダレパンダ',
     ids: [SakuSasaki, BelmondBanderas],
   },
   {
-    name: "ちーかざちー",
+    name: 'ちーかざちー',
     ids: [ChihiroYuki, KazakiMorinaka],
   },
   {
-    name: "ちーハジ",
+    name: 'ちーハジ',
     ids: [ChihiroYuki, HajimeShibuya],
   },
   {
-    name: "乳山",
+    name: '乳山',
     ids: [MarinHayama, NuiSociere],
   },
   {
-    name: "ちとでびる",
+    name: 'ちとでびる',
     ids: [DebidebiDebiru, ChitoseKudo],
   },
   {
-    name: "血みどろコラボ",
+    name: '血みどろコラボ',
     ids: [IchigoUshimi, GakuFushimi, MoruruYamiyono, HimawariHonma, Kuzuha],
   },
   {
-    name: "ちりつも",
+    name: 'ちりつも',
     ids: [MakainoRirimu, ChitoseKudo],
   },
   {
-    name: "角組",
+    name: '角組',
     ids: [MoruruYamiyono, Dola, UmiyashanoKami],
   },
   {
-    name: "でびリオン",
+    name: 'でびリオン',
     ids: [RionTakamiya, DebidebiDebiru],
   },
   {
-    name: "でびるる",
+    name: 'でびるる',
     ids: [DebidebiDebiru, LuluSuzuhara],
   },
   {
-    name: "でろちー",
+    name: 'でろちー',
     ids: [ChihiroYuki, KaedeHiguchi],
   },
   {
-    name: "でろもい",
+    name: 'でろもい',
     ids: [KaedeHiguchi, Moira],
   },
   {
-    name: "でろもいちー",
+    name: 'でろもいちー',
     ids: [ChihiroYuki, KaedeHiguchi, Moira],
   },
   {
-    name: "デロロギ",
+    name: 'デロロギ',
     ids: [KaedeHiguchi, GilzarenIII, KyokoTodoroki],
   },
   {
-    name: "天界卓",
+    name: '天界卓',
     ids: [Moira, IchigoUshimi, MugiIenaga, RionTakamiya, DebidebiDebiru],
   },
   {
-    name: "Twinkle",
+    name: 'Twinkle',
     ids: [MitoTsukino, AliceMononobe, HimawariHonma, SisterClaire, MikotoRindou],
   },
   {
-    name: "刀かざ",
+    name: '刀かざ',
     ids: [ToyaKenmochi, KazakiMorinaka],
   },
   {
-    name: "童話組",
+    name: '童話組',
     ids: [AliceMononobe, MeijiWarabeda, EraOtogibara],
   },
   {
-    name: "咎ノワール",
+    name: '咎ノワール',
     ids: [GakuFushimi, ToyaKenmochi, Kuzuha, Kanae],
   },
   {
-    name: "†咎人†",
+    name: '†咎人†',
     ids: [GakuFushimi, ToyaKenmochi],
   },
   {
-    name: "ド葛本社",
+    name: 'ド葛本社',
     ids: [HimawariHonma, Kuzuha, Dola, KizukuYashiro],
   },
   {
-    name: "ド葛本社オルタ",
+    name: 'ド葛本社オルタ',
     ids: [AzumaNakao, ChaikaHanabatake, Ryushen, RionTakamiya, DebidebiDebiru, JoeRikiichi],
   },
   {
-    name: "トライト",
+    name: 'トライト',
     ids: [ChihiroYuki, IchigoUshimi, GakuFushimi],
   },
   {
-    name: "ドラひま",
+    name: 'ドラひま',
     ids: [HimawariHonma, Dola],
   },
   {
-    name: "トリガー",
+    name: 'トリガー',
     ids: [RiriYuhi, GakuFushimi, ToyaKenmochi],
   },
   {
-    name: "NZMN",
+    name: 'NZMN',
     ids: [KouUzuki, AirHarusaki, NaruNaruse, KakeruYumeoi],
   },
   {
-    name: "にじいろきゃんD→☆",
+    name: 'にじいろきゃんD→☆',
     ids: [RiriYuhi, KazakiMorinaka, SisterClaire, ChaikaHanabatake, DebidebiDebiru, RitsukiSakura, ChinamiAchikita],
   },
   {
-    name: "にじくじ7",
+    name: 'にじくじ7',
     ids: [MitoTsukino, Elu, KaedeHiguchi, RinShizuka, MugiIenaga, AliceMononobe, ToyaKenmochi],
   },
   {
-    name: "にじさんじGALS",
+    name: 'にじさんじGALS',
     ids: [KaedeHiguchi, SakuSasaki, YuikaShiina, RionTakamiya],
   },
   {
-    name: "にじさんじ狂犬ズ",
+    name: 'にじさんじ狂犬ズ',
     ids: [ChimaMachita, ShibaKuroi],
   },
   {
-    name: "にじさんじ矩形波倶楽部",
+    name: 'にじさんじ矩形波倶楽部',
     ids: [MoruruYamiyono, KizukuYashiro],
   },
   {
-    name: "にじさんじスベ狼",
+    name: 'にじさんじスベ狼',
     ids: [ChaikaHanabatake, KizukuYashiro, KeisukeMaimoto, JoeRikiichi, KakeruYumeoi, AkinaSaegusa],
   },
   {
-    name: "にじさんじドリクラーズ",
+    name: 'にじさんじドリクラーズ',
     ids: [AzumaNakao, ChaikaHanabatake, KizukuYashiro, KeisukeMaimoto, KakeruYumeoi],
   },
   {
-    name: "にじさんじバスタード",
+    name: 'にじさんじバスタード',
     ids: [Kanae, Kuzuha, KouUzuki],
   },
   {
-    name: "にじさんじ Project Winter",
+    name: 'にじさんじ Project Winter',
     ids: [Kanae, Kuzuha, SakuSasaki, YuikaShiina, LizeHelesta, AngeKatrina, TsukasaTenkai, Fairys],
   },
   {
-    name: "にじさんじポン酢",
+    name: 'にじさんじポン酢',
     ids: [KasumiIzumo, NuiSociere, FuyukiHakase, RenaYorumi],
   },
   {
-    name: "にじさんじマスコッツ",
-    ids: ["ゴンザレス", "ジョニー・ノースリーバー", "うさちゃん先生", "セバスチャン・ピヨードル"],
+    name: 'にじさんじマスコッツ',
+    ids: ['ゴンザレス', 'ジョニー・ノースリーバー', 'うさちゃん先生', 'セバスチャン・ピヨードル'],
   },
   {
-    name: "にじさんじLOSERS",
+    name: 'にじさんじLOSERS',
     ids: [AzumaNakao, ChaikaHanabatake],
   },
   {
-    name: "にじさんじレジスタンス(2人)",
+    name: 'にじさんじレジスタンス(2人)',
     ids: [YuikaShiina, ChaikaHanabatake],
   },
   {
-    name: "にじさんじレジスタンス(4人)",
+    name: 'にじさんじレジスタンス(4人)',
     ids: [SakuSasaki, YuikaShiina, ChaikaHanabatake, Ryushen],
   },
   {
-    name: "にじさんじレジスタンス",
+    name: 'にじさんじレジスタンス',
     ids: [AliceMononobe, SakuSasaki, YuikaShiina, ChaikaHanabatake, MomoAzuchi, Ryushen],
   },
   {
-    name: "にじロック",
+    name: 'にじロック',
     ids: [KyokoTodoroki, Ryushen, SayoAmemori, JoeRikiichi, KakeruYumeoi, AkinaSaegusa, HayatoKagami],
   },
   {
-    name: "にきさんきゲーマーズ",
+    name: 'にきさんきゲーマーズ',
     ids: [SakuSasaki, HimawariHonma, MoruruYamiyono, MakainoRirimu, Kuzuha, Setsuna, YuikaShiina],
   },
   {
-    name: "N₠V₠R ₠NDs",
+    name: 'N₠V₠R ₠NDs',
     ids: [KyokoTodoroki, KouUzuki, KeisukeMaimoto],
   },
   {
-    name: "はぁと組💙",
+    name: 'はぁと組💙',
     ids: [ChihiroYuki, AliceMononobe],
   },
   {
-    name: "BACK STAGEs",
+    name: 'BACK STAGEs',
     ids: [KyokoTodoroki, MomoAzuchi, YuzuHassaku, KouUzuki],
   },
   {
-    name: "発色オタク三銃士",
+    name: '発色オタク三銃士',
     ids: [AirHarusaki, HinaAsuka],
   },
   {
-    name: "ハッピートリガー",
+    name: 'ハッピートリガー',
     ids: [MugiIenaga, RiriYuhi, GakuFushimi, ToyaKenmochi],
   },
   {
-    name: "バトロワAチーム",
+    name: 'バトロワAチーム',
     ids: [MakainoRirimu, Kuzuha, KyokoTodoroki, KizukuYashiro, KouUzuki, KeisukeMaimoto, ChitoseKudo],
   },
   {
-    name: "ばねおしぃりぃ",
+    name: 'ばねおしぃりぃ',
     ids: [YoukoAkabane, MakainoRirimu, YuikaShiina],
   },
   {
-    name: "はるみや",
+    name: 'はるみや',
     ids: [HarukaOnomachi, MiyakoSeto],
   },
   {
-    name: "BGクラブ",
+    name: 'BGクラブ',
     ids: [Moira, UtakoSuzuka, KazakiMorinaka],
   },
   {
-    name: "ひなちなちま",
+    name: 'ひなちなちま',
     ids: [HinaAsuka, ChimaMachita, ChinamiAchikita],
   },
   {
-    name: "ひまンボ",
+    name: 'ひまンボ',
     ids: [HimawariHonma, RitsukiSakura],
   },
   {
-    name: "ヒモと財布",
+    name: 'ヒモと財布',
     ids: [ChinamiAchikita, RineYaguruma],
   },
   {
-    name: "pure♡palet",
+    name: 'pure♡palet',
     ids: [AliceMononobe, SisterClaire],
   },
   {
-    name: "ひよこぱんつ",
+    name: 'ひよこぱんつ',
     ids: [SakuSasaki, LizeHelesta],
   },
   {
-    name: "Vtuber甲子園",
+    name: 'Vtuber甲子園',
     ids: [YuikaShiina, KeisukeMaimoto, TsukasaTenkai],
   },
   {
-    name: "V雪人狼",
+    name: 'V雪人狼',
     ids: [MitoTsukino, KaedeHiguchi, ToyaKenmochi, HimawariHonma, EraOtogibara],
   },
   {
-    name: "4FFFF",
+    name: '4FFFF',
     ids: [HimawariHonma, Dola, RionTakamiya, DebidebiDebiru],
   },
   {
-    name: "ふゆれな",
+    name: 'ふゆれな',
     ids: [RenaYorumi, FuyukiHakase],
   },
   {
-    name: "白金魔法研究所",
+    name: '白金魔法研究所',
     ids: [RionTakamiya, FuyukiHakase],
   },
   {
-    name: "不良不死",
+    name: '不良不死',
     ids: [Ryushen, ChitoseKudo],
   },
   {
-    name: "ぷりずむりりっく！",
+    name: 'ぷりずむりりっく！',
     ids: [IchigoUshimi, MugiIenaga, ChihiroYuki],
   },
   {
-    name: "ぷりんず",
+    name: 'ぷりんず',
     ids: [ChihiroYuki, RitsukiSakura],
   },
   {
-    name: "ぶるーず",
+    name: 'ぶるーず',
     ids: [KaiMayuzumi, ArsAlmal, UihaAiba],
   },
   {
-    name: "Fragrance5",
+    name: 'Fragrance5',
     ids: [Elu, UtakoSuzuka, RiriYuhi, HimawariHonma, SisterClaire],
   },
   {
-    name: "ブレスト軍",
+    name: 'ブレスト軍',
     ids: [ChihiroYuki, IchigoUshimi],
   },
   {
-    name: "紅ズワイガニ",
+    name: '紅ズワイガニ',
     ids: [AkinaSaegusa, ManamiAizono],
   },
   {
-    name: "ヘブンガールズ",
+    name: 'ヘブンガールズ',
     ids: [ChihiroYuki, Moira],
   },
   {
-    name: "舞元力一",
+    name: '舞元力一',
     ids: [KeisukeMaimoto, JoeRikiichi],
   },
   {
-    name: "まほすず",
+    name: 'まほすず',
     ids: [ChihiroYuki, AkiSuzuya],
   },
   {
-    name: "みかえる",
+    name: 'みかえる',
     ids: [MitoTsukino, KaedeHiguchi, Elu],
   },
   {
-    name: "みこでび",
+    name: 'みこでび',
     ids: [MikotoRindou, DebidebiDebiru],
   },
   {
-    name: "みそしる",
+    name: 'みそしる',
     ids: [HajimeShibuya, GakuFushimi, Kanae, Kuzuha],
   },
   {
-    name: "みれロア",
+    name: 'みれロア',
     ids: [MireiGundo, RoaYuzuki],
   },
   {
-    name: "むぎたま",
+    name: 'むぎたま',
     ids: [MugiIenaga, TamakiFumino],
   },
   {
-    name: "メーブレストロベア",
+    name: 'メーブレストロベア',
     ids: [ChihiroYuki, KaedeHiguchi, IchigoUshimi, KazakiMorinaka],
   },
   {
-    name: "もぐっとゆず",
+    name: 'もぐっとゆず',
     ids: [MasaruSuzuki, YuzuHassaku],
   },
   {
-    name: "もちがえる",
+    name: 'もちがえる',
     ids: [ChihiroYuki, Elu, KaedeHiguchi, Moira],
   },
   {
-    name: "桃色冷蔵庫",
+    name: '桃色冷蔵庫',
     ids: [IchigoUshimi, RiriYuhi],
   },
   {
-    name: "もやしば",
+    name: 'もやしば',
     ids: [KakeruYumeoi, ShibaKuroi],
   },
   {
-    name: "もるひま",
+    name: 'もるひま',
     ids: [MoruruYamiyono, HimawariHonma],
   },
   {
-    name: "ヤンキー組《楓刀京明千葛》",
+    name: 'ヤンキー組《楓刀京明千葛》',
     ids: [KaedeHiguchi, ToyaKenmochi, KyokoTodoroki, AkinaSaegusa, ChitoseKudo, Kuzuha],
   },
   {
-    name: "ゆうやみ",
+    name: 'ゆうやみ',
     ids: [ChihiroYuki, MoruruYamiyono],
   },
   {
-    name: "ゆずでび",
+    name: 'ゆずでび',
     ids: [YuzuHassaku, DebidebiDebiru],
   },
   {
-    name: "楽陽",
+    name: '楽陽',
     ids: [RiriYuhi, GakuFushimi],
   },
   {
-    name: "ラタトゥイユ焼鮭",
+    name: 'ラタトゥイユ焼鮭',
     ids: [MireiGundo, MarinHayama],
   },
   {
-    name: "リゼアン",
+    name: 'リゼアン',
     ids: [AngeKatrina, LizeHelesta],
   },
   {
-    name: "りむみゃあ",
+    name: 'りむみゃあ',
     ids: [MakainoRirimu, RionTakamiya],
   },
   {
-    name: "りりぃろーず",
+    name: 'りりぃろーず',
     ids: [RionTakamiya, LizeHelesta],
   },
   {
-    name: "リリかざ",
+    name: 'リリかざ',
     ids: [RiriYuhi, KazakiMorinaka],
   },
   {
-    name: "RRR",
+    name: 'RRR',
     ids: [RionTakamiya, MikotoRindou, JoeRikiichi],
   },
   {
-    name: "りんかえW",
+    name: 'りんかえW',
     ids: [KaedeHiguchi, RinShizuka],
   },
   {
-    name: "ルーザーキングス",
+    name: 'ルーザーキングス',
     ids: [MakainoRirimu, Kuzuha, KouUzuki],
   },
   {
-    name: "le jouet",
+    name: 'le jouet',
     ids: [Ryushen, KakeruYumeoi, HayatoKagami],
   },
   {
-    name: "ロリ組",
+    name: 'ロリ組',
     ids: [ChihiroYuki, IchigoUshimi, AliceMononobe, KazakiMorinaka],
   },
   {
-    name: "LOL部",
+    name: 'LOL部',
     ids: [YuikaShiina, RionTakamiya, DebidebiDebiru],
   }
 ];
