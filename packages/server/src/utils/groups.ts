@@ -1,6 +1,6 @@
 const MitoTsukino = '32';
 const HimawariHonma = '34';
-const RinShizuka'11';
+const RinShizuka = '11';
 const KaedeHiguchi = '38';
 const YuikaShiina = '37';
 const SakuSasaki = '10';
