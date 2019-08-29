@@ -85,6 +85,8 @@ const AzumaNakao = undefined;
 const YuzuHassaku = undefined;
 const MoruruYamiyono = undefined;
 const UmiyashanoKami = undefined;
+const TsukasaTenkai = undefined;
+const Fairys = undefined;
 
 export const groups = [
   {
@@ -253,7 +255,7 @@ export const groups = [
   },
   {
     name: "かなふぇあ",
-    ids: [Kanae, "ふぇありす"],
+    ids: [Kanae, Fairys],
   },
   {
     name: "かなめいじー",
@@ -373,7 +375,7 @@ export const groups = [
   },
   {
     name: "囚人組",
-    ids: [HajimeShibuya, Kanae, Kuzuha, "天開司", "ふぇありす"],
+    ids: [HajimeShibuya, Kanae, Kuzuha, TsukasaTenkai, Fairys],
   },
   {
     name: "十人十色",
@@ -409,7 +411,7 @@ export const groups = [
   },
   {
     name: "だいさんじ杯",
-    ids: [HajimeShibuya, Kanae, MakainoRirimu, Kuzuha, YuikaShiina, ChaikaHanabatake, KouUzuki, KeisukeMaimoto, "天開司"],
+    ids: [HajimeShibuya, Kanae, MakainoRirimu, Kuzuha, YuikaShiina, ChaikaHanabatake, KouUzuki, KeisukeMaimoto, TsukasaTenkai],
   },
   {
     name: "鷹匠",
@@ -557,7 +559,7 @@ export const groups = [
   },
   {
     name: "にじさんじ Project Winter",
-    ids: [Kanae, Kuzuha, SakuSasaki, YuikaShiina, LizeHelesta, AngeKatrina, "天開司", "ふぇありす"],
+    ids: [Kanae, Kuzuha, SakuSasaki, YuikaShiina, LizeHelesta, AngeKatrina, TsukasaTenkai, Fairys],
   },
   {
     name: "にじさんじポン酢",
@@ -649,7 +651,7 @@ export const groups = [
   },
   {
     name: "Vtuber甲子園",
-    ids: [YuikaShiina, KeisukeMaimoto, "天開司"],
+    ids: [YuikaShiina, KeisukeMaimoto, TsukasaTenkai],
   },
   {
     name: "V雪人狼",
