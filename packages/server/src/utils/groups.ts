@@ -168,7 +168,7 @@ export const groups = [
     ids: [Elu, SisterClaire],
   },
   {
-    name: "エビ仙(えびせん)",
+    name: "エビ仙",
     ids: [Ryushen, ExAlbio],
   },
   {
@@ -184,7 +184,7 @@ export const groups = [
     ids: [Elu, GakuFushimi, KazakiMorinaka],
   },
   {
-    name: "OTN(おーてぃーえぬ)組",
+    name: "OTN組",
     ids: [AzumaNakao, ChaikaHanabatake, KizukuYashiro],
   },
   {
@@ -224,7 +224,7 @@ export const groups = [
     ids: [SakuSasaki, YuikaShiina, MireiGundo, EraOtogibara],
   },
   {
-    name: "解散GIG(ギグ)",
+    name: "解散GIG",
     ids: [YoukoAkabane, SakuSasaki, YuikaShiina, Ryushen],
   },
   {
@@ -240,7 +240,7 @@ export const groups = [
     ids: [MakainoRirimu, YuikaShiina, ChaikaHanabatake, KeisukeMaimoto],
   },
   {
-    name: "叶え葉(かなえよう)",
+    name: "叶え葉",
     ids: [Kanae, YoukoAkabane],
   },
   {
@@ -292,7 +292,7 @@ export const groups = [
     ids: [HimawariHonma, Kuzuha],
   },
   {
-    name: "海月(くらげ)",
+    name: "海月",
     ids: [UmiyashanoKami, RitsukiSakura],
   },
   {
@@ -300,15 +300,15 @@ export const groups = [
     ids: [ChaikaHanabatake, JoeRikiichi],
   },
   {
-    name: "cresc.(クレッシェンド)",
+    name: "cresc.",
     ids: [Dola, SisterClaire, Ryushen],
   },
   {
-    name: "黒ノ火廻(くろのひまわり)",
+    name: "黒ノ火廻",
     ids: [Kanae, HimawariHonma, Kuzuha],
   },
   {
-    name: "ChroNoiR(クロノワール)",
+    name: "ChroNoiR",
     ids: [Kanae, Kuzuha],
   },
   {
@@ -328,7 +328,7 @@ export const groups = [
     ids: [MeijiWarabeda, ChitoseKudo],
   },
   {
-    name: "黒夢町(こくむちょう)",
+    name: "黒夢町",
     ids: [ChimaMachita, KakeruYumeoi, ShibaKuroi],
   },
   {
@@ -400,7 +400,7 @@ export const groups = [
     ids: [IchigoUshimi, BelmondBanderas],
   },
   {
-    name: "SMC(すめし)組",
+    name: "SMC組",
     ids: [FuyukiHakase, HayatoKagami, RenaYorumi],
   },
   {
@@ -424,7 +424,7 @@ export const groups = [
     ids: [SakuSasaki, BelmondBanderas],
   },
   {
-    name: "ちーかざちー(ちーかざ/かざちー)",
+    name: "ちーかざちー",
     ids: [ChihiroYuki, KazakiMorinaka],
   },
   {
@@ -432,7 +432,7 @@ export const groups = [
     ids: [ChihiroYuki, HajimeShibuya],
   },
   {
-    name: "乳山(ちちやま)",
+    name: "乳山",
     ids: [MarinHayama, NuiSociere],
   },
   {
@@ -448,7 +448,7 @@ export const groups = [
     ids: [MakainoRirimu, ChitoseKudo],
   },
   {
-    name: "角組(つのぐみ)",
+    name: "角組",
     ids: [MoruruYamiyono, Dola, UmiyashanoKami],
   },
   {
@@ -520,7 +520,7 @@ export const groups = [
     ids: [RiriYuhi, GakuFushimi, ToyaKenmochi],
   },
   {
-    name: "NZMN(なぞめん)",
+    name: "NZMN",
     ids: [KouUzuki, AirHarusaki, NaruNaruse, KakeruYumeoi],
   },
   {
@@ -592,7 +592,7 @@ export const groups = [
     ids: [SakuSasaki, HimawariHonma, MoruruYamiyono, MakainoRirimu, Kuzuha, Setsuna, YuikaShiina],
   },
   {
-    name: "N₠V₠R ₠NDs(ネバーエンズ)",
+    name: "N₠V₠R ₠NDs",
     ids: [KyokoTodoroki, KouUzuki, KeisukeMaimoto],
   },
   {
@@ -664,7 +664,7 @@ export const groups = [
     ids: [RenaYorumi, FuyukiHakase],
   },
   {
-    name: "白金(プラチナ)魔法研究所",
+    name: "白金魔法研究所",
     ids: [RionTakamiya, FuyukiHakase],
   },
   {
@@ -720,7 +720,7 @@ export const groups = [
     ids: [HajimeShibuya, GakuFushimi, Kanae, Kuzuha],
   },
   {
-    name: "みれロア(うさちゃんクラブ)",
+    name: "みれロア",
     ids: [MireiGundo, RoaYuzuki],
   },
   {
@@ -764,7 +764,7 @@ export const groups = [
     ids: [YuzuHassaku, DebidebiDebiru],
   },
   {
-    name: "楽陽(らくよう)",
+    name: "楽陽",
     ids: [RiriYuhi, GakuFushimi],
   },
   {
@@ -774,6 +774,7 @@ export const groups = [
   {
     name: "リゼアン",
     ids: [AngeKatrina, LizeHelesta],
+  },
   {
     name: "りむみゃあ",
     ids: [MakainoRirimu, RionTakamiya],
@@ -787,11 +788,11 @@ export const groups = [
     ids: [RiriYuhi, KazakiMorinaka],
   },
   {
-    name: "RRR(リリリ)",
+    name: "RRR",
     ids: [RionTakamiya, MikotoRindou, JoeRikiichi],
   },
   {
-    name: "りんかえW(ダブル)",
+    name: "りんかえW",
     ids: [KaedeHiguchi, RinShizuka],
   },
   {
@@ -799,7 +800,7 @@ export const groups = [
     ids: [MakainoRirimu, Kuzuha, KouUzuki],
   },
   {
-    name: "le jouet(ルジュエ)",
+    name: "le jouet",
     ids: [Ryushen, KakeruYumeoi, HayatoKagami],
   },
   {
