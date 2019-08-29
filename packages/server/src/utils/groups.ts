@@ -16,7 +16,6 @@ const Kanae = '7';
 const EraOtogibara = '68';
 const BelmondBanderas = '20';
 const MireiGundo = '62';
-const Nijisanji = '67';
 const AngeKatrina = '70';
 const ChihiroYuki = '17';
 const RionTakamiya = '58';
