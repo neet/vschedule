@@ -105,8 +105,9 @@ export class ItsukaraLinkAPI extends RESTDataSource {
       color: liver.color,
       description: liver.description || '',
       public: liver.public || 1,
-      position: liver.public || 0,
+      position: liver.position || 0,
       socialAccounts: [],
+      groups: [],
     };
 
     if (youtube) {

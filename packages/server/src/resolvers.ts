@@ -1,4 +1,9 @@
-import { Resolvers } from './generated/graphql';
+import { Resolvers, Source, Group } from './generated/graphql';
+import {
+  groups as groupsDataset,
+  getGroupsByMembership,
+  groups,
+} from './utils/groups';
 
 export const resolvers: Resolvers = {
   Query: {
@@ -18,6 +23,38 @@ export const resolvers: Resolvers = {
 
     genre: (_, { id }, { dataSources }) =>
       dataSources.itsukaraLink.fetchGenre(id),
+
+    group: async (_, { id }, { dataSources }) => {
+      const group = groupsDataset.find(group => group.id === id);
+
+      if (!group) {
+        throw new Error('Not such group ID');
+      }
+
+      const members = await Promise.all(
+        group.sourceIds.map(id => dataSources.itsukaraLink.fetchSource(id)),
+      );
+
+      return {
+        id: group.id,
+        name: group.name,
+        sources: members,
+      };
+    },
+
+    groups: async (_1, _2, { dataSources }) => {
+      const sources = await dataSources.itsukaraLink.fetchSources();
+
+      const formattedGroups: Group[] = groups.map(group => ({
+        id: group.id,
+        name: group.name,
+        sources: group.sourceIds
+          .map(id => sources.find(source => source.id === id))
+          .filter((source): source is Source => !!source),
+      }));
+
+      return formattedGroups;
+    },
   },
 
   Source: {
@@ -55,6 +92,26 @@ export const resolvers: Resolvers = {
       const data = await dataSources.itsukaraLink.fetchSource(source.id);
 
       return data.socialAccounts;
+    },
+
+    groups: async (source, _, { dataSources }) => {
+      const groupsDataset = getGroupsByMembership(source.id);
+
+      if (!groupsDataset) {
+        return [];
+      }
+
+      const sources = await dataSources.itsukaraLink.fetchSources();
+
+      const groups = groupsDataset.map(group => ({
+        id: '',
+        name: group.name,
+        sources: group.sourceIds
+          .map(sourceId => sources.find(source => source.id === sourceId))
+          .filter((source): source is Source => !!source),
+      }));
+
+      return groups;
     },
   },
 
