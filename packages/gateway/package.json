@@ -1,0 +1,9 @@
+{
+  "name": "@ril/gateway",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "gaxios": "^2.0.1"
+  }
+}
