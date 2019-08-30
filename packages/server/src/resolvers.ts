@@ -1,9 +1,5 @@
 import { Resolvers, Source, Group } from './generated/graphql';
-import {
-  groups as groupsDataset,
-  getGroupsByMembership,
-  groups,
-} from './utils/groups';
+import { groups as groupsDataset, getGroupsByMembership } from './utils/groups';
 
 export const resolvers: Resolvers = {
   Query: {
@@ -45,7 +41,7 @@ export const resolvers: Resolvers = {
     groups: async (_1, _2, { dataSources }) => {
       const sources = await dataSources.itsukaraLink.fetchSources();
 
-      const formattedGroups: Group[] = groups.map(group => ({
+      const groups: Group[] = groupsDataset.map(group => ({
         id: group.id,
         name: group.name,
         sources: group.sourceIds
@@ -53,7 +49,7 @@ export const resolvers: Resolvers = {
           .filter((source): source is Source => !!source),
       }));
 
-      return formattedGroups;
+      return groups;
     },
   },
 
