@@ -666,12 +666,7 @@ export const groups = [
   },
   {
     name: 'にじさんじマスコッツ',
-    ids: [
-      'ゴンザレス',
-      'ジョニー・ノースリーバー',
-      'うさちゃん先生',
-      'セバスチャン・ピヨードル',
-    ],
+    ids: [CHIMA_MACHITA, KAKERU_YUMEOI, MIREI_GUNDO, LIZE_HELESTA],
   },
   {
     name: 'にじさんじLOSERS',
