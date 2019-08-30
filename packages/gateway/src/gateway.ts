@@ -12,38 +12,33 @@ export class Gateway {
     };
   }
 
-  fetchEvents = () => {
+  fetchEvents = () =>
     gaxios.request<Response<Event[]>>({
       method: 'GET',
       url: '/v1.2/events.json',
     });
-  };
 
-  fetchEvent = (id: number) => {
+  fetchEvent = (id: number) =>
     gaxios.request<Response<Event[]>>({
       method: 'GET',
       url: `/v1.2/events/${id}.json`,
     });
-  };
 
-  fetchGenres = () => {
+  fetchGenres = () =>
     gaxios.request<Response<Genre[]>>({
       method: 'GET',
       url: '/v1.2/genres.json',
     });
-  };
 
-  fetchLivers = () => {
+  fetchLivers = () =>
     gaxios.request<Response<Liver[]>>({
       method: 'GET',
       url: '/v1.2/livers.json',
     });
-  };
 
-  fetchLiverRelationship = (id: number) => {
+  fetchLiverRelationship = (id: number) =>
     gaxios.request<Response<LiverRelationships>>({
       method: 'GET',
       url: `/v1.2/livers/${id}.json`,
     });
-  };
 }
