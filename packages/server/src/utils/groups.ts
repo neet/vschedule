@@ -1,3 +1,7 @@
+/**
+ * This data is borrowed from wikiwiki.jp/nijisanji
+ * https://bit.ly/2ZxLFlg
+ */
 const MITO_TSUKINO = '32';
 const HIMAWARI_HONMA = '34';
 const RIN_SHIZUKA = '11';
@@ -63,23 +67,27 @@ const TAMAKI_FUMINO = '30';
 const KASUMI_IZUMO = '1';
 const HARUKA_ONOMACHI = '64';
 const MASARU_SUZUKI = '5';
-// const MAHIRO_YUKISHIRO = '76';
 const KYOKO_TODOROKI = '49';
 const UIHA_AIBA = '88';
 const CHINAMI_ACHIKITA = '50';
 const GILZAREN_III = '6';
 const MOMO_AZUCHI = '28';
 const RINE_YAGURUMA = '42';
-// const LeviElipha = '78';
 const SHIZUKU_TSUKIMI = '33';
 const MIYAKO_SETO = '66';
 const HINA_ASUKA = '55';
-// const TsumuguKataribe = '65';
-// const KokoroAmamiya = '91';
 const AIR_HARUSAKI = '31';
-// const EliConifer = '92';
-// const RatnaPetit = '90';
 const NARU_NARUSE = '29';
+
+/*
+const MAHIRO_YUKISHIRO = '76';
+const LeviElipha = '78';
+const TsumuguKataribe = '65';
+const KokoroAmamiya = '91';
+const EliConifer = '92';
+const RatnaPetit = '90';
+*/
+
 const AZUMA_NAKAO = undefined;
 const YUZU_HASSAKU = undefined;
 const MORURU_YAMIYONO = undefined;
