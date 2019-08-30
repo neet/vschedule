@@ -77,7 +77,7 @@ export class ItsukaraLinkAPI extends RESTDataSource {
     liverYoutubeChannel: LiverYoutubeChannel,
   ): G.YoutubeChannel => ({
     id: liverYoutubeChannel.id.toString(),
-    source: liverYoutubeChannel.liver_id.toString(),
+    streamerId: liverYoutubeChannel.liver_id.toString(),
     channel: liverYoutubeChannel.channel,
     channelName: liverYoutubeChannel.channel_name,
     creationOrder: liverYoutubeChannel.creation_order,
@@ -87,16 +87,16 @@ export class ItsukaraLinkAPI extends RESTDataSource {
     liverTwitterAccount: LiverTwitterAccount,
   ): G.TwitterAccount => ({
     id: liverTwitterAccount.id.toString(),
-    source: liverTwitterAccount.liver_id.toString(),
+    streamerId: liverTwitterAccount.liver_id.toString(),
     screenName: liverTwitterAccount.screen_name,
   });
 
-  private reduceSource = (
+  private reduceStreamer = (
     liver: Liver,
     twitter?: LiverTwitterAccount,
     youtube?: LiverYoutubeChannel | LiverYoutubeChannel[],
-  ): G.Source => {
-    const source: G.Source = {
+  ): G.Streamer => {
+    const streamer: G.Streamer = {
       id: liver.id.toString(),
       name: liver.name,
       latinName: liver.english_name || '',
@@ -113,21 +113,21 @@ export class ItsukaraLinkAPI extends RESTDataSource {
     if (youtube) {
       if (Array.isArray(youtube)) {
         for (const item of youtube) {
-          source.socialAccounts.push(this.reduceYoutubeChannel(item));
+          streamer.socialAccounts.push(this.reduceYoutubeChannel(item));
         }
       } else {
-        source.socialAccounts.push(this.reduceYoutubeChannel(youtube));
+        streamer.socialAccounts.push(this.reduceYoutubeChannel(youtube));
       }
     }
 
     if (twitter) {
-      source.socialAccounts.push(this.reduceTwitterAccount(twitter));
+      streamer.socialAccounts.push(this.reduceTwitterAccount(twitter));
     }
 
-    return source;
+    return streamer;
   };
 
-  private reduceGenre = (genre: Genre): G.Genre => ({
+  private reduceCategory = (genre: Genre): G.Category => ({
     id: genre.id.toString(),
     name: genre.name,
   });
@@ -142,8 +142,8 @@ export class ItsukaraLinkAPI extends RESTDataSource {
     startDate: event.start_date,
     endDate: event.end_date,
     recommend: event.recommend,
-    sources: event.livers.map(live => this.reduceSource(live)),
-    genre: event.genre ? this.reduceGenre(event.genre) : undefined,
+    streamers: event.livers.map(live => this.reduceStreamer(live)),
+    category: event.genre ? this.reduceCategory(event.genre) : undefined,
   });
 
   fetchContents = async () => {
@@ -158,11 +158,11 @@ export class ItsukaraLinkAPI extends RESTDataSource {
     return this.reduceContent(res.data.event);
   };
 
-  fetchGenre = async (id: string) => {
+  fetchCategory = async (id: string) => {
     const res = await this.get<GenresResponse>(`/v1.2/genres.json`);
 
     const genre = res.data.genres
-      .map(genre => this.reduceGenre(genre))
+      .map(genre => this.reduceCategory(genre))
       .find(genre => genre.id === id);
 
     if (!genre) {
@@ -172,17 +172,17 @@ export class ItsukaraLinkAPI extends RESTDataSource {
     return genre;
   };
 
-  fetchGenres = async () => {
+  fetchCategories = async () => {
     const res = await this.get<GenresResponse>(`/v1.2/genres.json`);
 
-    return res.data.genres.map(genre => this.reduceGenre(genre));
+    return res.data.genres.map(genre => this.reduceCategory(genre));
   };
 
-  fetchSources = async () => {
+  fetchStreamers = async () => {
     const res = await this.get<LiversResponse>('/v1.2/livers.json');
 
     return res.data.liver_relationships.map(liverRelationship =>
-      this.reduceSource(
+      this.reduceStreamer(
         liverRelationship.liver,
         liverRelationship.liver_twitter_account,
         liverRelationship.liver_youtube_channel,
@@ -190,10 +190,10 @@ export class ItsukaraLinkAPI extends RESTDataSource {
     );
   };
 
-  fetchSource = async (id: string) => {
+  fetchStreamer = async (id: string) => {
     const res = await this.get<LiverResponse>(`/v1.2/livers/${id}.json`);
 
-    return this.reduceSource(
+    return this.reduceStreamer(
       res.data.liver,
       res.data.liver_twitter_account,
       res.data.liver_youtube_channel,
