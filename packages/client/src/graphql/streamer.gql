@@ -1,6 +1,6 @@
 # import "./social-account.gql"
 
-fragment SourceFields on Source {
+fragment StreamerFields on Streamer {
   id
   name
   latinName
@@ -15,7 +15,7 @@ fragment SourceFields on Source {
   }
 }
 
-fragment PartialSourceFields on Source {
+fragment PartialStreamerFields on Streamer {
   id
   name
   avatar
