@@ -66,7 +66,7 @@ export const LiverName = styled.span`
 export const Marker = (props: MarkerProps) => {
   const { content, startDate: basisDate, row } = props;
 
-  const firstSource = content.sources[0];
+  const firstStreamer = content.streamers[0];
   const startDate = dayjs(content.startDate);
   const endDate = dayjs(content.endDate);
 
@@ -88,7 +88,7 @@ export const Marker = (props: MarkerProps) => {
 
   const isLight = useMemo(() => {
     // Calc color brightness difference
-    const { red, green, blue } = parseToRgb(firstSource.color);
+    const { red, green, blue } = parseToRgb(firstStreamer.color);
 
     return red * 0.299 + green * 0.587 + blue * 0.114 > 186;
   }, [content]);
@@ -104,15 +104,15 @@ export const Marker = (props: MarkerProps) => {
       style={{
         width: `${width}px`,
         transform: `translate(${x}px, ${y}px)`,
-        backgroundColor: firstSource.color,
-        boxShadow: `0 2px 6px ${opacify(0.48, firstSource.color)}`,
+        backgroundColor: firstStreamer.color,
+        boxShadow: `0 2px 6px ${opacify(0.48, firstStreamer.color)}`,
       }}
     >
-      <Avatar src={firstSource.avatar} />
+      <Avatar src={firstStreamer.avatar} />
 
       <Meta>
         <Title>{content.name}</Title>
-        <LiverName>{firstSource.name}</LiverName>
+        <LiverName>{firstStreamer.name}</LiverName>
       </Meta>
     </Wrapper>
   );
