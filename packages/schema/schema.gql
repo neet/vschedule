@@ -21,6 +21,8 @@ type Content {
   sources: [Source!]!
   # Associated genre
   genre: Genre
+  # Matched group
+  group: Group
 }
 
 type Source {
@@ -44,6 +46,17 @@ type Source {
   position: Int!
   # External services' information
   socialAccounts: [SocialAccount!]!
+  # Involved groups
+  groups: [Group!]!
+}
+
+type Group {
+  # ID of the group
+  id: ID!
+  # Name of the group
+  name: String!
+  # Involved sources
+  sources: [Source!]!
 }
 
 type Genre {
@@ -89,6 +102,8 @@ type Query {
   sources: [Source!]!
   genre(id: ID!): Genre
   genres: [Genre!]!
+  group(id: ID!): Group
+  groups: [Group!]!
 }
 
 schema {
