@@ -311,10 +311,10 @@ export const groups = [
     name: 'くそざこGaming',
     ids: [KOU_UZUKI, RION_TAKAMIYA, BELMOND_BANDERAS],
   },
-  {
-    name: 'くまもっさん',
-    ids: [HIMAWARI_HONMA, KUZUHA],
-  },
+  // {
+  //   name: 'くまもっさん',
+  //   ids: [HIMAWARI_HONMA, KUZUHA],
+  // },
   {
     name: '海月',
     ids: [UMIYASHANO_KAMI, RITSUKI_SAKURA],
@@ -402,10 +402,10 @@ export const groups = [
     name: '渋谷大ガク',
     ids: [HAJIME_SHIBUYA, GAKU_FUSHIMI],
   },
-  {
-    name: '囚人組',
-    ids: [HAJIME_SHIBUYA, KANAE, KUZUHA, TSUKASA_TENKAI, FAIRYS],
-  },
+  // {
+  //   name: '囚人組',
+  //   ids: [HAJIME_SHIBUYA, KANAE, KUZUHA, TSUKASA_TENKAI, FAIRYS],
+  // },
   {
     name: '十人十色',
     ids: [
@@ -445,30 +445,30 @@ export const groups = [
     name: 'SMC組',
     ids: [FUYUKI_HAKASE, HAYATO_KAGAMI, RENA_YORUMI],
   },
-  {
-    name: 'すもも幼稚園',
-    ids: [
-      ICHIGO_USHIMI,
-      SAKU_SASAKI,
-      MORURU_YAMIYONO,
-      HIMAWARI_HONMA,
-      MAKAINO_RIRIMU,
-    ],
-  },
-  {
-    name: 'だいさんじ杯',
-    ids: [
-      HAJIME_SHIBUYA,
-      KANAE,
-      MAKAINO_RIRIMU,
-      KUZUHA,
-      YUIKA_SHIINA,
-      CHAIKA_HANABATAKE,
-      KOU_UZUKI,
-      KEISUKE_MAIMOTO,
-      TSUKASA_TENKAI,
-    ],
-  },
+  // {
+  //   name: 'すもも幼稚園',
+  //   ids: [
+  //     ICHIGO_USHIMI,
+  //     SAKU_SASAKI,
+  //     MORURU_YAMIYONO,
+  //     HIMAWARI_HONMA,
+  //     MAKAINO_RIRIMU,
+  //   ],
+  // },
+  // {
+  //   name: 'だいさんじ杯',
+  //   ids: [
+  //     HAJIME_SHIBUYA,
+  //     KANAE,
+  //     MAKAINO_RIRIMU,
+  //     KUZUHA,
+  //     YUIKA_SHIINA,
+  //     CHAIKA_HANABATAKE,
+  //     KOU_UZUKI,
+  //     KEISUKE_MAIMOTO,
+  //     TSUKASA_TENKAI,
+  //   ],
+  // },
   {
     name: '鷹匠',
     ids: [RION_TAKAMIYA, JOE_RIKIICHI],
@@ -505,10 +505,10 @@ export const groups = [
     name: 'ちりつも',
     ids: [MAKAINO_RIRIMU, CHITOSE_KUDO],
   },
-  {
-    name: '角組',
-    ids: [MORURU_YAMIYONO, DOLA, UMIYASHANO_KAMI],
-  },
+  // {
+  //   name: '角組',
+  //   ids: [MORURU_YAMIYONO, DOLA, UMIYASHANO_KAMI],
+  // },
   {
     name: 'でびリオン',
     ids: [RION_TAKAMIYA, DEBIDEBI_DEBIRU],
@@ -533,10 +533,10 @@ export const groups = [
     name: 'デロロギ',
     ids: [KAEDE_HIGUCHI, GILZAREN_III, KYOKO_TODOROKI],
   },
-  {
-    name: '天界卓',
-    ids: [MOIRA, ICHIGO_USHIMI, MUGI_IENAGA, RION_TAKAMIYA, DEBIDEBI_DEBIRU],
-  },
+  // {
+  //   name: '天界卓',
+  //   ids: [MOIRA, ICHIGO_USHIMI, MUGI_IENAGA, RION_TAKAMIYA, DEBIDEBI_DEBIRU],
+  // },
   {
     name: 'Twinkle',
     ids: [
@@ -735,10 +735,10 @@ export const groups = [
     name: 'BACK STAGEs',
     ids: [KYOKO_TODOROKI, MOMO_AZUCHI, YUZU_HASSAKU, KOU_UZUKI],
   },
-  {
-    name: '発色オタク三銃士',
-    ids: [AIR_HARUSAKI, HINA_ASUKA],
-  },
+  // {
+  //   name: '発色オタク三銃士',
+  //   ids: [AIR_HARUSAKI, HINA_ASUKA],
+  // },
   {
     name: 'ハッピートリガー',
     ids: [MUGI_IENAGA, RIRI_YUHI, GAKU_FUSHIMI, TOYA_KENMOCHI],
@@ -787,20 +787,20 @@ export const groups = [
     name: 'ひよこぱんつ',
     ids: [SAKU_SASAKI, LIZE_HELESTA],
   },
-  {
-    name: 'Vtuber甲子園',
-    ids: [YUIKA_SHIINA, KEISUKE_MAIMOTO, TSUKASA_TENKAI],
-  },
-  {
-    name: 'V雪人狼',
-    ids: [
-      MITO_TSUKINO,
-      KAEDE_HIGUCHI,
-      TOYA_KENMOCHI,
-      HIMAWARI_HONMA,
-      ERA_OTOGIBARA,
-    ],
-  },
+  // {
+  //   name: 'Vtuber甲子園',
+  //   ids: [YUIKA_SHIINA, KEISUKE_MAIMOTO, TSUKASA_TENKAI],
+  // },
+  // {
+  //   name: 'V雪人狼',
+  //   ids: [
+  //     MITO_TSUKINO,
+  //     KAEDE_HIGUCHI,
+  //     TOYA_KENMOCHI,
+  //     HIMAWARI_HONMA,
+  //     ERA_OTOGIBARA,
+  //   ],
+  // },
   {
     name: '4FFFF',
     ids: [HIMAWARI_HONMA, DOLA, RION_TAKAMIYA, DEBIDEBI_DEBIRU],
@@ -948,10 +948,10 @@ export const groups = [
     name: 'りんかえW',
     ids: [KAEDE_HIGUCHI, RIN_SHIZUKA],
   },
-  {
-    name: 'ルーザーキングス',
-    ids: [MAKAINO_RIRIMU, KUZUHA, KOU_UZUKI],
-  },
+  // {
+  //   name: 'ルーザーキングス',
+  //   ids: [MAKAINO_RIRIMU, KUZUHA, KOU_UZUKI],
+  // },
   {
     name: 'le jouet',
     ids: [RYUSHEN, KAKERU_YUMEOI, HAYATO_KAGAMI],
@@ -960,8 +960,8 @@ export const groups = [
     name: 'ロリ組',
     ids: [CHIHIRO_YUKI, ICHIGO_USHIMI, ALICE_MONONOBE, KAZAKI_MORINAKA],
   },
-  {
-    name: 'LOL部',
-    ids: [YUIKA_SHIINA, RION_TAKAMIYA, DEBIDEBI_DEBIRU],
-  },
+  // {
+  //   name: 'LOL部',
+  //   ids: [YUIKA_SHIINA, RION_TAKAMIYA, DEBIDEBI_DEBIRU],
+  // },
 ];
