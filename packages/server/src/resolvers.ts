@@ -1,8 +1,9 @@
-import { Resolvers, Streamer, Group } from './generated/graphql';
+import { Resolvers, Group, Streamer } from './generated/graphql';
 import {
   groups as groupsDataset,
   getGroupsByMembership,
   matchGroupsFromStreamerIds,
+  getGroupById,
 } from './utils/groups';
 
 export const resolvers: Resolvers = {
@@ -25,33 +26,25 @@ export const resolvers: Resolvers = {
     category: (_, { id }, { dataSources }) =>
       dataSources.itsukaraLink.fetchCategory(id),
 
-    group: async (_, { id }, { dataSources }) => {
+    group: async (_, { id }) => {
       const group = groupsDataset.find(group => group.id === id);
 
       if (!group) {
         throw new Error('Not such group ID');
       }
 
-      const members = await Promise.all(
-        group.streamerIds.map(id => dataSources.itsukaraLink.fetchStreamer(id)),
-      );
-
       return {
         id: group.id,
         name: group.name,
-        members,
+        members: [],
       };
     },
 
-    groups: async (_1, _2, { dataSources }) => {
-      const streamers = await dataSources.itsukaraLink.fetchStreamers();
-
+    groups: async () => {
       const groups: Group[] = groupsDataset.map(group => ({
         id: group.id,
         name: group.name,
-        members: group.streamerIds
-          .map(id => streamers.find(streamer => streamer.id === id))
-          .filter((streamer): streamer is Streamer => !!streamer),
+        members: [],
       }));
 
       return groups;
@@ -95,23 +88,17 @@ export const resolvers: Resolvers = {
       return data.socialAccounts;
     },
 
-    groups: async (parent, _, { dataSources }) => {
+    groups: async parent => {
       const groupsDataset = getGroupsByMembership(parent.id);
 
       if (!groupsDataset) {
         return [];
       }
 
-      const streamers = await dataSources.itsukaraLink.fetchStreamers();
-
       const groups = groupsDataset.map(group => ({
         id: '',
         name: group.name,
-        members: group.streamerIds
-          .map(streamerId =>
-            streamers.find(streamer => streamer.id === streamerId),
-          )
-          .filter((streamer): streamer is Streamer => !!streamer),
+        members: [],
       }));
 
       return groups;
@@ -119,24 +106,29 @@ export const resolvers: Resolvers = {
   },
 
   Content: {
-    group: async (parent, _, { dataSources }) => {
-      const group = matchGroupsFromStreamerIds(
-        parent.streamers.map(streamer => streamer.id),
-      );
+    group: async parent => {
+      const streamerIds = parent.streamers.map(streamer => streamer.id);
+      const group = matchGroupsFromStreamerIds(streamerIds);
 
       if (!group) {
         return null;
       }
 
-      const members = await Promise.all(
-        group.streamerIds.map(id => dataSources.itsukaraLink.fetchStreamer(id)),
-      );
-
       return {
         id: group.id,
         name: group.name,
-        members,
+        members: [],
       };
+    },
+  },
+
+  Group: {
+    members: async (parent, _, { dataSources }) => {
+      const streamers = await dataSources.itsukaraLink.fetchStreamers();
+
+      return getGroupById(parent.id)
+        .streamerIds.map(id => streamers.find(streamer => streamer.id === id))
+        .filter((streamer): streamer is Streamer => !!streamer);
     },
   },
 

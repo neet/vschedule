@@ -88,12 +88,13 @@ const ELI_CONIFER = '92';
 const RATNA_PETIT = '90';
 */
 
-const AZUMA_NAKAO = '';
-const YUZU_HASSAKU = '';
-const MORURU_YAMIYONO = '';
-const UMIYASHANO_KAMI = '';
-const TSUKASA_TENKAI = '';
-const FAIRYS = '';
+// Placeholders
+const AZUMA_NAKAO = '-1';
+const YUZU_HASSAKU = '-2';
+const MORURU_YAMIYONO = '-3';
+const UMIYASHANO_KAMI = '-4';
+const TSUKASA_TENKAI = '-5';
+const FAIRYS = '-6';
 
 interface GroupDataset {
   id: string;
@@ -1006,6 +1007,11 @@ export const groups: GroupDataset[] = [
     streamerIds: [AKINA_SAEGUSA, MANAMI_AIZONO],
   },
   {
+    id: '2cafad82-105c-48a6-b1ba-6fc6539b3690',
+    name: '紅ズワイガニぐんかん',
+    streamerIds: [AKINA_SAEGUSA, MANAMI_AIZONO, SHOICHI_KANDA, MIREI_GUNDO],
+  },
+  {
     id: '4248b643-eacb-4caa-b8cc-dc88dc9c73d1',
     name: 'ヘブンガールズ',
     streamerIds: [CHIHIRO_YUKI, MOIRA],
@@ -1159,8 +1165,27 @@ export const groups: GroupDataset[] = [
   // },
 ];
 
-export const matchGroupsFromStreamerIds = (streamerIds: string[]) =>
-  groups.find(group => streamerIds.every(id => group.streamerIds.includes(id)));
+export const getGroupById = (id: string) => {
+  const group = groups.find(group => group.id === id);
+
+  if (!group) throw new Error('no such group found');
+
+  return group;
+};
+
+export const matchGroupsFromStreamerIds = (streamerIds: string[]) => {
+  const matchedGroup = groups.find(
+    group =>
+      group.streamerIds.every(id => streamerIds.includes(id)) &&
+      group.streamerIds.length === streamerIds.length,
+  );
+
+  if (!matchedGroup) {
+    return;
+  }
+
+  return matchedGroup;
+};
 
 export const getGroupsByMembership = (streamerId: string) =>
   groups.filter(group => group.streamerIds.includes(streamerId));
