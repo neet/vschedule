@@ -15,7 +15,7 @@ const content = {
   startDate: '2019-02-28T00:00:00.000+09:00',
   endDate: '2019-02-28T01:00:00.000+09:00',
   recommend: false,
-  sources: [
+  streamers: [
     {
       id: '23',
       name: '剣持刀也',

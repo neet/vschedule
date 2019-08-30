@@ -18,29 +18,29 @@ type Content {
   # Whether the streaming is recommended for the user
   recommend: Boolean!
   # Sources of the content
-  sources: [Source!]!
-  # Associated genre
-  genre: Genre
+  streamers: [Streamer!]!
+  # Associated category
+  category: Category
   # Matched group
   group: Group
 }
 
-type Source {
-  # ID of the source
+type Streamer {
+  # ID of the streamer
   id: ID!
-  # Name of the source
+  # Name of the streamer
   name: String!
-  # Romanized name of the source
+  # Romanized name of the streamer
   latinName: String!
-  # Ruby for name of the source
+  # Ruby for name of the streamer
   ruby: String!
-  # URL of the avatar for the source
+  # URL of the avatar for the streamer
   avatar: String!
   # Hex colour code
   color: String!
-  # Description of the source
+  # Description of the streamer
   description: String!
-  # If the source is public
+  # If the  streamer is public
   public: Int!
   # Unknown...
   position: Int!
@@ -55,12 +55,12 @@ type Group {
   id: ID!
   # Name of the group
   name: String!
-  # Involved sources
-  sources: [Source!]!
+  # Involved streamers
+  members: [Streamer!]!
 }
 
-type Genre {
-  # ID of the genre
+type Category {
+  # ID of the category
   id: ID!
   # name
   name: String!
@@ -69,15 +69,15 @@ type Genre {
 interface SocialAccount {
   # Internal ID of the channel
   id: ID!
-  # Associated source id
-  source: ID!
+  # Associated streamer id
+  streamerId: ID!
 }
 
 type YoutubeChannel implements SocialAccount {
   # Internal ID of the channel
   id: ID!
-  # Associated source id
-  source: ID!
+  # Associated streamer id
+  streamerId: ID!
   # ID of the channel
   channel: ID!
   # Name of the channel
@@ -89,8 +89,8 @@ type YoutubeChannel implements SocialAccount {
 type TwitterAccount implements SocialAccount {
   # Internal ID of the channel
   id: ID!
-  # Associated source id
-  source: ID!
+  # Associated streamer id
+  streamerId: ID!
   # Screenname of the account like @twitter
   screenName: String!
 }
@@ -98,10 +98,10 @@ type TwitterAccount implements SocialAccount {
 type Query {
   content(id: ID!): Content
   contents: [Content!]!
-  source(id: ID!): Source
-  sources: [Source!]!
-  genre(id: ID!): Genre
-  genres: [Genre!]!
+  streamer(id: ID!): Streamer
+  streamers: [Streamer!]!
+  category(id: ID!): Category
+  categories: [Category!]!
   group(id: ID!): Group
   groups: [Group!]!
 }

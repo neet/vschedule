@@ -1,5 +1,10 @@
-import { Resolvers, Source, Group } from './generated/graphql';
-import { groups as groupsDataset, getGroupsByMembership } from './utils/groups';
+import { Resolvers, Group, Streamer } from './generated/graphql';
+import {
+  groups as groupsDataset,
+  getGroupsByMembership,
+  matchGroupsFromStreamerIds,
+  getGroupById,
+} from './utils/groups';
 
 export const resolvers: Resolvers = {
   Query: {
@@ -9,105 +14,121 @@ export const resolvers: Resolvers = {
     contents: (_1, _2, { dataSources }) =>
       dataSources.itsukaraLink.fetchContents(),
 
-    source: (_, { id }, { dataSources }) =>
-      dataSources.itsukaraLink.fetchSource(id),
+    streamer: (_, { id }, { dataSources }) =>
+      dataSources.itsukaraLink.fetchStreamer(id),
 
-    sources: (_1, _2, { dataSources }) =>
-      dataSources.itsukaraLink.fetchSources(),
+    streamers: (_1, _2, { dataSources }) =>
+      dataSources.itsukaraLink.fetchStreamers(),
 
-    genres: (_1, _2, { dataSources }) => dataSources.itsukaraLink.fetchGenres(),
+    categories: (_1, _2, { dataSources }) =>
+      dataSources.itsukaraLink.fetchCategories(),
 
-    genre: (_, { id }, { dataSources }) =>
-      dataSources.itsukaraLink.fetchGenre(id),
+    category: (_, { id }, { dataSources }) =>
+      dataSources.itsukaraLink.fetchCategory(id),
 
-    group: async (_, { id }, { dataSources }) => {
+    group: async (_, { id }) => {
       const group = groupsDataset.find(group => group.id === id);
 
       if (!group) {
         throw new Error('Not such group ID');
       }
 
-      const members = await Promise.all(
-        group.sourceIds.map(id => dataSources.itsukaraLink.fetchSource(id)),
-      );
-
       return {
         id: group.id,
         name: group.name,
-        sources: members,
+        members: [],
       };
     },
 
-    groups: async (_1, _2, { dataSources }) => {
-      const sources = await dataSources.itsukaraLink.fetchSources();
-
+    groups: async () => {
       const groups: Group[] = groupsDataset.map(group => ({
         id: group.id,
         name: group.name,
-        sources: group.sourceIds
-          .map(id => sources.find(source => source.id === id))
-          .filter((source): source is Source => !!source),
+        members: [],
       }));
 
       return groups;
     },
   },
 
-  Source: {
-    latinName: async (source, _, { dataSources }) => {
-      const data = await dataSources.itsukaraLink.fetchSource(source.id);
+  Streamer: {
+    latinName: async (parent, _, { dataSources }) => {
+      const data = await dataSources.itsukaraLink.fetchStreamer(parent.id);
 
       return data.latinName;
     },
 
-    ruby: async (source, _, { dataSources }) => {
-      const data = await dataSources.itsukaraLink.fetchSource(source.id);
+    ruby: async (parent, _, { dataSources }) => {
+      const data = await dataSources.itsukaraLink.fetchStreamer(parent.id);
 
       return data.ruby;
     },
 
-    description: async (source, _, { dataSources }) => {
-      const data = await dataSources.itsukaraLink.fetchSource(source.id);
+    description: async (parent, _, { dataSources }) => {
+      const data = await dataSources.itsukaraLink.fetchStreamer(parent.id);
 
       return data.description;
     },
 
-    public: async (source, _, { dataSources }) => {
-      const data = await dataSources.itsukaraLink.fetchSource(source.id);
+    public: async (parent, _, { dataSources }) => {
+      const data = await dataSources.itsukaraLink.fetchStreamer(parent.id);
 
       return data.public;
     },
 
-    position: async (source, _, { dataSources }) => {
-      const data = await dataSources.itsukaraLink.fetchSource(source.id);
+    position: async (parent, _, { dataSources }) => {
+      const data = await dataSources.itsukaraLink.fetchStreamer(parent.id);
 
       return data.position;
     },
 
-    socialAccounts: async (source, _, { dataSources }) => {
-      const data = await dataSources.itsukaraLink.fetchSource(source.id);
+    socialAccounts: async (parent, _, { dataSources }) => {
+      const data = await dataSources.itsukaraLink.fetchStreamer(parent.id);
 
       return data.socialAccounts;
     },
 
-    groups: async (source, _, { dataSources }) => {
-      const groupsDataset = getGroupsByMembership(source.id);
+    groups: async parent => {
+      const groupsDataset = getGroupsByMembership(parent.id);
 
       if (!groupsDataset) {
         return [];
       }
 
-      const sources = await dataSources.itsukaraLink.fetchSources();
-
       const groups = groupsDataset.map(group => ({
         id: '',
         name: group.name,
-        sources: group.sourceIds
-          .map(sourceId => sources.find(source => source.id === sourceId))
-          .filter((source): source is Source => !!source),
+        members: [],
       }));
 
       return groups;
+    },
+  },
+
+  Content: {
+    group: async parent => {
+      const streamerIds = parent.streamers.map(streamer => streamer.id);
+      const group = matchGroupsFromStreamerIds(streamerIds);
+
+      if (!group) {
+        return null;
+      }
+
+      return {
+        id: group.id,
+        name: group.name,
+        members: [],
+      };
+    },
+  },
+
+  Group: {
+    members: async (parent, _, { dataSources }) => {
+      const streamers = await dataSources.itsukaraLink.fetchStreamers();
+
+      return getGroupById(parent.id)
+        .streamerIds.map(id => streamers.find(streamer => streamer.id === id))
+        .filter((streamer): streamer is Streamer => !!streamer);
     },
   },
 
