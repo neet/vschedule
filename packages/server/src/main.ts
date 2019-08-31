@@ -11,6 +11,9 @@ import { dataSources } from './datasources';
 import { resolvers } from './resolvers';
 import { createI18n } from './utils/locale';
 
+// eslint-disable-next-line import/no-unassigned-import
+import 'reflect-metadata';
+
 (async () => {
   const schemaPath = require.resolve('@ril/schema');
   const staticPath = path.resolve(
