@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-unassigned-import
+import 'reflect-metadata';
 import { promises as fs } from 'fs';
 import path from 'path';
 import SSR from '@ril/client';
@@ -6,44 +8,38 @@ import { ApolloServer, gql } from 'apollo-server-express';
 import cors from 'cors';
 import express from 'express';
 import i18nextMiddleware from 'i18next-express-middleware';
+import { createConnection } from 'typeorm';
 import { BIND_PORT } from './config';
 import { dataSources } from './datasources';
 import { resolvers } from './resolvers';
 import { createI18n } from './utils/locale';
-
-// eslint-disable-next-line import/no-unassigned-import
-import 'reflect-metadata';
+import { StreamerCron } from './workers/streamers';
 
 (async () => {
   const schemaPath = require.resolve('@ril/schema');
-  const staticPath = path.resolve(
-    require.resolve('@ril/client'),
-    '../../static',
-  );
+  const clientPath = require.resolve('@ril/client');
+  const staticPath = path.resolve(clientPath, '../../static');
 
-  const schema = await fs.readFile(schemaPath, 'utf-8').then(gql);
+  const typeDefs = await fs.readFile(schemaPath, 'utf-8').then(gql);
 
-  const server = new ApolloServer({
-    typeDefs: schema,
+  const apolloServer = new ApolloServer({
+    typeDefs: typeDefs,
     resolvers,
     dataSources,
   });
 
+  // Crons
+  const connection = await createConnection();
+  new StreamerCron(connection);
+
   const app = express();
 
-  // Apollo
-  server.applyMiddleware({ app, path: '/graphql' });
-
-  // CORS
   app.use(cors());
-
-  // I18next
-  app.use(i18nextMiddleware.handle(createI18n()));
-
-  // Static files
   app.use(express.static(staticPath));
+  app.use(i18nextMiddleware.handle(createI18n()));
+  apolloServer.applyMiddleware({ app, path: '/graphql' });
 
-  // Service worker
+  // SW
   app.use('/sw.js', (_, res) => {
     res.sendFile(path.resolve(staticPath, 'build/sw.js'));
   });

@@ -1,5 +1,11 @@
-import gaxios from 'gaxios';
-import { Response, Event, Genre, Liver, LiverRelationships } from './entities';
+import * as gaxios from 'gaxios';
+import {
+  EventsResponse,
+  EventResponse,
+  GenresResponse,
+  LiversResponse,
+  LiverResponse,
+} from './entities';
 
 export class Gateway {
   readonly url: string;
@@ -12,33 +18,25 @@ export class Gateway {
     };
   }
 
-  fetchEvents = () =>
-    gaxios.request<Response<Event[]>>({
+  private get = async <T>(url: string, params?: unknown) => {
+    const res = await gaxios.request<T>({
       method: 'GET',
-      url: '/v1.2/events.json',
+      url,
+      params,
     });
+
+    return res.data;
+  };
+
+  fetchEvents = () => this.get<EventsResponse>('/v1.2/events.json');
 
   fetchEvent = (id: number) =>
-    gaxios.request<Response<Event[]>>({
-      method: 'GET',
-      url: `/v1.2/events/${id}.json`,
-    });
+    this.get<EventResponse>(`/v1.2/events/${id}.json`);
 
-  fetchGenres = () =>
-    gaxios.request<Response<Genre[]>>({
-      method: 'GET',
-      url: '/v1.2/genres.json',
-    });
+  fetchGenres = () => this.get<GenresResponse>('/v1.2/genres.json');
 
-  fetchLivers = () =>
-    gaxios.request<Response<Liver[]>>({
-      method: 'GET',
-      url: '/v1.2/livers.json',
-    });
+  fetchLivers = () => this.get<LiversResponse>('/v1.2/livers.json');
 
-  fetchLiverRelationship = (id: number) =>
-    gaxios.request<Response<LiverRelationships>>({
-      method: 'GET',
-      url: `/v1.2/livers/${id}.json`,
-    });
+  fetchLiver = (id: number) =>
+    this.get<LiverResponse>(`/v1.2/livers/${id}.json`);
 }

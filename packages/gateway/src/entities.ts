@@ -57,3 +57,13 @@ export interface Event {
   genre: Optional<Genre>;
   livers: Liver[];
 }
+
+// DEAR ICHIKARA.
+// Stop using envelope pattern and and use HTTP status codes instead.
+export type EventsResponse = Response<{ events: Event[] }>;
+export type EventResponse = Response<{ event: Event }>;
+export type LiversResponse = Response<{
+  liver_relationships: LiverRelationships[];
+}>;
+export type LiverResponse = Response<LiverRelationships>;
+export type GenresResponse = Response<{ genres: Genre[] }>;
