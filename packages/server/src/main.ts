@@ -8,18 +8,17 @@ import { ApolloServer, gql } from 'apollo-server-express';
 import cors from 'cors';
 import express from 'express';
 import i18nextMiddleware from 'i18next-express-middleware';
-import { createConnection } from 'typeorm';
 import { BIND_PORT } from './config';
 import { dataSources } from './datasources';
+import { createConnection } from './db';
 import { resolvers } from './resolvers';
-import { createI18n } from './utils/locale';
 import { StreamerCron } from './workers/streamers';
+import { createI18n } from './utils/locale';
 
 (async () => {
   const schemaPath = require.resolve('@ril/schema');
   const clientPath = require.resolve('@ril/client');
   const staticPath = path.resolve(clientPath, '../../static');
-
   const typeDefs = await fs.readFile(schemaPath, 'utf-8').then(gql);
 
   const apolloServer = new ApolloServer({
@@ -28,11 +27,11 @@ import { StreamerCron } from './workers/streamers';
     dataSources,
   });
 
-  // Crons
   const connection = await createConnection();
-  new StreamerCron(connection);
-
   const app = express();
+
+  // Crons
+  new StreamerCron(connection);
 
   app.use(cors());
   app.use(express.static(staticPath));
