@@ -13,7 +13,7 @@
     "test:eslint": "eslint -c .eslintrc.json 'packages/**/*.{ts,tsx}'",
     "test:stylelint": "stylelint 'packages/**/*.{tsx,tsx}'",
     "test:tsc": "tsc -p packages/client && tsc -p packages/server",
-    "build": "yarn workspace @ril/client run build",
+    "build": "yarn workspace @ril/client run build && yarn workspace @ril/gateway run build",
     "watch": "yarn workspace @ril/client run watch",
     "start": "yarn workspace @ril/server run start",
     "manage:translations": "i18next-scanner 'packages/**/*.{ts,tsx}'"
