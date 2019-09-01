@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@graphql-codegen/cli": "^1.6.1",
-    "@graphql-codegen/typescript": "^1.6.1",
+    "@graphql-codegen/typescript": "^1.7.0",
     "@graphql-codegen/typescript-resolvers": "^1.6.1",
     "@ril/client": "^0.0.0",
     "@ril/locales": "^0.0.0",
