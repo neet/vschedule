@@ -21,6 +21,7 @@
     "@types/dotenv": "^6.1.1",
     "@types/graphql": "^14.5.0",
     "@types/node": "^12.7.2",
+    "@types/pg": "^7.11.0",
     "apollo": "^2.18.0",
     "apollo-datasource": "^0.6.1",
     "apollo-datasource-rest": "^0.6.1",
