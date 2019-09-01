@@ -21,19 +21,19 @@ jobs:
 
       # Download and cache dependencies
       - restore_cache:
+          name: Restore Yarn Package Cache
           keys:
-            - v2-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v2-dependencies-
+            - yarn-packages-{{ checksum "yarn.lock" }}
 
       - run:
-          name: Install dependencies
-          command: yarn install
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
 
       - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - node_modules
-          key: v2-dependencies-{{ checksum "package.json" }}
+            - ~/.cache/yarn
 
       - run:
           name: Build
