@@ -3,10 +3,12 @@ import { CronJob } from 'cron';
 import { RESOURCE_URL } from 'src/config';
 import { Connection } from 'typeorm';
 import { Streamer } from 'src/entity/streamer';
-import { SocialAccount } from 'src/entity/social-account';
-import { TwitterAccount } from 'src/entity/twitter-account';
+import {
+  SocialAccount,
+  TwitterAccount,
+  YoutubeChannel,
+} from 'src/entity/social-account';
 import { LiverYoutubeChannel } from 'src/datasources/itsukara-link';
-import { YoutubeChannel } from 'src/entity/youtube-channel';
 
 export class StreamerCron {
   private readonly db: Connection;
