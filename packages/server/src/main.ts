@@ -8,10 +8,9 @@ import { ApolloServer, gql } from 'apollo-server-express';
 import cors from 'cors';
 import express from 'express';
 import i18nextMiddleware from 'i18next-express-middleware';
+import { GraphQLDatabaseLoader } from 'typeorm-loader';
 import { BIND_PORT } from './config';
-import { dataSources } from './datasources';
 import { createConnection } from './db';
-import { resolvers } from './resolvers';
 import { StreamerCron } from './workers/streamers';
 import { createI18n } from './utils/locale';
 
@@ -19,15 +18,18 @@ import { createI18n } from './utils/locale';
   const schemaPath = require.resolve('@ril/schema');
   const clientPath = require.resolve('@ril/client');
   const staticPath = path.resolve(clientPath, '../../static');
+
   const typeDefs = await fs.readFile(schemaPath, 'utf-8').then(gql);
+  const connection = await createConnection();
 
   const apolloServer = new ApolloServer({
     typeDefs: typeDefs,
-    resolvers,
-    dataSources,
+    // resolvers,
+    context: {
+      loader: new GraphQLDatabaseLoader(connection),
+    },
   });
 
-  const connection = await createConnection();
   const app = express();
 
   // Crons

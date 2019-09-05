@@ -1810,7 +1810,7 @@
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-14.2.3.tgz#cfc6420a67eb20420786f90112357921974593b9"
   integrity sha512-UoCovaxbJIxagCvVfalfK7YaNhmxj3BQFRQ2RHQKLiu+9wNXhJnlbspsLHt/YQM99IaLUUFJNzCwzc6W0ypMeQ==
 
-"@types/graphql@^14.5.0":
+"@types/graphql@^14.0.3", "@types/graphql@^14.5.0":
   version "14.5.0"
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-14.5.0.tgz#a545fb3bc8013a3547cf2f07f5e13a33642b75d6"
   integrity sha512-MOkzsEp1Jk5bXuAsHsUi6BVv0zCO+7/2PTiZMXWDSsMXvNU6w/PLMQT2vHn8hy2i0JqojPz1Sz6rsFjHtsU0lA==
@@ -12286,6 +12286,17 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typeorm-loader@^0.0.1-0.5:
+  version "0.0.1-0.5"
+  resolved "https://registry.yarnpkg.com/typeorm-loader/-/typeorm-loader-0.0.1-0.5.tgz#9a6a020d912db46c33389c2a0c92db6ac9d9fd35"
+  integrity sha512-YnM1qtk/3hRZPDpVLPdUdzdC0uLhDiWP6w7dvWEl3fsoNVS+I5SRy9qpP0VhHoppp/rPfHalDzPUoK2cHMMXaw==
+  dependencies:
+    deep-equal "^1.0.1"
+    object-path "^0.11.4"
+    tslib "^1.9.3"
+  optionalDependencies:
+    "@types/graphql" "^14.0.3"
 
 typeorm@^0.2.18:
   version "0.2.18"

@@ -1,5 +1,5 @@
-import { dataSources } from './datasources';
+import { GraphQLDatabaseLoader } from 'typeorm-loader';
 
 export interface Context {
-  dataSources: ReturnType<typeof dataSources>;
+  loader: GraphQLDatabaseLoader;
 }
