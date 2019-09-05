@@ -1,15 +1,26 @@
-type Content {
-  # ID of the content
+interface Node {
   id: ID!
-  # Name of the content
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String!
+  endCursor: String!
+}
+
+type Activity implements Node {
+  # ID of the activity
+  id: ID!
+  # Name of the activity
   name: String!
   # Description of the streaming
   description: String!
   # Whether public
   public: Int!
-  # URL of the content
+  # URL of the activity
   url: String!
-  # Thumbnail of the content
+  # Thumbnail of the activity
   thumbnail: String!
   # Start date time on ISO 8601
   startDate: String!
@@ -17,67 +28,111 @@ type Content {
   endDate: String!
   # Whether the streaming is recommended for the user
   recommend: Boolean!
-  # Sources of the content
-  streamers: [Streamer!]!
+  # Sources of the activity
+  creators: [Performer!]!
   # Associated category
   category: Category
-  # Matched group
-  group: Group
+  # Matched team
+  team: Team
 }
 
-type Streamer {
-  # ID of the streamer
+type ActivityConnection {
+  edges: [ActivityEdge]!
+  nodes: [Activity]!
+  pageInfo: PageInfo!
+}
+
+type ActivityEdge {
+  cursor: String
+  node: Activity
+}
+
+type Performer implements Node {
+  # ID of the performer
   id: ID!
-  # Name of the streamer
+  # Name of the performer
   name: String!
-  # Romanized name of the streamer
+  # Romanized name of the performer
   latinName: String!
-  # Ruby for name of the streamer
+  # Ruby for name of the performer
   ruby: String!
-  # URL of the avatar for the streamer
+  # URL of the avatar for the performer
   avatar: String!
   # Hex colour code
   color: String!
-  # Description of the streamer
+  # Description of the performer
   description: String!
-  # If the  streamer is public
+  # If the  performer is public
   public: Int!
   # Unknown...
   position: Int!
   # External services' information
   socialAccounts: [SocialAccount!]!
-  # Involved groups
-  groups: [Group!]!
+  # Involved teams
+  teams: [Team!]!
 }
 
-type Group {
-  # ID of the group
+type PerformerConnection {
+  edges: [PerformerEdge]!
+  nodes: [Performer]!
+  pageInfo: PageInfo!
+}
+
+type PerformerEdge {
+  cursor: String
+  node: Performer
+}
+
+type Team implements Node {
+  # ID of the team
   id: ID!
-  # Name of the group
+  # Name of the team
   name: String!
-  # Involved streamers
-  members: [Streamer!]!
+  # Involved performers
+  members: [Performer!]!
 }
 
-type Category {
+type TeamConnection {
+  edges: [TeamEdge]!
+  nodes: [Team]!
+  pageInfo: PageInfo
+}
+
+type TeamEdge {
+  cursor: String
+  node: Team
+}
+
+type Category implements Node {
   # ID of the category
   id: ID!
   # name
   name: String!
 }
 
+type CategoryConnection {
+  edges: [CategoryEdge]!
+  nodes: [Category]!
+  pageInfo: PageInfo!
+}
+
+type CategoryEdge {
+  cursor: String
+  node: Category
+}
+
 interface SocialAccount {
   # Internal ID of the channel
   id: ID!
-  # Associated streamer id
-  streamerId: ID!
+  # Associated performer id
+  performerId: ID!
 }
 
-type YoutubeChannel implements SocialAccount {
+type YoutubeAccount implements Node & SocialAccount {
   # Internal ID of the channel
   id: ID!
-  # Associated streamer id
-  streamerId: ID!
+  # Associated performer id
+  performerId: ID!
   # ID of the channel
   channel: ID!
   # Name of the channel
@@ -86,24 +141,46 @@ type YoutubeChannel implements SocialAccount {
   creationOrder: Int!
 }
 
-type TwitterAccount implements SocialAccount {
+type TwitterAccount implements Node & SocialAccount {
   # Internal ID of the channel
   id: ID!
-  # Associated streamer id
-  streamerId: ID!
+  # Associated performer id
+  performerId: ID!
   # Screenname of the account like @twitter
   screenName: String!
 }
 
 type Query {
-  content(id: ID!): Content
-  contents: [Content!]!
-  streamer(id: ID!): Streamer
-  streamers: [Streamer!]!
+  activity(id: ID!): Activity
+
+  activities(
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): ActivityConnection!
+
+  performer(id: ID!): Performer
+
+  performers(
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): PerformerConnection!
+
   category(id: ID!): Category
-  categories: [Category!]!
-  group(id: ID!): Group
-  groups: [Group!]!
+
+  categories(
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): CategoryConnection!
+
+  team(id: ID!): Team
+
+  teams(first: Int, after: String, last: Int, before: String): TeamConnection!
 }
 
 schema {
