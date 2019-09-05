@@ -2,7 +2,7 @@ import { Entity, PrimaryColumn, Column, OneToOne } from 'typeorm';
 import { Category } from './category';
 
 @Entity()
-export class Content {
+export class Activity {
   @PrimaryColumn('text')
   id: string;
 

@@ -1,13 +1,13 @@
 import { Entity, PrimaryColumn, ManyToOne, JoinColumn, Column } from 'typeorm';
-import { Streamer } from './streamer';
+import { Performer } from './performer';
 
 export abstract class SocialAccount {
   @PrimaryColumn('text')
   id: string;
 
-  @ManyToOne(() => Streamer, streamer => streamer.socialAccounts)
+  @ManyToOne(() => Performer, performer => performer.socialAccounts)
   @JoinColumn()
-  streamer: Streamer;
+  performer: Performer;
 }
 
 @Entity()

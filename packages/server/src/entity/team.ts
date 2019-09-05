@@ -1,14 +1,14 @@
 import { PrimaryColumn, Column, ManyToMany, Entity } from 'typeorm';
-import { Streamer } from './streamer';
+import { Performer } from './performer';
 
 @Entity()
-export class Group {
+export class Team {
   @PrimaryColumn('text')
   id: string;
 
   @Column('text')
   name: string;
 
-  @ManyToMany(() => Streamer, streamer => streamer.groups)
-  members: Streamer[];
+  @ManyToMany(() => Performer, performer => performer.teams)
+  members: Performer[];
 }

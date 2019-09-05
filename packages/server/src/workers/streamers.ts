@@ -2,7 +2,7 @@ import { Gateway, LiverRelationships } from '@ril/gateway';
 import { CronJob } from 'cron';
 import { RESOURCE_URL } from 'src/config';
 import { Connection } from 'typeorm';
-import { Streamer } from 'src/entity/streamer';
+import { Performer } from 'src/entity/performer';
 import {
   SocialAccount,
   TwitterAccount,
@@ -25,12 +25,12 @@ export class StreamerCron {
       const livers = await this.gateway.fetchLivers();
 
       for (const item of livers.data.liver_relationships) {
-        const streamer = await this.db.manager.findOne(
-          Streamer,
+        const performer = await this.db.manager.findOne(
+          Performer,
           item.liver.id.toString(),
         );
 
-        if (streamer) {
+        if (performer) {
           continue;
         }
 
@@ -59,23 +59,23 @@ export class StreamerCron {
       liver_youtube_channel,
     } = liverRelationships;
 
-    const streamer = new Streamer();
-    streamer.id = liver.id.toString();
-    streamer.name = liver.name;
-    streamer.latinName = liver.english_name || '';
-    streamer.ruby = liver.furigana || '';
-    streamer.avatar = liver.avatar;
-    streamer.color = liver.color;
-    streamer.description = liver.description || '';
-    streamer.public = liver.public || 1;
-    streamer.position = liver.position || 0;
+    const performer = new Performer();
+    performer.id = liver.id.toString();
+    performer.name = liver.name;
+    performer.latinName = liver.english_name || '';
+    performer.ruby = liver.furigana || '';
+    performer.avatar = liver.avatar;
+    performer.color = liver.color;
+    performer.description = liver.description || '';
+    performer.public = liver.public || 1;
+    performer.position = liver.position || 0;
 
     const socialAccounts: SocialAccount[] = [];
 
     const twitterAccount = new TwitterAccount();
     twitterAccount.id = liver_twitter_account.id.toString();
     twitterAccount.screenName = liver_twitter_account.screen_name;
-    // twitterAccount.streamer = streamer;
+    // twitterAccount.performer = performer;
     await this.db.manager.save(twitterAccount);
     socialAccounts.push(twitterAccount);
 
@@ -91,9 +91,9 @@ export class StreamerCron {
       socialAccounts.push(youtubeChannel);
     }
 
-    streamer.socialAccounts = socialAccounts;
-    streamer.groups = [];
+    performer.socialAccounts = socialAccounts;
+    performer.teams = [];
 
-    await this.db.manager.save(streamer);
+    await this.db.manager.save(performer);
   }
 }

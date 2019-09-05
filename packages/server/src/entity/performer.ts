@@ -1,9 +1,9 @@
 import { Entity, PrimaryColumn, Column, ManyToMany, OneToMany } from 'typeorm';
-import { Group } from './group';
+import { Team } from './team';
 import { SocialAccount } from './social-account';
 
 @Entity()
-export class Streamer {
+export class Performer {
   @PrimaryColumn('text')
   id: string;
 
@@ -31,9 +31,9 @@ export class Streamer {
   @Column('int')
   position: number;
 
-  @OneToMany(() => SocialAccount, socialAccount => socialAccount.streamer)
+  @OneToMany(() => SocialAccount, socialAccount => socialAccount.performer)
   socialAccounts: SocialAccount[];
 
-  @ManyToMany(() => Group, group => group.members)
-  groups: Group[];
+  @ManyToMany(() => Team, team => team.members)
+  teams: Team[];
 }
