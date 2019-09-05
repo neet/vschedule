@@ -1,4 +1,5 @@
 import { Entity, PrimaryColumn, ManyToOne, JoinColumn, Column } from 'typeorm';
+import { LiverTwitterAccount, LiverYoutubeChannel } from '@ril/gateway';
 import { Performer } from './performer';
 
 export abstract class SocialAccount {
@@ -12,14 +13,30 @@ export abstract class SocialAccount {
 
 @Entity()
 export class TwitterAccount extends SocialAccount {
+  static fromGatewayData(data: LiverTwitterAccount) {
+    const twitterAccount = new TwitterAccount();
+    twitterAccount.id = data.id.toString();
+    // twitterAccount.performer = Performer.fromGatewayData();
+    return twitterAccount;
+  }
+
   @Column('text')
   screenName: string;
 }
 
 @Entity()
-export class YoutubeChannel extends SocialAccount {
+export class YoutubeAccount extends SocialAccount {
+  static fromGatewayData(data: LiverYoutubeChannel) {
+    const youtubeAccount = new YoutubeAccount();
+    youtubeAccount.id = data.id.toString();
+    youtubeAccount.channelId = data.channel;
+    youtubeAccount.channelId = data.channel;
+    youtubeAccount.channelId = data.channel;
+    return youtubeAccount;
+  }
+
   @Column('text')
-  channel: string;
+  channelId: string;
 
   @Column('text')
   channelName: string;
