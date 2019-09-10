@@ -1,12 +1,15 @@
-import { Entity, PrimaryColumn, Column, ManyToMany, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryColumn,
+  Column,
+  ManyToMany,
+  OneToMany,
+  JoinTable,
+} from 'typeorm';
 import { LiverRelationships } from '@ril/gateway';
 import * as G from '../generated/graphql';
 import { Team } from './team';
-import {
-  SocialAccount,
-  TwitterAccount,
-  YoutubeAccount,
-} from './social-account';
+import { TwitterAccount, YoutubeAccount } from './social-account';
 
 @Entity()
 export class Performer {
@@ -23,19 +26,16 @@ export class Performer {
     performer.public = data.liver.public || 0;
     performer.position = data.liver.position || 1;
 
-    // Constract social accounts
-    performer.socialAccounts = [];
-
-    performer.socialAccounts.push(
+    performer.twitterAccounts = [
       TwitterAccount.fromGatewayData(data.liver_twitter_account),
-    );
+    ];
 
     if (!Array.isArray(data.liver_youtube_channel)) {
       data.liver_youtube_channel = [data.liver_youtube_channel];
     }
 
-    data.liver_youtube_channel.flatMap(youtube => {
-      performer.socialAccounts.push(YoutubeAccount.fromGatewayData(youtube));
+    performer.youtubeAccounts = data.liver_youtube_channel.flatMap(youtube => {
+      return YoutubeAccount.fromGatewayData(youtube);
     });
 
     return performer;
@@ -53,7 +53,7 @@ export class Performer {
       public: this.public,
       position: this.position,
       teams: [],
-      socialAccounts: this.socialAccounts.map(sa => sa.toResponse()),
+      socialAccounts: [this.youtubeAccounts, this.twitterAccounts].flat(),
     };
   }
 
@@ -84,12 +84,13 @@ export class Performer {
   @Column('int')
   position: number;
 
-  @OneToMany(() => SocialAccount, socialAccount => socialAccount.performer, {
-    cascade: true,
-    onDelete: 'SET NULL',
-  })
-  socialAccounts: (TwitterAccount | YoutubeAccount)[];
+  @OneToMany(() => TwitterAccount, account => account.perfomer)
+  twitterAccounts: TwitterAccount[];
 
-  @ManyToMany(() => Team, team => team.members)
+  @OneToMany(() => YoutubeAccount, account => account.perfomer)
+  youtubeAccounts: YoutubeAccount[];
+
+  @ManyToMany(() => Team, team => team.members, { onDelete: 'CASCADE' })
+  @JoinTable()
   teams: Team[];
 }

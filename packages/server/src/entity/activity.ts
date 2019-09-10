@@ -1,5 +1,13 @@
 import { Event } from '@ril/gateway';
-import { Entity, PrimaryColumn, Column, OneToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryColumn,
+  Column,
+  JoinColumn,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { Category } from './category';
 import { Performer } from './performer';
 
@@ -64,9 +72,11 @@ export class Activity {
   @Column('text')
   endAt: string;
 
-  @Column()
+  @ManyToMany(() => Performer, { onDelete: 'CASCADE' })
+  @JoinTable()
   performers: Performer[];
 
-  @OneToOne(() => Category)
+  @ManyToOne(() => Category, { onDelete: 'SET NULL' })
+  @JoinColumn()
   category?: Category;
 }

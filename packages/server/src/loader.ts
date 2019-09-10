@@ -22,6 +22,8 @@ export class Loader {
   activityLoader = new DataLoader<string, Activity>(ids =>
     this.activityRepo
       .createQueryBuilder('activity')
+      .innerJoinAndSelect('activity.performers', 'performer')
+      .innerJoinAndSelect('activity.category', 'category')
       .where('activity.id IN (:...ids)', { ids })
       .getMany(),
   );
@@ -36,6 +38,9 @@ export class Loader {
   performerLoader = new DataLoader<string, Performer>(ids =>
     this.performerRepo
       .createQueryBuilder('performer')
+      .innerJoinAndSelect('performer.twitterAccounts', 'twitterAccount')
+      .innerJoinAndSelect('performer.youtubeAccounts', 'youtubeAccount')
+      .innerJoinAndSelect('performer.teams', 'team')
       .where('performer.id IN (:...ids)', { ids })
       .getMany(),
   );
@@ -43,6 +48,7 @@ export class Loader {
   teamLoader = new DataLoader<string, Team>(ids =>
     this.teamRepo
       .createQueryBuilder('team')
+      .innerJoinAndSelect('team.members', 'performer')
       .where('team.id IN (:...ids)', { ids })
       .getMany(),
   );

@@ -1,11 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "es2017",
-      "dom",
-      "esnext.asynciterable",
-      "esnext.array"
-    ],
+    "lib": ["es2017", "dom", "esnext.asynciterable", "esnext.array"],
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "emitDecoratorMetadata": true,
@@ -24,6 +19,6 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es6",
+    "target": "es6"
   }
 }

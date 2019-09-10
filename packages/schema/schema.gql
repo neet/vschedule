@@ -124,15 +124,11 @@ type CategoryEdge {
 interface SocialAccount {
   # Internal ID of the channel
   id: ID!
-  # Associated performer id
-  performerId: ID!
 }
 
 type YoutubeAccount implements Node & SocialAccount {
   # Internal ID of the channel
   id: ID!
-  # Associated performer id
-  performerId: ID!
   # ID of the channel
   channel: ID!
   # Name of the channel
@@ -144,8 +140,6 @@ type YoutubeAccount implements Node & SocialAccount {
 type TwitterAccount implements Node & SocialAccount {
   # Internal ID of the channel
   id: ID!
-  # Associated performer id
-  performerId: ID!
   # Screenname of the account like @twitter
   screenName: String!
 }

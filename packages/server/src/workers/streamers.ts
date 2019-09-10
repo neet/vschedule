@@ -15,29 +15,31 @@ export class StreamerCron {
   }
 
   private cron = () => {
-    const job = new CronJob('* * * * *', async () => {
-      const livers = await this.gateway.fetchLivers();
-
-      for (const item of livers.data.liver_relationships) {
-        const performer = await this.db.manager.findOne(
-          Performer,
-          item.liver.id.toString(),
-        );
-
-        if (performer) {
-          continue;
-        }
-
-        const liverRelationship = await this.gateway.fetchLiver(item.liver.id);
-        await this.createStreamer(liverRelationship.data);
-      }
-    });
-
+    const job = new CronJob('* * * * *', this.collectStreamers);
     return job.start();
   };
 
-  private async createStreamer(liverRelationships: LiverRelationships) {
+  private collectStreamers = async () => {
+    const livers = await this.gateway.fetchLivers();
+
+    for (const item of livers.data.liver_relationships) {
+      const performer = await this.db.manager.findOne(
+        Performer,
+        item.liver.id.toString(),
+      );
+
+      // Skip if existing...
+      if (performer) {
+        continue;
+      }
+
+      const liverRelationship = await this.gateway.fetchLiver(item.liver.id);
+      await this.createStreamer(liverRelationship.data);
+    }
+  };
+
+  private createStreamer = async (liverRelationships: LiverRelationships) => {
     const performer = Performer.fromGatewayData(liverRelationships);
     await this.db.manager.save(performer);
-  }
+  };
 }

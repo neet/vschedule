@@ -9,6 +9,8 @@ export class Team {
   @Column('text')
   name: string;
 
-  @ManyToMany(() => Performer, performer => performer.teams)
+  @ManyToMany(() => Performer, performer => performer.teams, {
+    onDelete: 'CASCADE',
+  })
   members: Performer[];
 }
