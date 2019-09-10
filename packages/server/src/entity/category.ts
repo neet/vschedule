@@ -10,6 +10,13 @@ export class Category {
     return category;
   }
 
+  toResponse() {
+    return {
+      id: this.id,
+      name: this.name,
+    };
+  }
+
   @PrimaryColumn('text')
   id: string;
 

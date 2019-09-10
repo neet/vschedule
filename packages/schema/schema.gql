@@ -23,13 +23,13 @@ type Activity implements Node {
   # Thumbnail of the activity
   thumbnail: String!
   # Start date time on ISO 8601
-  startDate: String!
+  startAt: String!
   # End date time on ISO 8601
-  endDate: String!
+  endAt: String!
   # Whether the streaming is recommended for the user
   recommend: Boolean!
   # Sources of the activity
-  creators: [Performer!]!
+  performers: [Performer!]!
   # Associated category
   category: Category
   # Matched team

@@ -8,7 +8,8 @@ import { ApolloServer, gql } from 'apollo-server-express';
 import cors from 'cors';
 import express from 'express';
 import i18nextMiddleware from 'i18next-express-middleware';
-import { GraphQLDatabaseLoader } from 'typeorm-loader';
+import { createContext } from './context';
+import { resolvers } from './resolvers';
 import { BIND_PORT } from './config';
 import { createConnection } from './db';
 import { StreamerCron } from './workers/streamers';
@@ -23,11 +24,9 @@ import { createI18n } from './utils/locale';
   const connection = await createConnection();
 
   const apolloServer = new ApolloServer({
-    typeDefs: typeDefs,
-    // resolvers,
-    context: {
-      loader: new GraphQLDatabaseLoader(connection),
-    },
+    typeDefs,
+    resolvers,
+    context: createContext(connection),
   });
 
   const app = express();
@@ -38,7 +37,7 @@ import { createI18n } from './utils/locale';
   app.use(cors());
   app.use(express.static(staticPath));
   app.use(i18nextMiddleware.handle(createI18n()));
-  apolloServer.applyMiddleware({ app, path: '/graphql' });
+  app.use(apolloServer.getMiddleware({ path: '/graphql' }));
 
   // SW
   app.use('/sw.js', (_, res) => {

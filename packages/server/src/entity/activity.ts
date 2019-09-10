@@ -23,6 +23,23 @@ export class Activity {
     return activity;
   }
 
+  toResponse() {
+    return {
+      id: this.id,
+      name: this.name,
+      description: this.description,
+      public: this.public,
+      url: this.url,
+      thumbnail: this.thumbnail,
+      startAt: this.startAt,
+      endAt: this.endAt,
+      recommend: false,
+      performers: this.performers.map(performer => performer.toResponse()),
+      category: this.category ? this.category.toResponse() : undefined,
+      team: undefined,
+    };
+  }
+
   @PrimaryColumn('text')
   id: string;
 

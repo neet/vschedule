@@ -1,5 +1,8 @@
-import { GraphQLDatabaseLoader } from 'typeorm-loader';
+import { Connection } from 'typeorm';
+import { Loader } from './loader';
 
-export interface Context {
-  loader: GraphQLDatabaseLoader;
-}
+export const createContext = (connection: Connection) => ({
+  loader: new Loader(connection),
+});
+
+export type Context = ReturnType<typeof createContext>;

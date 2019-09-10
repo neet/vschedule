@@ -1,5 +1,6 @@
 import { Entity, PrimaryColumn, Column, ManyToMany, OneToMany } from 'typeorm';
 import { LiverRelationships } from '@ril/gateway';
+import * as G from '../generated/graphql';
 import { Team } from './team';
 import {
   SocialAccount,
@@ -40,6 +41,22 @@ export class Performer {
     return performer;
   }
 
+  toResponse(): G.Performer {
+    return {
+      id: this.id,
+      name: this.name,
+      latinName: this.latinName,
+      ruby: this.ruby,
+      avatar: this.avatar,
+      color: this.color,
+      description: this.description,
+      public: this.public,
+      position: this.position,
+      teams: [],
+      socialAccounts: this.socialAccounts.map(sa => sa.toResponse()),
+    };
+  }
+
   @PrimaryColumn('text')
   id: string;
 
@@ -67,8 +84,11 @@ export class Performer {
   @Column('int')
   position: number;
 
-  @OneToMany(() => SocialAccount, socialAccount => socialAccount.performer)
-  socialAccounts: SocialAccount[];
+  @OneToMany(() => SocialAccount, socialAccount => socialAccount.performer, {
+    cascade: true,
+    onDelete: 'SET NULL',
+  })
+  socialAccounts: (TwitterAccount | YoutubeAccount)[];
 
   @ManyToMany(() => Team, team => team.members)
   teams: Team[];

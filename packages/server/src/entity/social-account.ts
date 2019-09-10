@@ -1,5 +1,6 @@
 import { Entity, PrimaryColumn, ManyToOne, JoinColumn, Column } from 'typeorm';
 import { LiverTwitterAccount, LiverYoutubeChannel } from '@ril/gateway';
+import * as G from '../generated/graphql';
 import { Performer } from './performer';
 
 export abstract class SocialAccount {
@@ -20,6 +21,14 @@ export class TwitterAccount extends SocialAccount {
     return twitterAccount;
   }
 
+  toResponse(): G.TwitterAccount {
+    return {
+      id: this.id,
+      performerId: this.performer.id,
+      screenName: this.screenName,
+    };
+  }
+
   @Column('text')
   screenName: string;
 }
@@ -33,6 +42,16 @@ export class YoutubeAccount extends SocialAccount {
     youtubeAccount.channelId = data.channel;
     youtubeAccount.channelId = data.channel;
     return youtubeAccount;
+  }
+
+  toResponse(): G.YoutubeAccount {
+    return {
+      id: this.id,
+      performerId: this.performer.id,
+      channel: this.channelId,
+      channelName: this.channelName,
+      creationOrder: this.creationOrder,
+    };
   }
 
   @Column('text')
