@@ -40,6 +40,8 @@ export class StreamerCron {
 
   private createStreamer = async (liverRelationships: LiverRelationships) => {
     const performer = Performer.fromGatewayData(liverRelationships);
+    await this.db.manager.save(performer.twitterAccounts);
+    await this.db.manager.save(performer.youtubeAccounts);
     await this.db.manager.save(performer);
   };
 }

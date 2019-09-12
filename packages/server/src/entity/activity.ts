@@ -1,4 +1,4 @@
-import { Event } from '@ril/gateway';
+import { Event, LiverRelationships } from '@ril/gateway';
 import {
   Entity,
   PrimaryColumn,
@@ -13,7 +13,10 @@ import { Performer } from './performer';
 
 @Entity()
 export class Activity {
-  static fromGatewayData(data: Event) {
+  static fromGatewayData(
+    data: Event,
+    liverRelationships: LiverRelationships[],
+  ) {
     const activity = new Activity();
 
     activity.id = data.id.toString();
@@ -24,6 +27,11 @@ export class Activity {
     activity.thumbnail = data.thumbnail;
     activity.startAt = data.start_date;
     activity.endAt = data.end_date;
+
+    activity.performers = liverRelationships.map(liver =>
+      Performer.fromGatewayData(liver),
+    );
+
     activity.category = data.genre
       ? Category.fromGatewayData(data.genre)
       : undefined;

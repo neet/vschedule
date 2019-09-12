@@ -2,6 +2,7 @@ import * as G from 'src/generated/graphql';
 import { Performer } from 'src/entity/performer';
 import { createPageInfo } from 'src/utils/create-page-info';
 import { Cursor } from 'src/utils/cursor';
+import { Activity } from 'src/entity/activity';
 
 export const Query: G.QueryResolvers = {
   node: async (_parent, { cursor }, { loader }) => {
@@ -22,6 +23,45 @@ export const Query: G.QueryResolvers = {
     return loader.activityLoader
       .load(id)
       .then(activity => activity.toResponse());
+  },
+
+  activities: async (_parent, args, { connection }) => {
+    const { first, last, before, after } = args;
+    const limit = (last ? last : first) || 100;
+    const order = last ? 'DESC' : 'ASC';
+
+    const query = connection
+      .getRepository(Activity)
+      .createQueryBuilder('activity')
+      .leftJoinAndSelect('activity.performers', 'performer')
+      .leftJoinAndSelect('activity.category', 'category')
+      .orderBy('activity.id', order)
+      .limit(Math.min(limit, 100));
+
+    if (before) {
+      const { id } = Cursor.decode(before);
+      query.orWhere('activity.id < :id', { id });
+    }
+
+    if (after) {
+      const { id } = Cursor.decode(after);
+      query.orWhere('activity.id > :id', { id });
+    }
+
+    const [activities, count] = await query.getManyAndCount();
+
+    const edges = activities.map(activity => ({
+      cursor: Cursor.encode('Activity', activity.id),
+      node: activity.toResponse(),
+    }));
+
+    const pageInfo = createPageInfo(edges, count, args);
+
+    return {
+      edges,
+      nodes: edges.map(edge => edge.node),
+      pageInfo,
+    };
   },
 
   performer: async (_parent, { id }, { loader }) => {
