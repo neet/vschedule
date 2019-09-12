@@ -8,12 +8,13 @@ import { ApolloServer, gql } from 'apollo-server-express';
 import cors from 'cors';
 import express from 'express';
 import i18nextMiddleware from 'i18next-express-middleware';
-import { createContext } from './context';
-import { resolvers } from './resolvers';
+import { ActivityCron } from './workers/activity';
 import { BIND_PORT } from './config';
 import { createConnection } from './db';
-import { StreamerCron } from './workers/streamers';
+import { createContext } from './context';
 import { createI18n } from './utils/locale';
+import { resolvers } from './resolvers';
+import { StreamerCron } from './workers/streamer';
 
 (async () => {
   const schemaPath = require.resolve('@ril/schema');
@@ -33,6 +34,7 @@ import { createI18n } from './utils/locale';
 
   // Crons
   new StreamerCron(connection);
+  new ActivityCron(connection);
 
   app.use(cors());
   app.use(express.static(staticPath));
