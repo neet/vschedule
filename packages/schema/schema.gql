@@ -5,8 +5,8 @@ interface Node {
 type PageInfo {
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
-  startCursor: String!
-  endCursor: String!
+  startCursor: String
+  endCursor: String
 }
 
 type Activity implements Node {
@@ -145,6 +145,8 @@ type TwitterAccount implements Node & SocialAccount {
 }
 
 type Query {
+  node(cursor: String!): Node
+
   activity(id: ID!): Activity
 
   activities(
