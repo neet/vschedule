@@ -3,6 +3,14 @@ import { Performer } from './performer';
 
 @Entity()
 export class Team {
+  toResponse() {
+    return {
+      id: this.id,
+      name: this.name,
+      members: (this.members || []).map(member => member.toResponse()),
+    };
+  }
+
   @PrimaryColumn('text')
   id: string;
 

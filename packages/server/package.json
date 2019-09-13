@@ -6,7 +6,8 @@
   "main": "dist/app.js",
   "scripts": {
     "postinstall": "graphql-codegen --config codegen.yml",
-    "start": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/main.ts"
+    "start": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/main.ts",
+    "import:teams": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/cli.ts"
   },
   "dependencies": {
     "@graphql-codegen/cli": "^1.6.1",

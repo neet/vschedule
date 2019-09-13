@@ -25,6 +25,7 @@ export class ActivityCron {
       .then(response => response.data.events);
 
     for (const event of events) {
+      // TODO: Optimize this
       const liverRelationships = (await Promise.all(
         event.livers.map(async liver => {
           return await this.gateway.fetchLiver(liver.id);

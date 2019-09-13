@@ -25,6 +25,7 @@ export class Performer {
     performer.description = data.liver.description || '';
     performer.public = data.liver.public || 0;
     performer.position = data.liver.position || 1;
+    performer.teams = [];
 
     performer.twitterAccounts = [
       TwitterAccount.fromGatewayData(data.liver_twitter_account),
@@ -52,7 +53,7 @@ export class Performer {
       description: this.description,
       public: this.public,
       position: this.position,
-      teams: [],
+      teams: (this.teams || []).map(team => team.toResponse()),
       socialAccounts: [this.youtubeAccounts, this.twitterAccounts].flat(),
     };
   }
