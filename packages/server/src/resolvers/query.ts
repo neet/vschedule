@@ -44,7 +44,7 @@ export const Query: G.QueryResolvers = {
 
   activities: async (_parent, args, { connection }) => {
     const { first, last, before, after } = args;
-    const limit = (last ? last : first) || 100;
+    const take = (last ? last : first) || 100;
     const order = last ? 'DESC' : 'ASC';
 
     const query = connection
@@ -53,7 +53,7 @@ export const Query: G.QueryResolvers = {
       .leftJoinAndSelect('activity.performers', 'performer')
       .leftJoinAndSelect('activity.category', 'category')
       .orderBy('activity.id', order)
-      .limit(Math.min(limit, 100));
+      .take(Math.min(take, 100));
 
     if (before) {
       const { id } = Cursor.decode(before);
@@ -89,7 +89,7 @@ export const Query: G.QueryResolvers = {
 
   performers: async (_parent, args, { connection }) => {
     const { first, last, before, after } = args;
-    const limit = (last ? last : first) || 100;
+    const take = (last ? last : first) || 100;
     const order = last ? 'DESC' : 'ASC';
 
     const query = connection
@@ -98,8 +98,9 @@ export const Query: G.QueryResolvers = {
       .leftJoinAndSelect('performer.twitterAccounts', 'twitterAccount')
       .leftJoinAndSelect('performer.youtubeAccounts', 'youtubeAccount')
       .leftJoinAndSelect('performer.teams', 'team')
+      .leftJoinAndSelect('team.members', 'member')
       .orderBy('performer.id', order)
-      .limit(Math.min(limit, 100));
+      .take(Math.min(take, 100));
 
     if (before) {
       const { id } = Cursor.decode(before);
@@ -135,14 +136,14 @@ export const Query: G.QueryResolvers = {
 
   categories: async (_parent, args, { connection }) => {
     const { first, last, before, after } = args;
-    const limit = (last ? last : first) || 100;
+    const take = (last ? last : first) || 100;
     const order = last ? 'DESC' : 'ASC';
 
     const query = connection
       .getRepository(Category)
       .createQueryBuilder('category')
       .orderBy('category.id', order)
-      .limit(Math.min(limit, 100));
+      .take(Math.min(take, 100));
 
     if (before) {
       const { id } = Cursor.decode(before);
@@ -176,7 +177,7 @@ export const Query: G.QueryResolvers = {
 
   teams: async (_parent, args, { connection }) => {
     const { first, last, before, after } = args;
-    const limit = (last ? last : first) || 100;
+    const take = (last ? last : first) || 100;
     const order = last ? 'DESC' : 'ASC';
 
     const query = connection
@@ -184,7 +185,7 @@ export const Query: G.QueryResolvers = {
       .createQueryBuilder('team')
       .leftJoinAndSelect('team.members', 'performer')
       .orderBy('team.id', order)
-      .limit(Math.min(limit, 100));
+      .take(Math.min(take, 100));
 
     if (before) {
       const { id } = Cursor.decode(before);

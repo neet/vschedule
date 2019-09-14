@@ -29,5 +29,6 @@ export const createPageInfo = (
     hasPreviousPage,
     startCursor,
     endCursor,
+    totalCount,
   };
 };

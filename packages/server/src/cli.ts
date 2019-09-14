@@ -17,7 +17,7 @@ const main = async () => {
           const performer = await connection
             .getRepository(Performer)
             .findOne({ id });
-          if (!performer) throw new Error('Invalid id');
+          if (!performer) throw new Error(`Invalid id ${id}`);
           return performer;
         }),
       );
@@ -26,7 +26,9 @@ const main = async () => {
 
       // eslint-disable-next-line no-console
       console.log(`${group.name} has been saved`);
-    } catch {
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.warn(error.toString());
       continue;
     }
   }

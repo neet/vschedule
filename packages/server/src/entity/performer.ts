@@ -42,8 +42,8 @@ export class Performer {
     return performer;
   }
 
-  toResponse(): G.Performer {
-    return {
+  toResponse = (): G.Performer => {
+    const obj = {
       id: this.id,
       name: this.name,
       latinName: this.latinName,
@@ -56,7 +56,9 @@ export class Performer {
       teams: (this.teams || []).map(team => team.toResponse()),
       socialAccounts: [this.youtubeAccounts, this.twitterAccounts].flat(),
     };
-  }
+
+    return obj;
+  };
 
   @PrimaryColumn('text')
   id: string;

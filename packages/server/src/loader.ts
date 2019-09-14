@@ -41,6 +41,7 @@ export class Loader {
       .leftJoinAndSelect('performer.twitterAccounts', 'twitterAccount')
       .leftJoinAndSelect('performer.youtubeAccounts', 'youtubeAccount')
       .leftJoinAndSelect('performer.teams', 'team')
+      .leftJoinAndSelect('team.members', 'member')
       .where('performer.id IN (:...ids)', { ids })
       .getMany(),
   );

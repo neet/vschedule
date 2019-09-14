@@ -58,5 +58,8 @@ import { StreamerCron } from './workers/streamer';
     res.send(`<!DOCTYPE html>\n${result.staticMarkup}`);
   });
 
-  app.listen({ port: BIND_PORT });
+  app.listen({ port: BIND_PORT }, () => {
+    // eslint-disable-next-line no-console
+    console.log(`🎉 Ril running on http://localhost${BIND_PORT}`);
+  });
 })();
