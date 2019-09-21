@@ -21,11 +21,11 @@ export class ActivityRepository {
     return this.manager
       .getRepository(Activity)
       .createQueryBuilder('activity')
-      .leftJoinAndSelect('activity.team', 'team')
       .leftJoinAndSelect('activity.category', 'category')
       .leftJoinAndSelect('activity.performers', 'performer')
       .whereInIds(ids)
       .getMany();
+    // .leftJoinAndSelect('activity.team', 'team')
   });
 
   getAllAndCount = async (params: GetAllAndCountParams) => {
@@ -36,11 +36,11 @@ export class ActivityRepository {
     const query = this.manager
       .getRepository(Activity)
       .createQueryBuilder('activity')
-      .leftJoinAndSelect('activity.team', 'team')
       .leftJoinAndSelect('activity.category', 'category')
       .leftJoinAndSelect('activity.performers', 'performer')
       .orderBy('activity.id', order)
       .take(Math.min(take, 100));
+    // .leftJoinAndSelect('activity.team', 'team')
 
     if (before) {
       const { id } = Cursor.decode(before);
