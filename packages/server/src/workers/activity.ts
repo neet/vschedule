@@ -2,7 +2,7 @@ import { Gateway, Event, LiverRelationships } from '@ril/gateway';
 import { CronJob } from 'cron';
 import { RESOURCE_URL } from 'src/config';
 import { Connection } from 'typeorm';
-import { Activity } from 'src/entity/activity';
+import { ActivityRepository } from 'src/repository/activity';
 
 export class ActivityCron {
   private readonly db: Connection;
@@ -40,13 +40,8 @@ export class ActivityCron {
     event: Event,
     liverRelationships: LiverRelationships[],
   ) => {
-    const activity = Activity.fromGatewayData(event, liverRelationships);
-    await this.db.manager.save(activity.performers);
-
-    if (activity.category) {
-      await this.db.manager.save(activity.category);
-    }
-
-    await this.db.manager.save(activity);
+    return this.db
+      .getCustomRepository(ActivityRepository)
+      .createFromGatewayData(event, liverRelationships);
   };
 }

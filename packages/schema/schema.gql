@@ -27,8 +27,6 @@ type Activity implements Node {
   startAt: String!
   # End date time on ISO 8601
   endAt: String!
-  # Whether the streaming is recommended for the user
-  recommend: Boolean!
   # Sources of the activity
   performers: [Performer!]!
   # Associated category

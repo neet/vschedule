@@ -14,7 +14,7 @@ import { createConnection } from './db';
 import { createContext } from './context';
 import { createI18n } from './utils/locale';
 import { resolvers } from './resolvers';
-import { StreamerCron } from './workers/streamer';
+import { PerformerCron } from './workers/performer';
 
 (async () => {
   const schemaPath = require.resolve('@ril/schema');
@@ -33,7 +33,7 @@ import { StreamerCron } from './workers/streamer';
   const app = express();
 
   // Crons
-  new StreamerCron(connection);
+  new PerformerCron(connection);
   new ActivityCron(connection);
 
   app.use(cors());

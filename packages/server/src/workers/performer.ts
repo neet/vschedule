@@ -3,8 +3,9 @@ import { CronJob } from 'cron';
 import { RESOURCE_URL } from 'src/config';
 import { Connection } from 'typeorm';
 import { Performer } from 'src/entity/performer';
+import { PerformerRepository } from 'src/repository/performer';
 
-export class StreamerCron {
+export class PerformerCron {
   private readonly db: Connection;
   private readonly gateway: Gateway;
 
@@ -39,9 +40,8 @@ export class StreamerCron {
   };
 
   private createStreamer = async (liverRelationships: LiverRelationships) => {
-    const performer = Performer.fromGatewayData(liverRelationships);
-    await this.db.manager.save(performer.twitterAccounts);
-    await this.db.manager.save(performer.youtubeAccounts);
-    await this.db.manager.save(performer);
+    this.db
+      .getCustomRepository(PerformerRepository)
+      .createFromGatewayData(liverRelationships);
   };
 }
