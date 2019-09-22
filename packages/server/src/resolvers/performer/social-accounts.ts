@@ -1,14 +1,16 @@
 import * as G from 'src/generated/graphql';
-import { getCustomRepository } from 'typeorm';
-import { YoutubeAccountRepository } from 'src/repository/youtube-account';
-import { TwitterAccountRepository } from 'src/repository/twitter-account';
 
-export const socialAccounts: G.PerformerResolvers['socialAccounts'] = async parent => {
+export const socialAccounts: G.PerformerResolvers['socialAccounts'] = async (
+  parent,
+  _,
+  { repositories },
+) => {
   // prettier-ignore
-  const youtubeAccounts = await getCustomRepository(YoutubeAccountRepository)
+  const youtubeAccounts = await repositories.youtubeAccount
     .findByPerformerId(parent.id);
+
   // prettier-ignore
-  const twitterAccounts = await getCustomRepository(TwitterAccountRepository)
+  const twitterAccounts = await repositories.twitterAccount
     .findByPerformerId(parent.id);
 
   return [...youtubeAccounts, ...twitterAccounts];

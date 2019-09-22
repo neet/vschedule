@@ -1,16 +1,13 @@
 import * as G from 'src/generated/graphql';
 import { Cursor } from 'src/utils/cursor';
-import { getCustomRepository } from 'typeorm';
 import { createPageInfo } from 'src/utils/create-page-info';
-import { CategoryRepostiory } from 'src/repository/category';
 
-export const categories: G.QueryResolvers['categories'] = async (
+export const rootCategories: G.QueryResolvers['categories'] = async (
   _parent,
   args,
+  { repositories },
 ) => {
-  // prettier-ignore
-  const [categories, count] = await getCustomRepository(CategoryRepostiory)
-    .getAllAndCount(args)
+  const [categories, count] = await repositories.category.getAllAndCount(args);
 
   const edges = categories.map(category => ({
     cursor: Cursor.encode('Category', category.id),

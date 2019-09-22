@@ -1,13 +1,13 @@
 import * as G from 'src/generated/graphql';
-import { root } from './root';
-import { performers } from './performers';
+import { rootPerformer } from './root-performer';
+import { rootPerformers } from './root-performers';
 import { socialAccounts } from './social-accounts';
 import { teams } from './teams';
 
 export const performer: G.Resolvers = {
   Query: {
-    performer: root,
-    performers,
+    performer: rootPerformer,
+    performers: rootPerformers,
   },
   Performer: {
     socialAccounts,

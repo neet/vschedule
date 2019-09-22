@@ -27,7 +27,7 @@ import { PerformerCron } from './workers/performer';
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
-    context: createContext(connection),
+    context: () => createContext(connection),
   });
 
   const app = express();

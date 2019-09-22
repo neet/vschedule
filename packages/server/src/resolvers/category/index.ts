@@ -1,10 +1,10 @@
 import * as G from 'src/generated/graphql';
-import { root } from './root';
-import { categories } from './categories';
+import { rootCategory } from './root-category';
+import { rootCategories } from './root-categories';
 
 export const category: G.Resolvers = {
   Query: {
-    category: root,
-    categories,
+    category: rootCategory,
+    categories: rootCategories,
   },
 };
