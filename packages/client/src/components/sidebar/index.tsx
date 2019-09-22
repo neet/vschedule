@@ -132,7 +132,7 @@ export const Sidebar = (props: SidebarProps) => {
               aria-setsize={activities.length}
               aria-posinset={i + 1}
             >
-              <ContentCard content={content} />
+              <ContentCard activity={content} />
             </ListItem>
           ))
         ) : (
