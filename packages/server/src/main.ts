@@ -37,8 +37,8 @@ import { CategoryCron } from './workers/category';
     context: () => createContext(connection),
   });
 
+  // Express
   const app = express();
-
   app.use(cors());
   app.use(express.static(staticPath));
   app.use(i18nextMiddleware.handle(createI18n()));
@@ -63,6 +63,8 @@ import { CategoryCron } from './workers/category';
 
   app.listen({ port: BIND_PORT }, () => {
     // eslint-disable-next-line no-console
-    console.log(`🎉 Ril running on http://localhost${BIND_PORT}`);
+    console.log(
+      `🎉 GraphQL server is running at http://localhost:${BIND_PORT}/graphql`,
+    );
   });
 })();
