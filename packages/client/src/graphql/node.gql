@@ -1,3 +1,0 @@
-fragment NodeFragment on Node {
-  id
-}

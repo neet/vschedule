@@ -1,13 +1,13 @@
 import { Dayjs } from 'dayjs';
 import React, { useCallback, useMemo } from 'react';
-import { PartialContentFieldsFragment } from 'src/generated/graphql';
+import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { isOverlapping } from 'src/utils/is-overlapping';
 import { sortEvents } from 'src/utils/sort-events';
 import { Marker, MarkerProps } from './marker';
 
 export interface FeedProps {
-  contents: PartialContentFieldsFragment[];
+  activities: ActivityFragment[];
   startDate: Dayjs;
 }
 
@@ -25,7 +25,7 @@ const ListItem = styled.li`
 `;
 
 export const Feed = (props: FeedProps) => {
-  const { contents, startDate } = props;
+  const { activities, startDate } = props;
 
   /**
    * Calculate the position of markers as a 2-dimentional array.
@@ -35,9 +35,9 @@ export const Feed = (props: FeedProps) => {
    */
   const getMarkerPositions = useCallback(
     (
-      sortedContents: PartialContentFieldsFragment[],
-      result: PartialContentFieldsFragment[][] = [],
-    ): PartialContentFieldsFragment[][] => {
+      sortedContents: ActivityFragment[],
+      result: ActivityFragment[][] = [],
+    ): ActivityFragment[][] => {
       if (!sortedContents.length) {
         return result;
       }
@@ -46,7 +46,7 @@ export const Feed = (props: FeedProps) => {
       result.push([]);
       const current = result[result.length - 1];
 
-      const rest = sortedContents.reduce<PartialContentFieldsFragment[]>(
+      const rest = sortedContents.reduce<ActivityFragment[]>(
         (restContents, content) => {
           if (!current.length) {
             current.push(content);
@@ -77,29 +77,29 @@ export const Feed = (props: FeedProps) => {
   // Map rows and events
   const markers = useMemo(
     () =>
-      getMarkerPositions(contents.sort(sortEvents))
+      getMarkerPositions(activities.sort(sortEvents))
         .map((row, i) =>
           row.map(
-            (content): Required<Omit<MarkerProps, 'startDate'>> => ({
-              content,
+            (activity): Required<Omit<MarkerProps, 'startDate'>> => ({
+              activity,
               row: i,
             }),
           ),
         )
         .flat()
-        .sort((a, b) => sortEvents(a.content, b.content)),
-    [contents],
+        .sort((a, b) => sortEvents(a.activity, b.activity)),
+    [activities],
   );
 
   return (
     <List role="feed">
-      {markers.map(({ content, row }, i) => (
+      {markers.map(({ activity, row }, i) => (
         <ListItem
-          key={`${content.id}-${i}`}
-          aria-setsize={contents.length}
+          key={`${activity.id}-${i}`}
+          aria-setsize={activities.length}
           aria-posinset={i + 1}
         >
-          <Marker content={content} row={row} startDate={startDate} />
+          <Marker activity={activity} row={row} startDate={startDate} />
         </ListItem>
       ))}
     </List>
