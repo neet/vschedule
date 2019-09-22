@@ -4,7 +4,7 @@ import { serializePerformer } from 'src/serializers/performer';
 import { serializeActivity } from 'src/serializers/activity';
 import { serializeTeam } from 'src/serializers/team';
 
-export const root: G.QueryResolvers['node'] = (
+export const rootNode: G.QueryResolvers['node'] = (
   _parent,
   { cursor },
   { repositories },
