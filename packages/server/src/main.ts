@@ -8,13 +8,14 @@ import { ApolloServer, gql } from 'apollo-server-express';
 import cors from 'cors';
 import express from 'express';
 import i18nextMiddleware from 'i18next-express-middleware';
-import { ActivityCron } from './workers/activity';
 import { BIND_PORT } from './config';
 import { createConnection } from './db';
 import { createContext } from './context';
-import { createI18n } from './utils/locale';
 import { resolvers } from './resolvers';
+import { createI18n } from './utils/locale';
+import { ActivityCron } from './workers/activity';
 import { PerformerCron } from './workers/performer';
+import { CategoryCron } from './workers/category';
 
 (async () => {
   const schemaPath = require.resolve('@ril/schema');
@@ -24,6 +25,12 @@ import { PerformerCron } from './workers/performer';
   const typeDefs = await fs.readFile(schemaPath, 'utf-8').then(gql);
   const connection = await createConnection();
 
+  // Crons
+  new PerformerCron(connection);
+  new ActivityCron(connection);
+  new CategoryCron(connection);
+
+  // Apollo
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
@@ -31,10 +38,6 @@ import { PerformerCron } from './workers/performer';
   });
 
   const app = express();
-
-  // Crons
-  new PerformerCron(connection);
-  new ActivityCron(connection);
 
   app.use(cors());
   app.use(express.static(staticPath));
