@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import isMobile from 'ismobilejs';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { PartialContentFieldsFragment } from 'src/generated/graphql';
+import { ActivityFragment } from 'src/generated/graphql';
 import { useNow } from 'src/hooks/use-now';
 import { styled } from 'src/styles';
 import { borderGap, sidebarWidth } from 'src/styles/constants';
@@ -10,7 +10,7 @@ import { Feed } from './feed';
 import { Placeholder } from './placeholder';
 
 export interface TimetableProps {
-  contents?: PartialContentFieldsFragment[];
+  activities?: ActivityFragment[];
   loading: boolean;
 }
 
@@ -32,7 +32,7 @@ const Wrapper = styled.div`
 `;
 
 export const Timetable = (props: TimetableProps) => {
-  const { contents = [], loading } = props;
+  const { activities = [], loading } = props;
   const { now } = useNow(1000 * 60);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -43,24 +43,24 @@ export const Timetable = (props: TimetableProps) => {
 
   const startDate = useMemo(
     () =>
-      contents.reduce<dayjs.Dayjs | undefined>((result, content) => {
-        const date = dayjs(content.startDate);
+      activities.reduce<dayjs.Dayjs | undefined>((result, content) => {
+        const date = dayjs(content.startAt);
         if (!result || date.isBefore(result)) return date;
 
         return result;
       }, undefined),
-    [contents],
+    [activities],
   );
 
   const endDate = useMemo(
     () =>
-      contents.reduce<dayjs.Dayjs | undefined>((result, content) => {
-        const date = dayjs(content.endDate);
+      activities.reduce<dayjs.Dayjs | undefined>((result, content) => {
+        const date = dayjs(content.endAt);
         if (!result || date.isAfter(result)) return date;
 
         return result;
       }, undefined),
-    [contents],
+    [activities],
   );
 
   useEffect(() => {
@@ -104,7 +104,7 @@ export const Timetable = (props: TimetableProps) => {
   return (
     <Wrapper ref={ref}>
       <Background now={now} startDate={startDate} endDate={endDate} />
-      <Feed contents={contents} startDate={startDate} />
+      <Feed activities={activities} startDate={startDate} />
     </Wrapper>
   );
 };

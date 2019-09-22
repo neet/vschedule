@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanup, render } from '@testing-library/react';
 import { ContentCard } from 'src/components/content-card';
 import { withTheme } from 'src/test-utils';
-import { PartialContentFieldsFragment } from 'src/generated/graphql';
+import { ActivityFragment } from 'src/generated/graphql';
 
 const content = {
   id: '1069',
@@ -31,7 +31,7 @@ describe('<EventCard />', () => {
   it('renders event card with given props', () => {
     const Compoennt = withTheme(ContentCard);
     const result = render(
-      <Compoennt content={(content as any) as PartialContentFieldsFragment} />,
+      <Compoennt activity={(content as any) as ActivityFragment} />,
     );
 
     expect(result.container.firstChild).toMatchSnapshot();

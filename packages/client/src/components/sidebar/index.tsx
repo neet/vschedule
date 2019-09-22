@@ -2,13 +2,13 @@ import dayjs from 'dayjs';
 import React, { useCallback, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { ContentCard } from 'src/components/content-card';
-import { PartialContentFieldsFragment } from 'src/generated/graphql';
+import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { sidebarWidth } from 'src/styles/constants';
 import { EventCardPlaceholders } from './placeholder';
 
 export interface SidebarProps {
-  contents?: PartialContentFieldsFragment[];
+  activities?: ActivityFragment[];
   loading: boolean;
 }
 
@@ -87,18 +87,18 @@ const ListItem = styled.li`
 `;
 
 export const Sidebar = (props: SidebarProps) => {
-  const { contents = [], loading } = props;
+  const { activities = [], loading } = props;
   const { t } = useTranslation();
   const [expanded, changeIfExpanded] = useState(false);
 
-  const unfinishedContents = contents.filter(content =>
-    dayjs(content.endDate).isAfter(dayjs()),
+  const unfinishedContents = activities.filter(content =>
+    dayjs(content.endAt).isAfter(dayjs()),
   );
 
-  const streamingContents = contents.filter(
+  const streamingContents = activities.filter(
     content =>
-      dayjs(content.startDate).isBefore(dayjs()) &&
-      dayjs(content.endDate).isAfter(dayjs()),
+      dayjs(content.startAt).isBefore(dayjs()) &&
+      dayjs(content.endAt).isAfter(dayjs()),
   );
 
   const toggleIfExpanded = useCallback(() => {
@@ -129,10 +129,10 @@ export const Sidebar = (props: SidebarProps) => {
           unfinishedContents.map((content, i) => (
             <ListItem
               key={content.id}
-              aria-setsize={contents.length}
+              aria-setsize={activities.length}
               aria-posinset={i + 1}
             >
-              <ContentCard content={content} />
+              <ContentCard activity={content} />
             </ListItem>
           ))
         ) : (

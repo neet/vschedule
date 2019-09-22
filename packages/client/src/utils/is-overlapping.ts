@@ -1,14 +1,14 @@
 import dayjs from 'dayjs';
-import { PartialContentFieldsFragment } from 'src/generated/graphql';
+import { ActivityFragment } from 'src/generated/graphql';
 
 export function isOverlapping(
-  contentX: PartialContentFieldsFragment,
-  contentY: PartialContentFieldsFragment,
+  contentX: ActivityFragment,
+  contentY: ActivityFragment,
 ) {
-  const xStartAt = dayjs(contentX.startDate);
-  const xEndAt = dayjs(contentX.endDate);
-  const yStartAt = dayjs(contentY.startDate);
-  const yEndAt = dayjs(contentY.endDate);
+  const xStartAt = dayjs(contentX.startAt);
+  const xEndAt = dayjs(contentX.endAt);
+  const yStartAt = dayjs(contentY.startAt);
+  const yEndAt = dayjs(contentY.endAt);
 
   /**
    * Pattern 1:

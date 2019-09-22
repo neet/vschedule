@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-unassigned-import
+import 'reflect-metadata';
 import { promises as fs } from 'fs';
 import path from 'path';
 import SSR from '@ril/client';
@@ -7,40 +9,42 @@ import cors from 'cors';
 import express from 'express';
 import i18nextMiddleware from 'i18next-express-middleware';
 import { BIND_PORT } from './config';
-import { dataSources } from './datasources';
+import { createConnection } from './db';
+import { createContext } from './context';
 import { resolvers } from './resolvers';
 import { createI18n } from './utils/locale';
+import { ActivityCron } from './workers/activity';
+import { PerformerCron } from './workers/performer';
+import { CategoryCron } from './workers/category';
 
 (async () => {
   const schemaPath = require.resolve('@ril/schema');
-  const staticPath = path.resolve(
-    require.resolve('@ril/client'),
-    '../../static',
-  );
+  const clientPath = require.resolve('@ril/client');
+  const staticPath = path.resolve(clientPath, '../../static');
 
-  const schema = await fs.readFile(schemaPath, 'utf-8').then(gql);
+  const typeDefs = await fs.readFile(schemaPath, 'utf-8').then(gql);
+  const connection = await createConnection();
 
-  const server = new ApolloServer({
-    typeDefs: schema,
-    resolvers,
-    dataSources,
-  });
-
-  const app = express();
+  // Crons
+  new PerformerCron(connection);
+  new ActivityCron(connection);
+  new CategoryCron(connection);
 
   // Apollo
-  server.applyMiddleware({ app, path: '/graphql' });
+  const apolloServer = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: () => createContext(connection),
+  });
 
-  // CORS
+  // Express
+  const app = express();
   app.use(cors());
-
-  // I18next
-  app.use(i18nextMiddleware.handle(createI18n()));
-
-  // Static files
   app.use(express.static(staticPath));
+  app.use(i18nextMiddleware.handle(createI18n()));
+  app.use(apolloServer.getMiddleware({ path: '/graphql' }));
 
-  // Service worker
+  // SW
   app.use('/sw.js', (_, res) => {
     res.sendFile(path.resolve(staticPath, 'build/sw.js'));
   });
@@ -57,5 +61,10 @@ import { createI18n } from './utils/locale';
     res.send(`<!DOCTYPE html>\n${result.staticMarkup}`);
   });
 
-  app.listen({ port: BIND_PORT });
+  app.listen({ port: BIND_PORT }, () => {
+    // eslint-disable-next-line no-console
+    console.log(
+      `🎉 GraphQL server is running at http://localhost:${BIND_PORT}/graphql`,
+    );
+  });
 })();

@@ -15,5 +15,5 @@ declare module '@ril/client' {
     staticMarkup: string;
   }
 
-  export default function SSR(params: SSRParams): SSRResult;
+  export default function SSR(params: SSRParams): Promise<SSRResult>;
 }

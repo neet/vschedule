@@ -1,10 +1,21 @@
 import React from 'react';
 import { Timetable } from 'src/components/timetable';
-import { useFetchContentsQuery } from 'src/generated/graphql';
-import { oc } from 'ts-optchain';
+import {
+  useFetchActivitiesQuery,
+  ActivityFragment,
+} from 'src/generated/graphql';
 
 export const TimetableContainer = () => {
-  const { data, loading } = useFetchContentsQuery();
+  const { data, loading } = useFetchActivitiesQuery();
 
-  return <Timetable contents={oc(data).contents()} loading={loading} />;
+  return (
+    <Timetable
+      activities={
+        data
+          ? data.activities.nodes.filter((n): n is ActivityFragment => !!n)
+          : undefined
+      }
+      loading={loading}
+    />
+  );
 };

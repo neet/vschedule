@@ -1,11 +1,11 @@
 import dayjs from 'dayjs';
 import React from 'react';
-import { PartialContentFieldsFragment } from 'src/generated/graphql';
+import { ActivityFragment } from 'src/generated/graphql';
 import { useNow } from 'src/hooks/use-now';
 import { css, styled } from 'src/styles';
 
 export interface ContentCardProps {
-  content: PartialContentFieldsFragment;
+  activity: ActivityFragment;
 }
 
 interface WrapperProps {
@@ -75,20 +75,20 @@ const Time = styled.time`
 `;
 
 export const ContentCard = (props: ContentCardProps) => {
-  const { content } = props;
+  const { activity } = props;
   const { now } = useNow();
 
-  const startDate = dayjs(content.startDate);
-  const endDate = dayjs(content.endDate);
+  const startDate = dayjs(activity.startAt);
+  const endDate = dayjs(activity.endAt);
   const fromNow = startDate.from(now);
 
   const isStreaming =
     (startDate.isBefore(now) || startDate.isSame(now)) && endDate.isAfter(now);
-  const textualContent = content.name;
+  const textualContent = activity.name;
 
   return (
     <Wrapper
-      href={content.url}
+      href={activity.url}
       target="_blank"
       rel="noopener noreferrer"
       tabIndex={0}
@@ -96,11 +96,11 @@ export const ContentCard = (props: ContentCardProps) => {
       aria-label={textualContent}
       isStreaming={isStreaming}
     >
-      <Thumbnail style={{ backgroundImage: `url(${content.thumbnail})` }} />
+      <Thumbnail style={{ backgroundImage: `url(${activity.thumbnail})` }} />
 
       <Meta>
-        <Title>{content.name}</Title>
-        <Time dateTime={content.startDate}>{fromNow}</Time>
+        <Title>{activity.name}</Title>
+        <Time dateTime={activity.startAt}>{fromNow}</Time>
       </Meta>
     </Wrapper>
   );

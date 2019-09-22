@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
 import { opacify, parseToRgb } from 'polished';
 import React, { useCallback, useMemo } from 'react';
-import { PartialContentFieldsFragment } from 'src/generated/graphql';
+import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { borderGap, markerGap } from 'src/styles/constants';
 
 export interface MarkerProps {
-  content: PartialContentFieldsFragment;
+  activity: ActivityFragment;
   row: number;
   startDate: dayjs.Dayjs;
 }
@@ -64,11 +64,11 @@ export const LiverName = styled.span`
 `;
 
 export const Marker = (props: MarkerProps) => {
-  const { content, startDate: basisDate, row } = props;
+  const { activity, startDate: basisDate, row } = props;
 
-  const firstStreamer = content.streamers[0];
-  const startDate = dayjs(content.startDate);
-  const endDate = dayjs(content.endDate);
+  const firstStreamer = activity.performers[0];
+  const startDate = dayjs(activity.startAt);
+  const endDate = dayjs(activity.endAt);
 
   const convertMinuteToPixel = useCallback((minute: number) => {
     const pixelPerMinute = borderGap / 30;
@@ -91,13 +91,13 @@ export const Marker = (props: MarkerProps) => {
     const { red, green, blue } = parseToRgb(firstStreamer.color);
 
     return red * 0.299 + green * 0.587 + blue * 0.114 > 186;
-  }, [content]);
+  }, [activity]);
 
   return (
     <Wrapper
       tabIndex={0}
-      href={content.url}
-      title={content.name}
+      href={activity.url}
+      title={activity.name}
       target="_blank"
       rel="noreferrer"
       isLight={isLight}
@@ -111,7 +111,7 @@ export const Marker = (props: MarkerProps) => {
       <Avatar src={firstStreamer.avatar} />
 
       <Meta>
-        <Title>{content.name}</Title>
+        <Title>{activity.name}</Title>
         <LiverName>{firstStreamer.name}</LiverName>
       </Meta>
     </Wrapper>

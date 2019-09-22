@@ -1,4 +1,0 @@
-fragment CategoryFields on Category {
-  id
-  name
-}

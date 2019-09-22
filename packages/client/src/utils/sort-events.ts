@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
-import { PartialContentFieldsFragment } from 'src/generated/graphql';
+import { ActivityFragment } from 'src/generated/graphql';
 
 export function sortEvents(
-  contentX: PartialContentFieldsFragment,
-  contentY: PartialContentFieldsFragment,
+  contentX: ActivityFragment,
+  contentY: ActivityFragment,
 ) {
-  const xStartAt = dayjs(contentX.startDate);
-  const yStartAt = dayjs(contentY.startDate);
+  const xStartAt = dayjs(contentX.startAt);
+  const yStartAt = dayjs(contentY.startAt);
 
   if (xStartAt.isBefore(yStartAt)) {
     return -1;
