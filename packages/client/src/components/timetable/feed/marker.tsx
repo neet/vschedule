@@ -66,6 +66,10 @@ export const LiverName = styled.span`
 export const Marker = (props: MarkerProps) => {
   const { activity, startDate: basisDate, row } = props;
 
+  if (!activity.performers.length) {
+    return null;
+  }
+
   const firstStreamer = activity.performers[0];
   const startDate = dayjs(activity.startAt);
   const endDate = dayjs(activity.endAt);

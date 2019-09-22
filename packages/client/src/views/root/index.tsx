@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { Banner } from 'src/components/banner';
 import { styled } from 'src/styles';
 import { Contents } from 'src/views/contents';
@@ -21,7 +21,8 @@ export const Root: React.SFC = React.memo(() => {
       <Banner />
 
       <Switch>
-        <Route exact path="/" component={Contents} />
+        <Redirect exact from="/" to="/timetable" />
+        <Route exact path="/timetable" component={Contents} />
         <Route render={notFoundRender} />
       </Switch>
 

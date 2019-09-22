@@ -20,7 +20,7 @@ const Wrapper = styled.header`
   width: 100%;
   height: ${bannerHeight};
   padding: 8px 18px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
 `;
 
 const LogoSmall = styled.img`
