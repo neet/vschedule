@@ -3,7 +3,6 @@ import { CronJob } from 'cron';
 import { RESOURCE_URL } from 'src/config';
 import { Connection } from 'typeorm';
 import { ActivityRepository } from 'src/repository/activity';
-import { Performer } from 'src/entity/performer';
 
 export class ActivityCron {
   private readonly db: Connection;
@@ -26,22 +25,12 @@ export class ActivityCron {
       .then(response => response.data.events);
 
     for (const event of events) {
-      const liverRelationships: LiverRelationships[] = [];
-
-      for (const liver of event.livers) {
-        // prettier-ignore
-        const performer = this.db.manager.findOne(Performer, liver.id.toString());
-
-        if (performer) {
-          continue;
-        }
-
-        liverRelationships.push(
-          await this.gateway
-            .fetchLiver(liver.id)
-            .then(response => response.data),
-        );
-      }
+      // TODO: Optimize this
+      const liverRelationships = (await Promise.all(
+        event.livers.map(async liver => {
+          return await this.gateway.fetchLiver(liver.id);
+        }),
+      )).map(response => response.data);
 
       this.createActivity(event, liverRelationships);
     }
