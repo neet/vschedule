@@ -10,6 +10,9 @@ fragment Activity on Activity {
   performers {
     ...Performer
   }
+  category {
+    name
+  }
 }
 
 fragment Performer on Performer {

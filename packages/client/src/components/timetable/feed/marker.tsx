@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
-import { opacify, parseToRgb } from 'polished';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { borderGap, markerGap } from 'src/styles/constants';
@@ -11,33 +10,45 @@ export interface MarkerProps {
   startDate: dayjs.Dayjs;
 }
 
-interface WrapperProps {
-  isLight: boolean;
-}
-
-export const Wrapper = styled.a<WrapperProps>`
+export const Wrapper = styled.a`
   display: flex;
   position: absolute;
   top: 115px;
   left: 0;
   box-sizing: border-box;
   align-items: center;
-  padding: 4px 6px;
-  border-radius: 99px;
-  color: ${({ theme, isLight }) =>
-    isLight ? theme.foregroundDark : theme.foregroundReverse};
+  padding: 6px;
+  /* padding-right: 0px; */
+  /* border: 1px solid ${({ theme }) => theme.borderNormal}; */
+  /* border-radius: 6px; */
+  background-color: ${({ theme }) => theme.backgroundNormal};
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+  color: ${({ theme }) => theme.foregroundNormal};
 
   &:hover {
     text-decoration: none;
   }
 `;
 
-export const Avatar = styled.img`
-  width: 40px;
-  height: 40px;
+const Avatar = styled.img`
+  width: 21px;
+  height: 21px;
   margin-right: 4px;
+  /* border: 1px solid ${({ theme }) => theme.borderNormal}; */
   border-radius: 50%;
+  /* background-color: ${({ theme }) => theme.backgroundNormal}; */
+`;
+
+export const Thumbnail = styled.div`
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 88px;
+  height: 50px;
+  margin-right: 6px;
+  border-radius: 4px;
   background-color: ${({ theme }) => theme.backgroundNormal};
+  background-position: center;
+  background-size: cover;
 `;
 
 export const Meta = styled.div`
@@ -46,7 +57,7 @@ export const Meta = styled.div`
 
 export const Title = styled.h4`
   display: block;
-  margin: 0;
+  margin-bottom: 4px;
   overflow: hidden;
   font-size: 14px;
   font-weight: bold;
@@ -54,7 +65,12 @@ export const Title = styled.h4`
   white-space: nowrap;
 `;
 
-export const LiverName = styled.span`
+const PerformerWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const PerformerName = styled.span`
   display: block;
   overflow: hidden;
   opacity: 0.8;
@@ -85,17 +101,10 @@ export const Marker = (props: MarkerProps) => {
     convertMinuteToPixel(startDate.diff(basisDate, 'minute')) + markerGap / 2;
 
   // Avatar height + padding
-  const y = (markerGap + 50) * row;
+  const y = (markerGap + 50 + 3 + 1 + 4 * 2) * row;
 
   const width =
     convertMinuteToPixel(endDate.diff(startDate, 'minute')) - markerGap;
-
-  const isLight = useMemo(() => {
-    // Calc color brightness difference
-    const { red, green, blue } = parseToRgb(firstStreamer.color);
-
-    return red * 0.299 + green * 0.587 + blue * 0.114 > 186;
-  }, [activity]);
 
   return (
     <Wrapper
@@ -104,19 +113,26 @@ export const Marker = (props: MarkerProps) => {
       title={activity.name}
       target="_blank"
       rel="noreferrer"
-      isLight={isLight}
       style={{
         width: `${width}px`,
         transform: `translate(${x}px, ${y}px)`,
-        backgroundColor: firstStreamer.color,
-        boxShadow: `0 2px 6px ${opacify(0.48, firstStreamer.color)}`,
+        borderRight: `5px solid ${firstStreamer.color}`,
       }}
     >
-      <Avatar src={firstStreamer.avatar} />
+      <Thumbnail style={{ backgroundImage: `url(${activity.thumbnail})` }} />
 
       <Meta>
         <Title>{activity.name}</Title>
-        <LiverName>{firstStreamer.name}</LiverName>
+
+        <PerformerWrapper>
+          <Avatar
+            src={firstStreamer.avatar}
+            style={{ backgroundColor: firstStreamer.color }}
+          />
+          <PerformerName>
+            {firstStreamer.name}・{dayjs(startDate).fromNow()}
+          </PerformerName>
+        </PerformerWrapper>
       </Meta>
     </Wrapper>
   );
