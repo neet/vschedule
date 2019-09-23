@@ -31,3 +31,11 @@ query FetchActivities {
     }
   }
 }
+
+query FetchSidebar {
+  isSidebarExpanded @client
+}
+
+mutation ToggleSidebar($expanded: Boolean!) {
+  toggleSidebar(expanded: $expanded) @client
+}

@@ -21,8 +21,8 @@ export const Root: React.SFC = React.memo(() => {
       <Banner />
 
       <Switch>
-        <Redirect exact from="/" to="/timetable" />
-        <Route exact path="/timetable" component={Contents} />
+        <Redirect exact from="/" to="/activities" />
+        <Route exact path="/activities" component={Contents} />
         <Route render={notFoundRender} />
       </Switch>
 

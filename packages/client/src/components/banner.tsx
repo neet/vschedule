@@ -1,5 +1,5 @@
-import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
+import { Menu } from 'react-feather';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,10 @@ import logoLarge from 'src/assets/logo-large.png';
 import logoSmall from 'src/assets/logo-small.png';
 import { styled } from 'src/styles';
 import { bannerHeight } from 'src/styles/constants';
+import {
+  useToggleSidebarMutation,
+  useFetchSidebarQuery,
+} from 'src/generated/graphql';
 
 const Wrapper = styled.header`
   display: flex;
@@ -19,7 +23,7 @@ const Wrapper = styled.header`
   justify-content: space-between;
   width: 100%;
   height: ${bannerHeight};
-  padding: 8px 18px;
+  padding: 8px;
   border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
 `;
 
@@ -39,7 +43,16 @@ const Title = styled.h1`
   display: none;
 `;
 
+const MenuButton = styled.button`
+  margin: 0 12px;
+  padding: 0;
+  border: none;
+  background-color: none;
+  color: ${({ theme }) => theme.foregroundLight};
+`;
+
 const Hgroup = styled.div`
+  display: flex;
   flex: 1 1 auto;
 
   ${LogoLarge} {
@@ -70,12 +83,6 @@ const Toolbox = styled.div`
   }
 `;
 
-const Icon = styled(FontAwesomeIcon)`
-  margin: auto;
-  color: ${({ theme }) => theme.highlightNormal};
-  font-size: 24px;
-`;
-
 const OriginalLink = styled.a`
   display: block;
   padding: 8px 14px;
@@ -96,10 +103,28 @@ const OriginalLink = styled.a`
 
 export const Banner: React.SFC = React.memo(() => {
   const { t } = useTranslation();
+  const { data } = useFetchSidebarQuery();
+  const [toggleSidebar] = useToggleSidebarMutation();
+
+  if (!data) {
+    return null;
+  }
 
   return (
     <Wrapper>
       <Hgroup>
+        <MenuButton
+          onClick={() =>
+            toggleSidebar({
+              variables: {
+                expanded: !data.isSidebarExpanded,
+              },
+            })
+          }
+        >
+          <Menu />
+        </MenuButton>
+
         <Link to="/">
           <Title>Refined itsukara.link</Title>
           <LogoLarge src={logoLarge} alt="Refined itsukara.link" />
@@ -108,30 +133,6 @@ export const Banner: React.SFC = React.memo(() => {
       </Hgroup>
 
       <Toolbox>
-        <a
-          href="https://twitter.com/thegodofneet"
-          target="_blank"
-          rel="noopener noreferrer"
-          title={t('banner.view_twitter', {
-            defaultValue: 'View Twitter',
-          })}
-          aria-label={t('banner.view_twitter', {
-            defaultValue: 'View Twitter',
-          })}
-        >
-          <Icon icon={faTwitter} />
-        </a>
-
-        <a
-          href="https://github.com/neet/refined-itsukara-link"
-          target="_blank"
-          rel="noopener noreferrer"
-          title={t('banner.view_source', { defaultValue: 'View Source' })}
-          aria-label={t('banner.view_source', { defaultValue: 'View Source' })}
-        >
-          <Icon icon={faGithub} />
-        </a>
-
         <OriginalLink
           href="https://www.itsukaralink.jp"
           target="_blank"

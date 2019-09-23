@@ -1,0 +1,12 @@
+extend type Query {
+  isSidebarExpanded: Boolean!
+}
+
+type Mutation {
+  toggleSidebar(expanded: Boolean!): Boolean!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

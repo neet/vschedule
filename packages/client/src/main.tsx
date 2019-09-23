@@ -33,11 +33,37 @@ import { Root } from './views/root';
     (window as any).__APOLLO_STATE__,
   );
 
+  cache.writeData({
+    data: {
+      isSidebarExpanded:
+        localStorage.getItem('sidebar.expanded') === 'true' ? true : false,
+    },
+  });
+
   const client = new ApolloClient({
     cache,
     typeDefs,
     link: new HttpLink({ uri: '/graphql' }),
     ssrForceFetchDelay: 100,
+    resolvers: {
+      Query: {
+        isSidebarExpanded: () => {
+          return localStorage.getItem('sidebar.expanded') === 'true'
+            ? true
+            : false;
+        },
+      },
+
+      Mutation: {
+        toggleSidebar: (_, { expanded }) => {
+          localStorage.setItem('sidebar.expanded', expanded ? 'true' : 'false');
+          const result =
+            localStorage.getItem('sidebar.expanded') === 'true' ? true : false;
+          cache.writeData({ data: { isSidebarExpanded: result } });
+          return result;
+        },
+      },
+    },
   });
 
   initDayjs();

@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { ActivityFragment } from 'src/generated/graphql';
 import { useNow } from 'src/hooks/use-now';
 import { styled } from 'src/styles';
-import { borderGap, sidebarWidth } from 'src/styles/constants';
+import { borderGap, bannerHeight } from 'src/styles/constants';
 import { Background } from './background';
 import { Feed } from './feed';
 import { Placeholder } from './placeholder';
@@ -15,20 +15,13 @@ export interface TimetableProps {
 }
 
 const Wrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - ${bannerHeight}px);
   margin-left: 0;
   overflow-x: scroll;
   overflow-y: hidden; /* fixme */
   -webkit-overflow-scrolling: touch;
-
-  @media screen and (min-width: 700px) {
-    width: calc(100% - ${sidebarWidth}px);
-    margin-left: ${sidebarWidth}px;
-  }
 `;
 
 export const Timetable = (props: TimetableProps) => {
@@ -68,11 +61,11 @@ export const Timetable = (props: TimetableProps) => {
 
     const fromNowToStart = now.diff(startDate, 'minute');
     const screenWidth = window.innerWidth;
-    let x = (borderGap / 30) * fromNowToStart - screenWidth / 2;
+    const x = (borderGap / 30) * fromNowToStart - screenWidth / 2;
 
-    if (screenWidth >= 700) {
-      x += sidebarWidth;
-    }
+    // if (screenWidth >= 700) {
+    //   x += sidebarWidth;
+    // }
 
     ref.current.scrollTo(x, 0);
   }, [startDate, endDate, now]);

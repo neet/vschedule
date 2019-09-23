@@ -1,21 +1,13 @@
 import React from 'react';
 import { Sidebar } from 'src/components/sidebar';
-import {
-  useFetchActivitiesQuery,
-  ActivityFragment,
-} from 'src/generated/graphql';
+import { useFetchSidebarQuery } from 'src/generated/graphql';
 
 export const SidebarContainer = () => {
-  const { data, loading } = useFetchActivitiesQuery();
+  const { data } = useFetchSidebarQuery();
 
-  return (
-    <Sidebar
-      activities={
-        data
-          ? data.activities.nodes.filter((n): n is ActivityFragment => !!n)
-          : undefined
-      }
-      loading={loading}
-    />
-  );
+  if (data === undefined) {
+    return null;
+  }
+
+  return <Sidebar expanded={data.isSidebarExpanded} />;
 };
