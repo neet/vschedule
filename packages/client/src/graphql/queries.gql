@@ -25,7 +25,7 @@ fragment Performer on Performer {
 }
 
 query FetchActivities {
-  activities(first: 100) {
+  activities(last: 100) {
     nodes {
       ...Activity
     }

@@ -38,7 +38,7 @@ export class ActivityRepository {
       .createQueryBuilder('activity')
       .leftJoinAndSelect('activity.category', 'category')
       .leftJoinAndSelect('activity.performers', 'performer')
-      .orderBy('activity.id', order)
+      .orderBy('activity.startAt', order)
       .take(Math.min(take, 100));
     // .leftJoinAndSelect('activity.team', 'team')
 
