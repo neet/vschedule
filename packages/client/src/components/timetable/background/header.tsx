@@ -1,5 +1,3 @@
-import { faCalendar } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import React from 'react';
 import { styled } from 'src/styles';
@@ -9,10 +7,10 @@ export interface HeaderProps {
   dates: dayjs.Dayjs[];
 }
 
-interface DatePosition {
-  date: number;
-  width: number;
-}
+// interface DatePosition {
+//   date: number;
+//   width: number;
+// }
 
 const Wrapper = styled.header`
   position: relative;
@@ -25,31 +23,31 @@ const Horizontal = styled.div`
   width: 100%;
 `;
 
-const Date = styled.div`
-  flex: 0 0 auto;
-  width: 200px;
-  padding: 18px 18px 8px;
-  background-color: ${({ theme }) => theme.backgroundNormal};
-  color: ${({ theme }) => theme.foregroundNormal};
-  font-size: 16px;
-  font-weight: bold;
+// const Date = styled.div`
+//   flex: 0 0 auto;
+//   width: 200px;
+//   padding: 18px 18px 8px;
+//   background-color: ${({ theme }) => theme.backgroundNormal};
+//   color: ${({ theme }) => theme.foregroundNormal};
+//   font-size: 16px;
+//   font-weight: bold;
 
-  time {
-    position: sticky;
-    top: 0px;
-    left: 18px;
-    flex: 0 0 auto;
+//   time {
+//     position: sticky;
+//     top: 0px;
+//     left: 18px;
+//     flex: 0 0 auto;
 
-    svg {
-      margin-right: 0.5em;
-    }
-  }
-`;
+//     svg {
+//       margin-right: 0.5em;
+//     }
+//   }
+// `;
 
 const Time = styled.div`
   box-sizing: border-box;
   flex-shrink: 0;
-  padding: 8px 18px 18px;
+  padding: 18px;
   color: ${({ theme }) => theme.foregroundLight};
   font-size: 14px;
   font-weight: bold;
@@ -59,30 +57,31 @@ const Time = styled.div`
 export const Header = (props: HeaderProps) => {
   const { dates: dateTimes } = props;
 
-  const dates = dateTimes.reduce<DatePosition[]>((result, date) => {
-    const roundedDate = date
-      .minute(0)
-      .hour(0)
-      .valueOf();
+  // const dates = dateTimes.reduce<DatePosition[]>((result, date) => {
+  //   const roundedDate = date
+  //     .minute(0)
+  //     .hour(0)
+  //     .valueOf();
 
-    const prev = result.findIndex(
-      resultDate => resultDate.date === roundedDate,
-    );
+  //   const prev = result.findIndex(
+  //     resultDate => resultDate.date === roundedDate,
+  //   );
 
-    if (prev === -1) {
-      result.push({
-        width: borderGap,
-        date: roundedDate,
-      });
-    } else {
-      result[prev].width += borderGap;
-    }
+  //   if (prev === -1) {
+  //     result.push({
+  //       width: borderGap,
+  //       date: roundedDate,
+  //     });
+  //   } else {
+  //     result[prev].width += borderGap;
+  //   }
 
-    return result;
-  }, []);
+  //   return result;
+  // }, []);
 
   return (
     <Wrapper style={{ marginLeft: `${(borderGap / 2) * -1}px` }}>
+      {/*
       <Horizontal>
         {dates.map((date, i) => (
           <Date
@@ -96,6 +95,7 @@ export const Header = (props: HeaderProps) => {
           </Date>
         ))}
       </Horizontal>
+        */}
 
       <Horizontal>
         {dateTimes.map((date, i) => (

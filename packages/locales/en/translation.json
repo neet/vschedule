@@ -19,7 +19,7 @@
     "title_plural": "<0>{{count}}</0> streamings are on air"
   },
   "timeline": {
-    "now": "LIVE"
+    "now": "on air: {{count}}"
   },
   "timetable": {
     "loading": "Loading Timetable..."

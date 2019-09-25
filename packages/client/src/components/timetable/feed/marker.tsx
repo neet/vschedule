@@ -3,6 +3,8 @@ import React, { useCallback } from 'react';
 import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { borderGap, markerGap } from 'src/styles/constants';
+import { isStreamingNow } from 'src/utils/is-streaming-now';
+import { rgba } from 'polished';
 
 export interface MarkerProps {
   activity: ActivityFragment;
@@ -10,49 +12,72 @@ export interface MarkerProps {
   startDate: dayjs.Dayjs;
 }
 
-export const Wrapper = styled.a`
+interface Wrapper {
+  isStreaming?: boolean;
+}
+
+export const Wrapper = styled.a<Wrapper>`
   display: flex;
   position: absolute;
-  top: 115px;
+  top: 70px;
   left: 0;
   box-sizing: border-box;
   align-items: center;
   padding: 6px;
-  /* padding-right: 0px; */
-  /* border: 1px solid ${({ theme }) => theme.borderNormal}; */
-  /* border-radius: 6px; */
+  padding-left: 9px;
+  overflow: hidden;
+  transition: ease-out 0.15s;
+  border-radius: 6px;
   background-color: ${({ theme }) => theme.backgroundNormal};
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
   color: ${({ theme }) => theme.foregroundNormal};
 
   &:hover {
+    transition: ease-in 0.15s;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
     text-decoration: none;
+  }
+
+  & > * {
+    opacity: ${({ isStreaming }) => (isStreaming ? '1' : '0.5')};
   }
 `;
 
 const Avatar = styled.img`
-  width: 21px;
-  height: 21px;
+  flex-shrink: 0;
+  width: auto;
+  height: 18px;
   margin-right: 4px;
-  /* border: 1px solid ${({ theme }) => theme.borderNormal}; */
   border-radius: 50%;
-  /* background-color: ${({ theme }) => theme.backgroundNormal}; */
 `;
 
 export const Thumbnail = styled.div`
+  position: relative;
   flex-grow: 0;
   flex-shrink: 0;
   width: 88px;
   height: 50px;
-  margin-right: 6px;
   border-radius: 4px;
   background-color: ${({ theme }) => theme.backgroundNormal};
   background-position: center;
   background-size: cover;
 `;
 
+const Badge = styled.div`
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 12px;
+  height: 12px;
+  border: 3px solid ${({ theme }) => theme.backgroundNormal};
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.highlightNormal};
+`;
+
 export const Meta = styled.div`
+  flex-grow: 1;
   min-width: 0;
+  margin-right: 8px;
 `;
 
 export const Title = styled.h4`
@@ -90,6 +115,8 @@ export const Marker = (props: MarkerProps) => {
   const startDate = dayjs(activity.startAt);
   const endDate = dayjs(activity.endAt);
 
+  const isStreaming = isStreamingNow(activity.startAt, activity.endAt);
+
   const convertMinuteToPixel = useCallback((minute: number) => {
     const pixelPerMinute = borderGap / 30;
 
@@ -100,8 +127,8 @@ export const Marker = (props: MarkerProps) => {
   const x =
     convertMinuteToPixel(startDate.diff(basisDate, 'minute')) + markerGap / 2;
 
-  // Avatar height + padding
-  const y = (markerGap + 50 + 3 + 1 + 4 * 2) * row;
+  // Avatar height + border + padding
+  const y = (markerGap + 50 + 3 + 6 * 2) * row;
 
   const width =
     convertMinuteToPixel(endDate.diff(startDate, 'minute')) - markerGap;
@@ -113,14 +140,15 @@ export const Marker = (props: MarkerProps) => {
       title={activity.name}
       target="_blank"
       rel="noreferrer"
+      isStreaming={isStreaming}
       style={{
         width: `${width}px`,
         transform: `translate(${x}px, ${y}px)`,
-        borderRight: `5px solid ${firstStreamer.color}`,
+        borderLeft: `3px solid ${
+          isStreaming ? firstStreamer.color : rgba(firstStreamer.color, 0.5)
+        }`,
       }}
     >
-      <Thumbnail style={{ backgroundImage: `url(${activity.thumbnail})` }} />
-
       <Meta>
         <Title>{activity.name}</Title>
 
@@ -134,6 +162,10 @@ export const Marker = (props: MarkerProps) => {
           </PerformerName>
         </PerformerWrapper>
       </Meta>
+
+      <Thumbnail style={{ backgroundImage: `url(${activity.thumbnail})` }}>
+        {isStreaming && <Badge />}
+      </Thumbnail>
     </Wrapper>
   );
 };

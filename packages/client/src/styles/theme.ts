@@ -3,6 +3,7 @@ export const theme = {
   highlightNormal: '#f80652',
 
   backgroundNormal: '#ffffff',
+  backgroundWash: '#fbf8f9',
   backgroundDark: '#fafafa',
 
   foregroundNormal: '#333333',

@@ -5,9 +5,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { styled } from 'src/styles';
 import { borderGap } from 'src/styles/constants';
+import { rgba } from 'polished';
 
 export interface MinuteHandProps {
   now: Dayjs;
+  count: number;
   startDate: Dayjs;
 }
 
@@ -26,14 +28,17 @@ const Now = styled.div`
   box-sizing: border-box;
   flex-grow: 0;
   flex-shrink: 0;
-  margin: 55px 16px 16px;
+  margin: 16px;
+  margin-bottom: 0;
   padding: 4px 12px;
   border-radius: 99px;
   background-color: ${({ theme }) => theme.highlightNormal};
+  box-shadow: 0 3px 6px ${({ theme }) => rgba(theme.highlightNormal, 0.16)};
   color: ${({ theme }) => theme.foregroundReverse};
   font-size: 12px;
   font-weight: bold;
   text-align: center;
+  text-transform: uppercase;
 
   & > svg {
     margin-right: 0.25em;
@@ -49,7 +54,7 @@ const Border = styled.div`
 `;
 
 export const MinuteHand = (props: MinuteHandProps) => {
-  const { now, startDate } = props;
+  const { now, count, startDate } = props;
   const { t } = useTranslation();
   const gapFromOrigin =
     (now.diff(startDate, 'minute') * borderGap) / 30 - borderGap / 2;
@@ -58,7 +63,7 @@ export const MinuteHand = (props: MinuteHandProps) => {
     <Wrapper style={{ transform: `translateX(${gapFromOrigin}px)` }}>
       <Now>
         <FontAwesomeIcon icon={faFire} />
-        {t('timeline.now', { defaultValue: 'LIVE' })}
+        {t('timeline.now', { defaultValue: '{{count}} LIVE', count })}
       </Now>
 
       <Border />

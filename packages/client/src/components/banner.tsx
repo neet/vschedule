@@ -3,9 +3,6 @@ import { Menu } from 'react-feather';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import logoLarge from 'src/assets/logo-large.png';
-import logoSmall from 'src/assets/logo-small.png';
 import { styled } from 'src/styles';
 import { bannerHeight } from 'src/styles/constants';
 import {
@@ -27,22 +24,6 @@ const Wrapper = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
 `;
 
-const LogoSmall = styled.img`
-  display: block;
-  height: 34px;
-  margin: auto;
-`;
-
-const LogoLarge = styled.img`
-  display: block;
-  height: 30px;
-  margin: 4px 0;
-`;
-
-const Title = styled.h1`
-  display: none;
-`;
-
 const MenuButton = styled.button`
   margin: 0 12px;
   padding: 0;
@@ -54,20 +35,6 @@ const MenuButton = styled.button`
 const Hgroup = styled.div`
   display: flex;
   flex: 1 1 auto;
-
-  ${LogoLarge} {
-    display: none;
-  }
-
-  @media screen and (min-width: 700px) {
-    ${LogoLarge} {
-      display: block;
-    }
-
-    ${LogoSmall} {
-      display: none;
-    }
-  }
 `;
 
 const Toolbox = styled.div`
@@ -124,12 +91,6 @@ export const Banner: React.SFC = React.memo(() => {
         >
           <Menu />
         </MenuButton>
-
-        <Link to="/">
-          <Title>Refined itsukara.link</Title>
-          <LogoLarge src={logoLarge} alt="Refined itsukara.link" />
-          <LogoSmall src={logoSmall} alt="Refiend itsukara.link" />
-        </Link>
       </Hgroup>
 
       <Toolbox>

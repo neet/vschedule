@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTranslation, Trans } from 'react-i18next';
+import { Link, NavLink } from 'react-router-dom';
 import { styled } from 'src/styles';
-import { NavLink } from 'react-router-dom';
+import logoSmall from 'src/assets/logo-small.png';
 import { Tv, User, Users, Hash } from 'react-feather';
 
 const Wrapper = styled.div`
@@ -46,6 +47,16 @@ const ListItem = styled.li`
   }
 `;
 
+const Title = styled.h1`
+  display: none;
+`;
+
+const LogoLarge = styled.img`
+  display: block;
+  width: 30px;
+  margin: 4px 0;
+`;
+
 const Disclaimer = styled.p`
   color: ${({ theme }) => theme.foregroundLight};
   font-size: 12px;
@@ -67,6 +78,13 @@ export const Sidebar = (props: SidebarProps) => {
     <Wrapper>
       <nav>
         <List>
+          <ListItem>
+            <Link to="/">
+              <Title>Refined itsukara.link</Title>
+              <LogoLarge src={logoSmall} alt="Refined itsukara.link" />
+            </Link>
+          </ListItem>
+
           <ListItem>
             <NavLink to="/activities" activeClassName="active">
               <Tv />

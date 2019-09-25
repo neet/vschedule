@@ -8,6 +8,7 @@ import { MinuteHand } from './minute-hand';
 
 export interface BackgroundProps {
   now: dayjs.Dayjs;
+  count: number;
   startDate: dayjs.Dayjs;
   endDate: dayjs.Dayjs;
 }
@@ -43,7 +44,7 @@ const Fade = styled.div`
 `;
 
 export const Background = (props: BackgroundProps) => {
-  const { now, startDate, endDate } = props;
+  const { now, count, startDate, endDate } = props;
 
   const dates = useMemo(() => {
     // Rond down the minutes which less than 30 mintues
@@ -74,7 +75,7 @@ export const Background = (props: BackgroundProps) => {
   return (
     <Wrapper>
       <Header dates={dates} />
-      <MinuteHand now={now} startDate={startDate} />
+      <MinuteHand now={now} startDate={startDate} count={count} />
       <Borders dates={dates} aria-hidden />
       <Fade aria-hidden />
     </Wrapper>

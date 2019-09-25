@@ -1,14 +1,13 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { Banner } from 'src/components/banner';
 import { styled } from 'src/styles';
 import { Contents } from 'src/views/contents';
+import { SidebarContainer } from 'src/containers/sidebar-container';
 import { notFoundRender } from 'src/views/not-found';
 import { GlobalStyle } from './global-style';
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -18,7 +17,7 @@ const Wrapper = styled.div`
 export const Root: React.SFC = React.memo(() => {
   return (
     <Wrapper>
-      <Banner />
+      <SidebarContainer />
 
       <Switch>
         <Redirect exact from="/" to="/activities" />
