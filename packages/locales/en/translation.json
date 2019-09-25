@@ -8,6 +8,10 @@
   "not_found": {
     "title": "Page Not Found"
   },
+  "performers": {
+    "description": "List of performers that are belongs to Nijisanji",
+    "title": "Performers"
+  },
   "sidebar": {
     "activities": "Activities",
     "disclaimer": "This website is unofficially made by a fan of Nijisanji and not related to Ichikara Inc. at all. The project is open source software. You can contribute or report issue on <2>GitHub</2>.",
@@ -18,8 +22,13 @@
     "title": "<0>{{count}}</0> streaming is on air",
     "title_plural": "<0>{{count}}</0> streamings are on air"
   },
+  "teams": {
+    "description": "List of collaborations of Nijisanji",
+    "title": "Collaboration"
+  },
   "timeline": {
-    "now": "on air: {{count}}"
+    "now": "on air: {{count}}",
+    "now_plural": "{{count}} LIVE"
   },
   "timetable": {
     "loading": "Loading Timetable..."

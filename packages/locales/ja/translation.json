@@ -8,14 +8,22 @@
   "not_found": {
     "title": "ページが見つかりませんでした"
   },
+  "performers": {
+    "description": "にじさんじに所属するライバーの一覧です",
+    "title": "ライバー"
+  },
   "sidebar": {
     "activities": "配信",
     "disclaimer": "このサイトはファンが非公式に制作したもので、いちから株式会社とは一切関係がありません。プロジェクトはオープンソースソフトウェアで、<2>GitHub</2>で問題を報告したり開発に参加することができます。",
     "no_streaming": "放送中の配信はありません",
     "performers": "ライバー",
     "tags": "カテゴリー",
-    "teams": "コラボ",
+    "teams": "ユニット",
     "title": "<0>{{count}}人</0>が配信中"
+  },
+  "teams": {
+    "description": "にじさんじのコラボユニットの一覧です",
+    "title": "ユニット"
   },
   "timeline": {
     "now": "{{count}}人が配信中"
