@@ -143,8 +143,17 @@ type TwitterAccount implements Node & SocialAccount {
   screenName: String!
 }
 
+type SearchResult implements Node {
+  performers: [Performer]!
+  activities: [Activity]!
+  teams: [Team]!
+  categories: [Category]!
+}
+
 type Query {
   node(cursor: String!): Node
+
+  search(query: String!): SearchResult!
 
   activity(id: ID!): Activity
 
@@ -153,6 +162,10 @@ type Query {
     after: String
     last: Int
     before: String
+    startSince: String
+    performerId: ID
+    teamId: ID
+    categoryId: ID
   ): ActivityConnection!
 
   performer(id: ID!): Performer
@@ -175,7 +188,13 @@ type Query {
 
   team(id: ID!): Team
 
-  teams(first: Int, after: String, last: Int, before: String): TeamConnection!
+  teams(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    performerId: ID
+  ): TeamConnection!
 }
 
 schema {
