@@ -6,6 +6,7 @@ import { performer } from './performer';
 import { team } from './team';
 import { socialAccount } from './social-account';
 import { node } from './node';
+import { search } from './search';
 
 export const resolvers: G.Resolvers = merge.all([
   activity,
@@ -14,4 +15,5 @@ export const resolvers: G.Resolvers = merge.all([
   performer,
   socialAccount,
   team,
+  search,
 ]);

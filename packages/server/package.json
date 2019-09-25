@@ -10,6 +10,7 @@
     "import:teams": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/cli.ts"
   },
   "dependencies": {
+    "@elastic/elasticsearch": "^7.3.0",
     "@graphql-codegen/cli": "^1.6.1",
     "@graphql-codegen/typescript": "^1.6.1",
     "@graphql-codegen/typescript-resolvers": "^1.7.0",

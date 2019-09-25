@@ -34,6 +34,15 @@ export class PerformerRepository {
       .getMany();
   };
 
+  search = async (query: string) => {
+    return this.manager
+      .getRepository(Performer)
+      .createQueryBuilder('performer')
+      .where('performer.name LIKE :query', { query })
+      .orWhere('performer.description LIKE :query', { query })
+      .getMany();
+  };
+
   getAllAndCount = async (params: GetAllAndCountParams) => {
     const { first, last, before, after } = params;
     const take = (last ? last : first) || 100;
@@ -70,9 +79,9 @@ export class PerformerRepository {
     performer.description = data.liver.description || '';
     performer.public = data.liver.public || 0;
     performer.position = data.liver.position || 1;
-    performer.teams = [];
     performer.twitterAccounts = [];
     performer.youtubeAccounts = [];
+    // performer.teams = [];
 
     // Twitter
     const twitterAccount = new TwitterAccount();

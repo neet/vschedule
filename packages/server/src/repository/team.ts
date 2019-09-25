@@ -31,6 +31,14 @@ export class TeamRepository {
       .getMany();
   };
 
+  search = async (query: string) => {
+    return this.manager
+      .getRepository(Team)
+      .createQueryBuilder('team')
+      .where('team.name LIKE :query', { query })
+      .getMany();
+  };
+
   getAllAndCount = async (params: GetAllAndCountParams) => {
     const { first, last, before, after } = params;
     const take = (last ? last : first) || 100;

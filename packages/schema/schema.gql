@@ -143,7 +143,7 @@ type TwitterAccount implements Node & SocialAccount {
   screenName: String!
 }
 
-type SearchResult implements Node {
+type SearchResult {
   performers: [Performer]!
   activities: [Activity]!
   teams: [Team]!

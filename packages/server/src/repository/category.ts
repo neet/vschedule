@@ -23,6 +23,14 @@ export class CategoryRepostiory {
       .getMany();
   });
 
+  search = async (query: string) => {
+    return this.manager
+      .getRepository(Category)
+      .createQueryBuilder('category')
+      .where('category.name LIKE :query', { query })
+      .getMany();
+  };
+
   getAllAndCount = async (params: GetAllAndCountParams) => {
     const { first, last, before, after } = params;
     const take = (last ? last : first) || 100;
