@@ -12,20 +12,28 @@ const main = async () => {
     try {
       team.id = group.id;
       team.name = group.name;
-      team.members = await Promise.all(
-        group.streamerIds.map(async id => {
-          const performer = await connection
-            .getRepository(Performer)
-            .findOne({ id });
-          if (!performer) throw new Error(`Invalid id ${id}`);
-          return performer;
-        }),
-      );
 
+      const members = [];
+
+      for (const streamerId of group.streamerIds) {
+        const performer = await connection
+          .getRepository(Performer)
+          .findOne({ id: streamerId });
+
+        if (!performer) throw new Error(`Invalid id ${streamerId}`);
+
+        members.push(performer);
+      }
+
+      team.members = members;
       await connection.manager.save(team);
 
       // eslint-disable-next-line no-console
-      console.log(`${group.name} has been saved`);
+      console.log(
+        `${group.name} has been saved with ids ${team.members
+          .map(member => member.id)
+          .join()}`,
+      );
     } catch (error) {
       // eslint-disable-next-line no-console
       console.warn(error.toString());
