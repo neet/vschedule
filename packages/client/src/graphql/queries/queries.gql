@@ -27,6 +27,14 @@ fragment Performer on Performer {
   position
 }
 
+fragment Team on Team {
+  id
+  name
+  members {
+    ...Performer
+  }
+}
+
 query FetchActivities {
   activities(last: 100) {
     nodes {
@@ -36,9 +44,17 @@ query FetchActivities {
 }
 
 query FetchPerformers {
-  performers(last: 100) {
+  performers(first: 100) {
     nodes {
       ...Performer
+    }
+  }
+}
+
+query FetchTeams {
+  teams(first: 100) {
+    nodes {
+      ...Team
     }
   }
 }
