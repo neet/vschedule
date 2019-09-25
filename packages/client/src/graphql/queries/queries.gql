@@ -1,12 +1,12 @@
 fragment Activity on Activity {
-  id,
-  name,
-  description,
-  public,
-  url,
-  thumbnail,
-  startAt,
-  endAt,
+  id
+  name
+  description
+  public
+  url
+  thumbnail
+  startAt
+  endAt
   performers {
     ...Performer
   }
@@ -16,21 +16,29 @@ fragment Activity on Activity {
 }
 
 fragment Performer on Performer {
-  id,
-  name,
-  latinName,
-  ruby,
-  avatar,
-  color,
-  description,
-  public,
-  position,
+  id
+  name
+  latinName
+  ruby
+  avatar
+  color
+  description
+  public
+  position
 }
 
 query FetchActivities {
   activities(last: 100) {
     nodes {
       ...Activity
+    }
+  }
+}
+
+query FetchPerformers {
+  performers(last: 100) {
+    nodes {
+      ...Performer
     }
   }
 }

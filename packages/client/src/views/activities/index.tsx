@@ -3,7 +3,7 @@ import { Page } from 'src/components/page';
 import { TimetableContainer } from 'src/containers/timetable-container';
 import { Banner } from 'src/components/banner';
 
-export const Contents = React.memo(() => {
+export const Activities = React.memo(() => {
   return (
     <Page>
       <Banner />

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { styled } from 'src/styles';
-import { Contents } from 'src/views/contents';
-import { SidebarContainer } from 'src/containers/sidebar-container';
+import { Activities } from 'src/views/activities';
 import { notFoundRender } from 'src/views/not-found';
+import { Performers } from 'src/views/performers';
+import { SidebarContainer } from 'src/containers/sidebar-container';
 import { GlobalStyle } from './global-style';
 
 const Wrapper = styled.div`
@@ -21,7 +22,8 @@ export const Root: React.SFC = React.memo(() => {
 
       <Switch>
         <Redirect exact from="/" to="/activities" />
-        <Route exact path="/activities" component={Contents} />
+        <Route exact path="/activities" component={Activities} />
+        <Route exact path="/performers" component={Performers} />
         <Route render={notFoundRender} />
       </Switch>
 
