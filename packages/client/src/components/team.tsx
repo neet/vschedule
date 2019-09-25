@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   margin-right: 12px;
   margin-bottom: 12px;
   padding: 12px 18px;
+  overflow: hidden;
   border-radius: 4px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
 `;
@@ -27,6 +28,7 @@ const Avatar = styled.img`
   width: 40px;
   height: auto;
   margin-right: -12px;
+  border: 3px solid ${({ theme }) => theme.foregroundReverse};
   border-radius: 50%;
 `;
 
