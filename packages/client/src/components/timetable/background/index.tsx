@@ -9,8 +9,8 @@ import { MinuteHand } from './minute-hand';
 export interface BackgroundProps {
   now: dayjs.Dayjs;
   count: number;
-  startDate: dayjs.Dayjs;
-  endDate: dayjs.Dayjs;
+  startAt: dayjs.Dayjs;
+  endAt: dayjs.Dayjs;
 }
 
 const Wrapper = styled.div`
@@ -44,16 +44,13 @@ const Fade = styled.div`
 `;
 
 export const Background = (props: BackgroundProps) => {
-  const { now, count, startDate, endDate } = props;
+  const { now, count, startAt, endAt } = props;
 
   const dates = useMemo(() => {
     // Rond down the minutes which less than 30 mintues
-    const basisDate = startDate.set(
-      'minute',
-      startDate.minute() >= 30 ? 30 : 0,
-    );
+    const basisDate = startAt.set('minute', startAt.minute() >= 30 ? 30 : 0);
 
-    const gridCount = dayjs(endDate).diff(startDate, 'minute') / 30;
+    const gridCount = dayjs(endAt).diff(startAt, 'minute') / 30;
 
     // Make array of dates, every 30 minutes
     return Array.from({ length: gridCount }, (_, i) => {
@@ -70,12 +67,12 @@ export const Background = (props: BackgroundProps) => {
 
       return childDate;
     });
-  }, [startDate, endDate]);
+  }, [startAt, endAt]);
 
   return (
     <Wrapper>
       <Header dates={dates} />
-      <MinuteHand now={now} startDate={startDate} count={count} />
+      <MinuteHand now={now} startAt={startAt} count={count} />
       <Borders dates={dates} aria-hidden />
       <Fade aria-hidden />
     </Wrapper>

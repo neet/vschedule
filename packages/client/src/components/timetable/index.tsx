@@ -49,7 +49,7 @@ export const Timetable = (props: TimetableProps) => {
     [activities],
   );
 
-  const startDate = useMemo(
+  const startAt = useMemo(
     () =>
       activities.reduce<dayjs.Dayjs | undefined>((result, content) => {
         const date = dayjs(content.startAt);
@@ -60,7 +60,7 @@ export const Timetable = (props: TimetableProps) => {
     [activities],
   );
 
-  const endDate = useMemo(
+  const endAt = useMemo(
     () =>
       activities.reduce<dayjs.Dayjs | undefined>((result, content) => {
         const date = dayjs(content.endAt);
@@ -72,19 +72,19 @@ export const Timetable = (props: TimetableProps) => {
   );
 
   useEffect(() => {
-    if (!ref.current || !startDate) return;
+    if (!ref.current || !startAt) return;
 
-    const fromStartToNow = now.diff(startDate, 'minute');
+    const fromStartToNow = now.diff(startAt, 'minute');
     const screenWidth = window.innerWidth;
     const x = (borderGap / 30) * fromStartToNow - screenWidth / 2;
 
     ref.current.scrollTo(x, 0);
-  }, [startDate, ref]);
+  }, [startAt, ref]);
 
   useEffect(() => {
-    if (!ref.current || !startDate) return;
+    if (!ref.current || !startAt) return;
 
-    // const fromNowToStart = now.diff(startDate, 'minute');
+    // const fromNowToStart = now.diff(startAt, 'minute');
     // const screenWidth = window.innerWidth;
     // const x = (borderGap / 30) * fromNowToStart - screenWidth / 2;
 
@@ -93,7 +93,7 @@ export const Timetable = (props: TimetableProps) => {
     // }
 
     // ref.current.scrollTo(x, 0);
-  }, [startDate, endDate, now]);
+  }, [startAt, endAt, now]);
 
   useEffect(() => {
     const isAnyMobile = isMobile(navigator.userAgent).any;
@@ -115,7 +115,7 @@ export const Timetable = (props: TimetableProps) => {
     );
   }
 
-  if (!startDate || !endDate) {
+  if (!startAt || !endAt) {
     return null;
   }
 
@@ -123,11 +123,11 @@ export const Timetable = (props: TimetableProps) => {
     <Wrapper ref={ref}>
       <Background
         now={now}
-        startDate={startDate}
-        endDate={endDate}
+        startAt={startAt}
+        endAt={endAt}
         count={streamingActivityCount}
       />
-      <Feed activities={activities} startDate={startDate} />
+      <Feed activities={activities} startAt={startAt} />
     </Wrapper>
   );
 };

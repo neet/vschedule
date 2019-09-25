@@ -10,7 +10,7 @@ import { rgba } from 'polished';
 export interface MinuteHandProps {
   now: Dayjs;
   count: number;
-  startDate: Dayjs;
+  startAt: Dayjs;
 }
 
 const Wrapper = styled.div`
@@ -54,10 +54,10 @@ const Border = styled.div`
 `;
 
 export const MinuteHand = (props: MinuteHandProps) => {
-  const { now, count, startDate } = props;
+  const { now, count, startAt } = props;
   const { t } = useTranslation();
   const gapFromOrigin =
-    (now.diff(startDate, 'minute') * borderGap) / 30 - borderGap / 2;
+    (now.diff(startAt, 'minute') * borderGap) / 30 - borderGap / 2;
 
   return (
     <Wrapper style={{ transform: `translateX(${gapFromOrigin}px)` }}>

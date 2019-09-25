@@ -6,12 +6,6 @@ import { borderGap, markerGap } from 'src/styles/constants';
 import { isStreamingNow } from 'src/utils/is-streaming-now';
 import { rgba } from 'polished';
 
-export interface MarkerProps {
-  activity: ActivityFragment;
-  row: number;
-  startDate: dayjs.Dayjs;
-}
-
 interface Wrapper {
   isStreaming?: boolean;
 }
@@ -104,16 +98,22 @@ export const PerformerName = styled.span`
   white-space: nowrap;
 `;
 
-export const Marker = (props: MarkerProps) => {
-  const { activity, startDate: basisDate, row } = props;
+export interface ActivityProps {
+  activity: ActivityFragment;
+  row: number;
+  startAt: dayjs.Dayjs;
+}
+
+export const Activity = (props: ActivityProps) => {
+  const { activity, startAt: basisDate, row } = props;
 
   if (!activity.performers.length) {
     return null;
   }
 
-  const firstStreamer = activity.performers[0];
-  const startDate = dayjs(activity.startAt);
-  const endDate = dayjs(activity.endAt);
+  const firstPerformer = activity.performers[0];
+  const startAt = dayjs(activity.startAt);
+  const endAt = dayjs(activity.endAt);
 
   const isStreaming = isStreamingNow(activity.startAt, activity.endAt);
 
@@ -125,13 +125,11 @@ export const Marker = (props: MarkerProps) => {
 
   // Compare current date vs start date in minutes
   const x =
-    convertMinuteToPixel(startDate.diff(basisDate, 'minute')) + markerGap / 2;
-
+    convertMinuteToPixel(startAt.diff(basisDate, 'minute')) + markerGap / 2;
   // Avatar height + border + padding
   const y = (markerGap + 50 + 3 + 6 * 2) * row;
 
-  const width =
-    convertMinuteToPixel(endDate.diff(startDate, 'minute')) - markerGap;
+  const width = convertMinuteToPixel(endAt.diff(startAt, 'minute')) - markerGap;
 
   return (
     <Wrapper
@@ -145,7 +143,7 @@ export const Marker = (props: MarkerProps) => {
         width: `${width}px`,
         transform: `translate(${x}px, ${y}px)`,
         borderLeft: `3px solid ${
-          isStreaming ? firstStreamer.color : rgba(firstStreamer.color, 0.5)
+          isStreaming ? firstPerformer.color : rgba(firstPerformer.color, 0.5)
         }`,
       }}
     >
@@ -154,11 +152,11 @@ export const Marker = (props: MarkerProps) => {
 
         <PerformerWrapper>
           <Avatar
-            src={firstStreamer.avatar}
-            style={{ backgroundColor: firstStreamer.color }}
+            src={firstPerformer.avatar}
+            style={{ backgroundColor: firstPerformer.color }}
           />
           <PerformerName>
-            {firstStreamer.name}・{dayjs(startDate).fromNow()}
+            {firstPerformer.name}・{dayjs(startAt).fromNow()}
           </PerformerName>
         </PerformerWrapper>
       </Meta>

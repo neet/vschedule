@@ -4,11 +4,11 @@ import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { isOverlapping } from 'src/utils/is-overlapping';
 import { sortEvents } from 'src/utils/sort-events';
-import { Marker, MarkerProps } from './marker';
+import { Activity, ActivityProps } from '../activity';
 
 export interface FeedProps {
   activities: ActivityFragment[];
-  startDate: Dayjs;
+  startAt: Dayjs;
 }
 
 const List = styled.ul`
@@ -25,7 +25,7 @@ const ListItem = styled.li`
 `;
 
 export const Feed = (props: FeedProps) => {
-  const { activities, startDate } = props;
+  const { activities, startAt } = props;
 
   /**
    * Calculate the position of markers as a 2-dimentional array.
@@ -80,7 +80,7 @@ export const Feed = (props: FeedProps) => {
       getMarkerPositions(activities.sort(sortEvents))
         .map((row, i) =>
           row.map(
-            (activity): Required<Omit<MarkerProps, 'startDate'>> => ({
+            (activity): Required<Omit<ActivityProps, 'startAt'>> => ({
               activity,
               row: i,
             }),
@@ -99,7 +99,7 @@ export const Feed = (props: FeedProps) => {
           aria-setsize={activities.length}
           aria-posinset={i + 1}
         >
-          <Marker activity={activity} row={row} startDate={startDate} />
+          <Activity activity={activity} row={row} startAt={startAt} />
         </ListItem>
       ))}
     </List>
