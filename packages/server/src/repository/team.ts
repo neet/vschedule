@@ -2,6 +2,8 @@ import DataLoader from 'dataloader';
 import { Cursor } from 'src/utils/cursor';
 import { EntityManager, EntityRepository } from 'typeorm';
 import { Team } from 'src/entity/team';
+import { TeamDataset } from 'src/utils/teams';
+import { PerformerRepository } from './performer';
 
 interface GetAllAndCountParams {
   first?: number | null;
@@ -61,5 +63,16 @@ export class TeamRepository {
     }
 
     return await query.getManyAndCount();
+  };
+
+  createFromDataset = async (teamDataset: TeamDataset) => {
+    const team = new Team();
+    team.id = teamDataset.id;
+    team.name = teamDataset.name;
+    team.members = await this.manager
+      .getCustomRepository(PerformerRepository)
+      .find.loadMany(teamDataset.performerIds);
+
+    return this.manager.save(team);
   };
 }

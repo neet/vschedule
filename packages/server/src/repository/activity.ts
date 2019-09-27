@@ -2,9 +2,11 @@ import DataLoader from 'dataloader';
 import { Cursor } from 'src/utils/cursor';
 import { EntityRepository, EntityManager } from 'typeorm';
 import { Activity } from 'src/entity/activity';
+import { matchTeamFromPerformerIds } from 'src/utils/teams';
 import { Event, LiverRelationships } from '@ril/gateway';
 import { PerformerRepository } from './performer';
 import { CategoryRepostiory } from './category';
+import { TeamRepository } from './team';
 
 interface GetAllAndCountParams {
   first?: number | null;
@@ -92,6 +94,16 @@ export class ActivityRepository {
       ? await this.manager
           .getCustomRepository(CategoryRepostiory)
           .createFromGatewayData(data.genre)
+      : undefined;
+
+    const teamDataset = matchTeamFromPerformerIds(
+      activity.performers.map(performer => performer.id),
+    );
+
+    activity.team = teamDataset
+      ? await this.manager
+          .getCustomRepository(TeamRepository)
+          .createFromDataset(teamDataset)
       : undefined;
 
     return this.manager.save(activity);
