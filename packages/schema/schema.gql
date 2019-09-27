@@ -31,9 +31,9 @@ type Activity implements Node {
   # Thumbnail of the activity
   thumbnail: String!
   # Start date time on ISO 8601
-  startAt: String!
+  startAt: Date!
   # End date time on ISO 8601
-  endAt: String!
+  endAt: Date!
   # Created date time
   createdAt: Date!
   # Updated date time
@@ -193,7 +193,7 @@ type Query {
     after: String
     last: Int
     before: String
-    startSince: String
+    startSince: Date
     performerId: ID
     teamId: ID
     categoryId: ID
