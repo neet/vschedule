@@ -103,7 +103,7 @@ export class ActivityRepository {
     activity.team = teamDataset
       ? await this.manager
           .getCustomRepository(TeamRepository)
-          .createFromDataset(teamDataset)
+          .find.load(teamDataset.id)
       : undefined;
 
     return this.manager.save(activity);
