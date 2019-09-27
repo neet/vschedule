@@ -5,7 +5,10 @@ import { serializeTeam } from './team';
 export const serializePerformer = (entity: Performer): G.Performer => {
   return {
     ...entity,
-    socialAccounts: [],
+    socialAccounts: [
+      ...(entity.youtubeAccounts ? entity.youtubeAccounts : []),
+      ...(entity.twitterAccounts ? entity.twitterAccounts : []),
+    ],
     teams: entity.teams ? entity.teams.map(team => serializeTeam(team)) : [],
   };
 };
