@@ -1,12 +1,19 @@
+scalar Date
+
 interface Node {
   id: ID!
 }
 
 type PageInfo {
+  # Whether or not there are next pages
   hasNextPage: Boolean!
+  # Whether or not there are previous pages
   hasPreviousPage: Boolean!
+  # First cursor of the connection
   startCursor: String
+  # Last cursor of the connection
   endCursor: String
+  # Total count
   totalCount: Int
 }
 
@@ -27,6 +34,10 @@ type Activity implements Node {
   startAt: String!
   # End date time on ISO 8601
   endAt: String!
+  # Created date time
+  createdAt: Date!
+  # Updated date time
+  updatedAt: Date!
   # Sources of the activity
   performers: [Performer!]!
   # Associated category
@@ -64,7 +75,11 @@ type Performer implements Node {
   # If the  performer is public
   public: Int!
   # Unknown...
-  position: Int!
+  position: Int
+  # Created date time
+  createdAt: Date!
+  # Updated date time
+  updatedAt: Date!
   # External services' information
   socialAccounts: [SocialAccount!]!
   # Involved teams
@@ -87,6 +102,10 @@ type Team implements Node {
   id: ID!
   # Name of the team
   name: String!
+  # Created date time
+  createdAt: Date!
+  # Updated date time
+  updatedAt: Date!
   # Involved performers
   members: [Performer!]!
 }
@@ -123,6 +142,10 @@ type CategoryEdge {
 interface SocialAccount {
   # Internal ID of the channel
   id: ID!
+  # Created date time
+  createdAt: Date!
+  # Updated date time
+  updatedAt: Date!
 }
 
 type YoutubeAccount implements Node & SocialAccount {
@@ -134,6 +157,10 @@ type YoutubeAccount implements Node & SocialAccount {
   channelName: String!
   # Order of creation
   creationOrder: Int!
+  # Created date time
+  createdAt: Date!
+  # Updated date time
+  updatedAt: Date!
 }
 
 type TwitterAccount implements Node & SocialAccount {
@@ -141,6 +168,10 @@ type TwitterAccount implements Node & SocialAccount {
   id: ID!
   # Screenname of the account like @twitter
   screenName: String!
+  # Created date time
+  createdAt: Date!
+  # Updated date time
+  updatedAt: Date!
 }
 
 type SearchResult {
