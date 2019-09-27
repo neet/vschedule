@@ -23,9 +23,9 @@ export class ActivityRepository {
       .createQueryBuilder('activity')
       .leftJoinAndSelect('activity.category', 'category')
       .leftJoinAndSelect('activity.performers', 'performer')
+      .leftJoinAndSelect('activity.team', 'team')
       .whereInIds(ids)
       .getMany();
-    // .leftJoinAndSelect('activity.team', 'team')
   });
 
   getAllAndCount = async (params: GetAllAndCountParams) => {
@@ -38,9 +38,9 @@ export class ActivityRepository {
       .createQueryBuilder('activity')
       .leftJoinAndSelect('activity.category', 'category')
       .leftJoinAndSelect('activity.performers', 'performer')
+      .leftJoinAndSelect('activity.team', 'team')
       .orderBy('activity.startAt', order)
       .take(Math.min(take, 100));
-    // .leftJoinAndSelect('activity.team', 'team')
 
     if (before) {
       const { id } = Cursor.decode(before);
@@ -77,8 +77,8 @@ export class ActivityRepository {
     activity.public = data.public;
     activity.url = data.url;
     activity.thumbnail = data.thumbnail;
-    activity.startAt = data.start_date;
-    activity.endAt = data.end_date;
+    activity.startAt = new Date(data.start_date);
+    activity.endAt = new Date(data.end_date);
 
     activity.performers = await Promise.all(
       liverReationships.map(liver => {
