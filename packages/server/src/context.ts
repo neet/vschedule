@@ -1,4 +1,5 @@
 import { Connection } from 'typeorm';
+import { Client as ElasticsearchClient } from '@elastic/elasticsearch';
 import { ActivityRepository } from './repository/activity';
 import { CategoryRepostiory } from './repository/category';
 import { PerformerRepository } from './repository/performer';
@@ -8,6 +9,7 @@ import { YoutubeAccountRepository } from './repository/youtube-account';
 
 export interface Context {
   connection: Connection;
+  elasticsearch: ElasticsearchClient;
   repositories: {
     activity: ActivityRepository;
     category: CategoryRepostiory;
@@ -18,9 +20,13 @@ export interface Context {
   };
 }
 
-export const createContext = (connection: Connection): Context => {
+export const createContext = (
+  connection: Connection,
+  elasticsearch: ElasticsearchClient,
+): Context => {
   return {
     connection,
+    elasticsearch,
     repositories: {
       activity: connection.getCustomRepository(ActivityRepository),
       category: connection.getCustomRepository(CategoryRepostiory),

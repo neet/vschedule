@@ -16,6 +16,7 @@ import { createI18n } from './utils/locale';
 import { ActivityCron } from './workers/activity';
 import { PerformerCron } from './workers/performer';
 import { CategoryCron } from './workers/category';
+import { createElasticsearchConnection } from './elasticsearch';
 
 (async () => {
   const schemaPath = require.resolve('@ril/schema');
@@ -24,6 +25,7 @@ import { CategoryCron } from './workers/category';
 
   const typeDefs = await fs.readFile(schemaPath, 'utf-8').then(gql);
   const connection = await createConnection();
+  const elasticsearch = await createElasticsearchConnection();
 
   // Crons
   new PerformerCron(connection);
@@ -34,7 +36,7 @@ import { CategoryCron } from './workers/category';
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
-    context: () => createContext(connection),
+    context: () => createContext(connection, elasticsearch),
   });
 
   // Express

@@ -6,21 +6,93 @@ import { serializeTeam } from 'src/serializers/team';
 export const rootSearch: G.QueryResolvers['search'] = async (
   _,
   { query },
-  { repositories },
+  { repositories, elasticsearch },
 ) => {
-  const activities = await repositories.activity
-    .search(query)
-    .then(performers => performers.map(serializeActivity));
+  const activities = await elasticsearch
+    .search({
+      index: 'activity',
+      type: '_doc',
+      body: {
+        query: {
+          query_string: {
+            fields: ['name', 'description'],
+            query,
+          },
+        },
+      },
+    })
+    .then(result =>
+      result.body.hits.hits.map((hit: { _id: string }) => hit._id),
+    )
+    .then(ids =>
+      repositories.activity.find
+        .loadMany(ids)
+        .then(results => results.map(activity => serializeActivity(activity))),
+    );
 
-  const performers = await repositories.performer
-    .search(query)
-    .then(performers => performers.map(serializePerformer));
+  const performers = await elasticsearch
+    .search({
+      index: 'performer',
+      type: '_doc',
+      body: {
+        query: {
+          query_string: {
+            fields: ['name', 'description'],
+            query,
+          },
+        },
+      },
+    })
+    .then(result =>
+      result.body.hits.hits.map((hit: { _id: string }) => hit._id),
+    )
+    .then(ids =>
+      repositories.performer.find
+        .loadMany(ids)
+        .then(results =>
+          results.map(performer => serializePerformer(performer)),
+        ),
+    );
 
-  const teams = await repositories.team
-    .search(query)
-    .then(teams => teams.map(serializeTeam));
+  const teams = await elasticsearch
+    .search({
+      index: 'team',
+      type: '_doc',
+      body: {
+        query: {
+          query_string: {
+            fields: ['name'],
+            query,
+          },
+        },
+      },
+    })
+    .then(result =>
+      result.body.hits.hits.map((hit: { _id: string }) => hit._id),
+    )
+    .then(ids =>
+      repositories.team.find
+        .loadMany(ids)
+        .then(results => results.map(team => serializeTeam(team))),
+    );
 
-  const categories = await repositories.category.search(query);
+  const categories = await elasticsearch
+    .search({
+      index: 'category',
+      type: '_doc',
+      body: {
+        query: {
+          query_string: {
+            fields: ['name'],
+            query,
+          },
+        },
+      },
+    })
+    .then(result =>
+      result.body.hits.hits.map((hit: { _id: string }) => hit._id),
+    )
+    .then(ids => repositories.category.find.loadMany(ids));
 
   return {
     performers,

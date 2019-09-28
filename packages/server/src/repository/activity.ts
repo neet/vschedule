@@ -54,17 +54,7 @@ export class ActivityRepository {
       query.orWhere('activity.id > :id', { id });
     }
 
-    return await query.getManyAndCount();
-  };
-
-  search = async (query: string) => {
-    return this.manager
-      .getRepository(Activity)
-      .createQueryBuilder('activity')
-      .where("activity.name LIKE '%:query%'", { query })
-      .orWhere("activity.description LIKE '%:query%'", { query })
-      .take(10)
-      .getMany();
+    return query.getManyAndCount();
   };
 
   createFromGatewayData = async (
