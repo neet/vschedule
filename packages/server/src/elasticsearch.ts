@@ -9,7 +9,6 @@ const settings = {
   analysis: {
     analyzer: {
       ngram: {
-        filter: ['lowercase', 'trim'],
         type: 'custom',
         tokenizer: 'ngram',
       },
@@ -17,7 +16,9 @@ const settings = {
     tokenizer: {
       ngram: {
         type: 'ngram',
-        min_gram: 1,
+        min_gram: 2,
+        max_gram: 3,
+        token_chars: ['letter', 'digit'],
       },
     },
   },
