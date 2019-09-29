@@ -10,6 +10,7 @@ export interface Liver {
   name: string;
   avatar: string;
   color: string;
+  fullbody: Optional<string>;
   english_name: Optional<string>;
   furigana: Optional<string>;
   description: Optional<string>;
@@ -31,7 +32,7 @@ export interface LiverYoutubeChannel {
   creation_order: number;
 }
 
-export interface LiverRelationships {
+export interface LiverRelationship {
   liver: Liver;
   liver_twitter_account: LiverTwitterAccount;
   liver_youtube_channel: LiverYoutubeChannel | LiverYoutubeChannel[];
@@ -63,7 +64,7 @@ export interface Event {
 export type EventsResponse = Response<{ events: Event[] }>;
 export type EventResponse = Response<{ event: Event }>;
 export type LiversResponse = Response<{
-  liver_relationships: LiverRelationships[];
+  liver_relationships: LiverRelationship[];
 }>;
-export type LiverResponse = Response<LiverRelationships>;
+export type LiverResponse = Response<LiverRelationship>;
 export type GenresResponse = Response<{ genres: Genre[] }>;

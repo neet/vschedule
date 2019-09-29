@@ -36,6 +36,9 @@ export class Performer {
   avatar: string;
 
   @Column('text')
+  fullBody: string;
+
+  @Column('text')
   color: string;
 
   @Column('text')

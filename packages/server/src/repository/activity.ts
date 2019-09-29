@@ -3,7 +3,7 @@ import { Cursor } from 'src/utils/cursor';
 import { EntityRepository, EntityManager } from 'typeorm';
 import { Activity } from 'src/entity/activity';
 import { matchTeamFromPerformerIds } from 'src/utils/teams';
-import { Event, LiverRelationships } from '@ril/gateway';
+import { Event, LiverRelationship } from '@ril/gateway';
 import { PerformerRepository } from './performer';
 import { CategoryRepostiory } from './category';
 import { TeamRepository } from './team';
@@ -59,7 +59,7 @@ export class ActivityRepository {
 
   createFromGatewayData = async (
     data: Event,
-    liverReationships: LiverRelationships[],
+    liverReationships: LiverRelationship[],
   ) => {
     const activity = new Activity();
 

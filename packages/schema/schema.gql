@@ -68,6 +68,8 @@ type Performer implements Node {
   ruby: String!
   # URL of the avatar for the performer
   avatar: String!
+  # URL of the full-body image for the performer
+  fullBody: String!
   # Hex colour code
   color: String!
   # Description of the performer

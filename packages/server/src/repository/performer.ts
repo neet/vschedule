@@ -2,7 +2,7 @@ import DataLoader from 'dataloader';
 import { Cursor } from 'src/utils/cursor';
 import { EntityRepository, EntityManager } from 'typeorm';
 import { Performer } from 'src/entity/performer';
-import { LiverRelationships } from '@ril/gateway';
+import { LiverRelationship } from '@ril/gateway';
 import { TwitterAccount } from 'src/entity/twitter-account';
 import { YoutubeAccount } from 'src/entity/youtube-account';
 
@@ -58,15 +58,16 @@ export class PerformerRepository {
     return await query.getManyAndCount();
   };
 
-  createFromGatewayData = (data: LiverRelationships) => {
+  createFromGatewayData = (data: LiverRelationship) => {
     const performer = new Performer();
 
     performer.id = data.liver.id.toString();
     performer.name = data.liver.name;
-    performer.latinName = data.liver.english_name || '';
-    performer.ruby = data.liver.furigana || '';
     performer.avatar = data.liver.avatar;
     performer.color = data.liver.color;
+    performer.latinName = data.liver.english_name || '';
+    performer.ruby = data.liver.furigana || '';
+    performer.fullBody = data.liver.fullbody || '';
     performer.description = data.liver.description || '';
     performer.public = data.liver.public || 0;
     performer.position = data.liver.position || 1;

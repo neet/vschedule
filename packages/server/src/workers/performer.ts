@@ -1,4 +1,4 @@
-import { Gateway, LiverRelationships } from '@ril/gateway';
+import { Gateway, LiverRelationship } from '@ril/gateway';
 import { CronJob } from 'cron';
 import { RESOURCE_URL } from 'src/config';
 import { Connection } from 'typeorm';
@@ -39,7 +39,7 @@ export class PerformerCron {
     }
   };
 
-  private createStreamer = async (liverRelationships: LiverRelationships) => {
+  private createStreamer = async (liverRelationships: LiverRelationship) => {
     this.db
       .getCustomRepository(PerformerRepository)
       .createFromGatewayData(liverRelationships);

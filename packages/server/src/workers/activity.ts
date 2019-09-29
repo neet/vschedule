@@ -1,4 +1,4 @@
-import { Gateway, Event, LiverRelationships } from '@ril/gateway';
+import { Gateway, Event, LiverRelationship } from '@ril/gateway';
 import { CronJob } from 'cron';
 import { RESOURCE_URL } from 'src/config';
 import { Connection } from 'typeorm';
@@ -48,7 +48,7 @@ export class ActivityCron {
 
   private createActivity = async (
     event: Event,
-    liverRelationships: LiverRelationships[],
+    liverRelationships: LiverRelationship[],
   ) => {
     return this.db
       .getCustomRepository(ActivityRepository)
