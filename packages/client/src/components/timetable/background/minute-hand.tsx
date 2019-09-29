@@ -1,5 +1,4 @@
-import { faFire } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Activity } from 'react-feather';
 import { Dayjs } from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -25,15 +24,16 @@ const Wrapper = styled.div`
 `;
 
 const Now = styled.div`
+  display: flex;
   box-sizing: border-box;
-  flex-grow: 0;
-  flex-shrink: 0;
+  flex: 0 0 auto;
+  align-items: center;
   margin: 16px;
   margin-bottom: 0;
   padding: 4px 12px;
   border-radius: 99px;
   background-color: ${({ theme }) => theme.highlightNormal};
-  box-shadow: 0 3px 6px ${({ theme }) => rgba(theme.highlightNormal, 0.16)};
+  box-shadow: 0 1.5px 6px ${({ theme }) => rgba(theme.highlightNormal, 0.16)};
   color: ${({ theme }) => theme.foregroundReverse};
   font-size: 12px;
   font-weight: bold;
@@ -62,7 +62,7 @@ export const MinuteHand = (props: MinuteHandProps) => {
   return (
     <Wrapper style={{ transform: `translateX(${gapFromOrigin}px)` }}>
       <Now>
-        <FontAwesomeIcon icon={faFire} />
+        <Activity size={14} />
         {t('timeline.now', { defaultValue: '{{count}} LIVE', count })}
       </Now>
 
