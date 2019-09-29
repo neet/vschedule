@@ -1,10 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { styled } from 'src/styles';
-import {
-  useFetchPerformersQuery,
-  PerformerFragment,
-} from 'src/generated/graphql';
+import { useFetchPerformersQuery } from 'src/generated/graphql';
 import { Performer } from 'src/components/performer';
 
 const Wrapper = styled.article`
@@ -36,11 +33,9 @@ export const Performers = React.memo(() => {
       </p>
 
       <List>
-        {data.performers.nodes
-          .filter((node): node is PerformerFragment => !!node)
-          .map(performer => (
-            <Performer key={performer.id} performer={performer} />
-          ))}
+        {data.performers.nodes.map(performer => (
+          <Performer key={performer.id} performer={performer} />
+        ))}
       </List>
     </Wrapper>
   );
