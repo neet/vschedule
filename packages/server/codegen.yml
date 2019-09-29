@@ -9,3 +9,5 @@ generates:
     config:
       contextType: ../context#Context
       useIndexSignature: true
+      scalars:
+        Date: Date

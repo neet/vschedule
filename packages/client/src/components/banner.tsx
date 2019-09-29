@@ -1,8 +1,5 @@
-import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
 import { Menu } from 'react-feather';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { styled } from 'src/styles';
 import { bannerHeight } from 'src/styles/constants';
 import {
@@ -10,6 +7,8 @@ import {
   useFetchSidebarQuery,
 } from 'src/generated/graphql';
 import { SearchFormContainer } from 'src/containers/search-form-container';
+import { Route, Switch } from 'react-router';
+import dayjs from 'dayjs';
 
 const Wrapper = styled.header`
   display: flex;
@@ -52,26 +51,14 @@ const Toolbox = styled.div`
   }
 `;
 
-const OriginalLink = styled.a`
-  display: block;
-  padding: 8px 14px;
-  border-radius: 4px;
-  background-color: ${({ theme }) => theme.highlightNormal};
-  color: ${({ theme }) => theme.foregroundReverse};
-  font-size: 12px;
+const Datepicker = styled.div`
+  background-color: ${({ theme }) => theme.backgroundNormal};
+  color: ${({ theme }) => theme.foregroundNormal};
+  font-size: 16px;
   font-weight: bold;
-
-  &:hover {
-    text-decoration: none;
-  }
-
-  svg {
-    margin-right: 0.5em;
-  }
 `;
 
 export const Banner: React.SFC = React.memo(() => {
-  const { t } = useTranslation();
   const { data } = useFetchSidebarQuery();
   const [toggleSidebar] = useToggleSidebarMutation();
 
@@ -79,18 +66,18 @@ export const Banner: React.SFC = React.memo(() => {
     return null;
   }
 
+  const handleToggle = () => {
+    toggleSidebar({
+      variables: {
+        expanded: !data.isSidebarExpanded,
+      },
+    });
+  };
+
   return (
     <Wrapper>
       <Hgroup>
-        <MenuButton
-          onClick={() =>
-            toggleSidebar({
-              variables: {
-                expanded: !data.isSidebarExpanded,
-              },
-            })
-          }
-        >
+        <MenuButton onClick={handleToggle}>
           <Menu />
         </MenuButton>
 
@@ -98,16 +85,11 @@ export const Banner: React.SFC = React.memo(() => {
       </Hgroup>
 
       <Toolbox>
-        <OriginalLink
-          href="https://www.itsukaralink.jp"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
-          <span>
-            {t('banner.open_original', { defaultValue: 'Open Original' })}
-          </span>
-        </OriginalLink>
+        <Switch>
+          <Route path="/activities">
+            <Datepicker>{dayjs().format('LL')}</Datepicker>
+          </Route>
+        </Switch>
       </Toolbox>
     </Wrapper>
   );

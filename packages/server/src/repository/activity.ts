@@ -13,6 +13,10 @@ interface GetAllAndCountParams {
   last?: number | null;
   before?: string | null;
   after?: string | null;
+  startSince?: Date | null;
+  performerId?: string | null;
+  teamId?: string | null;
+  categoryId?: string | null;
 }
 
 @EntityRepository(Activity)
@@ -31,7 +35,17 @@ export class ActivityRepository {
   });
 
   getAllAndCount = async (params: GetAllAndCountParams) => {
-    const { first, last, before, after } = params;
+    const {
+      first,
+      last,
+      before,
+      after,
+      startSince,
+      performerId,
+      teamId,
+      categoryId,
+    } = params;
+
     const take = (last ? last : first) || 100;
     const order = last ? 'DESC' : 'ASC';
 
@@ -46,12 +60,28 @@ export class ActivityRepository {
 
     if (before) {
       const { id } = Cursor.decode(before);
-      query.orWhere('activity.id < :id', { id });
+      query.andWhere('activity.id < :id', { id });
     }
 
     if (after) {
       const { id } = Cursor.decode(after);
-      query.orWhere('activity.id > :id', { id });
+      query.andWhere('activity.id > :id', { id });
+    }
+
+    if (startSince) {
+      query.andWhere('activity."startAt" > :date', { date: startSince });
+    }
+
+    if (performerId) {
+      query.andWhere('performer.id = :id', { id: performerId });
+    }
+
+    if (teamId) {
+      query.andWhere('team.id = :id', { id: teamId });
+    }
+
+    if (categoryId) {
+      query.andWhere('category.id = :id', { id: categoryId });
     }
 
     return query.getManyAndCount();
