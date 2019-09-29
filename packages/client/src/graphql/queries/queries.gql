@@ -85,6 +85,14 @@ query Search($query: String!) {
   }
 }
 
+query FetchCategories {
+  categories {
+    nodes {
+      ...Category
+    }
+  }
+}
+
 query FetchSidebar {
   isSidebarExpanded @client
 }

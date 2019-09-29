@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { Link, NavLink } from 'react-router-dom';
 import { styled } from 'src/styles';
 import logoSmall from 'src/assets/logo-small.png';
-import { Tv, User, Users, Hash } from 'react-feather';
+import { Tv, User, Users, Hash, ChevronDown, ChevronUp } from 'react-feather';
+import { CategoryFragment } from 'src/generated/graphql';
 
 const Wrapper = styled.div`
   display: flex;
@@ -25,17 +26,11 @@ const List = styled.ul`
 
 const ListItem = styled.li`
   margin: 12px;
-  font-size: 18px;
-  font-weight: bold;
 
   a {
     display: flex;
     align-items: center;
     color: ${({ theme }) => theme.foregroundNormal};
-
-    svg {
-      margin-right: 0.5em;
-    }
 
     &.active {
       color: ${({ theme }) => theme.highlightNormal};
@@ -45,6 +40,48 @@ const ListItem = styled.li`
       text-decoration: none;
     }
   }
+
+  button {
+    display: flex;
+    position: relative;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    color: ${({ theme }) => theme.foregroundNormal};
+  }
+`;
+
+const Icon = styled.span`
+  display: flex;
+  place-items: center;
+  margin-right: 0.5em;
+`;
+
+const Name = styled.span`
+  font-size: 18px;
+  font-weight: bold;
+`;
+
+const Chevron = styled.span`
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  place-items: center;
+  color: ${({ theme }) => theme.foregroundLight};
+`;
+
+const Categories = styled.ul`
+  margin: 12px 8px;
+`;
+
+const Category = styled.li`
+  margin-bottom: 8px;
+  color: ${({ theme }) => theme.foregroundLight};
 `;
 
 const Title = styled.h1`
@@ -63,12 +100,14 @@ const Disclaimer = styled.p`
 `;
 
 interface SidebarProps {
-  expanded: boolean;
+  expanded?: boolean;
+  categories?: CategoryFragment[];
 }
 
 export const Sidebar = (props: SidebarProps) => {
-  const { expanded } = props;
+  const { expanded, categories } = props;
   const { t } = useTranslation();
+  const [categoriesExpanded, expandCategories] = useState(false);
 
   if (!expanded) {
     return null;
@@ -87,30 +126,55 @@ export const Sidebar = (props: SidebarProps) => {
 
           <ListItem>
             <NavLink to="/activities" activeClassName="active">
-              <Tv />
-              {t('sidebar.activities', { defaultValue: 'Activities' })}
+              <Icon>
+                <Tv />
+              </Icon>
+              <Name>
+                {t('sidebar.activities', { defaultValue: 'Activities' })}
+              </Name>
             </NavLink>
           </ListItem>
 
           <ListItem>
             <NavLink to="/performers" activeClassName="active">
-              <User />
-              {t('sidebar.performers', { defaultValue: 'Performers' })}
+              <Icon>
+                <User />
+              </Icon>
+              <Name>
+                {t('sidebar.performers', { defaultValue: 'Performers' })}
+              </Name>
             </NavLink>
           </ListItem>
 
           <ListItem>
             <NavLink to="/teams" activeClassName="active">
-              <Users />
-              {t('sidebar.teams', { defaultValue: 'Teams' })}
+              <Icon>
+                <Users />
+              </Icon>
+              <Name>{t('sidebar.teams', { defaultValue: 'Teams' })}</Name>
             </NavLink>
           </ListItem>
 
           <ListItem>
-            <NavLink to="/categories" activeClassName="active">
-              <Hash />
-              {t('sidebar.tags', { defaultValue: 'Tags' })}
-            </NavLink>
+            <button onClick={() => expandCategories(!categoriesExpanded)}>
+              <Icon>
+                <Hash />
+              </Icon>
+
+              <Name>{t('sidebar.tags', { defaultValue: 'Tags' })}</Name>
+
+              <Chevron>
+                {categoriesExpanded ? <ChevronUp /> : <ChevronDown />}
+              </Chevron>
+            </button>
+
+            {categoriesExpanded && categories ? (
+              <Categories>
+                {categories.map(category => (
+                  <Category key={category.id}>{`#${category.name}`}</Category>
+                ))}
+              </Categories>
+            ) : null}
           </ListItem>
         </List>
       </nav>

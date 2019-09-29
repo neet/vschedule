@@ -1,13 +1,18 @@
 import React from 'react';
 import { Sidebar } from 'src/components/sidebar';
-import { useFetchSidebarQuery } from 'src/generated/graphql';
+import {
+  useFetchSidebarQuery,
+  useFetchCategoriesQuery,
+} from 'src/generated/graphql';
 
 export const SidebarContainer = () => {
-  const { data } = useFetchSidebarQuery();
+  const { data: sideBar } = useFetchSidebarQuery();
+  const { data: categories } = useFetchCategoriesQuery();
 
-  if (data === undefined) {
-    return null;
-  }
-
-  return <Sidebar expanded={data.isSidebarExpanded} />;
+  return (
+    <Sidebar
+      expanded={sideBar && sideBar.isSidebarExpanded}
+      categories={categories && categories.categories.nodes}
+    />
+  );
 };
