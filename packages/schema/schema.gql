@@ -47,8 +47,8 @@ type Activity implements Node {
 }
 
 type ActivityConnection {
-  edges: [ActivityEdge]!
-  nodes: [Activity]!
+  edges: [ActivityEdge!]!
+  nodes: [Activity!]!
   pageInfo: PageInfo!
 }
 
@@ -87,8 +87,8 @@ type Performer implements Node {
 }
 
 type PerformerConnection {
-  edges: [PerformerEdge]!
-  nodes: [Performer]!
+  edges: [PerformerEdge!]!
+  nodes: [Performer!]!
   pageInfo: PageInfo!
 }
 
@@ -111,8 +111,8 @@ type Team implements Node {
 }
 
 type TeamConnection {
-  edges: [TeamEdge]!
-  nodes: [Team]!
+  edges: [TeamEdge!]!
+  nodes: [Team!]!
   pageInfo: PageInfo
 }
 
@@ -129,8 +129,8 @@ type Category implements Node {
 }
 
 type CategoryConnection {
-  edges: [CategoryEdge]!
-  nodes: [Category]!
+  edges: [CategoryEdge!]!
+  nodes: [Category!]!
   pageInfo: PageInfo!
 }
 
@@ -175,10 +175,10 @@ type TwitterAccount implements Node & SocialAccount {
 }
 
 type SearchResult {
-  performers: [Performer]!
-  activities: [Activity]!
-  teams: [Team]!
-  categories: [Category]!
+  performers: [Performer!]!
+  activities: [Activity!]!
+  teams: [Team!]!
+  categories: [Category!]!
 }
 
 type Query {

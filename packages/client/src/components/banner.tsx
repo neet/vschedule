@@ -9,6 +9,7 @@ import {
   useToggleSidebarMutation,
   useFetchSidebarQuery,
 } from 'src/generated/graphql';
+import { SearchFormContainer } from 'src/containers/search-form-container';
 
 const Wrapper = styled.header`
   display: flex;
@@ -91,6 +92,8 @@ export const Banner: React.SFC = React.memo(() => {
         >
           <Menu />
         </MenuButton>
+
+        <SearchFormContainer />
       </Hgroup>
 
       <Toolbox>

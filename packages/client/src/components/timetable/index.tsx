@@ -7,7 +7,7 @@ import { styled } from 'src/styles';
 import { borderGap, bannerHeight } from 'src/styles/constants';
 import { isStreamingNow } from 'src/utils/is-streaming-now';
 import { Background } from './background';
-import { Feed } from './feed';
+import { FeedList } from './feed-list';
 import { Placeholder } from './placeholder';
 
 export interface TimetableProps {
@@ -79,7 +79,7 @@ export const Timetable = (props: TimetableProps) => {
     const x = (borderGap / 30) * fromStartToNow - screenWidth / 2;
 
     ref.current.scrollTo(x, 0);
-  }, [startAt, ref]);
+  }, [startAt, ref, now]);
 
   useEffect(() => {
     if (!ref.current || !startAt) return;
@@ -127,7 +127,7 @@ export const Timetable = (props: TimetableProps) => {
         endAt={endAt}
         count={streamingActivityCount}
       />
-      <Feed activities={activities} startAt={startAt} />
+      <FeedList activities={activities} startAt={startAt} />
     </Wrapper>
   );
 };

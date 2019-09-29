@@ -35,6 +35,11 @@ fragment Team on Team {
   }
 }
 
+fragment Category on Category {
+  id
+  name
+}
+
 query FetchActivities {
   activities(last: 100) {
     nodes {
@@ -56,6 +61,27 @@ query FetchTeams {
     nodes {
       ...Team
     }
+  }
+}
+
+fragment SearchResult on SearchResult {
+  activities {
+    ...Activity
+  }
+  performers {
+    ...Performer
+  }
+  teams {
+    ...Team
+  }
+  categories {
+    ...Category
+  }
+}
+
+query Search($query: String!) {
+  search(query: $query) {
+    ...SearchResult
   }
 }
 

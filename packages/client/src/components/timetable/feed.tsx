@@ -1,107 +1,76 @@
-import { Dayjs } from 'dayjs';
-import React, { useCallback, useMemo } from 'react';
-import { ActivityFragment } from 'src/generated/graphql';
+import dayjs from 'dayjs';
+import React from 'react';
+import { borderGap, markerGap } from 'src/styles/constants';
 import { styled } from 'src/styles';
-import { isOverlapping } from 'src/utils/is-overlapping';
-import { sortEvents } from 'src/utils/sort-events';
-import { Activity, ActivityProps } from '../activity';
+import { ActivityFragment } from 'src/generated/graphql';
+import { Activity } from 'src/components/activity';
+import { isStreamingNow } from 'src/utils/is-streaming-now';
+import { rgba } from 'polished';
 
-export interface FeedProps {
-  activities: ActivityFragment[];
-  startAt: Dayjs;
+interface WrapperProps {
+  isStreaming: boolean;
 }
 
-const List = styled.ul`
-  display: block;
+const Wrapper = styled.li<WrapperProps>`
   position: absolute;
-  top: 0;
+  top: 70px;
   left: 0;
-  width: 100%;
-  height: 100%;
+  box-sizing: border-box;
+  padding: 6px;
+  padding-left: 9px;
+  border-radius: 6px;
+  background-color: ${({ theme }) => theme.backgroundNormal};
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    transition: ease-in 0.15s;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  & > * {
+    opacity: ${({ isStreaming }) => (isStreaming ? '1' : '0.5')};
+  }
 `;
 
-const ListItem = styled.li`
-  display: block;
-`;
+interface FeedProps {
+  activity: ActivityFragment;
+  row: number;
+  startAt: dayjs.Dayjs;
+}
 
 export const Feed = (props: FeedProps) => {
-  const { activities, startAt } = props;
+  const { activity, startAt: basisDate, row } = props;
+  const startAt = dayjs(activity.startAt);
+  const endAt = dayjs(activity.endAt);
+  const isStreaming = isStreamingNow(activity.startAt, activity.endAt);
 
-  /**
-   * Calculate the position of markers as a 2-dimentional array.
-   * each index of an array represents the Y position (row) of the marker
-   * @param events Sorted events to get the position
-   * @param result A 2-dimentional array of events per each row
-   */
-  const getMarkerPositions = useCallback(
-    (
-      sortedContents: ActivityFragment[],
-      result: ActivityFragment[][] = [],
-    ): ActivityFragment[][] => {
-      if (!sortedContents.length) {
-        return result;
-      }
+  const color = activity.performers[0].color;
 
-      // Init current row
-      result.push([]);
-      const current = result[result.length - 1];
+  const convertMinuteToPixel = (minute: number) => {
+    const pixelPerMinute = borderGap / 30;
+    return minute * pixelPerMinute;
+  };
 
-      const rest = sortedContents.reduce<ActivityFragment[]>(
-        (restContents, content) => {
-          if (!current.length) {
-            current.push(content);
+  // Compare current date vs start date in minutes
+  const x =
+    convertMinuteToPixel(startAt.diff(basisDate, 'minute')) + markerGap / 2;
 
-            return restContents;
-          }
+  // Avatar height + border + padding
+  const y = (markerGap + 50 + 3 + 6 * 2) * row;
 
-          const prev = current[current.length - 1];
-
-          if (!isOverlapping(content, prev)) {
-            current.push(content);
-
-            return restContents;
-          }
-
-          restContents.push(content);
-
-          return restContents;
-        },
-        [],
-      );
-
-      return getMarkerPositions(rest, result);
-    },
-    [],
-  );
-
-  // Map rows and events
-  const markers = useMemo(
-    () =>
-      getMarkerPositions(activities.sort(sortEvents))
-        .map((row, i) =>
-          row.map(
-            (activity): Required<Omit<ActivityProps, 'startAt'>> => ({
-              activity,
-              row: i,
-            }),
-          ),
-        )
-        .flat()
-        .sort((a, b) => sortEvents(a.activity, b.activity)),
-    [activities],
-  );
+  // from start to end, minus gap
+  const width = convertMinuteToPixel(endAt.diff(startAt, 'minute')) - markerGap;
 
   return (
-    <List role="feed">
-      {markers.map(({ activity, row }, i) => (
-        <ListItem
-          key={`${activity.id}-${i}`}
-          aria-setsize={activities.length}
-          aria-posinset={i + 1}
-        >
-          <Activity activity={activity} row={row} startAt={startAt} />
-        </ListItem>
-      ))}
-    </List>
+    <Wrapper
+      isStreaming={isStreaming}
+      style={{
+        width: `${width}px`,
+        transform: `translate(${x}px, ${y}px)`,
+        borderLeft: `3px solid ${isStreaming ? color : rgba(color, 0.5)}`,
+      }}
+    >
+      <Activity activity={activity} />
+    </Wrapper>
   );
 };

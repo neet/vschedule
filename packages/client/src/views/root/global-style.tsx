@@ -42,24 +42,24 @@ button {
 
 h1 {
   margin-bottom: 4px;
-  font-size: 28px;
+  font-size: 20px;
   font-weight: bold;
 }
 
 h2 {
   margin-bottom: 4px;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
 }
 
 h3 {
   margin-bottom: 4px;
-  font-size: 21px;
+  font-size: 16px;
   font-weight: bold;
 }
 
 h4 {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: bold;
 }
 

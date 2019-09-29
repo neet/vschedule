@@ -15,7 +15,7 @@ export const rootSearch: G.QueryResolvers['search'] = async (
       body: {
         query: {
           query_string: {
-            fields: ['name', 'description'],
+            fields: ['name'],
             query,
           },
         },
@@ -37,7 +37,7 @@ export const rootSearch: G.QueryResolvers['search'] = async (
       body: {
         query: {
           query_string: {
-            fields: ['name', 'description'],
+            fields: ['name'],
             query,
           },
         },
