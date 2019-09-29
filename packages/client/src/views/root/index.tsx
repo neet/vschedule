@@ -5,6 +5,7 @@ import { Activities } from 'src/views/activities';
 import { notFoundRender } from 'src/views/not-found';
 import { Performers } from 'src/views/performers';
 import { Teams } from 'src/views/teams';
+import { Search } from 'src/views/search';
 import { Page } from 'src/components/page';
 import { Banner } from 'src/components/banner';
 import { SidebarContainer } from 'src/containers/sidebar-container';
@@ -15,7 +16,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: ${({ theme }) => theme.backgroundNormal};
+  background-color: ${({ theme }) => theme.backgroundWash};
 `;
 
 export const Root: React.SFC = React.memo(() => {
@@ -30,6 +31,7 @@ export const Root: React.SFC = React.memo(() => {
           <Route exact path="/activities" component={Activities} />
           <Route exact path="/performers" component={Performers} />
           <Route exact path="/teams" component={Teams} />
+          <Route path="/search/:query" component={Search} />
           <Route render={notFoundRender} />
         </Switch>
       </Page>

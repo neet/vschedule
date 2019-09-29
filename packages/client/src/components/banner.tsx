@@ -23,6 +23,7 @@ const Wrapper = styled.header`
   height: ${bannerHeight};
   padding: 8px;
   border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
+  background-color: ${({ theme }) => theme.backgroundNormal};
 `;
 
 const MenuButton = styled.button`

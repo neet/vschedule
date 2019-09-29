@@ -1,10 +1,10 @@
 import React from 'react';
 import { styled } from 'src/styles';
 import { Search } from 'react-feather';
+import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import * as G from 'src/generated/graphql';
-import { Activity } from './activity';
-import { PerformerCompact } from './performer-compact';
+import { SearchResult } from './search-result';
 
 const Wrapper = styled.div`
   position: relative;
@@ -37,11 +37,10 @@ const Icon = styled.span`
   color: ${({ theme }) => theme.foregroundLight};
 `;
 
-const Results = styled.div`
+const ResultWrapper = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  box-sizing: border-box;
   width: 100%;
   height: calc(100vh / 2);
   margin-top: 38px;
@@ -49,20 +48,6 @@ const Results = styled.div`
   border-radius: 4px;
   background-color: ${({ theme }) => theme.backgroundWash};
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
-`;
-
-const List = styled.ul`
-  margin-bottom: 8px;
-`;
-
-const ListItem = styled.li`
-  padding: 8px 12px;
-  border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
-  background-color: ${({ theme }) => theme.backgroundNormal};
-
-  &:first-child {
-    border-top: 1px solid ${({ theme }) => theme.borderNormal};
-  }
 `;
 
 interface SearchFormProps {
@@ -74,6 +59,14 @@ interface SearchFormProps {
 export const SearchForm = (props: SearchFormProps) => {
   const { value, result, onChange } = props;
   const { t } = useTranslation();
+  const history = useHistory();
+
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      history.push({ pathname: `/search/${value}` });
+    }
+  };
 
   return (
     <Wrapper>
@@ -89,31 +82,14 @@ export const SearchForm = (props: SearchFormProps) => {
           defaultValue: 'Search',
         })}
         onChange={onChange}
+        onKeyUp={handleKeyUp}
       />
 
-      {value && result ? (
-        <Results>
-          {result.performers.length ? (
-            <List>
-              {result.performers.map(performer => (
-                <ListItem key={performer.id}>
-                  <PerformerCompact performer={performer} />
-                </ListItem>
-              ))}
-            </List>
-          ) : null}
-
-          {result.activities.length ? (
-            <List>
-              {result.activities.map(activity => (
-                <ListItem key={activity.id}>
-                  <Activity activity={activity} />
-                </ListItem>
-              ))}
-            </List>
-          ) : null}
-        </Results>
-      ) : null}
+      {value && (
+        <ResultWrapper>
+          <SearchResult result={result} />
+        </ResultWrapper>
+      )}
     </Wrapper>
   );
 };

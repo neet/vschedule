@@ -12,6 +12,10 @@
     "description": "List of performers that are belongs to Nijisanji",
     "title": "Performers"
   },
+  "search": {
+    "placeholder": "Search",
+    "result": "Search result for \"{{value}}\""
+  },
   "sidebar": {
     "activities": "Activities",
     "disclaimer": "This website is unofficially made by a fan of Nijisanji and not related to Ichikara Inc. at all. The project is open source software. You can contribute or report issue on <2>GitHub</2>.",
