@@ -1,6 +1,4 @@
 import React from 'react';
-import { Page } from 'src/components/page';
-import { Banner } from 'src/components/banner';
 import { useTranslation } from 'react-i18next';
 import { styled } from 'src/styles';
 import {
@@ -29,25 +27,21 @@ export const Performers = React.memo(() => {
   if (!data) return null;
 
   return (
-    <Page>
-      <Banner />
+    <Wrapper>
+      <h2>{t('performers.title', { defaultValue: 'Performers' })}</h2>
+      <p>
+        {t('performers.description', {
+          defaultValue: 'List of performers that are belongs to Nijisanji',
+        })}
+      </p>
 
-      <Wrapper>
-        <h2>{t('performers.title', { defaultValue: 'Performers' })}</h2>
-        <p>
-          {t('performers.description', {
-            defaultValue: 'List of performers that are belongs to Nijisanji',
-          })}
-        </p>
-
-        <List>
-          {data.performers.nodes
-            .filter((node): node is PerformerFragment => !!node)
-            .map(performer => (
-              <Performer key={performer.id} performer={performer} />
-            ))}
-        </List>
-      </Wrapper>
-    </Page>
+      <List>
+        {data.performers.nodes
+          .filter((node): node is PerformerFragment => !!node)
+          .map(performer => (
+            <Performer key={performer.id} performer={performer} />
+          ))}
+      </List>
+    </Wrapper>
   );
 });

@@ -1,6 +1,4 @@
 import React from 'react';
-import { Page } from 'src/components/page';
-import { Banner } from 'src/components/banner';
 import { useTranslation } from 'react-i18next';
 import { styled } from 'src/styles';
 import { useFetchTeamsQuery, TeamFragment } from 'src/generated/graphql';
@@ -26,25 +24,21 @@ export const Teams = React.memo(() => {
   if (!data) return null;
 
   return (
-    <Page>
-      <Banner />
+    <Wrapper>
+      <h2>{t('teams.title', { defaultValue: 'Collaboration' })}</h2>
+      <p>
+        {t('teams.description', {
+          defaultValue: 'List of collaborations of Nijisanji',
+        })}
+      </p>
 
-      <Wrapper>
-        <h2>{t('teams.title', { defaultValue: 'Collaboration' })}</h2>
-        <p>
-          {t('teams.description', {
-            defaultValue: 'List of collaborations of Nijisanji',
-          })}
-        </p>
-
-        <List>
-          {data.teams.nodes
-            .filter((node): node is TeamFragment => !!node)
-            .map(team => (
-              <Team key={team.id} team={team} />
-            ))}
-        </List>
-      </Wrapper>
-    </Page>
+      <List>
+        {data.teams.nodes
+          .filter((node): node is TeamFragment => !!node)
+          .map(team => (
+            <Team key={team.id} team={team} />
+          ))}
+      </List>
+    </Wrapper>
   );
 });

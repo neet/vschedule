@@ -5,6 +5,8 @@ import { Activities } from 'src/views/activities';
 import { notFoundRender } from 'src/views/not-found';
 import { Performers } from 'src/views/performers';
 import { Teams } from 'src/views/teams';
+import { Page } from 'src/components/page';
+import { Banner } from 'src/components/banner';
 import { SidebarContainer } from 'src/containers/sidebar-container';
 import { GlobalStyle } from './global-style';
 
@@ -21,13 +23,16 @@ export const Root: React.SFC = React.memo(() => {
     <Wrapper>
       <SidebarContainer />
 
-      <Switch>
-        <Redirect exact from="/" to="/activities" />
-        <Route exact path="/activities" component={Activities} />
-        <Route exact path="/performers" component={Performers} />
-        <Route exact path="/teams" component={Teams} />
-        <Route render={notFoundRender} />
-      </Switch>
+      <Page>
+        <Banner />
+        <Switch>
+          <Redirect exact from="/" to="/activities" />
+          <Route exact path="/activities" component={Activities} />
+          <Route exact path="/performers" component={Performers} />
+          <Route exact path="/teams" component={Teams} />
+          <Route render={notFoundRender} />
+        </Switch>
+      </Page>
 
       <GlobalStyle />
     </Wrapper>
