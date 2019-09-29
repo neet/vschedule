@@ -74,12 +74,12 @@ export const Timetable = (props: TimetableProps) => {
   useEffect(() => {
     if (!ref.current || !startAt) return;
 
-    const fromStartToNow = now.diff(startAt, 'minute');
+    const fromStartToNow = dayjs().diff(startAt, 'minute');
     const screenWidth = window.innerWidth;
     const x = (borderGap / 30) * fromStartToNow - screenWidth / 2;
 
     ref.current.scrollTo(x, 0);
-  }, [startAt, ref, now]);
+  }, [startAt, ref]);
 
   useEffect(() => {
     const isAnyMobile = isMobile(navigator.userAgent).any;
