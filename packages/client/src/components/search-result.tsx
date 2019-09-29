@@ -3,6 +3,7 @@ import { styled } from 'src/styles';
 import * as G from 'src/generated/graphql';
 import { Activity } from './activity';
 import { PerformerCompact } from './performer-compact';
+import { Team } from './team';
 
 const Wrapper = styled.div``;
 
@@ -31,11 +32,29 @@ export const SearchResult = (props: SearchResultProps) => {
 
   return (
     <Wrapper>
+      {result.categories.length ? (
+        <List>
+          {result.categories.map(category => (
+            <ListItem key={category.id}>#{category.name}</ListItem>
+          ))}
+        </List>
+      ) : null}
+
       {result.performers.length ? (
         <List>
           {result.performers.map(performer => (
             <ListItem key={performer.id}>
               <PerformerCompact performer={performer} />
+            </ListItem>
+          ))}
+        </List>
+      ) : null}
+
+      {result.teams.length ? (
+        <List>
+          {result.teams.map(team => (
+            <ListItem key={team.id}>
+              <Team team={team} />
             </ListItem>
           ))}
         </List>

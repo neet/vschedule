@@ -2,43 +2,58 @@ import React from 'react';
 import { TeamFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 
-interface TeamProps {
-  team: TeamFragment;
-}
-
 const Wrapper = styled.div`
-  width: 240px;
-  margin-right: 12px;
-  margin-bottom: 12px;
-  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   overflow: hidden;
-  border-radius: 4px;
-  background-color: ${({ theme }) => theme.backgroundNormal};
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
 `;
 
 const Title = styled.h3`
   font-size: 16px;
 `;
 
+const Meta = styled.div`
+  flex: 1 1 auto;
+`;
+
+const MemberNames = styled.p`
+  color: ${({ theme }) => theme.foregroundLight};
+`;
+
 const Members = styled.ul`
   display: flex;
+  flex: 0 0 auto;
+  margin-right: 18px;
 `;
 
 const Avatar = styled.img`
   width: 40px;
   height: auto;
-  margin-right: -12px;
+  margin-right: -18px;
   border: 3px solid ${({ theme }) => theme.foregroundReverse};
   border-radius: 50%;
 `;
 
+interface TeamProps {
+  team: TeamFragment;
+  showNames?: boolean;
+}
+
 export const Team = (props: TeamProps) => {
-  const { team } = props;
+  const { team, showNames } = props;
 
   return (
     <Wrapper>
-      <Title>{team.name}</Title>
+      <Meta>
+        <Title>{team.name}</Title>
+
+        {showNames && (
+          <MemberNames>
+            {team.members.map(member => member.name).join(', ')}
+          </MemberNames>
+        )}
+      </Meta>
 
       <Members>
         {team.members.map((member, i) => (
