@@ -71,12 +71,22 @@ export const Title = styled.h4`
 const PerformerWrapper = styled.div`
   display: flex;
   align-items: center;
+  color: ${({ theme }) => theme.foregroundLight};
 `;
 
 export const PerformerName = styled.span`
   display: block;
   overflow: hidden;
-  opacity: 0.8;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const Description = styled.p`
+  display: block;
+  margin-bottom: 4px;
+  overflow: hidden;
+  color: ${({ theme }) => theme.foregroundLight};
   font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -84,10 +94,11 @@ export const PerformerName = styled.span`
 
 export interface ActivityProps {
   activity: ActivityFragment;
+  showDescription?: boolean;
 }
 
 export const Activity = (props: ActivityProps) => {
-  const { activity } = props;
+  const { activity, showDescription } = props;
 
   const firstPerformer = activity.performers[0];
   const startAt = dayjs(activity.startAt);
@@ -109,11 +120,14 @@ export const Activity = (props: ActivityProps) => {
       <Meta>
         <Title>{activity.name}</Title>
 
+        {showDescription && <Description>{activity.description}</Description>}
+
         <PerformerWrapper>
           <Avatar
             src={firstPerformer.avatar}
             style={{ backgroundColor: firstPerformer.color }}
           />
+
           <PerformerName>
             {firstPerformer.name}・{dayjs(startAt).fromNow()}
           </PerformerName>

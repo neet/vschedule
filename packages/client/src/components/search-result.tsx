@@ -64,7 +64,7 @@ export const SearchResult = (props: SearchResultProps) => {
         <List>
           {result.activities.map(activity => (
             <ListItem key={activity.id}>
-              <Activity activity={activity} />
+              <Activity activity={activity} showDescription />
             </ListItem>
           ))}
         </List>
