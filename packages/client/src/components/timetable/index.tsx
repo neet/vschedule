@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { ActivityFragment } from 'src/generated/graphql';
 import { useNow } from 'src/hooks/use-now';
 import { styled } from 'src/styles';
-import { borderGap, bannerHeight } from 'src/styles/constants';
+import { borderGap } from 'src/styles/constants';
 import { isStreamingNow } from 'src/utils/is-streaming-now';
 import { Background } from './background';
 import { FeedList } from './feed-list';
@@ -18,7 +18,7 @@ export interface TimetableProps {
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
-  height: calc(100vh - ${bannerHeight}px);
+  height: 100%;
   margin-left: 0;
   /* scroll-behavior: smooth; */
   overflow-x: scroll;
@@ -40,13 +40,13 @@ export const Timetable = (props: TimetableProps) => {
   const streamingActivityCount = useMemo(
     () =>
       activities.reduce((result, activity) => {
-        if (isStreamingNow(activity.startAt, activity.endAt)) {
+        if (isStreamingNow(activity.startAt, activity.endAt, now)) {
           return result + 1;
         }
 
         return result;
       }, 0),
-    [activities],
+    [activities, now],
   );
 
   const startAt = useMemo(
@@ -82,28 +82,15 @@ export const Timetable = (props: TimetableProps) => {
   }, [startAt, ref, now]);
 
   useEffect(() => {
-    if (!ref.current || !startAt) return;
-
-    // const fromNowToStart = now.diff(startAt, 'minute');
-    // const screenWidth = window.innerWidth;
-    // const x = (borderGap / 30) * fromNowToStart - screenWidth / 2;
-
-    // if (screenWidth >= 700) {
-    //   x += sidebarWidth;
-    // }
-
-    // ref.current.scrollTo(x, 0);
-  }, [startAt, endAt, now]);
-
-  useEffect(() => {
     const isAnyMobile = isMobile(navigator.userAgent).any;
+    const refCopy = ref.current;
 
     if (isAnyMobile || !ref.current) return;
     ref.current.addEventListener('wheel', handleWheel, { passive: true });
 
     return () => {
-      if (isAnyMobile || !ref.current) return;
-      ref.current.removeEventListener('wheel', handleWheel);
+      if (isAnyMobile || !refCopy) return;
+      refCopy.removeEventListener('wheel', handleWheel);
     };
   });
 
