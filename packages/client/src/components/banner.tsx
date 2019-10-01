@@ -8,7 +8,9 @@ import {
 } from 'src/generated/graphql';
 import { SearchFormContainer } from 'src/containers/search-form-container';
 import { Route, Switch } from 'react-router';
-import dayjs from 'dayjs';
+import { rgba } from 'polished';
+import { useTranslation } from 'react-i18next';
+import { DatePicker } from './date-picker';
 
 const Wrapper = styled.header`
   display: flex;
@@ -19,17 +21,17 @@ const Wrapper = styled.header`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: ${bannerHeight};
-  padding: 8px;
+  /* height: ${bannerHeight}px; */
+  padding: 8px 14px;
   border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
   background-color: ${({ theme }) => theme.backgroundNormal};
 `;
 
 const MenuButton = styled.button`
-  margin: 0 12px;
+  margin-right: 12px;
   padding: 0;
   border: none;
-  background-color: none;
+  background-color: transparent;
   color: ${({ theme }) => theme.foregroundLight};
 `;
 
@@ -51,14 +53,28 @@ const Toolbox = styled.div`
   }
 `;
 
-const Datepicker = styled.div`
-  background-color: ${({ theme }) => theme.backgroundNormal};
-  color: ${({ theme }) => theme.foregroundNormal};
-  font-size: 16px;
+const Today = styled.button`
+  box-sizing: border-box;
+  min-width: 80px;
+  padding: 8px 16px;
+  transition: ease-out 0.15s;
+  border: none;
+  border-radius: 4px;
+  background-color: ${({ theme }) => theme.highlightNormal};
+  box-shadow: 0 0 6px ${({ theme }) => rgba(theme.highlightNormal, 0.2)};
+  color: ${({ theme }) => theme.foregroundReverse};
+  font-size: 12px;
   font-weight: bold;
+  text-transform: uppercase;
+
+  &:hover {
+    transition: ease-in 0.15s;
+    box-shadow: 0 4px 12px ${({ theme }) => rgba(theme.highlightNormal, 0.2)};
+  }
 `;
 
 export const Banner: React.SFC = React.memo(() => {
+  const { t } = useTranslation();
   const { data } = useFetchSidebarQuery();
   const [toggleSidebar] = useToggleSidebarMutation();
 
@@ -71,6 +87,15 @@ export const Banner: React.SFC = React.memo(() => {
       variables: {
         expanded: !data.isSidebarExpanded,
       },
+    });
+  };
+
+  const handleClickToday = () => {
+    const node = document.getElementById('minute-hand');
+    if (!node || !(node instanceof Element)) return;
+    node.scrollIntoView({
+      behavior: 'smooth',
+      inline: 'center',
     });
   };
 
@@ -87,7 +112,11 @@ export const Banner: React.SFC = React.memo(() => {
       <Toolbox>
         <Switch>
           <Route path="/activities">
-            <Datepicker>{dayjs().format('LL')}</Datepicker>
+            <DatePicker />
+
+            <Today onClick={handleClickToday}>
+              {t('banner.today', { defaultValue: 'Today' })}
+            </Today>
           </Route>
         </Switch>
       </Toolbox>

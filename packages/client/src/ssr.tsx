@@ -12,8 +12,9 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactDOMServer from 'react-dom/server';
 import { I18nextProvider } from 'react-i18next';
-import { StaticRouter } from 'react-router-dom';
+import { StaticRouter, Route } from 'react-router-dom';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import { QueryParamProvider } from 'use-query-params';
 import { Html } from './components/html';
 import introspectionResult from './generated/introspection-result';
 import { ThemeProvider } from './styles';
@@ -58,13 +59,15 @@ export default async function SSR(params: SSRParams): Promise<SSRResult> {
   const App = (
     <ApolloProvider client={client}>
       <StaticRouter location={params.location} context={context}>
-        <StyleSheetManager sheet={sheet.instance}>
-          <I18nextProvider i18n={params.i18n}>
-            <ThemeProvider theme={theme}>
-              <Root />
-            </ThemeProvider>
-          </I18nextProvider>
-        </StyleSheetManager>
+        <QueryParamProvider ReactRouterRoute={Route}>
+          <StyleSheetManager sheet={sheet.instance}>
+            <I18nextProvider i18n={params.i18n}>
+              <ThemeProvider theme={theme}>
+                <Root />
+              </ThemeProvider>
+            </I18nextProvider>
+          </StyleSheetManager>
+        </QueryParamProvider>
       </StaticRouter>
     </ApolloProvider>
   );

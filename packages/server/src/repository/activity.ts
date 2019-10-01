@@ -69,7 +69,7 @@ export class ActivityRepository {
     }
 
     if (startSince) {
-      query.andWhere('activity."startAt" > :date', { date: startSince });
+      query.andWhere('activity."endAt" > :date', { date: startSince });
     }
 
     if (performerId) {

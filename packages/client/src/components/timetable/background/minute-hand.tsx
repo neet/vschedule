@@ -60,7 +60,10 @@ export const MinuteHand = (props: MinuteHandProps) => {
     (now.diff(startAt, 'minute') * borderGap) / 30 - borderGap / 2;
 
   return (
-    <Wrapper style={{ transform: `translateX(${gapFromOrigin}px)` }}>
+    <Wrapper
+      id="minute-hand"
+      style={{ transform: `translateX(${gapFromOrigin}px)` }}
+    >
       <Now>
         <Activity size={14} />
         {t('timeline.now', { defaultValue: '{{count}} LIVE', count })}
