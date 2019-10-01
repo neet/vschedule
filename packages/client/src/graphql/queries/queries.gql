@@ -40,8 +40,19 @@ fragment Category on Category {
   name
 }
 
-query FetchActivities($startSince: Date) {
-  activities(last: 100, startSince: $startSince) {
+query FetchActivities(
+  $startSince: Date
+  $performerId: ID
+  $teamId: ID
+  $categoryId: ID
+) {
+  activities(
+    last: 100,
+    startSince: $startSince
+    performerId: $performerId
+    teamId: $teamId
+    categoryId: $categoryId
+  ) {
     nodes {
       ...Activity
     }

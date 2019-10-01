@@ -1,3 +1,4 @@
+import querystring from 'querystring';
 import React, { useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { Link, NavLink } from 'react-router-dom';
@@ -9,6 +10,7 @@ import { CategoryFragment } from 'src/generated/graphql';
 const Wrapper = styled.div`
   display: flex;
   box-sizing: border-box;
+  flex: 0 0 auto;
   flex-direction: column;
   justify-content: space-between;
   width: 230px;
@@ -171,7 +173,18 @@ export const Sidebar = (props: SidebarProps) => {
             {categoriesExpanded && categories ? (
               <Categories>
                 {categories.map(category => (
-                  <Category key={category.id}>{`#${category.name}`}</Category>
+                  <Category key={category.id}>
+                    <Link
+                      to={{
+                        pathname: '/activities',
+                        search: querystring.stringify({
+                          category_id: category.id,
+                        }),
+                      }}
+                    >
+                      {`#${category.name}`}
+                    </Link>
+                  </Category>
                 ))}
               </Categories>
             ) : null}

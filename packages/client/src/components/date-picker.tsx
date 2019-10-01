@@ -14,10 +14,12 @@ const Wrapper = styled.div`
 `;
 
 const Chevron = styled.button`
+  display: flex;
+  place-items: center;
   margin: 0;
   padding: 0;
   border: none;
-  background-color: none;
+  background-color: transparent;
   color: ${({ theme }) => theme.foregroundLight};
 `;
 
