@@ -1,4 +1,4 @@
-import { Menu } from 'react-feather';
+import { Activity, Menu } from 'react-feather';
 import React from 'react';
 import { styled } from 'src/styles';
 import { bannerHeight } from 'src/styles/constants';
@@ -54,9 +54,11 @@ const Toolbox = styled.div`
 `;
 
 const Today = styled.button`
+  display: flex;
   box-sizing: border-box;
+  align-items: center;
   min-width: 80px;
-  padding: 8px 16px;
+  padding: 7px 16px;
   transition: ease-out 0.15s;
   border: none;
   border-radius: 4px;
@@ -66,6 +68,10 @@ const Today = styled.button`
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
+
+  svg {
+    margin-right: 0.25em;
+  }
 
   &:hover {
     transition: ease-in 0.15s;
@@ -115,6 +121,7 @@ export const Banner: React.SFC = React.memo(() => {
             <DatePicker />
 
             <Today onClick={handleClickToday}>
+              <Activity size={14} />
               {t('banner.today', { defaultValue: 'Today' })}
             </Today>
           </Route>

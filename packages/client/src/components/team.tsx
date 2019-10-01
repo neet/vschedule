@@ -1,6 +1,8 @@
+import querystring from 'querystring';
 import React from 'react';
 import { TeamFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
   display: flex;
@@ -46,7 +48,14 @@ export const Team = (props: TeamProps) => {
   return (
     <Wrapper>
       <Meta>
-        <Title>{team.name}</Title>
+        <Link
+          to={{
+            pathname: '/activities',
+            search: querystring.stringify({ team_id: team.id }),
+          }}
+        >
+          <Title>{team.name}</Title>
+        </Link>
 
         {showNames && (
           <MemberNames>
