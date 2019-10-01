@@ -11,7 +11,7 @@ export interface HtmlProps {
 }
 
 export const Html = (props: HtmlProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const theme = useContext(ThemeContext);
 
   const title = t('title', { defaultValue: 'Refined itsukara.link' });
@@ -22,7 +22,7 @@ export const Html = (props: HtmlProps) => {
   const url = process.env.PUBLIC_URL;
 
   return (
-    <html lang="en">
+    <html lang={i18n.language}>
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
