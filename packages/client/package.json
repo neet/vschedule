@@ -34,7 +34,7 @@
     "@ril/schema": "^0.0.0",
     "@types/dotenv": "^6.1.1",
     "@types/ismobilejs": "^0.4.1",
-    "@types/node-fetch": "^2.5.0",
+    "@types/node-fetch": "^2.5.2",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.1",
     "@types/react-router": "^5.1.1",
