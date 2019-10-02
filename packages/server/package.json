@@ -34,7 +34,7 @@
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "graphql": "^14.5.4",
-    "i18next": "^17.0.13",
+    "i18next": "^17.0.17",
     "i18next-express-middleware": "^1.8.1",
     "pg": "^7.12.1",
     "reflect-metadata": "^0.1.13",
