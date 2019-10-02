@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.0.1",
-    "@apollo/react-ssr": "^3.0.1",
+    "@apollo/react-ssr": "^3.1.2",
     "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-decorators": "^7.4.4",
