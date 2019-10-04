@@ -5,10 +5,10 @@ import { Category } from 'src/entity/category';
 import { Genre } from '@ril/gateway';
 
 interface GetAllAndCountParams {
-  first?: number | null;
-  last?: number | null;
-  before?: string | null;
-  after?: string | null;
+  first?: number;
+  last?: number;
+  before?: string;
+  after?: string;
 }
 
 @EntityRepository(Category)
@@ -23,7 +23,7 @@ export class CategoryRepostiory {
       .getMany();
   });
 
-  getAllAndCount = async (params: GetAllAndCountParams) => {
+  getAllAndCount = async (params: GetAllAndCountParams = {}) => {
     const { first, last, before, after } = params;
     const take = (last ? last : first) || 100;
     const order = last ? 'DESC' : 'ASC';

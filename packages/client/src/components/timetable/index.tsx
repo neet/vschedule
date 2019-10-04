@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import isMobile from 'ismobilejs';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useQueryParam, StringParam } from 'use-query-params';
+import { useTranslation } from 'react-i18next';
 import { ActivityFragment } from 'src/generated/graphql';
 import { useNow } from 'src/hooks/use-now';
 import { styled } from 'src/styles';
@@ -29,9 +30,11 @@ const Wrapper = styled.div`
 
 export const Timetable = (props: TimetableProps) => {
   const { activities = [], loading } = props;
+  const { t } = useTranslation();
   const { now } = useNow(1000 * 60);
   const ref = useRef<HTMLDivElement>(null);
-  const [startSince] = useQueryParam('start_since', StringParam);
+  const [afterDate] = useQueryParam('after_date', StringParam);
+  const [beforeDate] = useQueryParam('before_date', StringParam);
 
   const handleWheel = useCallback((e: WheelEvent) => {
     if (!ref.current || !e.deltaY) return;
@@ -46,8 +49,8 @@ export const Timetable = (props: TimetableProps) => {
     return result;
   }, 0);
 
-  const startAt = startSince
-    ? dayjs(startSince)
+  const startAt = afterDate
+    ? dayjs(afterDate)
     : activities.reduce<dayjs.Dayjs | undefined>((result, activity) => {
         const date = dayjs(activity.startAt);
         if (!result || date.isBefore(result)) return date;
@@ -55,25 +58,23 @@ export const Timetable = (props: TimetableProps) => {
         return result;
       }, undefined);
 
-  const endAt = activities.reduce<dayjs.Dayjs | undefined>(
-    (result, activity) => {
-      const date = dayjs(activity.endAt);
-      if (!result || date.isAfter(result)) return date;
+  const endAt = beforeDate
+    ? dayjs(beforeDate)
+    : activities.reduce<dayjs.Dayjs | undefined>((result, activity) => {
+        const date = dayjs(activity.endAt);
+        if (!result || date.isAfter(result)) return date;
 
-      return result;
-    },
-    undefined,
-  );
+        return result;
+      }, undefined);
 
-  // useEffect(() => {
-  //   if (!ref.current || !startAt) return;
-
-  //   const fromStartToNow = dayjs().diff(startAt, 'minute');
-  //   const screenWidth = window.innerWidth;
-  //   const x = (borderGap / 30) * fromStartToNow - screenWidth / 2;
-
-  //   ref.current.scrollTo(x, 0);
-  // }, [startAt, ref]);
+  useEffect(() => {
+    // const node = document.getElementById('minute-hand');
+    // if (!node || !(node instanceof Element)) return;
+    // node.scrollIntoView({
+    //   behavior: 'auto',
+    //   inline: 'center',
+    // });
+  }, [startAt]);
 
   useEffect(() => {
     const isAnyMobile = isMobile(navigator.userAgent).any;
@@ -88,17 +89,6 @@ export const Timetable = (props: TimetableProps) => {
     };
   });
 
-  // useEffect(() => {
-  //   if (!startSince) return;
-
-  //   const date = new Date(startSince).toISOString();
-  //   const node = document.querySelector(`time[dateTime="${date}"]`);
-
-  //   if (!node || !(node instanceof Element)) return;
-
-  //   ref.current.scrollBy(Math.abs(node.getClientRects()[0].x));
-  // }, [startSince]);
-
   if (loading) {
     return (
       <Wrapper>
@@ -107,8 +97,12 @@ export const Timetable = (props: TimetableProps) => {
     );
   }
 
-  if (!startAt || !endAt) {
-    return null;
+  if (!activities.length || !startAt || !endAt) {
+    return (
+      <Wrapper>
+        {t('timetable.not_found', { defaultValue: 'No activities found' })}
+      </Wrapper>
+    );
   }
 
   return (

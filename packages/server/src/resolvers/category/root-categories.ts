@@ -4,10 +4,10 @@ import { createPageInfo } from 'src/utils/create-page-info';
 
 export const rootCategories: G.QueryResolvers['categories'] = async (
   _parent,
-  args,
+  { input },
   { repositories },
 ) => {
-  const [categories, count] = await repositories.category.getAllAndCount(args);
+  const [categories, count] = await repositories.category.getAllAndCount(input);
 
   const edges = categories.map(category => ({
     cursor: Cursor.encode('Category', category.id),
@@ -17,6 +17,6 @@ export const rootCategories: G.QueryResolvers['categories'] = async (
   return {
     edges,
     nodes: edges.map(edge => edge.node),
-    pageInfo: createPageInfo(edges, count, args),
+    pageInfo: createPageInfo(edges, count, input),
   };
 };

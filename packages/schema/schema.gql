@@ -183,51 +183,51 @@ type SearchResult {
   categories: [Category!]!
 }
 
+input ActivitiesInput {
+  first: Int
+  last: Int
+  after: String
+  before: String
+  performerId: ID
+  teamId: ID
+  categoryId: ID
+  afterDate: Date
+  beforeDate: Date
+}
+
+input PerformersInput {
+  first: Int
+  after: String
+  last: Int
+  before: String
+}
+
+input CategoriesInput {
+  first: Int
+  after: String
+  last: Int
+  before: String
+}
+
+input TeamsInput {
+  first: Int
+  after: String
+  last: Int
+  before: String
+  performerId: ID
+}
+
 type Query {
   node(cursor: String!): Node
-
   search(query: String!): SearchResult!
-
   activity(id: ID!): Activity
-
-  activities(
-    first: Int
-    after: String
-    last: Int
-    before: String
-    startSince: Date
-    performerId: ID
-    teamId: ID
-    categoryId: ID
-  ): ActivityConnection!
-
+  activities(input: ActivitiesInput): ActivityConnection!
   performer(id: ID!): Performer
-
-  performers(
-    first: Int
-    after: String
-    last: Int
-    before: String
-  ): PerformerConnection!
-
+  performers(input: PerformersInput): PerformerConnection!
   category(id: ID!): Category
-
-  categories(
-    first: Int
-    after: String
-    last: Int
-    before: String
-  ): CategoryConnection!
-
+  categories(input: CategoriesInput): CategoryConnection!
   team(id: ID!): Team
-
-  teams(
-    first: Int
-    after: String
-    last: Int
-    before: String
-    performerId: ID
-  ): TeamConnection!
+  teams(input: TeamsInput): TeamConnection!
 }
 
 schema {

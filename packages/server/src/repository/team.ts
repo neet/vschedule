@@ -6,10 +6,10 @@ import { TeamDataset } from 'src/utils/teams';
 import { PerformerRepository } from './performer';
 
 interface GetAllAndCountParams {
-  first?: number | null;
-  last?: number | null;
-  before?: string | null;
-  after?: string | null;
+  first?: number;
+  last?: number;
+  before?: string;
+  after?: string;
 }
 
 @EntityRepository(Team)
@@ -33,7 +33,7 @@ export class TeamRepository {
       .getMany();
   };
 
-  getAllAndCount = async (params: GetAllAndCountParams) => {
+  getAllAndCount = async (params: GetAllAndCountParams = {}) => {
     const { first, last, before, after } = params;
     const take = (last ? last : first) || 100;
     const order = last ? 'DESC' : 'ASC';

@@ -9,14 +9,15 @@ import { CategoryRepostiory } from './category';
 import { TeamRepository } from './team';
 
 interface GetAllAndCountParams {
-  first?: number | null;
-  last?: number | null;
-  before?: string | null;
-  after?: string | null;
-  startSince?: Date | null;
-  performerId?: string | null;
-  teamId?: string | null;
-  categoryId?: string | null;
+  first?: number;
+  last?: number;
+  after?: string;
+  afterDate?: Date;
+  before?: string;
+  beforeDate?: Date;
+  performerId?: string;
+  teamId?: string;
+  categoryId?: string;
 }
 
 @EntityRepository(Activity)
@@ -34,13 +35,14 @@ export class ActivityRepository {
       .getMany();
   });
 
-  getAllAndCount = async (params: GetAllAndCountParams) => {
+  getAllAndCount = async (params: GetAllAndCountParams = {}) => {
     const {
       first,
       last,
-      before,
       after,
-      startSince,
+      afterDate,
+      before,
+      beforeDate,
       performerId,
       teamId,
       categoryId,
@@ -68,8 +70,16 @@ export class ActivityRepository {
       query.andWhere('activity.id > :id', { id });
     }
 
-    if (startSince) {
-      query.andWhere('activity."endAt" > :date', { date: startSince });
+    if (afterDate) {
+      query.andWhere('activity."endAt" > CAST(:afterDate AS TIMESTAMP)', {
+        afterDate,
+      });
+    }
+
+    if (beforeDate) {
+      query.andWhere('activity."startAt" < CAST(:beforeDate AS TIMESTAMP)', {
+        beforeDate,
+      });
     }
 
     if (performerId) {

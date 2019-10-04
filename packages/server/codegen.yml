@@ -7,7 +7,9 @@ generates:
       - typescript
       - typescript-resolvers
     config:
-      contextType: ../context#Context
-      useIndexSignature: true
       scalars:
         Date: Date
+      contextType: ../context#Context
+      immutableTypes: true
+      maybeValue: T | undefined
+      useIndexSignature: true

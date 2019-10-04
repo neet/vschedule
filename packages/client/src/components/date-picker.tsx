@@ -2,7 +2,7 @@ import React from 'react';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import dayjs from 'dayjs';
 import { styled } from 'src/styles';
-import { useQueryParam, StringParam } from 'use-query-params';
+import { useQueryParams } from 'use-query-params';
 import { rgba } from 'polished';
 
 const Wrapper = styled.div`
@@ -36,25 +36,56 @@ const Chevron = styled.button`
   }
 `;
 
+const DateParam = {
+  decode: (value: string | string[]) => {
+    if (Array.isArray(value)) {
+      throw new Error('unsupported value');
+    }
+    return dayjs(value);
+  },
+
+  encode: (date: dayjs.Dayjs) => date.toISOString(),
+};
+
 export const DatePicker = () => {
-  const [rawDate, changeDate] = useQueryParam('start_since', StringParam);
-  const date = rawDate
-    ? dayjs(rawDate)
-    : dayjs()
-        .hour(0)
-        .minute(0)
-        .second(0);
+  const defaultAfterDate = dayjs()
+    .hour(0)
+    .minute(0)
+    .second(0)
+    .millisecond(0);
+  const defaultBeforeDate = defaultAfterDate.clone().add(1, 'day');
+
+  const [query, setQuery] = useQueryParams({
+    after_date: DateParam,
+    before_date: DateParam,
+  });
+
+  const {
+    after_date = defaultAfterDate,
+    before_date = defaultBeforeDate,
+  } = query;
 
   const handleClickBack = (_e: React.MouseEvent<HTMLButtonElement>) => {
-    changeDate(date.subtract(1, 'day').toISOString());
+    setQuery({
+      after_date: after_date.clone().subtract(1, 'day'),
+      before_date: before_date.clone().subtract(1, 'day'),
+    });
   };
 
   const handleClickForward = (_e: React.MouseEvent<HTMLButtonElement>) => {
-    changeDate(date.add(1, 'day').toISOString());
+    setQuery({
+      after_date: after_date.clone().add(1, 'day'),
+      before_date: before_date.clone().add(1, 'day'),
+    });
   };
 
   const handleChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    changeDate(dayjs(e.currentTarget.value).toISOString());
+    const value = dayjs(e.currentTarget.value);
+
+    setQuery({
+      after_date: value,
+      before_date: value.clone().subtract(1, 'day'),
+    });
   };
 
   return (
@@ -64,7 +95,9 @@ export const DatePicker = () => {
           <ChevronLeft />
         </Chevron>
 
-        <Time dateTime={date.toISOString()}>{date.format('LL')}</Time>
+        <Time dateTime={after_date.toISOString()}>
+          {after_date.format('LL')}
+        </Time>
 
         <Chevron onClick={handleClickForward}>
           <ChevronRight />
@@ -74,7 +107,7 @@ export const DatePicker = () => {
         <input
           type="date"
           name="datepicker"
-          value={date.format('YYYY-MM-DD')}
+          value={after_date.format('YYYY-MM-DD')}
           onChange={handleChangeDate}
           style={{ display: 'none' }}
         />

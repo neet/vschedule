@@ -7,10 +7,10 @@ import { TwitterAccount } from 'src/entity/twitter-account';
 import { YoutubeAccount } from 'src/entity/youtube-account';
 
 interface GetAllAndCountParams {
-  first?: number | null;
-  last?: number | null;
-  before?: string | null;
-  after?: string | null;
+  first?: number;
+  last?: number;
+  before?: string;
+  after?: string;
 }
 
 @EntityRepository(Performer)
@@ -34,7 +34,7 @@ export class PerformerRepository {
       .getMany();
   };
 
-  getAllAndCount = async (params: GetAllAndCountParams) => {
+  getAllAndCount = async (params: GetAllAndCountParams = {}) => {
     const { first, last, before, after } = params;
     const take = (last ? last : first) || 100;
     const order = last ? 'DESC' : 'ASC';

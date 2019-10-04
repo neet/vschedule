@@ -5,10 +5,10 @@ import { serializeTeam } from 'src/serializers/team';
 
 export const rootTeams: G.QueryResolvers['teams'] = async (
   _parent,
-  args,
+  { input },
   { repositories },
 ) => {
-  const [teams, count] = await repositories.team.getAllAndCount(args);
+  const [teams, count] = await repositories.team.getAllAndCount(input);
 
   const edges = teams.map(team => ({
     cursor: Cursor.encode('Team', team.id),
@@ -18,6 +18,6 @@ export const rootTeams: G.QueryResolvers['teams'] = async (
   return {
     edges,
     nodes: edges.map(edge => edge.node),
-    pageInfo: createPageInfo(edges, count, args),
+    pageInfo: createPageInfo(edges, count, input),
   };
 };

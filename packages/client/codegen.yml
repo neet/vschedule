@@ -14,6 +14,9 @@ generates:
       withHooks: true
       withHOC: false
       withComponent: false
+      # immutableTypes: true
+      maybeValue: T | undefined
+      useIndexSignature: true
   src/generated/introspection-result.ts:
       plugins:
         - fragment-matcher

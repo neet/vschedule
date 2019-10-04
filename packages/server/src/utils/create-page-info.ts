@@ -6,16 +6,16 @@ interface AnyEdge {
 }
 
 interface PaginationOptions {
-  first?: number | null;
-  last?: number | null;
-  after?: string | null;
-  before?: string | null;
+  first?: number;
+  last?: number;
+  after?: string;
+  before?: string;
 }
 
 export const createPageInfo = (
   edges: AnyEdge[],
   totalCount: number,
-  options: PaginationOptions,
+  options: PaginationOptions = {},
 ): PageInfo => {
   const hasPreviousPage = options.before ? edges.length < totalCount : false;
   const hasNextPage = !options.before ? edges.length < totalCount : false;

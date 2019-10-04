@@ -40,19 +40,8 @@ fragment Category on Category {
   name
 }
 
-query FetchActivities(
-  $startSince: Date
-  $performerId: ID
-  $teamId: ID
-  $categoryId: ID
-) {
-  activities(
-    last: 100,
-    startSince: $startSince
-    performerId: $performerId
-    teamId: $teamId
-    categoryId: $categoryId
-  ) {
+query FetchActivities($input: ActivitiesInput) {
+  activities(input: $input) {
     nodes {
       ...Activity
     }
@@ -60,7 +49,7 @@ query FetchActivities(
 }
 
 query FetchPerformers {
-  performers(first: 100) {
+  performers(input: { first: 100 }) {
     nodes {
       ...Performer
     }
@@ -68,7 +57,7 @@ query FetchPerformers {
 }
 
 query FetchTeams {
-  teams(first: 100) {
+  teams(input: { first: 100 }) {
     nodes {
       ...Team
     }
