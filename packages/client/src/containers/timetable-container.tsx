@@ -3,6 +3,7 @@ import { Timetable } from 'src/components/timetable';
 import {
   useFetchActivitiesQuery,
   ActivitiesInput,
+  ActivityFragment,
 } from 'src/generated/graphql';
 import { useQueryParam, StringParam } from 'use-query-params';
 
@@ -22,11 +23,79 @@ export const TimetableContainer = () => {
     performerId,
   };
 
-  const { data, loading } = useFetchActivitiesQuery({
+  const { data, loading, fetchMore } = useFetchActivitiesQuery({
     variables: { input },
   });
 
+  const onLoadNext = () => {
+    if (!data || !data.activities) return;
+
+    const { activities } = data;
+
+    return fetchMore({
+      variables: {
+        input: {
+          after: activities.pageInfo.endCursor,
+        },
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return previousResult;
+        const newEdges = fetchMoreResult.activities.edges;
+        const pageInfo = fetchMoreResult.activities.pageInfo;
+
+        return newEdges.length
+          ? {
+              activities: {
+                __typename: previousResult.activities.__typename,
+                edges: [...previousResult.activities.edges, ...newEdges],
+                pageInfo,
+              },
+            }
+          : previousResult;
+      },
+    });
+  };
+
+  const onLoadPrevious = () => {
+    if (!data || !data.activities) return;
+
+    const { activities } = data;
+
+    return fetchMore({
+      variables: {
+        input: {
+          before: activities.pageInfo.startCursor,
+        },
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return previousResult;
+        const newEdges = fetchMoreResult.activities.edges;
+        const pageInfo = fetchMoreResult.activities.pageInfo;
+
+        return newEdges.length
+          ? {
+              activities: {
+                __typename: previousResult.activities.__typename,
+                edges: [...newEdges, ...previousResult.activities.edges],
+                pageInfo,
+              },
+            }
+          : previousResult;
+      },
+    });
+  };
+
   return (
-    <Timetable activities={data && data.activities.nodes} loading={loading} />
+    <Timetable
+      activities={
+        data &&
+        data.activities.edges
+          .map(edge => edge.node)
+          .filter((v): v is ActivityFragment => !!v)
+      }
+      loading={loading}
+      onLoadNext={onLoadNext}
+      onLoadPrevious={onLoadPrevious}
+    />
   );
 };

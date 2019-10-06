@@ -1,3 +1,11 @@
+fragment PageInfo on PageInfo {
+  startCursor
+  endCursor
+  hasNextPage
+  hasPreviousPage
+  totalCount
+}
+
 fragment Activity on Activity {
   id
   name
@@ -42,8 +50,14 @@ fragment Category on Category {
 
 query FetchActivities($input: ActivitiesInput) {
   activities(input: $input) {
-    nodes {
-      ...Activity
+    edges {
+      cursor
+      node {
+        ...Activity
+      }
+    }
+    pageInfo {
+      ...PageInfo
     }
   }
 }

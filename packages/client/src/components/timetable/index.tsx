@@ -3,18 +3,16 @@ import isMobile from 'ismobilejs';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { useTranslation } from 'react-i18next';
-import { ActivityFragment } from 'src/generated/graphql';
+import {
+  ActivityFragment,
+  // useFetchActivitiesQuery,
+} from 'src/generated/graphql';
 import { useNow } from 'src/hooks/use-now';
 import { styled } from 'src/styles';
 import { isStreamingNow } from 'src/utils/is-streaming-now';
 import { Background } from './background';
 import { FeedList } from './feed-list';
 import { Placeholder } from './placeholder';
-
-export interface TimetableProps {
-  activities?: ActivityFragment[];
-  loading: boolean;
-}
 
 const Wrapper = styled.div`
   position: relative;
@@ -28,8 +26,15 @@ const Wrapper = styled.div`
   -webkit-overflow-scrolling: touch;
 `;
 
+export interface TimetableProps {
+  activities?: ActivityFragment[];
+  loading: boolean;
+  onLoadNext?: () => void;
+  onLoadPrevious?: () => void;
+}
+
 export const Timetable = (props: TimetableProps) => {
-  const { activities = [], loading } = props;
+  const { activities = [], loading, onLoadNext, onLoadPrevious } = props;
   const { t } = useTranslation();
   const { now } = useNow(1000 * 60);
   const ref = useRef<HTMLDivElement>(null);
@@ -89,6 +94,14 @@ export const Timetable = (props: TimetableProps) => {
     };
   });
 
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    if (e.currentTarget.scrollLeft < 200) {
+      onLoadPrevious && onLoadPrevious();
+    } else if (e.currentTarget.scrollWidth - e.currentTarget.scrollLeft < 200) {
+      onLoadNext && onLoadNext();
+    }
+  };
+
   if (loading) {
     return (
       <Wrapper>
@@ -106,7 +119,7 @@ export const Timetable = (props: TimetableProps) => {
   }
 
   return (
-    <Wrapper ref={ref}>
+    <Wrapper ref={ref} onScroll={handleScroll}>
       <Background
         now={now}
         startAt={startAt}
