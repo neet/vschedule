@@ -94,6 +94,8 @@ export const TimetableContainer = () => {
           .filter((v): v is ActivityFragment => !!v)
       }
       loading={loading}
+      hasNextPage={data && data.activities.pageInfo.hasNextPage}
+      hasPreviousPage={data && data.activities.pageInfo.hasPreviousPage}
       onLoadNext={onLoadNext}
       onLoadPrevious={onLoadPrevious}
     />
