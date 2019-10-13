@@ -14,6 +14,10 @@
     "page_title": "Not found - Refined Itsukara.link",
     "title": "ページが見つかりません - Refined Itsukara.link"
   },
+  "performer": {
+    "activities": "最近の配信",
+    "teams": "ユニット"
+  },
   "performers": {
     "description": "にじさんじに所属するライバーの一覧です",
     "page_title": "にじさんじのライバー一覧 - Refined Itsukara.link",

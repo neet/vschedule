@@ -4,11 +4,13 @@ import { styled } from 'src/styles';
 import { Activities } from 'src/views/activities';
 import { renderNotFound } from 'src/views/not-found';
 import { Performers } from 'src/views/performers';
+import { Performer } from 'src/views/performer';
 import { Teams } from 'src/views/teams';
 import { Search } from 'src/views/search';
 import { Page } from 'src/components/page';
 import { Banner } from 'src/components/banner';
 import { Sidebar } from 'src/components/sidebar';
+import { Modal } from 'src/components/modal';
 import { GlobalStyle } from './global-style';
 
 const Wrapper = styled.div`
@@ -19,7 +21,7 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.backgroundWash};
 `;
 
-export const Root: React.SFC = React.memo(() => {
+export const Root = React.memo(() => {
   return (
     <Wrapper>
       <Sidebar />
@@ -33,6 +35,20 @@ export const Root: React.SFC = React.memo(() => {
           <Route exact path="/teams" component={Teams} />
           <Route path="/search" component={Search} />
           <Route render={renderNotFound} />
+        </Switch>
+
+        <Switch>
+          <Route
+            exact
+            path="/performers/:id"
+            render={() => {
+              return (
+                <Modal parent={Performers} parentPath="/performers">
+                  <Performer />
+                </Modal>
+              );
+            }}
+          />
         </Switch>
       </Page>
 

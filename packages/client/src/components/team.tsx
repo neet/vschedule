@@ -37,7 +37,7 @@ const Members = styled.ul`
   flex: 0 0 auto;
   margin-right: 18px;
 
-  & > img {
+  & > a {
     margin-right: -18px;
     border: 3px solid ${({ theme }) => theme.foregroundReverse};
   }
@@ -45,11 +45,11 @@ const Members = styled.ul`
 
 interface TeamProps {
   team: TeamFragment;
-  showNames?: boolean;
+  withPerformerNames?: boolean;
 }
 
 export const Team = (props: TeamProps) => {
-  const { team, showNames } = props;
+  const { team, withPerformerNames } = props;
 
   return (
     <Wrapper>
@@ -63,7 +63,7 @@ export const Team = (props: TeamProps) => {
           <Title>{team.name}</Title>
         </StyledLink>
 
-        {showNames && (
+        {withPerformerNames && (
           <MemberNames>
             {team.members.map(member => member.name).join(', ')}
           </MemberNames>

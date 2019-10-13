@@ -53,8 +53,8 @@ type ActivityConnection {
 }
 
 type ActivityEdge {
-  cursor: String
-  node: Activity
+  cursor: String!
+  node: Activity!
 }
 
 type Performer implements Node {
@@ -95,8 +95,8 @@ type PerformerConnection {
 }
 
 type PerformerEdge {
-  cursor: String
-  node: Performer
+  cursor: String!
+  node: Performer!
 }
 
 type Team implements Node {
@@ -119,8 +119,8 @@ type TeamConnection {
 }
 
 type TeamEdge {
-  cursor: String
-  node: Team
+  cursor: String!
+  node: Team!
 }
 
 type Category implements Node {
@@ -137,8 +137,8 @@ type CategoryConnection {
 }
 
 type CategoryEdge {
-  cursor: String
-  node: Category
+  cursor: String!
+  node: Category!
 }
 
 interface SocialAccount {
@@ -154,7 +154,7 @@ type YoutubeAccount implements Node & SocialAccount {
   # Internal ID of the channel
   id: ID!
   # ID of the channel
-  channel: ID!
+  channelId: ID!
   # Name of the channel
   channelName: String!
   # Order of creation

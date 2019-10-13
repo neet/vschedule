@@ -32,7 +32,8 @@ const Wrapper = styled.a<WrapperProps>`
     text-decoration: none;
   }
 
-  & > img {
+  & > a {
+    flex-shrink: 0;
     margin-right: 4px;
   }
 `;

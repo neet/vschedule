@@ -21,7 +21,7 @@ export const Wrapper = styled.a<Wrapper>`
     text-decoration: none;
   }
 
-  & > img {
+  & > a {
     flex-shrink: 0;
     margin-right: 4px;
   }
@@ -91,11 +91,12 @@ const Description = styled.p`
 
 export interface ActivityProps {
   activity: ActivityFragment;
-  showDescription?: boolean;
+  withDescription?: boolean;
+  withPerforemer?: boolean;
 }
 
 export const Activity = (props: ActivityProps) => {
-  const { activity, showDescription } = props;
+  const { activity, withDescription, withPerforemer } = props;
 
   const firstPerformer = activity.performers[0];
   const startAt = dayjs(activity.startAt);
@@ -117,19 +118,21 @@ export const Activity = (props: ActivityProps) => {
       <Meta>
         <Title>{activity.name}</Title>
 
-        {showDescription && <Description>{activity.description}</Description>}
+        {withDescription && <Description>{activity.description}</Description>}
 
-        <PerformerWrapper>
-          <Avatar
-            size={18}
-            performer={firstPerformer}
-            background="performerColor"
-          />
+        {withPerforemer && (
+          <PerformerWrapper>
+            <Avatar
+              size={18}
+              performer={firstPerformer}
+              background="performerColor"
+            />
 
-          <PerformerName>
-            {firstPerformer.name}・{dayjs(startAt).fromNow()}
-          </PerformerName>
-        </PerformerWrapper>
+            <PerformerName>
+              {firstPerformer.name}・{dayjs(startAt).fromNow()}
+            </PerformerName>
+          </PerformerWrapper>
+        )}
       </Meta>
 
       <Thumbnail style={{ backgroundImage: `url(${activity.thumbnail})` }}>

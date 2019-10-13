@@ -31,8 +31,30 @@ fragment Performer on Performer {
   avatar
   color
   description
+  fullBody
   public
   position
+}
+
+fragment SocialAccount on SocialAccount {
+  id
+  ... on YoutubeAccount {
+    channelId
+    channelName
+  }
+  ... on TwitterAccount {
+    screenName
+  }
+}
+
+fragment PerformerLarge on Performer {
+  ...Performer
+  teams {
+    ...Team
+  }
+  socialAccounts {
+    ...SocialAccount
+  }
 }
 
 fragment Team on Team {
@@ -50,6 +72,23 @@ fragment Category on Category {
 
 query FetchActivities($input: ActivitiesInput) {
   activities(input: $input) {
+    edges {
+      cursor
+      node {
+        ...Activity
+      }
+    }
+    pageInfo {
+      ...PageInfo
+    }
+  }
+}
+
+query FetchPerformerLarge($id: ID!) {
+  performer(id: $id) {
+    ...PerformerLarge
+  }
+  activities(input: { performerId: $id, last: 100 }) {
     edges {
       cursor
       node {

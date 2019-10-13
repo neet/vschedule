@@ -1,6 +1,4 @@
-import querystring from 'querystring';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { PerformerFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { Avatar } from './avatar';
@@ -20,9 +18,9 @@ const Wrapper = styled.div`
   color: ${({ theme }) => theme.foregroundNormal};
   text-align: center;
 
-  & > img {
+  /* & > a {
     margin: 0 auto 8px;
-  }
+  } */
 `;
 
 const Title = styled.h3`
@@ -39,14 +37,7 @@ export const Performer = (props: PerformerProps) => {
 
   return (
     <Wrapper>
-      <Link
-        to={{
-          pathname: '/activities',
-          search: querystring.stringify({ performer_id: performer.id }),
-        }}
-      >
-        <Avatar size={80} performer={performer} background="performerColor" />
-      </Link>
+      <Avatar size={80} performer={performer} background="performerColor" />
       <Title>{performer.name}</Title>
       <Description>{performer.description}</Description>
     </Wrapper>

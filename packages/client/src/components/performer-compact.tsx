@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
 
-  & > img {
+  & > a {
     flex-shrink: 0;
     margin-right: 8px;
   }

@@ -10455,6 +10455,13 @@ react-use@^12.4.0:
     throttle-debounce "^2.0.1"
     ts-easing "^0.2.0"
 
+react-useportal@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-useportal/-/react-useportal-1.0.4.tgz#94cd47f501e657fdb1be8ae829c3942f4750a2dd"
+  integrity sha512-HLjPSdAEGPI2DjCyuEXfEfFa1fGoalqJVNtWXxaZXa/paibB8HoLvaKWmcsypPKdFhdW1QJCRllEAhLulVILqA==
+  dependencies:
+    use-ssr "^1.0.13"
+
 react-wait@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/react-wait/-/react-wait-0.3.0.tgz#0cdd4d919012451a5bc3ab0a16d00c6fd9a8c10b"
@@ -12731,6 +12738,11 @@ use-query-params@^0.4.1:
   integrity sha512-4ilcVpTAQQTkJ3lcsLIcRmFfULhT9gl9iXn7smoyvrujFKZcEd5lRAlrBYwZpBDUwmQNDykPguIX6/Yzg9lRLA==
   dependencies:
     serialize-query-params "^0.1.4"
+
+use-ssr@^1.0.13:
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/use-ssr/-/use-ssr-1.0.19.tgz#8c03bec79069103b2813f77d17d2e5fafc02461b"
+  integrity sha512-Bkor42KtUZHTTuEot4Nma0Q9bccu+ZOGqukyNJI1A11uSymNag7VX3ub2Rzi2nLez4fUYUUROn0mEtil5KOsCg==
 
 use@^3.1.0:
   version "3.1.1"

@@ -13,6 +13,10 @@
     "description": "You hit the void",
     "page_title": "Not found - Refined Itsukara.link"
   },
+  "performer": {
+    "activities": "Activities",
+    "teams": "Collaborations"
+  },
   "performers": {
     "description": "List of performers that are belongs to Nijisanji",
     "page_title": "Performers of Nijisanji - Refined Itsukara.link",
