@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { styled } from 'src/styles';
 import { useFetchTeamsQuery } from 'src/generated/graphql';
@@ -39,23 +40,33 @@ export const Teams = React.memo(() => {
   if (!data) return null;
 
   return (
-    <Wrapper>
-      <Inner>
-        <h2>{t('teams.title', { defaultValue: 'Collaboration' })}</h2>
-        <p>
-          {t('teams.description', {
-            defaultValue: 'List of collaborations of Nijisanji',
+    <>
+      <Helmet>
+        <title>
+          {t('teams.page_title', {
+            defaultValue: 'Collaboration of Nijisanji - Refined Itsukara.link',
           })}
-        </p>
+        </title>
+      </Helmet>
 
-        <List>
-          {data.teams.nodes.map(team => (
-            <ListItem key={team.id}>
-              <Team team={team} showNames />
-            </ListItem>
-          ))}
-        </List>
-      </Inner>
-    </Wrapper>
+      <Wrapper>
+        <Inner>
+          <h2>{t('teams.title', { defaultValue: 'Collaboration' })}</h2>
+          <p>
+            {t('teams.description', {
+              defaultValue: 'List of collaborations of Nijisanji',
+            })}
+          </p>
+
+          <List>
+            {data.teams.nodes.map(team => (
+              <ListItem key={team.id}>
+                <Team team={team} showNames />
+              </ListItem>
+            ))}
+          </List>
+        </Inner>
+      </Wrapper>
+    </>
   );
 });

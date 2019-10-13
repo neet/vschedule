@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router';
 import { styled } from 'src/styles';
 import { SearchResult } from 'src/components/search-result';
@@ -26,17 +27,26 @@ export const Search = () => {
   const { data } = useSearchQuery({ variables: { query } });
 
   return (
-    <Wrapper>
-      <Inner>
-        <Title>
-          {t('search.result', {
-            defaultValue: 'Search result for "{{value}}"',
-            value: query,
-          })}
-        </Title>
+    <>
+      <Helmet>
+        {t('search.page_title', {
+          defaultValue: 'Search result for "{{value}}" - Refined Itsukara.link',
+          value: query,
+        })}
+      </Helmet>
 
-        <SearchResult result={data && data.search} />
-      </Inner>
-    </Wrapper>
+      <Wrapper>
+        <Inner>
+          <Title>
+            {t('search.result', {
+              defaultValue: 'Search result for "{{value}}"',
+              value: query,
+            })}
+          </Title>
+
+          <SearchResult result={data && data.search} />
+        </Inner>
+      </Wrapper>
+    </>
   );
 };

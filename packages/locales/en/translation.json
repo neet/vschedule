@@ -1,4 +1,7 @@
 {
+  "activities": {
+    "page_title": "Activities - Refined Itsukara.link"
+  },
   "banner": {
     "open_original": "Open Original",
     "today": "Today",
@@ -7,13 +10,16 @@
   },
   "description": "✨ itsukara.link with refined interface!",
   "not_found": {
-    "title": "Page Not Found"
+    "description": "You hit the void",
+    "page_title": "Not found - Refined Itsukara.link"
   },
   "performers": {
     "description": "List of performers that are belongs to Nijisanji",
+    "page_title": "Performers of Nijisanji - Refined Itsukara.link",
     "title": "Performers"
   },
   "search": {
+    "page_title": "Search result for \"{{value}}\" - Refined Itsukara.link",
     "placeholder": "Search",
     "result": "Search result for \"{{value}}\""
   },
@@ -29,14 +35,16 @@
   },
   "teams": {
     "description": "List of collaborations of Nijisanji",
+    "page_title": "Collaboration of Nijisanji - Refined Itsukara.link",
     "title": "Collaboration"
   },
   "timeline": {
-    "now": "on air: {{count}}",
-    "now_plural": "{{count}} LIVE"
+    "now": "{{count}} LIVE",
+    "now_plural": "{{count}} LIVES"
   },
   "timetable": {
     "loading": "Loading Timetable..."
   },
-  "title": "Refined itsukara.link"
+  "title": "Refined itsukara.link",
+  "title_short": "Ril"
 }

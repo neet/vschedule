@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { styled } from 'src/styles';
 import { useFetchPerformersQuery } from 'src/generated/graphql';
@@ -30,21 +31,31 @@ export const Performers = React.memo(() => {
   if (!data) return null;
 
   return (
-    <Wrapper>
-      <Inner>
-        <h2>{t('performers.title', { defaultValue: 'Performers' })}</h2>
-        <p>
-          {t('performers.description', {
-            defaultValue: 'List of performers that are belongs to Nijisanji',
+    <>
+      <Helmet>
+        <title>
+          {t('performers.page_title', {
+            defaultValue: 'Performers of Nijisanji - Refined Itsukara.link',
           })}
-        </p>
+        </title>
+      </Helmet>
 
-        <List>
-          {data.performers.nodes.map(performer => (
-            <Performer key={performer.id} performer={performer} />
-          ))}
-        </List>
-      </Inner>
-    </Wrapper>
+      <Wrapper>
+        <Inner>
+          <h2>{t('performers.title', { defaultValue: 'Performers' })}</h2>
+          <p>
+            {t('performers.description', {
+              defaultValue: 'List of performers that are belongs to Nijisanji',
+            })}
+          </p>
+
+          <List>
+            {data.performers.nodes.map(performer => (
+              <Performer key={performer.id} performer={performer} />
+            ))}
+          </List>
+        </Inner>
+      </Wrapper>
+    </>
   );
 });

@@ -1,17 +1,32 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router';
 import { Page } from 'src/components/page';
 
-export const NotFound = React.memo(() => {
+export const NotFound = () => {
   const { t } = useTranslation();
 
   return (
-    <Page>{t('not_found.title', { defaultValue: 'Page Not Found' })}</Page>
-  );
-});
+    <>
+      <Helmet>
+        <title>
+          {t('not_found.page_title', {
+            defaultValue: 'Not found - Refined Itsukara.link',
+          })}
+        </title>
+      </Helmet>
 
-export const notFoundRender = ({ staticContext }: RouteComponentProps) => {
+      <Page>
+        {t('not_found.description', { defaultValue: 'You hit the void' })}
+      </Page>
+    </>
+  );
+};
+
+export const renderNotFound = (props: RouteComponentProps) => {
+  const { staticContext } = props;
+
   if (staticContext) {
     staticContext.statusCode = 404;
   }
