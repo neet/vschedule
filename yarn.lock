@@ -1798,11 +1798,6 @@
   resolved "https://registry.yarnpkg.com/@types/is-glob/-/is-glob-4.0.1.tgz#a93eec1714172c8eb3225a1cc5eb88c2477b7d00"
   integrity sha512-k3RS5HyBPu4h+5hTmIEfPB2rl5P3LnGdQEZrV2b9OWTJVtsUQ2VBcedqYKGqxvZqle5UALUXdSfVA8nf3HfyWQ==
 
-"@types/ismobilejs@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@types/ismobilejs/-/ismobilejs-0.4.1.tgz#d8bf8b139d3e47ae6afa1d4bca57bbc5a786cc9e"
-  integrity sha512-h7d/EWxHjRNY/VuIWBsciHahuIRmSVvtK+34cal0m/UBN75wcuEXxzfn91PRr7iyyJqMccW+oiwp6T+T9khamQ==
-
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.1.tgz#42995b446db9a48a11a07ec083499a860e9138ff"
@@ -7404,11 +7399,6 @@ isexe@^2.0.0:
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
 
-ismobilejs@^1.0.2:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/ismobilejs/-/ismobilejs-1.0.3.tgz#69ec3faccd17dfeeadd471e70955d1e192a46eb6"
-  integrity sha512-6rTcdWK7PHIWPYlCPdTbU9eE9yzdnIQSpiH+8Ln5OqugpEszQK5KHlsjZrDae26fEhki9rPvQmsjI1q4CLuKIA==
-
 isobject@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-2.1.0.tgz#f065561096a3f1da2ef46272f815c840d87e0c89"
@@ -12510,24 +12500,12 @@ urlgrey@^0.4.4:
   resolved "https://registry.yarnpkg.com/urlgrey/-/urlgrey-0.4.4.tgz#892fe95960805e85519f1cd4389f2cb4cbb7652f"
   integrity sha1-iS/pWWCAXoVRnxzUOJ8stMu3ZS8=
 
-use-force-update@^1.0.5:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/use-force-update/-/use-force-update-1.0.7.tgz#f5e672633f5a398b25c33b2287150918bcb3526b"
-  integrity sha512-k5dppYhO+I5X/cd7ildbrzeMZJkWwdAh5adaIk0qKN2euh7J0h2GBGBcB4QZ385eyHHnp7LIygvebdRx3XKdwA==
-
 use-query-params@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/use-query-params/-/use-query-params-0.4.1.tgz#42fc913cbebbecb54654eed59144ada1f2c2ab16"
   integrity sha512-4ilcVpTAQQTkJ3lcsLIcRmFfULhT9gl9iXn7smoyvrujFKZcEd5lRAlrBYwZpBDUwmQNDykPguIX6/Yzg9lRLA==
   dependencies:
     serialize-query-params "^0.1.4"
-
-use-react-router@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/use-react-router/-/use-react-router-1.0.7.tgz#04216066d87e45040309f24d2fd5e9f28308b3e2"
-  integrity sha512-gdqIHEO28E+qDJQ+tOMGQPthPib7mhLI/4MY7wtxJuaVUkosbP+FAYcHmmE7/FjYoMsuzL/bvY/25st7QHodpw==
-  dependencies:
-    use-force-update "^1.0.5"
 
 use@^3.1.0:
   version "3.1.1"
