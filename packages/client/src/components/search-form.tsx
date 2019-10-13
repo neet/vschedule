@@ -1,3 +1,4 @@
+import querystring from 'querystring';
 import React from 'react';
 import { styled } from 'src/styles';
 import { Search } from 'react-feather';
@@ -58,7 +59,11 @@ export const SearchForm = () => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && e.which !== 229 && !(e as any).isComposing) {
       e.preventDefault();
-      history.push({ pathname: `/search/${value}` });
+
+      history.push({
+        pathname: `/search`,
+        search: querystring.stringify({ q: value }),
+      });
     }
   };
 

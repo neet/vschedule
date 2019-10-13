@@ -31,7 +31,7 @@ export const Root: React.SFC = React.memo(() => {
           <Route exact path="/activities" component={Activities} />
           <Route exact path="/performers" component={Performers} />
           <Route exact path="/teams" component={Teams} />
-          <Route path="/search/:query" component={Search} />
+          <Route path="/search" component={Search} />
           <Route render={renderNotFound} />
         </Switch>
       </Page>
