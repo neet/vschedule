@@ -61,8 +61,8 @@ export const SearchForm = (props: SearchFormProps) => {
   const { t } = useTranslation();
   const history = useHistory();
 
-  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && e.which !== 229 && !(e as any).isComposing) {
       e.preventDefault();
       history.push({ pathname: `/search/${value}` });
     }
@@ -82,7 +82,7 @@ export const SearchForm = (props: SearchFormProps) => {
           defaultValue: 'Search',
         })}
         onChange={onChange}
-        onKeyUp={handleKeyUp}
+        onKeyDown={handleKeyDown}
       />
 
       {value && (

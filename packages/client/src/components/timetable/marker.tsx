@@ -15,19 +15,6 @@ interface WrapperProps {
   isLight: boolean;
 }
 
-// const keyframe = keyframes`
-//   0% {
-//     transform: scale(0);
-//   }
-//   100% {
-//     transform: scale(1);
-//   }
-// `;
-
-// const KeyframeWrapper = styled.div`
-//   animation: 0.15s ${keyframe} ease-out;
-// `;
-
 export const Wrapper = styled.a<WrapperProps>`
   display: flex;
   position: absolute;
@@ -86,16 +73,18 @@ export const Marker = (props: MarkerProps) => {
   const { activity, timetableStartAt, row } = props;
 
   const firstStreamer = activity.performers[0];
-  const startDate = dayjs(activity.startAt);
-  const endDate = dayjs(activity.endAt);
+  const startAt = dayjs(activity.startAt);
+  const endAt = dayjs(activity.endAt);
 
   // Compare current date vs start date in minutes
   const x =
-    toPixel(startDate.diff(timetableStartAt, 'minute')) + MARKER_MARGIN / 2;
+    toPixel(startAt.diff(timetableStartAt, 'minute')) +
+    MARKER_MARGIN / 2 +
+    51.03 / 2;
   // Avatar height + padding
-  const y = (MARKER_MARGIN + 50) * row;
+  const y = (50 + MARKER_MARGIN) * row;
 
-  const width = toPixel(endDate.diff(startDate, 'minute')) - MARKER_MARGIN;
+  const width = toPixel(endAt.diff(startAt, 'minute')) - MARKER_MARGIN;
 
   const isLight = useMemo(() => {
     // Calc color brightness difference

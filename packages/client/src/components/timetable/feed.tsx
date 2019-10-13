@@ -79,7 +79,6 @@ const groupMarkersByRow = (
       }
 
       restContents.push(content);
-
       return restContents;
     },
     [],
