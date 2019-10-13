@@ -42,7 +42,7 @@ export const Spell = (props: SpellProps) => {
       id={`spell-${date.toISOString()}`}
       style={{ transform: `translateX(${x}px)` }}
     >
-      <Date dateTime={date.toISOString()}>{date.format('HH:MM')}</Date>
+      <Date dateTime={date.toISOString()}>{date.format('HH:mm')}</Date>
       <Stripe />
     </Wrapper>
   );
