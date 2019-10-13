@@ -5,11 +5,11 @@ import {
   useToggleSidebarMutation,
   useFetchSidebarQuery,
 } from 'src/generated/graphql';
-import { SearchFormContainer } from 'src/containers/search-form-container';
 import { Route, Switch } from 'react-router';
 import { rgba } from 'polished';
 import { useTranslation } from 'react-i18next';
 import { DatePicker } from './date-picker';
+import { SearchForm } from './search-form';
 
 const Wrapper = styled.header`
   display: flex;
@@ -118,7 +118,7 @@ export const Banner: React.SFC = React.memo(() => {
       </Hgroup>
 
       <Toolbox>
-        <SearchFormContainer />
+        <SearchForm />
 
         <Today onClick={handleClickToday}>
           <Activity size={14} />

@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { Link, NavLink } from 'react-router-dom';
 import { Tv, User, Users, Hash, ChevronDown, ChevronUp } from 'react-feather';
+import logoSmall from '@ril/arts/static/logo-small.png';
 import { styled } from 'src/styles';
-import logoSmall from 'src/assets/logo-small.png';
 import { useSidebar } from 'src/hooks/use-sidebar';
 
 const Wrapper = styled.div`

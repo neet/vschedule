@@ -30,6 +30,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.10.2",
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "@ril/arts": "^1.0.0",
     "@ril/locales": "^0.0.0",
     "@ril/schema": "^0.0.0",
     "@types/dotenv": "^6.1.1",

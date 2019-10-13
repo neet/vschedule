@@ -10,5 +10,5 @@ export const useSearchForm = () => {
 
   const { data } = useSearchQuery({ variables: { query: value } });
 
-  return { value, onChange: handleChange, result: data };
+  return { value, onChange: handleChange, result: data && data.search };
 };

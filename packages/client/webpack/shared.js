@@ -1,5 +1,5 @@
-const dotenv = require('dotenv');
 const path = require('path');
+const dotenv = require('dotenv');
 const TSConfigPathsWebpackPlugin = require('tsconfig-paths-webpack-plugin');
 const webpack = require('webpack');
 const WebpackNotifierPlugin = require('webpack-notifier');
@@ -85,7 +85,7 @@ function shared(command, argv) {
       contentBase: path.resolve(__dirname, '../static'),
       disableHostCheck: true,
       historyApiFallback: {
-        index: '/debug.html'
+        index: '/debug.html',
       },
       hot: true,
       inline: true,
@@ -112,7 +112,10 @@ function shared(command, argv) {
       new WebpackNotifierPlugin({
         title: 'Refined itsukara.link',
         alwaysNotify: true,
-        contentImage: path.resolve(__dirname, '../src/assets/logo-small.png'),
+        contentImage: path.resolve(
+          require.resolve('@ril/arts'),
+          '../static/logo-small.png',
+        ),
       }),
     );
   }

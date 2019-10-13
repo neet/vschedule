@@ -8,7 +8,7 @@ import { Teams } from 'src/views/teams';
 import { Search } from 'src/views/search';
 import { Page } from 'src/components/page';
 import { Banner } from 'src/components/banner';
-import { SidebarContainer } from 'src/containers/sidebar-container';
+import { Sidebar } from 'src/components/sidebar';
 import { GlobalStyle } from './global-style';
 
 const Wrapper = styled.div`
@@ -22,7 +22,7 @@ const Wrapper = styled.div`
 export const Root: React.SFC = React.memo(() => {
   return (
     <Wrapper>
-      <SidebarContainer />
+      <Sidebar />
 
       <Page>
         <Banner />
