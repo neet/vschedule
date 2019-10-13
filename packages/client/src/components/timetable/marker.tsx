@@ -2,11 +2,11 @@ import dayjs from 'dayjs';
 import { parseToRgb, rgba } from 'polished';
 import React, { useMemo } from 'react';
 import { ActivityFragment } from 'src/generated/graphql';
-import { styled, keyframes } from 'src/styles';
-import { borderGap, markerGap } from 'src/styles/constants';
+import { styled } from 'src/styles';
+import { SPELL_WIDTH, MARKER_MARGIN } from './layout';
 
 const toPixel = (minute: number) => {
-  const pixelPerMinute = borderGap / 30;
+  const pixelPerMinute = SPELL_WIDTH / 30;
 
   return minute * pixelPerMinute;
 };
@@ -15,18 +15,18 @@ interface WrapperProps {
   isLight: boolean;
 }
 
-const keyframe = keyframes`
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-`;
+// const keyframe = keyframes`
+//   0% {
+//     transform: scale(0);
+//   }
+//   100% {
+//     transform: scale(1);
+//   }
+// `;
 
-const KeyframeWrapper = styled.div`
-  animation: 0.15s ${keyframe} ease-out;
-`;
+// const KeyframeWrapper = styled.div`
+//   animation: 0.15s ${keyframe} ease-out;
+// `;
 
 export const Wrapper = styled.a<WrapperProps>`
   display: flex;
@@ -35,7 +35,7 @@ export const Wrapper = styled.a<WrapperProps>`
   left: 0;
   box-sizing: border-box;
   align-items: center;
-  padding: 4px 6px;
+  padding: 4px 5px;
   border-radius: 99px;
   color: ${({ theme, isLight }) =>
     isLight ? theme.foregroundDark : theme.foregroundReverse};
@@ -90,11 +90,12 @@ export const Marker = (props: MarkerProps) => {
   const endDate = dayjs(activity.endAt);
 
   // Compare current date vs start date in minutes
-  const x = toPixel(startDate.diff(timetableStartAt, 'minute')) + markerGap / 2;
+  const x =
+    toPixel(startDate.diff(timetableStartAt, 'minute')) + MARKER_MARGIN / 2;
   // Avatar height + padding
-  const y = (markerGap + 50) * row;
+  const y = (MARKER_MARGIN + 50) * row;
 
-  const width = toPixel(endDate.diff(startDate, 'minute')) - markerGap;
+  const width = toPixel(endDate.diff(startDate, 'minute')) - MARKER_MARGIN;
 
   const isLight = useMemo(() => {
     // Calc color brightness difference
@@ -104,28 +105,26 @@ export const Marker = (props: MarkerProps) => {
   }, [firstStreamer.color]);
 
   return (
-    <KeyframeWrapper>
-      <Wrapper
-        tabIndex={0}
-        href={activity.url}
-        title={activity.name}
-        target="_blank"
-        rel="noreferrer"
-        isLight={isLight}
-        style={{
-          width: `${width}px`,
-          transform: `translate(${x}px, ${y}px)`,
-          backgroundColor: firstStreamer.color,
-          boxShadow: `0 2px 6px ${rgba(firstStreamer.color, 0.48)}`,
-        }}
-      >
-        <Avatar src={firstStreamer.avatar} />
+    <Wrapper
+      tabIndex={0}
+      href={activity.url}
+      title={activity.name}
+      target="_blank"
+      rel="noreferrer"
+      isLight={isLight}
+      style={{
+        width: `${width}px`,
+        transform: `translate(${x}px, ${y}px)`,
+        backgroundColor: firstStreamer.color,
+        boxShadow: `0 2px 6px ${rgba(firstStreamer.color, 0.48)}`,
+      }}
+    >
+      <Avatar src={firstStreamer.avatar} />
 
-        <Meta>
-          <Title>{activity.name}</Title>
-          <LiverName>{firstStreamer.name}</LiverName>
-        </Meta>
-      </Wrapper>
-    </KeyframeWrapper>
+      <Meta>
+        <Title>{activity.name}</Title>
+        <LiverName>{firstStreamer.name}</LiverName>
+      </Meta>
+    </Wrapper>
   );
 };

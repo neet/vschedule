@@ -1,7 +1,6 @@
 import { Activity, Menu } from 'react-feather';
 import React from 'react';
 import { styled } from 'src/styles';
-import { bannerHeight } from 'src/styles/constants';
 import {
   useToggleSidebarMutation,
   useFetchSidebarQuery,
@@ -21,7 +20,6 @@ const Wrapper = styled.header`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  /* height: ${bannerHeight}px; */
   padding: 8px 14px;
   border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
   background-color: ${({ theme }) => theme.backgroundNormal};
@@ -97,7 +95,7 @@ export const Banner: React.SFC = React.memo(() => {
   };
 
   const handleClickToday = () => {
-    const node = document.getElementById('minute-hand');
+    const node = document.getElementById('now');
     if (!node || !(node instanceof Element)) return;
     node.scrollIntoView({
       behavior: 'smooth',
@@ -112,20 +110,20 @@ export const Banner: React.SFC = React.memo(() => {
           <Menu />
         </MenuButton>
 
-        <SearchFormContainer />
-      </Hgroup>
-
-      <Toolbox>
         <Switch>
           <Route path="/activities">
             <DatePicker />
-
-            <Today onClick={handleClickToday}>
-              <Activity size={14} />
-              {t('banner.today', { defaultValue: 'Today' })}
-            </Today>
           </Route>
         </Switch>
+      </Hgroup>
+
+      <Toolbox>
+        <SearchFormContainer />
+
+        <Today onClick={handleClickToday}>
+          <Activity size={14} />
+          {t('banner.today', { defaultValue: 'Today' })}
+        </Today>
       </Toolbox>
     </Wrapper>
   );

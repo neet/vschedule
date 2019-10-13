@@ -60,14 +60,30 @@ export class ActivityRepository {
       .orderBy('activity.startAt', order)
       .take(Math.min(take, 100));
 
-    if (before) {
-      const { id } = Cursor.decode(before);
-      query.andWhere('activity.id < :id', { id });
-    }
-
     if (after) {
       const { id } = Cursor.decode(after);
-      query.andWhere('activity.id > :id', { id });
+      const afterActivity = await this.manager
+        .getRepository(Activity)
+        .findOne({ id });
+
+      if (!afterActivity) throw new Error('undef');
+
+      query.andWhere('activity."endAt" < CAST(:afterDate AS TIMESTAMP)', {
+        afterDate: afterActivity.startAt,
+      });
+    }
+
+    if (before) {
+      const { id } = Cursor.decode(before);
+      const beforeActivity = await this.manager
+        .getRepository(Activity)
+        .findOne({ id });
+
+      if (!beforeActivity) throw new Error('undef');
+
+      query.andWhere('activity."startAt" < CAST(:beforeDate AS TIMESTAMP)', {
+        beforeDate: beforeActivity.startAt,
+      });
     }
 
     if (afterDate) {

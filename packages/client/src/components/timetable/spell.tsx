@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dayjs } from 'dayjs';
 import { styled } from 'src/styles';
+import { SPELL_WIDTH } from './layout';
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,8 +22,6 @@ const Stripe = styled.div`
   border-right: 1px solid ${({ theme }) => theme.borderNormal};
 `;
 
-const SPELL_WIDTH = 150;
-
 const toPixel = (minute: number) => {
   const pixelPerMinute = SPELL_WIDTH / 30;
 
@@ -39,8 +38,11 @@ export const Spell = (props: SpellProps) => {
   const x = toPixel(date.diff(timetableStartAt, 'minute'));
 
   return (
-    <Wrapper style={{ transform: `translateX(${x}px)` }}>
-      <Date dateTime={date.toISOString()}>{date.format('LLL')}</Date>
+    <Wrapper
+      id={`spell-${date.toISOString()}`}
+      style={{ transform: `translateX(${x}px)` }}
+    >
+      <Date dateTime={date.toISOString()}>{date.format('HH:MM')}</Date>
       <Stripe />
     </Wrapper>
   );
