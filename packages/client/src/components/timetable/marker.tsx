@@ -3,6 +3,7 @@ import { parseToRgb, rgba } from 'polished';
 import React, { useMemo } from 'react';
 import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
+import { Avatar } from 'src/components/avatar';
 import { SPELL_WIDTH, MARKER_MARGIN } from './layout';
 
 const toPixel = (minute: number) => {
@@ -15,7 +16,7 @@ interface WrapperProps {
   isLight: boolean;
 }
 
-export const Wrapper = styled.a<WrapperProps>`
+const Wrapper = styled.a<WrapperProps>`
   display: flex;
   position: absolute;
   top: 60px;
@@ -30,21 +31,17 @@ export const Wrapper = styled.a<WrapperProps>`
   &:hover {
     text-decoration: none;
   }
+
+  & > img {
+    margin-right: 4px;
+  }
 `;
 
-export const Avatar = styled.img`
-  width: 40px;
-  height: 40px;
-  margin-right: 4px;
-  border-radius: 50%;
-  background-color: ${({ theme }) => theme.backgroundNormal};
-`;
-
-export const Meta = styled.div`
+const Meta = styled.div`
   min-width: 0;
 `;
 
-export const Title = styled.h4`
+const Title = styled.h4`
   display: block;
   margin: 0;
   overflow: hidden;
@@ -54,7 +51,7 @@ export const Title = styled.h4`
   white-space: nowrap;
 `;
 
-export const LiverName = styled.span`
+const Name = styled.span`
   display: block;
   overflow: hidden;
   opacity: 0.8;
@@ -63,7 +60,7 @@ export const LiverName = styled.span`
   white-space: nowrap;
 `;
 
-export interface MarkerProps {
+interface MarkerProps {
   activity: ActivityFragment;
   row: number;
   timetableStartAt: dayjs.Dayjs;
@@ -108,11 +105,11 @@ export const Marker = (props: MarkerProps) => {
         boxShadow: `0 2px 6px ${rgba(firstStreamer.color, 0.48)}`,
       }}
     >
-      <Avatar src={firstStreamer.avatar} />
+      <Avatar performer={firstStreamer} size={40} />
 
       <Meta>
         <Title>{activity.name}</Title>
-        <LiverName>{firstStreamer.name}</LiverName>
+        <Name>{firstStreamer.name}</Name>
       </Meta>
     </Wrapper>
   );

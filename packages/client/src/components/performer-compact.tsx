@@ -1,18 +1,16 @@
 import React from 'react';
 import { styled } from 'src/styles';
 import { PerformerFragment } from 'src/generated/graphql';
+import { Avatar } from './avatar';
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-`;
 
-const Avatar = styled.img`
-  flex-shrink: 0;
-  width: 36px;
-  height: auto;
-  margin-right: 8px;
-  border-radius: 50%;
+  & > img {
+    flex-shrink: 0;
+    margin-right: 8px;
+  }
 `;
 
 const Meta = styled.div`
@@ -32,11 +30,7 @@ export const PerformerCompact = (props: PerformerCompactProps) => {
 
   return (
     <Wrapper>
-      <Avatar
-        src={performer.avatar}
-        alt={performer.name}
-        style={{ backgroundColor: performer.color }}
-      />
+      <Avatar size={36} performer={performer} background="performerColor" />
 
       <Meta>
         <Name>{performer.name}</Name>

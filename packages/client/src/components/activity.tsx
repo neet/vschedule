@@ -3,6 +3,7 @@ import React from 'react';
 import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { isStreamingNow } from 'src/utils/is-streaming-now';
+import { Avatar } from './avatar';
 
 interface Wrapper {
   isStreaming?: boolean;
@@ -19,14 +20,11 @@ export const Wrapper = styled.a<Wrapper>`
   &:hover {
     text-decoration: none;
   }
-`;
 
-const Avatar = styled.img`
-  flex-shrink: 0;
-  width: auto;
-  height: 18px;
-  margin-right: 4px;
-  border-radius: 50%;
+  & > img {
+    flex-shrink: 0;
+    margin-right: 4px;
+  }
 `;
 
 export const Thumbnail = styled.div`
@@ -52,18 +50,17 @@ const Badge = styled.div`
   background-color: ${({ theme }) => theme.highlightNormal};
 `;
 
-export const Meta = styled.div`
+const Meta = styled.div`
   flex-grow: 1;
   min-width: 0;
   margin-right: 8px;
 `;
 
-export const Title = styled.h4`
+const Title = styled.h4`
   display: block;
   margin-bottom: 4px;
   overflow: hidden;
   font-size: 14px;
-  /* font-weight: bold; */
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
@@ -124,8 +121,9 @@ export const Activity = (props: ActivityProps) => {
 
         <PerformerWrapper>
           <Avatar
-            src={firstPerformer.avatar}
-            style={{ backgroundColor: firstPerformer.color }}
+            size={18}
+            performer={firstPerformer}
+            background="performerColor"
           />
 
           <PerformerName>

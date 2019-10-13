@@ -1,8 +1,9 @@
 import querystring from 'querystring';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { TeamFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
-import { Link } from 'react-router-dom';
+import { Avatar } from './avatar';
 
 const Wrapper = styled.div`
   display: flex;
@@ -35,14 +36,11 @@ const Members = styled.ul`
   display: flex;
   flex: 0 0 auto;
   margin-right: 18px;
-`;
 
-const Avatar = styled.img`
-  width: 40px;
-  height: auto;
-  margin-right: -18px;
-  border: 3px solid ${({ theme }) => theme.foregroundReverse};
-  border-radius: 50%;
+  & > img {
+    margin-right: -18px;
+    border: 3px solid ${({ theme }) => theme.foregroundReverse};
+  }
 `;
 
 interface TeamProps {
@@ -73,15 +71,12 @@ export const Team = (props: TeamProps) => {
       </Meta>
 
       <Members>
-        {team.members.map((member, i) => (
+        {team.members.map(member => (
           <Avatar
             key={member.id}
-            src={member.avatar}
-            alt={member.name}
-            style={{
-              backgroundColor: member.color,
-              zIndex: team.members.length - i,
-            }}
+            performer={member}
+            size={40}
+            background="performerColor"
           />
         ))}
       </Members>
