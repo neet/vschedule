@@ -1,6 +1,6 @@
 import React from 'react';
-import { TimetableContainer } from 'src/containers/timetable-container';
+import { Timetable } from 'src/components/timetable';
 
 export const Activities = React.memo(() => {
-  return <TimetableContainer />;
+  return <Timetable />;
 });

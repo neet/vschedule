@@ -2,10 +2,10 @@ import querystring from 'querystring';
 import React, { useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { Link, NavLink } from 'react-router-dom';
+import { Tv, User, Users, Hash, ChevronDown, ChevronUp } from 'react-feather';
 import { styled } from 'src/styles';
 import logoSmall from 'src/assets/logo-small.png';
-import { Tv, User, Users, Hash, ChevronDown, ChevronUp } from 'react-feather';
-import { CategoryFragment } from 'src/generated/graphql';
+import { useSidebar } from 'src/hooks/use-sidebar';
 
 const Wrapper = styled.div`
   display: flex;
@@ -101,13 +101,8 @@ const Disclaimer = styled.p`
   font-size: 12px;
 `;
 
-interface SidebarProps {
-  expanded?: boolean;
-  categories?: CategoryFragment[];
-}
-
-export const Sidebar = (props: SidebarProps) => {
-  const { expanded, categories } = props;
+export const Sidebar = () => {
+  const { expanded, categories } = useSidebar();
   const { t } = useTranslation();
   const [categoriesExpanded, expandCategories] = useState(false);
 

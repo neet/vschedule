@@ -8,7 +8,7 @@ import { isOverlapping } from 'src/utils/is-overlapping';
 import { sortEvents } from 'src/utils/sort-events';
 import { Spell } from './spell';
 import { Marker } from './marker';
-import { Now } from './now';
+import { MinuteHand } from './minute-hand';
 
 const Wrapper = styled.div`
   position: relative;
@@ -112,6 +112,7 @@ export const Feed = (props: FeedProps) => {
   useLayoutEffect(() => {
     const node = document.getElementById('now');
     if (!node || !(node instanceof Element)) return;
+
     node.scrollIntoView({
       inline: 'center',
     });
@@ -185,7 +186,11 @@ export const Feed = (props: FeedProps) => {
         ))}
       </div>
 
-      <Now timetableStartAt={timetableStartAt} count={0} />
+      <MinuteHand
+        count={0}
+        timetableStartAt={timetableStartAt}
+        timetableEndAt={timetableEndAt}
+      />
 
       <div>
         {markers.map(({ activity, row }, i) => (

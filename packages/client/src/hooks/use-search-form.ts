@@ -1,8 +1,7 @@
-import React, { useState, useCallback } from 'react';
-import { SearchForm } from 'src/components/search-form';
+import { useState, useCallback } from 'react';
 import { useSearchQuery } from 'src/generated/graphql';
 
-export const SearchFormContainer = () => {
+export const useSearchForm = () => {
   const [value, changeValue] = useState();
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -11,11 +10,5 @@ export const SearchFormContainer = () => {
 
   const { data } = useSearchQuery({ variables: { query: value } });
 
-  return (
-    <SearchForm
-      value={value}
-      result={data && data.search}
-      onChange={handleChange}
-    />
-  );
+  return { value, onChange: handleChange, result: data };
 };

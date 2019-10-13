@@ -3,7 +3,7 @@ import { styled } from 'src/styles';
 import { Search } from 'react-feather';
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import * as G from 'src/generated/graphql';
+import { useSearchForm } from 'src/hooks/use-search-form';
 import { SearchResult } from './search-result';
 
 const Wrapper = styled.div`
@@ -50,14 +50,8 @@ const ResultWrapper = styled.div`
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
 `;
 
-interface SearchFormProps {
-  value?: string;
-  result?: G.SearchResultFragment;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-export const SearchForm = (props: SearchFormProps) => {
-  const { value, result, onChange } = props;
+export const SearchForm = () => {
+  const { value, result, onChange } = useSearchForm();
   const { t } = useTranslation();
   const history = useHistory();
 

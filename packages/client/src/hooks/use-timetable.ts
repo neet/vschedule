@@ -1,5 +1,3 @@
-import React from 'react';
-import { Timetable } from 'src/components/timetable';
 import {
   useFetchActivitiesQuery,
   ActivitiesInput,
@@ -7,7 +5,7 @@ import {
 } from 'src/generated/graphql';
 import { useQueryParam, StringParam } from 'use-query-params';
 
-export const TimetableContainer = () => {
+export const useTimetable = () => {
   const [afterDate] = useQueryParam('after_date', StringParam);
   const [beforeDate] = useQueryParam('before_date', StringParam);
   const [categoryId] = useQueryParam('category_id', StringParam);
@@ -85,19 +83,16 @@ export const TimetableContainer = () => {
     });
   };
 
-  return (
-    <Timetable
-      activities={
-        data &&
-        data.activities.edges
-          .map(edge => edge.node)
-          .filter((v): v is ActivityFragment => !!v)
-      }
-      loading={loading}
-      hasNextPage={data && data.activities.pageInfo.hasNextPage}
-      hasPreviousPage={data && data.activities.pageInfo.hasPreviousPage}
-      onLoadNext={onLoadNext}
-      onLoadPrevious={onLoadPrevious}
-    />
-  );
+  return {
+    activities:
+      data &&
+      data.activities.edges
+        .map(edge => edge.node)
+        .filter((v): v is ActivityFragment => !!v),
+    loading,
+    hasNextPage: data && data.activities.pageInfo.hasNextPage,
+    hasPreviousPage: data && data.activities.pageInfo.hasPreviousPage,
+    onLoadNext,
+    onLoadPrevious,
+  };
 };

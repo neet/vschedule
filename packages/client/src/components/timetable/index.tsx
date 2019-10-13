@@ -1,18 +1,9 @@
 import React from 'react';
-import { ActivityFragment } from 'src/generated/graphql';
+import { useTimetable } from 'src/hooks/use-timetable';
 import { Feed } from './feed';
 import { Placeholder } from './placeholder';
 
-export interface TimetableProps {
-  activities?: ActivityFragment[];
-  loading: boolean;
-  hasNextPage?: boolean;
-  hasPreviousPage?: boolean;
-  onLoadNext?: () => void;
-  onLoadPrevious?: () => void;
-}
-
-export const Timetable = (props: TimetableProps) => {
+export const Timetable = () => {
   const {
     activities,
     onLoadNext,
@@ -20,7 +11,7 @@ export const Timetable = (props: TimetableProps) => {
     loading,
     hasNextPage,
     hasPreviousPage,
-  } = props;
+  } = useTimetable();
 
   if (!activities) {
     return <Placeholder />;

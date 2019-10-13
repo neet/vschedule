@@ -3,8 +3,8 @@ import { Dayjs } from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { rgba } from 'polished';
-import { styled } from 'src/styles';
 import { useNow } from 'src/hooks/use-now';
+import { styled } from 'src/styles';
 import { SPELL_WIDTH } from './layout';
 
 const Wrapper = styled.div`
@@ -48,18 +48,26 @@ const Border = styled.div`
   border-left: 1px solid ${({ theme }) => theme.highlightNormal};
 `;
 
-export interface NowProps {
+export interface MinuteHandProps {
   count: number;
   timetableStartAt: Dayjs;
+  timetableEndAt: Dayjs;
 }
 
-export const Now = (props: NowProps) => {
-  const { count, timetableStartAt } = props;
+export const MinuteHand = (props: MinuteHandProps) => {
+  const { count, timetableStartAt, timetableEndAt } = props;
   const { t } = useTranslation();
-  const { now } = useNow(1000 * 60);
+  const { now } = useNow(60 * 1000);
 
   const x =
     (now.diff(timetableStartAt, 'minute') * SPELL_WIDTH) / 30 - SPELL_WIDTH / 2;
+
+  const shouldBeRendered =
+    now.isAfter(timetableStartAt) && now.isBefore(timetableEndAt);
+
+  if (!shouldBeRendered) {
+    return null;
+  }
 
   return (
     <Wrapper id="now" style={{ transform: `translateX(${x}px)` }}>
