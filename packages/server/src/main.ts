@@ -22,7 +22,7 @@ const schema = require.resolve('@ril/schema');
 const client = require.resolve('@ril/client');
 
 (async () => {
-  const artsStatic = path.resolve(arts, './static');
+  const artsStatic = path.resolve(arts, '../static');
   const clientStatic = path.resolve(client, '../../static');
 
   const typeDefs = await fs.readFile(schema, 'utf-8').then(gql);
