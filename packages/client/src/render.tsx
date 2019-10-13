@@ -22,7 +22,7 @@ import { theme } from './styles/theme';
 import { initDayjs } from './utils/locale';
 import { Root } from './views/root';
 
-export interface SSRParams {
+export interface RenderParams {
   /** i18next instance */
   i18n: i18next.i18n;
   /** Request pathname */
@@ -31,12 +31,12 @@ export interface SSRParams {
   manifest: { [K: string]: string };
 }
 
-export interface SSRResult {
+export interface RenderResult {
   statusCode: number;
   staticMarkup: string;
 }
 
-export default async function SSR(params: SSRParams): Promise<SSRResult> {
+export const render = async (params: RenderParams): Promise<RenderResult> => {
   const fragmentMatcher = new IntrospectionFragmentMatcher({
     introspectionQueryResultData: introspectionResult,
   });
@@ -98,4 +98,4 @@ export default async function SSR(params: SSRParams): Promise<SSRResult> {
     staticMarkup,
     statusCode: context.statusCode,
   };
-}
+};

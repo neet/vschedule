@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0-or-later",
-  "main": "dist/ssr.js",
-  "types": "index.d.ts",
+  "main": "dist/render.js",
+  "types": "render.d.ts",
   "scripts": {
     "postinstall": "graphql-codegen --config codegen.yml",
     "build": "webpack --mode production --config=webpack/webpack.config.js",

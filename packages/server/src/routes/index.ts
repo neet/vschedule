@@ -1,6 +1,6 @@
 import path from 'path';
 import express from 'express';
-import SSR from '@ril/client';
+import { render } from '@ril/client';
 import manifest from '@ril/client/static/build/manifest.json';
 
 const client = require.resolve('@ril/client');
@@ -32,7 +32,7 @@ router.use('/manifest.json', ({ i18n }, res) => {
 
 // Server side rendering
 router.use(async (req, res) => {
-  const result = await SSR({
+  const result = await render({
     manifest,
     i18n: req.i18n,
     location: req.url,
