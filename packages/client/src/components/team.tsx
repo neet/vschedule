@@ -11,6 +11,14 @@ const Wrapper = styled.div`
   overflow: hidden;
 `;
 
+const StyledLink = styled(Link)`
+  color: inherit;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const Title = styled.h3`
   font-size: 16px;
 `;
@@ -48,14 +56,14 @@ export const Team = (props: TeamProps) => {
   return (
     <Wrapper>
       <Meta>
-        <Link
+        <StyledLink
           to={{
             pathname: '/activities',
             search: querystring.stringify({ team_id: team.id }),
           }}
         >
           <Title>{team.name}</Title>
-        </Link>
+        </StyledLink>
 
         {showNames && (
           <MemberNames>
