@@ -20,8 +20,9 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Title = styled.h3`
-  font-size: 16px;
+const Title = styled.span`
+  font-size: 14px;
+  font-weight: bold;
 `;
 
 const Meta = styled.div`

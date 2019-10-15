@@ -61,7 +61,7 @@ const Today = styled.button`
   border: none;
   border-radius: 4px;
   background-color: ${({ theme }) => theme.highlightNormal};
-  box-shadow: 0 0 6px ${({ theme }) => rgba(theme.highlightNormal, 0.2)};
+  box-shadow: 0 0 6px ${({ theme }) => rgba(theme.highlightNormal, 0.16)};
   color: ${({ theme }) => theme.foregroundReverse};
   font-size: 12px;
   font-weight: bold;
@@ -73,7 +73,7 @@ const Today = styled.button`
 
   &:hover {
     transition: ease-in 0.15s;
-    box-shadow: 0 4px 12px ${({ theme }) => rgba(theme.highlightNormal, 0.2)};
+    box-shadow: 0 4px 12px ${({ theme }) => rgba(theme.highlightNormal, 0.16)};
   }
 `;
 

@@ -14,7 +14,6 @@ export const Wrapper = styled.a<Wrapper>`
   box-sizing: border-box;
   align-items: center;
   transition: ease-out 0.15s;
-  background-color: ${({ theme }) => theme.backgroundNormal};
   color: ${({ theme }) => theme.foregroundNormal};
 
   &:hover {
@@ -56,11 +55,12 @@ const Meta = styled.div`
   margin-right: 8px;
 `;
 
-const Title = styled.h4`
+const Title = styled.span`
   display: block;
   margin-bottom: 4px;
   overflow: hidden;
   font-size: 14px;
+  font-weight: bold;
   text-overflow: ellipsis;
   white-space: nowrap;
 `;

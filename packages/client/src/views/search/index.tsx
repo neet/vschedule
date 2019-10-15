@@ -33,6 +33,10 @@ export const Search = () => {
   const [q = ''] = useQueryParam('q', StringParam);
   const { data } = useSearchQuery({ variables: { query: q } });
 
+  if (!data || !data.search) {
+    return null;
+  }
+
   return (
     <>
       <Helmet>
@@ -55,7 +59,7 @@ export const Search = () => {
           </Title>
 
           <Container>
-            <SearchResult result={data && data.search} />
+            <SearchResult result={data.search} withGroupTitle />
           </Container>
         </Inner>
       </Wrapper>

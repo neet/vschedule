@@ -1,76 +1,159 @@
 import React from 'react';
 import { styled } from 'src/styles';
+import { useTranslation } from 'react-i18next';
+import { Icon as FeatherIconType, Tv, User, Users, Hash } from 'react-feather';
 import * as G from 'src/generated/graphql';
 import { Activity } from './activity';
 import { PerformerCompact } from './performer-compact';
 import { Team } from './team';
+import { Category } from './category';
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  background-color: ${({ theme }) => theme.backgroundDark};
+`;
 
-const List = styled.ul`
-  &:not(:last-child) {
-    margin-bottom: 8px;
+const List = styled.ul``;
+
+const Title = styled.h4`
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  color: ${({ theme }) => theme.foregroundLight};
+
+  svg {
+    margin-right: 0.5em;
   }
+`;
 
-  &:not(:first-child) > li:first-child {
+interface ListItemProps {
+  selected: boolean;
+}
+
+const ListItem = styled.li<ListItemProps>`
+  padding: 8px 12px;
+  border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
+  background-color: ${({ theme, selected }) =>
+    selected ? theme.backgroundWash : theme.backgroundNormal};
+
+  &:first-child {
     border-top: 1px solid ${({ theme }) => theme.borderNormal};
   }
 `;
 
-const ListItem = styled.li`
-  padding: 8px 12px;
-  border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
-  background-color: ${({ theme }) => theme.backgroundNormal};
-`;
-
 interface SearchResultProps {
-  result?: G.SearchResultFragment;
+  result: G.SearchResultFragment;
+  selectedIndex?: number;
+  withGroupTitle?: boolean;
 }
 
-export const SearchResult = (props: SearchResultProps) => {
-  const { result } = props;
+type Entry =
+  | G.ActivityFragment
+  | G.CategoryFragment
+  | G.TeamFragment
+  | G.PerformerFragment;
 
+interface SearchResultGroupProps<T extends Entry> {
+  items: T[];
+  title: string;
+  icon: FeatherIconType;
+  result: G.SearchResultFragment;
+  selectedIndex?: number;
+  withGroupTitle?: boolean;
+  render: (params: T) => React.ReactNode;
+}
+
+const SearchResultGroup = <T extends Entry>(
+  props: SearchResultGroupProps<T>,
+) => {
+  const {
+    items,
+    icon: Icon,
+    title,
+    result,
+    selectedIndex,
+    withGroupTitle,
+    render,
+  } = props;
+
+  if (!items.length) return null;
+
+  const { categories, performers, teams, activities } = result;
+  const flatResult = [categories, performers, teams, activities].flat();
+
+  // prettier-ignore
+  const getIndex = (item: Entry) => Object
+    .entries<Entry>(flatResult)
+    .findIndex(([, value]) => value === item)
+
+  return (
+    <div>
+      {withGroupTitle && (
+        <Title>
+          <Icon size={16} />
+          {title}
+        </Title>
+      )}
+
+      <List>
+        {items.map(item => (
+          <ListItem
+            key={item.id}
+            data-index={`result-${getIndex(item)}`}
+            selected={selectedIndex === getIndex(item)}
+            aria-selected={selectedIndex === getIndex(item)}
+          >
+            {render(item)}
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+};
+
+export const SearchResult = (props: SearchResultProps) => {
+  const { result, withGroupTitle, selectedIndex } = props;
+  const { t } = useTranslation();
   if (!result) return null;
+
+  const options = {
+    result,
+    selectedIndex,
+    withGroupTitle,
+  };
 
   return (
     <Wrapper>
-      {result.categories.length ? (
-        <List>
-          {result.categories.map(category => (
-            <ListItem key={category.id}>#{category.name}</ListItem>
-          ))}
-        </List>
-      ) : null}
+      <SearchResultGroup
+        title={t('search.categories', { defaultValue: 'カテゴリー' })}
+        icon={Hash}
+        items={result.categories}
+        render={category => <Category category={category} />}
+        {...options}
+      />
 
-      {result.performers.length ? (
-        <List>
-          {result.performers.map(performer => (
-            <ListItem key={performer.id}>
-              <PerformerCompact performer={performer} />
-            </ListItem>
-          ))}
-        </List>
-      ) : null}
+      <SearchResultGroup
+        title={t('search.performers', { defaultValue: 'ライバー' })}
+        icon={User}
+        items={result.performers}
+        render={performer => <PerformerCompact performer={performer} />}
+        {...options}
+      />
 
-      {result.teams.length ? (
-        <List>
-          {result.teams.map(team => (
-            <ListItem key={team.id}>
-              <Team team={team} />
-            </ListItem>
-          ))}
-        </List>
-      ) : null}
+      <SearchResultGroup
+        title={t('search.teams', { defaultValue: 'ユニット' })}
+        icon={Users}
+        items={result.teams}
+        render={team => <Team team={team} />}
+        {...options}
+      />
 
-      {result.activities.length ? (
-        <List>
-          {result.activities.map(activity => (
-            <ListItem key={activity.id}>
-              <Activity activity={activity} withDescription withPerforemer />
-            </ListItem>
-          ))}
-        </List>
-      ) : null}
+      <SearchResultGroup
+        title={t('search.activities', { defaultValue: '配信' })}
+        icon={Tv}
+        items={result.activities}
+        render={activity => <Activity activity={activity} withPerforemer />}
+        {...options}
+      />
     </Wrapper>
   );
 };

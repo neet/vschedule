@@ -1,5 +1,5 @@
 import querystring from 'querystring';
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { styled } from 'src/styles';
 import { Search } from 'react-feather';
 import { useHistory } from 'react-router';
@@ -45,30 +45,130 @@ const ResultWrapper = styled.div`
   width: 100%;
   height: calc(100vh / 2);
   margin-top: 38px;
-  overflow: hidden;
+  overflow: scroll;
   border-radius: 4px;
   background-color: ${({ theme }) => theme.backgroundWash};
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
 `;
 
 export const SearchForm = () => {
+  const node = useRef<HTMLDivElement>(null);
+  const inputNode = useRef<HTMLInputElement>(null);
   const { value, result, onChange } = useSearchForm();
+  const [showResult, changeIfShowResult] = useState(false);
+  const [selectedIndex, select] = useState<number | undefined>();
   const { t } = useTranslation();
   const history = useHistory();
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && e.which !== 229 && !(e as any).isComposing) {
-      e.preventDefault();
+  useEffect(() => {
+    select(undefined);
+    changeIfShowResult(!!value);
+  }, [value]);
 
-      history.push({
-        pathname: `/search`,
-        search: querystring.stringify({ q: value }),
-      });
+  useEffect(() => {
+    if (!node.current) return;
+    const item = node.current.querySelector(
+      `*[data-index="result-${selectedIndex}"]`,
+    );
+
+    if (item) {
+      item.scrollIntoView({ block: 'nearest' });
+    }
+  }, [selectedIndex]);
+
+  const handleEnter = () => {
+    history.push({
+      pathname: `/search`,
+      search: querystring.stringify({ q: value }),
+    });
+
+    changeIfShowResult(false);
+
+    if (node.current) {
+      node.current.blur();
     }
   };
 
+  const handleArrow = (action: 'up' | 'down') => {
+    if (!result || !node.current) return;
+
+    if (selectedIndex === undefined) {
+      return select(0);
+    }
+
+    const { categories, performers, teams, activities } = result;
+    const flatResult = [categories, performers, teams, activities].flat();
+
+    if (action === 'down') {
+      select(Math.min(flatResult.length - 1, selectedIndex + 1));
+    }
+
+    if (action === 'up') {
+      select(Math.max(0, selectedIndex - 1));
+    }
+  };
+
+  const handleDocumentKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      return handleArrow('up');
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      return handleArrow('down');
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleDocumentKeyDown);
+    return () => document.removeEventListener('keydown', handleDocumentKeyDown);
+  });
+
+  const handleEnterItem = () => {
+    if (selectedIndex === undefined || !node.current) return;
+
+    const item = node.current.querySelector(
+      `*[data-index="result-${selectedIndex}"]`,
+    );
+    if (!item) return;
+
+    const childAnchor = item.querySelector('a');
+
+    if (childAnchor && childAnchor instanceof HTMLElement) {
+      childAnchor.click();
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      if (selectedIndex !== undefined) {
+        return handleEnterItem();
+      }
+
+      if (e.which !== 229 && !(e as any).isComposing) {
+        return handleEnter();
+      }
+    }
+
+    if (e.key === 'Escape') {
+      if (!inputNode.current) return;
+      return inputNode.current.blur();
+    }
+  };
+
+  const handleFocus = () => {
+    if (value) {
+      changeIfShowResult(true);
+    }
+  };
+
+  const handleBlur = () => {
+    changeIfShowResult(false);
+  };
+
   return (
-    <Wrapper>
+    <Wrapper ref={node}>
       <Icon>
         <Search size={16} />
       </Icon>
@@ -77,16 +177,19 @@ export const SearchForm = () => {
         type="text"
         role="search"
         value={value}
+        ref={inputNode}
         placeholder={t('search.placeholder', {
           defaultValue: 'Search',
         })}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         onChange={onChange}
         onKeyDown={handleKeyDown}
       />
 
-      {value && (
+      {showResult && result && (
         <ResultWrapper>
-          <SearchResult result={result} />
+          <SearchResult result={result} selectedIndex={selectedIndex} />
         </ResultWrapper>
       )}
     </Wrapper>

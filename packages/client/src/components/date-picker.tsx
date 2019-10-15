@@ -3,7 +3,6 @@ import { ChevronLeft, ChevronRight } from 'react-feather';
 import dayjs from 'dayjs';
 import { styled } from 'src/styles';
 import { useQueryParams } from 'use-query-params';
-import { rgba } from 'polished';
 
 const Wrapper = styled.div`
   display: flex;
@@ -31,7 +30,7 @@ const Chevron = styled.button`
 
   &:hover {
     transition: 0.15s ease-in;
-    background-color: ${({ theme }) => rgba(theme.highlightNormal, 0.1)};
+    background-color: ${({ theme }) => theme.highlightWash};
     color: ${({ theme }) => theme.highlightNormal};
   }
 `;
