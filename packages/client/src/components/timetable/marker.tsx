@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { Avatar } from 'src/components/avatar';
+import { AvatarGroup } from 'src/components/avatar-group';
 import { SPELL_WIDTH, MARKER_MARGIN } from './layout';
 
 const toPixel = (minute: number) => {
@@ -107,7 +108,11 @@ export const Marker = (props: MarkerProps) => {
         boxShadow: `0 2px 6px ${rgba(performer.color, 0.48)}`,
       }}
     >
-      <Avatar performer={performer} size={40} />
+      {team ? (
+        <AvatarGroup performers={performers} size={40} gap={-28} align="left" />
+      ) : (
+        <Avatar performer={performer} size={40} />
+      )}
 
       <Meta>
         <Title>{activity.name}</Title>

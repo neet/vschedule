@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { TeamFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
-import { Avatar } from './avatar';
+import { AvatarGroup } from './avatar-group';
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,17 +33,6 @@ const MemberNames = styled.p`
   color: ${({ theme }) => theme.foregroundLight};
 `;
 
-const Members = styled.ul`
-  display: flex;
-  flex: 0 0 auto;
-  margin-right: 18px;
-
-  & > a {
-    margin-right: -18px;
-    border: 3px solid ${({ theme }) => theme.foregroundReverse};
-  }
-`;
-
 interface TeamProps {
   team: TeamFragment;
   withPerformerNames?: boolean;
@@ -71,16 +60,13 @@ export const Team = (props: TeamProps) => {
         )}
       </Meta>
 
-      <Members>
-        {team.members.map(member => (
-          <Avatar
-            key={member.id}
-            performer={member}
-            size={40}
-            background="performerColor"
-          />
-        ))}
-      </Members>
+      <AvatarGroup
+        performers={team.members}
+        size={40}
+        align="right"
+        background="performerColor"
+        gap={-18}
+      />
     </Wrapper>
   );
 };
