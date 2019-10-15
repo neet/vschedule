@@ -7,19 +7,23 @@ import {
   JoinTable,
   CreateDateColumn,
   UpdateDateColumn,
+  Index,
 } from 'typeorm';
 import { Team } from './team';
 import { TwitterAccount } from './twitter-account';
 import { YoutubeAccount } from './youtube-account';
+import { Activity } from './activity';
 
 @Entity()
 export class Performer {
   @PrimaryColumn('text')
   id: string;
 
+  @Index()
   @CreateDateColumn({ type: 'timestamp with time zone' })
   readonly createdAt: Date;
 
+  @Index()
   @UpdateDateColumn({ type: 'timestamp with time zone' })
   readonly updatedAt: Date;
 
@@ -63,4 +67,7 @@ export class Performer {
   @ManyToMany(() => Team, team => team.members, { onDelete: 'SET NULL' })
   @JoinTable()
   teams: Team[];
+
+  @ManyToMany(() => Activity, activity => activity.performers)
+  activities: Activity[];
 }

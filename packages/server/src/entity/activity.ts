@@ -8,6 +8,7 @@ import {
   JoinTable,
   CreateDateColumn,
   UpdateDateColumn,
+  Index,
 } from 'typeorm';
 import { Category } from './category';
 import { Performer } from './performer';
@@ -18,9 +19,11 @@ export class Activity {
   @PrimaryColumn('text')
   id: string;
 
+  @Index()
   @CreateDateColumn({ type: 'timestamp with time zone' })
   readonly createdAt: Date;
 
+  @Index()
   @UpdateDateColumn({ type: 'timestamp with time zone' })
   readonly updatedAt: Date;
 
@@ -39,9 +42,11 @@ export class Activity {
   @Column('text')
   thumbnail: string;
 
+  @Index()
   @Column('timestamp with time zone')
   startAt: Date;
 
+  @Index()
   @Column('timestamp with time zone')
   endAt: Date;
 
