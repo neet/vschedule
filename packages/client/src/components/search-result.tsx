@@ -8,17 +8,19 @@ import { Team } from './team';
 const Wrapper = styled.div``;
 
 const List = styled.ul`
-  margin-bottom: 8px;
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+
+  &:not(:first-child) > li:first-child {
+    border-top: 1px solid ${({ theme }) => theme.borderNormal};
+  }
 `;
 
 const ListItem = styled.li`
   padding: 8px 12px;
   border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
   background-color: ${({ theme }) => theme.backgroundNormal};
-
-  &:first-child {
-    border-top: 1px solid ${({ theme }) => theme.borderNormal};
-  }
 `;
 
 interface SearchResultProps {

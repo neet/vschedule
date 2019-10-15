@@ -21,6 +21,13 @@ const Title = styled.h2`
   font-size: 21px;
 `;
 
+const Container = styled.div`
+  margin-bottom: 18px;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+`;
+
 export const Search = () => {
   const { t } = useTranslation();
   const [q = ''] = useQueryParam('q', StringParam);
@@ -44,7 +51,9 @@ export const Search = () => {
             })}
           </Title>
 
-          <SearchResult result={data && data.search} />
+          <Container>
+            <SearchResult result={data && data.search} />
+          </Container>
         </Inner>
       </Wrapper>
     </>
