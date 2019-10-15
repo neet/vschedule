@@ -69,8 +69,9 @@ interface MarkerProps {
 
 export const Marker = (props: MarkerProps) => {
   const { activity, timetableStartAt, row } = props;
+  const { performers, team } = activity;
 
-  const firstStreamer = activity.performers[0];
+  const performer = performers[0];
   const startAt = dayjs(activity.startAt);
   const endAt = dayjs(activity.endAt);
 
@@ -86,10 +87,10 @@ export const Marker = (props: MarkerProps) => {
 
   const isLight = useMemo(() => {
     // Calc color brightness difference
-    const { red, green, blue } = parseToRgb(firstStreamer.color);
+    const { red, green, blue } = parseToRgb(performer.color);
 
     return red * 0.299 + green * 0.587 + blue * 0.114 > 186;
-  }, [firstStreamer.color]);
+  }, [performer.color]);
 
   return (
     <Wrapper
@@ -102,15 +103,15 @@ export const Marker = (props: MarkerProps) => {
       style={{
         width: `${width}px`,
         transform: `translate(${x}px, ${y}px)`,
-        backgroundColor: firstStreamer.color,
-        boxShadow: `0 2px 6px ${rgba(firstStreamer.color, 0.48)}`,
+        backgroundColor: performer.color,
+        boxShadow: `0 2px 6px ${rgba(performer.color, 0.48)}`,
       }}
     >
-      <Avatar performer={firstStreamer} size={40} />
+      <Avatar performer={performer} size={40} />
 
       <Meta>
         <Title>{activity.name}</Title>
-        <Name>{firstStreamer.name}</Name>
+        <Name>{team ? team.name : performer.name}</Name>
       </Meta>
     </Wrapper>
   );

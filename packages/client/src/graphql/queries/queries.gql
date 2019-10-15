@@ -6,6 +6,11 @@ fragment PageInfo on PageInfo {
   totalCount
 }
 
+fragment TeamSmall on Team {
+  id
+  name
+}
+
 fragment Activity on Activity {
   id
   name
@@ -20,6 +25,9 @@ fragment Activity on Activity {
   }
   category {
     name
+  }
+  team {
+    ...TeamSmall
   }
 }
 

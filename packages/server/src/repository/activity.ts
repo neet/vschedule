@@ -35,7 +35,9 @@ export class ActivityRepository {
       .getMany();
   });
 
-  getAllAndCount = async (params: GetAllAndCountParams = {}) => {
+  getAllAndCount = async (
+    params: GetAllAndCountParams = {},
+  ): Promise<[Activity[], number]> => {
     const {
       first,
       last,
@@ -59,6 +61,32 @@ export class ActivityRepository {
       .leftJoinAndSelect('activity.team', 'team')
       .orderBy('activity.startAt', order)
       .take(Math.min(take, 100));
+
+    if (performerId) {
+      query.andWhere('performer.id = :id', { id: performerId });
+    }
+
+    if (teamId) {
+      query.andWhere('team.id = :id', { id: teamId });
+    }
+
+    if (categoryId) {
+      query.andWhere('category.id = :id', { id: categoryId });
+    }
+
+    const count = await query.getCount();
+
+    if (afterDate) {
+      query.andWhere('activity."endAt" > CAST(:afterDate AS TIMESTAMP)', {
+        afterDate,
+      });
+    }
+
+    if (beforeDate) {
+      query.andWhere('activity."startAt" < CAST(:beforeDate AS TIMESTAMP)', {
+        beforeDate,
+      });
+    }
 
     if (after) {
       const { id } = Cursor.decode(after);
@@ -86,31 +114,9 @@ export class ActivityRepository {
       });
     }
 
-    if (afterDate) {
-      query.andWhere('activity."endAt" > CAST(:afterDate AS TIMESTAMP)', {
-        afterDate,
-      });
-    }
+    const result = await query.getMany();
 
-    if (beforeDate) {
-      query.andWhere('activity."startAt" < CAST(:beforeDate AS TIMESTAMP)', {
-        beforeDate,
-      });
-    }
-
-    if (performerId) {
-      query.andWhere('performer.id = :id', { id: performerId });
-    }
-
-    if (teamId) {
-      query.andWhere('team.id = :id', { id: teamId });
-    }
-
-    if (categoryId) {
-      query.andWhere('category.id = :id', { id: categoryId });
-    }
-
-    return query.getManyAndCount();
+    return [result, count];
   };
 
   createFromGatewayData = async (

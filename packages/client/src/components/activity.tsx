@@ -71,7 +71,7 @@ const PerformerWrapper = styled.div`
   color: ${({ theme }) => theme.foregroundLight};
 `;
 
-export const PerformerName = styled.span`
+export const Name = styled.span`
   display: block;
   overflow: hidden;
   font-size: 12px;
@@ -97,8 +97,9 @@ export interface ActivityProps {
 
 export const Activity = (props: ActivityProps) => {
   const { activity, withDescription, withPerforemer } = props;
+  const { team, performers } = activity;
 
-  const firstPerformer = activity.performers[0];
+  const performer = performers[0];
   const startAt = dayjs(activity.startAt);
   const isStreaming = isStreamingNow(activity.startAt, activity.endAt);
 
@@ -124,13 +125,13 @@ export const Activity = (props: ActivityProps) => {
           <PerformerWrapper>
             <Avatar
               size={18}
-              performer={firstPerformer}
+              performer={performer}
               background="performerColor"
             />
 
-            <PerformerName>
-              {firstPerformer.name}・{dayjs(startAt).fromNow()}
-            </PerformerName>
+            <Name>
+              {team ? team.name : performer.name}・{startAt.fromNow()}
+            </Name>
           </PerformerWrapper>
         )}
       </Meta>

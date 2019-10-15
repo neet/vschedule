@@ -18,6 +18,12 @@ export const rootActivities: G.QueryResolvers['activities'] = async (
   return {
     edges,
     nodes: edges.map(edge => edge.node),
-    pageInfo: createPageInfo(edges, count, input),
+    pageInfo: createPageInfo(
+      edges,
+      count,
+      input,
+      ['before', 'beforeDate'],
+      ['after', 'afterDate'],
+    ),
   };
 };

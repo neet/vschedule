@@ -5,21 +5,38 @@ interface AnyEdge {
   node: Node;
 }
 
-interface PaginationOptions {
+interface PaginationInput {
   first?: number;
   last?: number;
   after?: string;
   before?: string;
 }
 
-export const createPageInfo = (
+export const createPageInfo = <T extends PaginationInput>(
   edges: AnyEdge[],
   totalCount: number,
-  options: PaginationOptions = {},
+  input: T = {} as T,
+  befores: (keyof T)[] = ['before'],
+  afters: (keyof T)[] = ['after'],
 ): PageInfo => {
-  const hasPreviousPage = options.before ? edges.length < totalCount : false;
-  const hasNextPage = !options.before ? edges.length < totalCount : false;
+  const wasCalledWithBefore = befores.some(before => {
+    return before in input;
+  });
+  const wasCalledWithAfter = afters.some(after => {
+    return after in input;
+  });
+
+  const hasPreviousPage = wasCalledWithAfter
+    ? edges.length < totalCount
+    : false;
+
+  // prettier-ignore
+  const hasNextPage = wasCalledWithBefore
+    ? edges.length < totalCount
+    : false;
+
   const startCursor = edges.length ? edges[0].cursor : undefined;
+
   const endCursor = edges.length
     ? edges[Math.max(edges.length - 1, 0)].cursor
     : undefined;
