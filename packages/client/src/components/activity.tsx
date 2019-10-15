@@ -19,11 +19,6 @@ export const Wrapper = styled.a<Wrapper>`
   &:hover {
     text-decoration: none;
   }
-
-  & > a {
-    flex-shrink: 0;
-    margin-right: 4px;
-  }
 `;
 
 export const Thumbnail = styled.div`
@@ -69,6 +64,11 @@ const PerformerWrapper = styled.div`
   display: flex;
   align-items: center;
   color: ${({ theme }) => theme.foregroundLight};
+
+  & > img {
+    flex: 0 0 auto;
+    margin-right: 4px;
+  }
 `;
 
 export const Name = styled.span`

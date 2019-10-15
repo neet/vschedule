@@ -32,11 +32,11 @@ const Wrapper = styled.a<WrapperProps>`
   &:hover {
     text-decoration: none;
   }
+`;
 
-  & > a {
-    flex-shrink: 0;
-    margin-right: 4px;
-  }
+const AvatarContainer = styled.div`
+  flex-shrink: 0;
+  margin-right: 4px;
 `;
 
 const Meta = styled.div`
@@ -108,11 +108,18 @@ export const Marker = (props: MarkerProps) => {
         boxShadow: `0 2px 6px ${rgba(performer.color, 0.48)}`,
       }}
     >
-      {team ? (
-        <AvatarGroup performers={performers} size={40} gap={-28} align="left" />
-      ) : (
-        <Avatar performer={performer} size={40} />
-      )}
+      <AvatarContainer>
+        {team ? (
+          <AvatarGroup
+            performers={performers}
+            size={40}
+            gap={-28}
+            align="left"
+          />
+        ) : (
+          <Avatar performer={performer} size={40} />
+        )}
+      </AvatarContainer>
 
       <Meta>
         <Title>{activity.name}</Title>

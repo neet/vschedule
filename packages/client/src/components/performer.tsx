@@ -18,9 +18,9 @@ const Wrapper = styled.div`
   color: ${({ theme }) => theme.foregroundNormal};
   text-align: center;
 
-  /* & > a {
+  & > img {
     margin: 0 auto 8px;
-  } */
+  }
 `;
 
 const Title = styled.h3`
