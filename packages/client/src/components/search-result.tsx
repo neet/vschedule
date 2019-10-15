@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Icon as FeatherIconType, Tv, User, Users, Hash } from 'react-feather';
 import * as G from 'src/generated/graphql';
 import { Activity } from './activity';
-import { PerformerCompact } from './performer-compact';
+import { Performer } from './performer';
 import { Team } from './team';
 import { Category } from './category';
 
@@ -135,7 +135,7 @@ export const SearchResult = (props: SearchResultProps) => {
         title={t('search.performers', { defaultValue: 'ライバー' })}
         icon={User}
         items={result.performers}
-        render={performer => <PerformerCompact performer={performer} />}
+        render={performer => <Performer performer={performer} />}
         {...options}
       />
 

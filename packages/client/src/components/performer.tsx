@@ -1,45 +1,68 @@
+import querystring from 'querystring';
 import React from 'react';
-import { PerformerFragment } from 'src/generated/graphql';
+import { Link } from 'react-router-dom';
 import { styled } from 'src/styles';
+import { PerformerFragment } from 'src/generated/graphql';
 import { Avatar } from './avatar';
 
-interface PerformerProps {
-  performer: PerformerFragment;
-}
-
-const Wrapper = styled.div`
-  width: 240px;
-  margin-right: 12px;
-  margin-bottom: 12px;
-  padding: 12px 18px;
-  border-radius: 4px;
-  background-color: ${({ theme }) => theme.backgroundNormal};
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
-  color: ${({ theme }) => theme.foregroundNormal};
-  text-align: center;
-
-  & > img {
-    margin: 0 auto 8px;
-  }
+const Meta = styled.div`
+  flex: 1 1 auto;
+  min-width: 0;
 `;
 
-const Title = styled.h3`
-  margin-bottom: 8px;
-  font-size: 16px;
+const Name = styled.span`
+  font-weight: bold;
 `;
 
 const Description = styled.p`
+  display: block;
+  overflow: hidden;
   color: ${({ theme }) => theme.foregroundLight};
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
+const Wrapper = styled(Link)`
+  display: flex;
+  align-items: center;
+  color: ${({ theme }) => theme.foregroundNormal};
+
+  &:hover {
+    text-decoration: none;
+
+    ${Name} {
+      text-decoration: underline;
+    }
+  }
+
+  & > img {
+    flex: 0 0 auto;
+    margin-right: 8px;
+  }
+`;
+
+interface PerformerProps {
+  performer: PerformerFragment;
+  withDescription?: boolean;
+}
+
 export const Performer = (props: PerformerProps) => {
-  const { performer } = props;
+  const { performer, withDescription } = props;
+  const { id, name, description } = performer;
 
   return (
-    <Wrapper>
-      <Avatar size={80} performer={performer} background="performerColor" />
-      <Title>{performer.name}</Title>
-      <Description>{performer.description}</Description>
+    <Wrapper
+      to={{
+        pathname: '/activities',
+        search: querystring.stringify({ performer_id: id }),
+      }}
+    >
+      <Avatar size={36} performer={performer} background="performerColor" />
+
+      <Meta>
+        <Name>{name}</Name>
+        {withDescription && <Description>{description}</Description>}
+      </Meta>
     </Wrapper>
   );
 };

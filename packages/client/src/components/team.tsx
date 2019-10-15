@@ -5,22 +5,7 @@ import { TeamFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { AvatarGroup } from './avatar-group';
 
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  overflow: hidden;
-`;
-
-const StyledLink = styled(Link)`
-  color: inherit;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const Title = styled.span`
+const Name = styled.span`
   font-size: 14px;
   font-weight: bold;
 `;
@@ -33,6 +18,20 @@ const MemberNames = styled.p`
   color: ${({ theme }) => theme.foregroundLight};
 `;
 
+const Wrapper = styled(Link)`
+  display: flex;
+  align-items: center;
+  color: ${({ theme }) => theme.foregroundNormal};
+
+  &:hover {
+    text-decoration: none;
+
+    ${Name} {
+      text-decoration: underline;
+    }
+  }
+`;
+
 interface TeamProps {
   team: TeamFragment;
   withPerformerNames?: boolean;
@@ -42,16 +41,14 @@ export const Team = (props: TeamProps) => {
   const { team, withPerformerNames } = props;
 
   return (
-    <Wrapper>
+    <Wrapper
+      to={{
+        pathname: '/activities',
+        search: querystring.stringify({ team_id: team.id }),
+      }}
+    >
       <Meta>
-        <StyledLink
-          to={{
-            pathname: '/activities',
-            search: querystring.stringify({ team_id: team.id }),
-          }}
-        >
-          <Title>{team.name}</Title>
-        </StyledLink>
+        <Name>{team.name}</Name>
 
         {withPerformerNames && (
           <MemberNames>

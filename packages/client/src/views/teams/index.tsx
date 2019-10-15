@@ -19,7 +19,7 @@ const Inner = styled.div`
 
 const List = styled.ul`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   margin: 24px 0;
 `;
 

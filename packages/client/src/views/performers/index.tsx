@@ -13,15 +13,24 @@ const Wrapper = styled.article`
 `;
 
 const Inner = styled.div`
-  width: 1080px;
+  width: 700px;
   margin: auto;
 `;
 
 const List = styled.ul`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
   margin: 24px 0;
+`;
+
+const ListItem = styled.li`
+  width: 100%;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  padding: 12px 18px;
+  border-radius: 4px;
+  background-color: ${({ theme }) => theme.backgroundNormal};
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
 `;
 
 export const Performers = React.memo(() => {
@@ -51,7 +60,9 @@ export const Performers = React.memo(() => {
 
           <List>
             {data.performers.nodes.map(performer => (
-              <Performer key={performer.id} performer={performer} />
+              <ListItem key={performer.id}>
+                <Performer performer={performer} withDescription />
+              </ListItem>
             ))}
           </List>
         </Inner>

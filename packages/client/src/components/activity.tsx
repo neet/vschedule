@@ -5,22 +5,6 @@ import { styled } from 'src/styles';
 import { isStreamingNow } from 'src/utils/is-streaming-now';
 import { Avatar } from './avatar';
 
-interface Wrapper {
-  isStreaming?: boolean;
-}
-
-export const Wrapper = styled.a<Wrapper>`
-  display: flex;
-  box-sizing: border-box;
-  align-items: center;
-  transition: ease-out 0.15s;
-  color: ${({ theme }) => theme.foregroundNormal};
-
-  &:hover {
-    text-decoration: none;
-  }
-`;
-
 export const Thumbnail = styled.div`
   position: relative;
   flex-grow: 0;
@@ -89,6 +73,22 @@ const Description = styled.p`
   white-space: nowrap;
 `;
 
+export const Wrapper = styled.a`
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  transition: ease-out 0.15s;
+  color: ${({ theme }) => theme.foregroundNormal};
+
+  &:hover {
+    text-decoration: none;
+
+    ${Title} {
+      text-decoration: underline;
+    }
+  }
+`;
+
 export interface ActivityProps {
   activity: ActivityFragment;
   withDescription?: boolean;
@@ -114,7 +114,6 @@ export const Activity = (props: ActivityProps) => {
       title={activity.name}
       target="_blank"
       rel="noreferrer"
-      isStreaming={isStreaming}
     >
       <Meta>
         <Title>{activity.name}</Title>
