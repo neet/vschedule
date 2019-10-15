@@ -86,6 +86,8 @@ type Performer implements Node {
   socialAccounts: [SocialAccount!]!
   # Involved teams
   teams: [Team!]!
+  # Activities
+  activities: ActivityConnection!
 }
 
 type PerformerConnection {
@@ -110,6 +112,8 @@ type Team implements Node {
   updatedAt: Date!
   # Involved performers
   members: [Performer!]!
+  # Activities
+  activities: ActivityConnection!
 }
 
 type TeamConnection {
@@ -128,6 +132,8 @@ type Category implements Node {
   id: ID!
   # name
   name: String!
+  # Activities
+  activities: ActivityConnection!
 }
 
 type CategoryConnection {
