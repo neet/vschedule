@@ -36,10 +36,13 @@ export const Search = () => {
   return (
     <>
       <Helmet>
-        {t('search.page_title', {
-          defaultValue: 'Search result for "{{value}}" - Refined Itsukara.link',
-          value: q,
-        })}
+        <title>
+          {t('search.page_title', {
+            defaultValue:
+              'Search result for "{{value}}" - Refined Itsukara.link',
+            value: q,
+          })}
+        </title>
       </Helmet>
 
       <Wrapper>
