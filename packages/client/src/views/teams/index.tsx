@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { styled } from 'src/styles';
 import { useFetchTeamsQuery } from 'src/generated/graphql';
 import { Team } from 'src/components/team';
+import { Card } from 'src/components/card';
 
 const Wrapper = styled.article`
   width: 100%;
@@ -32,10 +33,10 @@ const ListItem = styled.li`
   width: 100%;
   margin-right: 12px;
   margin-bottom: 12px;
-  padding: 12px 18px;
-  border-radius: 4px;
-  background-color: ${({ theme }) => theme.backgroundNormal};
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
+  /* padding: 12px 18px; */
+  /* border-radius: 4px; */
+  /* background-color: ${({ theme }) => theme.backgroundNormal}; */
+  /* box-shadow: 0 0 6px rgba(0, 0, 0, 0.16); */
 `;
 
 export const Teams = React.memo(() => {
@@ -66,7 +67,9 @@ export const Teams = React.memo(() => {
           <List>
             {data.teams.nodes.map(team => (
               <ListItem key={team.id}>
-                <Team team={team} withPerformerNames />
+                <Card padding="12px 18px">
+                  <Team team={team} withPerformerNames />
+                </Card>
               </ListItem>
             ))}
           </List>

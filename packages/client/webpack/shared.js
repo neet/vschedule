@@ -12,7 +12,7 @@ const WebpackNotifierPlugin = require('webpack-notifier');
 function shared(command, argv) {
   dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
-  const isProd = argv.mode === 'production';
+  const isProd = argv && argv.mode === 'production';
 
   const config = {
     context: path.resolve(__dirname, '../src'),

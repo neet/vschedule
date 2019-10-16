@@ -33,7 +33,7 @@ export const initDayjs = () => {
   dayjs.extend(relativeTime);
 };
 
-export const createI18n = () => {
+export const createI18n = (lng?: string) => {
   i18next.on('initialized', options => {
     if (!options.lng) return;
     dayjs.locale(normalizeLanguageForDayjs(options.lng));
@@ -52,6 +52,7 @@ export const createI18n = () => {
     },
     ns: ['translation'],
     defaultNS: 'translation',
+    lng,
     fallbackLng: 'en',
     react: {
       wait: true,
