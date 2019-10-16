@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { TeamFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { AvatarGroup } from 'src/components/avatar-group';
+import { Placeholder } from './placeholder';
 
 const Name = styled.span`
   font-size: 14px;
@@ -32,13 +33,18 @@ const Wrapper = styled(Link)`
   }
 `;
 
-interface TeamProps {
-  team: TeamFragment;
+export interface TeamProps {
+  loading?: boolean;
+  team?: TeamFragment;
   withPerformerNames?: boolean;
 }
 
 export const Team = (props: TeamProps) => {
-  const { team, withPerformerNames } = props;
+  const { loading, team, withPerformerNames } = props;
+
+  if (loading || !team) {
+    return <Placeholder withPerformerNames={withPerformerNames} />;
+  }
 
   return (
     <Wrapper

@@ -25,9 +25,7 @@ const ListItem = styled.li`
 
 export const Teams = React.memo(() => {
   const { t } = useTranslation();
-  const { data } = useFetchTeamsQuery();
-
-  if (!data) return null;
+  const { data, loading } = useFetchTeamsQuery();
 
   return (
     <>
@@ -48,13 +46,22 @@ export const Teams = React.memo(() => {
         </p>
 
         <List>
-          {data.teams.nodes.map(team => (
-            <ListItem key={team.id}>
-              <Card>
-                <Team team={team} withPerformerNames />
-              </Card>
-            </ListItem>
-          ))}
+          {loading
+            ? Array.from({ length: 10 }, (_, i) => (
+                <ListItem key={`placeholder-${i}`}>
+                  <Card>
+                    <Team loading withPerformerNames />
+                  </Card>
+                </ListItem>
+              ))
+            : data &&
+              data.teams.nodes.map(team => (
+                <ListItem key={team.id}>
+                  <Card>
+                    <Team team={team} withPerformerNames />
+                  </Card>
+                </ListItem>
+              ))}
         </List>
       </Page>
     </>

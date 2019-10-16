@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { styled } from 'src/styles';
 import { PerformerFragment } from 'src/generated/graphql';
 import { Avatar } from 'src/components/avatar';
+import { Placeholder } from './placeholder';
 
-const Meta = styled.div`
+export const Meta = styled.div`
   flex: 1 1 auto;
   min-width: 0;
 `;
@@ -41,13 +42,19 @@ const Wrapper = styled(Link)`
   }
 `;
 
-interface PerformerProps {
-  performer: PerformerFragment;
+export interface PerformerProps {
+  performer?: PerformerFragment;
+  loading?: boolean;
   withDescription?: boolean;
 }
 
 export const Performer = (props: PerformerProps) => {
-  const { performer, withDescription } = props;
+  const { loading, performer, withDescription } = props;
+
+  if (loading || !performer) {
+    return <Placeholder withDescription={withDescription} />;
+  }
+
   const { id, name, description } = performer;
 
   return (

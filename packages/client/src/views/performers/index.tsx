@@ -25,9 +25,7 @@ const ListItem = styled.li`
 
 export const Performers = React.memo(() => {
   const { t } = useTranslation();
-  const { data } = useFetchPerformersQuery();
-
-  if (!data) return null;
+  const { data, loading } = useFetchPerformersQuery();
 
   return (
     <>
@@ -48,13 +46,22 @@ export const Performers = React.memo(() => {
         </p>
 
         <List>
-          {data.performers.nodes.map(performer => (
-            <ListItem key={performer.id}>
-              <Card>
-                <Performer performer={performer} withDescription />
-              </Card>
-            </ListItem>
-          ))}
+          {loading
+            ? Array.from({ length: 10 }, (_, i) => (
+                <ListItem key={`placeholder-${i}`}>
+                  <Card>
+                    <Performer loading withDescription />
+                  </Card>
+                </ListItem>
+              ))
+            : data &&
+              data.performers.nodes.map(performer => (
+                <ListItem key={performer.id}>
+                  <Card>
+                    <Performer performer={performer} withDescription />
+                  </Card>
+                </ListItem>
+              ))}
         </List>
       </Page>
     </>
