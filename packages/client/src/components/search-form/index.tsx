@@ -46,9 +46,9 @@ const ResultWrapper = styled.div`
   height: calc(100vh / 2);
   margin-top: 38px;
   overflow: scroll;
-  border-radius: 4px;
+  border-radius: 6px;
   background-color: ${({ theme }) => theme.backgroundWash};
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 `;
 
 export const SearchForm = () => {

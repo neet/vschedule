@@ -12,12 +12,19 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.backgroundDark};
 `;
 
+const Group = styled.div`
+  &:not(:last-child) {
+    border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
+  }
+`;
+
 const List = styled.ul``;
 
 const Title = styled.h4`
   display: flex;
   align-items: center;
   padding: 8px 12px;
+  border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
   color: ${({ theme }) => theme.foregroundLight};
 
   svg {
@@ -31,12 +38,11 @@ interface ListItemProps {
 
 const ListItem = styled.li<ListItemProps>`
   padding: 8px 12px;
-  border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
   background-color: ${({ theme, selected }) =>
     selected ? theme.backgroundWash : theme.backgroundNormal};
 
-  &:first-child {
-    border-top: 1px solid ${({ theme }) => theme.borderNormal};
+  &:not(:last-child) {
+    border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
   }
 `;
 
@@ -86,7 +92,7 @@ const SearchResultGroup = <T extends Entry>(
     .findIndex(([, value]) => value === item)
 
   return (
-    <div>
+    <Group>
       {withGroupTitle && (
         <Title>
           <Icon size={16} />
@@ -106,7 +112,7 @@ const SearchResultGroup = <T extends Entry>(
           </ListItem>
         ))}
       </List>
-    </div>
+    </Group>
   );
 };
 
