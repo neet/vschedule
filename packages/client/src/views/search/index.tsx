@@ -8,14 +8,14 @@ import { useSearchQuery } from 'src/generated/graphql';
 import { Page } from 'src/components/page';
 
 const Title = styled.h2`
-  margin: 18px 0;
+  margin: 8px 0;
   font-size: 21px;
 `;
 
 const Container = styled.div`
-  margin-bottom: 18px;
+  margin: 18px 0;
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
 `;
 

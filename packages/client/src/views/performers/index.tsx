@@ -8,14 +8,12 @@ import { Page } from 'src/components/page';
 import { Card } from 'src/components/card';
 
 const Title = styled.h2`
-  margin: 18px 0;
+  margin: 8px 0;
   font-size: 21px;
 `;
 
 const List = styled.ul`
-  display: flex;
-  flex-direction: column;
-  margin: 24px 0;
+  margin: 18px 0;
 `;
 
 const ListItem = styled.li`

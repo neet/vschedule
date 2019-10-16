@@ -20,6 +20,7 @@ const Wrapper = styled.header`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  height: 50px;
   padding: 8px 14px;
   border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
   background-color: ${({ theme }) => theme.backgroundNormal};
@@ -33,14 +34,22 @@ const MenuButton = styled.button`
   color: ${({ theme }) => theme.foregroundLight};
 `;
 
-const Hgroup = styled.div`
+const Flex = styled.div`
   display: flex;
-  flex: 1 1 auto;
+  flex: 1 0 auto;
+  justify-content: center;
+
+  @media screen and (min-width: 700px) {
+    justify-content: flex-start;
+    margin-left: auto;
+  }
 `;
 
 const Toolbox = styled.div`
   display: none;
+  flex: 1 0 auto;
   align-items: center;
+  justify-content: flex-end;
 
   & > *:not(:last-child) {
     margin-right: 18px;
@@ -79,13 +88,13 @@ export const Banner = () => {
 
   return (
     <Wrapper>
-      <Hgroup>
-        <MenuButton onClick={handleToggle}>
-          <Menu />
-        </MenuButton>
+      <MenuButton onClick={handleToggle}>
+        <Menu />
+      </MenuButton>
 
+      <Flex>
         <Route path="/activities" component={DatePicker} />
-      </Hgroup>
+      </Flex>
 
       <Toolbox>
         <SearchForm />

@@ -9,6 +9,10 @@ import { Category } from 'src/components/category';
 
 const Wrapper = styled.div`
   display: flex;
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  left: 0;
   box-sizing: border-box;
   flex: 0 0 auto;
   flex-direction: column;
@@ -19,6 +23,10 @@ const Wrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.borderNormal};
   border-top: none;
   background-color: ${({ theme }) => theme.backgroundNormal};
+
+  @media screen and (min-width: 700px) {
+    position: static;
+  }
 `;
 
 const List = styled.ul`
@@ -101,8 +109,22 @@ const Disclaimer = styled.p`
   font-size: 12px;
 `;
 
+const Background = styled.div`
+  position: absolute;
+  z-index: 9998;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  @media screen and (min-width: 700px) {
+    display: none;
+  }
+`;
+
 export const Sidebar = () => {
-  const { expanded, categories } = useSidebar();
+  const { toggle, expanded, categories } = useSidebar();
   const { t } = useTranslation();
   const [categoriesExpanded, expandCategories] = useState(false);
 
@@ -111,81 +133,85 @@ export const Sidebar = () => {
   }
 
   return (
-    <Wrapper>
-      <nav>
-        <List>
-          <ListItem>
-            <Link to="/">
-              <Title>Refined itsukara.link</Title>
-              <LogoLarge src={logoSmall} alt="Refined itsukara.link" />
-            </Link>
-          </ListItem>
+    <>
+      {expanded && <Background onClick={() => toggle()} />}
 
-          <ListItem>
-            <NavLink to="/activities" activeClassName="active">
-              <Icon>
-                <Tv />
-              </Icon>
-              <Name>
-                {t('sidebar.activities', { defaultValue: 'Activities' })}
-              </Name>
-            </NavLink>
-          </ListItem>
+      <Wrapper>
+        <nav>
+          <List>
+            <ListItem>
+              <Link to="/">
+                <Title>Refined itsukara.link</Title>
+                <LogoLarge src={logoSmall} alt="Refined itsukara.link" />
+              </Link>
+            </ListItem>
 
-          <ListItem>
-            <NavLink to="/performers" activeClassName="active">
-              <Icon>
-                <User />
-              </Icon>
-              <Name>
-                {t('sidebar.performers', { defaultValue: 'Performers' })}
-              </Name>
-            </NavLink>
-          </ListItem>
+            <ListItem>
+              <NavLink to="/activities" activeClassName="active">
+                <Icon>
+                  <Tv />
+                </Icon>
+                <Name>
+                  {t('sidebar.activities', { defaultValue: 'Activities' })}
+                </Name>
+              </NavLink>
+            </ListItem>
 
-          <ListItem>
-            <NavLink to="/teams" activeClassName="active">
-              <Icon>
-                <Users />
-              </Icon>
-              <Name>{t('sidebar.teams', { defaultValue: 'Teams' })}</Name>
-            </NavLink>
-          </ListItem>
+            <ListItem>
+              <NavLink to="/performers" activeClassName="active">
+                <Icon>
+                  <User />
+                </Icon>
+                <Name>
+                  {t('sidebar.performers', { defaultValue: 'Performers' })}
+                </Name>
+              </NavLink>
+            </ListItem>
 
-          <ListItem>
-            <button onClick={() => expandCategories(!categoriesExpanded)}>
-              <Icon>
-                <Hash />
-              </Icon>
+            <ListItem>
+              <NavLink to="/teams" activeClassName="active">
+                <Icon>
+                  <Users />
+                </Icon>
+                <Name>{t('sidebar.teams', { defaultValue: 'Teams' })}</Name>
+              </NavLink>
+            </ListItem>
 
-              <Name>{t('sidebar.tags', { defaultValue: 'Tags' })}</Name>
+            <ListItem>
+              <button onClick={() => expandCategories(!categoriesExpanded)}>
+                <Icon>
+                  <Hash />
+                </Icon>
 
-              <Chevron>
-                {categoriesExpanded ? <ChevronUp /> : <ChevronDown />}
-              </Chevron>
-            </button>
-          </ListItem>
+                <Name>{t('sidebar.tags', { defaultValue: 'Tags' })}</Name>
 
-          {categoriesExpanded && categories ? (
-            <CategoryList>
-              {categories.map(category => (
-                <CategoryListItem key={category.id}>
-                  <Category category={category} withCount />
-                </CategoryListItem>
-              ))}
-            </CategoryList>
-          ) : null}
-        </List>
-      </nav>
+                <Chevron>
+                  {categoriesExpanded ? <ChevronUp /> : <ChevronDown />}
+                </Chevron>
+              </button>
+            </ListItem>
 
-      <Disclaimer>
-        <Trans i18nKey="sidebar.disclaimer">
-          This website is unofficially made by a fan of Nijisanji and not
-          related to Ichikara Inc. at all. The project is open source software.
-          You can contribute or report issue on{' '}
-          <a href="https://github.com/neet/refined-itsukara-link">GitHub</a>.
-        </Trans>
-      </Disclaimer>
-    </Wrapper>
+            {categoriesExpanded && categories ? (
+              <CategoryList>
+                {categories.map(category => (
+                  <CategoryListItem key={category.id}>
+                    <Category category={category} withCount />
+                  </CategoryListItem>
+                ))}
+              </CategoryList>
+            ) : null}
+          </List>
+        </nav>
+
+        <Disclaimer>
+          <Trans i18nKey="sidebar.disclaimer">
+            This website is unofficially made by a fan of Nijisanji and not
+            related to Ichikara Inc. at all. The project is open source
+            software. You can contribute or report issue on{' '}
+            <a href="https://github.com/neet/refined-itsukara-link">GitHub</a>.
+          </Trans>
+        </Disclaimer>
+      </Wrapper>
+    </>
   );
 };

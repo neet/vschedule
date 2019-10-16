@@ -12,7 +12,7 @@ const Meta = styled.div`
 `;
 
 const Name = styled.div`
-  width: 300px;
+  width: 50%;
   height: 1.215em;
   margin-top: calc(1em * 0.5 / 2);
   margin-bottom: calc(1em * 0.5);
@@ -20,7 +20,7 @@ const Name = styled.div`
 `;
 
 const Description = styled.div`
-  width: 400px;
+  width: 80%;
   height: 1em;
   margin: calc(1em * 0.5 / 2) 0;
   background-color: ${({ theme }) => theme.backgroundDark};
