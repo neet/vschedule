@@ -127,7 +127,7 @@ export const SearchResult = (props: SearchResultProps) => {
         title={t('search.categories', { defaultValue: 'カテゴリー' })}
         icon={Hash}
         items={result.categories}
-        render={category => <Category category={category} />}
+        render={category => <Category category={category} withCount />}
         {...options}
       />
 

@@ -170,7 +170,7 @@ export const Sidebar = () => {
             <CategoryList>
               {categories.map(category => (
                 <CategoryListItem key={category.id}>
-                  <Category category={category} />
+                  <Category category={category} withCount />
                 </CategoryListItem>
               ))}
             </CategoryList>
