@@ -13,11 +13,11 @@ export const Timetable = () => {
     hasPreviousPage,
   } = useTimetable();
 
-  if (!activities) {
+  if (loading) {
     return <Placeholder />;
   }
 
-  if (activities && !activities.length) {
+  if (!activities || !activities.length) {
     return <span>no activity found</span>;
   }
 
