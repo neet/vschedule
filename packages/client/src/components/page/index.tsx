@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   overflow: scroll;
 `;
 
-const Inner = styled.div`
+const Inner = styled.article`
   width: 700px;
   margin: auto;
 `;
