@@ -1,4 +1,3 @@
-import querystring from 'querystring';
 import React, { useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { Link, NavLink } from 'react-router-dom';
@@ -6,6 +5,7 @@ import { Tv, User, Users, Hash, ChevronDown, ChevronUp } from 'react-feather';
 import logoSmall from '@ril/arts/static/logo-small.png';
 import { styled } from 'src/styles';
 import { useSidebar } from 'src/hooks/use-sidebar';
+import { Category } from './category';
 
 const Wrapper = styled.div`
   display: flex;
@@ -63,7 +63,7 @@ const Icon = styled.span`
 `;
 
 const Name = styled.span`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
 `;
 
@@ -77,13 +77,13 @@ const Chevron = styled.span`
   color: ${({ theme }) => theme.foregroundLight};
 `;
 
-const Categories = styled.ul`
-  margin: 12px 8px;
+const CategoryList = styled.ul`
+  margin: 0 12px;
 `;
 
-const Category = styled.li`
-  margin-bottom: 8px;
-  color: ${({ theme }) => theme.foregroundLight};
+const CategoryListItem = styled.li`
+  margin-left: 12px;
+  padding: 6px 0px;
 `;
 
 const Title = styled.h1`
@@ -164,26 +164,17 @@ export const Sidebar = () => {
                 {categoriesExpanded ? <ChevronUp /> : <ChevronDown />}
               </Chevron>
             </button>
-
-            {categoriesExpanded && categories ? (
-              <Categories>
-                {categories.map(category => (
-                  <Category key={category.id}>
-                    <Link
-                      to={{
-                        pathname: '/activities',
-                        search: querystring.stringify({
-                          category_id: category.id,
-                        }),
-                      }}
-                    >
-                      {`#${category.name}`}
-                    </Link>
-                  </Category>
-                ))}
-              </Categories>
-            ) : null}
           </ListItem>
+
+          {categoriesExpanded && categories ? (
+            <CategoryList>
+              {categories.map(category => (
+                <CategoryListItem key={category.id}>
+                  <Category category={category} />
+                </CategoryListItem>
+              ))}
+            </CategoryList>
+          ) : null}
         </List>
       </nav>
 

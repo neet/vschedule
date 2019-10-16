@@ -4,9 +4,31 @@ import { Link } from 'react-router-dom';
 import { CategoryFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 
-const Wrapper = styled(Link)`
-  color: ${({ theme }) => theme.foregroundNormal};
+const Name = styled.span`
   font-weight: bold;
+`;
+
+const Count = styled.span`
+  padding: 2px 8px;
+  border-radius: 99px;
+  background-color: ${({ theme }) => theme.backgroundDark};
+  color: ${({ theme }) => theme.foregroundLight};
+  font-size: 12px;
+`;
+
+const Wrapper = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: ${({ theme }) => theme.foregroundNormal};
+
+  &:hover {
+    text-decoration: none;
+
+    ${Name} {
+      text-decoration: underline;
+    }
+  }
 `;
 
 interface CategoryProps {
@@ -23,7 +45,8 @@ export const Category = (props: CategoryProps) => {
         search: querystring.stringify({ category_id: category.id }),
       }}
     >
-      #{category.name}
+      <Name>#{category.name}</Name>
+      <Count>{category.activities.pageInfo.totalCount}</Count>
     </Wrapper>
   );
 };

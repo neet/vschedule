@@ -10,6 +10,6 @@ generates:
       scalars:
         Date: Date
       contextType: ../context#Context
-      immutableTypes: true
       maybeValue: T | undefined
+      resolverTypeWrapperSignature: T | Promise<T> | import('type-fest').PartialDeep<T> | Promise<import('type-fest').PartialDeep<T>>
       useIndexSignature: true

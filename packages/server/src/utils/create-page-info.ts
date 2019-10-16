@@ -2,7 +2,7 @@ import { PageInfo, Node } from 'src/generated/graphql';
 
 interface AnyEdge {
   cursor: string;
-  node: Node;
+  node: Partial<Pick<Node, 'id'>>;
 }
 
 interface PaginationInput {

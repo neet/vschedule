@@ -76,6 +76,11 @@ fragment Team on Team {
 fragment Category on Category {
   id
   name
+  activities {
+    pageInfo {
+      totalCount
+    }
+  }
 }
 
 query FetchActivities($input: ActivitiesInput) {

@@ -133,7 +133,7 @@ type Category implements Node {
   # name
   name: String!
   # Activities
-  activities: ActivityConnection!
+  activities(input: ActivitiesInput): ActivityConnection!
 }
 
 type CategoryConnection {

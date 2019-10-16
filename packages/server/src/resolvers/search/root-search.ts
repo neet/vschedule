@@ -2,6 +2,7 @@ import * as G from 'src/generated/graphql';
 import { serializePerformer } from 'src/serializers/performer';
 import { serializeActivity } from 'src/serializers/activity';
 import { serializeTeam } from 'src/serializers/team';
+import { serializeCategory } from 'src/serializers/category';
 
 export const rootSearch: G.QueryResolvers['search'] = async (
   _,
@@ -92,7 +93,11 @@ export const rootSearch: G.QueryResolvers['search'] = async (
     .then(result =>
       result.body.hits.hits.map((hit: { _id: string }) => hit._id),
     )
-    .then(ids => repositories.category.find.loadMany(ids));
+    .then(ids =>
+      repositories.category.find
+        .loadMany(ids)
+        .then(results => results.map(category => serializeCategory(category))),
+    );
 
   return {
     performers,

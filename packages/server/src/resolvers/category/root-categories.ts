@@ -1,6 +1,7 @@
 import * as G from 'src/generated/graphql';
 import { Cursor } from 'src/utils/cursor';
 import { createPageInfo } from 'src/utils/create-page-info';
+import { serializeCategory } from 'src/serializers/category';
 
 export const rootCategories: G.QueryResolvers['categories'] = async (
   _parent,
@@ -11,7 +12,7 @@ export const rootCategories: G.QueryResolvers['categories'] = async (
 
   const edges = categories.map(category => ({
     cursor: Cursor.encode('Category', category.id),
-    node: category,
+    node: serializeCategory(category),
   }));
 
   return {
