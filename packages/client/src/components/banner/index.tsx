@@ -5,7 +5,7 @@ import {
   useToggleSidebarMutation,
   useFetchSidebarQuery,
 } from 'src/generated/graphql';
-import { Route, Switch } from 'react-router';
+import { Route } from 'react-router';
 import { rgba } from 'polished';
 import { useTranslation } from 'react-i18next';
 import { DatePicker } from 'src/components/date-picker';
@@ -110,11 +110,7 @@ export const Banner = () => {
           <Menu />
         </MenuButton>
 
-        <Switch>
-          <Route path="/activities">
-            <DatePicker />
-          </Route>
-        </Switch>
+        <Route path="/activities" component={DatePicker} />
       </Hgroup>
 
       <Toolbox>

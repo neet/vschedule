@@ -4,18 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { styled } from 'src/styles';
 import { useFetchPerformersQuery } from 'src/generated/graphql';
 import { Performer } from 'src/components/performer';
-
-const Wrapper = styled.article`
-  width: 100%;
-  margin: 0 auto;
-  padding: 24px;
-  overflow: scroll;
-`;
-
-const Inner = styled.div`
-  width: 700px;
-  margin: auto;
-`;
+import { Page } from 'src/components/page';
+import { Card } from 'src/components/card';
 
 const Title = styled.h2`
   margin: 18px 0;
@@ -30,12 +20,7 @@ const List = styled.ul`
 
 const ListItem = styled.li`
   width: 100%;
-  margin-right: 12px;
   margin-bottom: 12px;
-  padding: 12px 18px;
-  border-radius: 4px;
-  background-color: ${({ theme }) => theme.backgroundNormal};
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
 `;
 
 export const Performers = React.memo(() => {
@@ -54,24 +39,24 @@ export const Performers = React.memo(() => {
         </title>
       </Helmet>
 
-      <Wrapper>
-        <Inner>
-          <Title>{t('performers.title', { defaultValue: 'Performers' })}</Title>
-          <p>
-            {t('performers.description', {
-              defaultValue: 'List of performers that are belongs to Nijisanji',
-            })}
-          </p>
+      <Page>
+        <Title>{t('performers.title', { defaultValue: 'Performers' })}</Title>
+        <p>
+          {t('performers.description', {
+            defaultValue: 'List of performers that are belongs to Nijisanji',
+          })}
+        </p>
 
-          <List>
-            {data.performers.nodes.map(performer => (
-              <ListItem key={performer.id}>
+        <List>
+          {data.performers.nodes.map(performer => (
+            <ListItem key={performer.id}>
+              <Card>
                 <Performer performer={performer} withDescription />
-              </ListItem>
-            ))}
-          </List>
-        </Inner>
-      </Wrapper>
+              </Card>
+            </ListItem>
+          ))}
+        </List>
+      </Page>
     </>
   );
 });

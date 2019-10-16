@@ -5,16 +5,7 @@ import { useQueryParam, StringParam } from 'use-query-params';
 import { styled } from 'src/styles';
 import { SearchResult } from 'src/components/search-result';
 import { useSearchQuery } from 'src/generated/graphql';
-
-const Wrapper = styled.div`
-  overflow-y: scroll;
-  background-color: ${({ theme }) => theme.backgroundWash};
-`;
-
-const Inner = styled.div`
-  width: 700px;
-  margin: 0 auto;
-`;
+import { Page } from 'src/components/page';
 
 const Title = styled.h2`
   margin: 18px 0;
@@ -49,20 +40,18 @@ export const Search = () => {
         </title>
       </Helmet>
 
-      <Wrapper>
-        <Inner>
-          <Title>
-            {t('search.result', {
-              defaultValue: 'Search result for "{{value}}"',
-              value: q,
-            })}
-          </Title>
+      <Page>
+        <Title>
+          {t('search.result', {
+            defaultValue: 'Search result for "{{value}}"',
+            value: q,
+          })}
+        </Title>
 
-          <Container>
-            <SearchResult result={data.search} withGroupTitle />
-          </Container>
-        </Inner>
-      </Wrapper>
+        <Container>
+          <SearchResult result={data.search} withGroupTitle />
+        </Container>
+      </Page>
     </>
   );
 };

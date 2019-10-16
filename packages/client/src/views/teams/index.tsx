@@ -5,18 +5,7 @@ import { styled } from 'src/styles';
 import { useFetchTeamsQuery } from 'src/generated/graphql';
 import { Team } from 'src/components/team';
 import { Card } from 'src/components/card';
-
-const Wrapper = styled.article`
-  width: 100%;
-  margin: 0 auto;
-  padding: 24px;
-  overflow: scroll;
-`;
-
-const Inner = styled.div`
-  width: 700px;
-  margin: auto;
-`;
+import { Page } from 'src/components/page';
 
 const Title = styled.h2`
   margin: 18px 0;
@@ -31,12 +20,7 @@ const List = styled.ul`
 
 const ListItem = styled.li`
   width: 100%;
-  margin-right: 12px;
   margin-bottom: 12px;
-  /* padding: 12px 18px; */
-  /* border-radius: 4px; */
-  /* background-color: ${({ theme }) => theme.backgroundNormal}; */
-  /* box-shadow: 0 0 6px rgba(0, 0, 0, 0.16); */
 `;
 
 export const Teams = React.memo(() => {
@@ -55,26 +39,24 @@ export const Teams = React.memo(() => {
         </title>
       </Helmet>
 
-      <Wrapper>
-        <Inner>
-          <Title>{t('teams.title', { defaultValue: 'Collaboration' })}</Title>
-          <p>
-            {t('teams.description', {
-              defaultValue: 'List of collaborations of Nijisanji',
-            })}
-          </p>
+      <Page>
+        <Title>{t('teams.title', { defaultValue: 'Collaboration' })}</Title>
+        <p>
+          {t('teams.description', {
+            defaultValue: 'List of collaborations of Nijisanji',
+          })}
+        </p>
 
-          <List>
-            {data.teams.nodes.map(team => (
-              <ListItem key={team.id}>
-                <Card>
-                  <Team team={team} withPerformerNames />
-                </Card>
-              </ListItem>
-            ))}
-          </List>
-        </Inner>
-      </Wrapper>
+        <List>
+          {data.teams.nodes.map(team => (
+            <ListItem key={team.id}>
+              <Card>
+                <Team team={team} withPerformerNames />
+              </Card>
+            </ListItem>
+          ))}
+        </List>
+      </Page>
     </>
   );
 });

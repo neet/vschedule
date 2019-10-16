@@ -6,17 +6,22 @@ import { renderNotFound } from 'src/views/not-found';
 import { Performers } from 'src/views/performers';
 import { Teams } from 'src/views/teams';
 import { Search } from 'src/views/search';
-import { Page } from 'src/components/page';
 import { Banner } from 'src/components/banner';
 import { Sidebar } from 'src/components/sidebar';
 import { GlobalStyle } from './global-style';
 
-const Wrapper = styled.div`
+const Wrapper = styled.main`
   display: flex;
   width: 100%;
   height: 100%;
   overflow: hidden;
   background-color: ${({ theme }) => theme.backgroundWash};
+`;
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `;
 
 export const Root = () => {
@@ -27,7 +32,7 @@ export const Root = () => {
       <Wrapper>
         <Sidebar />
 
-        <Page>
+        <Content>
           <Banner />
           <Switch>
             <Redirect exact from="/" to="/activities" />
@@ -37,7 +42,7 @@ export const Root = () => {
             <Route path="/search" component={Search} />
             <Route render={renderNotFound} />
           </Switch>
-        </Page>
+        </Content>
       </Wrapper>
     </>
   );
