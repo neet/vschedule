@@ -5,7 +5,7 @@ import { Search } from 'react-feather';
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useSearchForm } from 'src/hooks/use-search-form';
-import { SearchResult } from './search-result';
+import { SearchResult } from 'src/components/search-result';
 
 const Wrapper = styled.div`
   position: relative;

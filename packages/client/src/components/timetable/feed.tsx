@@ -6,9 +6,10 @@ import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { isOverlapping } from 'src/utils/is-overlapping';
 import { sortEvents } from 'src/utils/sort-events';
+import { Marker } from 'src/components/marker';
 import { Spell } from './spell';
-import { Marker } from './marker';
 import { MinuteHand } from './minute-hand';
+import { SPELL_WIDTH, MARKER_MARGIN } from './layout';
 
 const Wrapper = styled.div`
   position: relative;
@@ -17,6 +18,12 @@ const Wrapper = styled.div`
   overflow-x: scroll;
   background-color: ${({ theme }) => theme.backgroundWash};
   -webkit-overflow-scrolling: touch;
+`;
+
+const MarkerWrapper = styled.div`
+  position: absolute;
+  top: 60px;
+  left: 0;
 `;
 
 const getTimetableRange = (activities: ActivityFragment[]) => {
@@ -85,6 +92,34 @@ const groupMarkersByRow = (
   );
 
   return groupMarkersByRow(rest, result);
+};
+
+const toPixel = (minute: number) => {
+  const pixelPerMinute = SPELL_WIDTH / 30;
+
+  return minute * pixelPerMinute;
+};
+
+const createMarkerProps = (
+  activity: ActivityFragment,
+  row: number,
+  timetableStartAt: Dayjs,
+) => {
+  const startAt = dayjs(activity.startAt);
+  const endAt = dayjs(activity.endAt);
+
+  // Compare current date vs start date in minutes
+  const x =
+    toPixel(startAt.diff(timetableStartAt, 'minute')) +
+    MARKER_MARGIN / 2 +
+    51.03 / 2;
+
+  // Avatar height + padding
+  const y = (50 + MARKER_MARGIN) * row;
+
+  const width = toPixel(endAt.diff(startAt, 'minute')) - MARKER_MARGIN;
+
+  return { x, y, width };
 };
 
 export interface FeedProps {
@@ -194,12 +229,12 @@ export const Feed = (props: FeedProps) => {
 
       <div>
         {markers.map(({ activity, row }, i) => (
-          <Marker
-            key={`${i}-${activity.id}`}
-            row={row}
-            activity={activity}
-            timetableStartAt={timetableStartAt}
-          />
+          <MarkerWrapper key={`${i}-${activity.id}`}>
+            <Marker
+              activity={activity}
+              {...createMarkerProps(activity, row, timetableStartAt)}
+            />
+          </MarkerWrapper>
         ))}
       </div>
     </Wrapper>

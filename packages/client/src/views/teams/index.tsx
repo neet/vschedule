@@ -67,7 +67,7 @@ export const Teams = React.memo(() => {
           <List>
             {data.teams.nodes.map(team => (
               <ListItem key={team.id}>
-                <Card padding="12px 18px">
+                <Card>
                   <Team team={team} withPerformerNames />
                 </Card>
               </ListItem>

@@ -3107,7 +3107,16 @@
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
 
-"@types/storybook__react@^4.0.2":
+"@types/storybook-react-router@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/storybook-react-router/-/storybook-react-router-1.0.0.tgz#b384461f8b203ce1d6d1f23a3a7124031c0dfe4f"
+  integrity sha512-zYZXxoBVvs1Y0lXo8fHx2zh8MkpyE9lh3VmeQqOJjPgA1zizMWCiYtakikoK6IAi6AqKDO4YK5cpe5HdPdLl3w==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-router" "*"
+    "@types/storybook__react" "*"
+
+"@types/storybook__react@*", "@types/storybook__react@^4.0.2":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@types/storybook__react/-/storybook__react-4.0.2.tgz#f36fb399574c662e79c1a0cf6e429b6ff730da40"
   integrity sha512-U/+J5qccRdKFryvHkk1a0IeZaSIZLCmTwAQhTSDGeC3SPNIYPus+EtunBqP49r870l8czbfxtjeC3IL9P66ngQ==
@@ -15623,6 +15632,13 @@ storybook-addon-i18n@^5.1.11:
     "@storybook/client-api" "5.1.9"
     "@storybook/components" "5.1.9"
     react "^16.8.1"
+
+storybook-react-router@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/storybook-react-router/-/storybook-react-router-1.0.8.tgz#8d174eba1c38fff2c7e459c3d0c2463bc0cd9c6a"
+  integrity sha512-3PvuTu6cJHtF72WC3aKdIrUY1eUYsdVYEmW74nZiJoLCn0C/6iDx73w94jgI6lXq75aEJsri+lEDyhcokfP6YA==
+  dependencies:
+    prop-types "^15.7.2"
 
 stream-browserify@^2.0.1:
   version "2.0.2"

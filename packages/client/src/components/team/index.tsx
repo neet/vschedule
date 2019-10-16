@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { TeamFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
-import { AvatarGroup } from './avatar-group';
+import { AvatarGroup } from 'src/components/avatar-group';
 
 const Name = styled.span`
   font-size: 14px;

@@ -34,6 +34,8 @@ export const initDayjs = () => {
 };
 
 export const createI18n = (lng?: string) => {
+  initDayjs();
+
   i18next.on('initialized', options => {
     if (!options.lng) return;
     dayjs.locale(normalizeLanguageForDayjs(options.lng));

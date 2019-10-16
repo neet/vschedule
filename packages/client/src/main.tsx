@@ -6,7 +6,7 @@ import {
 import { ApolloClient } from 'apollo-client';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { createI18n, initDayjs } from 'src/utils/locale';
+import { createI18n } from 'src/utils/locale';
 import { HttpLink } from 'apollo-link-http';
 import { I18nextProvider } from 'react-i18next';
 import { QueryParamProvider } from 'use-query-params';
@@ -67,7 +67,6 @@ import { Root } from './views/root';
     },
   });
 
-  initDayjs();
   const i18n = createI18n();
 
   ReactDOM.render(

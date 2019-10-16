@@ -20,6 +20,10 @@ module.exports = async ({ config, mode }) => {
 
   config.module.rules.push(
     {
+      test: /.(graphql|gql)$/,
+      use: 'graphql-tag/loader',
+    },
+    {
       test: /\.tsx?$/,
       use: [
         {

@@ -1,17 +1,9 @@
-import dayjs from 'dayjs';
 import { parseToRgb, rgba } from 'polished';
 import React, { useMemo } from 'react';
 import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { Avatar } from 'src/components/avatar';
 import { AvatarGroup } from 'src/components/avatar-group';
-import { SPELL_WIDTH, MARKER_MARGIN } from './layout';
-
-const toPixel = (minute: number) => {
-  const pixelPerMinute = SPELL_WIDTH / 30;
-
-  return minute * pixelPerMinute;
-};
 
 interface WrapperProps {
   isLight: boolean;
@@ -19,9 +11,6 @@ interface WrapperProps {
 
 const Wrapper = styled.a<WrapperProps>`
   display: flex;
-  position: absolute;
-  top: 60px;
-  left: 0;
   box-sizing: border-box;
   align-items: center;
   padding: 4px 5px;
@@ -64,27 +53,15 @@ const Name = styled.span`
 
 interface MarkerProps {
   activity: ActivityFragment;
-  row: number;
-  timetableStartAt: dayjs.Dayjs;
+  x?: number;
+  y?: number;
+  width?: number;
 }
 
 export const Marker = (props: MarkerProps) => {
-  const { activity, timetableStartAt, row } = props;
+  const { activity, width, x, y } = props;
   const { performers, team } = activity;
-
   const performer = performers[0];
-  const startAt = dayjs(activity.startAt);
-  const endAt = dayjs(activity.endAt);
-
-  // Compare current date vs start date in minutes
-  const x =
-    toPixel(startAt.diff(timetableStartAt, 'minute')) +
-    MARKER_MARGIN / 2 +
-    51.03 / 2;
-  // Avatar height + padding
-  const y = (50 + MARKER_MARGIN) * row;
-
-  const width = toPixel(endAt.diff(startAt, 'minute')) - MARKER_MARGIN;
 
   const isLight = useMemo(() => {
     // Calc color brightness difference

@@ -3,7 +3,7 @@ import React from 'react';
 import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { isStreamingNow } from 'src/utils/is-streaming-now';
-import { Avatar } from './avatar';
+import { Avatar } from 'src/components/avatar';
 
 export const Thumbnail = styled.div`
   position: relative;

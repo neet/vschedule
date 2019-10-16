@@ -5,7 +5,7 @@ import { Tv, User, Users, Hash, ChevronDown, ChevronUp } from 'react-feather';
 import logoSmall from '@ril/arts/static/logo-small.png';
 import { styled } from 'src/styles';
 import { useSidebar } from 'src/hooks/use-sidebar';
-import { Category } from './category';
+import { Category } from 'src/components/category';
 
 const Wrapper = styled.div`
   display: flex;

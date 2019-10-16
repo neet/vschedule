@@ -3,10 +3,10 @@ import { styled } from 'src/styles';
 import { useTranslation } from 'react-i18next';
 import { Icon as FeatherIconType, Tv, User, Users, Hash } from 'react-feather';
 import * as G from 'src/generated/graphql';
-import { Activity } from './activity';
-import { Performer } from './performer';
-import { Team } from './team';
-import { Category } from './category';
+import { Activity } from 'src/components/activity';
+import { Performer } from 'src/components/performer';
+import { Team } from 'src/components/team';
+import { Category } from 'src/components/category';
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.backgroundDark};

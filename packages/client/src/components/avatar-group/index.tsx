@@ -1,7 +1,7 @@
 import React from 'react';
 import { PerformerFragment } from 'src/generated/graphql';
 import { styled, css } from 'src/styles';
-import { Avatar, AvatarProps } from './avatar';
+import { Avatar, AvatarProps } from 'src/components/avatar';
 
 interface WrapperProps {
   gap: number;

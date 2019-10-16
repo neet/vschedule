@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'src/styles';
 import { PerformerFragment } from 'src/generated/graphql';
-import { Avatar } from './avatar';
+import { Avatar } from 'src/components/avatar';
 
 const Meta = styled.div`
   flex: 1 1 auto;

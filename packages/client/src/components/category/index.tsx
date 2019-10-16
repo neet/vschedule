@@ -33,10 +33,11 @@ const Wrapper = styled(Link)`
 
 interface CategoryProps {
   category: CategoryFragment;
+  withCount?: boolean;
 }
 
 export const Category = (props: CategoryProps) => {
-  const { category } = props;
+  const { category, withCount } = props;
 
   return (
     <Wrapper
@@ -46,7 +47,7 @@ export const Category = (props: CategoryProps) => {
       }}
     >
       <Name>#{category.name}</Name>
-      <Count>{category.activities.pageInfo.totalCount}</Count>
+      {withCount && <Count>{category.activities.pageInfo.totalCount}</Count>}
     </Wrapper>
   );
 };

@@ -8,8 +8,8 @@ import {
 import { Route, Switch } from 'react-router';
 import { rgba } from 'polished';
 import { useTranslation } from 'react-i18next';
-import { DatePicker } from './date-picker';
-import { SearchForm } from './search-form';
+import { DatePicker } from 'src/components/date-picker';
+import { SearchForm } from 'src/components/search-form';
 
 const Wrapper = styled.header`
   display: flex;
@@ -77,7 +77,7 @@ const Today = styled.button`
   }
 `;
 
-export const Banner: React.SFC = React.memo(() => {
+export const Banner = () => {
   const { t } = useTranslation();
   const { data } = useFetchSidebarQuery();
   const [toggleSidebar] = useToggleSidebarMutation();
@@ -127,4 +127,4 @@ export const Banner: React.SFC = React.memo(() => {
       </Toolbox>
     </Wrapper>
   );
-});
+};
