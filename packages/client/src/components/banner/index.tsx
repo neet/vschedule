@@ -6,10 +6,10 @@ import {
   useFetchSidebarQuery,
 } from 'src/generated/graphql';
 import { Route } from 'react-router';
-import { rgba } from 'polished';
 import { useTranslation } from 'react-i18next';
 import { DatePicker } from 'src/components/date-picker';
 import { SearchForm } from 'src/components/search-form';
+import { Button } from 'src/components/button';
 
 const Wrapper = styled.header`
   display: flex;
@@ -48,32 +48,6 @@ const Toolbox = styled.div`
 
   @media screen and (min-width: 700px) {
     display: flex;
-  }
-`;
-
-const Today = styled.button`
-  display: flex;
-  box-sizing: border-box;
-  align-items: center;
-  min-width: 80px;
-  padding: 7px 16px;
-  transition: ease-out 0.15s;
-  border: none;
-  border-radius: 4px;
-  background-color: ${({ theme }) => theme.highlightNormal};
-  box-shadow: 0 0 6px ${({ theme }) => rgba(theme.highlightNormal, 0.16)};
-  color: ${({ theme }) => theme.foregroundReverse};
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: uppercase;
-
-  svg {
-    margin-right: 0.25em;
-  }
-
-  &:hover {
-    transition: ease-in 0.15s;
-    box-shadow: 0 4px 12px ${({ theme }) => rgba(theme.highlightNormal, 0.16)};
   }
 `;
 
@@ -116,10 +90,10 @@ export const Banner = () => {
       <Toolbox>
         <SearchForm />
 
-        <Today onClick={handleClickToday}>
+        <Button onClick={handleClickToday}>
           <Activity size={14} />
           {t('banner.today', { defaultValue: 'Today' })}
-        </Today>
+        </Button>
       </Toolbox>
     </Wrapper>
   );
