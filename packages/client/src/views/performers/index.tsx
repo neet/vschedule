@@ -17,6 +17,11 @@ const Inner = styled.div`
   margin: auto;
 `;
 
+const Title = styled.h2`
+  margin: 18px 0;
+  font-size: 21px;
+`;
+
 const List = styled.ul`
   display: flex;
   flex-direction: column;
@@ -51,7 +56,7 @@ export const Performers = React.memo(() => {
 
       <Wrapper>
         <Inner>
-          <h2>{t('performers.title', { defaultValue: 'Performers' })}</h2>
+          <Title>{t('performers.title', { defaultValue: 'Performers' })}</Title>
           <p>
             {t('performers.description', {
               defaultValue: 'List of performers that are belongs to Nijisanji',

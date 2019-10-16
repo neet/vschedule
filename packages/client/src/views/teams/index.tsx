@@ -17,6 +17,11 @@ const Inner = styled.div`
   margin: auto;
 `;
 
+const Title = styled.h2`
+  margin: 18px 0;
+  font-size: 21px;
+`;
+
 const List = styled.ul`
   display: flex;
   flex-direction: column;
@@ -51,7 +56,7 @@ export const Teams = React.memo(() => {
 
       <Wrapper>
         <Inner>
-          <h2>{t('teams.title', { defaultValue: 'Collaboration' })}</h2>
+          <Title>{t('teams.title', { defaultValue: 'Collaboration' })}</Title>
           <p>
             {t('teams.description', {
               defaultValue: 'List of collaborations of Nijisanji',
