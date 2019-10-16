@@ -15,6 +15,7 @@ import { I18nextProvider } from 'react-i18next';
 import { StaticRouter, Route } from 'react-router-dom';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import { QueryParamProvider } from 'use-query-params';
+import { Helmet } from 'react-helmet';
 import { Html } from './components/html';
 import introspectionResult from './generated/introspection-result';
 import { ThemeProvider } from './styles';
@@ -36,7 +37,7 @@ export interface RenderResult {
   staticMarkup: string;
 }
 
-export const render = async (params: RenderParams): Promise<RenderResult> => {
+const render = async (params: RenderParams): Promise<RenderResult> => {
   const fragmentMatcher = new IntrospectionFragmentMatcher({
     introspectionQueryResultData: introspectionResult,
   });
@@ -56,7 +57,7 @@ export const render = async (params: RenderParams): Promise<RenderResult> => {
 
   initDayjs();
 
-  const App = (
+  const App = () => (
     <ApolloProvider client={client}>
       <StaticRouter location={params.location} context={context}>
         <QueryParamProvider ReactRouterRoute={Route}>
@@ -72,12 +73,10 @@ export const render = async (params: RenderParams): Promise<RenderResult> => {
     </ApolloProvider>
   );
 
-  const content = await getDataFromTree({
-    renderFunction: ReactDOMServer.renderToString,
-    tree: App,
-  });
+  const content = await getDataFromTree(App);
   const additionalElements = sheet.getStyleElement();
   const styles = dom.css();
+  const helmet = Helmet.renderStatic();
 
   const staticMarkup = ReactDOMServer.renderToStaticMarkup(
     // To use i18next/styled-components inside the Html component, we need to wrap it with providers
@@ -88,6 +87,7 @@ export const render = async (params: RenderParams): Promise<RenderResult> => {
           elements={additionalElements}
           content={content}
           styles={styles}
+          helmet={helmet}
           manifest={params.manifest}
         />
       </ThemeProvider>
@@ -99,3 +99,5 @@ export const render = async (params: RenderParams): Promise<RenderResult> => {
     statusCode: context.statusCode,
   };
 };
+
+export default render;

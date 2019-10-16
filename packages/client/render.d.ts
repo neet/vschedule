@@ -13,4 +13,4 @@ export interface RenderResult {
   statusCode: number;
   staticMarkup: string;
 }
-export declare const render: (params: RenderParams) => Promise<RenderResult>;
+export default function render(params: RenderParams): Promise<RenderResult>;
