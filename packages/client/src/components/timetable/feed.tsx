@@ -9,7 +9,7 @@ import { sortEvents } from 'src/utils/sort-events';
 import { Marker } from 'src/components/marker';
 import { Spell } from './spell';
 import { MinuteHand } from './minute-hand';
-import { SPELL_WIDTH, MARKER_MARGIN } from './layout';
+import { SPELL_WIDTH, MARKER_MARGIN, MARKER_HEIGHT } from './layout';
 
 const Wrapper = styled.div`
   position: relative;
@@ -18,6 +18,18 @@ const Wrapper = styled.div`
   overflow-x: scroll;
   background-color: ${({ theme }) => theme.backgroundWash};
   -webkit-overflow-scrolling: touch;
+`;
+
+interface BackgroundProps {
+  rowCount: number;
+}
+
+const Background = styled.div<BackgroundProps>`
+  position: relative;
+  width: 100%;
+  height: ${({ rowCount }) =>
+    rowCount * (MARKER_HEIGHT + MARKER_MARGIN) + 60}px;
+  min-height: 100%;
 `;
 
 const MarkerWrapper = styled.div`
@@ -169,7 +181,8 @@ export const Feed = (props: FeedProps) => {
     30,
   );
 
-  const markers = groupMarkersByRow(activities.sort(sortEvents))
+  const rows = groupMarkersByRow(activities.sort(sortEvents));
+  const markers = rows
     .map((row, i) =>
       row.map(activity => ({
         activity,
@@ -211,21 +224,23 @@ export const Feed = (props: FeedProps) => {
 
   return (
     <Wrapper onScroll={handleScroll}>
-      <div>
-        {spells.map(spell => (
-          <Spell
-            key={spell.valueOf()}
-            date={spell}
-            timetableStartAt={timetableStartAt}
-          />
-        ))}
-      </div>
+      <Background rowCount={rows.length}>
+        <div>
+          {spells.map(spell => (
+            <Spell
+              key={spell.valueOf()}
+              date={spell}
+              timetableStartAt={timetableStartAt}
+            />
+          ))}
+        </div>
 
-      <MinuteHand
-        count={0}
-        timetableStartAt={timetableStartAt}
-        timetableEndAt={timetableEndAt}
-      />
+        <MinuteHand
+          count={0}
+          timetableStartAt={timetableStartAt}
+          timetableEndAt={timetableEndAt}
+        />
+      </Background>
 
       <div>
         {markers.map(({ activity, row }, i) => (
