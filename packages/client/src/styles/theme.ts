@@ -7,8 +7,8 @@ export const theme = {
   highlightWash: rgba('#f80652', 0.1),
 
   backgroundNormal: '#ffffff',
-  backgroundWash: '#fbf8f9',
-  backgroundDark: '#fafafa',
+  backgroundWash: '#fafafa',
+  backgroundDark: '#f7f7f7',
 
   foregroundNormal: '#333333',
   foregroundLight: '#707070',
