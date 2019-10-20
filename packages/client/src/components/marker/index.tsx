@@ -92,10 +92,10 @@ export const Marker = (props: MarkerProps) => {
       <AvatarContainer>
         {performers.length >= 2 ? (
           <AvatarGroup
+            appearance="pie"
             performers={performers}
             size={40}
             gap={-28}
-            align="left"
           />
         ) : (
           <Avatar performer={performer} size={40} />
