@@ -7,10 +7,8 @@ import { useTranslation } from 'react-i18next';
 import { useSearchForm } from 'src/hooks/use-search-form';
 import { SearchResult } from 'src/components/search-result';
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   position: relative;
-  width: 320px;
-  margin: 0 8px;
   border: 1px solid ${({ theme }) => theme.borderNormal};
   border-radius: 999px;
   background-color: ${({ theme }) => theme.backgroundWash};
@@ -24,7 +22,11 @@ const Input = styled.input`
   padding-left: 32px;
   border: 0;
   background-color: transparent;
-  font-size: 14px;
+  font-size: 16px;
+
+  @media screen and (min-width: 700px) {
+    font-size: 14px;
+  }
 `;
 
 const Icon = styled.span`
@@ -51,12 +53,17 @@ const ResultWrapper = styled.div`
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 `;
 
-export const SearchForm = () => {
+interface SearchFormProps {
+  withResult?: boolean;
+}
+
+export const SearchForm = (props: SearchFormProps) => {
   const node = useRef<HTMLDivElement>(null);
   const inputNode = useRef<HTMLInputElement>(null);
   const { value, result, onChange } = useSearchForm();
   const [showResult, changeIfShowResult] = useState(false);
   const [selectedIndex, select] = useState<number | undefined>();
+  const { withResult } = props;
   const { t } = useTranslation();
   const history = useHistory();
 
@@ -187,7 +194,7 @@ export const SearchForm = () => {
         onKeyDown={handleKeyDown}
       />
 
-      {showResult && result && (
+      {withResult && showResult && result && (
         <ResultWrapper>
           <SearchResult result={result} selectedIndex={selectedIndex} />
         </ResultWrapper>

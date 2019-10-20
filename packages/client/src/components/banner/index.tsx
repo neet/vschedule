@@ -1,5 +1,5 @@
-import { Activity, Menu } from 'react-feather';
-import React from 'react';
+import { Menu, Search, X } from 'react-feather';
+import React, { useState } from 'react';
 import { styled } from 'src/styles';
 import {
   useToggleSidebarMutation,
@@ -8,7 +8,10 @@ import {
 import { Route } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { DatePicker } from 'src/components/date-picker';
-import { SearchForm } from 'src/components/search-form';
+import {
+  SearchForm,
+  Wrapper as SearchFormWrapper,
+} from 'src/components/search-form';
 import { Button } from 'src/components/button';
 
 const Wrapper = styled.header`
@@ -24,19 +27,30 @@ const Wrapper = styled.header`
   padding: 8px 14px;
   border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
   background-color: ${({ theme }) => theme.backgroundNormal};
+
+  & > *:not(:first-child) {
+    margin-left: 12px;
+  }
 `;
 
-const MenuButton = styled.button`
-  margin-right: 12px;
-  padding: 0;
-  border: none;
-  background-color: transparent;
-  color: ${({ theme }) => theme.foregroundLight};
+const Inner = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  & > *:not(:last-child) {
+    margin-right: 18px;
+  }
+
+  ${SearchFormWrapper} {
+    flex: 1 0 auto;
+  }
 `;
 
 const Flex = styled.div`
   display: flex;
   flex: 1 0 auto;
+  align-items: center;
   justify-content: center;
 
   @media screen and (min-width: 700px) {
@@ -45,7 +59,17 @@ const Flex = styled.div`
   }
 `;
 
-const Toolbox = styled.div`
+const CompactTools = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  @media screen and (min-width: 700px) {
+    display: none;
+  }
+`;
+
+const LargeTools = styled.div`
   display: none;
   flex: 1 0 auto;
   align-items: center;
@@ -53,6 +77,10 @@ const Toolbox = styled.div`
 
   & > *:not(:last-child) {
     margin-right: 18px;
+  }
+
+  ${SearchFormWrapper} {
+    width: 320px;
   }
 
   @media screen and (min-width: 700px) {
@@ -64,12 +92,13 @@ export const Banner = () => {
   const { t } = useTranslation();
   const { data } = useFetchSidebarQuery();
   const [toggleSidebar] = useToggleSidebarMutation();
+  const [showSearchForm, changeifShowSearchForm] = useState();
 
   if (!data) {
     return null;
   }
 
-  const handleToggle = () => {
+  const handleToggleMenu = () => {
     toggleSidebar({
       variables: {
         expanded: !data.isSidebarExpanded,
@@ -88,22 +117,45 @@ export const Banner = () => {
 
   return (
     <Wrapper>
-      <MenuButton onClick={handleToggle}>
-        <Menu />
-      </MenuButton>
+      {showSearchForm ? (
+        <Inner>
+          <SearchForm />
 
-      <Flex>
-        <Route path="/activities" component={DatePicker} />
-      </Flex>
+          <Button
+            appearance="skeleton"
+            onClick={() => changeifShowSearchForm(false)}
+          >
+            <X />
+          </Button>
+        </Inner>
+      ) : (
+        <>
+          <Button appearance="skeleton" onClick={handleToggleMenu}>
+            <Menu />
+          </Button>
 
-      <Toolbox>
-        <SearchForm />
+          <Flex>
+            <Route path="/activities" component={DatePicker} />
+          </Flex>
 
-        <Button onClick={handleClickToday}>
-          <Activity size={14} />
-          {t('banner.today', { defaultValue: 'Today' })}
-        </Button>
-      </Toolbox>
+          <CompactTools>
+            <Button
+              appearance="skeleton"
+              onClick={() => changeifShowSearchForm(true)}
+            >
+              <Search />
+            </Button>
+          </CompactTools>
+
+          <LargeTools>
+            <SearchForm withResult />
+
+            <Button appearance="primary" onClick={handleClickToday}>
+              {t('banner.today', { defaultValue: 'Today' })}
+            </Button>
+          </LargeTools>
+        </>
+      )}
     </Wrapper>
   );
 };
