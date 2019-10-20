@@ -63,6 +63,10 @@ export const Marker = (props: MarkerProps) => {
   const { performers, team } = activity;
   const performer = performers[0];
 
+  const name = team
+    ? team.name
+    : performers.map(performer => performer.name).join(', ');
+
   const isLight = useMemo(() => {
     // Calc color brightness difference
     const { red, green, blue } = parseToRgb(performer.color);
@@ -80,13 +84,13 @@ export const Marker = (props: MarkerProps) => {
       isLight={isLight}
       style={{
         width: `${width}px`,
-        transform: `translate(${x}px, ${y}px)`,
         backgroundColor: performer.color,
         boxShadow: `0 2px 6px ${rgba(performer.color, 0.48)}`,
+        transform: `translate(${x}px, ${y}px)`,
       }}
     >
       <AvatarContainer>
-        {team ? (
+        {performers.length >= 2 ? (
           <AvatarGroup
             performers={performers}
             size={40}
@@ -100,7 +104,7 @@ export const Marker = (props: MarkerProps) => {
 
       <Meta>
         <Title>{activity.name}</Title>
-        <Name>{team ? team.name : performer.name}</Name>
+        <Name>{name}</Name>
       </Meta>
     </Wrapper>
   );
