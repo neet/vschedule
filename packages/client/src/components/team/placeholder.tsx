@@ -1,10 +1,12 @@
 import React from 'react';
 import { styled } from 'src/styles';
+import { pulse } from 'src/styles/keyframes';
 import { TeamProps } from '.';
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  animation: ${pulse} 2s ease-out infinite;
 `;
 
 const Meta = styled.div`
@@ -16,6 +18,7 @@ const Name = styled.div`
   height: 1.215em;
   margin-top: calc(1em * 0.5 / 2);
   margin-bottom: calc(1em * 0.5);
+  border-radius: 4px;
   background-color: ${({ theme }) => theme.backgroundDark};
 `;
 
@@ -23,6 +26,7 @@ const Description = styled.div`
   width: 80%;
   height: 1em;
   margin: calc(1em * 0.5 / 2) 0;
+  border-radius: 4px;
   background-color: ${({ theme }) => theme.backgroundDark};
 `;
 
