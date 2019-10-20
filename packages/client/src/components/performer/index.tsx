@@ -38,7 +38,7 @@ const Wrapper = styled(Link)`
 
   & > img {
     flex: 0 0 auto;
-    margin-right: 8px;
+    margin-right: 12px;
   }
 `;
 
@@ -64,7 +64,7 @@ export const Performer = (props: PerformerProps) => {
         search: querystring.stringify({ performer_id: id }),
       }}
     >
-      <Avatar size={36} performer={performer} background="performerColor" />
+      <Avatar size={40} performer={performer} background="performerColor" />
 
       <Meta>
         <Name>{name}</Name>

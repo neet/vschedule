@@ -27,6 +27,11 @@ const Row = styled.div<RowProps>`
             margin-left: ${gap}px;
           }
         `}
+
+  & > img {
+    box-sizing: border-box;
+    border: 3px solid ${({ theme }) => theme.backgroundNormal};
+  }
 `;
 
 interface PieProps {

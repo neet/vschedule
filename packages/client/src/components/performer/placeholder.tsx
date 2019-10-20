@@ -12,9 +12,9 @@ const Wrapper = styled.div`
 
 const Circle = styled.div`
   flex: 0 0 auto;
-  width: 36px;
-  height: 36px;
-  margin-right: 8px;
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.backgroundDark};
 `;

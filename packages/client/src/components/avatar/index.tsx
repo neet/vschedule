@@ -9,7 +9,7 @@ interface ImageProps {
 const Image = styled.img<ImageProps>`
   border-radius: ${({ appearance }) =>
     appearance === 'rounded' ? '50%' : '0'};
-  background-color: ${({ theme }) => theme.foregroundReverse};
+  background-color: ${({ theme }) => theme.backgroundNormal};
 `;
 
 export interface AvatarProps {

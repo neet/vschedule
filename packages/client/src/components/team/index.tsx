@@ -66,7 +66,7 @@ export const Team = (props: TeamProps) => {
       <AvatarGroup
         appearance="row"
         performers={team.members}
-        size={40}
+        size={42}
         background="performerColor"
         gap={-18}
       />
