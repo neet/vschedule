@@ -6,6 +6,7 @@ import { TeamProps } from '.';
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  max-height: 43px;
   animation: ${pulse} 2s ease-out infinite;
 `;
 
