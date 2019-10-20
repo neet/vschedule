@@ -7,6 +7,8 @@ import { styled } from 'src/styles';
 import { isOverlapping } from 'src/utils/is-overlapping';
 import { sortEvents } from 'src/utils/sort-events';
 import { Marker } from 'src/components/marker';
+import { Today } from 'src/components/today';
+import { rgba } from 'polished';
 import { Spell } from './spell';
 import { MinuteHand } from './minute-hand';
 import { SPELL_WIDTH, MARKER_MARGIN, MARKER_HEIGHT } from './layout';
@@ -36,6 +38,34 @@ const MarkerWrapper = styled.div`
   position: absolute;
   top: 60px;
   left: 0;
+`;
+
+const TodayContainer = styled.div`
+  display: block;
+  position: absolute;
+  z-index: 999;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 14px 8px;
+  background-image: ${({ theme }) => {
+    return `linear-gradient(
+      180deg,
+      ${rgba(theme.backgroundNormal, 0)} 0%,
+      ${rgba(theme.backgroundNormal, 1)} 100%)
+    `;
+  }};
+
+  @media screen and (min-width: 700px) {
+    display: none;
+  }
+
+  & > button {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+  }
 `;
 
 const getTimetableRange = (activities: ActivityFragment[]) => {
@@ -223,35 +253,41 @@ export const Feed = (props: FeedProps) => {
   };
 
   return (
-    <Wrapper onScroll={handleScroll}>
-      <Background rowCount={rows.length}>
+    <>
+      <Wrapper onScroll={handleScroll}>
+        <Background rowCount={rows.length}>
+          <div>
+            {spells.map(spell => (
+              <Spell
+                key={spell.valueOf()}
+                date={spell}
+                timetableStartAt={timetableStartAt}
+              />
+            ))}
+          </div>
+
+          <MinuteHand
+            count={0}
+            timetableStartAt={timetableStartAt}
+            timetableEndAt={timetableEndAt}
+          />
+        </Background>
+
         <div>
-          {spells.map(spell => (
-            <Spell
-              key={spell.valueOf()}
-              date={spell}
-              timetableStartAt={timetableStartAt}
-            />
+          {markers.map(({ activity, row }, i) => (
+            <MarkerWrapper key={`${i}-${activity.id}`}>
+              <Marker
+                activity={activity}
+                {...createMarkerProps(activity, row, timetableStartAt)}
+              />
+            </MarkerWrapper>
           ))}
         </div>
+      </Wrapper>
 
-        <MinuteHand
-          count={0}
-          timetableStartAt={timetableStartAt}
-          timetableEndAt={timetableEndAt}
-        />
-      </Background>
-
-      <div>
-        {markers.map(({ activity, row }, i) => (
-          <MarkerWrapper key={`${i}-${activity.id}`}>
-            <Marker
-              activity={activity}
-              {...createMarkerProps(activity, row, timetableStartAt)}
-            />
-          </MarkerWrapper>
-        ))}
-      </div>
-    </Wrapper>
+      <TodayContainer>
+        <Today />
+      </TodayContainer>
+    </>
   );
 };

@@ -4,7 +4,6 @@
   },
   "banner": {
     "open_original": "Open Original",
-    "today": "Today",
     "view_source": "View Source",
     "view_twitter": "View Twitter"
   },
@@ -23,9 +22,13 @@
     "title": "Performers"
   },
   "search": {
+    "activities": "Activities",
+    "categories": "Categories",
     "page_title": "Search result for \"{{value}}\" - Refined Itsukara.link",
+    "performers": "Performers",
     "placeholder": "Search",
-    "result": "Search result for \"{{value}}\""
+    "result": "Search result for \"{{value}}\"",
+    "teams": "Collaborations"
   },
   "sidebar": {
     "activities": "Activities",
@@ -33,7 +36,7 @@
     "no_streaming": "There's no streaming on air",
     "performers": "Performers",
     "tags": "Tags",
-    "teams": "Teams",
+    "teams": "Collaborations",
     "title": "<0>{{count}}</0> streaming is on air",
     "title_plural": "<0>{{count}}</0> streamings are on air"
   },
@@ -50,5 +53,8 @@
     "loading": "Loading Timetable..."
   },
   "title": "Refined itsukara.link",
-  "title_short": "Ril"
+  "title_short": "Ril",
+  "today": {
+    "label": "Today"
+  }
 }

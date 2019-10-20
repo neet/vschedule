@@ -6,13 +6,13 @@ import {
   useFetchSidebarQuery,
 } from 'src/generated/graphql';
 import { Route } from 'react-router';
-import { useTranslation } from 'react-i18next';
 import { DatePicker } from 'src/components/date-picker';
 import {
   SearchForm,
   Wrapper as SearchFormWrapper,
 } from 'src/components/search-form';
 import { Button } from 'src/components/button';
+import { Today } from 'src/components/today';
 
 const Wrapper = styled.header`
   display: flex;
@@ -89,7 +89,6 @@ const LargeTools = styled.div`
 `;
 
 export const Banner = () => {
-  const { t } = useTranslation();
   const { data } = useFetchSidebarQuery();
   const [toggleSidebar] = useToggleSidebarMutation();
   const [showSearchForm, changeifShowSearchForm] = useState();
@@ -103,15 +102,6 @@ export const Banner = () => {
       variables: {
         expanded: !data.isSidebarExpanded,
       },
-    });
-  };
-
-  const handleClickToday = () => {
-    const node = document.getElementById('now');
-    if (!node || !(node instanceof Element)) return;
-    node.scrollIntoView({
-      behavior: 'smooth',
-      inline: 'center',
     });
   };
 
@@ -149,10 +139,7 @@ export const Banner = () => {
 
           <LargeTools>
             <SearchForm withResult />
-
-            <Button appearance="primary" onClick={handleClickToday}>
-              {t('banner.today', { defaultValue: 'Today' })}
-            </Button>
+            <Today />
           </LargeTools>
         </>
       )}

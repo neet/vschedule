@@ -24,9 +24,13 @@
     "title": "ライバー"
   },
   "search": {
+    "activities": "配信",
+    "categories": "カテゴリー",
     "page_title": "「{{value}}」の検索結果 - Refined Itsukara.link",
+    "performers": "ライバー",
     "placeholder": "検索",
-    "result": "「{{value}}」の検索結果"
+    "result": "「{{value}}」の検索結果",
+    "teams": "ユニット"
   },
   "sidebar": {
     "activities": "配信",
@@ -49,5 +53,8 @@
     "loading": "スケジュールを読み込んでいます"
   },
   "title": "Refined itsukara.link",
-  "title_short": "Ril"
+  "title_short": "Ril",
+  "today": {
+    "label": "今日の配信"
+  }
 }
