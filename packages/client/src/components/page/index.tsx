@@ -22,14 +22,17 @@ const Inner = styled.article`
   }
 `;
 
-interface PageProps {
+type PageProps = JSX.IntrinsicElements['div'] & {
   children: React.ReactNode;
-}
+};
 
 export const Page = (props: PageProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { children, ref: _ref, ...rest } = props;
+
   return (
-    <Wrapper>
-      <Inner>{props.children}</Inner>
+    <Wrapper {...rest}>
+      <Inner>{children}</Inner>
     </Wrapper>
   );
 };

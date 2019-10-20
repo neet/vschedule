@@ -6,6 +6,8 @@ import { useFetchPerformersQuery } from 'src/generated/graphql';
 import { Performer } from 'src/components/performer';
 import { Page } from 'src/components/page';
 import { Card } from 'src/components/card';
+import { Loader } from 'react-feather';
+import { spin } from 'src/styles/keyframes';
 
 const Title = styled.h2`
   margin: 8px 0;
@@ -19,6 +21,13 @@ const List = styled.ul`
 const ListItem = styled.li`
   width: 100%;
   margin-bottom: 12px;
+`;
+
+const Loading = styled.div`
+  width: 38px;
+  height: 38px;
+  animation: ${spin} 2s ease-in-out infinite;
+  color: ${({ theme }) => theme.foregroundLight};
 `;
 
 export const Performers = React.memo(() => {
@@ -53,14 +62,20 @@ export const Performers = React.memo(() => {
                 </ListItem>
               ))
             : data &&
-              data.performers.nodes.map(performer => (
-                <ListItem key={performer.id}>
+              data.performers.edges.map(({ node }) => (
+                <ListItem key={node.id}>
                   <Card>
-                    <Performer performer={performer} withDescription />
+                    <Performer performer={node} withDescription />
                   </Card>
                 </ListItem>
               ))}
         </List>
+
+        {data && data.performers.pageInfo.hasNextPage && (
+          <Loading>
+            <Loader size={38} />
+          </Loading>
+        )}
       </Page>
     </>
   );

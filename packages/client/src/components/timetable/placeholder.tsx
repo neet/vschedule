@@ -1,8 +1,8 @@
-import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { styled } from 'src/styles';
+import { Loader } from 'react-feather';
+import { spin } from 'src/styles/keyframes';
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,7 +15,14 @@ const Wrapper = styled.div`
 `;
 
 const Icon = styled.div`
-  font-size: 42px;
+  width: 38px;
+  height: 38px;
+  animation: ${spin} 2s ease-in-out infinite;
+`;
+
+const Description = styled.p`
+  margin: 8px 0;
+  font-size: 12px;
 `;
 
 export const Placeholder = () => {
@@ -24,9 +31,12 @@ export const Placeholder = () => {
   return (
     <Wrapper>
       <Icon>
-        <FontAwesomeIcon icon={faCircleNotch} spin />
+        <Loader size={38} />
       </Icon>
-      <p>{t('timetable.loading', { defaultValue: 'Loading Timetable...' })}</p>
+
+      <Description>
+        {t('timetable.loading', { defaultValue: 'Loading Timetable...' })}
+      </Description>
     </Wrapper>
   );
 };

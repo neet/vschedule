@@ -23,7 +23,7 @@ export const rootActivities: G.QueryResolvers['activities'] = async (
       count,
       input,
       ['before', 'beforeDate'],
-      ['after', 'afterDate'],
+      // ['after', 'afterDate'],
     ),
   };
 };

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+import { throttle } from 'lodash';
 import { styled } from 'src/styles';
-import { useFetchTeamsQuery } from 'src/generated/graphql';
 import { Team } from 'src/components/team';
 import { Card } from 'src/components/card';
 import { Page } from 'src/components/page';
+import { LoadingIndicator } from 'src/components/loading-indicator';
+import { useTeams } from 'src/hooks/use-teams';
 
 const Title = styled.h2`
   margin: 8px 0;
@@ -23,7 +25,23 @@ const ListItem = styled.li`
 
 export const Teams = React.memo(() => {
   const { t } = useTranslation();
-  const { data, loading } = useFetchTeamsQuery();
+  const { teams, loading, hasNextPage, onLoadNext } = useTeams();
+
+  const handleLoadNext = throttle(() => {
+    return onLoadNext();
+  }, 3000);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    if (
+      !loading &&
+      hasNextPage &&
+      e.currentTarget.scrollHeight - e.currentTarget.scrollTop < 600
+    ) {
+      return handleLoadNext();
+    }
+
+    return;
+  };
 
   return (
     <>
@@ -35,7 +53,7 @@ export const Teams = React.memo(() => {
         </title>
       </Helmet>
 
-      <Page>
+      <Page onScroll={handleScroll}>
         <Title>{t('teams.title', { defaultValue: 'Collaboration' })}</Title>
         <p>
           {t('teams.description', {
@@ -52,8 +70,8 @@ export const Teams = React.memo(() => {
                   </Card>
                 </ListItem>
               ))
-            : data &&
-              data.teams.nodes.map(team => (
+            : teams &&
+              teams.map(team => (
                 <ListItem key={team.id}>
                   <Card>
                     <Team team={team} withPerformerNames />
@@ -61,6 +79,8 @@ export const Teams = React.memo(() => {
                 </ListItem>
               ))}
         </List>
+
+        {hasNextPage && <LoadingIndicator />}
       </Page>
     </>
   );

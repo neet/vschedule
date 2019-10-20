@@ -119,7 +119,7 @@ type Team implements Node {
 type TeamConnection {
   edges: [TeamEdge!]!
   nodes: [Team!]!
-  pageInfo: PageInfo
+  pageInfo: PageInfo!
 }
 
 type TeamEdge {

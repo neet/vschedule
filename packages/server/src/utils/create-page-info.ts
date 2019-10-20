@@ -17,21 +17,17 @@ export const createPageInfo = <T extends PaginationInput>(
   totalCount: number,
   input: T = {} as T,
   befores: (keyof T)[] = ['before'],
-  afters: (keyof T)[] = ['after'],
 ): PageInfo => {
   const wasCalledWithBefore = befores.some(before => {
     return before in input;
   });
-  const wasCalledWithAfter = afters.some(after => {
-    return after in input;
-  });
 
-  const hasPreviousPage = wasCalledWithAfter
+  const hasPreviousPage = wasCalledWithBefore
     ? edges.length < totalCount
     : false;
 
   // prettier-ignore
-  const hasNextPage = wasCalledWithBefore
+  const hasNextPage = !wasCalledWithBefore
     ? edges.length < totalCount
     : false;
 

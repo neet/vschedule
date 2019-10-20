@@ -116,16 +116,28 @@ query FetchPerformerLarge($id: ID!) {
 
 query FetchPerformers {
   performers(input: { first: 100 }) {
-    nodes {
-      ...Performer
+    edges {
+      cursor
+      node {
+        ...Performer
+      }
+    }
+    pageInfo {
+      ...PageInfo
     }
   }
 }
 
 query FetchTeams {
   teams(input: { first: 100 }) {
-    nodes {
-      ...Team
+    edges {
+      cursor
+      node {
+        ...Team
+      }
+    }
+    pageInfo {
+      ...PageInfo
     }
   }
 }

@@ -26,7 +26,7 @@ export const activities: G.CategoryResolvers['activities'] = async (
       count,
       input,
       ['before', 'beforeDate'],
-      ['after', 'afterDate'],
+      // ['after', 'afterDate'],
     ),
   };
 };
