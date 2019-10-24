@@ -11,5 +11,5 @@ generates:
         Date: Date
       contextType: ../context#Context
       maybeValue: T | undefined
-      resolverTypeWrapperSignature: T | Promise<T> | import('type-fest').PartialDeep<T> | Promise<import('type-fest').PartialDeep<T>>
+      resolverTypeWrapperSignature: import('type-fest').PartialDeep<T> | Promise<import('type-fest').PartialDeep<T>>
       useIndexSignature: true
