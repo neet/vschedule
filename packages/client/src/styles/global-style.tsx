@@ -1,8 +1,8 @@
 import { createGlobalStyle } from 'src/styles';
-import { reset } from './reset.css';
+import { normalize } from './normalize';
 
 export const GlobalStyle = createGlobalStyle`
-${reset}
+${normalize}
 
 html {
   width: 100%;

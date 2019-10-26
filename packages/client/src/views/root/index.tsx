@@ -8,7 +8,7 @@ import { Teams } from 'src/views/teams';
 import { Search } from 'src/views/search';
 import { Banner } from 'src/components/banner';
 import { Sidebar } from 'src/components/sidebar';
-import { GlobalStyle } from './global-style';
+import { GlobalStyle } from 'src/styles/global-style';
 
 const Wrapper = styled.main`
   display: flex;
