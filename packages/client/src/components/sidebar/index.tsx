@@ -29,7 +29,6 @@ const Wrapper = styled.div<WrapperProps>`
   background-color: ${({ theme }) => theme.backgroundNormal};
 
   @media screen and (min-width: 700px) {
-    display: flex;
     position: static;
   }
 `;

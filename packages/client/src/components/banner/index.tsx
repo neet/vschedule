@@ -25,14 +25,8 @@ const Wrapper = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
   background-color: ${({ theme }) => theme.backgroundNormal};
 
-  & > *:not(:last-child) {
-    margin-right: 12px;
-  }
-
-  @media screen and (min-width: 700px) {
-    & > ${Button} {
-      display: none;
-    }
+  & > *:not(:first-child) {
+    margin-left: 12px;
   }
 `;
 
