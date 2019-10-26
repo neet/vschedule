@@ -9,6 +9,7 @@ import {
 } from 'src/components/search-form';
 import { Button } from 'src/components/button';
 import { Today } from 'src/components/today';
+import { useSidebar } from 'src/hooks/use-sidebar';
 
 const Wrapper = styled.header`
   display: flex;
@@ -86,6 +87,7 @@ const LargeTools = styled.div`
 
 export const Banner = () => {
   const [showSearchForm, changeifShowSearchForm] = useState();
+  const { toggle } = useSidebar();
 
   return (
     <Wrapper>
@@ -102,7 +104,7 @@ export const Banner = () => {
         </Inner>
       ) : (
         <>
-          <Button appearance="skeleton">
+          <Button appearance="skeleton" onClick={toggle}>
             <Menu />
           </Button>
 

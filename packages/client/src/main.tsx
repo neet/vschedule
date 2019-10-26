@@ -17,6 +17,7 @@ import introspectionResult from 'src/generated/introspection-result';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Root } from './views/root';
+import { LocalStateProvider } from './context';
 
 (async () => {
   if (process.env.NODE_ENV === 'production') {
@@ -44,17 +45,19 @@ import { Root } from './views/root';
   const i18n = createI18n();
 
   ReactDOM.render(
-    <ApolloProvider client={client}>
-      <BrowserRouter>
-        <QueryParamProvider ReactRouterRoute={Route}>
-          <I18nextProvider i18n={i18n}>
-            <ThemeProvider theme={theme}>
-              <Root />
-            </ThemeProvider>
-          </I18nextProvider>
-        </QueryParamProvider>
-      </BrowserRouter>
-    </ApolloProvider>,
+    <LocalStateProvider>
+      <ApolloProvider client={client}>
+        <BrowserRouter>
+          <QueryParamProvider ReactRouterRoute={Route}>
+            <I18nextProvider i18n={i18n}>
+              <ThemeProvider theme={theme}>
+                <Root />
+              </ThemeProvider>
+            </I18nextProvider>
+          </QueryParamProvider>
+        </BrowserRouter>
+      </ApolloProvider>
+    </LocalStateProvider>,
     mountNode,
   );
 })();

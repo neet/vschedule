@@ -21,6 +21,7 @@ import { ThemeProvider } from './styles';
 import { theme } from './styles/theme';
 import { initDayjs } from './utils/locale';
 import { Root } from './views/root';
+import { LocalStateProvider } from './context';
 
 export interface RenderParams {
   /** i18next instance */
@@ -57,19 +58,21 @@ const render = async (params: RenderParams): Promise<RenderResult> => {
   initDayjs();
 
   const App = () => (
-    <ApolloProvider client={client}>
-      <StaticRouter location={params.location} context={context}>
-        <QueryParamProvider ReactRouterRoute={Route}>
-          <StyleSheetManager sheet={sheet.instance}>
-            <I18nextProvider i18n={params.i18n}>
-              <ThemeProvider theme={theme}>
-                <Root />
-              </ThemeProvider>
-            </I18nextProvider>
-          </StyleSheetManager>
-        </QueryParamProvider>
-      </StaticRouter>
-    </ApolloProvider>
+    <LocalStateProvider>
+      <ApolloProvider client={client}>
+        <StaticRouter location={params.location} context={context}>
+          <QueryParamProvider ReactRouterRoute={Route}>
+            <StyleSheetManager sheet={sheet.instance}>
+              <I18nextProvider i18n={params.i18n}>
+                <ThemeProvider theme={theme}>
+                  <Root />
+                </ThemeProvider>
+              </I18nextProvider>
+            </StyleSheetManager>
+          </QueryParamProvider>
+        </StaticRouter>
+      </ApolloProvider>
+    </LocalStateProvider>
   );
 
   const content = await getDataFromTree(<App />);
