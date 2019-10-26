@@ -72,20 +72,20 @@ const render = async (params: RenderParams): Promise<RenderResult> => {
     </ApolloProvider>
   );
 
-  const content = await getDataFromTree(App);
-  const additionalElements = sheet.getStyleElement();
+  const content = await getDataFromTree(<App />);
   const helmet = Helmet.renderStatic();
+  const additionalElements = sheet.getStyleElement();
 
   const staticMarkup = ReactDOMServer.renderToStaticMarkup(
     // To use i18next/styled-components inside the Html component, we need to wrap it with providers
     <I18nextProvider i18n={params.i18n}>
       <ThemeProvider theme={theme}>
         <Html
-          state={client.extract()}
-          elements={additionalElements}
-          content={content}
           helmet={helmet}
+          state={client.extract()}
           manifest={params.manifest}
+          content={content}
+          elements={additionalElements}
         />
       </ThemeProvider>
     </I18nextProvider>,

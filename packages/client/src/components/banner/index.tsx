@@ -1,10 +1,6 @@
 import { Menu, Search, X } from 'react-feather';
 import React, { useState } from 'react';
 import { styled } from 'src/styles';
-import {
-  useToggleSidebarMutation,
-  useFetchSidebarQuery,
-} from 'src/generated/graphql';
 import { Route } from 'react-router';
 import { DatePicker } from 'src/components/date-picker';
 import {
@@ -89,21 +85,7 @@ const LargeTools = styled.div`
 `;
 
 export const Banner = () => {
-  const { data } = useFetchSidebarQuery();
-  const [toggleSidebar] = useToggleSidebarMutation();
   const [showSearchForm, changeifShowSearchForm] = useState();
-
-  if (!data) {
-    return null;
-  }
-
-  const handleToggleMenu = () => {
-    toggleSidebar({
-      variables: {
-        expanded: !data.isSidebarExpanded,
-      },
-    });
-  };
 
   return (
     <Wrapper>
@@ -120,7 +102,7 @@ export const Banner = () => {
         </Inner>
       ) : (
         <>
-          <Button appearance="skeleton" onClick={handleToggleMenu}>
+          <Button appearance="skeleton">
             <Menu />
           </Button>
 

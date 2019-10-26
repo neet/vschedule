@@ -156,11 +156,3 @@ query FetchCategories {
     }
   }
 }
-
-query FetchSidebar {
-  isSidebarExpanded @client
-}
-
-mutation ToggleSidebar($expanded: Boolean!) {
-  toggleSidebar(expanded: $expanded) @client
-}

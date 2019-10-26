@@ -82,6 +82,7 @@ function shared(command, argv) {
     devServer: {
       compress: true,
       overlay: true,
+      host: '240d:1a:9d:2d00:b449:ea7:e9a2:6d07',
       contentBase: path.resolve(__dirname, '../static'),
       disableHostCheck: true,
       historyApiFallback: {
