@@ -7,8 +7,12 @@ import { styled } from 'src/styles';
 import { useSidebar } from 'src/hooks/use-sidebar';
 import { Category } from 'src/components/category';
 
-const Wrapper = styled.div`
-  display: flex;
+interface WrapperProps {
+  show: boolean;
+}
+
+const Wrapper = styled.div<WrapperProps>`
+  display: ${({ show }) => (show ? 'flex' : 'none')};
   position: absolute;
   z-index: 9999;
   top: 0;
@@ -25,6 +29,7 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.backgroundNormal};
 
   @media screen and (min-width: 700px) {
+    display: flex;
     position: static;
   }
 `;
@@ -133,15 +138,11 @@ export const Sidebar = () => {
     expandCategories(!categoriesExpanded);
   };
 
-  if (!expanded) {
-    return null;
-  }
-
   return (
     <>
       {expanded && <Background onClick={() => toggle()} />}
 
-      <Wrapper>
+      <Wrapper show={expanded}>
         <nav>
           <List>
             <ListItem>
