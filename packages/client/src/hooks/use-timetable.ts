@@ -20,6 +20,8 @@ export const useTimetable = () => {
 
   const { data, loading, fetchMore } = useFetchActivitiesQuery({
     variables: { input },
+    fetchPolicy: 'cache-and-network',
+    ssr: false,
   });
 
   const onLoadNext = () => {
