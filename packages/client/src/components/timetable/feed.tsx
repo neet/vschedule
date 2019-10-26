@@ -212,7 +212,9 @@ export const Feed = (props: FeedProps) => {
     }
 
     if (
-      e.currentTarget.scrollWidth - e.currentTarget.scrollLeft < 200 &&
+      e.currentTarget.scrollWidth -
+        (e.currentTarget.clientWidth + e.currentTarget.scrollLeft) <
+        200 &&
       !loading &&
       hasPreviousPage
     ) {
