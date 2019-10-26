@@ -19,7 +19,7 @@ export const useTimetable = () => {
   };
 
   const { data, loading, fetchMore } = useFetchActivitiesQuery({
-    variables: input,
+    variables: { input },
   });
 
   const onLoadNext = () => {
@@ -27,11 +27,13 @@ export const useTimetable = () => {
 
     return fetchMore({
       variables: {
-        // prettier-ignore
-        beforeDate: getTimetableRange(data.activities.nodes)
-          .timetableStartAt
-          .toISOString(),
-        afterDate: undefined,
+        input: {
+          // prettier-ignore
+          beforeDate: getTimetableRange(data.activities.nodes)
+            .timetableStartAt
+            .toISOString(),
+          afterDate: undefined,
+        },
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
@@ -55,11 +57,13 @@ export const useTimetable = () => {
 
     return fetchMore({
       variables: {
-        // prettier-ignore
-        afterDate: getTimetableRange(data.activities.nodes)
-          .timetableEndAt
-          .toISOString(),
-        beforeDate: undefined,
+        input: {
+          // prettier-ignore
+          afterDate: getTimetableRange(data.activities.nodes)
+            .timetableEndAt
+            .toISOString(),
+          beforeDate: undefined,
+        },
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;

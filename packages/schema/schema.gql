@@ -5,10 +5,6 @@ enum Order {
   DESC
 }
 
-interface Node {
-  id: ID!
-}
-
 type PageInfo {
   # Whether or not there are next pages
   hasNextPage: Boolean!
@@ -18,7 +14,7 @@ type PageInfo {
   totalCount: Int
 }
 
-type Activity implements Node {
+type Activity {
   # ID of the activity
   id: ID!
   # Name of the activity
@@ -52,7 +48,18 @@ type ActivityConnection {
   pageInfo: PageInfo!
 }
 
-type Performer implements Node {
+input ActivitiesInput {
+  limit: Int
+  offset: Int
+  order: Order
+  performerId: ID
+  teamId: ID
+  categoryId: ID
+  afterDate: Date
+  beforeDate: Date
+}
+
+type Performer {
   # ID of the performer
   id: ID!
   # Name of the performer
@@ -90,7 +97,13 @@ type PerformerConnection {
   pageInfo: PageInfo!
 }
 
-type Team implements Node {
+input PerformersInput {
+  limit: Int
+  offset: Int
+  order: Order
+}
+
+type Team {
   # ID of the team
   id: ID!
   # Name of the team
@@ -110,26 +123,31 @@ type TeamConnection {
   pageInfo: PageInfo!
 }
 
-type Category implements Node {
+input TeamsInput {
+  limit: Int
+  offset: Int
+  order: Order
+  performerId: ID
+}
+
+type Category {
   # ID of the category
   id: ID!
   # name
   name: String!
   # Activities
-  activities(
-    limit: Int
-    offset: Int
-    order: Order
-    performerId: ID
-    teamId: ID
-    afterDate: Date
-    beforeDate: Date
-  ): ActivityConnection!
+  activities(input: ActivitiesInput): ActivityConnection!
 }
 
 type CategoryConnection {
   nodes: [Category!]!
   pageInfo: PageInfo!
+}
+
+input CategoriesInput {
+  limit: Int
+  offset: Int
+  order: Order
 }
 
 interface SocialAccount {
@@ -141,7 +159,7 @@ interface SocialAccount {
   updatedAt: Date!
 }
 
-type YoutubeAccount implements Node & SocialAccount {
+type YoutubeAccount implements SocialAccount {
   # Internal ID of the channel
   id: ID!
   # ID of the channel
@@ -156,7 +174,7 @@ type YoutubeAccount implements Node & SocialAccount {
   updatedAt: Date!
 }
 
-type TwitterAccount implements Node & SocialAccount {
+type TwitterAccount implements SocialAccount {
   # Internal ID of the channel
   id: ID!
   # Screenname of the account like @twitter
@@ -180,28 +198,19 @@ type Query {
   # Fetch single activity
   activity(id: ID!): Activity
   # Fetch activities
-  activities(
-    limit: Int
-    offset: Int
-    order: Order
-    performerId: ID
-    teamId: ID
-    categoryId: ID
-    afterDate: Date
-    beforeDate: Date
-  ): ActivityConnection!
+  activities(input: ActivitiesInput): ActivityConnection!
   # Fetch single performer
   performer(id: ID!): Performer
   # Fetch performers
-  performers(limit: Int, offset: Int, order: Order): PerformerConnection!
+  performers(input: PerformersInput): PerformerConnection!
   # Fetch single category
   category(id: ID!): Category
   # Fetch categories
-  categories(limit: Int, offset: Int, order: Order): CategoryConnection!
+  categories(input: CategoriesInput): CategoryConnection!
   # Fetch single team
   team(id: ID!): Team
   # Fetch teams
-  teams(limit: Int, offset: Int, order: Order, performerId: ID): TeamConnection!
+  teams(input: TeamsInput): TeamConnection!
 }
 
 schema {

@@ -4,7 +4,7 @@ import { createPageInfo } from 'src/utils/create-page-info';
 
 export const rootPerformers: G.QueryResolvers['performers'] = async (
   _parent,
-  input,
+  { input },
   { repositories },
 ) => {
   const [performers, count] = await repositories.performer.getAllAndCount(

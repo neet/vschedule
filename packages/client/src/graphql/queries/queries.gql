@@ -81,20 +81,8 @@ fragment Category on Category {
   }
 }
 
-query FetchActivities(
-  $offset: Int
-  $limit: Int
-  $order: Order
-  $afterDate: Date
-  $beforeDate: Date
-) {
-  activities(
-    offset: $offset
-    limit: $limit
-    order: $order
-    afterDate: $afterDate
-    beforeDate: $beforeDate
-  ) {
+query FetchActivities($input: ActivitiesInput) {
+  activities(input: $input) {
     nodes {
       ...Activity
     }
@@ -108,7 +96,7 @@ query FetchPerformerLarge($id: ID!) {
   performer(id: $id) {
     ...PerformerLarge
   }
-  activities(performerId: $id, limit: 100, order: DESC) {
+  activities(input: { performerId: $id, limit: 100, order: DESC }) {
     nodes {
       ...Activity
     }
@@ -119,7 +107,7 @@ query FetchPerformerLarge($id: ID!) {
 }
 
 query FetchPerformers {
-  performers(limit: 100) {
+  performers(input: { limit: 100 }) {
     nodes {
       ...Performer
     }
@@ -130,7 +118,7 @@ query FetchPerformers {
 }
 
 query FetchTeams($offset: Int) {
-  teams(limit: 100, offset: $offset) {
+  teams(input: { limit: 100, offset: $offset }) {
     nodes {
       ...Team
     }

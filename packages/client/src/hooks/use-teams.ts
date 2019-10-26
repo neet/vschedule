@@ -8,7 +8,6 @@ export const useTeams = () => {
 
     return fetchMore({
       variables: {
-        // Skip alredy taken nodes
         offset: data.teams.nodes.length,
       },
       updateQuery: (prev, { fetchMoreResult }) => {

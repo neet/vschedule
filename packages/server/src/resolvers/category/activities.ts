@@ -4,7 +4,7 @@ import { createPageInfo } from 'src/utils/create-page-info';
 
 export const activities: G.CategoryResolvers['activities'] = async (
   parent,
-  input,
+  { input },
   { repositories },
 ) => {
   const [activities, count] = await repositories.activity.getAllAndCount({

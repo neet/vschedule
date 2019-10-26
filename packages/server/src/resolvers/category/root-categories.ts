@@ -4,7 +4,7 @@ import { serializeCategory } from 'src/serializers/category';
 
 export const rootCategories: G.QueryResolvers['categories'] = async (
   _parent,
-  input,
+  { input },
   { repositories },
 ) => {
   const [categories, count] = await repositories.category.getAllAndCount(input);

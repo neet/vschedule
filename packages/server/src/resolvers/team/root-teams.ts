@@ -4,7 +4,7 @@ import { serializeTeam } from 'src/serializers/team';
 
 export const rootTeams: G.QueryResolvers['teams'] = async (
   _parent,
-  input,
+  { input },
   { repositories },
 ) => {
   const [teams, count] = await repositories.team.getAllAndCount(input);

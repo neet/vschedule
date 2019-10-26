@@ -4,7 +4,7 @@ import { serializeActivity } from 'src/serializers/activity';
 
 export const rootActivities: G.QueryResolvers['activities'] = async (
   _parent,
-  input,
+  { input },
   { repositories },
 ) => {
   const [activities, count] = await repositories.activity.getAllAndCount(input);
