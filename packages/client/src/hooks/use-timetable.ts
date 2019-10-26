@@ -1,4 +1,4 @@
-import { useFetchActivitiesQuery } from 'src/generated/graphql';
+import { useFetchActivitiesQuery, Order } from 'src/generated/graphql';
 import { getTimetableRange } from 'src/utils/get-timetable-range';
 import { useQueryParam, StringParam } from 'use-query-params';
 
@@ -12,6 +12,7 @@ export const useTimetable = () => {
   const input = {
     afterDate,
     beforeDate,
+    order: Order.Desc,
     categoryId,
     teamId,
     performerId,
