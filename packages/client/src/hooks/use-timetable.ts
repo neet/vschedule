@@ -1,8 +1,4 @@
-import {
-  useFetchActivitiesQuery,
-  ActivitiesInput,
-  ActivityFragment,
-} from 'src/generated/graphql';
+import { useFetchActivitiesQuery, Order } from 'src/generated/graphql';
 import { useQueryParam, StringParam } from 'use-query-params';
 
 export const useTimetable = () => {
@@ -12,8 +8,9 @@ export const useTimetable = () => {
   const [teamId] = useQueryParam('team_id', StringParam);
   const [performerId] = useQueryParam('performer_id', StringParam);
 
-  const input: ActivitiesInput = {
-    last: 100,
+  const input = {
+    limit: 100,
+    order: Order.Desc,
     afterDate,
     beforeDate,
     categoryId,
@@ -22,34 +19,30 @@ export const useTimetable = () => {
   };
 
   const { data, loading, fetchMore } = useFetchActivitiesQuery({
-    variables: { input },
+    variables: input,
   });
 
   const onLoadNext = () => {
     if (!data || !data.activities) return;
 
-    const { activities } = data;
-
     return fetchMore({
       variables: {
-        input: {
-          after: activities.pageInfo.endCursor,
-        },
+        offset: data.activities.nodes.length,
+        // order: Order.Desc,
       },
-      updateQuery: (previousResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return previousResult;
-        const newEdges = fetchMoreResult.activities.edges;
-        const pageInfo = fetchMoreResult.activities.pageInfo;
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
 
-        return newEdges.length
-          ? {
-              activities: {
-                __typename: previousResult.activities.__typename,
-                edges: [...previousResult.activities.edges, ...newEdges],
-                pageInfo,
-              },
-            }
-          : previousResult;
+        return {
+          activities: {
+            __typename: prev.activities.__typename,
+            nodes: [
+              ...prev.activities.nodes,
+              ...fetchMoreResult.activities.nodes,
+            ],
+            pageInfo: fetchMoreResult.activities.pageInfo,
+          },
+        };
       },
     });
   };
@@ -57,38 +50,30 @@ export const useTimetable = () => {
   const onLoadPrevious = () => {
     if (!data || !data.activities) return;
 
-    const { activities } = data;
-
     return fetchMore({
       variables: {
-        input: {
-          before: activities.pageInfo.startCursor,
-        },
+        offset: data.activities.nodes.length,
+        // order: Order.Asc,
       },
-      updateQuery: (previousResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return previousResult;
-        const newEdges = fetchMoreResult.activities.edges;
-        const pageInfo = fetchMoreResult.activities.pageInfo;
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
 
-        return newEdges.length
-          ? {
-              activities: {
-                __typename: previousResult.activities.__typename,
-                edges: [...newEdges, ...previousResult.activities.edges],
-                pageInfo,
-              },
-            }
-          : previousResult;
+        return {
+          activities: {
+            __typename: prev.activities.__typename,
+            nodes: [
+              ...prev.activities.nodes,
+              ...fetchMoreResult.activities.nodes,
+            ],
+            pageInfo: fetchMoreResult.activities.pageInfo,
+          },
+        };
       },
     });
   };
 
   return {
-    activities:
-      data &&
-      data.activities.edges
-        .map(edge => edge.node)
-        .filter((v): v is ActivityFragment => !!v),
+    activities: data && data.activities.nodes,
     loading,
     hasNextPage: data && data.activities.pageInfo.hasNextPage,
     hasPreviousPage: data && data.activities.pageInfo.hasPreviousPage,

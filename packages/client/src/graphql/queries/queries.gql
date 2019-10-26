@@ -1,6 +1,4 @@
 fragment PageInfo on PageInfo {
-  startCursor
-  endCursor
   hasNextPage
   hasPreviousPage
   totalCount
@@ -83,13 +81,10 @@ fragment Category on Category {
   }
 }
 
-query FetchActivities($input: ActivitiesInput) {
-  activities(input: $input) {
-    edges {
-      cursor
-      node {
-        ...Activity
-      }
+query FetchActivities($offset: Int, $limit: Int, $order: Order) {
+  activities(offset: $offset, limit: $limit, order: $order) {
+    nodes {
+      ...Activity
     }
     pageInfo {
       ...PageInfo
@@ -101,12 +96,9 @@ query FetchPerformerLarge($id: ID!) {
   performer(id: $id) {
     ...PerformerLarge
   }
-  activities(input: { performerId: $id, last: 100 }) {
-    edges {
-      cursor
-      node {
-        ...Activity
-      }
+  activities(performerId: $id, limit: 100, order: DESC) {
+    nodes {
+      ...Activity
     }
     pageInfo {
       ...PageInfo
@@ -115,12 +107,9 @@ query FetchPerformerLarge($id: ID!) {
 }
 
 query FetchPerformers {
-  performers(input: { first: 100 }) {
-    edges {
-      cursor
-      node {
-        ...Performer
-      }
+  performers(limit: 100) {
+    nodes {
+      ...Performer
     }
     pageInfo {
       ...PageInfo
@@ -128,13 +117,10 @@ query FetchPerformers {
   }
 }
 
-query FetchTeams {
-  teams(input: { first: 100 }) {
-    edges {
-      cursor
-      node {
-        ...Team
-      }
+query FetchTeams($offset: Int) {
+  teams(limit: 100, offset: $offset) {
+    nodes {
+      ...Team
     }
     pageInfo {
       ...PageInfo

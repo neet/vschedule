@@ -1,23 +1,17 @@
 import * as G from 'src/generated/graphql';
-import { Cursor } from 'src/utils/cursor';
 import { createPageInfo } from 'src/utils/create-page-info';
 import { serializeCategory } from 'src/serializers/category';
 
 export const rootCategories: G.QueryResolvers['categories'] = async (
   _parent,
-  { input },
+  input,
   { repositories },
 ) => {
   const [categories, count] = await repositories.category.getAllAndCount(input);
-
-  const edges = categories.map(category => ({
-    cursor: Cursor.encode('Category', category.id),
-    node: serializeCategory(category),
-  }));
+  const nodes = categories.map(category => serializeCategory(category));
 
   return {
-    edges,
-    nodes: edges.map(edge => edge.node),
-    pageInfo: createPageInfo(edges, count, input),
+    nodes,
+    pageInfo: createPageInfo(nodes, count, input),
   };
 };

@@ -1,5 +1,10 @@
 scalar Date
 
+enum Order {
+  ASC
+  DESC
+}
+
 interface Node {
   id: ID!
 }
@@ -9,10 +14,6 @@ type PageInfo {
   hasNextPage: Boolean!
   # Whether or not there are previous pages
   hasPreviousPage: Boolean!
-  # First cursor of the connection
-  startCursor: String
-  # Last cursor of the connection
-  endCursor: String
   # Total count
   totalCount: Int
 }
@@ -47,14 +48,8 @@ type Activity implements Node {
 }
 
 type ActivityConnection {
-  edges: [ActivityEdge!]!
   nodes: [Activity!]!
   pageInfo: PageInfo!
-}
-
-type ActivityEdge {
-  cursor: String!
-  node: Activity!
 }
 
 type Performer implements Node {
@@ -91,14 +86,8 @@ type Performer implements Node {
 }
 
 type PerformerConnection {
-  edges: [PerformerEdge!]!
   nodes: [Performer!]!
   pageInfo: PageInfo!
-}
-
-type PerformerEdge {
-  cursor: String!
-  node: Performer!
 }
 
 type Team implements Node {
@@ -117,14 +106,8 @@ type Team implements Node {
 }
 
 type TeamConnection {
-  edges: [TeamEdge!]!
   nodes: [Team!]!
   pageInfo: PageInfo!
-}
-
-type TeamEdge {
-  cursor: String!
-  node: Team!
 }
 
 type Category implements Node {
@@ -133,18 +116,20 @@ type Category implements Node {
   # name
   name: String!
   # Activities
-  activities(input: ActivitiesInput): ActivityConnection!
+  activities(
+    limit: Int
+    offset: Int
+    order: Order
+    performerId: ID
+    teamId: ID
+    afterDate: Date
+    beforeDate: Date
+  ): ActivityConnection!
 }
 
 type CategoryConnection {
-  edges: [CategoryEdge!]!
   nodes: [Category!]!
   pageInfo: PageInfo!
-}
-
-type CategoryEdge {
-  cursor: String!
-  node: Category!
 }
 
 interface SocialAccount {
@@ -189,51 +174,34 @@ type SearchResult {
   categories: [Category!]!
 }
 
-input ActivitiesInput {
-  first: Int
-  last: Int
-  after: String
-  before: String
-  performerId: ID
-  teamId: ID
-  categoryId: ID
-  afterDate: Date
-  beforeDate: Date
-}
-
-input PerformersInput {
-  first: Int
-  after: String
-  last: Int
-  before: String
-}
-
-input CategoriesInput {
-  first: Int
-  after: String
-  last: Int
-  before: String
-}
-
-input TeamsInput {
-  first: Int
-  after: String
-  last: Int
-  before: String
-  performerId: ID
-}
-
 type Query {
-  node(cursor: String!): Node
+  # Search performers, activities, teams and categories
   search(query: String!): SearchResult!
+  # Fetch single activity
   activity(id: ID!): Activity
-  activities(input: ActivitiesInput): ActivityConnection!
+  # Fetch activities
+  activities(
+    limit: Int
+    offset: Int
+    order: Order
+    performerId: ID
+    teamId: ID
+    categoryId: ID
+    afterDate: Date
+    beforeDate: Date
+  ): ActivityConnection!
+  # Fetch single performer
   performer(id: ID!): Performer
-  performers(input: PerformersInput): PerformerConnection!
+  # Fetch performers
+  performers(limit: Int, offset: Int, order: Order): PerformerConnection!
+  # Fetch single category
   category(id: ID!): Category
-  categories(input: CategoriesInput): CategoryConnection!
+  # Fetch categories
+  categories(limit: Int, offset: Int, order: Order): CategoryConnection!
+  # Fetch single team
   team(id: ID!): Team
-  teams(input: TeamsInput): TeamConnection!
+  # Fetch teams
+  teams(limit: Int, offset: Int, order: Order, performerId: ID): TeamConnection!
 }
 
 schema {

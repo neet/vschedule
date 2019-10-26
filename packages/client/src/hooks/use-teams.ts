@@ -6,34 +6,27 @@ export const useTeams = () => {
   const onLoadNext = () => {
     if (!data || !data.teams) return;
 
-    const { teams } = data;
-
     return fetchMore({
       variables: {
-        input: {
-          after: teams.pageInfo.endCursor,
-        },
+        // Skip alredy taken nodes
+        offset: data.teams.nodes.length,
       },
-      updateQuery: (previousResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return previousResult;
-        const newEdges = fetchMoreResult.teams.edges;
-        const pageInfo = fetchMoreResult.teams.pageInfo;
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
 
-        return newEdges.length
-          ? {
-              teams: {
-                __typename: previousResult.teams.__typename,
-                edges: [...previousResult.teams.edges, ...newEdges],
-                pageInfo,
-              },
-            }
-          : previousResult;
+        return {
+          teams: {
+            __typename: prev.teams.__typename,
+            nodes: [...prev.teams.nodes, ...fetchMoreResult.teams.nodes],
+            pageInfo: fetchMoreResult.teams.pageInfo,
+          },
+        };
       },
     });
   };
 
   return {
-    teams: data && data.teams.edges.map(({ node }) => node),
+    teams: data && data.teams.nodes,
     loading,
     hasNextPage: data && data.teams.pageInfo.hasNextPage,
     onLoadNext,

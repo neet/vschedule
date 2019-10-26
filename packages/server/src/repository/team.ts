@@ -1,15 +1,13 @@
 import DataLoader from 'dataloader';
-import { Cursor } from 'src/utils/cursor';
 import { EntityManager, EntityRepository } from 'typeorm';
 import { Team } from 'src/entity/team';
 import { TeamDataset } from 'src/utils/teams';
 import { PerformerRepository } from './performer';
 
 interface GetAllAndCountParams {
-  first?: number;
-  last?: number;
-  before?: string;
-  after?: string;
+  limit?: number;
+  offset?: number;
+  order?: 'ASC' | 'DESC';
 }
 
 @EntityRepository(Team)
@@ -34,25 +32,14 @@ export class TeamRepository {
   };
 
   getAllAndCount = async (params: GetAllAndCountParams = {}) => {
-    const { first, last, before, after } = params;
-    const take = (last ? last : first) || 100;
-    const order = last ? 'DESC' : 'ASC';
+    const { limit = 100, offset = 0, order = 'ASC' } = params;
 
     const query = this.manager
       .getRepository(Team)
       .createQueryBuilder('team')
       .orderBy('team.id', order)
-      .take(Math.min(take, 100));
-
-    if (before) {
-      const { id } = Cursor.decode(before);
-      query.orWhere('team.id < :id', { id });
-    }
-
-    if (after) {
-      const { id } = Cursor.decode(after);
-      query.orWhere('team.id > :id', { id });
-    }
+      .skip(offset)
+      .take(Math.min(limit, 100));
 
     return await query.getManyAndCount();
   };

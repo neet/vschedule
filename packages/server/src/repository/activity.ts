@@ -1,5 +1,4 @@
 import DataLoader from 'dataloader';
-import { Cursor } from 'src/utils/cursor';
 import { EntityRepository, EntityManager } from 'typeorm';
 import { Activity } from 'src/entity/activity';
 import { matchTeamFromPerformerIds } from 'src/utils/teams';
@@ -9,11 +8,10 @@ import { CategoryRepostiory } from './category';
 import { TeamRepository } from './team';
 
 interface GetAllAndCountParams {
-  first?: number;
-  last?: number;
-  after?: string;
+  limit?: number;
+  offset?: number;
+  order?: 'ASC' | 'DESC';
   afterDate?: Date;
-  before?: string;
   beforeDate?: Date;
   performerId?: string;
   teamId?: string;
@@ -39,19 +37,15 @@ export class ActivityRepository {
     params: GetAllAndCountParams = {},
   ): Promise<[Activity[], number]> => {
     const {
-      first,
-      last,
-      after,
-      afterDate,
-      before,
-      beforeDate,
+      offset = 0,
+      limit = 100,
+      order = 'ASC',
       performerId,
       teamId,
       categoryId,
+      afterDate,
+      beforeDate,
     } = params;
-
-    const take = (last ? last : first) || 100;
-    const order = last ? 'DESC' : 'ASC';
 
     const query = this.manager
       .getRepository(Activity)
@@ -60,22 +54,17 @@ export class ActivityRepository {
       .leftJoinAndSelect('activity.performers', 'performer')
       .leftJoinAndSelect('activity.team', 'team')
       .orderBy('activity.startAt', order)
-      .take(Math.min(take, 100));
+      .skip(offset)
+      .take(Math.min(limit, 100));
 
-    if (performerId) {
-      query.andWhere('performer.id = :id', { id: performerId });
-    }
-
-    if (teamId) {
-      query.andWhere('team.id = :id', { id: teamId });
-    }
-
-    if (categoryId) {
-      query.andWhere('category.id = :id', { id: categoryId });
-    }
+    if (performerId) query.andWhere('performer.id = :id', { id: performerId });
+    if (teamId) query.andWhere('team.id = :id', { id: teamId });
+    if (categoryId) query.andWhere('category.id = :id', { id: categoryId });
 
     const count = await query.getCount();
 
+    // `afterDate` and `beforeDate` are used as a pagination
+    // so should be added after counting
     if (afterDate) {
       query.andWhere('activity."endAt" > CAST(:afterDate AS TIMESTAMP)', {
         afterDate,
@@ -85,32 +74,6 @@ export class ActivityRepository {
     if (beforeDate) {
       query.andWhere('activity."startAt" < CAST(:beforeDate AS TIMESTAMP)', {
         beforeDate,
-      });
-    }
-
-    if (after) {
-      const { id } = Cursor.decode(after);
-      const afterActivity = await this.manager
-        .getRepository(Activity)
-        .findOne({ id });
-
-      if (!afterActivity) throw new Error('undef');
-
-      query.andWhere('activity."endAt" < CAST(:afterDate AS TIMESTAMP)', {
-        afterDate: afterActivity.startAt,
-      });
-    }
-
-    if (before) {
-      const { id } = Cursor.decode(before);
-      const beforeActivity = await this.manager
-        .getRepository(Activity)
-        .findOne({ id });
-
-      if (!beforeActivity) throw new Error('undef');
-
-      query.andWhere('activity."startAt" < CAST(:beforeDate AS TIMESTAMP)', {
-        beforeDate: beforeActivity.startAt,
       });
     }
 
