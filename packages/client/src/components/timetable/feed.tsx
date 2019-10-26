@@ -10,6 +10,7 @@ import { Marker } from 'src/components/marker';
 import { Today } from 'src/components/today';
 import { getTimetableRange } from 'src/utils/get-timetable-range';
 import { createDateSequence } from 'src/utils/create-date-sequence';
+import { findClosestSpell } from 'src/utils/find-closest-spell';
 import { rgba } from 'polished';
 import { Spell } from './spell';
 import { MinuteHand } from './minute-hand';
@@ -155,7 +156,8 @@ export const Feed = (props: FeedProps) => {
   const previousTimetableStartAt = usePrevious(timetableStartAt);
 
   useLayoutEffect(() => {
-    const node = document.getElementById('now');
+    const spell = findClosestSpell();
+    const node = document.getElementById(`spell-${spell.toISOString()}`);
     if (!node || !(node instanceof Element)) return;
 
     node.scrollIntoView({
