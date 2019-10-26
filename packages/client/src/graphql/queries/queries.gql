@@ -81,8 +81,20 @@ fragment Category on Category {
   }
 }
 
-query FetchActivities($offset: Int, $limit: Int, $order: Order) {
-  activities(offset: $offset, limit: $limit, order: $order) {
+query FetchActivities(
+  $offset: Int
+  $limit: Int
+  $order: Order
+  $afterDate: Date
+  $beforeDate: Date
+) {
+  activities(
+    offset: $offset
+    limit: $limit
+    order: $order
+    afterDate: $afterDate
+    beforeDate: $beforeDate
+  ) {
     nodes {
       ...Activity
     }

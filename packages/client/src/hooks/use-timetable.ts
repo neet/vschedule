@@ -1,4 +1,5 @@
 import { useFetchActivitiesQuery, Order } from 'src/generated/graphql';
+import { getTimetableRange } from 'src/utils/get-timetable-range';
 import { useQueryParam, StringParam } from 'use-query-params';
 
 export const useTimetable = () => {
@@ -27,8 +28,10 @@ export const useTimetable = () => {
 
     return fetchMore({
       variables: {
-        offset: data.activities.nodes.length,
-        // order: Order.Desc,
+        // prettier-ignore
+        beforeDate: getTimetableRange(data.activities.nodes)
+          .timetableStartAt
+          .toISOString()
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
@@ -52,8 +55,10 @@ export const useTimetable = () => {
 
     return fetchMore({
       variables: {
-        offset: data.activities.nodes.length,
-        // order: Order.Asc,
+        // prettier-ignore
+        afterDate: getTimetableRange(data.activities.nodes)
+          .timetableEndAt
+          .toISOString()
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;

@@ -8,6 +8,8 @@ import { isOverlapping } from 'src/utils/is-overlapping';
 import { sortEvents } from 'src/utils/sort-events';
 import { Marker } from 'src/components/marker';
 import { Today } from 'src/components/today';
+import { getTimetableRange } from 'src/utils/get-timetable-range';
+import { createDateSequence } from 'src/utils/create-date-sequence';
 import { rgba } from 'polished';
 import { Spell } from './spell';
 import { MinuteHand } from './minute-hand';
@@ -67,40 +69,6 @@ const TodayContainer = styled.div`
     font-size: 14px;
   }
 `;
-
-const getTimetableRange = (activities: ActivityFragment[]) => {
-  // prettier-ignore
-  const timetableStartAt = activities.reduce<Dayjs | undefined>((result, activity) => {
-    if (!result || result.isAfter(activity.startAt)) {
-      result = dayjs(activity.startAt);
-    }
-    return result;
-  }, undefined);
-
-  // prettier-ignore
-  const timetableEndAt = activities.reduce<Dayjs | undefined>((result, activity) => {
-    if (!result || result.isBefore(activity.endAt)) {
-      result = dayjs(activity.endAt);
-    }
-    return result;
-  }, undefined);
-
-  if (!timetableStartAt || !timetableEndAt) {
-    throw Error('provide at least 1 activity');
-  }
-
-  return { timetableStartAt, timetableEndAt };
-};
-
-const createRangeDate = (startAt: Dayjs, endAt: Dayjs, each: number) => {
-  const length = dayjs(endAt).diff(startAt, 'minute') / each;
-
-  return Array.from({ length }, (_, i) => {
-    const basis = startAt.clone();
-    return basis.add(i * each, 'minute');
-  });
-};
-
 const groupMarkersByRow = (
   sortedContents: ActivityFragment[],
   result: ActivityFragment[][] = [],
@@ -205,7 +173,7 @@ export const Feed = (props: FeedProps) => {
     previousStartNode.scrollIntoView({ inline: 'start' });
   }, [previousTimetableStartAt]);
 
-  const spells = createRangeDate(
+  const spells = createDateSequence(
     timetableStartAt.minute(0),
     timetableEndAt.minute(0),
     30,
