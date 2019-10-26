@@ -124,9 +124,14 @@ const Background = styled.div`
 `;
 
 export const Sidebar = () => {
-  const { toggle, expanded, categories } = useSidebar();
+  const { toggle, expanded, categories, fetchCategories } = useSidebar();
   const { t } = useTranslation();
   const [categoriesExpanded, expandCategories] = useState(false);
+
+  const handleToggleCategories = () => {
+    if (!categories) fetchCategories();
+    expandCategories(!categoriesExpanded);
+  };
 
   if (!expanded) {
     return null;
@@ -178,7 +183,7 @@ export const Sidebar = () => {
             </ListItem>
 
             <ListItem>
-              <button onClick={() => expandCategories(!categoriesExpanded)}>
+              <button onClick={handleToggleCategories}>
                 <Icon>
                   <Hash />
                 </Icon>

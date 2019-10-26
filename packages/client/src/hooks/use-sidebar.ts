@@ -1,17 +1,18 @@
 import {
   useFetchSidebarQuery,
-  useFetchCategoriesQuery,
+  useFetchCategoriesLazyQuery,
   useToggleSidebarMutation,
 } from 'src/generated/graphql';
 
 export const useSidebar = () => {
   const [toggle] = useToggleSidebarMutation();
   const { data: sideBar } = useFetchSidebarQuery();
-  const { data: categories } = useFetchCategoriesQuery();
+  const [fetchCategories, { data: categories }] = useFetchCategoriesLazyQuery();
 
   return {
     toggle,
     expanded: sideBar && sideBar.isSidebarExpanded,
     categories: categories && categories.categories.nodes,
+    fetchCategories,
   };
 };
