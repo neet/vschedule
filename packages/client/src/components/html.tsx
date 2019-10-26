@@ -6,14 +6,13 @@ import { ThemeContext } from 'src/styles';
 export interface HtmlProps {
   state: any;
   content: string;
-  styles: string;
   elements: React.ReactElement<{}>[];
   helmet: HelmetData;
   manifest: { [K: string]: string };
 }
 
 export const Html = (props: HtmlProps) => {
-  const { state, helmet, elements, styles, content, manifest } = props;
+  const { state, helmet, elements, content, manifest } = props;
   const { t, i18n } = useTranslation();
 
   const theme = useContext(ThemeContext);
@@ -55,7 +54,6 @@ export const Html = (props: HtmlProps) => {
         <meta property="og:image" content={`${url}/screenshot.png`} />
         <meta name="twitter:card" content="summary_large_image" />
 
-        <style dangerouslySetInnerHTML={{ __html: styles }} />
         {elements}
       </head>
 

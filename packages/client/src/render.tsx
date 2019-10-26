@@ -1,4 +1,3 @@
-import { dom } from '@fortawesome/fontawesome-svg-core';
 import {
   InMemoryCache,
   IntrospectionFragmentMatcher,
@@ -75,7 +74,6 @@ const render = async (params: RenderParams): Promise<RenderResult> => {
 
   const content = await getDataFromTree(App);
   const additionalElements = sheet.getStyleElement();
-  const styles = dom.css();
   const helmet = Helmet.renderStatic();
 
   const staticMarkup = ReactDOMServer.renderToStaticMarkup(
@@ -86,7 +84,6 @@ const render = async (params: RenderParams): Promise<RenderResult> => {
           state={client.extract()}
           elements={additionalElements}
           content={content}
-          styles={styles}
           helmet={helmet}
           manifest={params.manifest}
         />
