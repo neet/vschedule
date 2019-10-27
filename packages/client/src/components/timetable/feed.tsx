@@ -1,20 +1,22 @@
 import React, { useLayoutEffect } from 'react';
-import dayjs, { Dayjs } from 'dayjs';
 import { usePrevious } from 'react-use';
 import { throttle } from 'lodash';
 import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
-import { isOverlapping } from 'src/utils/is-overlapping';
 import { sortEvents } from 'src/utils/sort-events';
 import { Marker } from 'src/components/marker';
 import { Today } from 'src/components/today';
-import { getTimetableRange } from 'src/utils/get-timetable-range';
-import { createDateSequence } from 'src/utils/create-date-sequence';
-import { findClosestSpell } from 'src/utils/find-closest-spell';
 import { rgba } from 'polished';
 import { Spell } from './spell';
 import { MinuteHand } from './minute-hand';
-import { SPELL_WIDTH, MARKER_MARGIN, MARKER_HEIGHT } from './layout';
+import { MARKER_MARGIN, MARKER_HEIGHT } from './layout';
+import {
+  createDateSequence,
+  getTimetableRange,
+  findClosestSpell,
+  groupMarkersByRow,
+  createMarkerProps,
+} from './utils';
 
 const Wrapper = styled.div`
   position: relative;
@@ -70,68 +72,6 @@ const TodayContainer = styled.div`
     font-size: 14px;
   }
 `;
-const groupMarkersByRow = (
-  sortedContents: ActivityFragment[],
-  result: ActivityFragment[][] = [],
-): ActivityFragment[][] => {
-  if (!sortedContents.length) {
-    return result;
-  }
-
-  // Init current row
-  result.push([]);
-  const current = result[result.length - 1];
-
-  const rest = sortedContents.reduce<ActivityFragment[]>(
-    (restContents, content) => {
-      if (!current.length) {
-        current.push(content);
-        return restContents;
-      }
-
-      const prev = current[current.length - 1];
-
-      if (!isOverlapping(content, prev)) {
-        current.push(content);
-        return restContents;
-      }
-
-      restContents.push(content);
-      return restContents;
-    },
-    [],
-  );
-
-  return groupMarkersByRow(rest, result);
-};
-
-const toPixel = (minute: number) => {
-  const pixelPerMinute = SPELL_WIDTH / 30;
-
-  return minute * pixelPerMinute;
-};
-
-const createMarkerProps = (
-  activity: ActivityFragment,
-  row: number,
-  timetableStartAt: Dayjs,
-) => {
-  const startAt = dayjs(activity.startAt);
-  const endAt = dayjs(activity.endAt);
-
-  // Compare current date vs start date in minutes
-  const x =
-    toPixel(startAt.diff(timetableStartAt, 'minute')) +
-    MARKER_MARGIN / 2 +
-    51.03 / 2;
-
-  // Avatar height + padding
-  const y = (50 + MARKER_MARGIN) * row;
-
-  const width = toPixel(endAt.diff(startAt, 'minute')) - MARKER_MARGIN;
-
-  return { x, y, width };
-};
 
 export interface FeedProps {
   activities: ActivityFragment[];
@@ -238,11 +178,7 @@ export const Feed = (props: FeedProps) => {
             ))}
           </div>
 
-          <MinuteHand
-            count={0}
-            timetableStartAt={timetableStartAt}
-            timetableEndAt={timetableEndAt}
-          />
+          <MinuteHand />
         </Background>
 
         <div>
