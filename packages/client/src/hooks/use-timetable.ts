@@ -4,13 +4,15 @@ import { useQueryParam, StringParam } from 'use-query-params';
 
 export const useTimetable = () => {
   const [afterDate] = useQueryParam('after_date', StringParam);
+  const [beforeDate] = useQueryParam('before_date', StringParam);
   const [categoryId] = useQueryParam('category_id', StringParam);
   const [teamId] = useQueryParam('team_id', StringParam);
   const [performerId] = useQueryParam('performer_id', StringParam);
 
   const input = {
-    afterDate,
     order: Order.Desc,
+    afterDate,
+    beforeDate,
     categoryId,
     teamId,
     performerId,
