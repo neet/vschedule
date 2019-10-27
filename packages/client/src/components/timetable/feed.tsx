@@ -66,8 +66,8 @@ export const Feed = (props: FeedProps) => {
     onLoadNext,
     onLoadPrevious,
     loading,
-    hasNextPage,
-    hasPreviousPage,
+    hasNextPage = false,
+    hasPreviousPage = false,
   } = props;
 
   const node = useRef<HTMLDivElement>(null);
@@ -153,7 +153,13 @@ export const Feed = (props: FeedProps) => {
         <MinuteHand />
       </Background>
 
-      <MarkerList rows={rows} timetableStartAt={timetableStartAt} />
+      <MarkerList
+        rows={rows}
+        timetableStartAt={timetableStartAt}
+        timetableEndAt={timetableEndAt}
+        hasNextPage={hasNextPage}
+        hasPreviousPage={hasPreviousPage}
+      />
     </Wrapper>
   );
 };

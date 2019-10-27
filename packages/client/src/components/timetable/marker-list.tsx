@@ -2,8 +2,10 @@ import React from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { Marker } from 'src/components/marker';
 import { styled } from 'src/styles';
+import { rgba } from 'polished';
 import { sortEvents } from 'src/utils/sort-events';
 import { ActivityFragment } from 'src/generated/graphql';
+import { LoadingIndicator } from 'src/components/loading-indicator';
 import { MARKER_MARGIN } from './layout';
 import { toPixel } from './utils';
 
@@ -35,13 +37,35 @@ const MarkerWrapper = styled.div`
   left: 0;
 `;
 
+const LoadingIndicatorContainer = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  height: 100%;
+  background-image: ${({ theme }) => `linear-gradient(
+    90deg,
+    ${rgba(theme.backgroundWash, 1)} 0%,
+    ${rgba(theme.backgroundWash, 0)} 100%
+  )`};
+`;
+
 interface MarkerListProps {
   rows: ActivityFragment[][];
   timetableStartAt: Dayjs;
+  timetableEndAt: Dayjs;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
 }
 
 export const MarkerList = (props: MarkerListProps) => {
-  const { rows, timetableStartAt } = props;
+  const {
+    rows,
+    timetableStartAt,
+    timetableEndAt,
+    hasPreviousPage,
+    hasNextPage,
+  } = props;
 
   // prettier-ignore
   const markers = rows
@@ -62,6 +86,23 @@ export const MarkerList = (props: MarkerListProps) => {
           />
         </MarkerWrapper>
       ))}
+
+      {hasNextPage && (
+        <LoadingIndicatorContainer style={{ left: '0' }}>
+          <LoadingIndicator />
+        </LoadingIndicatorContainer>
+      )}
+
+      {hasPreviousPage && (
+        <LoadingIndicatorContainer
+          style={{
+            left: toPixel(timetableEndAt.diff(timetableStartAt, 'minute')),
+            transform: 'rotate(180deg)',
+          }}
+        >
+          <LoadingIndicator />
+        </LoadingIndicatorContainer>
+      )}
     </div>
   );
 };

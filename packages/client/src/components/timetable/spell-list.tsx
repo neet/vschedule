@@ -14,7 +14,6 @@ export const createDateSequence = (
     return basis.add(i * each, 'minute');
   });
 };
-
 interface SpellListProps {
   timetableStartAt: Dayjs;
   timetableEndAt: Dayjs;
