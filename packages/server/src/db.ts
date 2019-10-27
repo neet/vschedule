@@ -6,6 +6,7 @@ import {
 
 // Workaround for TypeORM + Monorepo issue:
 // https://github.com/inxilpro/node-app-root-path/issues/31#issuecomment-439739607
+// We use this workaround because we also want to use TypeORM from the CLI
 export const createConnection = async () => {
   // When you invoke JS through `yarn workspace <ws> run` you'll get
   // the leaf's dir from `process.cwd()`
