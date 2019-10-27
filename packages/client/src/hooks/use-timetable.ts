@@ -1,17 +1,15 @@
 import { useFetchActivitiesQuery, Order } from 'src/generated/graphql';
-import { getTimetableRange } from 'src/utils/get-timetable-range';
+import { getTimetableRange } from 'src/components/timetable/utils';
 import { useQueryParam, StringParam } from 'use-query-params';
 
 export const useTimetable = () => {
   const [afterDate] = useQueryParam('after_date', StringParam);
-  const [beforeDate] = useQueryParam('before_date', StringParam);
   const [categoryId] = useQueryParam('category_id', StringParam);
   const [teamId] = useQueryParam('team_id', StringParam);
   const [performerId] = useQueryParam('performer_id', StringParam);
 
   const input = {
     afterDate,
-    beforeDate,
     order: Order.Desc,
     categoryId,
     teamId,
@@ -33,8 +31,7 @@ export const useTimetable = () => {
           // prettier-ignore
           beforeDate: getTimetableRange(data.activities.nodes)
             .timetableStartAt
-            .toISOString(),
-          afterDate: undefined,
+            .toISOString()
         },
       },
       updateQuery: (prev, { fetchMoreResult }) => {
@@ -63,8 +60,7 @@ export const useTimetable = () => {
           // prettier-ignore
           afterDate: getTimetableRange(data.activities.nodes)
             .timetableEndAt
-            .toISOString(),
-          beforeDate: undefined,
+            .toISOString()
         },
       },
       updateQuery: (prev, { fetchMoreResult }) => {

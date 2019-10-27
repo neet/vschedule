@@ -93,6 +93,12 @@ export const toPixel = (minute: number) => {
   return minute * pixelPerMinute;
 };
 
+export const toMinute = (pixel: number) => {
+  const pixelPerMinute = SPELL_WIDTH / 30;
+
+  return pixel / pixelPerMinute;
+};
+
 export const createMarkerProps = (
   activity: ActivityFragment,
   row: number,

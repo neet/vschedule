@@ -1,8 +1,9 @@
 import React from 'react';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import dayjs from 'dayjs';
-import { styled } from 'src/styles';
 import { useQueryParams } from 'use-query-params';
+import { styled } from 'src/styles';
+import { useFocusedDate } from 'src/hooks/use-focused-date';
 
 const Wrapper = styled.div`
   display: flex;
@@ -47,34 +48,22 @@ const DateParam = {
 };
 
 export const DatePicker = () => {
-  const defaultAfterDate = dayjs()
-    .hour(0)
-    .minute(0)
-    .second(0)
-    .millisecond(0);
-  const defaultBeforeDate = defaultAfterDate.clone().add(1, 'day');
-
+  const { focusedDate } = useFocusedDate();
   const [query, setQuery] = useQueryParams({
     after_date: DateParam,
-    before_date: DateParam,
   });
 
-  const {
-    after_date = defaultAfterDate,
-    before_date = defaultBeforeDate,
-  } = query;
+  const { after_date = focusedDate } = query;
 
-  const handleClickBack = (_e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickBack = () => {
     setQuery({
       after_date: after_date.clone().subtract(1, 'day'),
-      before_date: before_date.clone().subtract(1, 'day'),
     });
   };
 
-  const handleClickForward = (_e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickForward = () => {
     setQuery({
       after_date: after_date.clone().add(1, 'day'),
-      before_date: before_date.clone().add(1, 'day'),
     });
   };
 
@@ -83,7 +72,6 @@ export const DatePicker = () => {
 
     setQuery({
       after_date: value,
-      before_date: value.clone().subtract(1, 'day'),
     });
   };
 
@@ -95,7 +83,7 @@ export const DatePicker = () => {
         </Chevron>
 
         <Time dateTime={after_date.toISOString()}>
-          {after_date.format('LL')}
+          {after_date.format('LLL')}
         </Time>
 
         <Chevron onClick={handleClickForward}>

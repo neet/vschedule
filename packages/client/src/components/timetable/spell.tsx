@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dayjs } from 'dayjs';
 import { styled } from 'src/styles';
-import { SPELL_WIDTH } from './layout';
+import { toPixel } from './utils';
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,12 +21,6 @@ const Stripe = styled.div`
   height: 100%;
   border-right: 1px solid ${({ theme }) => theme.borderNormal};
 `;
-
-const toPixel = (minute: number) => {
-  const pixelPerMinute = SPELL_WIDTH / 30;
-
-  return minute * pixelPerMinute;
-};
 
 interface SpellProps {
   date: Dayjs;

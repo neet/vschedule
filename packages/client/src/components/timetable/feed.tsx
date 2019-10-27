@@ -1,21 +1,24 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useRef, useLayoutEffect } from 'react';
 import { usePrevious } from 'react-use';
-import { throttle } from 'lodash';
+import dayjs from 'dayjs';
+import { throttle, debounce } from 'lodash';
+import { rgba } from 'polished';
 import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { sortEvents } from 'src/utils/sort-events';
 import { Marker } from 'src/components/marker';
 import { Today } from 'src/components/today';
-import { rgba } from 'polished';
+import { useFocusedDate } from 'src/hooks/use-focused-date';
 import { Spell } from './spell';
 import { MinuteHand } from './minute-hand';
 import { MARKER_MARGIN, MARKER_HEIGHT } from './layout';
 import {
   createDateSequence,
   getTimetableRange,
-  findClosestSpell,
+  toPixel,
   groupMarkersByRow,
   createMarkerProps,
+  toMinute,
 } from './utils';
 
 const Wrapper = styled.div`
@@ -92,17 +95,20 @@ export const Feed = (props: FeedProps) => {
     hasPreviousPage,
   } = props;
 
+  const node = useRef<HTMLDivElement>(null);
+  const { setFocusedDate } = useFocusedDate();
   const { timetableStartAt, timetableEndAt } = getTimetableRange(activities);
   const previousTimetableStartAt = usePrevious(timetableStartAt);
 
+  // Focus on current time at the 1st render
   useLayoutEffect(() => {
-    const spell = findClosestSpell();
-    const node = document.getElementById(`spell-${spell.toISOString()}`);
-    if (!node || !(node instanceof Element)) return;
+    if (!node.current) return;
 
-    node.scrollIntoView({
-      inline: 'center',
-    });
+    const diff = toPixel(dayjs().diff(timetableStartAt, 'minute'));
+    const halfWidth = node.current.clientWidth / 2;
+
+    node.current.scrollTo({ left: diff - halfWidth + 51.03 / 2 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useLayoutEffect(() => {
@@ -148,7 +154,18 @@ export const Feed = (props: FeedProps) => {
     { trailing: false },
   );
 
+  const updateFocusedDate = debounce((scrollLeft: number) => {
+    if (!node.current) return;
+    const halfWidth = node.current.clientWidth / 2;
+    const minutes = toMinute(scrollLeft + halfWidth - 51.03 / 2);
+    const date = timetableStartAt.clone().add(minutes, 'minute');
+
+    setFocusedDate(date);
+  }, 500);
+
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    updateFocusedDate(e.currentTarget.scrollLeft);
+
     if (e.currentTarget.scrollLeft < 200 && !loading && hasNextPage) {
       return handleLoadNext();
     }
@@ -166,7 +183,7 @@ export const Feed = (props: FeedProps) => {
 
   return (
     <>
-      <Wrapper onScroll={handleScroll}>
+      <Wrapper ref={node} onScroll={handleScroll}>
         <Background rowCount={rows.length}>
           <div>
             {spells.map(spell => (
