@@ -1,15 +1,15 @@
 import { Menu, Search, X } from 'react-feather';
 import React, { useState } from 'react';
+import { Route, useHistory } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { styled } from 'src/styles';
-import { Route } from 'react-router';
 import { DatePicker } from 'src/components/date-picker';
+import { useSidebar } from 'src/hooks/use-sidebar';
 import {
   SearchForm,
   Wrapper as SearchFormWrapper,
 } from 'src/components/search-form';
 import { Button } from 'src/components/button';
-import { Today } from 'src/components/today';
-import { useSidebar } from 'src/hooks/use-sidebar';
 
 const Wrapper = styled.header`
   display: flex;
@@ -88,6 +88,8 @@ const LargeTools = styled.div`
 export const Banner = () => {
   const [showSearchForm, changeifShowSearchForm] = useState();
   const { toggle } = useSidebar();
+  const history = useHistory();
+  const { t } = useTranslation();
 
   return (
     <Wrapper>
@@ -123,7 +125,13 @@ export const Banner = () => {
 
           <LargeTools>
             <SearchForm withResult />
-            <Today />
+
+            <Button
+              appearance="primary"
+              onClick={() => history.push('/activities')}
+            >
+              {t('today.label', { defaultValue: 'Today' })}
+            </Button>
           </LargeTools>
         </>
       )}
