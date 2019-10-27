@@ -154,19 +154,17 @@ export const Feed = (props: FeedProps) => {
   const rows = groupMarkersByRow(activities.sort(sortEvents));
 
   return (
-    <>
-      <Wrapper id="timetable" ref={node} onScroll={handleScroll}>
-        <Background rowCount={rows.length}>
-          <SpellList
-            timetableStartAt={timetableStartAt}
-            timetableEndAt={timetableEndAt}
-          />
+    <Wrapper id="timetable" ref={node} onScroll={handleScroll}>
+      <Background rowCount={rows.length}>
+        <SpellList
+          timetableStartAt={timetableStartAt}
+          timetableEndAt={timetableEndAt}
+        />
 
-          <MinuteHand />
-        </Background>
+        <MinuteHand />
+      </Background>
 
-        <MarkerList rows={rows} timetableStartAt={timetableStartAt} />
-      </Wrapper>
-    </>
+      <MarkerList rows={rows} timetableStartAt={timetableStartAt} />
+    </Wrapper>
   );
 };
