@@ -1,4 +1,3 @@
-import DataLoader from 'dataloader';
 import { EntityManager, EntityRepository } from 'typeorm';
 import { Team } from 'src/entity/team';
 import { TeamDataset } from 'src/utils/teams';
@@ -14,13 +13,13 @@ interface GetAllAndCountParams {
 export class TeamRepository {
   constructor(private readonly manager: EntityManager) {}
 
-  find = new DataLoader<string, Team>(ids => {
+  find = (ids: string[]) => {
     return this.manager
       .getRepository(Team)
       .createQueryBuilder('team')
       .whereInIds(ids)
       .getMany();
-  });
+  };
 
   findByMembership = async (performerId: string) => {
     return this.manager
@@ -50,7 +49,7 @@ export class TeamRepository {
     team.name = teamDataset.name;
     team.members = await this.manager
       .getCustomRepository(PerformerRepository)
-      .find.loadMany(teamDataset.performerIds);
+      .find(teamDataset.performerIds);
 
     return this.manager.save(team);
   };

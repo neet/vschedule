@@ -4,9 +4,9 @@ import { serializeTeam } from 'src/serializers/team';
 export const rootTeam: G.QueryResolvers['team'] = async (
   _parent,
   { id },
-  { repositories },
+  { loaders },
 ) => {
-  const team = await repositories.team.find.load(id).then(serializeTeam);
+  const team = await loaders.team.load(id).then(serializeTeam);
 
   return team;
 };

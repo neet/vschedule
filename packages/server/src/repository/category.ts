@@ -1,4 +1,3 @@
-import DataLoader from 'dataloader';
 import { EntityRepository, EntityManager } from 'typeorm';
 import { Category } from 'src/entity/category';
 import { Genre } from '@ril/gateway';
@@ -13,13 +12,13 @@ interface GetAllAndCountParams {
 export class CategoryRepostiory {
   constructor(private readonly manager: EntityManager) {}
 
-  find = new DataLoader<string, Category>(ids => {
+  find = (ids: string[]) => {
     return this.manager
       .getRepository(Category)
       .createQueryBuilder('category')
       .whereInIds(ids)
       .getMany();
-  });
+  };
 
   getAllAndCount = async (params: GetAllAndCountParams = {}) => {
     const { limit = 100, offset = 0, order = 'ASC' } = params;
