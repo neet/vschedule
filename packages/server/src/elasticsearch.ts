@@ -1,9 +1,12 @@
 import { Client } from '@elastic/elasticsearch';
+import { ES_HOST, ES_PREFIX, ES_PORT } from './config';
 
-const activityIndex = 'activity';
-const performerIndex = 'performer';
-const categoryIndex = 'category';
-const teamIndex = 'team';
+export const indices = {
+  activity: [ES_PREFIX, 'activity'].join(''),
+  team: [ES_PREFIX, 'team'].join(''),
+  category: [ES_PREFIX, 'category'].join(''),
+  performers: [ES_PREFIX, 'performers'].join(''),
+};
 
 const settings = {
   analysis: {
@@ -90,17 +93,17 @@ const teamDef = {
 
 export const createElasticsearchConnection = async () => {
   const client = new Client({
-    node: 'http://localhost:9200',
+    node: `http://${ES_HOST}:${ES_PORT}`,
   });
 
   await client.indices
     .exists({
-      index: activityIndex,
+      index: indices.activity,
     })
     .then(async existence => {
       if (!existence.body) {
         await client.indices.create({
-          index: activityIndex,
+          index: indices.activity,
           body: activityDef,
         });
       }
@@ -108,12 +111,12 @@ export const createElasticsearchConnection = async () => {
 
   await client.indices
     .exists({
-      index: performerIndex,
+      index: indices.performers,
     })
     .then(async existence => {
       if (!existence.body) {
         await client.indices.create({
-          index: performerIndex,
+          index: indices.performers,
           body: performerDef,
         });
       }
@@ -121,12 +124,12 @@ export const createElasticsearchConnection = async () => {
 
   await client.indices
     .exists({
-      index: categoryIndex,
+      index: indices.category,
     })
     .then(async existence => {
       if (!existence.body) {
         await client.indices.create({
-          index: categoryIndex,
+          index: indices.performers,
           body: categoryDef,
         });
       }
@@ -134,12 +137,12 @@ export const createElasticsearchConnection = async () => {
 
   await client.indices
     .exists({
-      index: teamIndex,
+      index: indices.team,
     })
     .then(async existence => {
       if (!existence.body) {
         await client.indices.create({
-          index: teamIndex,
+          index: indices.team,
           body: teamDef,
         });
       }

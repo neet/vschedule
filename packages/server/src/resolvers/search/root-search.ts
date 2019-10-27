@@ -1,4 +1,5 @@
 import * as G from 'src/generated/graphql';
+import { indices } from 'src/elasticsearch';
 import { serializePerformer } from 'src/serializers/performer';
 import { serializeActivity } from 'src/serializers/activity';
 import { serializeTeam } from 'src/serializers/team';
@@ -11,7 +12,7 @@ export const rootSearch: G.QueryResolvers['search'] = async (
 ) => {
   const activities = await elasticsearch
     .search({
-      index: 'activity',
+      index: indices.activity,
       type: '_doc',
       body: {
         query: {
@@ -33,7 +34,7 @@ export const rootSearch: G.QueryResolvers['search'] = async (
 
   const performers = await elasticsearch
     .search({
-      index: 'performer',
+      index: indices.performers,
       type: '_doc',
       body: {
         query: {
@@ -57,7 +58,7 @@ export const rootSearch: G.QueryResolvers['search'] = async (
 
   const teams = await elasticsearch
     .search({
-      index: 'team',
+      index: indices.team,
       type: '_doc',
       body: {
         query: {
@@ -79,7 +80,7 @@ export const rootSearch: G.QueryResolvers['search'] = async (
 
   const categories = await elasticsearch
     .search({
-      index: 'category',
+      index: indices.category,
       type: '_doc',
       body: {
         query: {
