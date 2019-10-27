@@ -23,7 +23,7 @@ const Description = styled.p`
 `;
 
 interface LoadingIndicatorProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export const LoadingIndicator = (props: LoadingIndicatorProps) => {
