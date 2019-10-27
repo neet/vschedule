@@ -124,11 +124,14 @@ export const Feed = (props: FeedProps) => {
 
   useLayoutEffect(() => {
     if (!node.current || !previousTimetableStartAt) return;
-    const diff = timetableStartAt.diff(previousTimetableStartAt, 'minute');
-    const halfWidth = node.current.clientWidth / 2;
-    node.current.scrollTo({ left: diff - halfWidth + 51.03 / 2 });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timetableStartAt]);
+    if (timetableStartAt.isSame(previousTimetableStartAt)) return;
+
+    const diff = toPixel(
+      previousTimetableStartAt.diff(timetableStartAt, 'minute'),
+    );
+
+    node.current.scrollTo({ left: diff });
+  }, [timetableStartAt, previousTimetableStartAt]);
 
   /*
     Call this function to tell outside of this components
