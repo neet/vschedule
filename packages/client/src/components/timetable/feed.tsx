@@ -56,8 +56,8 @@ export interface FeedProps {
   loading: boolean;
   hasNextPage?: boolean;
   hasPreviousPage?: boolean;
-  onLoadNext?: () => void;
-  onLoadPrevious?: () => void;
+  onLoadNext: () => void;
+  onLoadPrevious: () => void;
 }
 
 export const Feed = (props: FeedProps) => {
@@ -117,21 +117,10 @@ export const Feed = (props: FeedProps) => {
     setFocusedDate(date);
   }, 500);
 
-  const handleLoadNext = throttle(
-    () => {
-      onLoadNext && onLoadNext();
-    },
-    3000,
-    { trailing: false },
-  );
-
-  const handleLoadPrevious = throttle(
-    () => {
-      onLoadPrevious && onLoadPrevious();
-    },
-    3000,
-    { trailing: false },
-  );
+  const handleLoadNext = throttle(onLoadNext, 3000, { trailing: false });
+  const handleLoadPrevious = throttle(onLoadPrevious, 3000, {
+    trailing: false,
+  });
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     updateFocusedDate(e.currentTarget.scrollLeft);
