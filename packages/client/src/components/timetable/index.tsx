@@ -1,7 +1,8 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useTimetable } from 'src/hooks/use-timetable';
+import { LoadingIndicator } from 'src/components/loading-indicator';
 import { Feed } from './feed';
-import { Placeholder } from './placeholder';
 
 export const Timetable = () => {
   const {
@@ -13,8 +14,14 @@ export const Timetable = () => {
     hasPreviousPage,
   } = useTimetable();
 
+  const { t } = useTranslation();
+
   if (loading) {
-    return <Placeholder />;
+    return (
+      <LoadingIndicator>
+        {t('timetable.loading', { defaultValue: 'Loading Timetable...' })}
+      </LoadingIndicator>
+    );
   }
 
   if (!activities || !activities.length) {

@@ -5,19 +5,35 @@ import { spin } from 'src/styles/keyframes';
 
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   width: 100%;
-
-  & > svg {
-    animation: ${spin} 2s ease-in-out infinite;
-    color: ${({ theme }) => theme.foregroundLight};
-  }
+  height: 100%;
 `;
 
-export const LoadingIndicator = () => {
+const Icon = styled.div`
+  animation: ${spin} 2s ease-in-out infinite;
+  color: ${({ theme }) => theme.foregroundLight};
+`;
+
+const Description = styled.p`
+  margin: 8px 0;
+  font-size: 12px;
+`;
+
+interface LoadingIndicatorProps {
+  children: React.ReactNode;
+}
+
+export const LoadingIndicator = (props: LoadingIndicatorProps) => {
   return (
     <Wrapper>
-      <Loader size={38} />
+      <Icon>
+        <Loader size={38} />
+      </Icon>
+
+      <Description>{props.children}</Description>
     </Wrapper>
   );
 };
