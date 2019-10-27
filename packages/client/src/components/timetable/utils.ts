@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { ActivityFragment } from 'src/generated/graphql';
 import { isOverlapping } from 'src/utils/is-overlapping';
-import { SPELL_WIDTH, MARKER_MARGIN } from './layout';
+import { SPELL_WIDTH } from './layout';
 
 export const getTimetableRange = (activities: ActivityFragment[]) => {
   // prettier-ignore
@@ -25,31 +25,6 @@ export const getTimetableRange = (activities: ActivityFragment[]) => {
   }
 
   return { timetableStartAt, timetableEndAt };
-};
-
-export const findClosestSpell = () => {
-  const now = dayjs()
-    .second(0)
-    .millisecond(0);
-
-  if (now.minute() >= 30) {
-    return now.minute(30);
-  } else {
-    return now.minute(0);
-  }
-};
-
-export const createDateSequence = (
-  startAt: Dayjs,
-  endAt: Dayjs,
-  each: number,
-) => {
-  const length = dayjs(endAt).diff(startAt, 'minute') / each;
-
-  return Array.from({ length }, (_, i) => {
-    const basis = startAt.clone();
-    return basis.add(i * each, 'minute');
-  });
 };
 
 export const groupMarkersByRow = (
@@ -97,26 +72,4 @@ export const toMinute = (pixel: number) => {
   const pixelPerMinute = SPELL_WIDTH / 30;
 
   return pixel / pixelPerMinute;
-};
-
-export const createMarkerProps = (
-  activity: ActivityFragment,
-  row: number,
-  timetableStartAt: Dayjs,
-) => {
-  const startAt = dayjs(activity.startAt);
-  const endAt = dayjs(activity.endAt);
-
-  // Compare current date vs start date in minutes
-  const x =
-    toPixel(startAt.diff(timetableStartAt, 'minute')) +
-    MARKER_MARGIN / 2 +
-    51.03 / 2;
-
-  // Avatar height + padding
-  const y = (50 + MARKER_MARGIN) * row;
-
-  const width = toPixel(endAt.diff(startAt, 'minute')) - MARKER_MARGIN;
-
-  return { x, y, width };
 };

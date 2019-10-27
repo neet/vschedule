@@ -2,22 +2,17 @@ import React, { useRef, useLayoutEffect, useMemo } from 'react';
 import dayjs from 'dayjs';
 import { usePrevious } from 'react-use';
 import { throttle, debounce } from 'lodash';
-import { rgba } from 'polished';
 import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
-import { sortEvents } from 'src/utils/sort-events';
-import { Marker } from 'src/components/marker';
-import { Today } from 'src/components/today';
 import { useFocusedDate } from 'src/hooks/use-focused-date';
-import { Spell } from './spell';
-import { MinuteHand } from './minute-hand';
+import { sortEvents } from 'src/utils/sort-events';
+import { SpellList } from './spell-list';
+import { MarkerList } from './marker-list';
 import { MARKER_MARGIN, MARKER_HEIGHT } from './layout';
 import {
-  createDateSequence,
   getTimetableRange,
   toPixel,
   groupMarkersByRow,
-  createMarkerProps,
   toMinute,
 } from './utils';
 
@@ -42,43 +37,19 @@ const Background = styled.div<BackgroundProps>`
   min-height: 100%;
 `;
 
-const MarkerWrapper = styled.div`
-  position: absolute;
-  top: 60px;
-  left: 0;
-`;
-
-const TodayContainer = styled.div`
+export const MinuteHand = styled.div`
   display: block;
-  position: absolute;
-  z-index: 999;
+  position: fixed;
+  top: 0;
+  right: 0;
   bottom: 0;
   left: 0;
   box-sizing: border-box;
-  width: 100%;
-  padding: 14px 8px;
-  background-image: ${({ theme }) => {
-    return `linear-gradient(
-      180deg,
-      ${rgba(theme.backgroundNormal, 0)} 0%,
-      ${rgba(theme.backgroundNormal, 1)} 100%)
-    `;
-  }};
-
-  @media screen and (min-width: 700px) {
-    display: none;
-  }
-
-  & > button {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-  }
+  width: 1px;
+  height: 100%;
+  margin: auto;
+  border-left: 1px solid ${({ theme }) => theme.highlightNormal};
 `;
-
-// const W = styled.div`
-//   width: 300px;
-// `;
 
 export interface FeedProps {
   activities: ActivityFragment[];
@@ -146,23 +117,6 @@ export const Feed = (props: FeedProps) => {
     setFocusedDate(date);
   }, 500);
 
-  const spells = createDateSequence(
-    timetableStartAt.minute(0),
-    timetableEndAt.minute(0),
-    30,
-  );
-
-  const rows = groupMarkersByRow(activities.sort(sortEvents));
-
-  // prettier-ignore
-  const markers = rows
-    .map((row, i) => row.map(activity => ({
-      activity,
-      row: i,
-    })))
-    .flat()
-    .sort((a, b) => sortEvents(a.activity, b.activity));
-
   const handleLoadNext = throttle(
     () => {
       onLoadNext && onLoadNext();
@@ -197,38 +151,22 @@ export const Feed = (props: FeedProps) => {
     }
   };
 
+  const rows = groupMarkersByRow(activities.sort(sortEvents));
+
   return (
     <>
       <Wrapper id="timetable" ref={node} onScroll={handleScroll}>
         <Background rowCount={rows.length}>
-          <div>
-            {spells.map(spell => (
-              <Spell
-                key={spell.valueOf()}
-                date={spell}
-                timetableStartAt={timetableStartAt}
-              />
-            ))}
-          </div>
+          <SpellList
+            timetableStartAt={timetableStartAt}
+            timetableEndAt={timetableEndAt}
+          />
 
           <MinuteHand />
         </Background>
 
-        <div>
-          {markers.map(({ activity, row }, i) => (
-            <MarkerWrapper key={`${i}-${activity.id}`}>
-              <Marker
-                activity={activity}
-                {...createMarkerProps(activity, row, timetableStartAt)}
-              />
-            </MarkerWrapper>
-          ))}
-        </div>
+        <MarkerList rows={rows} timetableStartAt={timetableStartAt} />
       </Wrapper>
-
-      <TodayContainer>
-        <Today />
-      </TodayContainer>
     </>
   );
 };
