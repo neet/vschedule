@@ -7,7 +7,7 @@ import { serializeCategory } from 'src/serializers/category';
 export const rootSearch: G.QueryResolvers['search'] = async (
   _,
   { query },
-  { repositories, elasticsearch },
+  { loaders, elasticsearch },
 ) => {
   const activities = await elasticsearch
     .search({
@@ -26,7 +26,7 @@ export const rootSearch: G.QueryResolvers['search'] = async (
       result.body.hits.hits.map((hit: { _id: string }) => hit._id),
     )
     .then(ids =>
-      repositories.activity.find
+      loaders.activity
         .loadMany(ids)
         .then(results => results.map(activity => serializeActivity(activity))),
     );
@@ -48,7 +48,7 @@ export const rootSearch: G.QueryResolvers['search'] = async (
       result.body.hits.hits.map((hit: { _id: string }) => hit._id),
     )
     .then(ids =>
-      repositories.performer.find
+      loaders.performer
         .loadMany(ids)
         .then(results =>
           results.map(performer => serializePerformer(performer)),
@@ -72,7 +72,7 @@ export const rootSearch: G.QueryResolvers['search'] = async (
       result.body.hits.hits.map((hit: { _id: string }) => hit._id),
     )
     .then(ids =>
-      repositories.team.find
+      loaders.team
         .loadMany(ids)
         .then(results => results.map(team => serializeTeam(team))),
     );
@@ -94,7 +94,7 @@ export const rootSearch: G.QueryResolvers['search'] = async (
       result.body.hits.hits.map((hit: { _id: string }) => hit._id),
     )
     .then(ids =>
-      repositories.category.find
+      loaders.category
         .loadMany(ids)
         .then(results => results.map(category => serializeCategory(category))),
     );

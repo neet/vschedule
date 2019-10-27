@@ -1,4 +1,3 @@
-import DataLoader from 'dataloader';
 import { EntityRepository, EntityManager } from 'typeorm';
 import { Performer } from 'src/entity/performer';
 import { LiverRelationship } from '@ril/gateway';
@@ -15,13 +14,13 @@ interface GetAllAndCountParams {
 export class PerformerRepository {
   constructor(private readonly manager: EntityManager) {}
 
-  find = new DataLoader<string, Performer>(ids => {
+  find = (ids: string[]) => {
     return this.manager
       .getRepository(Performer)
       .createQueryBuilder('performer')
       .whereInIds(ids)
       .getMany();
-  });
+  };
 
   findByTeamId = async (teamId: string) => {
     return this.manager

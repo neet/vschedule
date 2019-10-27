@@ -1,4 +1,5 @@
 import { Connection } from 'typeorm';
+import DataLoader from 'dataloader';
 import { Client as ElasticsearchClient } from '@elastic/elasticsearch';
 import { ActivityRepository } from './repository/activity';
 import { CategoryRepostiory } from './repository/category';
@@ -7,33 +8,36 @@ import { TeamRepository } from './repository/team';
 import { TwitterAccountRepository } from './repository/twitter-account';
 import { YoutubeAccountRepository } from './repository/youtube-account';
 
-export interface Context {
-  connection: Connection;
-  elasticsearch: ElasticsearchClient;
-  repositories: {
-    activity: ActivityRepository;
-    category: CategoryRepostiory;
-    performer: PerformerRepository;
-    team: TeamRepository;
-    twitterAccount: TwitterAccountRepository;
-    youtubeAccount: YoutubeAccountRepository;
-  };
-}
-
+// prettier-ignore
 export const createContext = (
   connection: Connection,
   elasticsearch: ElasticsearchClient,
-): Context => {
+) => {
+  const activity = connection.getCustomRepository(ActivityRepository);
+  const category = connection.getCustomRepository(CategoryRepostiory);
+  const performer = connection.getCustomRepository(PerformerRepository);
+  const team = connection.getCustomRepository(TeamRepository);
+  const twitterAccount = connection.getCustomRepository(TwitterAccountRepository);
+  const youtubeAccount = connection.getCustomRepository(YoutubeAccountRepository);
+
   return {
     connection,
     elasticsearch,
     repositories: {
-      activity: connection.getCustomRepository(ActivityRepository),
-      category: connection.getCustomRepository(CategoryRepostiory),
-      performer: connection.getCustomRepository(PerformerRepository),
-      team: connection.getCustomRepository(TeamRepository),
-      twitterAccount: connection.getCustomRepository(TwitterAccountRepository),
-      youtubeAccount: connection.getCustomRepository(YoutubeAccountRepository),
+      activity,
+      category,
+      performer,
+      team,
+      twitterAccount,
+      youtubeAccount,
     },
+    loaders: {
+      activity: new DataLoader((ids: string[]) => activity.find(ids)),
+      category: new DataLoader((ids: string[]) => category.find(ids)),
+      performer: new DataLoader((ids: string[]) => performer.find(ids)),
+      team: new DataLoader((ids: string[]) => team.find(ids)),
+    }
   };
 };
+
+export type Context = ReturnType<typeof createContext>;

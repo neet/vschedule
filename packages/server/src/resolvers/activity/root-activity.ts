@@ -4,9 +4,9 @@ import { serializeActivity } from 'src/serializers/activity';
 export const rootActivity: G.QueryResolvers['activity'] = async (
   _parent,
   { id },
-  { repositories },
+  { loaders },
 ) => {
-  const category = await repositories.activity.find
+  const category = await loaders.activity
     .load(id)
     .then(activity => serializeActivity(activity));
 

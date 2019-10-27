@@ -1,4 +1,3 @@
-import DataLoader from 'dataloader';
 import { EntityRepository, EntityManager } from 'typeorm';
 import { Activity } from 'src/entity/activity';
 import { matchTeamFromPerformerIds } from 'src/utils/teams';
@@ -22,7 +21,7 @@ interface GetAllAndCountParams {
 export class ActivityRepository {
   constructor(private readonly manager: EntityManager) {}
 
-  find = new DataLoader<string, Activity>(ids => {
+  find = (ids: string[]) => {
     return this.manager
       .getRepository(Activity)
       .createQueryBuilder('activity')
@@ -31,7 +30,7 @@ export class ActivityRepository {
       .leftJoinAndSelect('activity.team', 'team')
       .whereInIds(ids)
       .getMany();
-  });
+  };
 
   getAllAndCount = async (
     params: GetAllAndCountParams = {},
@@ -118,7 +117,8 @@ export class ActivityRepository {
     activity.team = teamDataset
       ? await this.manager
           .getCustomRepository(TeamRepository)
-          .find.load(teamDataset.id)
+          .find([teamDataset.id])
+          .then(teams => teams[0])
       : undefined;
 
     return this.manager.save(activity);

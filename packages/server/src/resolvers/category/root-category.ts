@@ -4,11 +4,9 @@ import { serializeCategory } from 'src/serializers/category';
 export const rootCategory: G.QueryResolvers['category'] = async (
   _parent,
   { id },
-  { repositories },
+  { loaders },
 ) => {
-  const category = await repositories.category.find
-    .load(id)
-    .then(serializeCategory);
+  const category = await loaders.category.load(id).then(serializeCategory);
 
   return category;
 };

@@ -4,11 +4,9 @@ import { serializePerformer } from 'src/serializers/performer';
 export const rootPerformer: G.QueryResolvers['performer'] = async (
   _parent,
   { id },
-  { repositories },
+  { loaders },
 ) => {
-  const performer = await repositories.performer.find
-    .load(id)
-    .then(serializePerformer);
+  const performer = await loaders.performer.load(id).then(serializePerformer);
 
   return performer;
 };
