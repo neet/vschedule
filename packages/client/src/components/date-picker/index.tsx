@@ -1,7 +1,5 @@
 import React from 'react';
 import { ChevronLeft, ChevronRight } from 'react-feather';
-import dayjs from 'dayjs';
-import { useQueryParams } from 'use-query-params';
 import { styled } from 'src/styles';
 import { useFocusedDate } from 'src/hooks/use-focused-date';
 
@@ -36,69 +34,41 @@ const Chevron = styled.button`
   }
 `;
 
-const DateParam = {
-  decode: (value: string | string[]) => {
-    if (Array.isArray(value)) {
-      throw new Error('unsupported value');
-    }
-    return dayjs(value);
-  },
-
-  encode: (date: dayjs.Dayjs) => date.toISOString(),
-};
-
 export const DatePicker = () => {
   const { focusedDate } = useFocusedDate();
-  const [query, setQuery] = useQueryParams({
-    after_date: DateParam,
-  });
-
-  const { after_date = focusedDate } = query;
+  const timetableNode = document.getElementById('timetable');
 
   const handleClickBack = () => {
-    setQuery({
-      after_date: after_date.clone().subtract(1, 'day'),
+    if (!timetableNode) return;
+
+    timetableNode.scrollBy({
+      left: -1 * (timetableNode.clientWidth / 2),
+      behavior: 'smooth',
     });
   };
 
   const handleClickForward = () => {
-    setQuery({
-      after_date: after_date.clone().add(1, 'day'),
-    });
-  };
+    if (!timetableNode) return;
 
-  const handleChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = dayjs(e.currentTarget.value);
-
-    setQuery({
-      after_date: value,
+    timetableNode.scrollBy({
+      left: timetableNode.clientWidth / 2,
+      behavior: 'smooth',
     });
   };
 
   return (
-    <label htmlFor="datepicker">
-      <Wrapper>
-        <Chevron onClick={handleClickBack}>
-          <ChevronLeft />
-        </Chevron>
+    <Wrapper>
+      <Chevron onClick={handleClickBack}>
+        <ChevronLeft />
+      </Chevron>
 
-        <Time dateTime={after_date.toISOString()}>
-          {after_date.format('LLL')}
-        </Time>
+      <Time dateTime={focusedDate.toISOString()}>
+        {focusedDate.format('LLL')}
+      </Time>
 
-        <Chevron onClick={handleClickForward}>
-          <ChevronRight />
-        </Chevron>
-
-        {/* For a11y */}
-        <input
-          type="date"
-          name="datepicker"
-          value={after_date.format('YYYY-MM-DD')}
-          onChange={handleChangeDate}
-          style={{ display: 'none' }}
-        />
-      </Wrapper>
-    </label>
+      <Chevron onClick={handleClickForward}>
+        <ChevronRight />
+      </Chevron>
+    </Wrapper>
   );
 };

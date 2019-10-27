@@ -1,4 +1,5 @@
 import React, { useRef, useLayoutEffect, useMemo } from 'react';
+import dayjs from 'dayjs';
 import { usePrevious } from 'react-use';
 import { throttle, debounce } from 'lodash';
 import { rgba } from 'polished';
@@ -8,7 +9,6 @@ import { sortEvents } from 'src/utils/sort-events';
 import { Marker } from 'src/components/marker';
 import { Today } from 'src/components/today';
 import { useFocusedDate } from 'src/hooks/use-focused-date';
-import { useNow } from 'src/hooks/use-now';
 import { Spell } from './spell';
 import { MinuteHand } from './minute-hand';
 import { MARKER_MARGIN, MARKER_HEIGHT } from './layout';
@@ -100,22 +100,27 @@ export const Feed = (props: FeedProps) => {
   } = props;
 
   const node = useRef<HTMLDivElement>(null);
-  const { now } = useNow(1000 * 60);
   const { setFocusedDate } = useFocusedDate();
 
   const { timetableStartAt, timetableEndAt } = useMemo(
     () => getTimetableRange(activities),
     [activities],
   );
-  const previousTimetableStartAt = usePrevious(timetableStartAt);
 
-  // Focus on current time at the 1st render
+  /*
+    Focus on current time at the 1st render
+  */
   useLayoutEffect(() => {
     if (!node.current) return;
-    const diff = toPixel(now.diff(timetableStartAt, 'minute'));
+    const diff = toPixel(dayjs().diff(timetableStartAt, 'minute'));
     const halfWidth = node.current.clientWidth / 2;
     node.current.scrollTo({ left: diff - halfWidth + 51.03 / 2 });
-  }, [now, timetableStartAt]);
+  }, [timetableStartAt]);
+
+  /*
+    This makes backward-infinite-scroll possible
+  */
+  const previousTimetableStartAt = usePrevious(timetableStartAt);
 
   useLayoutEffect(() => {
     if (!node.current || !previousTimetableStartAt) return;
@@ -124,6 +129,19 @@ export const Feed = (props: FeedProps) => {
     node.current.scrollTo({ left: diff - halfWidth + 51.03 / 2 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timetableStartAt]);
+
+  /*
+    Call this function to tell outside of this components
+    that the focused date was updated
+  */
+  const updateFocusedDate = debounce((scrollLeft: number) => {
+    if (!node.current) return;
+    const halfWidth = node.current.clientWidth / 2;
+    const minutes = toMinute(scrollLeft + halfWidth - 51.03 / 2);
+    const date = timetableStartAt.clone().add(minutes, 'minute');
+
+    setFocusedDate(date);
+  }, 500);
 
   const spells = createDateSequence(
     timetableStartAt.minute(0),
@@ -158,15 +176,6 @@ export const Feed = (props: FeedProps) => {
     { trailing: false },
   );
 
-  const updateFocusedDate = debounce((scrollLeft: number) => {
-    if (!node.current) return;
-    const halfWidth = node.current.clientWidth / 2;
-    const minutes = toMinute(scrollLeft + halfWidth - 51.03 / 2);
-    const date = timetableStartAt.clone().add(minutes, 'minute');
-
-    setFocusedDate(date);
-  }, 500);
-
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     updateFocusedDate(e.currentTarget.scrollLeft);
 
@@ -187,7 +196,7 @@ export const Feed = (props: FeedProps) => {
 
   return (
     <>
-      <Wrapper ref={node} onScroll={handleScroll}>
+      <Wrapper id="timetable" ref={node} onScroll={handleScroll}>
         <Background rowCount={rows.length}>
           <div>
             {spells.map(spell => (
