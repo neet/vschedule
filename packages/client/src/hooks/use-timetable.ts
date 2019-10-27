@@ -28,10 +28,12 @@ export const useTimetable = () => {
     return fetchMore({
       variables: {
         input: {
+          ...input,
           // prettier-ignore
           beforeDate: getTimetableRange(data.activities.nodes)
             .timetableStartAt
-            .toISOString()
+            .toISOString(),
+          afterDate: undefined,
         },
       },
       updateQuery: (prev, { fetchMoreResult }) => {
@@ -57,10 +59,12 @@ export const useTimetable = () => {
     return fetchMore({
       variables: {
         input: {
+          ...input,
           // prettier-ignore
           afterDate: getTimetableRange(data.activities.nodes)
             .timetableEndAt
-            .toISOString()
+            .toISOString(),
+          beforeDate: undefined,
         },
       },
       updateQuery: (prev, { fetchMoreResult }) => {
