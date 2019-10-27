@@ -1,6 +1,5 @@
-import React, { useRef, useLayoutEffect } from 'react';
+import React, { useRef, useLayoutEffect, useMemo } from 'react';
 import { usePrevious } from 'react-use';
-import dayjs from 'dayjs';
 import { throttle, debounce } from 'lodash';
 import { rgba } from 'polished';
 import { ActivityFragment } from 'src/generated/graphql';
@@ -9,6 +8,7 @@ import { sortEvents } from 'src/utils/sort-events';
 import { Marker } from 'src/components/marker';
 import { Today } from 'src/components/today';
 import { useFocusedDate } from 'src/hooks/use-focused-date';
+import { useNow } from 'src/hooks/use-now';
 import { Spell } from './spell';
 import { MinuteHand } from './minute-hand';
 import { MARKER_MARGIN, MARKER_HEIGHT } from './layout';
@@ -76,6 +76,10 @@ const TodayContainer = styled.div`
   }
 `;
 
+// const W = styled.div`
+//   width: 300px;
+// `;
+
 export interface FeedProps {
   activities: ActivityFragment[];
   loading: boolean;
@@ -96,30 +100,30 @@ export const Feed = (props: FeedProps) => {
   } = props;
 
   const node = useRef<HTMLDivElement>(null);
+  const { now } = useNow(1000 * 60);
   const { setFocusedDate } = useFocusedDate();
-  const { timetableStartAt, timetableEndAt } = getTimetableRange(activities);
+
+  const { timetableStartAt, timetableEndAt } = useMemo(
+    () => getTimetableRange(activities),
+    [activities],
+  );
   const previousTimetableStartAt = usePrevious(timetableStartAt);
 
   // Focus on current time at the 1st render
   useLayoutEffect(() => {
     if (!node.current) return;
-
-    const diff = toPixel(dayjs().diff(timetableStartAt, 'minute'));
+    const diff = toPixel(now.diff(timetableStartAt, 'minute'));
     const halfWidth = node.current.clientWidth / 2;
-
     node.current.scrollTo({ left: diff - halfWidth + 51.03 / 2 });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [now, timetableStartAt]);
 
   useLayoutEffect(() => {
-    if (!previousTimetableStartAt) return;
-
-    const previousStartNodeId = `spell-${previousTimetableStartAt.toISOString()}`;
-    const previousStartNode = document.getElementById(previousStartNodeId);
-    if (!previousStartNode) return;
-
-    previousStartNode.scrollIntoView({ inline: 'start' });
-  }, [previousTimetableStartAt]);
+    if (!node.current || !previousTimetableStartAt) return;
+    const diff = timetableStartAt.diff(previousTimetableStartAt, 'minute');
+    const halfWidth = node.current.clientWidth / 2;
+    node.current.scrollTo({ left: diff - halfWidth + 51.03 / 2 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timetableStartAt]);
 
   const spells = createDateSequence(
     timetableStartAt.minute(0),
@@ -128,13 +132,13 @@ export const Feed = (props: FeedProps) => {
   );
 
   const rows = groupMarkersByRow(activities.sort(sortEvents));
+
+  // prettier-ignore
   const markers = rows
-    .map((row, i) =>
-      row.map(activity => ({
-        activity,
-        row: i,
-      })),
-    )
+    .map((row, i) => row.map(activity => ({
+      activity,
+      row: i,
+    })))
     .flat()
     .sort((a, b) => sortEvents(a.activity, b.activity));
 
