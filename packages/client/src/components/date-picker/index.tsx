@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import { styled } from 'src/styles';
 import { useFocusedDate } from 'src/hooks/use-focused-date';
@@ -35,6 +36,7 @@ const Chevron = styled.button`
 `;
 
 export const DatePicker = () => {
+  const { t } = useTranslation();
   const { focusedDate } = useFocusedDate();
   const timetableNode = document.getElementById('timetable');
 
@@ -58,7 +60,10 @@ export const DatePicker = () => {
 
   return (
     <Wrapper>
-      <Chevron onClick={handleClickBack}>
+      <Chevron
+        title={t('date_picker.back', { defaultValue: 'Go back' })}
+        onClick={handleClickBack}
+      >
         <ChevronLeft />
       </Chevron>
 
@@ -66,7 +71,10 @@ export const DatePicker = () => {
         {focusedDate.format('LLL')}
       </Time>
 
-      <Chevron onClick={handleClickForward}>
+      <Chevron
+        title={t('date_picker.forward', { defaultValue: 'Go forward' })}
+        onClick={handleClickForward}
+      >
         <ChevronRight />
       </Chevron>
     </Wrapper>

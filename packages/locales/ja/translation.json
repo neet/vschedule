@@ -8,6 +8,10 @@
     "view_source": "ソースを表示",
     "view_twitter": "Twitterを表示"
   },
+  "date_picker": {
+    "back": "戻る",
+    "forward": "進む"
+  },
   "description": "✨ いつから.linkに洗練されたインターフェースを添えて",
   "not_found": {
     "description": "ページが見つかりませんでした",
