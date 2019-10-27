@@ -6,14 +6,26 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Index,
 } from 'typeorm';
 import { Category } from './category';
 import { Performer } from './performer';
+import { Team } from './team';
 
 @Entity()
 export class Activity {
   @PrimaryColumn('text')
   id: string;
+
+  @Index()
+  @CreateDateColumn({ type: 'timestamp with time zone' })
+  readonly createdAt: Date;
+
+  @Index()
+  @UpdateDateColumn({ type: 'timestamp with time zone' })
+  readonly updatedAt: Date;
 
   @Column('text')
   name: string;
@@ -30,11 +42,13 @@ export class Activity {
   @Column('text')
   thumbnail: string;
 
-  @Column('text')
-  startAt: string;
+  @Index()
+  @Column('timestamp with time zone')
+  startAt: Date;
 
-  @Column('text')
-  endAt: string;
+  @Index()
+  @Column('timestamp with time zone')
+  endAt: Date;
 
   @ManyToMany(() => Performer, { onDelete: 'CASCADE' })
   @JoinTable()
@@ -43,4 +57,8 @@ export class Activity {
   @ManyToOne(() => Category, { onDelete: 'SET NULL' })
   @JoinColumn()
   category?: Category;
+
+  @ManyToOne(() => Team, { onDelete: 'SET NULL' })
+  @JoinColumn()
+  team?: Team;
 }

@@ -6,7 +6,7 @@ const shared = require('./shared');
 function main(command, argv) {
   const config = {
     entry: {
-      main: './main.tsx'
+      main: './main.tsx',
     },
 
     plugins: [
@@ -22,13 +22,10 @@ function main(command, argv) {
           minify: true,
         },
       }),
-    ]
-  }
+    ],
+  };
 
-  return merge(
-    shared(command, argv),
-    config,
-  );
+  return merge(shared(command, argv), config);
 }
 
 module.exports = main;

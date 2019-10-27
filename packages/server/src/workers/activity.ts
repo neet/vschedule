@@ -1,9 +1,9 @@
-import { Gateway, Event, LiverRelationships } from '@ril/gateway';
+import { Gateway, Event, LiverRelationship } from '@ril/gateway';
 import { CronJob } from 'cron';
 import { RESOURCE_URL } from 'src/config';
 import { Connection } from 'typeorm';
 import { ActivityRepository } from 'src/repository/activity';
-import { Performer } from 'src/entity/performer';
+import { Activity } from 'src/entity/activity';
 
 export class ActivityCron {
   private readonly db: Connection;
@@ -26,22 +26,21 @@ export class ActivityCron {
       .then(response => response.data.events);
 
     for (const event of events) {
-      const liverRelationships: LiverRelationships[] = [];
+      const activity = await this.db.manager.findOne(
+        Activity,
+        event.id.toString(),
+      );
 
-      for (const liver of event.livers) {
-        // prettier-ignore
-        const performer = this.db.manager.findOne(Performer, liver.id.toString());
-
-        if (performer) {
-          continue;
-        }
-
-        liverRelationships.push(
-          await this.gateway
-            .fetchLiver(liver.id)
-            .then(response => response.data),
-        );
+      if (activity) {
+        continue;
       }
+
+      // TODO: Optimize this
+      const liverRelationships = (await Promise.all(
+        event.livers.map(async liver => {
+          return await this.gateway.fetchLiver(liver.id);
+        }),
+      )).map(response => response.data);
 
       this.createActivity(event, liverRelationships);
     }
@@ -49,7 +48,7 @@ export class ActivityCron {
 
   private createActivity = async (
     event: Event,
-    liverRelationships: LiverRelationships[],
+    liverRelationships: LiverRelationship[],
   ) => {
     return this.db
       .getCustomRepository(ActivityRepository)

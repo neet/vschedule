@@ -1,16 +1,20 @@
-interface Node {
-  id: ID!
+scalar Date
+
+enum Order {
+  ASC
+  DESC
 }
 
 type PageInfo {
+  # Whether or not there are next pages
   hasNextPage: Boolean!
+  # Whether or not there are previous pages
   hasPreviousPage: Boolean!
-  startCursor: String
-  endCursor: String
+  # Total count
   totalCount: Int
 }
 
-type Activity implements Node {
+type Activity {
   # ID of the activity
   id: ID!
   # Name of the activity
@@ -24,9 +28,13 @@ type Activity implements Node {
   # Thumbnail of the activity
   thumbnail: String!
   # Start date time on ISO 8601
-  startAt: String!
+  startAt: Date!
   # End date time on ISO 8601
-  endAt: String!
+  endAt: Date!
+  # Created date time
+  createdAt: Date!
+  # Updated date time
+  updatedAt: Date!
   # Sources of the activity
   performers: [Performer!]!
   # Associated category
@@ -36,17 +44,22 @@ type Activity implements Node {
 }
 
 type ActivityConnection {
-  edges: [ActivityEdge]!
-  nodes: [Activity]!
+  nodes: [Activity!]!
   pageInfo: PageInfo!
 }
 
-type ActivityEdge {
-  cursor: String
-  node: Activity
+input ActivitiesInput {
+  limit: Int
+  offset: Int
+  order: Order
+  performerId: ID
+  teamId: ID
+  categoryId: ID
+  afterDate: Date
+  beforeDate: Date
 }
 
-type Performer implements Node {
+type Performer {
   # ID of the performer
   id: ID!
   # Name of the performer
@@ -57,6 +70,8 @@ type Performer implements Node {
   ruby: String!
   # URL of the avatar for the performer
   avatar: String!
+  # URL of the full-body image for the performer
+  fullBody: String!
   # Hex colour code
   color: String!
   # Description of the performer
@@ -64,118 +79,138 @@ type Performer implements Node {
   # If the  performer is public
   public: Int!
   # Unknown...
-  position: Int!
+  position: Int
+  # Created date time
+  createdAt: Date!
+  # Updated date time
+  updatedAt: Date!
   # External services' information
   socialAccounts: [SocialAccount!]!
   # Involved teams
   teams: [Team!]!
+  # Activities
+  activities: ActivityConnection!
 }
 
 type PerformerConnection {
-  edges: [PerformerEdge]!
-  nodes: [Performer]!
+  nodes: [Performer!]!
   pageInfo: PageInfo!
 }
 
-type PerformerEdge {
-  cursor: String
-  node: Performer
+input PerformersInput {
+  limit: Int
+  offset: Int
+  order: Order
 }
 
-type Team implements Node {
+type Team {
   # ID of the team
   id: ID!
   # Name of the team
   name: String!
+  # Created date time
+  createdAt: Date!
+  # Updated date time
+  updatedAt: Date!
   # Involved performers
   members: [Performer!]!
+  # Activities
+  activities: ActivityConnection!
 }
 
 type TeamConnection {
-  edges: [TeamEdge]!
-  nodes: [Team]!
-  pageInfo: PageInfo
+  nodes: [Team!]!
+  pageInfo: PageInfo!
 }
 
-type TeamEdge {
-  cursor: String
-  node: Team
+input TeamsInput {
+  limit: Int
+  offset: Int
+  order: Order
+  performerId: ID
 }
 
-type Category implements Node {
+type Category {
   # ID of the category
   id: ID!
   # name
   name: String!
+  # Activities
+  activities(input: ActivitiesInput): ActivityConnection!
 }
 
 type CategoryConnection {
-  edges: [CategoryEdge]!
-  nodes: [Category]!
+  nodes: [Category!]!
   pageInfo: PageInfo!
 }
 
-type CategoryEdge {
-  cursor: String
-  node: Category
+input CategoriesInput {
+  limit: Int
+  offset: Int
+  order: Order
 }
 
 interface SocialAccount {
   # Internal ID of the channel
   id: ID!
+  # Created date time
+  createdAt: Date!
+  # Updated date time
+  updatedAt: Date!
 }
 
-type YoutubeAccount implements Node & SocialAccount {
+type YoutubeAccount implements SocialAccount {
   # Internal ID of the channel
   id: ID!
   # ID of the channel
-  channel: ID!
+  channelId: ID!
   # Name of the channel
   channelName: String!
   # Order of creation
   creationOrder: Int!
+  # Created date time
+  createdAt: Date!
+  # Updated date time
+  updatedAt: Date!
 }
 
-type TwitterAccount implements Node & SocialAccount {
+type TwitterAccount implements SocialAccount {
   # Internal ID of the channel
   id: ID!
   # Screenname of the account like @twitter
   screenName: String!
+  # Created date time
+  createdAt: Date!
+  # Updated date time
+  updatedAt: Date!
+}
+
+type SearchResult {
+  performers: [Performer!]!
+  activities: [Activity!]!
+  teams: [Team!]!
+  categories: [Category!]!
 }
 
 type Query {
-  node(cursor: String!): Node
-
+  # Search performers, activities, teams and categories
+  search(query: String!): SearchResult!
+  # Fetch single activity
   activity(id: ID!): Activity
-
-  activities(
-    first: Int
-    after: String
-    last: Int
-    before: String
-  ): ActivityConnection!
-
+  # Fetch activities
+  activities(input: ActivitiesInput): ActivityConnection!
+  # Fetch single performer
   performer(id: ID!): Performer
-
-  performers(
-    first: Int
-    after: String
-    last: Int
-    before: String
-  ): PerformerConnection!
-
+  # Fetch performers
+  performers(input: PerformersInput): PerformerConnection!
+  # Fetch single category
   category(id: ID!): Category
-
-  categories(
-    first: Int
-    after: String
-    last: Int
-    before: String
-  ): CategoryConnection!
-
+  # Fetch categories
+  categories(input: CategoriesInput): CategoryConnection!
+  # Fetch single team
   team(id: ID!): Team
-
-  teams(first: Int, after: String, last: Int, before: String): TeamConnection!
+  # Fetch teams
+  teams(input: TeamsInput): TeamConnection!
 }
 
 schema {

@@ -1,16 +1,21 @@
 import DataLoader from 'dataloader';
-import { Cursor } from 'src/utils/cursor';
 import { EntityRepository, EntityManager } from 'typeorm';
 import { Activity } from 'src/entity/activity';
-import { Event, LiverRelationships } from '@ril/gateway';
+import { matchTeamFromPerformerIds } from 'src/utils/teams';
+import { Event, LiverRelationship } from '@ril/gateway';
 import { PerformerRepository } from './performer';
 import { CategoryRepostiory } from './category';
+import { TeamRepository } from './team';
 
 interface GetAllAndCountParams {
-  first?: number | null;
-  last?: number | null;
-  before?: string | null;
-  after?: string | null;
+  limit?: number;
+  offset?: number;
+  order?: 'ASC' | 'DESC';
+  afterDate?: Date;
+  beforeDate?: Date;
+  performerId?: string;
+  teamId?: string;
+  categoryId?: string;
 }
 
 @EntityRepository(Activity)
@@ -23,41 +28,63 @@ export class ActivityRepository {
       .createQueryBuilder('activity')
       .leftJoinAndSelect('activity.category', 'category')
       .leftJoinAndSelect('activity.performers', 'performer')
+      .leftJoinAndSelect('activity.team', 'team')
       .whereInIds(ids)
       .getMany();
-    // .leftJoinAndSelect('activity.team', 'team')
   });
 
-  getAllAndCount = async (params: GetAllAndCountParams) => {
-    const { first, last, before, after } = params;
-    const take = (last ? last : first) || 100;
-    const order = last ? 'DESC' : 'ASC';
+  getAllAndCount = async (
+    params: GetAllAndCountParams = {},
+  ): Promise<[Activity[], number]> => {
+    const {
+      offset = 0,
+      limit = 100,
+      order = 'ASC',
+      performerId,
+      teamId,
+      categoryId,
+      afterDate,
+      beforeDate,
+    } = params;
 
     const query = this.manager
       .getRepository(Activity)
       .createQueryBuilder('activity')
       .leftJoinAndSelect('activity.category', 'category')
       .leftJoinAndSelect('activity.performers', 'performer')
-      .orderBy('activity.id', order)
-      .take(Math.min(take, 100));
-    // .leftJoinAndSelect('activity.team', 'team')
+      .leftJoinAndSelect('activity.team', 'team')
+      .orderBy('activity.startAt', order)
+      .skip(offset)
+      .take(Math.min(limit, 100));
 
-    if (before) {
-      const { id } = Cursor.decode(before);
-      query.orWhere('activity.id < :id', { id });
+    if (performerId) query.andWhere('performer.id = :id', { id: performerId });
+    if (teamId) query.andWhere('team.id = :id', { id: teamId });
+    if (categoryId) query.andWhere('category.id = :id', { id: categoryId });
+
+    const count = await query.getCount();
+
+    // `afterDate` and `beforeDate` are used as a pagination
+    // so should be added after counting
+    if (afterDate) {
+      query.andWhere('activity."endAt" > CAST(:afterDate AS TIMESTAMP)', {
+        afterDate,
+      });
     }
 
-    if (after) {
-      const { id } = Cursor.decode(after);
-      query.orWhere('activity.id > :id', { id });
+    if (beforeDate) {
+      query.andWhere('activity."startAt" < CAST(:beforeDate AS TIMESTAMP)', {
+        beforeDate,
+      });
     }
 
-    return await query.getManyAndCount();
+    const result = await query.getMany();
+
+    return [result, count];
   };
 
   createFromGatewayData = async (
     data: Event,
-    liverReationships: LiverRelationships[],
+    liverReationships: LiverRelationship[],
   ) => {
     const activity = new Activity();
 
@@ -67,8 +94,8 @@ export class ActivityRepository {
     activity.public = data.public;
     activity.url = data.url;
     activity.thumbnail = data.thumbnail;
-    activity.startAt = data.start_date;
-    activity.endAt = data.end_date;
+    activity.startAt = new Date(data.start_date);
+    activity.endAt = new Date(data.end_date);
 
     activity.performers = await Promise.all(
       liverReationships.map(liver => {
@@ -82,6 +109,16 @@ export class ActivityRepository {
       ? await this.manager
           .getCustomRepository(CategoryRepostiory)
           .createFromGatewayData(data.genre)
+      : undefined;
+
+    const teamDataset = matchTeamFromPerformerIds(
+      activity.performers.map(performer => performer.id),
+    );
+
+    activity.team = teamDataset
+      ? await this.manager
+          .getCustomRepository(TeamRepository)
+          .find.load(teamDataset.id)
       : undefined;
 
     return this.manager.save(activity);

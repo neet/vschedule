@@ -12,7 +12,10 @@
     "plugin:prettier/recommended",
     "prettier/@typescript-eslint"
   ],
-  "plugins": ["import"],
+  "plugins": [
+    "import",
+    "react-hooks"
+  ],
   "parserOptions": {
     "ecmaVersion": 9,
     "sourceType": "module"
@@ -40,6 +43,8 @@
     "react/display-name": "off",
     "import/order": 2,
     "import/no-unresolved": [2, { "ignore": ["^src"] }],
-    "import/no-unassigned-import": "error"
+    "import/no-unassigned-import": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }

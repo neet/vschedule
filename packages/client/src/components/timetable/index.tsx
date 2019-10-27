@@ -1,110 +1,41 @@
-import dayjs from 'dayjs';
-import isMobile from 'ismobilejs';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { ActivityFragment } from 'src/generated/graphql';
-import { useNow } from 'src/hooks/use-now';
-import { styled } from 'src/styles';
-import { borderGap, sidebarWidth } from 'src/styles/constants';
-import { Background } from './background';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useTimetable } from 'src/hooks/use-timetable';
+import { LoadingIndicator } from 'src/components/loading-indicator';
 import { Feed } from './feed';
-import { Placeholder } from './placeholder';
 
-export interface TimetableProps {
-  activities?: ActivityFragment[];
-  loading: boolean;
-}
+export const Timetable = () => {
+  const {
+    activities,
+    onLoadNext,
+    onLoadPrevious,
+    loading,
+    hasNextPage,
+    hasPreviousPage,
+  } = useTimetable();
 
-const Wrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  margin-left: 0;
-  overflow-x: scroll;
-  overflow-y: hidden; /* fixme */
-  -webkit-overflow-scrolling: touch;
-
-  @media screen and (min-width: 700px) {
-    width: calc(100% - ${sidebarWidth}px);
-    margin-left: ${sidebarWidth}px;
-  }
-`;
-
-export const Timetable = (props: TimetableProps) => {
-  const { activities = [], loading } = props;
-  const { now } = useNow(1000 * 60);
-  const ref = useRef<HTMLDivElement>(null);
-
-  const handleWheel = useCallback((e: WheelEvent) => {
-    if (!ref.current || !e.deltaY) return;
-    ref.current.scrollBy({ left: e.deltaY });
-  }, []);
-
-  const startDate = useMemo(
-    () =>
-      activities.reduce<dayjs.Dayjs | undefined>((result, content) => {
-        const date = dayjs(content.startAt);
-        if (!result || date.isBefore(result)) return date;
-
-        return result;
-      }, undefined),
-    [activities],
-  );
-
-  const endDate = useMemo(
-    () =>
-      activities.reduce<dayjs.Dayjs | undefined>((result, content) => {
-        const date = dayjs(content.endAt);
-        if (!result || date.isAfter(result)) return date;
-
-        return result;
-      }, undefined),
-    [activities],
-  );
-
-  useEffect(() => {
-    if (!ref.current || !startDate) return;
-
-    const fromNowToStart = now.diff(startDate, 'minute');
-    const screenWidth = window.innerWidth;
-    let x = (borderGap / 30) * fromNowToStart - screenWidth / 2;
-
-    if (screenWidth >= 700) {
-      x += sidebarWidth;
-    }
-
-    ref.current.scrollTo(x, 0);
-  }, [startDate, endDate, now]);
-
-  useEffect(() => {
-    const isAnyMobile = isMobile(navigator.userAgent).any;
-
-    if (isAnyMobile || !ref.current) return;
-    ref.current.addEventListener('wheel', handleWheel, { passive: true });
-
-    return () => {
-      if (isAnyMobile || !ref.current) return;
-      ref.current.removeEventListener('wheel', handleWheel);
-    };
-  });
-
-  if (!startDate || !endDate) {
-    return null;
-  }
+  const { t } = useTranslation();
 
   if (loading) {
     return (
-      <Wrapper>
-        <Placeholder />
-      </Wrapper>
+      <LoadingIndicator>
+        {t('timetable.loading', { defaultValue: 'Loading Timetable...' })}
+      </LoadingIndicator>
     );
   }
 
+  if (!activities || !activities.length) {
+    return <span>no activity found</span>;
+  }
+
   return (
-    <Wrapper ref={ref}>
-      <Background now={now} startDate={startDate} endDate={endDate} />
-      <Feed activities={activities} startDate={startDate} />
-    </Wrapper>
+    <Feed
+      activities={activities}
+      onLoadNext={onLoadNext}
+      onLoadPrevious={onLoadPrevious}
+      hasNextPage={hasNextPage}
+      hasPreviousPage={hasPreviousPage}
+      loading={loading}
+    />
   );
 };

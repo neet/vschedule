@@ -1,34 +1,22 @@
-import { PageInfo, Node } from 'src/generated/graphql';
+import { PageInfo } from 'src/generated/graphql';
 
-interface AnyEdge {
-  cursor: string;
-  node: Node;
+interface PaginationInput {
+  offset?: number;
 }
 
-interface PaginationOptions {
-  first?: number | null;
-  last?: number | null;
-  after?: string | null;
-  before?: string | null;
-}
-
-export const createPageInfo = (
-  edges: AnyEdge[],
+export const createPageInfo = <T extends PaginationInput>(
+  nodes: unknown[],
   totalCount: number,
-  options: PaginationOptions,
+  input: T = {} as T,
 ): PageInfo => {
-  const hasPreviousPage = options.before ? edges.length < totalCount : false;
-  const hasNextPage = !options.before ? edges.length < totalCount : false;
-  const startCursor = edges.length ? edges[0].cursor : undefined;
-  const endCursor = edges.length
-    ? edges[Math.max(edges.length - 1, 0)].cursor
-    : undefined;
+  const { offset = 0 } = input;
+
+  const hasNextPage = nodes.length + offset < totalCount;
+  const hasPreviousPage = offset < totalCount;
 
   return {
     hasNextPage,
     hasPreviousPage,
-    startCursor,
-    endCursor,
     totalCount,
   };
 };

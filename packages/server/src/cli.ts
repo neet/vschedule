@@ -1,31 +1,39 @@
 import { createConnection } from './db';
-import { groups } from './utils/groups';
+import { teams } from './utils/teams';
 import { Team } from './entity/team';
 import { Performer } from './entity/performer';
 
 const main = async () => {
   const connection = await createConnection();
 
-  for (const group of groups) {
+  for (const teamData of teams) {
     const team = new Team();
 
     try {
-      team.id = group.id;
-      team.name = group.name;
-      team.members = await Promise.all(
-        group.streamerIds.map(async id => {
-          const performer = await connection
-            .getRepository(Performer)
-            .findOne({ id });
-          if (!performer) throw new Error(`Invalid id ${id}`);
-          return performer;
-        }),
-      );
+      team.id = teamData.id;
+      team.name = teamData.name;
 
+      const members = [];
+
+      for (const performerId of teamData.performerIds) {
+        const performer = await connection
+          .getRepository(Performer)
+          .findOne({ id: performerId });
+
+        if (!performer) throw new Error(`Invalid id ${performerId}`);
+
+        members.push(performer);
+      }
+
+      team.members = members;
       await connection.manager.save(team);
 
       // eslint-disable-next-line no-console
-      console.log(`${group.name} has been saved`);
+      console.log(
+        `${team.name} has been saved with ids ${team.members
+          .map(member => member.id)
+          .join()}`,
+      );
     } catch (error) {
       // eslint-disable-next-line no-console
       console.warn(error.toString());

@@ -1,144 +1,222 @@
-import dayjs from 'dayjs';
-import React, { useCallback, useState } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
-import { ContentCard } from 'src/components/content-card';
-import { ActivityFragment } from 'src/generated/graphql';
+import React, { useState } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
+import { Link, NavLink } from 'react-router-dom';
+import { Tv, User, Users, Hash, ChevronDown, ChevronUp } from 'react-feather';
+import logoSmall from '@ril/arts/static/logo-small.png';
 import { styled } from 'src/styles';
-import { sidebarWidth } from 'src/styles/constants';
-import { EventCardPlaceholders } from './placeholder';
-
-export interface SidebarProps {
-  activities?: ActivityFragment[];
-  loading: boolean;
-}
+import { useSidebar } from 'src/hooks/use-sidebar';
+import { Category } from 'src/components/category';
 
 interface WrapperProps {
-  expanded: boolean;
+  show: boolean;
 }
 
-const Wrapper = styled.aside<WrapperProps>`
-  display: block;
+const Wrapper = styled.div<WrapperProps>`
+  display: ${({ show }) => (show ? 'flex' : 'none')};
   position: absolute;
-  z-index: 999;
-  bottom: 0;
+  z-index: 9999;
+  top: 0;
   left: 0;
   box-sizing: border-box;
-  width: 100%;
-  height: ${({ expanded }) => (expanded ? '100%' : '20%')};
-  padding: 18px;
-  overflow: scroll;
-  transition: 0.3s ease-out;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  background-color: ${({ theme }) => theme.backgroundDark};
-  -webkit-overflow-scrolling: touch;
-  box-shadow: 0 -1.5px 3px rgba(0, 0, 0, 0.16);
+  flex: 0 0 auto;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 230px;
+  height: 100%;
+  padding: 8px;
+  border: 1px solid ${({ theme }) => theme.borderNormal};
+  border-top: none;
+  background-color: ${({ theme }) => theme.backgroundNormal};
 
   @media screen and (min-width: 700px) {
-    display: block;
-    z-index: auto;
-    top: 0;
-    left: 0;
-    width: ${sidebarWidth}px;
-    height: auto;
-    border-radius: 0;
-    box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.16);
+    position: static;
   }
 `;
 
-const ExpandButton = styled.button`
-  display: block;
-  width: 100%;
-  margin-top: -8px;
-  padding: 8px 0 12px;
-  border: none;
-  background-color: transparent;
+const List = styled.ul`
+  display: flex;
+  flex-direction: column;
+`;
 
-  hr {
-    display: block;
-    width: 100px;
-    height: 5px;
-    margin: auto;
-    border: none;
-    border-radius: 99px;
-    background-color: ${({ theme }) => theme.foregroundLight};
+const ListItem = styled.li`
+  margin: 12px;
+
+  a {
+    display: flex;
+    align-items: center;
+    color: ${({ theme }) => theme.foregroundNormal};
+
+    &.active {
+      color: ${({ theme }) => theme.highlightNormal};
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
   }
+
+  button {
+    display: flex;
+    position: relative;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    color: ${({ theme }) => theme.foregroundNormal};
+  }
+`;
+
+const Icon = styled.span`
+  display: flex;
+  place-items: center;
+  margin-right: 0.5em;
+`;
+
+const Name = styled.span`
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+const Chevron = styled.span`
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  place-items: center;
+  color: ${({ theme }) => theme.foregroundLight};
+`;
+
+const CategoryList = styled.ul`
+  margin: 0 12px;
+`;
+
+const CategoryListItem = styled.li`
+  margin-left: 12px;
+  padding: 6px 0px;
+`;
+
+const Title = styled.h1`
+  display: none;
+`;
+
+const LogoLarge = styled.img`
+  display: block;
+  width: 30px;
+  margin: 4px 0;
+`;
+
+const Disclaimer = styled.p`
+  color: ${({ theme }) => theme.foregroundLight};
+  font-size: 12px;
+`;
+
+const Background = styled.div`
+  position: absolute;
+  z-index: 9998;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 
   @media screen and (min-width: 700px) {
     display: none;
   }
 `;
 
-const Title = styled.h2`
-  margin-bottom: 8px;
-  font-size: 16px;
-
-  & > strong {
-    color: ${({ theme }) => theme.highlightNormal};
-  }
-`;
-
-const List = styled.ul`
-  display: block;
-`;
-
-const ListItem = styled.li`
-  display: block;
-`;
-
-export const Sidebar = (props: SidebarProps) => {
-  const { activities = [], loading } = props;
+export const Sidebar = () => {
+  const { toggle, expanded, categories, fetchCategories } = useSidebar();
   const { t } = useTranslation();
-  const [expanded, changeIfExpanded] = useState(false);
+  const [categoriesExpanded, expandCategories] = useState(false);
 
-  const unfinishedContents = activities.filter(content =>
-    dayjs(content.endAt).isAfter(dayjs()),
-  );
-
-  const streamingContents = activities.filter(
-    content =>
-      dayjs(content.startAt).isBefore(dayjs()) &&
-      dayjs(content.endAt).isAfter(dayjs()),
-  );
-
-  const toggleIfExpanded = useCallback(() => {
-    changeIfExpanded(!expanded);
-  }, [expanded]);
+  const handleToggleCategories = () => {
+    if (!categories) fetchCategories();
+    expandCategories(!categoriesExpanded);
+  };
 
   return (
-    <Wrapper id="sidebar" expanded={expanded} aria-expanded={expanded}>
-      <ExpandButton aria-controls="sidebar" onClick={toggleIfExpanded}>
-        <hr />
-      </ExpandButton>
+    <>
+      {expanded && <Background onClick={() => toggle()} />}
 
-      <Title>
-        {streamingContents.length > 0 ? (
-          <Trans i18nKey="sidebar.title" count={streamingContents.length}>
-            <strong>{{ count: streamingContents.length }}</strong> streaming is
-            on air
-          </Trans>
-        ) : (
-          t('sidebar.no_streaming', {
-            defaultValue: "There's no streaming on air",
-          })
-        )}
-      </Title>
-
-      <List>
-        {!loading ? (
-          unfinishedContents.map((content, i) => (
-            <ListItem
-              key={content.id}
-              aria-setsize={activities.length}
-              aria-posinset={i + 1}
-            >
-              <ContentCard activity={content} />
+      <Wrapper show={expanded}>
+        <nav>
+          <List>
+            <ListItem>
+              <Link to="/">
+                <Title>Refined itsukara.link</Title>
+                <LogoLarge src={logoSmall} alt="Refined itsukara.link" />
+              </Link>
             </ListItem>
-          ))
-        ) : (
-          <EventCardPlaceholders />
-        )}
-      </List>
-    </Wrapper>
+
+            <ListItem>
+              <NavLink to="/activities" activeClassName="active">
+                <Icon>
+                  <Tv />
+                </Icon>
+                <Name>
+                  {t('sidebar.activities', { defaultValue: 'Activities' })}
+                </Name>
+              </NavLink>
+            </ListItem>
+
+            <ListItem>
+              <NavLink to="/performers" activeClassName="active">
+                <Icon>
+                  <User />
+                </Icon>
+                <Name>
+                  {t('sidebar.performers', { defaultValue: 'Performers' })}
+                </Name>
+              </NavLink>
+            </ListItem>
+
+            <ListItem>
+              <NavLink to="/teams" activeClassName="active">
+                <Icon>
+                  <Users />
+                </Icon>
+                <Name>{t('sidebar.teams', { defaultValue: 'Teams' })}</Name>
+              </NavLink>
+            </ListItem>
+
+            <ListItem>
+              <button onClick={handleToggleCategories}>
+                <Icon>
+                  <Hash />
+                </Icon>
+
+                <Name>{t('sidebar.tags', { defaultValue: 'Tags' })}</Name>
+
+                <Chevron>
+                  {categoriesExpanded ? <ChevronUp /> : <ChevronDown />}
+                </Chevron>
+              </button>
+            </ListItem>
+
+            {categoriesExpanded && categories ? (
+              <CategoryList>
+                {categories.map(category => (
+                  <CategoryListItem key={category.id}>
+                    <Category category={category} withCount />
+                  </CategoryListItem>
+                ))}
+              </CategoryList>
+            ) : null}
+          </List>
+        </nav>
+
+        <Disclaimer>
+          <Trans i18nKey="sidebar.disclaimer">
+            This website is unofficially made by a fan of Nijisanji and not
+            related to Ichikara Inc. at all. The project is open source
+            software. You can contribute or report issue on{' '}
+            <a href="https://github.com/neet/refined-itsukara-link">GitHub</a>.
+          </Trans>
+        </Disclaimer>
+      </Wrapper>
+    </>
   );
 };

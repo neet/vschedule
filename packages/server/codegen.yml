@@ -7,5 +7,9 @@ generates:
       - typescript
       - typescript-resolvers
     config:
+      scalars:
+        Date: Date
       contextType: ../context#Context
+      maybeValue: T | undefined
+      resolverTypeWrapperSignature: import('type-fest').PartialDeep<T> | Promise<import('type-fest').PartialDeep<T>>
       useIndexSignature: true

@@ -1,5 +1,5 @@
-const merge = require('webpack-merge');
 const path = require('path');
+const merge = require('webpack-merge');
 const shared = require('./shared');
 
 function ssr(command, argv) {
@@ -7,7 +7,7 @@ function ssr(command, argv) {
     target: 'node',
 
     entry: {
-      ssr: './ssr.tsx',
+      render: './render.tsx',
     },
 
     output: {
@@ -17,12 +17,9 @@ function ssr(command, argv) {
       libraryTarget: 'umd',
       libraryExport: 'default',
     },
-  }
+  };
 
-  return merge(
-    shared(command, argv),
-    config,
-  );
+  return merge(shared(command, argv), config);
 }
 
 module.exports = ssr;

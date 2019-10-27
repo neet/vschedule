@@ -1,5 +1,5 @@
-const dotenv = require('dotenv');
 const path = require('path');
+const dotenv = require('dotenv');
 const TSConfigPathsWebpackPlugin = require('tsconfig-paths-webpack-plugin');
 const webpack = require('webpack');
 const WebpackNotifierPlugin = require('webpack-notifier');
@@ -12,7 +12,7 @@ const WebpackNotifierPlugin = require('webpack-notifier');
 function shared(command, argv) {
   dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
-  const isProd = argv.mode === 'production';
+  const isProd = argv && argv.mode === 'production';
 
   const config = {
     context: path.resolve(__dirname, '../src'),
@@ -82,10 +82,11 @@ function shared(command, argv) {
     devServer: {
       compress: true,
       overlay: true,
+      host: '240d:1a:9d:2d00:b449:ea7:e9a2:6d07',
       contentBase: path.resolve(__dirname, '../static'),
       disableHostCheck: true,
       historyApiFallback: {
-        index: '/debug.html'
+        index: '/debug.html',
       },
       hot: true,
       inline: true,
@@ -112,7 +113,10 @@ function shared(command, argv) {
       new WebpackNotifierPlugin({
         title: 'Refined itsukara.link',
         alwaysNotify: true,
-        contentImage: path.resolve(__dirname, '../src/assets/logo-small.png'),
+        contentImage: path.resolve(
+          require.resolve('@ril/arts'),
+          '../static/logo-small.png',
+        ),
       }),
     );
   }

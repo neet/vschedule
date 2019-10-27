@@ -1,16 +1,14 @@
 import DataLoader from 'dataloader';
-import { Cursor } from 'src/utils/cursor';
 import { EntityRepository, EntityManager } from 'typeorm';
 import { Performer } from 'src/entity/performer';
-import { LiverRelationships } from '@ril/gateway';
+import { LiverRelationship } from '@ril/gateway';
 import { TwitterAccount } from 'src/entity/twitter-account';
 import { YoutubeAccount } from 'src/entity/youtube-account';
 
 interface GetAllAndCountParams {
-  first?: number | null;
-  last?: number | null;
-  before?: string | null;
-  after?: string | null;
+  limit?: number;
+  offset?: number;
+  order?: 'ASC' | 'DESC';
 }
 
 @EntityRepository(Performer)
@@ -34,45 +32,35 @@ export class PerformerRepository {
       .getMany();
   };
 
-  getAllAndCount = async (params: GetAllAndCountParams) => {
-    const { first, last, before, after } = params;
-    const take = (last ? last : first) || 100;
-    const order = last ? 'DESC' : 'ASC';
+  getAllAndCount = async (params: GetAllAndCountParams = {}) => {
+    const { limit = 100, offset = 0, order = 'ASC' } = params;
 
     const query = this.manager
       .getRepository(Performer)
       .createQueryBuilder('performer')
       .orderBy('performer.id', order)
-      .take(Math.min(take, 100));
-
-    if (before) {
-      const { id } = Cursor.decode(before);
-      query.orWhere('performer.id < :id', { id });
-    }
-
-    if (after) {
-      const { id } = Cursor.decode(after);
-      query.orWhere('performer.id > :id', { id });
-    }
+      .skip(offset)
+      .take(Math.min(limit, 100));
 
     return await query.getManyAndCount();
   };
 
-  createFromGatewayData = (data: LiverRelationships) => {
+  createFromGatewayData = (data: LiverRelationship) => {
     const performer = new Performer();
 
     performer.id = data.liver.id.toString();
     performer.name = data.liver.name;
-    performer.latinName = data.liver.english_name || '';
-    performer.ruby = data.liver.furigana || '';
     performer.avatar = data.liver.avatar;
     performer.color = data.liver.color;
+    performer.latinName = data.liver.english_name || '';
+    performer.ruby = data.liver.furigana || '';
+    performer.fullBody = data.liver.fullbody || '';
     performer.description = data.liver.description || '';
     performer.public = data.liver.public || 0;
     performer.position = data.liver.position || 1;
-    performer.teams = [];
     performer.twitterAccounts = [];
     performer.youtubeAccounts = [];
+    // performer.teams = [];
 
     // Twitter
     const twitterAccount = new TwitterAccount();
