@@ -16,7 +16,8 @@ export const Timetable = () => {
 
   const { t } = useTranslation();
 
-  if (loading) {
+  // Show loading indicator only in the 1st rendering
+  if (loading && !activities) {
     return (
       <LoadingIndicator>
         {t('timetable.loading', { defaultValue: 'Loading Timetable...' })}
@@ -25,7 +26,11 @@ export const Timetable = () => {
   }
 
   if (!activities || !activities.length) {
-    return <span>no activity found</span>;
+    return (
+      <span>
+        {t('timetable.not_found', { defaultValue: 'No activities found' })}
+      </span>
+    );
   }
 
   return (

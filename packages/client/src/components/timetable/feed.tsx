@@ -126,14 +126,14 @@ export const Feed = (props: FeedProps) => {
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     updateFocusedDate(e.currentTarget.scrollLeft);
 
-    if (e.currentTarget.scrollLeft < 200 && !loading && hasNextPage) {
+    if (e.currentTarget.scrollLeft < 300 && !loading && hasNextPage) {
       return handleLoadNext();
     }
 
     if (
       e.currentTarget.scrollWidth -
         (e.currentTarget.clientWidth + e.currentTarget.scrollLeft) <
-        200 &&
+        300 &&
       !loading &&
       hasPreviousPage
     ) {
