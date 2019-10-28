@@ -16,6 +16,7 @@ import {
   groupMarkersByRow,
   toMinute,
 } from './utils';
+import { Skyscraper } from './skyscraper';
 
 const Wrapper = styled.div`
   position: relative;
@@ -72,7 +73,7 @@ export const Feed = (props: FeedProps) => {
   } = props;
 
   const node = useRef<HTMLDivElement>(null);
-  const { setFocusedDate } = useFocusedDate();
+  const { focusedDate, setFocusedDate } = useFocusedDate();
 
   const { timetableStartAt, timetableEndAt } = useMemo(
     () => getTimetableRange(activities),
@@ -161,6 +162,8 @@ export const Feed = (props: FeedProps) => {
         hasNextPage={hasNextPage}
         hasPreviousPage={hasPreviousPage}
       />
+
+      <Skyscraper activities={activities} focusedDate={focusedDate} />
     </Wrapper>
   );
 };

@@ -3,14 +3,15 @@ import React from 'react';
 import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { isStreamingNow } from 'src/utils/is-streaming-now';
-import { Avatar } from 'src/components/avatar';
+// import { Avatar } from 'src/components/avatar';
 
 export const Thumbnail = styled.div`
   position: relative;
   flex-grow: 0;
   flex-shrink: 0;
-  width: 88px;
-  height: 50px;
+  width: 100px;
+  height: 56.25px;
+  margin-right: 8px;
   border-radius: 4px;
   background-color: ${({ theme }) => theme.backgroundNormal};
   background-position: center;
@@ -31,7 +32,6 @@ const Badge = styled.div`
 const Meta = styled.div`
   flex-grow: 1;
   min-width: 0;
-  margin-right: 8px;
 `;
 
 const Title = styled.span`
@@ -115,6 +115,10 @@ export const Activity = (props: ActivityProps) => {
       target="_blank"
       rel="noreferrer"
     >
+      <Thumbnail style={{ backgroundImage: `url(${activity.thumbnail})` }}>
+        {isStreaming && <Badge />}
+      </Thumbnail>
+
       <Meta>
         <Title>{activity.name}</Title>
 
@@ -122,22 +126,12 @@ export const Activity = (props: ActivityProps) => {
 
         {withPerforemer && (
           <PerformerWrapper>
-            <Avatar
-              size={18}
-              performer={performer}
-              background="performerColor"
-            />
-
             <Name>
               {team ? team.name : performer.name}・{startAt.fromNow()}
             </Name>
           </PerformerWrapper>
         )}
       </Meta>
-
-      <Thumbnail style={{ backgroundImage: `url(${activity.thumbnail})` }}>
-        {isStreaming && <Badge />}
-      </Thumbnail>
     </Wrapper>
   );
 };

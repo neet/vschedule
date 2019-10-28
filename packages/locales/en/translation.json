@@ -46,7 +46,9 @@
   },
   "timetable": {
     "loading": "Loading Timetable...",
-    "not_found": "No activities found"
+    "not_found": "No activities found",
+    "streaming_count": "<0>{{count}}</0> live stream is on air",
+    "streaming_count_plural": "<0>{{count}}</0> live streams are on air"
   },
   "today": {
     "label": "Today"
