@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
-import { throttle } from 'lodash';
+import throttle from 'lodash.throttle';
 import { usePerformers } from 'src/hooks/use-performers';
 import { styled } from 'src/styles';
 import { Performer } from 'src/components/performer';
