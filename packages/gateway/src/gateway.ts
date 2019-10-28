@@ -1,11 +1,11 @@
 import * as gaxios from 'gaxios';
 import { isLeft, toError } from 'fp-ts/lib/Either';
 import {
-  EventsResponse,
-  EventResponse,
-  GenresResponse,
-  LiversResponse,
-  LiverResponse,
+  EventsResponseCodec,
+  EventResponseCodec,
+  GenresResponseCodec,
+  LiversResponseCodec,
+  LiverResponseCodec,
 } from './entities';
 
 export class Gateway {
@@ -31,35 +31,35 @@ export class Gateway {
 
   fetchEvents = async () => {
     const data = await this.get('/v1.2/events.json');
-    const response = EventsResponse.decode(data);
+    const response = EventsResponseCodec.decode(data);
     if (isLeft(response)) throw toError(response.left);
     return response.right;
   };
 
   fetchEvent = async (id: number) => {
     const data = await this.get(`/v1.2/events/${id}.json`);
-    const response = EventResponse.decode(data);
+    const response = EventResponseCodec.decode(data);
     if (isLeft(response)) throw toError(response.left);
     return response.right;
   };
 
   fetchGenres = async () => {
     const data = await this.get('/v1.2/genres.json');
-    const response = GenresResponse.decode(data);
+    const response = GenresResponseCodec.decode(data);
     if (isLeft(response)) throw toError(response.left);
     return response.right;
   };
 
   fetchLivers = async () => {
     const data = await this.get('/v1.2/livers.json');
-    const response = LiversResponse.decode(data);
+    const response = LiversResponseCodec.decode(data);
     if (isLeft(response)) throw toError(response.left);
     return response.right;
   };
 
   fetchLiver = async (id: number) => {
     const data = await this.get(`/v1.2/livers/${id}.json`);
-    const response = LiverResponse.decode(data);
+    const response = LiverResponseCodec.decode(data);
     if (isLeft(response)) throw toError(response.left);
     return response.right;
   };

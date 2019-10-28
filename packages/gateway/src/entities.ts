@@ -1,14 +1,14 @@
 import * as t from 'io-ts';
 
-export const Response = <T extends t.Mixed>(data: T) =>
+export const optional = (type: t.Mixed) => t.union([type, t.undefined, t.null]);
+
+export const ResponseCodec = <T extends t.Mixed>(data: T) =>
   t.type({
     status: t.union([t.literal('ok'), t.literal('ng')]),
     data: data,
   });
 
-export const optional = (type: t.Mixed) => t.union([type, t.undefined, t.null]);
-
-export const Liver = t.type({
+export const LiverCodec = t.type({
   id: t.number,
   name: t.string,
   avatar: t.string,
@@ -21,37 +21,44 @@ export const Liver = t.type({
   position: optional(t.number),
 });
 
-export const LiverTwitterAccount = t.type({
+export type Liver = t.TypeOf<typeof LiverCodec>;
+
+export const LiverTwitterAccountCodec = t.type({
   id: t.number,
   liver_id: t.number,
   screen_name: t.string,
 });
 
-export const LiverYoutubeChannel = t.type({
+export type LiverTwitterAccount = t.TypeOf<typeof LiverTwitterAccountCodec>;
+
+export const LiverYoutubeChannelCodec = t.type({
   id: t.number,
   liver_id: t.number,
   channel: t.string,
   channel_name: t.string,
   creation_order: t.string,
 });
+export type LiverYoutubeChannel = t.TypeOf<typeof LiverYoutubeChannelCodec>;
 
-export const LiverRelationship = t.type({
-  liver: Liver,
-  liver_twitter_account: LiverTwitterAccount,
+export const LiverRelationshipCodec = t.type({
+  liver: LiverCodec,
+  liver_twitter_account: LiverTwitterAccountCodec,
   liver_youtube_channel: t.union([
-    LiverYoutubeChannel,
-    t.array(LiverYoutubeChannel),
+    LiverYoutubeChannelCodec,
+    t.array(LiverYoutubeChannelCodec),
   ]),
   liver_platform: optional(t.array(t.undefined)),
   user_liver: optional(t.null),
 });
+export type LiverRelationship = t.TypeOf<typeof LiverRelationshipCodec>;
 
-export const Genre = t.type({
+export const GenreCodec = t.type({
   id: t.number,
   name: t.string,
 });
+export type Genre = t.TypeOf<typeof GenreCodec>;
 
-export const Event = t.type({
+export const EventCodec = t.type({
   id: t.number,
   name: t.string,
   description: t.string,
@@ -61,18 +68,30 @@ export const Event = t.type({
   start_date: t.string,
   end_date: t.string,
   recommend: t.boolean,
-  genre: optional(Genre),
-  livers: t.array(Liver),
+  genre: optional(GenreCodec),
+  livers: t.array(LiverCodec),
 });
+export type Event = t.TypeOf<typeof EventCodec>;
 
-// DEAR ICHIKARA.
-// Stop using envelope pattern and and use HTTP status codes instead.
-export const EventsResponse = Response(t.type({ events: t.array(Event) }));
-export const EventResponse = Response(t.type({ event: Event }));
-export const LiversResponse = Response(
+export const EventsResponseCodec = ResponseCodec(
+  t.type({ events: t.array(EventCodec) }),
+);
+export type EventsResponse = t.TypeOf<typeof EventsResponseCodec>;
+
+export const EventResponseCodec = ResponseCodec(t.type({ event: EventCodec }));
+export type EventResponse = t.TypeOf<typeof EventResponseCodec>;
+
+export const LiversResponseCodec = ResponseCodec(
   t.type({
-    liver_relationships: t.array(LiverRelationship),
+    liver_relationships: t.array(LiverRelationshipCodec),
   }),
 );
-export const LiverResponse = Response(LiverRelationship);
-export const GenresResponse = Response(t.type({ genres: t.array(Genre) }));
+export type LiversResponse = t.TypeOf<typeof LiversResponseCodec>;
+
+export const LiverResponseCodec = ResponseCodec(LiverRelationshipCodec);
+export type LiverResponse = t.TypeOf<typeof LiverResponseCodec>;
+
+export const GenresResponseCodec = ResponseCodec(
+  t.type({ genres: t.array(GenreCodec) }),
+);
+export type GenresResponse = t.TypeOf<typeof GenresResponseCodec>;
