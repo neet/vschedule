@@ -49,7 +49,7 @@ export const Performers = React.memo(() => {
           defaultValue: 'Performers of Nijisanji - Refined Itsukara.link',
         })}
         description={t('performers.description', {
-          defaultValue: 'List of performers that are belongs to Nijisanji',
+          defaultValue: 'List of streamers that belongs to Nijisanji',
         })}
       />
 
@@ -57,7 +57,7 @@ export const Performers = React.memo(() => {
         <Title>{t('performers.title', { defaultValue: 'Performers' })}</Title>
         <p>
           {t('performers.description', {
-            defaultValue: 'List of performers that are belongs to Nijisanji',
+            defaultValue: 'List of streamers that belongs to Nijisanji',
           })}
         </p>
 

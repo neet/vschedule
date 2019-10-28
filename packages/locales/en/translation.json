@@ -1,5 +1,6 @@
 {
   "activities": {
+    "description": "Recent activities of Nijisanji streamers",
     "page_title": "Activities - Refined Itsukara.link"
   },
   "date_picker": {
@@ -16,7 +17,7 @@
     "page_title": "Not found - Refined Itsukara.link"
   },
   "performers": {
-    "description": "List of performers that are belongs to Nijisanji",
+    "description": "List of streamers that belongs to Nijisanji",
     "page_title": "Performers of Nijisanji - Refined Itsukara.link",
     "title": "Performers"
   },
@@ -25,17 +26,17 @@
     "categories": "Categories",
     "not_found": "No search result",
     "page_title": "Search result for \"{{value}}\" - Refined Itsukara.link",
-    "performers": "Performers",
+    "performers": "Streamers",
     "placeholder": "Search",
     "result": "Search result for \"{{value}}\"",
     "teams": "Collaborations",
-    "title": "Type keywords to search for activities, performers, categories etc"
+    "title": "Type keywords to search for activities, streamers, categories etc"
   },
   "sidebar": {
     "activities": "Activities",
     "categories": "Categories",
     "disclaimer": "This website is unofficially made by a fan of Nijisanji and not related to Ichikara Inc. at all. The project is open source software. You can contribute or report issue on <2>GitHub</2>.",
-    "performers": "Performers",
+    "performers": "Streamers",
     "teams": "Collaborations"
   },
   "teams": {

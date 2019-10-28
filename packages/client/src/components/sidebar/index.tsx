@@ -168,7 +168,7 @@ export const Sidebar = () => {
                   <User />
                 </Icon>
                 <Name>
-                  {t('sidebar.performers', { defaultValue: 'Performers' })}
+                  {t('sidebar.performers', { defaultValue: 'Streamers' })}
                 </Name>
               </NavLink>
             </ListItem>
