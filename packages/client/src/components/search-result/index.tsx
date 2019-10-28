@@ -130,7 +130,7 @@ export const SearchResult = (props: SearchResultProps) => {
   return (
     <Wrapper>
       <SearchResultGroup
-        title={t('search.categories', { defaultValue: 'カテゴリー' })}
+        title={t('search.categories', { defaultValue: 'Categories' })}
         icon={Hash}
         items={result.categories}
         render={category => <Category category={category} withCount />}
@@ -138,7 +138,7 @@ export const SearchResult = (props: SearchResultProps) => {
       />
 
       <SearchResultGroup
-        title={t('search.performers', { defaultValue: 'ライバー' })}
+        title={t('search.streamers', { defaultValue: 'Streamers' })}
         icon={User}
         items={result.performers}
         render={performer => <Performer performer={performer} />}
@@ -146,7 +146,7 @@ export const SearchResult = (props: SearchResultProps) => {
       />
 
       <SearchResultGroup
-        title={t('search.teams', { defaultValue: 'ユニット' })}
+        title={t('search.teams', { defaultValue: 'Collaborations' })}
         icon={Users}
         items={result.teams}
         render={team => <Team team={team} />}
@@ -154,7 +154,7 @@ export const SearchResult = (props: SearchResultProps) => {
       />
 
       <SearchResultGroup
-        title={t('search.activities', { defaultValue: '配信' })}
+        title={t('search.activities', { defaultValue: 'Activities' })}
         icon={Tv}
         items={result.activities}
         render={activity => <Activity activity={activity} withPerforemer />}

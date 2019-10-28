@@ -201,7 +201,7 @@ export const SearchForm = (props: SearchFormProps) => {
         ref={inputNode}
         title={t('search.title', {
           defaultValue:
-            'Type keywords to search for activities, performers, categories etc',
+            'Type keywords to search for activities, streamers, categories etc',
         })}
         placeholder={t('search.placeholder', {
           defaultValue: 'Search',
@@ -219,7 +219,7 @@ export const SearchForm = (props: SearchFormProps) => {
           <SearchResult result={result} selectedIndex={selectedIndex} />
         ) : (
           // TODO: this won't work
-          t('search.not_found', { defaultValue: 'Not search result' })
+          t('search.not_found', { defaultValue: 'No search result' })
         )}
       </ResultWrapper>
     </Wrapper>

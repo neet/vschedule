@@ -1,5 +1,4 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import throttle from 'lodash.throttle';
 import { styled } from 'src/styles';
@@ -8,6 +7,7 @@ import { Card } from 'src/components/card';
 import { Page } from 'src/components/page';
 import { LoadingIndicator } from 'src/components/loading-indicator';
 import { useTeams } from 'src/hooks/use-teams';
+import { Seo } from 'src/components/seo';
 
 const Title = styled.h2`
   margin: 8px 0;
@@ -44,13 +44,14 @@ export const Teams = React.memo(() => {
 
   return (
     <>
-      <Helmet>
-        <title>
-          {t('teams.page_title', {
-            defaultValue: 'Collaboration of Nijisanji - Refined Itsukara.link',
-          })}
-        </title>
-      </Helmet>
+      <Seo
+        title={t('teams.page_title', {
+          defaultValue: 'Collaboration of Nijisanji - Refined Itsukara.link',
+        })}
+        description={t('teams.description', {
+          defaultValue: 'List of collaborations of Nijisanji',
+        })}
+      />
 
       <Page onScroll={handleScroll}>
         <Title>{t('teams.title', { defaultValue: 'Collaboration' })}</Title>

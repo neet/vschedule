@@ -168,7 +168,7 @@ export const Sidebar = () => {
                   <User />
                 </Icon>
                 <Name>
-                  {t('sidebar.performers', { defaultValue: 'Performers' })}
+                  {t('sidebar.performers', { defaultValue: 'Streamers' })}
                 </Name>
               </NavLink>
             </ListItem>
@@ -188,7 +188,9 @@ export const Sidebar = () => {
                   <Hash />
                 </Icon>
 
-                <Name>{t('sidebar.tags', { defaultValue: 'Tags' })}</Name>
+                <Name>
+                  {t('sidebar.categories', { defaultValue: 'Categories' })}
+                </Name>
 
                 <Chevron>
                   {categoriesExpanded ? <ChevronUp /> : <ChevronDown />}

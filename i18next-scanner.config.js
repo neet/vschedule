@@ -1,5 +1,5 @@
-const glob = require('glob');
 const path = require('path');
+const glob = require('glob');
 const typescriptTransform = require('i18next-scanner-typescript');
 
 const lngs = glob
@@ -10,9 +10,11 @@ const checkIfUsePlural = lng => !['ja'].includes(lng);
 
 module.exports = {
   options: {
+    debug: 'true',
     lngs,
     sort: true,
-    debug: 'true',
+    removeUnusedKeys: true,
+    plural: checkIfUsePlural,
     defaultLng: 'en',
     defaultNs: 'translation',
     ns: ['translation'],
@@ -24,7 +26,6 @@ module.exports = {
       component: 'Trans',
       extensions: ['.tsx'],
     },
-    plural: checkIfUsePlural,
     resource: {
       loadPath: path.resolve(__dirname, 'packages/locales/{{lng}}/{{ns}}.json'),
       savePath: path.resolve(__dirname, 'packages/locales/{{lng}}/{{ns}}.json'),
