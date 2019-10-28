@@ -41,7 +41,11 @@ const Icon = styled.span`
   color: ${({ theme }) => theme.foregroundLight};
 `;
 
-const ResultWrapper = styled.div`
+interface ResultWrapperProps {
+  show?: boolean;
+}
+
+const ResultWrapper = styled.div<ResultWrapperProps>`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -50,6 +54,7 @@ const ResultWrapper = styled.div`
   margin-top: 38px;
   overflow: scroll;
   border-radius: 6px;
+  opacity: ${({ show }) => (show ? '1' : '0')};
   background-color: ${({ theme }) => theme.backgroundWash};
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 `;
@@ -207,18 +212,16 @@ export const SearchForm = (props: SearchFormProps) => {
         onKeyDown={handleKeyDown}
       />
 
-      {withResult && showResult && (
-        <ResultWrapper>
-          {loading ? (
-            <LoadingIndicator />
-          ) : result ? (
-            <SearchResult result={result} selectedIndex={selectedIndex} />
-          ) : (
-            // TODO: this won't work
-            t('search.not_found', { defaultValue: 'Not search result' })
-          )}
-        </ResultWrapper>
-      )}
+      <ResultWrapper show={withResult && showResult}>
+        {loading ? (
+          <LoadingIndicator />
+        ) : result ? (
+          <SearchResult result={result} selectedIndex={selectedIndex} />
+        ) : (
+          // TODO: this won't work
+          t('search.not_found', { defaultValue: 'Not search result' })
+        )}
+      </ResultWrapper>
     </Wrapper>
   );
 };
