@@ -2,9 +2,10 @@
 import 'reflect-metadata';
 import { promises as fs } from 'fs';
 import path from 'path';
-import { ApolloServer, gql } from 'apollo-server-express';
-import cors from 'cors';
 import express from 'express';
+import cors from 'cors';
+import depthLimit from 'graphql-depth-limit';
+import { ApolloServer, gql } from 'apollo-server-express';
 import i18nextMiddleware from 'i18next-express-middleware';
 import { BIND_PORT } from './config';
 import { createConnection } from './db';
@@ -39,6 +40,7 @@ const client = require.resolve('@ril/client');
     typeDefs,
     resolvers,
     context: () => createContext(connection, elasticsearch),
+    validationRules: [depthLimit(5)],
   });
 
   // Express
