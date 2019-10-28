@@ -26,14 +26,7 @@ const ListItem = styled.li`
 export const Teams = React.memo(() => {
   const { t } = useTranslation();
   const { teams, loading, hasNextPage, onLoadNext } = useTeams();
-
-  const handleLoadNext = throttle(
-    () => {
-      return onLoadNext();
-    },
-    3000,
-    { trailing: false },
-  );
+  const handleLoadNext = throttle(onLoadNext, 3000, { trailing: false });
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     if (

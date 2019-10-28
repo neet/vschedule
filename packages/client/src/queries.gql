@@ -106,8 +106,8 @@ query FetchPerformerLarge($id: ID!) {
   }
 }
 
-query FetchPerformers {
-  performers(input: { limit: 100 }) {
+query FetchPerformers($offset: Int) {
+  performers(input: { limit: 50, offset: $offset }) {
     nodes {
       ...Performer
     }

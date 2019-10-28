@@ -1,13 +1,13 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+import { throttle } from 'lodash';
+import { usePerformers } from 'src/hooks/use-performers';
 import { styled } from 'src/styles';
-import { useFetchPerformersQuery } from 'src/generated/graphql';
 import { Performer } from 'src/components/performer';
 import { Page } from 'src/components/page';
 import { Card } from 'src/components/card';
-import { Loader } from 'react-feather';
-import { spin } from 'src/styles/keyframes';
+import { LoadingIndicator } from 'src/components/loading-indicator';
 
 const Title = styled.h2`
   margin: 8px 0;
@@ -23,16 +23,24 @@ const ListItem = styled.li`
   margin-bottom: 12px;
 `;
 
-const Loading = styled.div`
-  width: 38px;
-  height: 38px;
-  animation: ${spin} 2s ease-in-out infinite;
-  color: ${({ theme }) => theme.foregroundLight};
-`;
-
 export const Performers = React.memo(() => {
   const { t } = useTranslation();
-  const { data, loading } = useFetchPerformersQuery();
+  const { performers, loading, hasNextPage, onLoadNext } = usePerformers();
+  const handleLoadNext = throttle(onLoadNext, 3000, { trailing: false });
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    if (
+      !loading &&
+      hasNextPage &&
+      e.currentTarget.scrollHeight -
+        (e.currentTarget.scrollTop + e.currentTarget.clientHeight) <
+        600
+    ) {
+      return handleLoadNext();
+    }
+
+    return;
+  };
 
   return (
     <>
@@ -44,7 +52,7 @@ export const Performers = React.memo(() => {
         </title>
       </Helmet>
 
-      <Page>
+      <Page onScroll={handleScroll}>
         <Title>{t('performers.title', { defaultValue: 'Performers' })}</Title>
         <p>
           {t('performers.description', {
@@ -61,8 +69,8 @@ export const Performers = React.memo(() => {
                   </Card>
                 </ListItem>
               ))
-            : data &&
-              data.performers.nodes.map(node => (
+            : performers &&
+              performers.map(node => (
                 <ListItem key={node.id}>
                   <Card>
                     <Performer performer={node} withDescription />
@@ -71,11 +79,7 @@ export const Performers = React.memo(() => {
               ))}
         </List>
 
-        {data && data.performers.pageInfo.hasNextPage && (
-          <Loading>
-            <Loader size={38} />
-          </Loading>
-        )}
+        {hasNextPage && <LoadingIndicator />}
       </Page>
     </>
   );
