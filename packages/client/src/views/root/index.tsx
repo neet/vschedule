@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { styled } from 'src/styles';
+import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
+import { styled, ThemeContext } from 'src/styles';
 import { Activities } from 'src/views/activities';
 import { renderNotFound } from 'src/views/not-found';
 import { Performers } from 'src/views/performers';
@@ -9,6 +11,7 @@ import { Search } from 'src/views/search';
 import { Banner } from 'src/components/banner';
 import { Sidebar } from 'src/components/sidebar';
 import { GlobalStyle } from 'src/styles/global-style';
+import { Seo } from 'src/components/seo';
 
 const Wrapper = styled.main`
   display: flex;
@@ -25,8 +28,47 @@ const Content = styled.div`
 `;
 
 export const Root = () => {
+  const { t } = useTranslation();
+
+  const theme = useContext(ThemeContext);
+  const rootUrl = process.env.PUBLIC_URL;
+
   return (
     <>
+      <Seo
+        title={t('meta.title', {
+          defaultValue: 'Refined Itsukara.link',
+        })}
+        description={t('meta.description', {
+          defaultValue: '✨ itsukara.link with refined interface!',
+        })}
+      />
+
+      <Helmet>
+        <meta name="theme-color" content={theme.highlightNormal} />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
+
+        <link
+          rel="mask-icon"
+          href="/mask-icon.svg"
+          color={theme.highlightNormal}
+        />
+
+        <meta
+          name="apple-mobile-web-app-title"
+          content={t('meta.title', {
+            defaultValue: 'Refined Itsukara.link',
+          })}
+        />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta property="og:url" content={rootUrl} />
+        <meta property="og:image" content={`${rootUrl}/screenshot.png`} />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
+
       <GlobalStyle />
 
       <Wrapper>

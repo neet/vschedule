@@ -2,23 +2,18 @@
   "activities": {
     "page_title": "Activities - Refined Itsukara.link"
   },
-  "banner": {
-    "open_original": "Open Original",
-    "view_source": "View Source",
-    "view_twitter": "View Twitter"
-  },
   "date_picker": {
     "back": "Go back",
     "forward": "Go forward"
   },
-  "description": "✨ itsukara.link with refined interface!",
+  "meta": {
+    "description": "✨ itsukara.link with refined interface!",
+    "title": "Refined Itsukara.link",
+    "title_short": "Ril"
+  },
   "not_found": {
     "description": "You hit the void",
     "page_title": "Not found - Refined Itsukara.link"
-  },
-  "performer": {
-    "activities": "Activities",
-    "teams": "Collaborations"
   },
   "performers": {
     "description": "List of performers that are belongs to Nijisanji",
@@ -28,36 +23,29 @@
   "search": {
     "activities": "Activities",
     "categories": "Categories",
+    "not_found": "No search result",
     "page_title": "Search result for \"{{value}}\" - Refined Itsukara.link",
     "performers": "Performers",
     "placeholder": "Search",
     "result": "Search result for \"{{value}}\"",
-    "teams": "Collaborations"
+    "teams": "Collaborations",
+    "title": "Type keywords to search for activities, performers, categories etc"
   },
   "sidebar": {
     "activities": "Activities",
+    "categories": "Categories",
     "disclaimer": "This website is unofficially made by a fan of Nijisanji and not related to Ichikara Inc. at all. The project is open source software. You can contribute or report issue on <2>GitHub</2>.",
-    "no_streaming": "There's no streaming on air",
     "performers": "Performers",
-    "tags": "Tags",
-    "teams": "Collaborations",
-    "title": "<0>{{count}}</0> streaming is on air",
-    "title_plural": "<0>{{count}}</0> streamings are on air"
+    "teams": "Collaborations"
   },
   "teams": {
     "description": "List of collaborations of Nijisanji",
     "page_title": "Collaboration of Nijisanji - Refined Itsukara.link",
     "title": "Collaboration"
   },
-  "timeline": {
-    "now": "{{count}} LIVE",
-    "now_plural": "{{count}} LIVES"
-  },
   "timetable": {
     "loading": "Loading Timetable..."
   },
-  "title": "Refined itsukara.link",
-  "title_short": "Ril",
   "today": {
     "label": "Today"
   }

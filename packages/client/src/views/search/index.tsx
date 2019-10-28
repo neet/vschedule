@@ -1,11 +1,11 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { styled } from 'src/styles';
 import { SearchResult } from 'src/components/search-result';
 import { useSearchQuery } from 'src/generated/graphql';
 import { Page } from 'src/components/page';
+import { Seo } from 'src/components/seo';
 
 const Title = styled.h2`
   margin: 8px 0;
@@ -30,15 +30,12 @@ export const Search = () => {
 
   return (
     <>
-      <Helmet>
-        <title>
-          {t('search.page_title', {
-            defaultValue:
-              'Search result for "{{value}}" - Refined Itsukara.link',
-            value: q,
-          })}
-        </title>
-      </Helmet>
+      <Seo
+        title={t('search.page_title', {
+          defaultValue: 'Search result for "{{value}}" - Refined Itsukara.link',
+          value: q,
+        })}
+      />
 
       <Page>
         <Title>

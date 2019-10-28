@@ -219,7 +219,7 @@ export const SearchForm = (props: SearchFormProps) => {
           <SearchResult result={result} selectedIndex={selectedIndex} />
         ) : (
           // TODO: this won't work
-          t('search.not_found', { defaultValue: 'Not search result' })
+          t('search.not_found', { defaultValue: 'No search result' })
         )}
       </ResultWrapper>
     </Wrapper>

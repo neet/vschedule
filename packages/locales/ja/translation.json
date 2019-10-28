@@ -2,25 +2,18 @@
   "activities": {
     "page_title": "にじさんじの配信一覧 - Refined Itsukara.link"
   },
-  "banner": {
-    "open_original": "元サイトを表示",
-    "today": "今日の配信",
-    "view_source": "ソースを表示",
-    "view_twitter": "Twitterを表示"
-  },
   "date_picker": {
     "back": "戻る",
     "forward": "進む"
   },
-  "description": "✨ いつから.linkに洗練されたインターフェースを添えて",
+  "meta": {
+    "description": "✨ いつから.linkに洗練されたインターフェイスを添えて!",
+    "title": "Refined Itsukara.link",
+    "title_short": "Ril"
+  },
   "not_found": {
     "description": "ページが見つかりませんでした",
-    "page_title": "Not found - Refined Itsukara.link",
-    "title": "ページが見つかりません - Refined Itsukara.link"
-  },
-  "performer": {
-    "activities": "最近の配信",
-    "teams": "ユニット"
+    "page_title": "ページが見つかりません - Refined Itsukara.link"
   },
   "performers": {
     "description": "にじさんじに所属するライバーの一覧です",
@@ -30,34 +23,29 @@
   "search": {
     "activities": "配信",
     "categories": "カテゴリー",
+    "not_found": "検索結果がありませんでした、他のキーワードをお試しください。",
     "page_title": "「{{value}}」の検索結果 - Refined Itsukara.link",
     "performers": "ライバー",
     "placeholder": "検索",
     "result": "「{{value}}」の検索結果",
-    "teams": "ユニット"
+    "teams": "ユニット",
+    "title": "キーワードを入力して配信、ライバー、ユニットを検索できます。"
   },
   "sidebar": {
     "activities": "配信",
+    "categories": "カテゴリー",
     "disclaimer": "このサイトはファンが非公式に制作したもので、いちから株式会社とは一切関係がありません。プロジェクトはオープンソースソフトウェアで、<2>GitHub</2>で問題を報告したり開発に参加することができます。",
-    "no_streaming": "放送中の配信はありません",
     "performers": "ライバー",
-    "tags": "カテゴリー",
-    "teams": "ユニット",
-    "title": "<0>{{count}}人</0>が配信中"
+    "teams": "ユニット"
   },
   "teams": {
     "description": "にじさんじのコラボユニットの一覧です",
     "page_title": "にじさんじのコラボユニット一覧 - Refined Itsukara.link",
     "title": "ユニット"
   },
-  "timeline": {
-    "now": "{{count}}人が配信中"
-  },
   "timetable": {
     "loading": "スケジュールを読み込んでいます"
   },
-  "title": "Refined itsukara.link",
-  "title_short": "Ril",
   "today": {
     "label": "今日の配信"
   }

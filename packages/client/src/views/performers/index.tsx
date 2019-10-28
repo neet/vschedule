@@ -1,5 +1,4 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import throttle from 'lodash.throttle';
 import { usePerformers } from 'src/hooks/use-performers';
@@ -8,6 +7,7 @@ import { Performer } from 'src/components/performer';
 import { Page } from 'src/components/page';
 import { Card } from 'src/components/card';
 import { LoadingIndicator } from 'src/components/loading-indicator';
+import { Seo } from 'src/components/seo';
 
 const Title = styled.h2`
   margin: 8px 0;
@@ -44,13 +44,14 @@ export const Performers = React.memo(() => {
 
   return (
     <>
-      <Helmet>
-        <title>
-          {t('performers.page_title', {
-            defaultValue: 'Performers of Nijisanji - Refined Itsukara.link',
-          })}
-        </title>
-      </Helmet>
+      <Seo
+        title={t('performers.page_title', {
+          defaultValue: 'Performers of Nijisanji - Refined Itsukara.link',
+        })}
+        description={t('performers.description', {
+          defaultValue: 'List of performers that are belongs to Nijisanji',
+        })}
+      />
 
       <Page onScroll={handleScroll}>
         <Title>{t('performers.title', { defaultValue: 'Performers' })}</Title>

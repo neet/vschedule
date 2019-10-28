@@ -188,7 +188,9 @@ export const Sidebar = () => {
                   <Hash />
                 </Icon>
 
-                <Name>{t('sidebar.tags', { defaultValue: 'Tags' })}</Name>
+                <Name>
+                  {t('sidebar.categories', { defaultValue: 'Categories' })}
+                </Name>
 
                 <Chevron>
                   {categoriesExpanded ? <ChevronUp /> : <ChevronDown />}

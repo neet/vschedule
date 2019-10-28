@@ -14,8 +14,8 @@ router.use('/sw.js', (_, res) => {
 // Progressive web app
 router.use('/manifest.json', ({ i18n }, res) => {
   res.json({
-    name: i18n.t('title', { defaultValue: 'Refined itsukara.link' }),
-    short_name: i18n.t('title_short', { defaultValue: 'Ril' }),
+    name: i18n.t('meta.title', { defaultValue: 'Refined itsukara.link' }),
+    short_name: i18n.t('meta.title_short', { defaultValue: 'Ril' }),
     display: 'standalone',
     icons: [
       {
@@ -26,7 +26,7 @@ router.use('/manifest.json', ({ i18n }, res) => {
     ],
     start_url: '/activities',
     theme_color: '#F80652',
-    background_color: '##C70542',
+    background_color: '#C70542',
   });
 });
 
