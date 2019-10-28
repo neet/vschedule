@@ -1,8 +1,8 @@
 <h1 align="center">
-  <img src="https://github.com/neet/refined-itsukara-link/blob/master/packages/client/src/assets/logo-large.png?raw=true" alt="Refined itsukara.link" width="300px"/>
+  <img src="https://raw.githubusercontent.com/neet/refined-itsukara-link/master/packages/arts/static/logo-large.png" alt="Refined itsukara.link" width="300px"/>
 </h1>
 
-<img src="https://github.com/neet/refined-itsukara-link/blob/master/packages/client/static/screenshot.png?raw=true" alt="Screenshot">
+<img src="https://raw.githubusercontent.com/neet/refined-itsukara-link/master/packages/arts/static/screenshot.png" alt="Screenshot">
 
 <p align="center">✨ itsukara.link with refined interface! ✨</p>
 
