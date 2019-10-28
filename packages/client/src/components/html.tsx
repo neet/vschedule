@@ -15,7 +15,7 @@ export const Html = (props: HtmlProps) => {
   const { i18n } = useTranslation();
 
   return (
-    <html lang={i18n.language} {...helmet.htmlAttributes.toComponent()}>
+    <html lang={i18n.language}>
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,7 +26,7 @@ export const Html = (props: HtmlProps) => {
         {elements}
       </head>
 
-      <body {...helmet.bodyAttributes.toComponent()}>
+      <body>
         <div
           id="root"
           role="application"
