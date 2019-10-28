@@ -36,7 +36,7 @@ export const LiverYoutubeChannelCodec = t.type({
   liver_id: t.number,
   channel: t.string,
   channel_name: t.string,
-  creation_order: t.string,
+  creation_order: t.number,
 });
 export type LiverYoutubeChannel = t.TypeOf<typeof LiverYoutubeChannelCodec>;
 
