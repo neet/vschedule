@@ -13,13 +13,16 @@ const Wrapper = styled.div`
 `;
 
 const Icon = styled.div`
+  width: 38px;
+  height: 38px;
   animation: ${spin} 2s ease-in-out infinite;
   color: ${({ theme }) => theme.foregroundLight};
 `;
 
 const Description = styled.p`
   margin: 8px 0;
-  font-size: 12px;
+  color: ${({ theme }) => theme.foregroundLight};
+  font-size: 14px;
 `;
 
 interface LoadingIndicatorProps {
