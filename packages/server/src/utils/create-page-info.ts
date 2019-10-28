@@ -12,7 +12,7 @@ export const createPageInfo = <T extends PaginationInput>(
   const { offset = 0 } = input;
 
   const hasNextPage = nodes.length + offset < totalCount;
-  const hasPreviousPage = offset < totalCount;
+  const hasPreviousPage = totalCount - (nodes.length + offset) < 0;
 
   return {
     hasNextPage,
