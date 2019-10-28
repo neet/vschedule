@@ -38,9 +38,9 @@ const Chevron = styled.button`
 export const DatePicker = () => {
   const { t } = useTranslation();
   const { focusedDate } = useFocusedDate();
-  const timetableNode = document.getElementById('timetable');
 
   const handleClickBack = () => {
+    const timetableNode = document.getElementById('timetable');
     if (!timetableNode) return;
 
     timetableNode.scrollBy({
@@ -50,6 +50,7 @@ export const DatePicker = () => {
   };
 
   const handleClickForward = () => {
+    const timetableNode = document.getElementById('timetable');
     if (!timetableNode) return;
 
     timetableNode.scrollBy({
