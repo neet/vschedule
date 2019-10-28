@@ -5,7 +5,7 @@ import {
   EventSubscriber,
 } from 'typeorm';
 import { Team } from 'src/entity/team';
-import { createElasticsearchConnection } from '../elasticsearch';
+import { createElasticsearchConnection, indices } from '../elasticsearch';
 
 @EventSubscriber()
 export class TeamSubscriber implements EntitySubscriberInterface<Team> {
@@ -23,7 +23,7 @@ export class TeamSubscriber implements EntitySubscriberInterface<Team> {
     const es = await createElasticsearchConnection();
 
     return es.update({
-      index: 'team',
+      index: indices.team,
       type: '_doc',
       id: team.id,
       body: {

@@ -5,7 +5,7 @@ import {
   EventSubscriber,
 } from 'typeorm';
 import { Performer } from 'src/entity/performer';
-import { createElasticsearchConnection } from '../elasticsearch';
+import { createElasticsearchConnection, indices } from '../elasticsearch';
 
 @EventSubscriber()
 export class PerformerSubscriber
@@ -24,7 +24,7 @@ export class PerformerSubscriber
     const es = await createElasticsearchConnection();
 
     return es.update({
-      index: 'performer',
+      index: indices.performers,
       type: '_doc',
       id: performer.id,
       body: {

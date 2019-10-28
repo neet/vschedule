@@ -12,9 +12,9 @@ import { createConnection } from './db';
 import { createContext } from './context';
 import { resolvers } from './resolvers';
 import { createI18n } from './utils/locale';
-import { ActivityCron } from './workers/activity';
-import { PerformerCron } from './workers/performer';
-import { CategoryCron } from './workers/category';
+import { ActivityCron } from './cron/activity';
+import { PerformerCron } from './cron/performer';
+import { CategoryCron } from './cron/category';
 import { createElasticsearchConnection } from './elasticsearch';
 import { routes } from './routes';
 
