@@ -6,6 +6,7 @@ import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useSearchForm } from 'src/hooks/use-search-form';
 import { SearchResult } from 'src/components/search-result';
+import { LoadingIndicator } from 'src/components/loading-indicator';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -58,19 +59,17 @@ interface SearchFormProps {
 }
 
 export const SearchForm = (props: SearchFormProps) => {
-  const node = useRef<HTMLDivElement>(null);
-  const inputNode = useRef<HTMLInputElement>(null);
-  const { value, result, onChange } = useSearchForm();
-  const [showResult, changeIfShowResult] = useState(false);
-  const [selectedIndex, select] = useState<number | undefined>();
   const { withResult } = props;
+
   const { t } = useTranslation();
+  const { search, result, loading } = useSearchForm();
   const history = useHistory();
 
-  useEffect(() => {
-    select(undefined);
-    changeIfShowResult(!!value);
-  }, [value]);
+  const node = useRef<HTMLDivElement>(null);
+  const inputNode = useRef<HTMLInputElement>(null);
+  const [value, changeValue] = useState('');
+  const [showResult, changeIfShowResult] = useState(false);
+  const [selectedIndex, select] = useState<number | undefined>();
 
   useEffect(() => {
     if (!node.current) return;
@@ -174,6 +173,16 @@ export const SearchForm = (props: SearchFormProps) => {
     changeIfShowResult(false);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    changeValue(e.currentTarget.value);
+    select(undefined);
+
+    if (e.currentTarget.value) {
+      changeIfShowResult(true);
+      search({ variables: { query: e.currentTarget.value } });
+    }
+  };
+
   return (
     <Wrapper ref={node}>
       <Icon>
@@ -185,18 +194,29 @@ export const SearchForm = (props: SearchFormProps) => {
         role="search"
         value={value}
         ref={inputNode}
+        title={t('search.title', {
+          defaultValue:
+            'Type keywords to search for activities, performers, categories etc',
+        })}
         placeholder={t('search.placeholder', {
           defaultValue: 'Search',
         })}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        onChange={onChange}
+        onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
 
-      {withResult && showResult && result && (
+      {withResult && showResult && (
         <ResultWrapper>
-          <SearchResult result={result} selectedIndex={selectedIndex} />
+          {loading ? (
+            <LoadingIndicator />
+          ) : result ? (
+            <SearchResult result={result} selectedIndex={selectedIndex} />
+          ) : (
+            // TODO: this won't work
+            t('search.not_found', { defaultValue: 'Not search result' })
+          )}
         </ResultWrapper>
       )}
     </Wrapper>
