@@ -1,7 +1,7 @@
 overwrite: true
 schema:
   - ../../node_modules/@ril/schema/schema.gql
-documents: src/graphql/queries/**/*.gql
+documents: src/**/*.gql
 generates:
   src/generated/graphql.tsx:
     plugins:
