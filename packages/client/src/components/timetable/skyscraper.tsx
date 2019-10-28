@@ -13,11 +13,11 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   width: 340px;
   height: calc(100% - 50px);
-  margin: 24px;
-  margin-bottom: -24px;
+  /* margin: 24px; */
+  /* margin-bottom: -24px; */
   padding: 8px 12px;
   overflow: scroll;
-  border-radius: 6px;
+  /* border-radius: 6px; */
   background-color: ${({ theme }) => theme.backgroundNormal};
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.16);
 `;
