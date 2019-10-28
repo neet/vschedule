@@ -45,7 +45,8 @@
     "title": "Collaboration"
   },
   "timetable": {
-    "loading": "Loading Timetable..."
+    "loading": "Loading Timetable...",
+    "not_found": "No activities found"
   },
   "today": {
     "label": "Today"

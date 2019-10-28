@@ -138,7 +138,7 @@ export const SearchResult = (props: SearchResultProps) => {
       />
 
       <SearchResultGroup
-        title={t('search.streamers', { defaultValue: 'Streamers' })}
+        title={t('search.performers', { defaultValue: 'Streamers' })}
         icon={User}
         items={result.performers}
         render={performer => <Performer performer={performer} />}
