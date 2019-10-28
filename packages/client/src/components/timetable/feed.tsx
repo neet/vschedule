@@ -1,7 +1,8 @@
 import React, { useRef, useLayoutEffect, useMemo } from 'react';
 import dayjs from 'dayjs';
 import { usePrevious } from 'react-use';
-import { throttle, debounce } from 'lodash';
+import throttle from 'lodash.throttle';
+import debounce from 'lodash.debounce';
 import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { useFocusedDate } from 'src/hooks/use-focused-date';

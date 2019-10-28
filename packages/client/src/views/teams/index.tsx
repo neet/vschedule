@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
-import { throttle } from 'lodash';
+import throttle from 'lodash.throttle';
 import { styled } from 'src/styles';
 import { Team } from 'src/components/team';
 import { Card } from 'src/components/card';
