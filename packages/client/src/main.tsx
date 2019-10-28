@@ -39,7 +39,7 @@ import { LocalStateProvider } from './context';
     cache,
     typeDefs,
     link: new HttpLink({ uri: '/graphql' }),
-    ssrForceFetchDelay: 100,
+    // ssrForceFetchDelay: 100,
   });
 
   const i18n = createI18n();
