@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { styled } from 'src/styles';
 import { Search } from 'react-feather';
 import { useHistory } from 'react-router';
+import { animated, useTransition } from 'react-spring';
 import { useTranslation } from 'react-i18next';
 import { useSearchForm } from 'src/hooks/use-search-form';
 import { SearchResult } from 'src/components/search-result';
@@ -41,11 +42,7 @@ const Icon = styled.span`
   color: ${({ theme }) => theme.foregroundLight};
 `;
 
-interface ResultWrapperProps {
-  show?: boolean;
-}
-
-const ResultWrapper = styled.div<ResultWrapperProps>`
+const ResultWrapper = styled(animated.div)`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -54,7 +51,6 @@ const ResultWrapper = styled.div<ResultWrapperProps>`
   margin-top: 38px;
   overflow: scroll;
   border-radius: 6px;
-  opacity: ${({ show }) => (show ? '1' : '0')};
   background-color: ${({ theme }) => theme.backgroundWash};
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 `;
@@ -75,6 +71,24 @@ export const SearchForm = (props: SearchFormProps) => {
   const [value, changeValue] = useState('');
   const [showResult, changeIfShowResult] = useState(false);
   const [selectedIndex, select] = useState<number | undefined>();
+
+  const transitions = useTransition(withResult && showResult, null, {
+    from: {
+      opacity: 1,
+      transform: `scalex(0.85) scaley(0.75)`,
+    },
+    enter: {
+      opacity: 1,
+      transform: `scalex(1) scaley(1)`,
+    },
+    leave: {
+      opacity: 1,
+      transform: `scalex(0.85) scaley(0.75)`,
+    },
+    config: {
+      duration: 100,
+    },
+  });
 
   useEffect(() => {
     if (!node.current) return;
@@ -212,16 +226,21 @@ export const SearchForm = (props: SearchFormProps) => {
         onKeyDown={handleKeyDown}
       />
 
-      <ResultWrapper show={withResult && showResult}>
-        {loading ? (
-          <LoadingIndicator />
-        ) : result ? (
-          <SearchResult result={result} selectedIndex={selectedIndex} />
-        ) : (
-          // TODO: this won't work
-          t('search.not_found', { defaultValue: 'No search result' })
-        )}
-      </ResultWrapper>
+      {transitions.map(
+        ({ item, key, props }) =>
+          item && (
+            <ResultWrapper key={key} style={props}>
+              {loading ? (
+                <LoadingIndicator />
+              ) : result ? (
+                <SearchResult result={result} selectedIndex={selectedIndex} />
+              ) : (
+                // TODO: this won't work
+                t('search.not_found', { defaultValue: 'No search result' })
+              )}
+            </ResultWrapper>
+          ),
+      )}
     </Wrapper>
   );
 };

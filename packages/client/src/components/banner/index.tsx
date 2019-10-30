@@ -1,15 +1,13 @@
-import { Menu, Search, X } from 'react-feather';
-import React, { useState } from 'react';
-import { Route, useHistory } from 'react-router';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { styled } from 'src/styles';
-import { DatePicker } from 'src/components/date-picker';
-import { useSidebar } from 'src/hooks/use-sidebar';
 import {
   SearchForm,
   Wrapper as SearchFormWrapper,
 } from 'src/components/search-form';
-import { Button } from 'src/components/button';
+import { Navigation } from 'src/components/navigation';
+import { Link } from 'react-router-dom';
+import logo from '@ril/arts/static/logo-small.png';
 
 const Wrapper = styled.header`
   display: flex;
@@ -30,47 +28,11 @@ const Wrapper = styled.header`
   }
 `;
 
-const Inner = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-
-  & > *:not(:last-child) {
-    margin-right: 18px;
-  }
-
-  ${SearchFormWrapper} {
-    flex: 1 0 auto;
-  }
-`;
-
-const Flex = styled.div`
+const RightInner = styled.div`
   display: flex;
   flex: 1 0 auto;
   align-items: center;
   justify-content: center;
-
-  @media screen and (min-width: 700px) {
-    justify-content: flex-start;
-    margin-left: auto;
-  }
-`;
-
-const CompactTools = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-
-  @media screen and (min-width: 700px) {
-    display: none;
-  }
-`;
-
-const LargeTools = styled.div`
-  display: none;
-  flex: 1 0 auto;
-  align-items: center;
-  justify-content: flex-end;
 
   & > *:not(:last-child) {
     margin-right: 18px;
@@ -81,60 +43,50 @@ const LargeTools = styled.div`
   }
 
   @media screen and (min-width: 700px) {
+    justify-content: flex-start;
+    margin-left: auto;
+  }
+`;
+
+const Logo = styled.img`
+  width: auto;
+  height: 30px;
+`;
+
+const LeftInner = styled.div`
+  display: none;
+  flex: 1 0 auto;
+  align-items: center;
+  justify-content: flex-end;
+
+  & > *:not(:last-child) {
+    margin-right: 18px;
+  }
+
+  @media screen and (min-width: 700px) {
     display: flex;
   }
 `;
 
 export const Banner = () => {
-  const [showSearchForm, changeifShowSearchForm] = useState();
-  const { toggle } = useSidebar();
-  const history = useHistory();
   const { t } = useTranslation();
 
   return (
     <Wrapper>
-      {showSearchForm ? (
-        <Inner>
-          <SearchForm />
+      <RightInner>
+        <Link to="/">
+          <Logo
+            src={logo}
+            alt={t('meta.title', { defaultValue: 'Refined Itsukara.link' })}
+          />
+        </Link>
 
-          <Button
-            appearance="skeleton"
-            onClick={() => changeifShowSearchForm(false)}
-          >
-            <X />
-          </Button>
-        </Inner>
-      ) : (
-        <>
-          <Button appearance="skeleton" onClick={toggle}>
-            <Menu />
-          </Button>
+        <SearchForm withResult />
+      </RightInner>
 
-          <Flex>
-            <Route path="/activities" component={DatePicker} />
-          </Flex>
-
-          <CompactTools>
-            <Button
-              appearance="skeleton"
-              onClick={() => changeifShowSearchForm(true)}
-            >
-              <Search />
-            </Button>
-          </CompactTools>
-
-          <LargeTools>
-            <SearchForm withResult />
-
-            <Button
-              appearance="primary"
-              onClick={() => history.push('/activities')}
-            >
-              {t('today.label', { defaultValue: 'Today' })}
-            </Button>
-          </LargeTools>
-        </>
-      )}
+      <LeftInner>
+        <Navigation />
+      </LeftInner>
     </Wrapper>
   );
 };

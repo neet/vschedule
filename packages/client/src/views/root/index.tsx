@@ -9,7 +9,6 @@ import { Performers } from 'src/views/performers';
 import { Teams } from 'src/views/teams';
 import { Search } from 'src/views/search';
 import { Banner } from 'src/components/banner';
-import { Sidebar } from 'src/components/sidebar';
 import { GlobalStyle } from 'src/styles/global-style';
 import { Seo } from 'src/components/seo';
 
@@ -72,8 +71,6 @@ export const Root = () => {
       <GlobalStyle />
 
       <Wrapper>
-        <Sidebar />
-
         <Content>
           <Banner />
           <Switch>
