@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Modal as DefaultModal } from 'react-overlays';
 import { Search } from 'react-feather';
 import { SearchForm } from 'src/components/search-form';
 import { Button } from 'src/components/button';
 import { styled } from 'src/styles';
 import { MODAL } from 'src/styles/z-indices';
+import { animated } from 'react-spring';
+import { Modal } from '../modal';
 
 const Wrapper = styled.div`
   display: block;
@@ -15,7 +16,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Modal = styled(DefaultModal)`
+const SearchFormWrapper = styled(animated.div)`
   display: block;
   position: fixed;
   z-index: ${MODAL};
@@ -27,16 +28,6 @@ const Modal = styled(DefaultModal)`
   margin: 18px auto 0px;
 `;
 
-const Backdrop = styled.div`
-  position: fixed;
-  z-index: ${MODAL - 1};
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-`;
-
 export const CompactSearchForm = () => {
   const [show, setShow] = useState(false);
 
@@ -46,16 +37,16 @@ export const CompactSearchForm = () => {
         <Search />
       </Button>
 
-      <Modal
-        show={show}
-        onHide={() => setShow(false)}
-        renderBackdrop={props => <Backdrop {...props} />}
-      >
-        <SearchForm
-          withResult
-          onEnter={() => setShow(false)}
-          onBlur={() => setShow(false)}
-        />
+      <Modal show={show} onHide={() => setShow(false)}>
+        {show && (
+          <SearchFormWrapper>
+            <SearchForm
+              withResult
+              onEnter={() => setShow(false)}
+              onBlur={() => setShow(false)}
+            />
+          </SearchFormWrapper>
+        )}
       </Modal>
     </Wrapper>
   );

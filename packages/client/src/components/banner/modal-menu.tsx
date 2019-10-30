@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { styled } from 'src/styles';
-import { Modal as DefaultModal } from 'react-overlays';
+import { animated, useTransition, config } from 'react-spring';
 import { Menu } from 'react-feather';
+import { styled } from 'src/styles';
+import { Modal } from 'src/components/modal';
 import { Button } from 'src/components/button';
-import { MODAL } from 'src/styles/z-indices';
 import { Navigation } from 'src/components/navigation';
+import { MODAL } from 'src/styles/z-indices';
 
 const Wrapper = styled.div`
   & > button {
@@ -16,7 +17,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Modal = styled(DefaultModal)`
+const NavigationWrapper = styled(animated.div)`
   position: fixed;
   z-index: ${MODAL};
   top: 0;
@@ -28,31 +29,40 @@ const Modal = styled(DefaultModal)`
   background-color: ${({ theme }) => theme.backgroundNormal};
 `;
 
-const Backdrop = styled.div`
-  position: fixed;
-  z-index: ${MODAL - 1};
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-`;
-
 export const ModalMenu = () => {
-  const [showModalNav, setShowModalNav] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const modalTransitions = useTransition(show, null, {
+    from: {
+      opacity: 0,
+      transform: 'translateX(-50px)',
+    },
+    enter: {
+      opacity: 1,
+      transform: 'translateX(0px)',
+    },
+    leave: {
+      opacity: 0,
+      transform: 'translateX(-50px)',
+    },
+    config: config.stiff,
+  });
 
   return (
     <Wrapper>
       <Button appearance="skeleton">
-        <Menu onClick={() => setShowModalNav(true)} />
+        <Menu onClick={() => setShow(true)} />
       </Button>
 
-      <Modal
-        show={showModalNav}
-        onHide={() => setShowModalNav(false)}
-        renderBackdrop={props => <Backdrop {...props} />}
-      >
-        <Navigation />
+      <Modal show={show} onHide={() => setShow(false)}>
+        {modalTransitions.map(
+          ({ item, key, props }) =>
+            item && (
+              <NavigationWrapper key={key} style={props}>
+                <Navigation />
+              </NavigationWrapper>
+            ),
+        )}
       </Modal>
     </Wrapper>
   );

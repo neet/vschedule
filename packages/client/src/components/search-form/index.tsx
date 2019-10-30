@@ -78,16 +78,16 @@ export const SearchForm = (props: SearchFormProps) => {
 
   const transitions = useTransition(withResult && showResult, null, {
     from: {
-      opacity: 1,
-      transform: `scalex(0.85) scaley(0.75)`,
+      opacity: 0,
+      transform: `scaleX(0.85) scaleY(0.75)`,
     },
     enter: {
       opacity: 1,
-      transform: `scalex(1) scaley(1)`,
+      transform: `scaleX(1) scaleY(1)`,
     },
     leave: {
       opacity: 1,
-      transform: `scalex(0.85) scaley(0.75)`,
+      transform: `scaleX(0.85) scaleY(0.75)`,
     },
     config: {
       duration: 100,

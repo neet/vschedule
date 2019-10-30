@@ -31,6 +31,14 @@ const makeMarkerProps = (
   return { x, y, width };
 };
 
+const Wrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;
+
 const MarkerWrapper = styled.div`
   position: absolute;
   top: 60px;
@@ -77,7 +85,7 @@ export const MarkerList = (props: MarkerListProps) => {
     .sort((a, b) => sortEvents(a.activity, b.activity));
 
   return (
-    <div>
+    <Wrapper>
       {markers.map(({ activity, row }, i) => (
         <MarkerWrapper key={`${i}-${activity.id}`}>
           <Marker
@@ -103,6 +111,6 @@ export const MarkerList = (props: MarkerListProps) => {
           <LoadingIndicator />
         </LoadingIndicatorContainer>
       )}
-    </div>
+    </Wrapper>
   );
 };
