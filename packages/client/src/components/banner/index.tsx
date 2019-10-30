@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { styled } from 'src/styles';
 import {
@@ -8,10 +8,9 @@ import {
 import { Navigation } from 'src/components/navigation';
 import { Link } from 'react-router-dom';
 import logo from '@ril/arts/static/logo-small.png';
-import { Menu, Search } from 'react-feather';
-import { Button } from 'src/components/button';
-import { Modal as DefaultModal } from 'react-overlays';
-import { BANNER, MODAL } from 'src/styles/z-indices';
+import { BANNER } from 'src/styles/z-indices';
+import { ModalMenu } from './modal-menu';
+import { CompactSearchForm } from './compact-search-form';
 
 const Wrapper = styled.header`
   display: flex;
@@ -51,14 +50,6 @@ const LeftInner = styled.div`
     }
   }
 
-  & > button {
-    display: block;
-
-    @media screen and (min-width: 700px) {
-      display: none;
-    }
-  }
-
   @media screen and (min-width: 700px) {
     justify-content: flex-start;
     margin-left: auto;
@@ -94,36 +85,6 @@ const RightInner = styled.div`
       display: block;
     }
   }
-
-  & > button {
-    display: block;
-
-    @media screen and (min-width: 700px) {
-      display: none;
-    }
-  }
-`;
-
-const Modal = styled(DefaultModal)`
-  position: fixed;
-  z-index: ${MODAL};
-  top: 0;
-  left: 0;
-  box-sizing: border-box;
-  min-width: 70%;
-  height: 100%;
-  padding: 21px;
-  background-color: ${({ theme }) => theme.backgroundNormal};
-`;
-
-const Backdrop = styled.div`
-  position: fixed;
-  z-index: ${MODAL - 1};
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
 `;
 
 const Logo = () => {
@@ -140,43 +101,25 @@ const Logo = () => {
 };
 
 export const Banner = () => {
-  const [showModalNav, setShowModalNav] = useState(false);
-
   return (
     <Wrapper>
       <LeftInner>
         {/* Desktop */}
         <Logo />
         <SearchForm withResult />
-
         {/* Mobile */}
-        <Button appearance="skeleton">
-          <Menu onClick={() => setShowModalNav(true)} />
-        </Button>
+        <ModalMenu />
       </LeftInner>
-
       {/* Mobile */}
       <CentreInner>
         <Logo />
       </CentreInner>
-
       <RightInner>
         {/* Desktop */}
         <Navigation />
-
         {/* Mobile */}
-        <Button appearance="skeleton">
-          <Search />
-        </Button>
+        <CompactSearchForm />
       </RightInner>
-
-      <Modal
-        show={showModalNav}
-        onHide={() => setShowModalNav(false)}
-        renderBackdrop={props => <Backdrop {...props} />}
-      >
-        <Navigation />
-      </Modal>
     </Wrapper>
   );
 };

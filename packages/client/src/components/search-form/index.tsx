@@ -57,10 +57,12 @@ const ResultWrapper = styled(animated.div)`
 
 interface SearchFormProps {
   withResult?: boolean;
+  onEnter?: () => void;
+  onBlur?: () => void;
 }
 
 export const SearchForm = (props: SearchFormProps) => {
-  const { withResult } = props;
+  const { withResult, onEnter, onBlur } = props;
 
   const { t } = useTranslation();
   const { search, result, loading } = useSearchForm();
@@ -111,6 +113,10 @@ export const SearchForm = (props: SearchFormProps) => {
 
     if (node.current) {
       node.current.blur();
+    }
+
+    if (onEnter) {
+      onEnter();
     }
   };
 
@@ -190,6 +196,10 @@ export const SearchForm = (props: SearchFormProps) => {
 
   const handleBlur = () => {
     changeIfShowResult(false);
+
+    if (onBlur) {
+      onBlur();
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
