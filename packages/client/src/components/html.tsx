@@ -32,6 +32,7 @@ export const Html = (props: HtmlProps) => {
           role="application"
           dangerouslySetInnerHTML={{ __html: content }}
         />
+        <div id="modal" />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.__APOLLO_STATE__=${JSON.stringify(state).replace(
