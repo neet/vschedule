@@ -8,6 +8,8 @@ import {
 import { Navigation } from 'src/components/navigation';
 import { Link } from 'react-router-dom';
 import logo from '@ril/arts/static/logo-small.png';
+import { Menu, Search } from 'react-feather';
+import { Button } from '../button';
 
 const Wrapper = styled.header`
   display: flex;
@@ -16,7 +18,7 @@ const Wrapper = styled.header`
   box-sizing: border-box;
   flex: 0 0 auto;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
   height: 50px;
   padding: 8px 14px;
@@ -28,18 +30,35 @@ const Wrapper = styled.header`
   }
 `;
 
-const RightInner = styled.div`
+const LeftInner = styled.div`
   display: flex;
   flex: 1 0 auto;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
-  & > *:not(:last-child) {
-    margin-right: 18px;
+  & > a {
+    margin-right: 12px;
   }
 
   ${SearchFormWrapper} {
     width: 320px;
+  }
+
+  & > a,
+  ${SearchFormWrapper} {
+    display: none;
+
+    @media screen and (min-width: 700px) {
+      display: block;
+    }
+  }
+
+  & > button {
+    display: block;
+
+    @media screen and (min-width: 700px) {
+      display: none;
+    }
   }
 
   @media screen and (min-width: 700px) {
@@ -48,45 +67,86 @@ const RightInner = styled.div`
   }
 `;
 
-const Logo = styled.img`
+const CentreInner = styled.div`
+  display: flex;
+  flex: 1 0 auto;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (min-width: 700px) {
+    display: none;
+  }
+`;
+
+const LogoImage = styled.img`
   width: auto;
   height: 30px;
 `;
 
-const LeftInner = styled.div`
-  display: none;
+const RightInner = styled.div`
+  display: flex;
   flex: 1 0 auto;
   align-items: center;
   justify-content: flex-end;
 
-  & > *:not(:last-child) {
-    margin-right: 18px;
+  nav {
+    display: none;
+
+    @media screen and (min-width: 700px) {
+      display: block;
+    }
   }
 
-  @media screen and (min-width: 700px) {
-    display: flex;
+  & > button {
+    display: block;
+
+    @media screen and (min-width: 700px) {
+      display: none;
+    }
   }
 `;
 
-export const Banner = () => {
+const Logo = () => {
   const { t } = useTranslation();
 
   return (
+    <Link to="/">
+      <LogoImage
+        src={logo}
+        alt={t('meta.title', { defaultValue: 'Refined Itsukara.link' })}
+      />
+    </Link>
+  );
+};
+
+export const Banner = () => {
+  return (
     <Wrapper>
-      <RightInner>
-        <Link to="/">
-          <Logo
-            src={logo}
-            alt={t('meta.title', { defaultValue: 'Refined Itsukara.link' })}
-          />
-        </Link>
-
-        <SearchForm withResult />
-      </RightInner>
-
       <LeftInner>
-        <Navigation />
+        {/* Desktop */}
+        <Logo />
+        <SearchForm withResult />
+
+        {/* Mobile */}
+        <Button appearance="skeleton">
+          <Menu />
+        </Button>
       </LeftInner>
+
+      {/* Mobile */}
+      <CentreInner>
+        <Logo />
+      </CentreInner>
+
+      <RightInner>
+        {/* Desktop */}
+        <Navigation />
+
+        {/* Mobile */}
+        <Button appearance="skeleton">
+          <Search />
+        </Button>
+      </RightInner>
     </Wrapper>
   );
 };

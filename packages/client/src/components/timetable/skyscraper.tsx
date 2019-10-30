@@ -6,6 +6,7 @@ import { Activity } from 'src/components/activity';
 import { styled } from 'src/styles';
 import { isStreamingNow } from 'src/utils/is-streaming-now';
 import { Trans } from 'react-i18next';
+import { DatePicker } from 'src/components/date-picker';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -77,6 +78,8 @@ export const Skyscraper = (props: SkyscraperProps) => {
 
   return (
     <Wrapper>
+      <DatePicker />
+
       <Title>
         <Trans
           i18nKey={'timetable.streaming_count'}
