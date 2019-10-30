@@ -9,6 +9,7 @@ import { useSearchForm } from 'src/hooks/use-search-form';
 import { SearchResult } from 'src/components/search-result';
 import { LoadingIndicator } from 'src/components/loading-indicator';
 import { SearchResultFragment } from 'src/generated/graphql';
+import debounce from 'lodash.debounce';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -104,6 +105,8 @@ export const SearchForm = (props: SearchFormProps) => {
 
       return false;
     });
+
+  const debouncedSearch = debounce(search, 1000);
 
   useEffect(() => {
     if (!node.current) return;
@@ -221,7 +224,7 @@ export const SearchForm = (props: SearchFormProps) => {
 
     if (e.currentTarget.value) {
       changeIfShowResult(true);
-      search({ variables: { query: e.currentTarget.value } });
+      debouncedSearch({ variables: { query: e.currentTarget.value } });
     }
   };
 
