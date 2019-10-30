@@ -5,7 +5,7 @@ export const indices = {
   activity: [ES_PREFIX, 'activity'].join(''),
   team: [ES_PREFIX, 'team'].join(''),
   category: [ES_PREFIX, 'category'].join(''),
-  performers: [ES_PREFIX, 'performers'].join(''),
+  performers: [ES_PREFIX, 'performer'].join(''),
 };
 
 const settings = {
