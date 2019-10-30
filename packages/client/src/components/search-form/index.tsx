@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useSearchForm } from 'src/hooks/use-search-form';
 import { SearchResult } from 'src/components/search-result';
 import { LoadingIndicator } from 'src/components/loading-indicator';
+import { SearchResultFragment } from 'src/generated/graphql';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -91,6 +92,18 @@ export const SearchForm = (props: SearchFormProps) => {
       duration: 100,
     },
   });
+
+  const hasAnyResult = (
+    result?: SearchResultFragment,
+  ): result is SearchResultFragment =>
+    !!result &&
+    Object.entries(result).some(([, value]) => {
+      if (Array.isArray(value)) {
+        return !!value.length;
+      }
+
+      return false;
+    });
 
   useEffect(() => {
     if (!node.current) return;
@@ -242,10 +255,9 @@ export const SearchForm = (props: SearchFormProps) => {
             <ResultWrapper key={key} style={props}>
               {loading ? (
                 <LoadingIndicator />
-              ) : result ? (
+              ) : hasAnyResult(result) ? (
                 <SearchResult result={result} selectedIndex={selectedIndex} />
               ) : (
-                // TODO: this won't work
                 t('search.not_found', { defaultValue: 'No search result' })
               )}
             </ResultWrapper>
