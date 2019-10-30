@@ -9,26 +9,49 @@ const Wrapper = styled.nav``;
 
 const List = styled.ul`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: flex-start;
+
+  @media screen and (min-width: 700px) {
+    flex-direction: row;
+    align-items: normal;
+  }
 `;
 
 const ListItem = styled.li`
+  width: 100%;
+
   &:not(:last-child) {
-    margin-right: 18px;
+    margin-bottom: 12px;
+  }
+
+  @media screen and (min-width: 700px) {
+    width: auto;
+
+    &:not(:last-child) {
+      margin-right: 18px;
+      margin-bottom: 0;
+    }
   }
 `;
 
 const Icon = styled.span`
   display: flex;
   place-items: center;
-  margin-right: 0.25em;
+  margin-right: 0.5em;
 `;
 
 const Name = styled.span`
+  font-size: 18px;
   font-weight: bold;
+
+  @media screen and (min-width: 700px) {
+    font-size: 14px;
+  }
 `;
 
 const Border = styled.div`
+  display: none;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -42,9 +65,13 @@ const NavLink = styled(DefaultNavLink)`
   display: flex;
   position: relative;
   align-items: center;
-  justify-content: center;
-  min-width: 70px;
+  justify-content: flex-start;
   color: ${({ theme }) => theme.foregroundNormal};
+
+  @media screen and (min-width: 700px) {
+    justify-content: center;
+    min-width: 70px;
+  }
 
   ${Border} {
     display: none;
@@ -59,7 +86,9 @@ const NavLink = styled(DefaultNavLink)`
     color: ${({ theme }) => theme.highlightNormal};
 
     ${Border} {
-      display: block;
+      @media screen and (min-width: 700px) {
+        display: block;
+      }
     }
   }
 `;
