@@ -1,6 +1,7 @@
 import React from 'react';
 import { ActivityFragment } from 'src/generated/graphql';
 import dayjs, { Dayjs } from 'dayjs';
+import { animated, useTransition } from 'react-spring';
 import { Activity } from 'src/components/activity';
 import { styled } from 'src/styles';
 import { isStreamingNow } from 'src/utils/is-streaming-now';
@@ -31,15 +32,10 @@ const Title = styled.h2`
   }
 `;
 
-interface ActivityContainerProps {
-  isStreaming: boolean;
-}
-
-const ActivityContainer = styled.div<ActivityContainerProps>`
+const ActivityContainer = styled(animated.div)`
   margin-bottom: 8px;
   padding-bottom: 8px;
   border-bottom: 1px solid ${({ theme }) => theme.borderNormal};
-  opacity: ${({ isStreaming }) => (isStreaming ? '1' : '0.5')};
 `;
 
 interface SkyscraperProps {
@@ -58,6 +54,27 @@ export const Skyscraper = (props: SkyscraperProps) => {
     isStreamingNow(activity.startAt, activity.endAt, focusedDate),
   );
 
+  const transition = useTransition(activities, activity => activity.id, {
+    from: {
+      // height: '0px',
+      opacity: 0,
+      transform: `translateX(50px)`,
+    },
+    enter: {
+      // height: '56.25px',
+      opacity: 1,
+      transform: `translateX(0px)`,
+    },
+    leave: {
+      // height: '0px',
+      opacity: 0,
+      transform: `translateX(-50px)`,
+    },
+    config: {
+      duration: 250,
+    },
+  });
+
   return (
     <Wrapper>
       <Title>
@@ -71,7 +88,7 @@ export const Skyscraper = (props: SkyscraperProps) => {
       </Title>
 
       <ul>
-        {activities.map(activity => {
+        {transition.map(({ item: activity, key, props }) => {
           const isStreaming = isStreamingNow(
             activity.startAt,
             activity.endAt,
@@ -79,8 +96,10 @@ export const Skyscraper = (props: SkyscraperProps) => {
           );
 
           return (
-            <ActivityContainer key={activity.id} isStreaming={isStreaming}>
-              <Activity activity={activity} withPerforemer />
+            <ActivityContainer key={key} style={props}>
+              <div style={{ opacity: isStreaming ? 1 : 0.5 }}>
+                <Activity activity={activity} withPerforemer />
+              </div>
             </ActivityContainer>
           );
         })}
