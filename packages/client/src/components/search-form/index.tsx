@@ -3,10 +3,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { styled } from 'src/styles';
 import { Search } from 'react-feather';
 import { useHistory } from 'react-router';
+import { animated, useTransition } from 'react-spring';
 import { useTranslation } from 'react-i18next';
 import { useSearchForm } from 'src/hooks/use-search-form';
 import { SearchResult } from 'src/components/search-result';
 import { LoadingIndicator } from 'src/components/loading-indicator';
+import { SearchResultFragment } from 'src/generated/graphql';
+import debounce from 'lodash.debounce';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -41,11 +44,7 @@ const Icon = styled.span`
   color: ${({ theme }) => theme.foregroundLight};
 `;
 
-interface ResultWrapperProps {
-  show?: boolean;
-}
-
-const ResultWrapper = styled.div<ResultWrapperProps>`
+const ResultWrapper = styled(animated.div)`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -54,17 +53,18 @@ const ResultWrapper = styled.div<ResultWrapperProps>`
   margin-top: 38px;
   overflow: scroll;
   border-radius: 6px;
-  opacity: ${({ show }) => (show ? '1' : '0')};
   background-color: ${({ theme }) => theme.backgroundWash};
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 `;
 
 interface SearchFormProps {
   withResult?: boolean;
+  onEnter?: () => void;
+  onBlur?: () => void;
 }
 
 export const SearchForm = (props: SearchFormProps) => {
-  const { withResult } = props;
+  const { withResult, onEnter, onBlur } = props;
 
   const { t } = useTranslation();
   const { search, result, loading } = useSearchForm();
@@ -75,6 +75,38 @@ export const SearchForm = (props: SearchFormProps) => {
   const [value, changeValue] = useState('');
   const [showResult, changeIfShowResult] = useState(false);
   const [selectedIndex, select] = useState<number | undefined>();
+
+  const transitions = useTransition(withResult && showResult, null, {
+    from: {
+      opacity: 0,
+      transform: `scaleX(0.85) scaleY(0.75)`,
+    },
+    enter: {
+      opacity: 1,
+      transform: `scaleX(1) scaleY(1)`,
+    },
+    leave: {
+      opacity: 1,
+      transform: `scaleX(0.85) scaleY(0.75)`,
+    },
+    config: {
+      duration: 100,
+    },
+  });
+
+  const hasAnyResult = (
+    result?: SearchResultFragment,
+  ): result is SearchResultFragment =>
+    !!result &&
+    Object.entries(result).some(([, value]) => {
+      if (Array.isArray(value)) {
+        return !!value.length;
+      }
+
+      return false;
+    });
+
+  const debouncedSearch = debounce(search, 1000);
 
   useEffect(() => {
     if (!node.current) return;
@@ -97,6 +129,10 @@ export const SearchForm = (props: SearchFormProps) => {
 
     if (node.current) {
       node.current.blur();
+    }
+
+    if (onEnter) {
+      onEnter();
     }
   };
 
@@ -176,6 +212,10 @@ export const SearchForm = (props: SearchFormProps) => {
 
   const handleBlur = () => {
     changeIfShowResult(false);
+
+    if (onBlur) {
+      onBlur();
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -184,7 +224,7 @@ export const SearchForm = (props: SearchFormProps) => {
 
     if (e.currentTarget.value) {
       changeIfShowResult(true);
-      search({ variables: { query: e.currentTarget.value } });
+      debouncedSearch({ variables: { query: e.currentTarget.value } });
     }
   };
 
@@ -212,16 +252,20 @@ export const SearchForm = (props: SearchFormProps) => {
         onKeyDown={handleKeyDown}
       />
 
-      <ResultWrapper show={withResult && showResult}>
-        {loading ? (
-          <LoadingIndicator />
-        ) : result ? (
-          <SearchResult result={result} selectedIndex={selectedIndex} />
-        ) : (
-          // TODO: this won't work
-          t('search.not_found', { defaultValue: 'No search result' })
-        )}
-      </ResultWrapper>
+      {transitions.map(
+        ({ item, key, props }) =>
+          item && (
+            <ResultWrapper key={key} style={props}>
+              {loading ? (
+                <LoadingIndicator />
+              ) : hasAnyResult(result) ? (
+                <SearchResult result={result} selectedIndex={selectedIndex} />
+              ) : (
+                t('search.not_found', { defaultValue: 'No search result' })
+              )}
+            </ResultWrapper>
+          ),
+      )}
     </Wrapper>
   );
 };

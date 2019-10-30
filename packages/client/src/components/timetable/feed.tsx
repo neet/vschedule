@@ -6,6 +6,7 @@ import debounce from 'lodash.debounce';
 import { ActivityFragment } from 'src/generated/graphql';
 import { styled } from 'src/styles';
 import { useFocusedDate } from 'src/hooks/use-focused-date';
+import { Skyscraper } from 'src/components/skyscraper';
 import { sortEvents } from 'src/utils/sort-events';
 import { SpellList } from './spell-list';
 import { MarkerList } from './marker-list';
@@ -31,14 +32,24 @@ interface BackgroundProps {
 }
 
 const Background = styled.div<BackgroundProps>`
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: ${({ rowCount }) =>
     rowCount * (MARKER_HEIGHT + MARKER_MARGIN) + 60}px;
   min-height: 100%;
 `;
 
-export const MinuteHand = styled.div`
+const Foreground = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;
+
+const MinuteHand = styled.div`
   display: block;
   position: fixed;
   top: 0;
@@ -72,7 +83,7 @@ export const Feed = (props: FeedProps) => {
   } = props;
 
   const node = useRef<HTMLDivElement>(null);
-  const { setFocusedDate } = useFocusedDate();
+  const { focusedDate, setFocusedDate } = useFocusedDate();
 
   const { timetableStartAt, timetableEndAt } = useMemo(
     () => getTimetableRange(activities),
@@ -154,13 +165,17 @@ export const Feed = (props: FeedProps) => {
         <MinuteHand />
       </Background>
 
-      <MarkerList
-        rows={rows}
-        timetableStartAt={timetableStartAt}
-        timetableEndAt={timetableEndAt}
-        hasNextPage={hasNextPage}
-        hasPreviousPage={hasPreviousPage}
-      />
+      <Foreground>
+        <MarkerList
+          rows={rows}
+          timetableStartAt={timetableStartAt}
+          timetableEndAt={timetableEndAt}
+          hasNextPage={hasNextPage}
+          hasPreviousPage={hasPreviousPage}
+        />
+
+        <Skyscraper activities={activities} focusedDate={focusedDate} />
+      </Foreground>
     </Wrapper>
   );
 };

@@ -46,7 +46,8 @@
   },
   "timetable": {
     "loading": "スケジュールを読み込んでいます",
-    "not_found": "配信が見つかりませんでした"
+    "not_found": "配信が見つかりませんでした",
+    "streaming_count": "<0>{{count}}</0>件の配信"
   },
   "today": {
     "label": "今日の配信"
