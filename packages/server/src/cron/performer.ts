@@ -16,7 +16,7 @@ export class PerformerCron {
   }
 
   private cron = () => {
-    const job = new CronJob('* * * * *', this.collectStreamers);
+    const job = new CronJob('* */1 * * *', this.collectStreamers);
     return job.start();
   };
 

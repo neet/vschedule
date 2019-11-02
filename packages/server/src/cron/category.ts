@@ -15,7 +15,7 @@ export class CategoryCron {
   }
 
   private cron = () => {
-    const job = new CronJob('* * * * *', this.collectCategories);
+    const job = new CronJob('* */1 * * *', this.collectCategories);
     return job.start();
   };
 
