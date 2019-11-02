@@ -14097,10 +14097,10 @@ react-use@^12.9.0:
     ts-easing "^0.2.0"
     tslib "^1.10.0"
 
-react-useportal@^1.0.12:
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/react-useportal/-/react-useportal-1.0.12.tgz#50330d2e87762812d480f68f6a85fb76ec750124"
-  integrity sha512-C5MxFYizjAtMQQxNmhPUQq44qFX8KpQuDhxmLAElvanJeVhtql4477tjK5E76hYD0OwgkKToO3D3AWlhZL7VnA==
+react-useportal@^1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/react-useportal/-/react-useportal-1.0.13.tgz#abfc29f8128756cd7382bff7c81a4f446b792199"
+  integrity sha512-83KpNTXUIHnRVTLeMberIblCtssvRSKCPnG/xT9NW60gDYfU13pQBNQKCVUF8MBK+7LnCQ/ZrOuXl8Mp+iXdXA==
   dependencies:
     use-ssr "^1.0.19"
 
