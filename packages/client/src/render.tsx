@@ -4,7 +4,7 @@ import {
 } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
-import i18next from 'i18next';
+import { i18n } from 'i18next';
 import fetch from 'node-fetch';
 import React from 'react';
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -25,7 +25,7 @@ import { LocalStateProvider } from './context';
 
 export interface RenderParams {
   /** i18next instance */
-  i18n: i18next.i18n;
+  i18n: i18n;
   /** Request pathname */
   location: string;
   /** Built files manifest */
