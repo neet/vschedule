@@ -1,15 +1,15 @@
 import querystring from 'querystring';
 import React, { useState, useEffect, useRef } from 'react';
-import { styled } from 'src/styles';
 import { Search } from 'react-feather';
 import { useHistory } from 'react-router';
-import { animated, useTransition } from 'react-spring';
+import { animated, useTransition, config } from 'react-spring';
+import debounce from 'lodash.debounce';
+import { styled } from 'src/styles';
 import { useTranslation } from 'react-i18next';
 import { useSearchForm } from 'src/hooks/use-search-form';
 import { SearchResult } from 'src/components/search-result';
 import { LoadingIndicator } from 'src/components/loading-indicator';
 import { SearchResultFragment } from 'src/generated/graphql';
-import debounce from 'lodash.debounce';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -57,6 +57,36 @@ const ResultWrapper = styled(animated.div)`
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 `;
 
+const useSpreadTransition = (condition: boolean) => {
+  return useTransition(condition, null, {
+    from: {
+      opacity: 0,
+      transform: `scaleX(0.85) scaleY(0.75)`,
+    },
+    enter: {
+      opacity: 1,
+      transform: `scaleX(1) scaleY(1)`,
+    },
+    leave: {
+      opacity: 0,
+      transform: `scaleX(0.85) scaleY(0.75)`,
+    },
+    config: config.stiff,
+  });
+};
+
+const hasAnyResult = (
+  result?: SearchResultFragment,
+): result is SearchResultFragment =>
+  !!result &&
+  Object.entries(result).some(([, value]) => {
+    if (Array.isArray(value)) {
+      return !!value.length;
+    }
+
+    return false;
+  });
+
 interface SearchFormProps {
   withResult?: boolean;
   onEnter?: () => void;
@@ -76,38 +106,6 @@ export const SearchForm = (props: SearchFormProps) => {
   const [showResult, changeIfShowResult] = useState(false);
   const [selectedIndex, select] = useState<number | undefined>();
 
-  const transitions = useTransition(withResult && showResult, null, {
-    from: {
-      opacity: 0,
-      transform: `scaleX(0.85) scaleY(0.75)`,
-    },
-    enter: {
-      opacity: 1,
-      transform: `scaleX(1) scaleY(1)`,
-    },
-    leave: {
-      opacity: 1,
-      transform: `scaleX(0.85) scaleY(0.75)`,
-    },
-    config: {
-      duration: 100,
-    },
-  });
-
-  const hasAnyResult = (
-    result?: SearchResultFragment,
-  ): result is SearchResultFragment =>
-    !!result &&
-    Object.entries(result).some(([, value]) => {
-      if (Array.isArray(value)) {
-        return !!value.length;
-      }
-
-      return false;
-    });
-
-  const debouncedSearch = debounce(search, 1000);
-
   useEffect(() => {
     if (!node.current) return;
     const item = node.current.querySelector(
@@ -118,23 +116,6 @@ export const SearchForm = (props: SearchFormProps) => {
       item.scrollIntoView({ block: 'nearest' });
     }
   }, [selectedIndex]);
-
-  const handleEnter = () => {
-    history.push({
-      pathname: `/search`,
-      search: querystring.stringify({ q: value }),
-    });
-
-    changeIfShowResult(false);
-
-    if (node.current) {
-      node.current.blur();
-    }
-
-    if (onEnter) {
-      onEnter();
-    }
-  };
 
   const handleArrow = (action: 'up' | 'down') => {
     if (!result || !node.current) return;
@@ -167,10 +148,40 @@ export const SearchForm = (props: SearchFormProps) => {
     }
   };
 
+  const handleDocumentClick = (e: MouseEvent) => {
+    if (
+      node.current &&
+      e.target instanceof Node &&
+      node.current.contains(e.target)
+    ) {
+      return;
+    }
+
+    changeIfShowResult(false);
+  };
+
   useEffect(() => {
+    document.addEventListener('click', handleDocumentClick);
     document.addEventListener('keydown', handleDocumentKeyDown);
-    return () => document.removeEventListener('keydown', handleDocumentKeyDown);
+
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+      document.removeEventListener('keydown', handleDocumentKeyDown);
+    };
   });
+
+  const handleEnter = () => {
+    history.push({
+      pathname: `/search`,
+      search: querystring.stringify({ q: value }),
+    });
+
+    changeIfShowResult(false);
+
+    if (onEnter) {
+      onEnter();
+    }
+  };
 
   const handleEnterItem = () => {
     if (selectedIndex === undefined || !node.current) return;
@@ -199,8 +210,7 @@ export const SearchForm = (props: SearchFormProps) => {
     }
 
     if (e.key === 'Escape') {
-      if (!inputNode.current) return;
-      return inputNode.current.blur();
+      changeIfShowResult(false);
     }
   };
 
@@ -210,13 +220,7 @@ export const SearchForm = (props: SearchFormProps) => {
     }
   };
 
-  const handleBlur = () => {
-    changeIfShowResult(false);
-
-    if (onBlur) {
-      onBlur();
-    }
-  };
+  const debouncedSearch = debounce(search, 1000);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     changeValue(e.currentTarget.value);
@@ -227,6 +231,8 @@ export const SearchForm = (props: SearchFormProps) => {
       debouncedSearch({ variables: { query: e.currentTarget.value } });
     }
   };
+
+  const transitions = useSpreadTransition(!!withResult && !!showResult);
 
   return (
     <Wrapper ref={node}>
@@ -247,7 +253,7 @@ export const SearchForm = (props: SearchFormProps) => {
           defaultValue: 'Search',
         })}
         onFocus={handleFocus}
-        onBlur={handleBlur}
+        onBlur={onBlur}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
