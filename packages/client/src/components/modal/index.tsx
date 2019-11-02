@@ -1,6 +1,7 @@
 import React from 'react';
 import usePortal from 'react-useportal';
 import { useTransition, animated, config } from 'react-spring';
+import NoSSR from 'react-no-ssr';
 import { styled } from 'src/styles';
 import { MODAL } from 'src/styles/z-indices';
 
@@ -20,7 +21,7 @@ interface ModalProps {
   onHide: () => void;
 }
 
-export const Modal = (props: ModalProps) => {
+const ModalPortal = (props: ModalProps) => {
   const { show, children, onHide } = props;
   const { Portal } = usePortal({
     bindTo: document.getElementById('modal') || undefined,
@@ -54,3 +55,9 @@ export const Modal = (props: ModalProps) => {
     </Portal>
   );
 };
+
+export const Modal = (props: ModalProps) => (
+  <NoSSR>
+    <ModalPortal {...props} />
+  </NoSSR>
+);
