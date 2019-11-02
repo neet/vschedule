@@ -28,7 +28,7 @@ const Wrapper = styled.header`
 
 const LeftInner = styled.div`
   display: flex;
-  flex: 1 0 calc(100% / 3);
+  flex: 1 1 calc(100% / 3);
   align-items: center;
   justify-content: flex-start;
 
@@ -48,7 +48,7 @@ const LeftInner = styled.div`
 
 const CentreInner = styled.div`
   display: flex;
-  flex: 1 0 calc(100% / 3);
+  flex: 1 1 auto;
   align-items: center;
   justify-content: center;
 `;
@@ -60,7 +60,7 @@ const LogoImage = styled.img`
 
 const RightInner = styled.div`
   display: flex;
-  flex: 1 0 calc(100% / 3);
+  flex: 1 1 calc(100% / 3);
   align-items: center;
   justify-content: flex-end;
 
@@ -69,7 +69,6 @@ const RightInner = styled.div`
 
     @media screen and (min-width: 700px) {
       display: block;
-      width: 320px;
     }
   }
 `;
