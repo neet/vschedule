@@ -50,17 +50,6 @@ const Name = styled.span`
   }
 `;
 
-const Border = styled.div`
-  display: none;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  margin-bottom: -14px;
-  background-color: ${({ theme }) => theme.highlightNormal};
-`;
-
 const NavLink = styled(DefaultNavLink)`
   display: flex;
   position: relative;
@@ -73,10 +62,6 @@ const NavLink = styled(DefaultNavLink)`
     min-width: 70px;
   }
 
-  ${Border} {
-    display: none;
-  }
-
   &:hover {
     color: ${({ theme }) => theme.foregroundLight};
     text-decoration: none;
@@ -84,12 +69,6 @@ const NavLink = styled(DefaultNavLink)`
 
   &.active {
     color: ${({ theme }) => theme.highlightNormal};
-
-    ${Border} {
-      @media screen and (min-width: 700px) {
-        display: block;
-      }
-    }
   }
 `;
 
@@ -123,7 +102,6 @@ export const Navigation = () => {
             <NavLink to={item.to} activeClassName="active">
               <Icon>{item.icon}</Icon>
               <Name>{item.i18n}</Name>
-              <Border />
             </NavLink>
           </ListItem>
         ))}

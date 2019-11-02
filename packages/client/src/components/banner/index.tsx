@@ -19,7 +19,6 @@ const Wrapper = styled.header`
   box-sizing: border-box;
   flex: 0 0 auto;
   align-items: center;
-  justify-content: flex-start;
   width: 100%;
   height: 50px;
   padding: 8px 14px;
@@ -29,20 +28,11 @@ const Wrapper = styled.header`
 
 const LeftInner = styled.div`
   display: flex;
-  flex: 1 0 auto;
+  flex: 1 0 calc(100% / 3);
   align-items: center;
   justify-content: flex-start;
 
-  & > a {
-    margin-right: 18px;
-  }
-
-  ${SearchFormWrapper} {
-    width: 320px;
-  }
-
-  & > a,
-  ${SearchFormWrapper} {
+  nav {
     display: none;
 
     @media screen and (min-width: 700px) {
@@ -58,13 +48,9 @@ const LeftInner = styled.div`
 
 const CentreInner = styled.div`
   display: flex;
-  flex: 1 0 auto;
+  flex: 1 0 calc(100% / 3);
   align-items: center;
   justify-content: center;
-
-  @media screen and (min-width: 700px) {
-    display: none;
-  }
 `;
 
 const LogoImage = styled.img`
@@ -74,15 +60,16 @@ const LogoImage = styled.img`
 
 const RightInner = styled.div`
   display: flex;
-  flex: 1 0 auto;
+  flex: 1 0 calc(100% / 3);
   align-items: center;
   justify-content: flex-end;
 
-  nav {
+  ${SearchFormWrapper} {
     display: none;
 
     @media screen and (min-width: 700px) {
       display: block;
+      width: 320px;
     }
   }
 `;
@@ -105,18 +92,16 @@ export const Banner = () => {
     <Wrapper>
       <LeftInner>
         {/* Desktop */}
-        <Logo />
-        <SearchForm withResult />
+        <Navigation />
         {/* Mobile */}
         <ModalMenu />
       </LeftInner>
-      {/* Mobile */}
       <CentreInner>
         <Logo />
       </CentreInner>
       <RightInner>
         {/* Desktop */}
-        <Navigation />
+        <SearchForm withResult />
         {/* Mobile */}
         <CompactSearchForm />
       </RightInner>
