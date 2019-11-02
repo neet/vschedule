@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Search } from 'react-feather';
 import { useHistory } from 'react-router';
 import { animated, useTransition, config } from 'react-spring';
-import debounce from 'lodash.debounce';
 import { styled } from 'src/styles';
 import { useTranslation } from 'react-i18next';
 import { useSearchForm } from 'src/hooks/use-search-form';
@@ -220,15 +219,13 @@ export const SearchForm = (props: SearchFormProps) => {
     }
   };
 
-  const debouncedSearch = debounce(search, 1000);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     changeValue(e.currentTarget.value);
     select(undefined);
 
     if (e.currentTarget.value) {
       changeIfShowResult(true);
-      debouncedSearch({ variables: { query: e.currentTarget.value } });
+      search({ variables: { query: e.currentTarget.value } });
     }
   };
 
