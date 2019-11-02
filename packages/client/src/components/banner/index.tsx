@@ -69,6 +69,8 @@ const RightInner = styled.div`
 
     @media screen and (min-width: 700px) {
       display: block;
+      width: 100%;
+      max-width: 320px;
     }
   }
 `;
