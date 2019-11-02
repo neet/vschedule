@@ -29,7 +29,7 @@ const ListItem = styled.li`
     width: auto;
 
     &:not(:last-child) {
-      margin-right: 18px;
+      margin-right: 21px;
       margin-bottom: 0;
     }
   }
@@ -97,17 +97,17 @@ const makeData = (t: TFunction) => [
   {
     to: '/activities',
     i18n: t('sidebar.activities', { defaultValue: 'Activities' }),
-    icon: <Tv size={18} />,
+    icon: <Tv size={21} />,
   },
   {
     to: '/performers',
     i18n: t('sidebar.performers', { defaultValue: 'Streamers' }),
-    icon: <User size={18} />,
+    icon: <User size={21} />,
   },
   {
     to: '/teams',
     i18n: t('sidebar.teams', { defaultValue: 'Collaborations' }),
-    icon: <Users size={18} />,
+    icon: <Users size={21} />,
   },
 ];
 
