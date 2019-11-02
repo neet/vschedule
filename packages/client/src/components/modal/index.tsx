@@ -50,7 +50,7 @@ const ModalPortal = (props: ModalProps) => {
             ),
         )}
 
-        {children}
+        {show ? children : null}
       </>
     </Portal>
   );

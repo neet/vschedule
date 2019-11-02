@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+import NoSSR from 'react-no-ssr';
 import { styled, ThemeContext } from 'src/styles';
 import { Activities } from 'src/views/activities';
 import { renderNotFound } from 'src/views/not-found';
@@ -11,6 +12,7 @@ import { Search } from 'src/views/search';
 import { Banner } from 'src/components/banner';
 import { GlobalStyle } from 'src/styles/global-style';
 import { Seo } from 'src/components/seo';
+import { GettingStarted } from 'src/components/getting-started';
 
 const Wrapper = styled.main`
   display: flex;
@@ -68,8 +70,6 @@ export const Root = () => {
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
-      <GlobalStyle />
-
       <Wrapper>
         <Content>
           <Banner />
@@ -83,6 +83,12 @@ export const Root = () => {
           </Switch>
         </Content>
       </Wrapper>
+
+      <GlobalStyle />
+
+      <NoSSR>
+        <GettingStarted />
+      </NoSSR>
     </>
   );
 };
