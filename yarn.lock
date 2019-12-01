@@ -15888,10 +15888,10 @@ styled-components@^4.4.0:
     stylis-rule-sheet "^0.0.10"
     supports-color "^5.5.0"
 
-stylelint-config-property-sort-order-smacss@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/stylelint-config-property-sort-order-smacss/-/stylelint-config-property-sort-order-smacss-5.0.0.tgz#322cea6273ea82560baa2c6e144fd11d42a0202e"
-  integrity sha512-m6j/RrBtskYJRb8tsRNpkXBl+Ytff2V9E/Vcffr0Bw861bDrITUbYXKeEMIbO1QM8Nw8c8wLO8wUI2BB++ityA==
+stylelint-config-property-sort-order-smacss@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/stylelint-config-property-sort-order-smacss/-/stylelint-config-property-sort-order-smacss-5.2.0.tgz#38886ffe8aa7c4bfeee641351fdaeeb27b682381"
+  integrity sha512-Qz5i+LYxqP8RW0+LV4o8T7g8aT4N4Lqtgxl5b09c5ZWy1TP6HOzMYYSsOAueviCDHewJZ7TE3H8asKsd5AQ8Rw==
   dependencies:
     css-property-sort-order-smacss "^2.1.3"
     stylelint-order "^3.0.0"
