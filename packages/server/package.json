@@ -27,7 +27,7 @@
     "@types/graphql-iso-date": "^3.3.3",
     "@types/node": "^12.11.7",
     "@types/pg": "^7.11.2",
-    "apollo": "^2.21.0",
+    "apollo": "^2.21.1",
     "apollo-link": "^1.2.12",
     "apollo-link-http": "^1.5.15",
     "apollo-server-express": "^2.9.7",
