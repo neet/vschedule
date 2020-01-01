@@ -84,7 +84,7 @@
     "type-zoo": "^3.4.1",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "use-query-params": "^0.4.3",
-    "webpack": "^4.41.2",
+    "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-manifest-plugin": "^2.2.0",
     "webpack-merge": "^4.2.2",
