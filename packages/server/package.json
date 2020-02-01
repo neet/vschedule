@@ -40,7 +40,7 @@
     "graphql": "^14.5.8",
     "graphql-depth-limit": "^1.1.0",
     "graphql-iso-date": "^3.6.1",
-    "i18next": "^19.0.0",
+    "i18next": "^19.1.0",
     "i18next-express-middleware": "^1.8.1",
     "pg": "^7.12.1",
     "reflect-metadata": "^0.1.13",
