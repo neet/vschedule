@@ -47,7 +47,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-styled-components": "^1.10.6",
     "core-js": "^3.3.4",
-    "css-loader": "^3.2.0",
+    "css-loader": "^3.4.2",
     "dayjs": "^1.8.16",
     "dotenv": "^8.2.0",
     "file-loader": "^4.2.0",
