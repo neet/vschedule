@@ -102,7 +102,7 @@
     "@storybook/addon-links": "^5.2.8",
     "@storybook/cli": "^5.2.5",
     "@storybook/react": "^5.2.5",
-    "@testing-library/react": "^9.3.1",
+    "@testing-library/react": "^9.4.1",
     "@types/storybook-react-router": "^1.0.1",
     "@types/storybook__react": "^4.0.2",
     "jest-styled-components": "^6.3.3",
