@@ -27,11 +27,18 @@ export class Team {
   @Column('text')
   name: string;
 
-  @ManyToMany(() => Performer, performer => performer.teams, {
-    onDelete: 'CASCADE',
-  })
+  @ManyToMany(
+    () => Performer,
+    performer => performer.teams,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
   members: Performer[];
 
-  @OneToMany(() => Activity, activity => activity.team)
+  @OneToMany(
+    () => Activity,
+    activity => activity.team,
+  )
   activities: Activity[];
 }
