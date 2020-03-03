@@ -36,11 +36,13 @@ export class ActivityCron {
       }
 
       // TODO: Optimize this
-      const liverRelationships = (await Promise.all(
-        event.livers.map(async liver => {
-          return await this.gateway.fetchLiver(liver.id);
-        }),
-      )).map(response => response.data);
+      const liverRelationships = (
+        await Promise.all(
+          event.livers.map(async liver => {
+            return await this.gateway.fetchLiver(liver.id);
+          }),
+        )
+      ).map(response => response.data);
 
       this.createActivity(event, liverRelationships);
     }
