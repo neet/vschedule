@@ -7,9 +7,9 @@
     "build": "tsc -p ."
   },
   "dependencies": {
-    "fp-ts": "^2.3.1",
-    "gaxios": "^2.1.0",
-    "io-ts": "^2.0.2",
-    "typescript": "^3.6.4"
+    "fp-ts": "^2.5.3",
+    "gaxios": "^2.3.2",
+    "io-ts": "^2.1.2",
+    "typescript": "^3.8.3"
   }
 }
