@@ -71,7 +71,7 @@ export const Performers = React.memo(() => {
                 </ListItem>
               ))
             : performers &&
-              performers.map(node => (
+              performers.map((node) => (
                 <ListItem key={node.id}>
                   <Card>
                     <Performer performer={node} withDescription />

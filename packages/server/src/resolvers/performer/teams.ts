@@ -8,7 +8,7 @@ export const teams: G.PerformerResolvers['teams'] = async (
 ) => {
   const teams = await repositories.team
     .findByMembership(parent.id)
-    .then(teams => teams.map(team => serializeTeam(team)));
+    .then((teams) => teams.map((team) => serializeTeam(team)));
 
   return teams;
 };

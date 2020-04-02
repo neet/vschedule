@@ -12,7 +12,7 @@ export const serializePerformer = (
       ...(entity.youtubeAccounts ? entity.youtubeAccounts : []),
       ...(entity.twitterAccounts ? entity.twitterAccounts : []),
     ],
-    teams: entity.teams ? entity.teams.map(team => serializeTeam(team)) : [],
+    teams: entity.teams ? entity.teams.map((team) => serializeTeam(team)) : [],
     activities: undefined,
   };
 };

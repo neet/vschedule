@@ -20,9 +20,9 @@ interface LocaleState {
 
 export const LocalStateContext = createContext<LocaleState>({
   showSidebar: false,
-  setShowSidebar: _value => {},
+  setShowSidebar: (_value) => {},
   focusedDate: dayjs(),
-  setFocusedDate: _value => {},
+  setFocusedDate: (_value) => {},
 });
 
 export const LocalStateProvider = ({

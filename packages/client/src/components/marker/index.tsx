@@ -65,7 +65,7 @@ export const Marker = (props: MarkerProps) => {
 
   const name = team
     ? team.name
-    : performers.map(performer => performer.name).join(', ');
+    : performers.map((performer) => performer.name).join(', ');
 
   const isLight = useMemo(() => {
     // Calc color brightness difference

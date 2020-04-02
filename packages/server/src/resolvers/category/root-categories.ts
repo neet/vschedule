@@ -8,7 +8,7 @@ export const rootCategories: G.QueryResolvers['categories'] = async (
   { repositories },
 ) => {
   const [categories, count] = await repositories.category.getAllAndCount(input);
-  const nodes = categories.map(category => serializeCategory(category));
+  const nodes = categories.map((category) => serializeCategory(category));
 
   return {
     nodes,

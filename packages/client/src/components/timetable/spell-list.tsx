@@ -30,7 +30,7 @@ export const SpellList = (props: SpellListProps) => {
 
   return (
     <div>
-      {spells.map(spell => (
+      {spells.map((spell) => (
         <Spell
           key={spell.valueOf()}
           date={spell}

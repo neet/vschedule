@@ -97,7 +97,7 @@ export class ActivityRepository {
     activity.endAt = new Date(data.end_date);
 
     activity.performers = await Promise.all(
-      liverReationships.map(liver => {
+      liverReationships.map((liver) => {
         return this.manager
           .getCustomRepository(PerformerRepository)
           .createFromGatewayData(liver);
@@ -111,14 +111,14 @@ export class ActivityRepository {
       : undefined;
 
     const teamDataset = matchTeamFromPerformerIds(
-      activity.performers.map(performer => performer.id),
+      activity.performers.map((performer) => performer.id),
     );
 
     activity.team = teamDataset
       ? await this.manager
           .getCustomRepository(TeamRepository)
           .find([teamDataset.id])
-          .then(teams => teams[0])
+          .then((teams) => teams[0])
       : undefined;
 
     return this.manager.save(activity);

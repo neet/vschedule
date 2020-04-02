@@ -25,12 +25,8 @@ export class Category {
   @Column('text')
   name: string;
 
-  @OneToMany(
-    () => Activity,
-    activity => activity.category,
-    {
-      onDelete: 'SET NULL',
-    },
-  )
+  @OneToMany(() => Activity, (activity) => activity.category, {
+    onDelete: 'SET NULL',
+  })
   activities: Activity[];
 }

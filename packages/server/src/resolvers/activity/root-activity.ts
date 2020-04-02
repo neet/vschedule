@@ -8,7 +8,7 @@ export const rootActivity: G.QueryResolvers['activity'] = async (
 ) => {
   const category = await loaders.activity
     .load(id)
-    .then(activity => serializeActivity(activity));
+    .then((activity) => serializeActivity(activity));
 
   return category;
 };

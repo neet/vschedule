@@ -11,7 +11,7 @@ export const activities: G.CategoryResolvers['activities'] = async (
     ...input,
     categoryId: parent.id,
   });
-  const nodes = activities.map(activity => serializeActivity(activity));
+  const nodes = activities.map((activity) => serializeActivity(activity));
 
   return {
     nodes,

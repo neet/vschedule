@@ -12,7 +12,7 @@ export const serializeTeam = (
     ...entity,
     members:
       entity.members &&
-      entity.members.map(member => serializePerformer(member)),
+      entity.members.map((member) => serializePerformer(member)),
     activities: undefined,
   };
 };
