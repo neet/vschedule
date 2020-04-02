@@ -23,13 +23,15 @@ export const rootSearch: G.QueryResolvers['search'] = async (
         },
       },
     })
-    .then(result =>
+    .then((result) =>
       result.body.hits.hits.map((hit: { _id: string }) => hit._id),
     )
-    .then(ids =>
+    .then((ids) =>
       loaders.activity
         .loadMany(ids)
-        .then(results => results.map(activity => serializeActivity(activity))),
+        .then((results) =>
+          results.map((activity) => serializeActivity(activity)),
+        ),
     );
 
   const performers = await elasticsearch
@@ -45,14 +47,14 @@ export const rootSearch: G.QueryResolvers['search'] = async (
         },
       },
     })
-    .then(result =>
+    .then((result) =>
       result.body.hits.hits.map((hit: { _id: string }) => hit._id),
     )
-    .then(ids =>
+    .then((ids) =>
       loaders.performer
         .loadMany(ids)
-        .then(results =>
-          results.map(performer => serializePerformer(performer)),
+        .then((results) =>
+          results.map((performer) => serializePerformer(performer)),
         ),
     );
 
@@ -69,13 +71,13 @@ export const rootSearch: G.QueryResolvers['search'] = async (
         },
       },
     })
-    .then(result =>
+    .then((result) =>
       result.body.hits.hits.map((hit: { _id: string }) => hit._id),
     )
-    .then(ids =>
+    .then((ids) =>
       loaders.team
         .loadMany(ids)
-        .then(results => results.map(team => serializeTeam(team))),
+        .then((results) => results.map((team) => serializeTeam(team))),
     );
 
   const categories = await elasticsearch
@@ -91,13 +93,15 @@ export const rootSearch: G.QueryResolvers['search'] = async (
         },
       },
     })
-    .then(result =>
+    .then((result) =>
       result.body.hits.hits.map((hit: { _id: string }) => hit._id),
     )
-    .then(ids =>
+    .then((ids) =>
       loaders.category
         .loadMany(ids)
-        .then(results => results.map(category => serializeCategory(category))),
+        .then((results) =>
+          results.map((category) => serializeCategory(category)),
+        ),
     );
 
   return {

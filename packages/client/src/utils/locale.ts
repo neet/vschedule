@@ -36,12 +36,12 @@ export const initDayjs = () => {
 export const createI18n = (lng?: string) => {
   initDayjs();
 
-  i18next.on('initialized', options => {
+  i18next.on('initialized', (options) => {
     if (!options.lng) return;
     dayjs.locale(normalizeLanguageForDayjs(options.lng));
   });
 
-  i18next.on('languageChanged', lng => {
+  i18next.on('languageChanged', (lng) => {
     if (!lng) return;
     dayjs.locale(normalizeLanguageForDayjs(lng));
   });

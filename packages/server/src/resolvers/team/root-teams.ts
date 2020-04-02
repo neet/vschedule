@@ -8,7 +8,7 @@ export const rootTeams: G.QueryResolvers['teams'] = async (
   { repositories },
 ) => {
   const [teams, count] = await repositories.team.getAllAndCount(input);
-  const nodes = teams.map(team => serializeTeam(team));
+  const nodes = teams.map((team) => serializeTeam(team));
 
   return {
     nodes,

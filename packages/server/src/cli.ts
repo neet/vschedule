@@ -31,7 +31,7 @@ const main = async () => {
       // eslint-disable-next-line no-console
       console.log(
         `${team.name} has been saved with ids ${team.members
-          .map(member => member.id)
+          .map((member) => member.id)
           .join()}`,
       );
     } catch (error) {

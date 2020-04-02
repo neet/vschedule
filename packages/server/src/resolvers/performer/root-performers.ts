@@ -10,7 +10,7 @@ export const rootPerformers: G.QueryResolvers['performers'] = async (
   const [performers, count] = await repositories.performer.getAllAndCount(
     input,
   );
-  const nodes = performers.map(performer => serializePerformer(performer));
+  const nodes = performers.map((performer) => serializePerformer(performer));
 
   return {
     nodes,

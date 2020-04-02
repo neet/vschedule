@@ -64,7 +64,7 @@ export const Skyscraper = (props: SkyscraperProps) => {
   const { focusedDate } = props;
   const [hasExpanded, setHasExpanded] = useState(false);
 
-  const activities = props.activities.filter(activity =>
+  const activities = props.activities.filter((activity) =>
     dayjs(activity.endAt).isAfter(focusedDate),
   );
 

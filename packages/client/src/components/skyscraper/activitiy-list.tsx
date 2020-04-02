@@ -20,7 +20,7 @@ interface ActivityListProps {
 export const ActivityList = (props: ActivityListProps) => {
   const { activities, focusedDate } = props;
 
-  const transition = useTransition(activities, activity => activity.id, {
+  const transition = useTransition(activities, (activity) => activity.id, {
     from: {
       opacity: 0,
       transform: `translateX(50px)`,

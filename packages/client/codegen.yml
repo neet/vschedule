@@ -17,5 +17,5 @@ generates:
       maybeValue: T | undefined
       useIndexSignature: true
   src/generated/introspection-result.ts:
-      plugins:
-        - fragment-matcher
+    plugins:
+      - fragment-matcher

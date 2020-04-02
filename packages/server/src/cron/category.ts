@@ -22,7 +22,7 @@ export class CategoryCron {
   private collectCategories = async () => {
     const genres = await this.gateway
       .fetchGenres()
-      .then(response => response.data.genres);
+      .then((response) => response.data.genres);
 
     for (const genre of genres) {
       this.createCategory(genre);

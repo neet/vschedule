@@ -71,7 +71,7 @@ export const Teams = React.memo(() => {
                 </ListItem>
               ))
             : teams &&
-              teams.map(team => (
+              teams.map((team) => (
                 <ListItem key={team.id}>
                   <Card>
                     <Team team={team} withPerformerNames />
