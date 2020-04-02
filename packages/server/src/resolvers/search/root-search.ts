@@ -27,18 +27,18 @@ export const rootSearch: G.QueryResolvers['search'] = async (
         },
       },
     })
-    .then(result =>
+    .then((result) =>
       result.body.hits.hits.map((hit: { _id: string }) => hit._id),
     )
-    .then(ids =>
+    .then((ids) =>
       loaders.activity
         .loadMany(ids)
-        .then(results =>
+        .then((results) =>
           results
             .filter(
               (activity): activity is Activity => !(activity instanceof Error),
             )
-            .map(activity => serializeActivity(activity)),
+            .map((activity) => serializeActivity(activity)),
         ),
     );
 
@@ -55,19 +55,19 @@ export const rootSearch: G.QueryResolvers['search'] = async (
         },
       },
     })
-    .then(result =>
+    .then((result) =>
       result.body.hits.hits.map((hit: { _id: string }) => hit._id),
     )
-    .then(ids =>
+    .then((ids) =>
       loaders.performer
         .loadMany(ids)
-        .then(results =>
+        .then((results) =>
           results
             .filter(
               (performer): performer is Performer =>
                 !(performer instanceof Error),
             )
-            .map(performer => serializePerformer(performer)),
+            .map((performer) => serializePerformer(performer)),
         ),
     );
 
@@ -84,16 +84,16 @@ export const rootSearch: G.QueryResolvers['search'] = async (
         },
       },
     })
-    .then(result =>
+    .then((result) =>
       result.body.hits.hits.map((hit: { _id: string }) => hit._id),
     )
-    .then(ids =>
+    .then((ids) =>
       loaders.team
         .loadMany(ids)
-        .then(results =>
+        .then((results) =>
           results
             .filter((team): team is Team => !(team instanceof Error))
-            .map(team => serializeTeam(team)),
+            .map((team) => serializeTeam(team)),
         ),
     );
 
@@ -110,19 +110,19 @@ export const rootSearch: G.QueryResolvers['search'] = async (
         },
       },
     })
-    .then(result =>
+    .then((result) =>
       result.body.hits.hits.map((hit: { _id: string }) => hit._id),
     )
-    .then(ids =>
+    .then((ids) =>
       loaders.category
         .loadMany(ids)
-        .then(results =>
+        .then((results) =>
           results
             .filter(
               (category): category is Category =>
                 !(category instanceof Category),
             )
-            .map(category => serializeCategory(category)),
+            .map((category) => serializeCategory(category)),
         ),
     );
 

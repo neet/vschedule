@@ -23,7 +23,7 @@ export class ActivityCron {
   private collectActivities = async () => {
     const events = await this.gateway
       .fetchEvents()
-      .then(response => response.data.events);
+      .then((response) => response.data.events);
 
     for (const event of events) {
       const activity = await this.db.manager.findOne(
@@ -38,11 +38,11 @@ export class ActivityCron {
       // TODO: Optimize this
       const liverRelationships = (
         await Promise.all(
-          event.livers.map(async liver => {
+          event.livers.map(async (liver) => {
             return await this.gateway.fetchLiver(liver.id);
           }),
         )
-      ).map(response => response.data);
+      ).map((response) => response.data);
 
       this.createActivity(event, liverRelationships);
     }

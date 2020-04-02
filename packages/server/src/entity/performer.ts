@@ -54,35 +54,20 @@ export class Performer {
   @Column('int')
   position: number;
 
-  @OneToMany(
-    () => TwitterAccount,
-    account => account.performer,
-    {
-      onDelete: 'SET NULL',
-    },
-  )
+  @OneToMany(() => TwitterAccount, (account) => account.performer, {
+    onDelete: 'SET NULL',
+  })
   twitterAccounts: TwitterAccount[];
 
-  @OneToMany(
-    () => YoutubeAccount,
-    account => account.performer,
-    {
-      onDelete: 'SET NULL',
-    },
-  )
+  @OneToMany(() => YoutubeAccount, (account) => account.performer, {
+    onDelete: 'SET NULL',
+  })
   youtubeAccounts: YoutubeAccount[];
 
-  @ManyToMany(
-    () => Team,
-    team => team.members,
-    { onDelete: 'SET NULL' },
-  )
+  @ManyToMany(() => Team, (team) => team.members, { onDelete: 'SET NULL' })
   @JoinTable()
   teams: Team[];
 
-  @ManyToMany(
-    () => Activity,
-    activity => activity.performers,
-  )
+  @ManyToMany(() => Activity, (activity) => activity.performers)
   activities: Activity[];
 }

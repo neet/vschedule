@@ -5,7 +5,7 @@ import { theme as defaultTheme } from 'src/styles/theme';
 export const withTheme = <P extends {}>(
   Component: React.ComponentType<P>,
   theme = defaultTheme,
-): React.SFC<P> => props => {
+): React.SFC<P> => (props) => {
   return (
     <ThemeProvider theme={theme}>
       <Component {...props} />

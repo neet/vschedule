@@ -116,7 +116,7 @@ export const AvatarGroup = (props: AvatarGroupProps) => {
   if (appearance === 'row') {
     return (
       <Row gap={gap} align="left" size={size} count={performers.length}>
-        {performers.map(member => (
+        {performers.map((member) => (
           <Avatar
             key={member.id}
             performer={member}
@@ -130,7 +130,7 @@ export const AvatarGroup = (props: AvatarGroupProps) => {
 
   return (
     <Pie size={size} count={performers.length}>
-      {performers.map(member => (
+      {performers.map((member) => (
         <Avatar
           key={member.id}
           appearance="square"

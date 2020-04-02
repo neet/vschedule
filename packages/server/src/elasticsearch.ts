@@ -100,7 +100,7 @@ export const createElasticsearchConnection = async () => {
     .exists({
       index: indices.activity,
     })
-    .then(async existence => {
+    .then(async (existence) => {
       if (!existence.body) {
         await client.indices.create({
           index: indices.activity,
@@ -113,7 +113,7 @@ export const createElasticsearchConnection = async () => {
     .exists({
       index: indices.performers,
     })
-    .then(async existence => {
+    .then(async (existence) => {
       if (!existence.body) {
         await client.indices.create({
           index: indices.performers,
@@ -126,7 +126,7 @@ export const createElasticsearchConnection = async () => {
     .exists({
       index: indices.category,
     })
-    .then(async existence => {
+    .then(async (existence) => {
       if (!existence.body) {
         await client.indices.create({
           index: indices.performers,
@@ -139,7 +139,7 @@ export const createElasticsearchConnection = async () => {
     .exists({
       index: indices.team,
     })
-    .then(async existence => {
+    .then(async (existence) => {
       if (!existence.body) {
         await client.indices.create({
           index: indices.team,

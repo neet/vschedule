@@ -58,7 +58,7 @@ export const Team = (props: TeamProps) => {
 
         {withPerformerNames && (
           <MemberNames>
-            {team.members.map(member => member.name).join(', ')}
+            {team.members.map((member) => member.name).join(', ')}
           </MemberNames>
         )}
       </Meta>

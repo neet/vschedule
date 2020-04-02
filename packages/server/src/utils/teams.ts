@@ -1172,8 +1172,8 @@ export const teams: TeamDataset[] = [
 
 export const matchTeamFromPerformerIds = (performerIds: string[]) => {
   const matchedGroup = teams.find(
-    team =>
-      team.performerIds.every(id => performerIds.includes(id)) &&
+    (team) =>
+      team.performerIds.every((id) => performerIds.includes(id)) &&
       team.performerIds.length === performerIds.length,
   );
 

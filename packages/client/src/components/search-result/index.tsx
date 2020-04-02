@@ -101,7 +101,7 @@ const SearchResultGroup = <T extends Entry>(
       )}
 
       <List>
-        {items.map(item => (
+        {items.map((item) => (
           <ListItem
             key={item.id}
             data-index={`result-${getIndex(item)}`}
@@ -133,7 +133,7 @@ export const SearchResult = (props: SearchResultProps) => {
         title={t('search.categories', { defaultValue: 'Categories' })}
         icon={Hash}
         items={result.categories}
-        render={category => <Category category={category} withCount />}
+        render={(category) => <Category category={category} withCount />}
         {...options}
       />
 
@@ -141,7 +141,7 @@ export const SearchResult = (props: SearchResultProps) => {
         title={t('search.performers', { defaultValue: 'Streamers' })}
         icon={User}
         items={result.performers}
-        render={performer => <Performer performer={performer} />}
+        render={(performer) => <Performer performer={performer} />}
         {...options}
       />
 
@@ -149,7 +149,7 @@ export const SearchResult = (props: SearchResultProps) => {
         title={t('search.teams', { defaultValue: 'Collaborations' })}
         icon={Users}
         items={result.teams}
-        render={team => <Team team={team} />}
+        render={(team) => <Team team={team} />}
         {...options}
       />
 
@@ -157,7 +157,7 @@ export const SearchResult = (props: SearchResultProps) => {
         title={t('search.activities', { defaultValue: 'Activities' })}
         icon={Tv}
         items={result.activities}
-        render={activity => <Activity activity={activity} withPerforemer />}
+        render={(activity) => <Activity activity={activity} withPerforemer />}
         {...options}
       />
     </Wrapper>
