@@ -12,7 +12,7 @@ interface GetAllAndCountParams {
 export class CategoryRepostiory {
   constructor(private readonly manager: EntityManager) {}
 
-  find = (ids: string[]) => {
+  find = (ids: readonly string[]) => {
     return this.manager
       .getRepository(Category)
       .createQueryBuilder('category')

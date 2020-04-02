@@ -13,7 +13,7 @@ interface GetAllAndCountParams {
 export class TeamRepository {
   constructor(private readonly manager: EntityManager) {}
 
-  find = (ids: string[]) => {
+  find = (ids: readonly string[]) => {
     return this.manager
       .getRepository(Team)
       .createQueryBuilder('team')

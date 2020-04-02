@@ -21,7 +21,7 @@ interface GetAllAndCountParams {
 export class ActivityRepository {
   constructor(private readonly manager: EntityManager) {}
 
-  find = (ids: string[]) => {
+  find = (ids: readonly string[]) => {
     return this.manager
       .getRepository(Activity)
       .createQueryBuilder('activity')

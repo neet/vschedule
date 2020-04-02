@@ -14,7 +14,7 @@ interface GetAllAndCountParams {
 export class PerformerRepository {
   constructor(private readonly manager: EntityManager) {}
 
-  find = (ids: string[]) => {
+  find = (ids: readonly string[]) => {
     return this.manager
       .getRepository(Performer)
       .createQueryBuilder('performer')
