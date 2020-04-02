@@ -32,10 +32,10 @@ export const createContext = (
       youtubeAccount,
     },
     loaders: {
-      activity: new DataLoader((ids: string[]) => activity.find(ids)),
-      category: new DataLoader((ids: string[]) => category.find(ids)),
-      performer: new DataLoader((ids: string[]) => performer.find(ids)),
-      team: new DataLoader((ids: string[]) => team.find(ids)),
+      activity: new DataLoader((ids: readonly string[]) => activity.find(ids)),
+      category: new DataLoader((ids: readonly string[]) => category.find(ids)),
+      performer: new DataLoader((ids: readonly string[]) => performer.find(ids)),
+      team: new DataLoader((ids: readonly string[]) => team.find(ids)),
     }
   };
 };
