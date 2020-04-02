@@ -4,6 +4,10 @@ import { serializePerformer } from 'src/serializers/performer';
 import { serializeActivity } from 'src/serializers/activity';
 import { serializeTeam } from 'src/serializers/team';
 import { serializeCategory } from 'src/serializers/category';
+import { Activity } from 'src/entity/activity';
+import { Performer } from 'src/entity/performer';
+import { Team } from 'src/entity/team';
+import { Category } from 'src/entity/category';
 
 export const rootSearch: G.QueryResolvers['search'] = async (
   _,
@@ -29,7 +33,13 @@ export const rootSearch: G.QueryResolvers['search'] = async (
     .then(ids =>
       loaders.activity
         .loadMany(ids)
-        .then(results => results.map(activity => serializeActivity(activity))),
+        .then(results =>
+          results
+            .filter(
+              (activity): activity is Activity => !(activity instanceof Error),
+            )
+            .map(activity => serializeActivity(activity)),
+        ),
     );
 
   const performers = await elasticsearch
@@ -52,7 +62,12 @@ export const rootSearch: G.QueryResolvers['search'] = async (
       loaders.performer
         .loadMany(ids)
         .then(results =>
-          results.map(performer => serializePerformer(performer)),
+          results
+            .filter(
+              (performer): performer is Performer =>
+                !(performer instanceof Error),
+            )
+            .map(performer => serializePerformer(performer)),
         ),
     );
 
@@ -75,7 +90,11 @@ export const rootSearch: G.QueryResolvers['search'] = async (
     .then(ids =>
       loaders.team
         .loadMany(ids)
-        .then(results => results.map(team => serializeTeam(team))),
+        .then(results =>
+          results
+            .filter((team): team is Team => !(team instanceof Error))
+            .map(team => serializeTeam(team)),
+        ),
     );
 
   const categories = await elasticsearch
@@ -97,7 +116,14 @@ export const rootSearch: G.QueryResolvers['search'] = async (
     .then(ids =>
       loaders.category
         .loadMany(ids)
-        .then(results => results.map(category => serializeCategory(category))),
+        .then(results =>
+          results
+            .filter(
+              (category): category is Category =>
+                !(category instanceof Category),
+            )
+            .map(category => serializeCategory(category)),
+        ),
     );
 
   return {
