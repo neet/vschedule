@@ -63,7 +63,7 @@
     "node-fetch": "^2.6.0",
     "offline-plugin": "^5.0.7",
     "polished": "^3.4.4",
-    "react": "^16.13.0",
+    "react": "^16.13.1",
     "react-dom": "^16.13.0",
     "react-feather": "^2.0.3",
     "react-helmet": "^5.2.1",
