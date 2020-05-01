@@ -11,11 +11,11 @@ export const useTimetable = () => {
 
   const input = {
     order: Order.Desc,
-    afterDate,
-    beforeDate,
-    categoryId,
-    teamId,
-    performerId,
+    afterDate: afterDate ?? undefined,
+    beforeDate: beforeDate ?? undefined,
+    categoryId: categoryId ?? undefined,
+    teamId: teamId ?? undefined,
+    performerId: performerId ?? undefined,
   };
 
   const { data, loading, fetchMore } = useFetchActivitiesQuery({
