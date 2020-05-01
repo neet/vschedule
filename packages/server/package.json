@@ -5,8 +5,8 @@
   "license": "AGPL-3.0-or-later",
   "main": "dist/app.js",
   "scripts": {
-    "postinstall": "graphql-codegen --config codegen.yml",
-    "start": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/main.ts",
+    "generate": "graphql-codegen --config codegen.yml",
+    "start": "yarn run generate && ts-node --project ./tsconfig.json -r tsconfig-paths/register src/main.ts",
     "import:teams": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/cli.ts"
   },
   "dependencies": {

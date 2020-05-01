@@ -6,8 +6,8 @@
   "main": "dist/render.js",
   "types": "render.d.ts",
   "scripts": {
-    "postinstall": "graphql-codegen --config codegen.yml",
-    "build": "webpack --mode production --config=webpack/webpack.config.js",
+    "generate": "graphql-codegen --config codegen.yml",
+    "build": "yarn run generate && webpack --mode production --config=webpack/webpack.config.js",
     "watch": "webpack-dev-server --mode development --config=webpack/webpack.config.js",
     "storybook": "start-storybook"
   },
