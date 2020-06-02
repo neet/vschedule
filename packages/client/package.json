@@ -94,7 +94,7 @@
     "@graphql-codegen/cli": "^1.13.4",
     "@graphql-codegen/fragment-matcher": "^1.13.4",
     "@graphql-codegen/typescript": "^1.13.4",
-    "@graphql-codegen/typescript-operations": "^1.13.4",
+    "@graphql-codegen/typescript-operations": "^1.15.0",
     "@graphql-codegen/typescript-react-apollo": "^1.13.4",
     "@storybook/addon-actions": "^5.3.18",
     "@storybook/addon-info": "^5.3.18",
