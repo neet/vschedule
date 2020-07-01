@@ -109,6 +109,6 @@
     "react-docgen-typescript-loader": "^3.7.2",
     "storybook-addon-i18n": "^5.1.13",
     "storybook-react-router": "^1.0.8",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.11.0"
   }
 }
