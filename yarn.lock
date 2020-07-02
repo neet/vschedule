@@ -7898,7 +7898,7 @@ css-loader@^3.5.3:
     schema-utils "^2.6.6"
     semver "^6.3.0"
 
-css-property-sort-order-smacss@^2.1.3:
+css-property-sort-order-smacss@~2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/css-property-sort-order-smacss/-/css-property-sort-order-smacss-2.1.3.tgz#b9cf1753b3612ee7d18fe99224f483353ea38e53"
   integrity sha512-tMGlBxcfQq5VYmMFp4tGqxkNeXDBmlGbyuuz1FFGRvCUj9CvocShe23d4kFyfxW6JMlhlBVfnZRa8AO8kgceJA==
@@ -18645,12 +18645,12 @@ styled-components@^5.1.1:
     shallowequal "^1.1.0"
     supports-color "^5.5.0"
 
-stylelint-config-property-sort-order-smacss@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/stylelint-config-property-sort-order-smacss/-/stylelint-config-property-sort-order-smacss-6.0.0.tgz#74c00d872703177724d1a2181bc8e06106dd335d"
-  integrity sha512-34hBYSJXCVobPeEx84IXfGJxE9ZHZ5o87d4OPLQVqX80M20TnS+NFcOvPpIok6j1ZM7GSC3QikSNgyMtgZrDoQ==
+stylelint-config-property-sort-order-smacss@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/stylelint-config-property-sort-order-smacss/-/stylelint-config-property-sort-order-smacss-6.3.0.tgz#6b388154d97fd8aa5ea3dafce038d7b69a031b44"
+  integrity sha512-NX7vQvtcXhFZYOb90maGXuoBxWOGRlcNvKzqZ0BSl0i9EU0/lpS0ZE9G6PLxkrn1SxSv7FV8Hu0JCWFan8tlLA==
   dependencies:
-    css-property-sort-order-smacss "^2.1.3"
+    css-property-sort-order-smacss "~2.1.3"
     stylelint-order "^4.0.0"
 
 stylelint-config-recommended@^3.0.0:
