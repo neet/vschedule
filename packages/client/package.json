@@ -40,7 +40,7 @@
     "@types/react-router": "^5.1.7",
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.0",
-    "@types/styled-system": "^5.1.9",
+    "@types/styled-system": "^5.1.10",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.10",
     "apollo-link-http": "^1.5.17",
