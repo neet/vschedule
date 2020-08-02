@@ -42,7 +42,7 @@
     "graphql-iso-date": "^3.6.1",
     "i18next": "^19.4.4",
     "i18next-express-middleware": "^2.0.0",
-    "pg": "^8.0.3",
+    "pg": "^8.3.0",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^8.9.1",
     "tsconfig-paths": "^3.8.0",
