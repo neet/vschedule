@@ -30,7 +30,7 @@
     "apollo": "^2.27.3",
     "apollo-link": "^1.2.14",
     "apollo-link-http": "^1.5.17",
-    "apollo-server-express": "^2.14.2",
+    "apollo-server-express": "^2.16.1",
     "cors": "^2.8.5",
     "cron": "^1.8.2",
     "dataloader": "^2.0.0",
