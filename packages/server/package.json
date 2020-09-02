@@ -46,7 +46,7 @@
     "reflect-metadata": "^0.1.13",
     "ts-node": "^8.9.1",
     "tsconfig-paths": "^3.8.0",
-    "type-fest": "^0.13.1",
+    "type-fest": "^0.16.0",
     "typeorm": "^0.2.24"
   }
 }
