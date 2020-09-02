@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "fp-ts": "^2.6.7",
-    "gaxios": "^3.0.3",
+    "gaxios": "^3.1.0",
     "io-ts": "^2.2.1",
     "typescript": "^3.8.3"
   }
