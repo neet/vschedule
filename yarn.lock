@@ -11223,10 +11223,10 @@ i18next-express-middleware@^2.0.0:
   dependencies:
     cookies "0.7.1"
 
-i18next-scanner-typescript@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/i18next-scanner-typescript/-/i18next-scanner-typescript-1.0.3.tgz#fa5135b0a801aa5fc18f73bbcd74d65d7e5cb9cb"
-  integrity sha512-XY5ydrLGcfDdzn4qLadNcKgpl4W4IttHv+LfU59UdCfk6tzyB5zsSWqwjmcsP+/h0f1k/S1CtT9InnZs4kz3sA==
+i18next-scanner-typescript@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/i18next-scanner-typescript/-/i18next-scanner-typescript-1.0.6.tgz#1b4d4c27bd47cef68bfa89be543fcff563ea2f0e"
+  integrity sha512-v6kULnsv32OlFM9pnWTH+wNtRXf5owmFUNBYcX78jbZxQBFnTCUo3w99JjnxuzuXA9ch4UKNQBnt2P/o94eyeQ==
   dependencies:
     typescript "^3.0.0"
 
