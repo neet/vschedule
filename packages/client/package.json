@@ -62,7 +62,7 @@
     "lodash.throttle": "^4.1.1",
     "node-fetch": "^2.6.0",
     "offline-plugin": "^5.0.7",
-    "polished": "^3.5.2",
+    "polished": "^3.6.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-feather": "^2.0.8",
