@@ -54,7 +54,7 @@
     "graphql": "^15.3.0",
     "graphql-tag": "^2.10.1",
     "html-webpack-harddisk-plugin": "^1.0.1",
-    "html-webpack-plugin": "^4.3.0",
+    "html-webpack-plugin": "^4.4.1",
     "i18next": "^19.4.4",
     "i18next-browser-languagedetector": "^5.0.0",
     "lodash.clamp": "^4.0.3",
