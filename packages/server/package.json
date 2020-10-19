@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.6.1",
-    "@graphql-codegen/cli": "^1.13.4",
+    "@graphql-codegen/cli": "^1.17.10",
     "@graphql-codegen/typescript": "^1.17.6",
     "@graphql-codegen/typescript-resolvers": "^1.13.4",
     "@ril/arts": "^1.0.0",

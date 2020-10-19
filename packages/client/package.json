@@ -91,7 +91,7 @@
     "webpack-notifier": "^1.8.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.13.4",
+    "@graphql-codegen/cli": "^1.17.10",
     "@graphql-codegen/fragment-matcher": "^1.13.4",
     "@graphql-codegen/typescript": "^1.17.6",
     "@graphql-codegen/typescript-operations": "^1.15.0",
