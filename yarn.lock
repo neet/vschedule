@@ -17783,10 +17783,10 @@ serialize-javascript@^2.1.2:
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-2.1.2.tgz#ecec53b0e0317bdc95ef76ab7074b7384785fa61"
   integrity sha512-rs9OggEUF0V4jUSecXazOYsLfu7OGK2qIn3c7IPBiffz32XniEp/TX9Xmc9LQfK2nQ2QKHvZ2oygKUGU0lG4jQ==
 
-serialize-query-params@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/serialize-query-params/-/serialize-query-params-1.1.0.tgz#b95a15bf0dd4a4df6162c4d72208f1a31e850459"
-  integrity sha512-CF/iHtjCDSj2FzBCsb8JBFruqERpCGgI+8L+236BxhZUwDclwxiOBELvP87HH5EbL9XElvvP+259mP0XgT6l5g==
+serialize-query-params@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/serialize-query-params/-/serialize-query-params-1.2.3.tgz#0d6728c2378fa692233af80f4a72765db06f1069"
+  integrity sha512-pTssDTpnDR2p54q1/V1LpG/czg29iX9imxfKF1cupl30BWcRg8R8y3ddB4iHuhuVBO+HjSNj4+tAT1s075iimw==
 
 serve-favicon@^2.5.0:
   version "2.5.0"
@@ -20010,12 +20010,12 @@ use-callback-ref@^1.2.1:
   resolved "https://registry.yarnpkg.com/use-callback-ref/-/use-callback-ref-1.2.1.tgz#898759ccb9e14be6c7a860abafa3ffbd826c89bb"
   integrity sha512-C3nvxh0ZpaOxs9RCnWwAJ+7bJPwQI8LHF71LzbQ3BvzH5XkdtlkMadqElGevg5bYBDFip4sAnD4m06zAKebg1w==
 
-use-query-params@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/use-query-params/-/use-query-params-1.1.2.tgz#de842bd786d8c6a538dc621556e236bbcce37c5c"
-  integrity sha512-iyFagEgh65vhKYzleBDKHTxKHpzaOrxcD9vy1kivmJ8syPuXIxAE/V25DhTIR8kdA04oznulJPQlMmBnBntVcA==
+use-query-params@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/use-query-params/-/use-query-params-1.1.8.tgz#61d5e2ad903da9ed807383e509b4b52343c886ad"
+  integrity sha512-tB9V4IEE1AbHHtbqxpIjajrDOJsnxS2+PrEfiI/zYatOgns3hkRqj+hrn7F0z5Vxf7z8k4ZV9CGanuk+tt8dEg==
   dependencies:
-    serialize-query-params "^1.1.0"
+    serialize-query-params "^1.2.3"
 
 use-sidecar@^1.0.1:
   version "1.0.2"
