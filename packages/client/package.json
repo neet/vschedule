@@ -45,7 +45,7 @@
     "apollo-client": "^2.6.10",
     "apollo-link-http": "^1.5.17",
     "babel-loader": "^8.1.0",
-    "babel-plugin-styled-components": "^1.10.7",
+    "babel-plugin-styled-components": "^1.11.1",
     "core-js": "^3.6.5",
     "css-loader": "^3.5.3",
     "dayjs": "^1.8.26",
