@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import dayjs from 'dayjs';
+import { useWindowSize } from 'react-use';
 import { useEvents } from '../hooks/useEvents';
 import { Timetable } from '../ui/Timetable';
 import { EventMarker } from '../components/EventMarker';
@@ -10,6 +11,7 @@ import { Layout } from '../components/Layout';
 
 const Events = (): JSX.Element => {
   const { data } = useEvents();
+  const { width } = useWindowSize();
   const { hasTutorialDone, setTutorialStatus } = useTutorial();
 
   return (
@@ -31,9 +33,11 @@ const Events = (): JSX.Element => {
             node: <EventMarker event={event} />,
           }))}
         >
-          <div className="flex-shrink-0 w-72 overflow-scroll max-h-full hidden xl:block">
-            <Skyscraper />
-          </div>
+          {width >= 1280 && (
+            <div className="flex-shrink-0 w-72 overflow-scroll hidden xl:block">
+              <Skyscraper />
+            </div>
+          )}
         </Timetable>
       ) : (
         <span aria-busy>loading</span>

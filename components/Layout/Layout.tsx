@@ -2,6 +2,8 @@ import type { ReactNode, PropsWithChildren } from 'react';
 import classNames from 'classnames';
 import { createElement } from 'react';
 import { Navigation } from '../Navigation';
+import { useWindowSize } from 'react-use';
+import { Banner } from '../Banner';
 
 type Variant = 'single' | 'article';
 type JustChildren = PropsWithChildren<Record<string, never>>;
@@ -9,9 +11,12 @@ type JustChildren = PropsWithChildren<Record<string, never>>;
 const ArticleLayout = (props: JustChildren): JSX.Element => {
   const { children } = props;
 
+  const { width } = useWindowSize();
+
   return (
-    <div id="app" className="flex">
-      <Navigation />
+    <div id="app" className="flex flex-col md:flex-row">
+      {width > 640 && <Navigation />}
+      {width <= 640 && <Banner />}
 
       <main
         id="main"
@@ -34,9 +39,12 @@ const ArticleLayout = (props: JustChildren): JSX.Element => {
 const SingleLayout = (props: JustChildren): JSX.Element => {
   const { children } = props;
 
+  const { width } = useWindowSize();
+
   return (
-    <div id="app" className="flex">
-      <Navigation />
+    <div id="app" className="flex flex-col md:flex-row">
+      {width > 640 && <Navigation />}
+      {width <= 640 && <Banner />}
 
       <main
         id="main"

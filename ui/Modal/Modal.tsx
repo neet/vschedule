@@ -37,7 +37,7 @@ export const Modal = (props: ModalProps): JSX.Element => {
         <div
           role="dialog"
           aria-modal
-          className="z-20 w-1/3 m-auto bg-white rounded-lg overflow-hidden shadow-lg pointer-events-auto"
+          className="z-20 max-w-screen-sm m-auto bg-white rounded-lg overflow-hidden shadow-lg pointer-events-auto"
         >
           {children}
         </div>

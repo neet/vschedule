@@ -43,7 +43,8 @@ export const Toolbar = (): JSX.Element => {
     <header aria-label="今日のにじさんじの配信" className="my-2.5">
       <h1
         className={classNames(
-          'text-2xl',
+          'text-lg',
+          'md:text-2xl',
           'text-coolGray-700',
           'dark:text-trueGray-300',
         )}
@@ -51,55 +52,59 @@ export const Toolbar = (): JSX.Element => {
         今日のにじさんじの配信
       </h1>
 
-      <div className="flex items-center space-x-4">
+      <div className="flex justify-between md:justify-start md:space-x-4 items-center">
         <time
           dateTime={focusedAt.toISOString()}
           className={classNames(
+            'text-xl',
+            'md:text-3xl',
             'text-primary-500',
             'dark:text-primary-400',
-            'text-3xl',
             'font-medium',
+            'tabular-nums',
             'leading-relaxed',
           )}
         >
           {focusedAt.format('LL')}
         </time>
 
-        <Button
-          className="w-8 h-8 sr-only focus:not-sr-only"
-          onClick={handleClickLatest}
-          variant="wash"
-          shape="circle"
-          size="sm"
-        >
-          最新の配信へ移動
-        </Button>
+        <div className="space-x-2">
+          <Button
+            className="w-8 h-8 sr-only focus:not-sr-only"
+            onClick={handleClickLatest}
+            variant="wash"
+            shape="circle"
+            size="sm"
+          >
+            最新の配信へ移動
+          </Button>
 
-        <Button
-          title="一日前へ移動"
-          aria-label="一日前へ移動"
-          className="w-8 h-8"
-          onClick={handleClickLeft}
-          variant="wash"
-          shape="circle"
-          size="sm"
-          disabled={focusedAt.diff(startAt, 'day') < 1}
-        >
-          <FontAwesomeIcon icon={faChevronLeft} />
-        </Button>
+          <Button
+            title="一日前へ移動"
+            aria-label="一日前へ移動"
+            className="w-8 h-8"
+            onClick={handleClickLeft}
+            variant="wash"
+            shape="circle"
+            size="sm"
+            disabled={focusedAt.diff(startAt, 'day') < 1}
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </Button>
 
-        <Button
-          title="一日後へ移動"
-          aria-label="一日後へ移動"
-          className="w-8 h-8"
-          onClick={handleClickRight}
-          variant="wash"
-          shape="circle"
-          size="sm"
-          disabled={endAt.diff(focusedAt, 'day') < 1}
-        >
-          <FontAwesomeIcon icon={faChevronRight} />
-        </Button>
+          <Button
+            title="一日後へ移動"
+            aria-label="一日後へ移動"
+            className="w-8 h-8"
+            onClick={handleClickRight}
+            variant="wash"
+            shape="circle"
+            size="sm"
+            disabled={endAt.diff(focusedAt, 'day') < 1}
+          >
+            <FontAwesomeIcon icon={faChevronRight} />
+          </Button>
+        </div>
       </div>
     </header>
   );

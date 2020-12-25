@@ -70,10 +70,10 @@ export const Navigation = (): JSX.Element => {
     <header
       aria-label="ヘッダー"
       className={classNames(
-        'hidden',
+        // 'hidden',
+        'flex',
         'flex-shrink-0',
         'flex-col',
-        'lg:flex',
         'text-coolGray-900',
         'bg-coolGray-100',
         'dark:bg-trueGray-900',
