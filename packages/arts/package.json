@@ -1,7 +1,0 @@
-{
-  "name": "@ril/arts",
-  "version": "1.0.0",
-  "main": "./static/index.js",
-  "private": true,
-  "license": "AGPL-3.0-or-later"
-}

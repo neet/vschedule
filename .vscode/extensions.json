@@ -1,9 +1,0 @@
-{
-  "recommendations": [
-    "dbaeumer.vscode-eslint",
-    "stylelint.vscode-stylelint",
-    "esbenp.prettier-vscode",
-		"jpoissonnier.vscode-styled-components",
-		"antfu.i18n-ally"
-  ]
-}
