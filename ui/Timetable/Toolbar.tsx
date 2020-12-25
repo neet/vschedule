@@ -40,7 +40,7 @@ export const Toolbar = (): JSX.Element => {
   };
 
   return (
-    <header aria-label="今日のにじさんじの配信" className="mb-4">
+    <header aria-label="今日のにじさんじの配信" className="my-2.5">
       <h1
         className={classNames(
           'text-2xl',
