@@ -27,7 +27,7 @@ const TimetablePure = (props: TimetablePureProps): JSX.Element => {
 
   // Focus on the current time at the first rendering
   useLayoutEffect(() => {
-    setFocusedAt(dayjs(), 'auto');
+    setFocusedAt(dayjs(), { preventFocus: true });
     // eslint-disable-next-line
   }, []);
 

@@ -16,11 +16,16 @@ export interface TimetableContext {
   setFocusedAtRaw(date: Dayjs): void;
 }
 
+export interface SetFocusedAtParam {
+  readonly behavior?: ScrollBehavior;
+  readonly preventFocus?: boolean;
+}
+
 export interface Timetable extends TimetableContext {
   getItemX(date: Dayjs): number;
   getItemY(row: number): number;
   getWidth(ms: number): number;
-  setFocusedAt(date: Dayjs, behavior?: ScrollBehavior): void;
+  setFocusedAt(date: Dayjs, params?: SetFocusedAtParam): void;
 }
 
 const context = createContext<TimetableContext>({
@@ -51,7 +56,7 @@ const getItemY = (ctx: TimetableContext) => (row: number) => {
 
 const setFocusedAt = (ctx: TimetableContext) => (
   date: Dayjs,
-  behavior: ScrollBehavior = 'smooth',
+  params: SetFocusedAtParam = {},
 ) => {
   const { ref, startAt, scale, setFocusedAtRaw } = ctx;
   setFocusedAtRaw(date);
@@ -62,8 +67,10 @@ const setFocusedAt = (ctx: TimetableContext) => (
   ref.current.scrollTo({
     top: 0,
     left: diff - ref.current.clientWidth / 2,
-    behavior,
+    behavior: params.behavior ?? 'smooth',
   });
+
+  if (params.preventFocus) return;
 
   // Focus to the closest spell: important for a11y
   const anchor = document.getElementById(
