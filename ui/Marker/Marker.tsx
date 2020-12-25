@@ -11,7 +11,7 @@ interface MakerProps {
 
 export const Marker = (props: MakerProps): JSX.Element => {
   const { backgroundColor, width, children } = props;
-  const fgLight = readableColor(backgroundColor, '#ffffff', '#000000');
+  const fgLight = readableColor(backgroundColor, '#ffffff', '#000000', true);
 
   const { value: isDark } = useDarkMode();
   const bgDark = setLightness(0.09, backgroundColor);
