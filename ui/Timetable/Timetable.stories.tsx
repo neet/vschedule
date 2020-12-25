@@ -8,8 +8,8 @@ export default {
 
 export const Default = (): JSX.Element => (
   <Timetable
-    startAt={dayjs('2020-01-01')}
-    endAt={dayjs('2020-01-02')}
+    startAt={dayjs('2020-12-25')}
+    endAt={dayjs('2020-12-26')}
     scale={5}
     itemHeight={10}
     schedules={[]}

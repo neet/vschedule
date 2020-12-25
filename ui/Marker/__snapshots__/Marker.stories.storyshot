@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Marker Combination Of Avatar 1`] = `
+<div
+  className="box-border flex p-1 items-center rounded-full ease-out transition-shadow shadow dark:border hover:shadow-lg"
+  style={
+    Object {
+      "backgroundColor": "black",
+      "borderColor": "transparent",
+      "color": "#fff",
+      "width": "auto",
+    }
+  }
+>
+  <img
+    alt="avatar"
+    className="h-10 w-10 rounded-full bg-white border border-coolGray-300"
+    src="https://source.unsplash.com/random"
+  />
+  <div>
+    test
+  </div>
+</div>
+`;
+
+exports[`Storyshots Marker Default 1`] = `
+<div
+  className="box-border flex p-1 items-center rounded-full ease-out transition-shadow shadow dark:border hover:shadow-lg"
+  style={
+    Object {
+      "backgroundColor": "black",
+      "borderColor": "transparent",
+      "color": "#fff",
+      "width": "auto",
+    }
+  }
+>
+  test
+</div>
+`;

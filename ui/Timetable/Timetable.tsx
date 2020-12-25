@@ -34,14 +34,14 @@ const TimetablePure = (props: TimetablePureProps): JSX.Element => {
   // Sync focusedAt with the DOM
   // prettier-ignore
   useEffect(() => {
-    const halfTimetableWidth = ref.current.clientWidth / 2;
+    const halfTimetableWidth = (ref.current?.clientWidth ?? 0) / 2; // optional chain for jest
     const logicalScroll = fromLeft + halfTimetableWidth;
 
     const newValue = startAt
       .clone()
       .add(logicalScroll / scale, 'minute');
 
-    setFocusedAtRaw (newValue);
+    setFocusedAtRaw(newValue);
   }, [fromLeft, startAt, scale, ref, setFocusedAtRaw]);
 
   return (

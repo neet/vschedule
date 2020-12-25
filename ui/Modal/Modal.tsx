@@ -13,10 +13,10 @@ export const Modal = (props: ModalProps): JSX.Element => {
 
   useEffect(() => {
     const app = document.querySelector('#app');
-    app.setAttribute('aria-hidden', 'true');
+    app?.setAttribute('aria-hidden', 'true');
 
     return () => {
-      app.setAttribute('aria-hidden', 'false');
+      app?.setAttribute('aria-hidden', 'false');
       document.body.focus();
     };
   }, []);

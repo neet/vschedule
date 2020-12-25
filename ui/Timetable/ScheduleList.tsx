@@ -68,11 +68,14 @@ const chunkByInterval = (
   schedules: OrderedSchedule[],
   interval: number,
 ): Segment[] => {
-  const dates = createDateSequence(
-    schedules[0].schedule.startAt,
-    schedules[schedules.length - 1].schedule.endAt,
-    interval,
-  );
+  const dates =
+    schedules.length !== 0
+      ? createDateSequence(
+          schedules[0].schedule.startAt,
+          schedules[schedules.length - 1].schedule.endAt,
+          interval,
+        )
+      : [];
 
   return dates.flatMap((date) => {
     return [

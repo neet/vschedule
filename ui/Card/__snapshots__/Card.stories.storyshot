@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Card Default 1`] = `
+<div
+  className="p-4 box-border rounded-md"
+>
+  hello world
+</div>
+`;

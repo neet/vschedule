@@ -5,4 +5,4 @@ export default {
   component: Modal,
 };
 
-export const Default = (): JSX.Element => <Modal>modal</Modal>;
+// export const Default = (): JSX.Element => <Modal>modal</Modal>;

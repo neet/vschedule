@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Entry Shade 1`] = `
+<a
+  className="group"
+  href="https://example.com"
+  rel="noreferrer noopener"
+  target="_blank"
+>
+  <div
+    className="relative"
+  >
+    <div
+      className="aspect-w-16 aspect-h-9 mb-2"
+    >
+      <img
+        alt="random image"
+        className="rounded ease-out object-cover group-hover:opacity-75 transition-opacity shadow dark:border dark:border-trueGray-600"
+        src="https://source.unsplash.com/random"
+      />
+    </div>
+    <div
+      className="absolute top-2 right-2"
+    >
+      <div
+        aria-hidden={true}
+        className="absolute top-0 left-0 w-full h-full opacity-75 bg-primary-400 animate-ping rounded-full"
+        role="presentation"
+      />
+      <div
+        className="relative bg-primary-500 text-white px-2 py-1  rounded-full flex space-x-1 items-center shadow-sm"
+      >
+        <span
+          className="leading-none text-sm font-semibold block"
+        >
+          配信中
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    className="text-coolGray-600 dark:text-trueGray-400"
+  >
+    <h4
+      className="font-semibold text-coolGray-700 dark:text-trueGray-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 ease-out transition-colors truncate-2-lines"
+    >
+      Example
+    </h4>
+    <dl
+      className="flex space-x-2 text-sm"
+    >
+      <dt
+        className="hidden"
+      >
+        ライバー
+      </dt>
+      <dd>
+        Ryo Igarashi
+      </dd>
+      <dt
+        className="hidden"
+      >
+        開始時刻
+      </dt>
+      <dd>
+        <time
+          dateTime="2020-12-25T16:44:43.757Z"
+        >
+          in 2 years
+        </time>
+      </dd>
+      <dt
+        className="hidden"
+      >
+        タグ
+      </dt>
+      <dd>
+        blog
+      </dd>
+    </dl>
+    <p
+      className="truncate-2-lines break-all"
+    >
+      foo bar
+    </p>
+  </div>
+</a>
+`;

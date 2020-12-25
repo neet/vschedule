@@ -16,6 +16,6 @@ export const Shade = (): JSX.Element => (
     author="Ryo Igarashi"
     tag="blog"
     description="foo bar"
-    date={new Date()}
+    date={new Date('2020-12-25T16:44:43.757Z')}
   />
 );

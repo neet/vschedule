@@ -66,7 +66,7 @@ const setFocusedAt = (ctx: TimetableContext) => (
   const diff = date.diff(startAt, 'minute') * scale;
   ref.current.scrollTo({
     top: 0,
-    left: diff - ref.current.clientWidth / 2,
+    left: diff - (ref.current?.clientWidth ?? 0) / 2, // optional chain for jest
     behavior: params.behavior ?? 'smooth',
   });
 
