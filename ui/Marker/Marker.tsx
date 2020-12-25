@@ -13,7 +13,7 @@ export const Marker = (props: MakerProps): JSX.Element => {
   const { backgroundColor, width, children } = props;
   const fgLight = readableColor(backgroundColor, '#ffffff', '#000000');
 
-  const darkMode = useDarkMode();
+  const { value: isDark } = useDarkMode();
   const bgDark = setLightness(0.09, backgroundColor);
   const bgBorder = setLightness(0.32, backgroundColor);
 
@@ -33,9 +33,9 @@ export const Marker = (props: MakerProps): JSX.Element => {
       )}
       style={{
         width,
-        color: darkMode ? 'white' : fgLight,
-        backgroundColor: darkMode ? bgDark : backgroundColor,
-        borderColor: darkMode ? bgBorder : 'transparent',
+        color: isDark ? 'white' : fgLight,
+        backgroundColor: isDark ? bgDark : backgroundColor,
+        borderColor: isDark ? bgBorder : 'transparent',
       }}
     >
       {children}
