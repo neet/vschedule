@@ -5,4 +5,8 @@ export default {
   component: Layout,
 };
 
-export const Default = (): JSX.Element => <Layout />;
+export const Article = (): JSX.Element => (
+  <Layout variant="article">body</Layout>
+);
+
+export const Single = (): JSX.Element => <Layout variant="single">body</Layout>;
