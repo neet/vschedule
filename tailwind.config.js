@@ -56,10 +56,11 @@ module.exports = {
 
   variants: {
     extend: {
-      backgroundColor: ['active'],
+      backgroundColor: ['active', 'disabled'],
       borderWidth: ['dark'],
       typography: ['dark'],
       textColor: ['group-focus'],
+      cursor: ['disabled'],
     },
   },
 

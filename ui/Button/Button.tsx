@@ -21,9 +21,11 @@ const mapVariant = (variant: Variant) => {
         'bg-primary-500',
         'text-white',
         'hover:bg-primary-700',
+        'disabled:bg-primary-700',
         'active:bg-primary-800',
         'dark:bg-primary-400',
         'dark:hover:bg-primary-300',
+        'dark:disabled:bg-primary-300',
         'dark:hover:bg-primary-200',
       );
     case 'secondary':
@@ -31,10 +33,12 @@ const mapVariant = (variant: Variant) => {
         'text-primary-500',
         'bg-primary-100',
         'hover:bg-primary-200',
+        'disabled:bg-primary-200',
         'active:bg-primary-300',
         'dark:text-primary-400',
         'dark:bg-primary-900',
         'dark:hover:bg-primary-800',
+        'dark:disabled:bg-primary-800',
         'dark:active:bg-primary-700',
       );
     case 'wash':
@@ -42,10 +46,12 @@ const mapVariant = (variant: Variant) => {
         'text-coolGray-700',
         'bg-coolGray-100',
         'hover:bg-coolGray-200',
+        'disabled:bg-coolGray-200',
         'active:bg-coolGray-300',
         'dark:text-trueGray-300',
         'dark:bg-trueGray-900',
         'dark:hover:bg-trueGray-800',
+        'dark:disabled:bg-trueGray-800',
         'dark:active:bg-trueGray-700',
       );
     case 'link':
@@ -98,6 +104,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
         'duration-75',
         'ease-out',
         'font-medium',
+        'disabled:cursor-not-allowed',
         'focus:ring',
         'focus:ring-primary-300',
         'focus:outline-none',

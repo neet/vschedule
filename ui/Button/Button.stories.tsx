@@ -19,6 +19,12 @@ export const PrimarySmall = (): JSX.Element => (
   <Button size="sm">{text('text', 'hello')}</Button>
 );
 
+export const PrimaryDisabled = (): JSX.Element => (
+  <Button size="lg" disabled>
+    {text('text', 'hello')}
+  </Button>
+);
+
 export const SecondaryLarge = (): JSX.Element => (
   <Button variant="secondary">{text('text', 'hello')}</Button>
 );

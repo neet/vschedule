@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 export const Toolbar = (): JSX.Element => {
-  const { focusedAt, setFocusedAt } = useTimetable();
+  const { focusedAt, startAt, endAt, setFocusedAt } = useTimetable();
 
   const handleClickLatest = () => {
     setFocusedAt(dayjs());
@@ -83,6 +83,7 @@ export const Toolbar = (): JSX.Element => {
           variant="wash"
           shape="circle"
           size="sm"
+          disabled={focusedAt.diff(startAt, 'day') < 1}
         >
           <FontAwesomeIcon icon={faChevronLeft} />
         </Button>
@@ -95,6 +96,7 @@ export const Toolbar = (): JSX.Element => {
           variant="wash"
           shape="circle"
           size="sm"
+          disabled={endAt.diff(focusedAt, 'day') < 1}
         >
           <FontAwesomeIcon icon={faChevronRight} />
         </Button>
