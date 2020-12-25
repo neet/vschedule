@@ -49,6 +49,13 @@ export const EventMarker = (props: EventProps): JSX.Element => {
         rel="noreferrer"
         target="_blank"
         ref={ref}
+        className={classNames(
+          'block',
+          'focus:outline-none',
+          'focus:ring',
+          'ring-primary-500',
+          'dark:ring-primary-400',
+        )}
         onMouseOver={() => handleFocus()}
         onMouseLeave={() => handleBlur()}
         onFocus={() => handleFocus(true)}

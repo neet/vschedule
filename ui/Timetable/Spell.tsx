@@ -37,6 +37,17 @@ export const Spell = (props: SpellProps): JSX.Element => {
       <a
         href="#"
         id={date.toISOString()}
+        className={classNames(
+          'block',
+          'group',
+          'h-full',
+          'w-full',
+          'focus:outline-none',
+          'focus:ring',
+          'ring-inset',
+          'ring-primary-500',
+          'dark:ring-primary-400',
+        )}
         aria-label={`${date.format('LLL')}以降の配信予定`}
       >
         <time
@@ -46,6 +57,8 @@ export const Spell = (props: SpellProps): JSX.Element => {
             'font-semibold',
             'block',
             'text-center',
+            'group-focus:text-primary-500',
+            'dark:group-focus:text-primary-400',
             'text-coolGray-800',
             'dark:text-trueGray-200',
           )}

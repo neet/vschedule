@@ -59,6 +59,7 @@ module.exports = {
       backgroundColor: ['active'],
       borderWidth: ['dark'],
       typography: ['dark'],
+      textColor: ['group-focus'],
     },
   },
 
