@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import useDarkMode from 'use-dark-mode';
-import { readableColor, setLightness } from 'polished';
+import { meetsContrastGuidelines, setLightness } from 'polished';
 import classNames from 'classnames';
 
 interface MakerProps {
@@ -11,7 +11,10 @@ interface MakerProps {
 
 export const Marker = (props: MakerProps): JSX.Element => {
   const { backgroundColor, width, children } = props;
-  const fgLight = readableColor(backgroundColor, '#ffffff', '#000000', true);
+
+  const fgLight = meetsContrastGuidelines(backgroundColor, '#ffffff').AALarge
+    ? '#ffffff'
+    : '#000000';
 
   const { value: isDark } = useDarkMode();
   const bgDark = setLightness(0.09, backgroundColor);
@@ -23,6 +26,7 @@ export const Marker = (props: MakerProps): JSX.Element => {
         'box-border',
         'flex',
         'p-1',
+        'pr-4',
         'items-center',
         'rounded-full',
         'ease-out',
@@ -34,8 +38,8 @@ export const Marker = (props: MakerProps): JSX.Element => {
       style={{
         width,
         color: isDark ? 'white' : fgLight,
-        backgroundColor: isDark ? bgDark : backgroundColor,
         borderColor: isDark ? bgBorder : 'transparent',
+        backgroundColor: isDark ? bgDark : backgroundColor,
       }}
     >
       {children}

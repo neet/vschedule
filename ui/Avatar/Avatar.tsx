@@ -28,7 +28,12 @@ export const Avatar = (props: AvatarProps): JSX.Element => {
         mapSize(size),
         'rounded-full',
         'bg-white',
-        variant === 'flat' && ['border', 'border-coolGray-300'],
+        'dark:bg-black',
+        variant === 'flat' && [
+          'border',
+          'border-coolGray-300',
+          'dark:border-trueGray-700',
+        ],
         className,
       )}
       alt={alt}

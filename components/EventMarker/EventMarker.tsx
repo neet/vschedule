@@ -11,6 +11,8 @@ import { usePopper } from 'react-popper';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useDelayedHover } from '../../hooks/useDelayedHover';
+import useDarkMode from 'use-dark-mode';
+import { setLightness } from 'polished';
 
 export interface EventProps {
   readonly event: EventType;
@@ -24,6 +26,7 @@ export const EventMarker = (props: EventProps): JSX.Element => {
     rootMargin: '200px',
   });
 
+  const { value: isDark } = useDarkMode();
   const { hover, handleFocus, handleBlur } = useDelayedHover();
   const [wrapperRef, setWrapperRef] = useState<HTMLDivElement>(null);
   const [cardRef, setCardRef] = useState<HTMLDivElement>(null);
@@ -68,13 +71,27 @@ export const EventMarker = (props: EventProps): JSX.Element => {
               variant="minimal"
               src={event.livers[0].avatar}
               alt={event.livers[0].name}
+              style={{
+                backgroundColor: isDark
+                  ? setLightness(0.15, event.livers[0].color)
+                  : '#ffffff',
+              }}
             />
           </div>
 
           <div className="flex flex-col min-w-0 justify-center">
-            <div className="overflow-ellipsis w-full whitespace-nowrap overflow-hidden leading-none text-sm">
+            <h4
+              className={classNames(
+                'w-full',
+                'text-sm',
+                'overflow-ellipsis',
+                'whitespace-nowrap',
+                'overflow-hidden',
+                'leading-relaxed',
+              )}
+            >
               {event.name}
-            </div>
+            </h4>
 
             {/* for display users the start and end dates are obvious */}
             <dl className="sr-only">
@@ -85,7 +102,16 @@ export const EventMarker = (props: EventProps): JSX.Element => {
               <dd>{dayjs(event.start_date).format('LLL')}</dd>
             </dl>
 
-            <div className="overflow-ellipsis w-full whitespace-nowrap overflow-hidden text-sm leading-none mt-1">
+            <div
+              className={classNames(
+                'w-full',
+                'opacity-75',
+                'text-xs',
+                'overflow-ellipsis',
+                'whitespace-nowrap',
+                'overflow-hidden',
+              )}
+            >
               {event.livers.map((liver) => liver.name).join(', ')}
             </div>
           </div>
