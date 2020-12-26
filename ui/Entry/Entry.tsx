@@ -1,7 +1,9 @@
 import dayjs from 'dayjs';
 import classNames from 'classnames';
+import { ReactNode, useState } from 'react';
 
 export type EntryVariant = 'shade' | 'flat';
+type EmbedType = 'interaction' | 'never' | 'always';
 
 export interface EntryProps {
   readonly title: string;
@@ -14,6 +16,8 @@ export interface EntryProps {
   readonly active: boolean;
   readonly variant: EntryVariant;
   readonly tag?: string;
+  readonly embed?: ReactNode;
+  readonly embedType?: EmbedType;
 }
 
 export const Entry = (props: EntryProps): JSX.Element => {
@@ -27,28 +31,53 @@ export const Entry = (props: EntryProps): JSX.Element => {
     author,
     tag,
     description,
+    embed,
+    embedType,
   } = props;
+
   const date = dayjs(props.date);
+  const [interacting, setInteraction] = useState(false);
+
+  const showEmbed =
+    embed != null &&
+    ((embedType === 'interaction' && interacting) || embedType === 'always');
 
   return (
-    <a className="group" href={url} target="_blank" rel="noreferrer noopener">
+    <a
+      className="group"
+      href={url}
+      target="_blank"
+      rel="noreferrer noopener"
+      onMouseOver={() => setInteraction(true)}
+      onMouseLeave={() => setInteraction(false)}
+      onFocus={() => setInteraction(true)}
+      onBlur={() => setInteraction(false)}
+    >
       <div className="relative">
-        <div className={classNames('aspect-w-16', 'aspect-h-9', 'mb-2')}>
-          <img
-            className={classNames(
-              'rounded',
-              'ease-out',
-              'object-cover',
-              'group-hover:opacity-75',
-              'transition-opacity',
-              variant === 'shade' &&
-                'shadow dark:border dark:border-trueGray-600',
-              variant === 'flat' &&
-                'border-coolGray-200 dark:border-trueGray-800 border',
-            )}
-            src={thumbnail}
-            alt={thumbnailAlt}
-          />
+        <div
+          className={classNames(
+            'mb-2',
+            'rounded',
+            'aspect-w-16',
+            'aspect-h-9',
+            'bg-black',
+            'overflow-hidden',
+            variant === 'shade' &&
+              'shadow dark:border dark:border-trueGray-600',
+            variant === 'flat' &&
+              'border border-coolGray-200 dark:border-trueGray-800',
+          )}
+        >
+          {showEmbed ? (
+            embed
+          ) : (
+            <img
+              loading="lazy"
+              className={classNames('rounded', 'object-cover')}
+              src={thumbnail}
+              alt={thumbnailAlt}
+            />
+          )}
         </div>
 
         {active && (
@@ -111,4 +140,6 @@ export const Entry = (props: EntryProps): JSX.Element => {
 
 Entry.defaultProps = {
   variant: 'shade',
+  embed: null,
+  embedType: 'interaction',
 };

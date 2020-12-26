@@ -6,10 +6,11 @@ import { Entry, EntryVariant } from '../../ui/Entry';
 export interface EventProps {
   readonly event: APIEvent;
   readonly variant?: EntryVariant;
+  readonly embedType: 'always' | 'interaction' | 'never';
 }
 
 export const Event = (props: EventProps): JSX.Element => {
-  const { event, variant } = props;
+  const { event, variant, embedType } = props;
 
   const now = useNow();
   const startAt = dayjs(props.event.start_date);
@@ -18,6 +19,17 @@ export const Event = (props: EventProps): JSX.Element => {
   const isStreaming =
     (startAt.isBefore(now) || startAt.isSame(now)) &&
     (endAt.isAfter(now) || endAt.isSame(now));
+
+  const videoId = event.url.split('?v=')?.[1];
+  const embed = videoId && (
+    <iframe
+      title={event.name}
+      src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0`}
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+    />
+  );
 
   return (
     <Entry
@@ -31,6 +43,12 @@ export const Event = (props: EventProps): JSX.Element => {
       tag={event.genre?.name}
       date={new Date(event.start_date)}
       active={isStreaming}
+      embed={embed}
+      embedType={embedType}
     />
   );
+};
+
+Event.defaultProps = {
+  embedType: 'interaction',
 };

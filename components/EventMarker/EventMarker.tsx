@@ -143,7 +143,7 @@ export const EventMarker = (props: EventProps): JSX.Element => {
                 'dark:border-trueGray-800',
               )}
             >
-              <Event event={event} variant="flat" />
+              <Event event={event} variant="flat" embedType="always" />
             </Card>
           </div>
         </Transition>,
