@@ -135,6 +135,7 @@ export const EventMarker = (props: EventProps): JSX.Element => {
               className={classNames(
                 'box-border',
                 'w-72',
+                'my-2',
                 'shadow-lg',
                 'bg-white',
                 'dark:bg-black',
