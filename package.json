@@ -53,6 +53,7 @@
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@types/classnames": "^2.2.11",
+    "@types/gtag.js": "^0.0.4",
     "@types/jest": "^26.0.19",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
@@ -87,6 +88,8 @@
     "moduleNameMapper": {
       "\\.(css)$": "<rootDir>/scripts/null.ts"
     },
-    "setupFilesAfterEnv": ["<rootDir>/scripts/test-setup.ts"]
+    "setupFilesAfterEnv": [
+      "<rootDir>/scripts/test-setup.ts"
+    ]
   }
 }
