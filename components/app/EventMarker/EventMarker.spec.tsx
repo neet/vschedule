@@ -28,6 +28,11 @@ const FIXTURE: Event = {
 describe('EventMarker', () => {
   beforeAll(() => {
     mockAllIsIntersecting(false);
+
+    // App root
+    const app = document.createElement('div');
+    app.setAttribute('id', 'app');
+    document.body.appendChild(app);
   });
 
   it('shows card on hover', async () => {

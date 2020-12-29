@@ -3,6 +3,13 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Tutorial } from './Tutorial';
 
 describe('Tutorial', () => {
+  beforeAll(() => {
+    // App root
+    const app = document.createElement('div');
+    app.setAttribute('id', 'app');
+    document.body.appendChild(app);
+  });
+
   it('slide works', async () => {
     render(<Tutorial />);
 
