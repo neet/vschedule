@@ -36,7 +36,7 @@ const setFocusedAt = (ctx: TimetableContext) => (
     behavior: params.behavior ?? 'smooth',
   });
 
-  if (params.preventFocus == null || params.preventFocus) return;
+  if (params.preventFocus != null && params.preventFocus) return;
 
   // Focus to the closest spell: important for a11y
   const anchor = document.getElementById(

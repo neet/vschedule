@@ -1,25 +1,27 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
 import classNames from 'classnames';
 import { meetsContrastGuidelines, setLightness } from 'polished';
 import type { ReactNode } from 'react';
-import useDarkMode from 'use-dark-mode';
 
-interface MakerProps {
+export interface MakerProps {
   readonly backgroundColor: string;
   readonly width: number;
+  readonly appearance: 'dark' | 'light';
   readonly children: ReactNode;
 }
 
+const BG_BRIGHTNESS = 0.09;
+const BORDER_BRIGHTNESS = 0.35;
+
 export const Marker = (props: MakerProps): JSX.Element => {
-  const { backgroundColor, width, children } = props;
+  const { backgroundColor, appearance, width, children } = props;
 
   const fgLight = meetsContrastGuidelines(backgroundColor, '#ffffff').AALarge
     ? '#ffffff'
     : '#000000';
 
-  const { value: isDark } = useDarkMode();
-  const bgDark = setLightness(0.09, backgroundColor);
-  const bgBorder = setLightness(0.32, backgroundColor);
+  const isDark = appearance === 'dark';
+  const bgDark = setLightness(BG_BRIGHTNESS, backgroundColor);
+  const bgBorder = setLightness(BORDER_BRIGHTNESS, backgroundColor);
 
   return (
     <div
@@ -50,4 +52,5 @@ export const Marker = (props: MakerProps): JSX.Element => {
 
 Marker.defaultProps = {
   width: 'auto',
+  appearance: 'light',
 };

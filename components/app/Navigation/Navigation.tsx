@@ -32,6 +32,7 @@ const Inner = (): JSX.Element => {
         'dark:text-trueGray-50',
         'lg:p-2',
         'lg:w-full',
+        'pointer-events-auto',
       )}
     >
       <nav aria-label="主要なページ" className="flex-grow">
@@ -85,6 +86,8 @@ export const Navigation = (): JSX.Element => {
   return (
     <>
       <Button
+        title="メニューを開く"
+        aria-label="メニューを開く"
         className={classNames('lg:hidden')}
         variant="wash"
         onClick={handleToggle}
@@ -98,7 +101,8 @@ export const Navigation = (): JSX.Element => {
           title="ナビゲーション"
           onHide={handleToggle}
           className="lg:hidden" // for clarify
-          root={document.body}
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          root={document.getElementById('app')!}
         >
           <Inner />
         </Modal>

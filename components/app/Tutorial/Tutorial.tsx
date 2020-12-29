@@ -8,10 +8,8 @@ import { Modal } from '../../ui/Modal';
 const Page1 = (): JSX.Element => {
   return (
     <div role="group" aria-labelledby="tutorial__page-1">
-      <Modal.Title>
-        <a id="tutorial__page-1" href="#">
-          さあ、始めよう！
-        </a>
+      <Modal.Title id="tutorial__page-1">
+        <a href="#tutorial__page">さあ、始めよう！</a>
       </Modal.Title>
 
       <img
@@ -33,7 +31,7 @@ const Page1 = (): JSX.Element => {
 const Page2 = (): JSX.Element => {
   return (
     <div role="group" aria-labelledby="tutorial__page-2">
-      <Modal.Title id="tutorial__page-2" className="text-lg font-semibold">
+      <Modal.Title id="tutorial__page-2">
         <a href="#tutorial__page-2">配信をチェック</a>
       </Modal.Title>
 
@@ -57,7 +55,7 @@ const Page2 = (): JSX.Element => {
 const Page3 = (): JSX.Element => {
   return (
     <div role="group" aria-labelledby="tutorial__page-3">
-      <Modal.Title id="tutorial__page-3" className="text-lg font-semibold">
+      <Modal.Title id="tutorial__page-3">
         <a href="#tutorial__page-3">ライバー</a>
       </Modal.Title>
 
@@ -79,7 +77,7 @@ const Page3 = (): JSX.Element => {
 const Page4 = (): JSX.Element => {
   return (
     <div role="group" aria-labelledby="tutorial__page-4">
-      <Modal.Title id="tutorial__page-4" className="text-lg font-semibold">
+      <Modal.Title id="tutorial__page-4">
         <a href="#tutorial__page-4">アクセシビリティー</a>
       </Modal.Title>
 
@@ -103,7 +101,7 @@ const Page4 = (): JSX.Element => {
 const Page5 = (): JSX.Element => {
   return (
     <div role="group" aria-labelledby="tutorial__page-5">
-      <Modal.Title id="tutorial__page-5" className="text-lg font-semibold">
+      <Modal.Title id="tutorial__page-5">
         <a href="#tutorial__page-5">開発に参加</a>
       </Modal.Title>
 
@@ -154,7 +152,8 @@ export const Tutorial = (): JSX.Element => {
       show={!hasTutorialDone}
       title="チュートリアル"
       onHide={handleComplete}
-      root={document.body}
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      root={document.getElementById('app')!}
     >
       <Modal.Window
         aria-live="polite"

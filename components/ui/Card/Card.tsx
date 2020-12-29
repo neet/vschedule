@@ -2,10 +2,12 @@ import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
 type Size = 'sm' | 'md' | 'lg';
+type Variant = 'wash' | 'default';
 
 export interface CardProps {
   readonly children: ReactNode;
   readonly size: Size;
+  readonly variant: Variant;
   readonly className?: string;
 }
 
@@ -20,15 +22,33 @@ const mapSize = (size: Size): string => {
   }
 };
 
+const mapVariant = (variant: Variant): string => {
+  switch (variant) {
+    case 'default':
+      return classNames(
+        'bg-white',
+        'dark:bg-black',
+        'dark:border',
+        'dark:border-trueGray-800',
+        'shadow-lg',
+      );
+    case 'wash':
+      return classNames('bg-coolGray-100', 'dark:bg-trueGray-900');
+  }
+};
+
 export const Card = (props: CardProps): JSX.Element => {
-  const { children, size, className } = props;
+  const { children, size, variant, className } = props;
 
   return (
     <div
       className={classNames(
         mapSize(size),
+        mapVariant(variant),
         'box-border',
         'rounded-md',
+        'text-coolGray-900',
+        'dark:text-trueGray-100',
         className,
       )}
     >
@@ -38,5 +58,6 @@ export const Card = (props: CardProps): JSX.Element => {
 };
 
 Card.defaultProps = {
+  variant: 'default',
   size: 'md',
 };

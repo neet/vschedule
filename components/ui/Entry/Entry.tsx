@@ -12,6 +12,19 @@ interface BaseEntryProps {
   readonly variant: EntryVariant;
 }
 
+const thumbnailClass = (variant: EntryVariant): string =>
+  classNames(
+    'mb-2',
+    'rounded',
+    'aspect-w-16',
+    'aspect-h-9',
+    'bg-coolGray-200',
+    'dark:bg-trueGray-800',
+    'overflow-hidden',
+    variant === 'shade' && 'shadow dark:border dark:border-trueGray-700',
+    variant === 'flat' && 'border border-coolGray-200 dark:border-trueGray-700',
+  );
+
 interface LoadingEntryProps extends BaseEntryProps {
   readonly loading: true;
 }
@@ -20,26 +33,13 @@ const LoadingEntry = (props: LoadingEntryProps): JSX.Element => {
   const { variant } = props;
 
   return (
-    <div>
-      <div
-        className={classNames(
-          'mb-2',
-          'rounded',
-          'aspect-w-16',
-          'aspect-h-9',
-          'bg-coolGray-200',
-          'dark:bg-trueGray-800',
-          'overflow-hidden',
-          variant === 'shade' && 'shadow dark:border dark:border-trueGray-600',
-          variant === 'flat' &&
-            'border border-coolGray-200 dark:border-trueGray-800',
-        )}
-      />
+    <div className="animate-pulse">
+      <div className={thumbnailClass(variant)} />
 
       <div>
-        <div className="h-5 w-2/3 my-1 bg-coolGray-200 dark:bg-trueGray-800" />
-        <div className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800" />
-        <div className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800" />
+        <div className="h-5 w-2/3 my-1 bg-coolGray-200 dark:bg-trueGray-800 rounded" />
+        <div className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800 rounded" />
+        <div className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800 rounded" />
       </div>
     </div>
   );
@@ -94,20 +94,7 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
       onBlur={(): void => void setInteraction(false)}
     >
       <div className="relative">
-        <div
-          className={classNames(
-            'mb-2',
-            'rounded',
-            'aspect-w-16',
-            'aspect-h-9',
-            'bg-black',
-            'overflow-hidden',
-            variant === 'shade' &&
-              'shadow dark:border dark:border-trueGray-600',
-            variant === 'flat' &&
-              'border border-coolGray-200 dark:border-trueGray-800',
-          )}
-        >
+        <div className={thumbnailClass(variant)}>
           {showEmbed ? (
             embed
           ) : (

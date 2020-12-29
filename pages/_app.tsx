@@ -10,6 +10,7 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
+import withDarkMode from 'next-dark-mode';
 import { useEffect } from 'react';
 
 config.autoAddCss = false;
@@ -40,4 +41,4 @@ const App = (props: AppProps): JSX.Element => {
   return <Component {...pageProps} />;
 };
 
-export default App;
+export default withDarkMode(App);
