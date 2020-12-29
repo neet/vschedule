@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Avatar Default 1`] = `
+<img
+  alt="avatar"
+  className="h-10 w-10 rounded-full bg-white dark:bg-black border border-coolGray-300 dark:border-trueGray-700"
+  src="https://source.unsplash.com/random"
+/>
+`;
+
+exports[`Storyshots Avatar Pending 1`] = `
+<div
+  className="h-10 w-10 rounded-full bg-coolGray-200 dark:bg-trueGray-800 animate-pulse"
+/>
+`;

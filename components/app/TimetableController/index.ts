@@ -1,0 +1,1 @@
+export { TimetableController } from './TimetableController';

@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest",
+    "test": "jest && yarn run eslint && yarn run cspell",
+    "eslint": "eslint --fix --cache './**/*.{ts,tsx}'",
+    "cspell": "cspell './**/*.{ts,tsx}'",
     "storybook": "start-storybook -p 9000"
   },
   "dependencies": {

@@ -1,18 +1,40 @@
 {
     "version": "0.1",
     "language": "en",
+    "ignorePaths": [
+        "**/node_modules/**",
+        "**/.vercel/**",
+        "**/.next/**"
+    ],
     "words": [
+        "agpl",
+        "codecov",
         "compat",
         "fontawesome",
         "fortawesome",
+        "furigana",
+        "gtag",
         "headlessui",
+        "igarashi",
         "irontail",
         "isomorphic",
         "itsukara",
+        "js",
+        "link",
+        "multiline",
+        "neet",
+        "nums",
+        "over",
         "postcss",
         "scaffdog",
+        "semibold",
         "storyshots",
         "tailwindcss",
-        "unfetch"
+        "truncate",
+        "types",
+        "unfetch",
+        "voice",
+        "wcag",
+        "youtube"
     ]
 }

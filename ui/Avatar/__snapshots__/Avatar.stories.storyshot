@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Storyshots Avatar Default 1`] = `
-<img
-  alt="avatar"
-  className="h-10 w-10 rounded-full bg-white border border-coolGray-300"
-  src="https://source.unsplash.com/random"
-/>
-`;

@@ -1,11 +1,11 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { Layout } from '../components/Layout';
-import { Liver } from '../components/Liver';
-import { useLivers } from '../hooks/useLivers';
+import { Layout } from '../components/app/Layout';
+// import { Liver } from '../components/Liver';
+// import { useLivers } from '../hooks/useLivers';
 
 const Livers: NextPage = () => {
-  const { data } = useLivers();
+  // const { data } = useLivers();
 
   return (
     <Layout variant="article">
@@ -18,9 +18,10 @@ const Livers: NextPage = () => {
           にじさんじのライバー一覧
         </h3>
 
-        <p>にじさんじに所属するバーチャルライバーの一覧です。</p>
+        {/* <p>にじさんじに所属するバーチャルライバーの一覧です。</p> */}
+        <p>このページは現在準備中です</p>
 
-        {data != null ? (
+        {/* data != null ? (
           <ul className="my-8 divide-y divide-coolGray-100">
             {data.data.liver_relationships.map((liverRel) => (
               <li key={liverRel.liver.id} className="py-2">
@@ -35,7 +36,7 @@ const Livers: NextPage = () => {
           </ul>
         ) : (
           <span aria-busy>loading...</span>
-        )}
+        ) */}
       </article>
     </Layout>
   );
