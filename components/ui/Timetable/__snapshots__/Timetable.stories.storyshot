@@ -20,9 +20,9 @@ exports[`Storyshots Timetable Default 1`] = `
     >
       <time
         className="flex-grow-0 flex-shrink-0 py-1 px-2.5 rounded-full text-sm font-semibold tabular-nums text-white bg-primary-500 dark:bg-primary-400 border-b-2 border-primary-700 dark:border-primary-600"
-        dateTime="2020-12-28T07:46:53.578Z"
+        dateTime="2019-01-01T00:00:00.000Z"
       >
-        16:46
+        09:00
       </time>
       <div
         className="w-0 flex-grow flex-shrink border-primary-600 dark:border-primary-400 border-r"
