@@ -12,6 +12,7 @@ import { Window } from './Window';
 
 export interface ModalProps {
   readonly show: boolean;
+  readonly app: string;
   readonly title: string;
   readonly root?: Element;
   readonly children: ReactNode;
@@ -20,21 +21,21 @@ export interface ModalProps {
 }
 
 export const Modal = (props: ModalProps): JSX.Element | null => {
-  const { show, title, children, className, root, onHide } = props;
+  const { show, title, children, className, app, root, onHide } = props;
 
   const [ref, setRef] = useState<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const app = document.getElementById('app');
-    app?.style.setProperty('overflow', 'hidden');
-    app?.setAttribute('aria-hidden', 'true');
+    const appRoot = document.getElementById(app);
+    appRoot?.style.setProperty('overflow', 'hidden');
+    appRoot?.setAttribute('aria-hidden', 'true');
 
     return (): void => {
-      app?.style.removeProperty('overflow');
-      app?.setAttribute('aria-hidden', 'false');
+      appRoot?.style.removeProperty('overflow');
+      appRoot?.setAttribute('aria-hidden', 'false');
       document.body.focus();
     };
-  }, []);
+  }, [app]);
 
   useEffect(() => {
     ref?.focus();
@@ -101,6 +102,7 @@ export const Modal = (props: ModalProps): JSX.Element | null => {
 };
 
 Modal.defaultProps = {
+  app: 'app',
   show: true,
 };
 

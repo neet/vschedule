@@ -8,19 +8,21 @@ exports[`Storyshots Entry Loading 1`] = `
     }
   }
 >
-  <div>
+  <div
+    className="animate-pulse"
+  >
     <div
-      className="mb-2 rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden shadow dark:border dark:border-trueGray-600"
+      className="mb-2 rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden border border-coolGray-200 dark:border-trueGray-700"
     />
     <div>
       <div
-        className="h-5 w-2/3 my-1 bg-coolGray-200 dark:bg-trueGray-800"
+        className="h-5 w-2/3 my-1 bg-coolGray-200 dark:bg-trueGray-800 rounded"
       />
       <div
-        className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800"
+        className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800 rounded"
       />
       <div
-        className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800"
+        className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800 rounded"
       />
     </div>
   </div>
@@ -49,7 +51,7 @@ exports[`Storyshots Entry Shade 1`] = `
       className="relative"
     >
       <div
-        className="mb-2 rounded aspect-w-16 aspect-h-9 bg-black overflow-hidden shadow dark:border dark:border-trueGray-600"
+        className="mb-2 rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden shadow dark:border dark:border-trueGray-700"
       >
         <img
           alt="random image"
