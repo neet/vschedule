@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 export type TitleProps = Readonly<JSX.IntrinsicElements['h2']>;
 
 export const Title = forwardRef<HTMLDivElement, TitleProps>((props, ref) => {
-  const { children, className } = props;
+  const { children, className, ...rest } = props;
 
   return (
     <h2
@@ -18,6 +18,7 @@ export const Title = forwardRef<HTMLDivElement, TitleProps>((props, ref) => {
         'dark:text-trueGray-100',
         className,
       )}
+      {...rest}
     >
       {children}
     </h2>

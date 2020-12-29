@@ -85,6 +85,8 @@ export const Navigation = (): JSX.Element => {
   return (
     <>
       <Button
+        title="メニューを開く"
+        aria-label="メニューを開く"
         className={classNames('lg:hidden')}
         variant="wash"
         onClick={handleToggle}

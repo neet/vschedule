@@ -27,15 +27,16 @@ export const Modal = (props: ModalProps): JSX.Element | null => {
 
   useEffect(() => {
     const appRoot = document.getElementById(app);
-    appRoot?.style.setProperty('overflow', 'hidden');
-    appRoot?.setAttribute('aria-hidden', 'true');
 
-    return (): void => {
+    if (show) {
+      appRoot?.style.setProperty('overflow', 'hidden');
+      appRoot?.setAttribute('aria-hidden', 'true');
+    } else {
       appRoot?.style.removeProperty('overflow');
       appRoot?.setAttribute('aria-hidden', 'false');
       document.body.focus();
-    };
-  }, [app]);
+    }
+  }, [app, show]);
 
   useEffect(() => {
     ref?.focus();

@@ -56,6 +56,7 @@ export const EventMarker = (props: EventProps): JSX.Element => {
         href={event.url}
         rel="noreferrer"
         target="_blank"
+        title={event.name}
         ref={ref}
         className={classNames(
           'block',

@@ -1,9 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import { Modal } from './Modal';
 
 describe('Modal', () => {
-  it('focuses on modal when rendered', () => {
+  it('focuses on modal when rendered', async () => {
     // App root
     const app = document.createElement('div');
     app.setAttribute('id', 'app');
@@ -13,7 +13,7 @@ describe('Modal', () => {
     const container = document.createElement('div');
     document.body.appendChild(container);
 
-    const { unmount } = render(
+    const { rerender } = render(
       <Modal show title="modal" root={container} app="app">
         test
       </Modal>,
@@ -23,10 +23,16 @@ describe('Modal', () => {
     expect(app).toHaveAttribute('aria-hidden', 'true');
     expect(screen.getByLabelText('modal')).toHaveFocus();
 
-    unmount();
+    rerender(
+      <Modal show={false} title="modal" root={container} app="app">
+        test
+      </Modal>,
+    );
 
-    expect(document.body).toHaveFocus();
-    expect(app).not.toHaveAttribute('aria-hidden', 'true');
-    expect(app).not.toHaveStyle({ overflow: 'hidden' });
+    await waitFor(() => {
+      expect(document.body).toHaveFocus();
+      expect(app).not.toHaveAttribute('aria-hidden', 'true');
+      expect(app).not.toHaveStyle({ overflow: 'hidden' });
+    });
   });
 });
