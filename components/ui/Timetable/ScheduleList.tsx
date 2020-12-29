@@ -10,7 +10,7 @@ import type { Schedule } from './Timetable';
 import { useTimetable } from './useTimetable';
 
 export interface ScheduleListProps {
-  readonly schedules: Schedule[];
+  readonly schedules: readonly Schedule[];
 }
 
 interface OrderedSchedule {
@@ -24,13 +24,13 @@ interface OrderedSchedule {
 // A'を第一引数、Aをsortedとマージして第２引数にし、末尾再帰
 // 計算量: O(n^2)
 const orderSchedule = (
-  schedules: Schedule[],
-  ordered: OrderedSchedule[] = [],
+  schedules: readonly Schedule[],
+  ordered: readonly OrderedSchedule[] = [],
   row = 0,
 ): OrderedSchedule[] => {
-  if (schedules.length === 0) return ordered;
+  if (schedules.length === 0) return ordered.concat();
 
-  const uniques = schedules.reduce((xs, a) => {
+  const uniques = schedules.reduce<readonly OrderedSchedule[]>((xs, a) => {
     const overlapped = xs.some((b) => {
       return isOverlapping(
         [a.startAt, a.endAt],
@@ -40,7 +40,7 @@ const orderSchedule = (
 
     if (overlapped) return xs;
     return xs.concat({ schedule: a, row });
-  }, [] as OrderedSchedule[]);
+  }, []);
 
   const dupes = schedules.filter(
     (v) => !uniques.map((o) => o.schedule).includes(v),
@@ -49,7 +49,11 @@ const orderSchedule = (
   return orderSchedule(dupes, ordered.concat(uniques), row + 1);
 };
 
-const createDateSequence = (startAt: Dayjs, endAt: Dayjs, interval: number) => {
+const createDateSequence = (
+  startAt: Readonly<Dayjs>,
+  endAt: Readonly<Dayjs>,
+  interval: number,
+): readonly Readonly<Dayjs>[] => {
   const length = endAt.diff(startAt, 'minute') / interval;
 
   return Array.from({ length }, (_, i) => {
@@ -58,11 +62,14 @@ const createDateSequence = (startAt: Dayjs, endAt: Dayjs, interval: number) => {
   });
 };
 
-type Segment = { date: Dayjs; schedules: OrderedSchedule[] };
+interface Segment {
+  readonly date: Readonly<Dayjs>;
+  readonly schedules: readonly OrderedSchedule[];
+}
 
 // 垂直方向にチャンクにするイメージ。
 const chunkByInterval = (
-  schedules: OrderedSchedule[],
+  schedules: readonly OrderedSchedule[],
   interval: number,
 ): Segment[] => {
   const dates =
@@ -89,10 +96,10 @@ const chunkByInterval = (
 };
 
 interface EmptyListProps {
-  date: Dayjs;
+  readonly date: Readonly<Dayjs>;
 }
 
-const EmptyList = (props: EmptyListProps) => {
+const EmptyList = (props: EmptyListProps): JSX.Element => {
   const { date } = props;
 
   const { getItemX } = useTimetable();
@@ -114,10 +121,10 @@ const EmptyList = (props: EmptyListProps) => {
 };
 
 interface TableDataListProps {
-  segment: OrderedSchedule[];
+  readonly segment: readonly OrderedSchedule[];
 }
 
-const TableDataList = (props: TableDataListProps) => {
+const TableDataList = (props: TableDataListProps): JSX.Element => {
   const { segment } = props;
   const herald = segment[0].schedule.startAt;
 
@@ -154,12 +161,11 @@ export const ScheduleList = (props: ScheduleListProps): JSX.Element => {
   const { interval } = useTimetable();
 
   const segments = useMemo(() => {
-    return chunkByInterval(
-      orderSchedule(schedules).sort((a, b) =>
-        a.schedule.startAt.diff(b.schedule.startAt, 'millisecond'),
-      ),
-      interval,
+    const ordered = orderSchedule(schedules).sort((a, b) =>
+      a.schedule.startAt.diff(b.schedule.startAt, 'millisecond'),
     );
+
+    return chunkByInterval(ordered, interval);
   }, [schedules, interval]);
 
   return (

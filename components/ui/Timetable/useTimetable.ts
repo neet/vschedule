@@ -4,12 +4,12 @@ import { useContext } from 'react';
 import type { TimetableContext } from './context';
 import { TimetableContextImpl } from './context';
 
-const getItemX = (ctx: TimetableContext) => (date: Dayjs) => {
+const getItemX = (ctx: TimetableContext) => (date: Readonly<Dayjs>): number => {
   const { startAt, scale } = ctx;
   return date.diff(startAt, 'minute') * scale;
 };
 
-const getItemY = (ctx: TimetableContext) => (row: number) => {
+const getItemY = (ctx: TimetableContext) => (row: number): number => {
   const { itemHeight } = ctx;
   return itemHeight * row;
 };
@@ -20,22 +20,23 @@ export interface SetFocusedAtParam {
 }
 
 const setFocusedAt = (ctx: TimetableContext) => (
-  date: Dayjs,
+  date: Readonly<Dayjs>,
   params: SetFocusedAtParam = {},
-) => {
+): void => {
   const { ref, startAt, scale, setFocusedAtRaw } = ctx;
   setFocusedAtRaw(date);
 
   // Scroll to the time
   if (ref.current == null) return;
   const diff = date.diff(startAt, 'minute') * scale;
+
   ref.current.scrollTo({
     top: 0,
-    left: diff - (ref.current?.clientWidth ?? 0) / 2, // optional chain for jest
+    left: diff - ref.current.clientWidth / 2,
     behavior: params.behavior ?? 'smooth',
   });
 
-  if (params.preventFocus) return;
+  if (params.preventFocus == null || params.preventFocus) return;
 
   // Focus to the closest spell: important for a11y
   const anchor = document.getElementById(
@@ -47,16 +48,21 @@ const setFocusedAt = (ctx: TimetableContext) => (
   }
 };
 
-const getWidth = (ctx: TimetableContext) => (ms: number) => {
+const getWidth = (ctx: TimetableContext) => (ms: number): number => {
   const { scale } = ctx;
-  return (ms / 1000 / 60) * scale;
+  const MINUTE = 60;
+  const SECOND = 1000;
+  return (ms / SECOND / MINUTE) * scale;
 };
 
 export interface UseTimetableResponse extends TimetableContext {
-  getItemX(date: Dayjs): number;
-  getItemY(row: number): number;
-  getWidth(ms: number): number;
-  setFocusedAt(date: Dayjs, params?: SetFocusedAtParam): void;
+  readonly getItemX: (date: Readonly<Dayjs>) => number;
+  readonly getItemY: (row: number) => number;
+  readonly getWidth: (ms: number) => number;
+  readonly setFocusedAt: (
+    date: Readonly<Dayjs>,
+    params?: SetFocusedAtParam,
+  ) => void;
 }
 
 export const useTimetable = (): UseTimetableResponse => {

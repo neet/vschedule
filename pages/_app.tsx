@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import '../style.css';
 import 'dayjs/locale/ja';
 
@@ -19,11 +21,14 @@ const App = (props: AppProps): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    const handleRouteChange = () => {
-      gtag('config', process.env.GA_MEASUREMENT_ID as string);
+    const handleRouteChange = (): void => {
+      if (process.env.GA_MEASUREMENT_ID == null) return;
+      gtag('config', process.env.GA_MEASUREMENT_ID);
     };
+
     router.events.on('routeChangeComplete', handleRouteChange);
-    return () => {
+
+    return (): void => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [router.events]);

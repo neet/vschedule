@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import { useTimetable } from './useTimetable';
 
 export interface SpellProps {
-  readonly date: Dayjs;
+  readonly date: Readonly<Dayjs>;
 }
 
 export const Spell = (props: SpellProps): JSX.Element => {

@@ -13,7 +13,8 @@ import type { TimetableProps } from '../components/ui/Timetable';
 import { TimetableProvider } from '../components/ui/Timetable';
 
 const Timetable = dynamic<TimetableProps>(
-  () => import('../components/ui/Timetable').then((m) => m.Timetable),
+  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+  async () => import('../components/ui/Timetable').then((m) => m.Timetable),
   { ssr: false },
 );
 

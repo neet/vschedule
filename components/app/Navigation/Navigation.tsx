@@ -14,7 +14,7 @@ import { Modal } from '../../ui/Modal';
 import { ContentInfo } from '../ContentInfo';
 import { Item } from './Item';
 
-const Inner = () => {
+const Inner = (): JSX.Element => {
   return (
     <div
       className={classNames(
@@ -78,7 +78,7 @@ const Inner = () => {
 export const Navigation = (): JSX.Element => {
   const [shown, setShown] = useState(false);
 
-  const handleToggle = () => {
+  const handleToggle = (): void => {
     setShown(!shown);
   };
 

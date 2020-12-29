@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest && yarn run eslint && yarn run cspell",
-    "eslint": "eslint --fix --cache './**/*.{ts,tsx}'",
+    "eslint": "eslint --cache './**/*.{ts,tsx}'",
     "cspell": "cspell './**/*.{ts,tsx}'",
     "storybook": "start-storybook -p 9000"
   },

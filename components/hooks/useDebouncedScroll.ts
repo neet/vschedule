@@ -8,13 +8,17 @@ export interface State {
   y: number;
 }
 
-export const useDebouncedScroll = (ref: RefObject<HTMLElement>): State => {
+export const useDebouncedScroll = (
+  ref: RefObject<Readonly<HTMLElement> | null>,
+): State => {
   const [state, setState] = useRafState<State>({
     x: 0,
     y: 0,
   });
 
-  const handler = debounce(500, false, () => {
+  const HALF_SECOND = 500;
+
+  const handler = debounce(HALF_SECOND, false, () => {
     if (ref.current) {
       setState({
         x: ref.current.scrollLeft,
@@ -31,9 +35,11 @@ export const useDebouncedScroll = (ref: RefObject<HTMLElement>): State => {
       });
     }
 
-    return () => {
-      if (ref.current != null) {
-        ref.current.removeEventListener('scroll', handler);
+    const t = ref.current;
+
+    return (): void => {
+      if (t != null) {
+        t.removeEventListener('scroll', handler);
       }
     };
   }, [ref, handler]);

@@ -5,7 +5,7 @@ import { useTutorial } from '../../hooks/useTutorial';
 import { Button } from '../../ui/Button';
 import { Modal } from '../../ui/Modal';
 
-const Page1 = () => {
+const Page1 = (): JSX.Element => {
   return (
     <div role="group" aria-labelledby="tutorial__page-1">
       <Modal.Title>
@@ -30,7 +30,7 @@ const Page1 = () => {
   );
 };
 
-const Page2 = () => {
+const Page2 = (): JSX.Element => {
   return (
     <div role="group" aria-labelledby="tutorial__page-2">
       <Modal.Title id="tutorial__page-2" className="text-lg font-semibold">
@@ -54,7 +54,7 @@ const Page2 = () => {
   );
 };
 
-const Page3 = () => {
+const Page3 = (): JSX.Element => {
   return (
     <div role="group" aria-labelledby="tutorial__page-3">
       <Modal.Title id="tutorial__page-3" className="text-lg font-semibold">
@@ -76,7 +76,7 @@ const Page3 = () => {
   );
 };
 
-const Page4 = () => {
+const Page4 = (): JSX.Element => {
   return (
     <div role="group" aria-labelledby="tutorial__page-4">
       <Modal.Title id="tutorial__page-4" className="text-lg font-semibold">
@@ -100,7 +100,7 @@ const Page4 = () => {
   );
 };
 
-const Page5 = () => {
+const Page5 = (): JSX.Element => {
   return (
     <div role="group" aria-labelledby="tutorial__page-5">
       <Modal.Title id="tutorial__page-5" className="text-lg font-semibold">
@@ -137,15 +137,15 @@ export const Tutorial = (): JSX.Element => {
   const { hasTutorialDone, setTutorialStatus } = useTutorial();
   const [pageNum, setPageNum] = useState(0);
 
-  const handleClickNext = () => {
+  const handleClickNext = (): void => {
     setPageNum(pageNum + 1);
   };
 
-  const handleClickPrevious = () => {
+  const handleClickPrevious = (): void => {
     setPageNum(pageNum - 1);
   };
 
-  const handleComplete = () => {
+  const handleComplete = (): void => {
     setTutorialStatus(true);
   };
 

@@ -3,10 +3,12 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useInterval } from 'react-use';
 
-export const useNow = (interval = 1000 * 60): Dayjs => {
+const MINUTE = 60000;
+
+export const useNow = (interval = MINUTE): Dayjs => {
   const [now, setNow] = useState(dayjs());
 
-  useInterval(() => setNow(dayjs()), interval);
+  useInterval(() => void setNow(dayjs()), interval);
 
   return now;
 };

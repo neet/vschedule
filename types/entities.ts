@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export interface Response<Data> {
   readonly status: 'ok' | 'ng';
   readonly data: Data;
@@ -31,7 +32,7 @@ export interface Event {
   readonly end_date: string;
   readonly recommend: boolean;
   readonly genre?: Genre;
-  readonly livers: Liver[];
+  readonly livers: readonly Liver[];
 }
 
 export interface LiverTwitterAccount {

@@ -16,7 +16,7 @@ export interface ModalProps {
   readonly root?: Element;
   readonly children: ReactNode;
   readonly className?: string;
-  onHide?(): void;
+  readonly onHide?: () => void;
 }
 
 export const Modal = (props: ModalProps): JSX.Element | null => {
@@ -29,7 +29,7 @@ export const Modal = (props: ModalProps): JSX.Element | null => {
     app?.style.setProperty('overflow', 'hidden');
     app?.setAttribute('aria-hidden', 'true');
 
-    return () => {
+    return (): void => {
       app?.style.removeProperty('overflow');
       app?.setAttribute('aria-hidden', 'false');
       document.body.focus();

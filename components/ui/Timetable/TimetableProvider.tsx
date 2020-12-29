@@ -6,13 +6,13 @@ import { useRef, useState } from 'react';
 import { TimetableContextImpl } from './context';
 
 export interface TimetableProviderProps {
-  readonly startAt: Dayjs;
-  readonly endAt: Dayjs;
+  readonly startAt: Readonly<Dayjs>;
+  readonly endAt: Readonly<Dayjs>;
   readonly interval: number;
   readonly scale: number;
   readonly itemHeight: number;
   readonly children: ReactNode;
-  readonly initialFocus?: Dayjs;
+  readonly initialFocus?: Readonly<Dayjs>;
 }
 
 export const TimetableProvider = (

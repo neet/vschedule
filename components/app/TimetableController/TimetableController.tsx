@@ -12,11 +12,11 @@ import { useTimetable } from '../../ui/Timetable';
 export const TimetableController = (): JSX.Element => {
   const { focusedAt, startAt, endAt, setFocusedAt } = useTimetable();
 
-  const handleClickLatest = () => {
+  const handleClickLatest = (): void => {
     setFocusedAt(dayjs());
   };
 
-  const handleClickRight = () => {
+  const handleClickRight = (): void => {
     const tomorrow = focusedAt
       .clone()
       .millisecond(0)
@@ -28,7 +28,7 @@ export const TimetableController = (): JSX.Element => {
     setFocusedAt(tomorrow);
   };
 
-  const handleClickLeft = () => {
+  const handleClickLeft = (): void => {
     const yesterday = focusedAt
       .clone()
       .millisecond(0)

@@ -3,7 +3,7 @@ import Document, { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 
 export default class CustomDocument extends Document<DocumentProps> {
-  render(): JSX.Element {
+  public render(): JSX.Element {
     return (
       <Html lang="ja">
         <Head>
@@ -17,21 +17,25 @@ export default class CustomDocument extends Document<DocumentProps> {
           <link rel="mask-icon" href="/mask-icon.svg" color="#f80652" />
           <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_MEASUREMENT_ID}`}
-          />
-
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${process.env.GA_MEASUREMENT_ID}');
-              `,
-            }}
-          />
+          {process.env.GA_MEASUREMENT_ID != null && (
+            <>
+              <script
+                async
+                src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_MEASUREMENT_ID}`}
+              />
+              <script
+                dangerouslySetInnerHTML={{
+                  // eslint-disable-next-line @typescript-eslint/naming-convention
+                  __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', '${process.env.GA_MEASUREMENT_ID}');
+                  `,
+                }}
+              />
+            </>
+          )}
         </Head>
 
         <body className="bg-white dark:bg-black">

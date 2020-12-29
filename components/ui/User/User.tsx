@@ -5,7 +5,9 @@ import { Avatar } from '../Avatar';
 
 type Size = 'sm' | 'md' | 'lg';
 
-type BaseUserProps = { readonly size: Size };
+interface BaseUserProps {
+  readonly size: Size;
+}
 
 type LoadingUserProps = BaseUserProps & {
   readonly loading: true;
@@ -25,7 +27,7 @@ type UserProps = LoadingUserProps | ReadyUserProps;
 export const User = (props: UserProps): JSX.Element => {
   const { size } = props;
 
-  if (props.loading) {
+  if (props.loading != null && props.loading) {
     return (
       <div className="flex py-2">
         <div className="mr-4 flex-shrink-0">
@@ -61,7 +63,7 @@ export const User = (props: UserProps): JSX.Element => {
             {name}
           </h4>
 
-          {description && (
+          {description != null && (
             <p className="text-coolGray-600 dark:text-trueGray-400 min-w-full">
               {description}
             </p>

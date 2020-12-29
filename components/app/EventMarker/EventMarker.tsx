@@ -62,10 +62,10 @@ export const EventMarker = (props: EventProps): JSX.Element => {
           'ring-primary-500',
           'dark:ring-primary-400',
         )}
-        onMouseOver={() => handleFocus()}
-        onMouseLeave={() => handleBlur()}
-        onFocus={() => handleFocus(true)}
-        onBlur={() => handleBlur()}
+        onMouseOver={() => void handleFocus()}
+        onMouseLeave={() => void handleBlur()}
+        onFocus={() => void handleFocus(true)}
+        onBlur={() => void handleBlur()}
       >
         <Marker backgroundColor={event.livers[0].color}>
           <div className="flex-shrink-0 mr-1">
@@ -76,7 +76,8 @@ export const EventMarker = (props: EventProps): JSX.Element => {
               alt={event.livers[0].name}
               style={{
                 backgroundColor: isDark
-                  ? setLightness(0.15, event.livers[0].color)
+                  ? // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+                    setLightness(0.15, event.livers[0].color)
                   : '#ffffff',
               }}
             />

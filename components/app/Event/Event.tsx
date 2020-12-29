@@ -22,7 +22,7 @@ export const Event = (props: EventProps): JSX.Element => {
     (startAt.isBefore(now) || startAt.isSame(now)) &&
     (endAt.isAfter(now) || endAt.isSame(now));
 
-  const videoId = event.url.split('?v=')?.[1];
+  const videoId = event.url.split('?v=')[1];
   const embed = videoId && (
     <iframe
       title={event.name}

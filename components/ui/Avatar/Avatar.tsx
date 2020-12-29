@@ -3,7 +3,7 @@ import classNames from 'classnames';
 type AvatarVariant = 'minimal' | 'flat';
 type Size = 'sm' | 'md' | 'lg';
 
-const mapSize = (size: Size) => {
+const mapSize = (size: Size): string => {
   switch (size) {
     case 'sm':
       return classNames('h-10', 'w-10');
@@ -14,7 +14,7 @@ const mapSize = (size: Size) => {
   }
 };
 
-type AvatarProps = JSX.IntrinsicElements['img'] & {
+export type AvatarProps = Readonly<JSX.IntrinsicElements['img']> & {
   readonly size: Size;
   readonly variant: AvatarVariant;
   readonly pending: boolean;

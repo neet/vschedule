@@ -6,9 +6,6 @@
       "dom.iterable",
       "esnext"
     ],
-    "plugins": [
-      { "name": "irontail" }
-    ],
     "isolatedModules": true,
     "allowJs": true,
     "skipLibCheck": true,

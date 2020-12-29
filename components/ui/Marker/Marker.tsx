@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import classNames from 'classnames';
 import { meetsContrastGuidelines, setLightness } from 'polished';
 import type { ReactNode } from 'react';

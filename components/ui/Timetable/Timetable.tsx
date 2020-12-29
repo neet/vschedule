@@ -11,12 +11,12 @@ import { useTimetable } from './useTimetable';
 
 export interface Schedule {
   readonly node: ReactNode;
-  readonly startAt: Dayjs;
-  readonly endAt: Dayjs;
+  readonly startAt: Readonly<Dayjs>;
+  readonly endAt: Readonly<Dayjs>;
 }
 
 export interface TimetableProps {
-  readonly schedules: Schedule[];
+  readonly schedules: readonly Schedule[];
   readonly loading?: boolean;
 }
 
@@ -35,7 +35,9 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
   // Sync focusedAt with the DOM
   // prettier-ignore
   useEffect(() => {
-    const halfTimetableWidth = (ref.current?.clientWidth ?? 0) / 2; // optional chain for jest
+    if (ref.current == null) return;
+
+    const halfTimetableWidth = ref.current.clientWidth / 2;
     const logicalScroll = fromLeft + halfTimetableWidth;
 
     const newValue = startAt
@@ -45,7 +47,7 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
     setFocusedAtRaw(newValue);
   }, [fromLeft, startAt, scale, ref, setFocusedAtRaw]);
 
-  if (loading) {
+  if (loading != null && loading) {
     return (
       <div
         aria-busy
@@ -95,10 +97,12 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
           'overflow-scroll',
           'select-none',
         )}
+        /* eslint-disable @typescript-eslint/naming-convention */
         style={{
           WebkitOverflowScrolling: 'touch',
           WebkitTransform: 'translateZ(0px)',
         }}
+        /* eslint-enable @typescript-eslint/naming-convention */
       >
         <ScheduleList schedules={schedules} />
         <MinuteHand />

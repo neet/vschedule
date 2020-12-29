@@ -9,7 +9,7 @@ export interface CardProps {
   readonly className?: string;
 }
 
-const mapSize = (size: Size) => {
+const mapSize = (size: Size): string => {
   switch (size) {
     case 'sm':
       return 'p-2';

@@ -1,8 +1,10 @@
 import type { Dayjs } from 'dayjs';
 
+type DayjsPair = readonly [Readonly<Dayjs>, Readonly<Dayjs>];
+
 export const isOverlapping = (
-  [xStartAt, xEndAt]: [Dayjs, Dayjs],
-  [yStartAt, yEndAt]: [Dayjs, Dayjs],
+  [xStartAt, xEndAt]: DayjsPair,
+  [yStartAt, yEndAt]: DayjsPair,
 ): boolean => {
   /**
    * case 1:

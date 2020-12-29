@@ -2,7 +2,7 @@ import { useLocalStorage } from 'react-use';
 
 export interface UseTutorialResponse {
   readonly hasTutorialDone: boolean;
-  setTutorialStatus(status: boolean): void;
+  setTutorialStatus: (status: boolean) => void;
 }
 
 export const useTutorial = (): UseTutorialResponse => {
@@ -11,7 +11,9 @@ export const useTutorial = (): UseTutorialResponse => {
     false,
   );
 
-  if (hasTutorialDone == null) throw 'useLocalStorage returned nullish';
+  if (hasTutorialDone == null) {
+    throw new Error('useLocalStorage returned nullish');
+  }
 
   return { hasTutorialDone, setTutorialStatus };
 };

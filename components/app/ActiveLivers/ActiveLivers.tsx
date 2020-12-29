@@ -7,6 +7,8 @@ import { Button } from '../../ui/Button';
 import { Card } from '../../ui/Card';
 import { User } from '../../ui/User';
 
+const MIN_ITEMS = 3;
+
 export const ActiveLivers = (): JSX.Element => {
   const events = useUpcomingEvents();
   const [expanded, setExpanded] = useState(false);
@@ -34,17 +36,17 @@ export const ActiveLivers = (): JSX.Element => {
         )}
       >
         {events == null
-          ? Array.from({ length: 3 }, (_, i) => (
+          ? Array.from({ length: MIN_ITEMS }, (_, i) => (
               <li key={`placeholder-${i}`}>
                 <User loading size="md" />
               </li>
             ))
-          : events.slice(0, expanded ? Infinity : 3).map((event, i) => (
+          : events.slice(0, expanded ? Infinity : MIN_ITEMS).map((event, i) => (
               <li key={`${event.id}-${i}`}>
                 <User
                   name={event.livers[0].name}
                   avatar={event.livers[0].avatar}
-                  url={'/livers/' + event.livers[0].id}
+                  url={'/livers/' + event.livers[0].id.toString()}
                   size="md"
                   description={dayjs(event.start_date).fromNow()}
                 />
@@ -52,14 +54,22 @@ export const ActiveLivers = (): JSX.Element => {
             ))}
       </ul>
 
-      {events && events.length - 3 > 0 && (
+      {events && events.length - MIN_ITEMS > 0 && (
         <div className="flex justify-start">
           {expanded ? (
-            <Button variant="link" size="sm" onClick={() => setExpanded(false)}>
+            <Button
+              variant="link"
+              size="sm"
+              onClick={() => void setExpanded(false)}
+            >
               閉じる
             </Button>
           ) : (
-            <Button variant="link" size="sm" onClick={() => setExpanded(true)}>
+            <Button
+              variant="link"
+              size="sm"
+              onClick={() => void setExpanded(true)}
+            >
               さらに表示
             </Button>
           )}

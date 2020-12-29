@@ -6,7 +6,7 @@ export const TutorialButton = (): JSX.Element => {
 
   return (
     <Button
-      onClick={() => {
+      onClick={(): void => {
         setTutorialStatus(false);
         location.href = '/';
       }}

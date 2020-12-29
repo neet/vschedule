@@ -1,11 +1,14 @@
 import classNames from 'classnames';
-import type { PropsWithChildren, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { createElement } from 'react';
 
 import { Banner } from '../Banner';
 
 type Variant = 'single' | 'article';
-type JustChildren = PropsWithChildren<Record<string, never>>;
+
+interface JustChildren {
+  readonly children: ReactNode;
+}
 
 const ArticleLayout = (props: JustChildren): JSX.Element => {
   const { children } = props;

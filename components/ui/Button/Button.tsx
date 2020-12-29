@@ -1,20 +1,21 @@
 import classNames from 'classnames';
+import type { ReactNode } from 'react';
 import { createElement } from 'react';
 
 type Variant = 'primary' | 'secondary' | 'wash' | 'link';
 type Size = 'lg' | 'md' | 'sm' | 'xs';
 type Shape = 'rounded' | 'circle';
 
-export type ButtonProps = JSX.IntrinsicElements['button'] & {
+export type ButtonProps = Readonly<JSX.IntrinsicElements['button']> & {
   readonly variant: Variant;
   readonly size: Size;
   readonly shape: Shape;
-  readonly children: React.ReactNode;
+  readonly children: ReactNode;
   readonly as: string;
   readonly href?: string;
 };
 
-const mapVariant = (variant: Variant) => {
+const mapVariant = (variant: Variant): string => {
   switch (variant) {
     case 'primary':
       return classNames(
@@ -63,7 +64,7 @@ const mapVariant = (variant: Variant) => {
   }
 };
 
-const mapSize = (size: Size) => {
+const mapSize = (size: Size): string => {
   switch (size) {
     case 'xs':
       return '';
@@ -76,7 +77,7 @@ const mapSize = (size: Size) => {
   }
 };
 
-const mapShape = (shape: Shape) => {
+const mapShape = (shape: Shape): string => {
   switch (shape) {
     case 'circle':
       return 'rounded-full';

@@ -1,8 +1,6 @@
 import classNames from 'classnames';
 
-type BackdropProps = JSX.IntrinsicElements['div'] & {
-  onClick?(): void;
-};
+type BackdropProps = Readonly<JSX.IntrinsicElements['div']>;
 
 export const Backdrop = (props: BackdropProps): JSX.Element => {
   const { className, onClick } = props;

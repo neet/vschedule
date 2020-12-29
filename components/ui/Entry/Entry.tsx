@@ -16,7 +16,7 @@ interface LoadingEntryProps extends BaseEntryProps {
   readonly loading: true;
 }
 
-const LoadingEntry = (props: LoadingEntryProps) => {
+const LoadingEntry = (props: LoadingEntryProps): JSX.Element => {
   const { variant } = props;
 
   return (
@@ -52,7 +52,7 @@ interface ReadyEntryProps extends BaseEntryProps {
   readonly thumbnail: string;
   readonly description: string;
   readonly thumbnailAlt: string;
-  readonly date: Date;
+  readonly date: Readonly<Date>;
   readonly active: boolean;
   readonly tag?: string;
   readonly embed?: ReactNode;
@@ -75,7 +75,7 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
     embedType,
   } = props;
 
-  const date = dayjs(props.date);
+  const date = dayjs(props.date.toISOString());
   const [interacting, setInteraction] = useState(false);
 
   const showEmbed =
@@ -88,10 +88,10 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
       href={url}
       target="_blank"
       rel="noreferrer noopener"
-      onMouseOver={() => setInteraction(true)}
-      onMouseLeave={() => setInteraction(false)}
-      onFocus={() => setInteraction(true)}
-      onBlur={() => setInteraction(false)}
+      onMouseOver={(): void => void setInteraction(true)}
+      onMouseLeave={(): void => void setInteraction(false)}
+      onFocus={(): void => void setInteraction(true)}
+      onBlur={(): void => void setInteraction(false)}
     >
       <div className="relative">
         <div
@@ -156,7 +156,7 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
             <time dateTime={date.toISOString()}>{dayjs(date).fromNow()}</time>
           </dd>
 
-          {tag && (
+          {tag != null && (
             <>
               <dt className="sr-only">タグ</dt>
               <dd className="mr-2">{tag}</dd>
@@ -171,7 +171,7 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
 export type EntryProps = LoadingEntryProps | ReadyEntryProps;
 
 export const Entry = (props: EntryProps): JSX.Element => {
-  if (props.loading) {
+  if (props.loading != null && props.loading) {
     return <LoadingEntry {...props} />;
   }
 
