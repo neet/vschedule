@@ -1,8 +1,8 @@
 <h1 align="center">
-  <img src="https://raw.githubusercontent.com/neet/refined-itsukara-link/master/packages/arts/static/logo-large.png" alt="Refined itsukara.link" width="300px"/>
+  <img src="https://raw.githubusercontent.com/neet/refined-itsukara-link/main/packages/arts/static/logo-large.png" alt="Refined itsukara.link" width="300px"/>
 </h1>
 
-<img src="https://raw.githubusercontent.com/neet/refined-itsukara-link/master/packages/arts/static/screenshot.png" alt="Screenshot">
+<img src="https://raw.githubusercontent.com/neet/refined-itsukara-link/main/packages/arts/static/screenshot.png" alt="Screenshot">
 
 <p align="center">✨ itsukara.link with refined interface! ✨</p>
 
@@ -12,7 +12,7 @@
   </a>
 
   <a href="https://codecov.io/gh/neet/refined-itsukara-link">
-    <img src="https://codecov.io/gh/neet/refined-itsukara-link/branch/master/graph/badge.svg" />
+    <img src="https://codecov.io/gh/neet/refined-itsukara-link/branch/main/graph/badge.svg" />
   </a>
 
   <a href="https://codeclimate.com/github/neet/refined-itsukara-link/maintainability">
