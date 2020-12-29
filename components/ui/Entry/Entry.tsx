@@ -1,6 +1,8 @@
-import dayjs from 'dayjs';
 import classNames from 'classnames';
-import { ReactNode, useState } from 'react';
+import dayjs from 'dayjs';
+import type { ReactNode } from 'react';
+import { useState } from 'react';
+
 import { Badge } from '../Badge';
 
 export type EntryVariant = 'shade' | 'flat';

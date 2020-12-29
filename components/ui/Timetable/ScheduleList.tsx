@@ -1,11 +1,12 @@
-import { Fragment, useMemo } from 'react';
 import classNames from 'classnames';
-import { TableData } from './TableData';
-import { Schedule } from './Timetable';
-import { isOverlapping } from '../../../utils/overlap';
-import { inRange } from '../../../utils/inRange';
 import type { Dayjs } from 'dayjs';
+import { Fragment, useMemo } from 'react';
+
+import { inRange } from '../../../utils/inRange';
+import { isOverlapping } from '../../../utils/overlap';
 import { Spell } from './Spell';
+import { TableData } from './TableData';
+import type { Schedule } from './Timetable';
 import { useTimetable } from './useTimetable';
 
 export interface ScheduleListProps {

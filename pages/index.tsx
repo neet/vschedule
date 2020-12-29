@@ -1,15 +1,16 @@
-import Head from 'next/head';
-import dynamic from 'next/dynamic';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import { useEvents } from '../components/hooks/useEvents';
-import { TimetableProvider } from '../components/ui/Timetable';
-import type { TimetableProps } from '../components/ui/Timetable';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
+
 import { EventMarker } from '../components/app/EventMarker';
-import { Skyscraper } from '../components/app/Skyscraper';
-import { Tutorial } from '../components/app/Tutorial';
 import { Layout } from '../components/app/Layout';
+import { Skyscraper } from '../components/app/Skyscraper';
 import { TimetableController } from '../components/app/TimetableController';
+import { Tutorial } from '../components/app/Tutorial';
+import { useEvents } from '../components/hooks/useEvents';
+import type { TimetableProps } from '../components/ui/Timetable';
+import { TimetableProvider } from '../components/ui/Timetable';
 
 const Timetable = dynamic<TimetableProps>(
   () => import('../components/ui/Timetable').then((m) => m.Timetable),

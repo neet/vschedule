@@ -1,5 +1,6 @@
-import { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
+import type { ReactNode } from 'react';
+import { forwardRef } from 'react';
 
 export type FooterProps = JSX.IntrinsicElements['footer'] & {
   readonly children: ReactNode;

@@ -1,5 +1,6 @@
-import { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
+import type { ReactNode } from 'react';
+import { forwardRef } from 'react';
 
 export type TitleProps = JSX.IntrinsicElements['h2'] & {
   readonly children: ReactNode;

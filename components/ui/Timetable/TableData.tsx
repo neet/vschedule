@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
+
+import type { Schedule } from './Timetable';
 import { useTimetable } from './useTimetable';
-import { Schedule } from './Timetable';
 
 export interface ItemProps {
   readonly schedule: Schedule;

@@ -1,8 +1,9 @@
 import classNames from 'classnames';
-import { Modal } from '../../ui/Modal';
-import { Button } from '../../ui/Button';
 import { createElement, useState } from 'react';
+
 import { useTutorial } from '../../hooks/useTutorial';
+import { Button } from '../../ui/Button';
+import { Modal } from '../../ui/Modal';
 
 const Page1 = () => {
   return (

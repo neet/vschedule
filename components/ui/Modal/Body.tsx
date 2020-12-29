@@ -1,5 +1,6 @@
-import { forwardRef, ReactNode } from 'react';
 import classNames from 'classnames';
+import type { ReactNode } from 'react';
+import { forwardRef } from 'react';
 
 export type BodyProps = JSX.IntrinsicElements['div'] & {
   readonly children: ReactNode;

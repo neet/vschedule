@@ -1,7 +1,7 @@
-import useSWR from 'swr';
 import fetch from 'isomorphic-unfetch';
+import useSWR from 'swr';
 
-import { LiversResponse } from '../../types';
+import type { LiversResponse } from '../../types';
 
 const fetcher = (): Promise<LiversResponse> =>
   fetch('/api/v1.2/livers.json').then((r) => r.json());

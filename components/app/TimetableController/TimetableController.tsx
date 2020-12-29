@@ -1,12 +1,13 @@
-import dayjs from 'dayjs';
+import {
+  faChevronLeft,
+  faChevronRight,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
+import dayjs from 'dayjs';
+
 import { Button } from '../../ui/Button';
 import { useTimetable } from '../../ui/Timetable';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faChevronRight,
-  faChevronLeft,
-} from '@fortawesome/free-solid-svg-icons';
 
 export const TimetableController = (): JSX.Element => {
   const { focusedAt, startAt, endAt, setFocusedAt } = useTimetable();

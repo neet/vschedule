@@ -1,12 +1,14 @@
-import { ReactNode, useState, useEffect } from 'react';
-import classNames from 'classnames';
-import { createPortal } from 'react-dom';
 import { Transition } from '@headlessui/react';
+import classNames from 'classnames';
+import type { ReactNode } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+
 import { Backdrop } from './Backdrop';
+import { Body } from './Body';
+import { Footer } from './Footer';
 import { Title } from './Title';
 import { Window } from './Window';
-import { Footer } from './Footer';
-import { Body } from './Body';
 
 export interface ModalProps {
   readonly show: boolean;

@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+
 import { useTimetable } from './useTimetable';
 
 export const MinuteHand = (): JSX.Element => {

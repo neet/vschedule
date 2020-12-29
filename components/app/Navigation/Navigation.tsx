@@ -1,17 +1,18 @@
-import classNames from 'classnames';
 import {
-  faUsers,
-  faTags,
+  faBars,
   faCalendar,
   faQuestion,
-  faBars,
+  faTags,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'classnames';
 import { useState } from 'react';
+
 import { Button } from '../../ui/Button';
+import { Modal } from '../../ui/Modal';
 import { ContentInfo } from '../ContentInfo';
 import { Item } from './Item';
-import { Modal } from '../../ui/Modal';
 
 const Inner = () => {
   return (

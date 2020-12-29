@@ -1,10 +1,11 @@
-import dayjs from 'dayjs';
 import classNames from 'classnames';
+import dayjs from 'dayjs';
 import { useState } from 'react';
+
+import { useUpcomingEvents } from '../../hooks/useUpcomingEvents';
 import { Button } from '../../ui/Button';
 import { Card } from '../../ui/Card';
 import { User } from '../../ui/User';
-import { useUpcomingEvents } from '../../hooks/useUpcomingEvents';
 
 export const ActiveLivers = (): JSX.Element => {
   const events = useUpcomingEvents();

@@ -1,11 +1,12 @@
 import '../style.css';
 import 'dayjs/locale/ja';
-import { AppProps } from 'next/app';
+
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { useEffect } from 'react';
+import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const App = (props: AppProps): JSX.Element => {
   const { Component, pageProps } = props;

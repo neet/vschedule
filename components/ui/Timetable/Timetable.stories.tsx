@@ -1,5 +1,6 @@
-import { Timetable } from './Timetable';
 import dayjs from 'dayjs';
+
+import { Timetable } from './Timetable';
 import { TimetableProvider } from './TimetableProvider';
 
 export default {

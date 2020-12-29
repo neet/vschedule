@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
 import classNames from 'classnames';
+import type { ReactNode } from 'react';
 
 interface BadgePureProps {
   readonly children: ReactNode;

@@ -1,4 +1,5 @@
 import { text } from '@storybook/addon-knobs';
+
 import { Button } from '../Button';
 import { Modal } from './Modal';
 

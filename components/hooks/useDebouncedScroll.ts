@@ -1,4 +1,5 @@
-import { RefObject, useEffect } from 'react';
+import type { RefObject } from 'react';
+import { useEffect } from 'react';
 import { useRafState } from 'react-use';
 import { debounce } from 'throttle-debounce';
 

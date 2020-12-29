@@ -1,5 +1,5 @@
-import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useInterval } from 'react-use';
 

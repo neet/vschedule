@@ -1,19 +1,20 @@
 import { Transition } from '@headlessui/react';
-import dayjs from 'dayjs';
-import { useInView } from 'react-intersection-observer';
 import classNames from 'classnames';
-import type { Event as EventType } from '../../../types';
-import { Avatar } from '../../ui/Avatar';
-import { Marker } from '../../ui/Marker';
-import { Card } from '../../ui/Card';
-import { Event } from '../Event';
-import { usePopper } from 'react-popper';
+import dayjs from 'dayjs';
+import { setLightness } from 'polished';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useDelayedHover } from '../../hooks/useDelayedHover';
+import { useInView } from 'react-intersection-observer';
+import { usePopper } from 'react-popper';
 import useDarkMode from 'use-dark-mode';
-import { setLightness } from 'polished';
+
+import type { Event as EventType } from '../../../types';
+import { useDelayedHover } from '../../hooks/useDelayedHover';
+import { Avatar } from '../../ui/Avatar';
+import { Card } from '../../ui/Card';
+import { Marker } from '../../ui/Marker';
 import { useTimetable } from '../../ui/Timetable';
+import { Event } from '../Event';
 
 export interface EventProps {
   readonly event: EventType;

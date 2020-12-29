@@ -1,5 +1,5 @@
-import { NextApiHandler } from 'next';
 import fetch from 'isomorphic-unfetch';
+import type { NextApiHandler } from 'next';
 
 const livers: NextApiHandler = async (req, res) => {
   const data = await fetch(

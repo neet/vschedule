@@ -1,6 +1,7 @@
-import type { ReactNode, PropsWithChildren } from 'react';
 import classNames from 'classnames';
+import type { PropsWithChildren, ReactNode } from 'react';
 import { createElement } from 'react';
+
 import { Banner } from '../Banner';
 
 type Variant = 'single' | 'article';

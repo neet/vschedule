@@ -1,7 +1,7 @@
-import { useRouter } from 'next/router';
 import classNames from 'classnames';
-import { ReactNode } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import type { ReactNode } from 'react';
 
 interface ItemProps {
   readonly title: string;

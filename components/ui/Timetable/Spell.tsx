@@ -1,6 +1,7 @@
+import classNames from 'classnames';
 import type { Dayjs } from 'dayjs';
 import { useInView } from 'react-intersection-observer';
-import classNames from 'classnames';
+
 import { useTimetable } from './useTimetable';
 
 export interface SpellProps {

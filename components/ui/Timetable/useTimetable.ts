@@ -1,6 +1,8 @@
-import { Dayjs } from 'dayjs';
+import type { Dayjs } from 'dayjs';
 import { useContext } from 'react';
-import { TimetableContext, TimetableContextImpl } from './context';
+
+import type { TimetableContext } from './context';
+import { TimetableContextImpl } from './context';
 
 const getItemX = (ctx: TimetableContext) => (date: Dayjs) => {
   const { startAt, scale } = ctx;

@@ -1,10 +1,5 @@
-import Document, {
-  DocumentProps,
-  Head,
-  Html,
-  Main,
-  NextScript,
-} from 'next/document';
+import type { DocumentProps } from 'next/document';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 
 export default class CustomDocument extends Document<DocumentProps> {

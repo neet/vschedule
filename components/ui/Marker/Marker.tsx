@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import useDarkMode from 'use-dark-mode';
-import { meetsContrastGuidelines, setLightness } from 'polished';
 import classNames from 'classnames';
+import { meetsContrastGuidelines, setLightness } from 'polished';
+import type { ReactNode } from 'react';
+import useDarkMode from 'use-dark-mode';
 
 interface MakerProps {
   readonly backgroundColor: string;

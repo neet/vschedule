@@ -1,5 +1,8 @@
-import dayjs, { Dayjs } from 'dayjs';
-import { ReactNode, useRef, useState } from 'react';
+import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
+import type { ReactNode } from 'react';
+import { useRef, useState } from 'react';
+
 import { TimetableContextImpl } from './context';
 
 export interface TimetableProviderProps {

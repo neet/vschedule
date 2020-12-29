@@ -1,7 +1,7 @@
-import { createContext, createRef } from 'react';
-import type { RefObject } from 'react';
-import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
+import type { RefObject } from 'react';
+import { createContext, createRef } from 'react';
 
 export interface TimetableContext {
   readonly ref: RefObject<HTMLDivElement>;

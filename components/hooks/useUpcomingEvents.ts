@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { Event } from '../../types';
+
+import type { Event } from '../../types';
 import { useEvents } from './useEvents';
 import { useNow } from './useNow';
 

@@ -1,7 +1,7 @@
-import useSWR from 'swr';
 import fetch from 'isomorphic-unfetch';
+import useSWR from 'swr';
 
-import { EventsResponse } from '../../types';
+import type { EventsResponse } from '../../types';
 
 const fetcher = (): Promise<EventsResponse> =>
   fetch('/api/v1.2/events.json').then((r) => r.json());

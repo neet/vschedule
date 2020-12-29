@@ -1,7 +1,9 @@
 import dayjs from 'dayjs';
+
+import type { Event as APIEvent } from '../../../types';
 import { useNow } from '../../hooks/useNow';
-import { Event as APIEvent } from '../../../types';
-import { Entry, EntryVariant } from '../../ui/Entry';
+import type { EntryVariant } from '../../ui/Entry';
+import { Entry } from '../../ui/Entry';
 
 export interface EventProps {
   readonly event: APIEvent;

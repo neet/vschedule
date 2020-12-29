@@ -1,6 +1,7 @@
-import { Avatar } from '../Avatar';
 import classNames from 'classnames';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+
+import { Avatar } from '../Avatar';
 
 type Size = 'sm' | 'md' | 'lg';
 
