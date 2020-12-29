@@ -152,7 +152,8 @@ export const Tutorial = (): JSX.Element => {
       show={!hasTutorialDone}
       title="チュートリアル"
       onHide={handleComplete}
-      root={document.body}
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      root={document.getElementById('app')!}
     >
       <Modal.Window
         aria-live="polite"

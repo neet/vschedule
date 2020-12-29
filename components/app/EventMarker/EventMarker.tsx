@@ -145,7 +145,8 @@ export const EventMarker = (props: EventProps): JSX.Element => {
             </Card>
           </div>
         </Transition>,
-        document.body,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        document.getElementById('app')!,
       )}
     </div>
   );

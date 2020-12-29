@@ -14,19 +14,17 @@ const mapSize = (size: Size): string => {
   }
 };
 
-const avatarClass = (variant: Variant, size: Size, className = ''): string =>
+const avatarClass = (variant: Variant, size: Size): string =>
   classNames(
     mapSize(size),
     'rounded-full',
     'bg-coolGray-200',
     'dark:bg-trueGray-800',
-    'animate-pulse',
     variant === 'flat' && [
       'border',
       'border-coolGray-300',
       'dark:border-trueGray-700',
     ],
-    className,
   );
 
 export type AvatarProps = Readonly<JSX.IntrinsicElements['img']> & {
@@ -39,12 +37,20 @@ export const Avatar = (props: AvatarProps): JSX.Element => {
   const { alt, variant, size, className, pending, ...rest } = props;
 
   if (pending) {
-    return <div className={avatarClass(variant, size, className)} />;
+    return (
+      <div
+        className={classNames(
+          avatarClass(variant, size),
+          'animate-pulse',
+          classNames,
+        )}
+      />
+    );
   }
 
   return (
     <img
-      className={avatarClass(variant, size, className)}
+      className={classNames(avatarClass(variant, size), className)}
       alt={alt}
       {...rest}
     />
