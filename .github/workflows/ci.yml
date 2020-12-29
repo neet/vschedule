@@ -15,7 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [10]
+        node-version: [12]
+    env:
+      TZ: 'Asia/Tokyo'
 
     steps:
       - uses: actions/checkout@v1
@@ -33,7 +35,7 @@ jobs:
       - name: Run tests
         run: yarn run test
 
-      - name: Send codecov to Codecov.io
-        run: yarn run codecov
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Codecov
+        uses: codecov/codecov-action@v1.0.15
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

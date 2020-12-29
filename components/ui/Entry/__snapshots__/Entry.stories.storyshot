@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Entry Loading 1`] = `
+<div
+  style={
+    Object {
+      "maxWidth": "300px",
+    }
+  }
+>
+  <div>
+    <div
+      className="mb-2 rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden shadow dark:border dark:border-trueGray-600"
+    />
+    <div>
+      <div
+        className="h-5 w-2/3 my-1 bg-coolGray-200 dark:bg-trueGray-800"
+      />
+      <div
+        className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800"
+      />
+      <div
+        className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Entry Shade 1`] = `
+<div
+  style={
+    Object {
+      "maxWidth": "300px",
+    }
+  }
+>
+  <a
+    className="group"
+    href="https://example.com"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    rel="noreferrer noopener"
+    target="_blank"
+  >
+    <div
+      className="relative"
+    >
+      <div
+        className="mb-2 rounded aspect-w-16 aspect-h-9 bg-black overflow-hidden shadow dark:border dark:border-trueGray-600"
+      >
+        <img
+          alt="random image"
+          className="rounded object-cover"
+          loading="lazy"
+          src="https://source.unsplash.com/random"
+        />
+      </div>
+      <div
+        className="absolute top-2 right-2"
+      >
+        <div
+          className="relative"
+        >
+          <div
+            aria-hidden={true}
+            className="absolute top-0 left-0 w-full h-full opacity-75 bg-primary-400 animate-ping rounded-full"
+            role="presentation"
+          />
+          <div
+            className="flex items-center px-2 py-1 rounded-full shadow-sm bg-primary-500 text-white relative"
+          >
+            <span
+              className="block leading-none text-sm font-semibold"
+            >
+              配信中
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="text-coolGray-600 dark:text-trueGray-400"
+    >
+      <h4
+        className="font-semibold text-coolGray-700 dark:text-trueGray-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 ease-out transition-colors truncate-2-lines"
+      >
+        Example
+      </h4>
+      <p
+        className="truncate-2-lines break-all"
+      >
+        Lorem ipsum
+      </p>
+      <dl
+        className="flex text-sm"
+      >
+        <dt
+          className="sr-only"
+        >
+          ライバー
+        </dt>
+        <dd
+          className="mr-2"
+        >
+          Ryo Igarashi
+        </dd>
+        <dt
+          className="sr-only"
+        >
+          開始時刻
+        </dt>
+        <dd
+          className="mr-2"
+        >
+          <time
+            dateTime="2020-12-25T16:44:43.757Z"
+          >
+            in 2 years
+          </time>
+        </dd>
+        <dt
+          className="sr-only"
+        >
+          タグ
+        </dt>
+        <dd
+          className="mr-2"
+        >
+          blog
+        </dd>
+      </dl>
+    </div>
+  </a>
+</div>
+`;

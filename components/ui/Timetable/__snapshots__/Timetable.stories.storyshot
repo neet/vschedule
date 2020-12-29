@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Timetable Default 1`] = `
+<div
+  className="relative flex-grow w-full rounded-xl border bg-coolGray-50 border-coolGray-200 dark:bg-trueGray-900 dark:border-trueGray-800"
+>
+  <div
+    className="absolute top-0 left-0 w-full h-full overflow-scroll select-none"
+    style={
+      Object {
+        "WebkitOverflowScrolling": "touch",
+        "WebkitTransform": "translateZ(0px)",
+      }
+    }
+  >
+    <div
+      aria-hidden={true}
+      className="box-border sticky top-0 left-0 flex flex-col items-center h-full w-full pt-2 select-none z-10"
+      role="presentation"
+    >
+      <time
+        className="flex-grow-0 flex-shrink-0 py-1 px-2.5 rounded-full text-sm font-semibold tabular-nums text-white bg-primary-500 dark:bg-primary-400 border-b-2 border-primary-700 dark:border-primary-600"
+        dateTime="2020-12-28T07:46:53.578Z"
+      >
+        16:46
+      </time>
+      <div
+        className="w-0 flex-grow flex-shrink border-primary-600 dark:border-primary-400 border-r"
+      />
+    </div>
+  </div>
+</div>
+`;

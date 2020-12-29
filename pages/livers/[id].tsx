@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { Layout } from '../../components/Layout';
+import { Layout } from '../../components/app/Layout';
 
 const Tags: NextPage = () => {
   return (

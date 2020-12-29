@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Badge Default 1`] = `
+<div
+  style={
+    Object {
+      "width": "min-content",
+    }
+  }
+>
+  <div
+    className="flex items-center px-2 py-1 rounded-full shadow-sm bg-primary-500 text-white"
+  >
+    <span
+      className="block leading-none text-sm font-semibold"
+    >
+      lorem
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Badge Ping 1`] = `
+<div
+  style={
+    Object {
+      "width": "min-content",
+    }
+  }
+>
+  <div
+    className="relative"
+  >
+    <div
+      aria-hidden={true}
+      className="absolute top-0 left-0 w-full h-full opacity-75 bg-primary-400 animate-ping rounded-full"
+      role="presentation"
+    />
+    <div
+      className="flex items-center px-2 py-1 rounded-full shadow-sm bg-primary-500 text-white relative"
+    >
+      <span
+        className="block leading-none text-sm font-semibold"
+      >
+        lorem
+      </span>
+    </div>
+  </div>
+</div>
+`;

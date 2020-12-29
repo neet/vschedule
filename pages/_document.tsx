@@ -12,6 +12,16 @@ export default class CustomDocument extends Document<DocumentProps> {
     return (
       <Html lang="ja">
         <Head>
+          <meta name="theme-color" content="#f80652" />
+          <meta
+            name="apple-mobile-web-app-title"
+            content="Refined Itsukara.link"
+          />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+          <link rel="mask-icon" href="/mask-icon.svg" color="#f80652" />
+          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_MEASUREMENT_ID}`}
@@ -28,6 +38,7 @@ export default class CustomDocument extends Document<DocumentProps> {
             }}
           />
         </Head>
+
         <body className="bg-white dark:bg-black">
           <Main />
           <NextScript />

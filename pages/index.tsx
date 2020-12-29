@@ -1,51 +1,78 @@
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
+import classNames from 'classnames';
 import dayjs from 'dayjs';
-import { useWindowSize } from 'react-use';
-import { useEvents } from '../hooks/useEvents';
-import { Timetable } from '../ui/Timetable';
-import { EventMarker } from '../components/EventMarker';
-import { Skyscraper } from '../components/Skyscraper';
-import { GettingStarted } from '../components/GettingStarted';
-import { useTutorial } from '../hooks/useTutorial';
-import { Layout } from '../components/Layout';
+import { useEvents } from '../components/hooks/useEvents';
+import { TimetableProvider } from '../components/ui/Timetable';
+import type { TimetableProps } from '../components/ui/Timetable';
+import { EventMarker } from '../components/app/EventMarker';
+import { Skyscraper } from '../components/app/Skyscraper';
+import { Tutorial } from '../components/app/Tutorial';
+import { Layout } from '../components/app/Layout';
+import { TimetableController } from '../components/app/TimetableController';
+
+const Timetable = dynamic<TimetableProps>(
+  () => import('../components/ui/Timetable').then((m) => m.Timetable),
+  { ssr: false },
+);
 
 const Events = (): JSX.Element => {
   const { data } = useEvents();
-  const { width } = useWindowSize();
-  const { hasTutorialDone, setTutorialStatus } = useTutorial();
+
+  const startAt = data ? dayjs(data.data.events[0].start_date) : dayjs();
+  const endAt = data
+    ? dayjs(data.data.events[data.data.events.length - 1].end_date)
+    : dayjs();
 
   return (
     <Layout variant="single">
       <Head>
         <title>にじさんじの配信一覧 | Refined Itsukara.link</title>
+        <meta
+          name="description"
+          content="にじさんじライバーの最近の配信の一覧です"
+        />
       </Head>
-
-      {data != null ? (
-        <Timetable
-          scale={5}
-          interval={30}
-          itemHeight={60}
-          startAt={dayjs(data.data.events[0].start_date)}
-          endAt={dayjs(data.data.events[data.data.events.length - 1].end_date)}
-          schedules={data.data.events.map((event) => ({
-            startAt: dayjs(event.start_date),
-            endAt: dayjs(event.end_date),
-            node: <EventMarker event={event} />,
-          }))}
-        >
-          {width >= 1280 && (
-            <div className="flex-shrink-0 w-72 overflow-scroll hidden xl:block">
-              <Skyscraper />
-            </div>
+      <TimetableProvider
+        startAt={startAt}
+        endAt={endAt}
+        interval={30}
+        scale={5}
+        itemHeight={60}
+      >
+        <div
+          className={classNames(
+            'absolute', // TODO: separate
+            'box-border',
+            'flex',
+            'top-0',
+            'left-0',
+            'p-2',
+            'w-full',
+            'h-full',
+            'md:px-6',
+            'md:py-4',
+            'md:space-x-4',
           )}
-        </Timetable>
-      ) : (
-        <span aria-busy>loading</span>
-      )}
+        >
+          <div className="flex flex-col flex-grow space-y-4">
+            <TimetableController />
+            <Timetable
+              loading={data == null}
+              schedules={
+                data?.data.events.map((event) => ({
+                  startAt: dayjs(event.start_date),
+                  endAt: dayjs(event.end_date),
+                  node: <EventMarker event={event} />,
+                })) ?? []
+              }
+            />
+          </div>
+          <Skyscraper />
+        </div>
+      </TimetableProvider>
 
-      {!hasTutorialDone && typeof window !== 'undefined' && (
-        <GettingStarted onComplete={() => setTutorialStatus(true)} />
-      )}
+      {typeof window !== 'undefined' && <Tutorial />}
     </Layout>
   );
 };

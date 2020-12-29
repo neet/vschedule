@@ -1,4 +1,4 @@
-import 'tailwindcss/tailwind.css';
+import '../style.css';
 import 'dayjs/locale/ja';
 import { AppProps } from 'next/app';
 import dayjs from 'dayjs';
@@ -19,7 +19,7 @@ const App = (props: AppProps): JSX.Element => {
 
   useEffect(() => {
     const handleRouteChange = () => {
-      gtag('config', process.env.GA_MEASUREMENT_ID);
+      gtag('config', process.env.GA_MEASUREMENT_ID as string);
     };
     router.events.on('routeChangeComplete', handleRouteChange);
     return () => {
