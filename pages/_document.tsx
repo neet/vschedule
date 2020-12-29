@@ -7,6 +7,7 @@ export default class CustomDocument extends Document<DocumentProps> {
     return (
       <Html lang="ja">
         <Head>
+          <link rel="icon" href="/favicon.ico" />
           <meta name="theme-color" content="#f80652" />
           <meta
             name="apple-mobile-web-app-title"
@@ -16,7 +17,6 @@ export default class CustomDocument extends Document<DocumentProps> {
           <meta name="apple-mobile-web-app-status-bar-style" content="black" />
           <link rel="mask-icon" href="/mask-icon.svg" color="#f80652" />
           <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-
           {process.env.GA_MEASUREMENT_ID != null && (
             <>
               <script

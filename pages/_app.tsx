@@ -2,13 +2,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import '../style.css';
 import 'dayjs/locale/ja';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
+import { config } from '@fortawesome/fontawesome-svg-core';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+
+config.autoAddCss = false;
 
 const App = (props: AppProps): JSX.Element => {
   const { Component, pageProps } = props;
