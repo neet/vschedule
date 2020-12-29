@@ -1,6 +1,7 @@
 import { Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import { useDarkMode } from 'next-dark-mode';
 import { setLightness } from 'polished';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -9,7 +10,6 @@ import { usePopper } from 'react-popper';
 
 import type { Event as EventType } from '../../../types';
 import { useDelayedHover } from '../../hooks/useDelayedHover';
-import { usePrefersColorScheme } from '../../hooks/usePrefersColorScheme';
 import { Avatar } from '../../ui/Avatar';
 import { Card } from '../../ui/Card';
 import { Marker } from '../../ui/Marker';
@@ -31,7 +31,7 @@ export const EventMarker = (props: EventProps): JSX.Element => {
     rootMargin: '200px',
   });
 
-  const theme = usePrefersColorScheme();
+  const { darkModeActive } = useDarkMode();
   const { hover, handleFocus, handleBlur } = useDelayedHover();
   const [wrapperRef, setWrapperRef] = useState<HTMLDivElement | null>(null);
   const [cardRef, setCardRef] = useState<HTMLDivElement | null>(null);
@@ -70,7 +70,10 @@ export const EventMarker = (props: EventProps): JSX.Element => {
         onFocus={() => void handleFocus(true)}
         onBlur={() => void handleBlur()}
       >
-        <Marker backgroundColor={event.livers[0].color}>
+        <Marker
+          backgroundColor={event.livers[0].color}
+          appearance={darkModeActive ? 'dark' : 'light'}
+        >
           <div className="flex-shrink-0 mr-1">
             <Avatar
               loading="lazy"
@@ -78,10 +81,9 @@ export const EventMarker = (props: EventProps): JSX.Element => {
               src={event.livers[0].avatar}
               alt={event.livers[0].name}
               style={{
-                backgroundColor:
-                  theme === 'dark'
-                    ? setLightness(AVATAR_BG_BRIGHTNESS, event.livers[0].color)
-                    : '#ffffff',
+                backgroundColor: darkModeActive
+                  ? setLightness(AVATAR_BG_BRIGHTNESS, event.livers[0].color)
+                  : '#ffffff',
               }}
             />
           </div>
