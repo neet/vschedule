@@ -32,6 +32,7 @@ const Inner = (): JSX.Element => {
         'dark:text-trueGray-50',
         'lg:p-2',
         'lg:w-full',
+        'pointer-events-auto',
       )}
     >
       <nav aria-label="主要なページ" className="flex-grow">
