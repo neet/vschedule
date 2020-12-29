@@ -6,15 +6,17 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useInView } from 'react-intersection-observer';
 import { usePopper } from 'react-popper';
-import useDarkMode from 'use-dark-mode';
 
 import type { Event as EventType } from '../../../types';
 import { useDelayedHover } from '../../hooks/useDelayedHover';
+import { usePrefersColorScheme } from '../../hooks/usePrefersColorScheme';
 import { Avatar } from '../../ui/Avatar';
 import { Card } from '../../ui/Card';
 import { Marker } from '../../ui/Marker';
 import { useTimetable } from '../../ui/Timetable';
 import { Event } from '../Event';
+
+const AVATAR_BG_BRIGHTNESS = 0.15;
 
 export interface EventProps {
   readonly event: EventType;
@@ -29,7 +31,7 @@ export const EventMarker = (props: EventProps): JSX.Element => {
     rootMargin: '200px',
   });
 
-  const { value: isDark } = useDarkMode();
+  const theme = usePrefersColorScheme();
   const { hover, handleFocus, handleBlur } = useDelayedHover();
   const [wrapperRef, setWrapperRef] = useState<HTMLDivElement | null>(null);
   const [cardRef, setCardRef] = useState<HTMLDivElement | null>(null);
@@ -75,10 +77,10 @@ export const EventMarker = (props: EventProps): JSX.Element => {
               src={event.livers[0].avatar}
               alt={event.livers[0].name}
               style={{
-                backgroundColor: isDark
-                  ? // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-                    setLightness(0.15, event.livers[0].color)
-                  : '#ffffff',
+                backgroundColor:
+                  theme === 'dark'
+                    ? setLightness(AVATAR_BG_BRIGHTNESS, event.livers[0].color)
+                    : '#ffffff',
               }}
             />
           </div>
@@ -136,16 +138,7 @@ export const EventMarker = (props: EventProps): JSX.Element => {
           <div ref={setCardRef} style={styles.popper} {...attributes.popper}>
             <Card
               size="sm"
-              className={classNames(
-                'box-border',
-                'w-72',
-                'my-2',
-                'shadow-lg',
-                'bg-white',
-                'dark:bg-black',
-                'dark:border',
-                'dark:border-trueGray-800',
-              )}
+              className={classNames('box-border', 'w-72', 'my-2')}
             >
               <Event event={event} variant="flat" embedType="always" />
             </Card>

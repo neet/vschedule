@@ -16,7 +16,7 @@ export const UpcomingEvents = (): JSX.Element => {
         <ul className="space-y-4">
           {upcoming.map((event) => (
             <li key={event.id}>
-              <Card className="bg-coolGray-100 dark:bg-trueGray-900">
+              <Card variant="wash">
                 <Event event={event} />
               </Card>
             </li>
@@ -25,10 +25,7 @@ export const UpcomingEvents = (): JSX.Element => {
       ) : (
         <div className="space-y-4">
           {Array.from({ length: 4 }, (_, i) => (
-            <Card
-              key={`placeholder-${i}`}
-              className="bg-coolGray-100 dark:bg-trueGray-900"
-            >
+            <Card key={`placeholder-${i}`} variant="wash">
               <Entry loading />
             </Card>
           ))}

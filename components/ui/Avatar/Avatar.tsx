@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-type AvatarVariant = 'minimal' | 'flat';
+type Variant = 'minimal' | 'flat';
 type Size = 'sm' | 'md' | 'lg';
 
 const mapSize = (size: Size): string => {
@@ -14,9 +14,24 @@ const mapSize = (size: Size): string => {
   }
 };
 
+const avatarClass = (variant: Variant, size: Size, className = ''): string =>
+  classNames(
+    mapSize(size),
+    'rounded-full',
+    'bg-coolGray-200',
+    'dark:bg-trueGray-800',
+    'animate-pulse',
+    variant === 'flat' && [
+      'border',
+      'border-coolGray-300',
+      'dark:border-trueGray-700',
+    ],
+    className,
+  );
+
 export type AvatarProps = Readonly<JSX.IntrinsicElements['img']> & {
   readonly size: Size;
-  readonly variant: AvatarVariant;
+  readonly variant: Variant;
   readonly pending: boolean;
 };
 
@@ -24,33 +39,12 @@ export const Avatar = (props: AvatarProps): JSX.Element => {
   const { alt, variant, size, className, pending, ...rest } = props;
 
   if (pending) {
-    return (
-      <div
-        className={classNames(
-          mapSize(size),
-          'rounded-full',
-          'bg-coolGray-200',
-          'dark:bg-trueGray-800',
-          'animate-pulse',
-        )}
-      />
-    );
+    return <div className={avatarClass(variant, size, className)} />;
   }
 
   return (
     <img
-      className={classNames(
-        mapSize(size),
-        'rounded-full',
-        'bg-white',
-        'dark:bg-black',
-        variant === 'flat' && [
-          'border',
-          'border-coolGray-300',
-          'dark:border-trueGray-700',
-        ],
-        className,
-      )}
+      className={avatarClass(variant, size, className)}
       alt={alt}
       {...rest}
     />

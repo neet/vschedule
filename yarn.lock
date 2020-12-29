@@ -53,6 +53,11 @@
   dependencies:
     node-fetch "2.6.1"
 
+"@assortment/darkmodejs@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@assortment/darkmodejs/-/darkmodejs-1.2.0.tgz#4580dab94a85476cd68b3050368a40fdb2bae63a"
+  integrity sha512-tjTH0romXK/J7ftve93cWmgIJ7djK8ZL75P60/YG0VOMwSYG3EWfxRX/hDpmyAHbxu1aryQVK1IhFgq8/w0+QA==
+
 "@babel/code-frame@7.10.4":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.10.4.tgz#168da1a36e90da68ae8d49c0f1b48c7c6249213a"

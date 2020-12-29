@@ -14,7 +14,7 @@ export const ActiveLivers = (): JSX.Element => {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <Card className={classNames('bg-coolGray-100', 'dark:bg-trueGray-900')}>
+    <Card variant="wash">
       <h3
         className={classNames(
           'mb-2',

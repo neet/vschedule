@@ -5,7 +5,7 @@ export const Clock = (): JSX.Element => {
   const now = useNow();
 
   return (
-    <Card className="bg-coolGray-100 dark:bg-trueGray-900">
+    <Card variant="wash">
       <div className="flex items-center justify-between">
         <time
           className="text-coolGray-700 dark:text-trueGray-300 font-semibold text-4xl tabular-nums"

@@ -24,6 +24,6 @@ export const Shade = (): JSX.Element => (
 
 export const Loading = (): JSX.Element => (
   <div style={{ maxWidth: '300px' }}>
-    <Entry loading variant="shade" />
+    <Entry loading variant="flat" />
   </div>
 );
