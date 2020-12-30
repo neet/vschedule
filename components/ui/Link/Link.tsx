@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import type { ForwardedRef } from 'react';
 import { createElement, forwardRef } from 'react';
 
 type Variant = 'primary' | 'wash';
@@ -29,8 +28,9 @@ const mapVariant = (variant: Variant): string => {
 };
 
 // prettier-ignore
-const LinkPure = (props: LinkProps, ref: ForwardedRef<HTMLElement>): JSX.Element => {
-  const { as, variant, children, className, ...rest } = props;
+export const Link = forwardRef<HTMLElement, Partial<LinkProps>>((props, ref): JSX.Element => {
+  // https://github.com/microsoft/TypeScript/issues/28614
+  const { as, variant, children, className, ...rest } = props as LinkProps;
 
   return createElement(
     as,
@@ -41,9 +41,7 @@ const LinkPure = (props: LinkProps, ref: ForwardedRef<HTMLElement>): JSX.Element
     },
     children,
   );
-};
-
-export const Link = forwardRef<HTMLElement, LinkProps>(LinkPure);
+});
 
 Link.defaultProps = {
   as: 'a',
