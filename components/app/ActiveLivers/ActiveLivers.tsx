@@ -3,8 +3,8 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 
 import { useUpcomingEvents } from '../../hooks/useUpcomingEvents';
-import { Button } from '../../ui/Button';
 import { Card } from '../../ui/Card';
+import { Link } from '../../ui/Link';
 import { User } from '../../ui/User';
 
 const MIN_ITEMS = 3;
@@ -57,21 +57,23 @@ export const ActiveLivers = (): JSX.Element => {
       {events && events.length - MIN_ITEMS > 0 && (
         <div className="flex justify-start">
           {expanded ? (
-            <Button
-              variant="link"
-              size="sm"
+            <Link
+              as="button"
+              variant="wash"
+              className="text-sm"
               onClick={() => void setExpanded(false)}
             >
               閉じる
-            </Button>
+            </Link>
           ) : (
-            <Button
-              variant="link"
-              size="sm"
+            <Link
+              as="button"
+              className="text-sm"
+              variant="wash"
               onClick={() => void setExpanded(true)}
             >
               さらに表示
-            </Button>
+            </Link>
           )}
         </div>
       )}

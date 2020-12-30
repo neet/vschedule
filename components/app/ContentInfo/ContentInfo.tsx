@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 
+import { Link as UILink } from '../../ui/Link';
+
 // export interface ContentInfoProps {}
 
 export const ContentInfo = (/* props: ContentInfoProps */): JSX.Element => {
@@ -19,31 +21,37 @@ export const ContentInfo = (/* props: ContentInfoProps */): JSX.Element => {
         )}
       >
         <li>
-          <Link href="/about">
-            <a>このサイトについて</a>
+          <Link href="/about" passHref>
+            <UILink variant="wash">このサイトについて</UILink>
           </Link>
         </li>
         {'・'}
         <li>
-          <Link href="/term">
-            <a>利用規約</a>
+          <Link href="/term" passHref>
+            <UILink variant="wash">利用規約</UILink>
           </Link>
         </li>
         {'・'}
         <li>
-          <a
+          <UILink
+            variant="wash"
             target="_blank"
             rel="noreferrer"
             href="https://github.com/neet/refined-itsukara-link"
           >
             GitHub
-          </a>
+          </UILink>
         </li>
         {'・'}
         <li>
-          <a href="https://itsukara.link" target="_blank" rel="noreferrer">
+          <UILink
+            variant="wash"
+            href="https://itsukara.link"
+            target="_blank"
+            rel="noreferrer"
+          >
             元サイトを表示
-          </a>
+          </UILink>
         </li>
       </ul>
 

@@ -3,13 +3,18 @@ import { createElement, useState } from 'react';
 
 import { useTutorial } from '../../hooks/useTutorial';
 import { Button } from '../../ui/Button';
+import { Link } from '../../ui/Link';
 import { Modal } from '../../ui/Modal';
 
 const Page1 = (): JSX.Element => {
   return (
-    <div role="group" aria-labelledby="tutorial__page-1">
-      <Modal.Title id="tutorial__page-1">
-        <a href="#tutorial__page">さあ、始めよう！</a>
+    <div
+      role="group"
+      aria-labelledby="tutorial__page-1"
+      aria-describedby="tutorial-1__description"
+    >
+      <Modal.Title id="tutorial-1__title">
+        <a href="#tutorial__page-1">さあ、始めよう！</a>
       </Modal.Title>
 
       <img
@@ -18,7 +23,7 @@ const Page1 = (): JSX.Element => {
         className="bg-primary-500 object-contain w-full h-36 md:h-80"
       />
 
-      <Modal.Body>
+      <Modal.Body id="tutorial-1__description">
         <p>
           Refined
           Itsukara.linkへようこそ！このwebサイトはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。これから使い方をご説明します！
@@ -30,9 +35,13 @@ const Page1 = (): JSX.Element => {
 
 const Page2 = (): JSX.Element => {
   return (
-    <div role="group" aria-labelledby="tutorial__page-2">
-      <Modal.Title id="tutorial__page-2">
-        <a href="#tutorial__page-2">配信をチェック</a>
+    <div
+      role="group"
+      aria-labelledby="tutorial__page-2"
+      aria-describedby="tutorial-2__description"
+    >
+      <Modal.Title id="tutorial-2__title">
+        <a href="#tutorial-2__title">配信をチェック</a>
       </Modal.Title>
 
       <img
@@ -41,7 +50,7 @@ const Page2 = (): JSX.Element => {
         className="bg-primary-500 object-contain w-full h-36 md:h-80"
       />
 
-      <Modal.Body>
+      <Modal.Body id="tutorial-2__description">
         <p>
           画面中央に表示されるのは過去の配信と、これから始まる配信です、各配信をタップするとYouTubeの配信画面が表示されます。左右にスクロールすると（パソコンをお使いの場合は
           <kbd>Shift</kbd>
@@ -54,8 +63,12 @@ const Page2 = (): JSX.Element => {
 
 const Page3 = (): JSX.Element => {
   return (
-    <div role="group" aria-labelledby="tutorial__page-3">
-      <Modal.Title id="tutorial__page-3">
+    <div
+      role="group"
+      aria-labelledby="tutorial-3__title"
+      aria-describedby="tutorial-3__description"
+    >
+      <Modal.Title id="tutorial-3__title">
         <a href="#tutorial__page-3">ライバー</a>
       </Modal.Title>
 
@@ -65,7 +78,7 @@ const Page3 = (): JSX.Element => {
         className="bg-primary-500 object-contain w-full h-36 md:h-80"
       />
 
-      <Modal.Body>
+      <Modal.Body id="tutorial-3__description">
         <p>
           サイドバーやメニューからアクセスできるライバーの項目からは、現在配信中のライバーやライバーの一覧を表示することができます。
         </p>
@@ -76,9 +89,13 @@ const Page3 = (): JSX.Element => {
 
 const Page4 = (): JSX.Element => {
   return (
-    <div role="group" aria-labelledby="tutorial__page-4">
-      <Modal.Title id="tutorial__page-4">
-        <a href="#tutorial__page-4">アクセシビリティー</a>
+    <div
+      role="group"
+      aria-labelledby="tutorial-4__title"
+      aria-describedby="tutorial-4__description"
+    >
+      <Modal.Title id="tutorial-4__title">
+        <a href="#tutorial-4__title">アクセシビリティー</a>
       </Modal.Title>
 
       <img
@@ -87,7 +104,7 @@ const Page4 = (): JSX.Element => {
         className="bg-primary-500 object-contain w-full h-36 md:h-80"
       />
 
-      <Modal.Body>
+      <Modal.Body id="tutorial-4__description">
         <p>
           Refined Itsukara.linkはVoiceOverとキーボードでテストされており、WCAG
           2.1
@@ -100,9 +117,13 @@ const Page4 = (): JSX.Element => {
 
 const Page5 = (): JSX.Element => {
   return (
-    <div role="group" aria-labelledby="tutorial__page-5">
-      <Modal.Title id="tutorial__page-5">
-        <a href="#tutorial__page-5">開発に参加</a>
+    <div
+      role="group"
+      aria-labelledby="tutorial-5__title"
+      aria-describedby="tutorial-5__description"
+    >
+      <Modal.Title id="tutorial-5__title">
+        <a href="#tutorial-5__title">開発に参加</a>
       </Modal.Title>
 
       <img
@@ -111,15 +132,15 @@ const Page5 = (): JSX.Element => {
         className="bg-primary-500 object-contain w-full h-36 md:h-80"
       />
 
-      <Modal.Body>
+      <Modal.Body id="tutorial-5__description">
         <p>
           使い方はお分かりいただけましたか？
           質問や機能のリクエスト、改善点、バグの報告は Twitter（
-          <a href="https://twitter.com/TheGodOfNeet">@TheGodOfNeet</a>）
+          <Link href="https://twitter.com/TheGodOfNeet">@TheGodOfNeet</Link>）
           か、GitHub（
-          <a href="https://github.com/neet/refined-itusukara-link">
+          <Link href="https://github.com/neet/refined-itsukara-link">
             neet/refined-itsukara-link
-          </a>
+          </Link>
           ） までお寄せください！
           このプロジェクトはオープンソースソフトウェアで、より良い実装をしていただけるコントリビューターも募集しています！
           それではお楽しみください！
