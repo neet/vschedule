@@ -27,7 +27,6 @@ export const Title = forwardRef<HTMLDivElement, TitleProps>((props, ref) => {
         'dark:border-trueGray-800',
         className,
       )}
-      {...rest}
     >
       <Typography
         ref={ref}
@@ -35,6 +34,7 @@ export const Title = forwardRef<HTMLDivElement, TitleProps>((props, ref) => {
         weight="semibold"
         size="lg"
         className="flex-grow"
+        {...rest}
       >
         {children}
       </Typography>

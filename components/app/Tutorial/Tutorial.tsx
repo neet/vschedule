@@ -11,11 +11,11 @@ const Page1 = (): JSX.Element => {
   return (
     <div
       role="group"
-      aria-labelledby="tutorial__page-1"
+      aria-labelledby="tutorial-1__title"
       aria-describedby="tutorial-1__description"
     >
       <Modal.Title id="tutorial-1__title">
-        <a href="#tutorial__page-1">さあ、始めよう！</a>
+        <a href="#tutorial-1__title">さあ、始めよう！</a>
       </Modal.Title>
 
       <img
@@ -38,7 +38,7 @@ const Page2 = (): JSX.Element => {
   return (
     <div
       role="group"
-      aria-labelledby="tutorial__page-2"
+      aria-labelledby="tutorial-2__title"
       aria-describedby="tutorial-2__description"
     >
       <Modal.Title id="tutorial-2__title">
@@ -70,7 +70,7 @@ const Page3 = (): JSX.Element => {
       aria-describedby="tutorial-3__description"
     >
       <Modal.Title id="tutorial-3__title">
-        <a href="#tutorial__page-3">ライバー</a>
+        <a href="#tutorial-3__title">ライバー</a>
       </Modal.Title>
 
       <img

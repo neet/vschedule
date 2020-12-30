@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import { createElement } from 'react';
+import type { ForwardedRef } from 'react';
+import { createElement, forwardRef } from 'react';
 
 type Variant = 'primary' | 'wash';
 
@@ -27,18 +28,22 @@ const mapVariant = (variant: Variant): string => {
   }
 };
 
-export const Link = (props: LinkProps): JSX.Element => {
+// prettier-ignore
+const LinkPure = (props: LinkProps, ref: ForwardedRef<HTMLElement>): JSX.Element => {
   const { as, variant, children, className, ...rest } = props;
 
   return createElement(
     as,
     {
       className: classNames(mapVariant(variant), 'hover:underline', className),
+      ref,
       ...rest,
     },
     children,
   );
 };
+
+export const Link = forwardRef<HTMLElement, LinkProps>(LinkPure);
 
 Link.defaultProps = {
   as: 'a',
