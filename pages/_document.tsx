@@ -7,6 +7,26 @@ export default class CustomDocument extends Document<DocumentProps> {
     return (
       <Html lang="ja">
         <Head>
+          <meta name="viewport" content="width=device-width" />
+          <meta charSet="utf-8" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta property="og:type" content="website" />
+          <meta
+            property="og:image"
+            content="https://refined-itsukara-link.neet.love/screenshot.png"
+          />
+          <meta property="og:image:alt" content="サムネイル" />
+          <meta property="og:site_name" content="Refined Itsukara.link" />
+          <meta name="robots" content="index,follow" />
+          <meta
+            name="description"
+            content="Refined Itsukara.linkはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。"
+          />
+          <meta property="og:title" content="Refined Itsukara.link" />
+          <meta
+            property="og:description"
+            content="Refined Itsukara.linkはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。"
+          />
           <link rel="icon" href="/favicon.ico" />
           <meta name="theme-color" content="#f80652" />
           <meta
