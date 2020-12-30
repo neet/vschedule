@@ -1,26 +1,54 @@
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import { forwardRef } from 'react';
 
-export type TitleProps = Readonly<JSX.IntrinsicElements['h2']>;
+import { Button } from '../Button';
+import { Typography } from '../Typography';
+
+export type TitleProps = Readonly<JSX.IntrinsicElements['h2']> & {
+  readonly onClose?: () => void;
+};
 
 export const Title = forwardRef<HTMLDivElement, TitleProps>((props, ref) => {
-  const { children, className, ...rest } = props;
+  const { children, className, onClose, ...rest } = props;
 
   return (
-    <h2
-      ref={ref}
+    <header
+      aria-label="モーダルヘッダー"
       className={classNames(
+        'flex',
+        'items-center',
         'px-4',
         'py-2',
-        'font-semibold',
-        'text-lg',
-        'text-coolGray-900',
-        'dark:text-trueGray-100',
+        'box-border',
+        'border-b',
+        'border-coolGray-200',
+        'dark:border-trueGray-800',
         className,
       )}
       {...rest}
     >
-      {children}
-    </h2>
+      <Typography
+        ref={ref}
+        as="h2"
+        weight="semibold"
+        size="lg"
+        className="flex-grow"
+      >
+        {children}
+      </Typography>
+
+      {onClose && (
+        <Button
+          variant="skeleton"
+          title="閉じる"
+          aria-label="閉じる"
+          onClick={onClose}
+        >
+          <FontAwesomeIcon icon={faTimes} />
+        </Button>
+      )}
+    </header>
   );
 });

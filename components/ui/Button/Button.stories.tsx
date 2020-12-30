@@ -33,8 +33,8 @@ export const WashLarge = (): JSX.Element => (
   <Button variant="wash">{text('text', 'hello')}</Button>
 );
 
-export const Link = (): JSX.Element => (
-  <Button variant="link">{text('text', 'hello')}</Button>
+export const Skeleton = (): JSX.Element => (
+  <Button variant="skeleton">{text('text', 'hello')}</Button>
 );
 
 export const Circle = (): JSX.Element => (

@@ -99,6 +99,14 @@ export const Typography = <T extends TagName>(
   });
 };
 
+Typography.defaultProps = {
+  as: 'p',
+  leading: 'normal',
+  variant: 'normal',
+  size: 'md',
+  weight: 'normal',
+};
+
 interface JustChildren {
   readonly children: ReactNode;
 }
