@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
-import type { ReactNode, WheelEvent } from 'react';
+import type { ReactNode } from 'react';
 import { useEffect, useLayoutEffect } from 'react';
 
 import { useDebouncedScroll } from '../../hooks/useDebouncedScroll';
@@ -48,11 +48,20 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
     setFocusedAtRaw(newValue);
   }, [fromLeft, startAt, scale, ref, setFocusedAtRaw]);
 
-  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-  const handleWheel = (e: WheelEvent<HTMLDivElement>): void => {
-    if (swapDelta == null || !swapDelta) return;
-    ref.current?.scrollBy(e.deltaY, e.deltaX);
-  };
+  // Swap delta
+  useEffect(() => {
+    const handleWheel = (e: Readonly<WheelEvent>): void => {
+      if (swapDelta == null || !swapDelta) return;
+      e.preventDefault();
+      ref.current?.scrollBy(e.deltaY, e.deltaX);
+    };
+    ref.current?.addEventListener('wheel', handleWheel);
+
+    const t = ref.current;
+    return (): void => {
+      t?.removeEventListener('wheel', handleWheel);
+    };
+  }, [ref, swapDelta]);
 
   if (loading != null && loading) {
     return (
@@ -110,7 +119,6 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
           WebkitTransform: 'translateZ(0px)',
         }}
         /* eslint-enable @typescript-eslint/naming-convention */
-        onWheel={handleWheel}
       >
         <ScheduleList schedules={schedules} />
         <MinuteHand />

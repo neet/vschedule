@@ -20,7 +20,6 @@ const User: NextPage = () => {
       </Head>
 
       <Typography.H1>設定</Typography.H1>
-      <Typography.Paragraph>ユーザー設定です。</Typography.Paragraph>
 
       <div className="flex space-x-5">
         <Typography.H4>ホイールで横スクロール（実験中）</Typography.H4>
@@ -29,6 +28,7 @@ const User: NextPage = () => {
 
       <Typography.Paragraph>
         タイムテーブル上のマウスホイールのX軸とY軸を入れ替え、Shiftを押さなくても横スクロールが行えるようになります。
+        トラックパッドをお使いの場合は無効にすることをお勧めします。
       </Typography.Paragraph>
     </Layout>
   );
