@@ -121,20 +121,27 @@ const Page5 = (): JSX.Element => {
   );
 };
 
-export const Tutorial = (): JSX.Element => {
+export interface TutorialProps {
+  readonly show?: boolean;
+  readonly onHide?: () => void;
+}
+
+export const Tutorial = (props: TutorialProps): JSX.Element => {
+  const { show, onHide } = props;
   const pages = [Page1, Page2, Page3, Page4, Page5];
 
   const { hasTutorialDone, setTutorialStatus } = useTutorial();
 
   const handleComplete = (): void => {
     setTutorialStatus(true);
+    onHide?.();
   };
 
   return (
     <Slide
       title="チュートリアル"
       pages={pages}
-      show={!hasTutorialDone}
+      show={!hasTutorialDone || (show != null && show)}
       onHide={handleComplete}
     />
   );

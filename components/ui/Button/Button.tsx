@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
-import { createElement } from 'react';
+import { createElement, forwardRef } from 'react';
 
 type Variant = 'primary' | 'secondary' | 'wash' | 'skeleton';
 type Size = 'lg' | 'md' | 'sm';
@@ -90,8 +90,9 @@ const mapShape = (shape: Shape): string => {
   }
 };
 
-export const Button = (props: ButtonProps): JSX.Element => {
-  const { children, size, shape, variant, className, as, ...rest } = props;
+// prettier-ignore
+export const Button = forwardRef<HTMLElement, Partial<ButtonProps>>((props, ref): JSX.Element => {
+  const { children, size, shape, variant, className, as, ...rest } = props as ButtonProps;
 
   return createElement(
     as,
@@ -114,11 +115,12 @@ export const Button = (props: ButtonProps): JSX.Element => {
         'dark:focus:ring-primary-800',
         className,
       ),
+      ref,
       ...rest,
     },
     children,
   );
-};
+});
 
 Button.defaultProps = {
   as: 'button',
