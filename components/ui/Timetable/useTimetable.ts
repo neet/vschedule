@@ -41,7 +41,7 @@ const setFocusedAt = (ctx: TimetableContext) => (
   // Focus to the closest spell: important for a11y
   const anchor = document.getElementById(
     date.minute(0).second(0).millisecond(0).toISOString(),
-  );
+  )?.firstElementChild;
 
   if (anchor instanceof HTMLAnchorElement) {
     anchor.focus({ preventScroll: true });
