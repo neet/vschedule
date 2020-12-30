@@ -3,13 +3,13 @@ import Link from 'next/link';
 
 import { Link as UILink } from '../../ui/Link';
 
-// export interface ContentInfoProps {}
+// export interface ImprintProps {}
 
-export const ContentInfo = (/* props: ContentInfoProps */): JSX.Element => {
+export const Imprint = (/* props: ImprintProps */): JSX.Element => {
   // const {} = props;
 
   return (
-    <div role="contentinfo" aria-label="コンテンツについて">
+    <div role="contentinfo" aria-label="運営者情報">
       <ul
         className={classNames(
           'flex',
