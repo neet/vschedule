@@ -1,15 +1,19 @@
 import classNames from 'classnames';
 
+import { useModal } from './useModal';
+
 type BackdropProps = Readonly<JSX.IntrinsicElements['div']>;
 
 export const Backdrop = (props: BackdropProps): JSX.Element => {
-  const { className, onClick } = props;
+  const { className } = props;
+
+  const { onHide } = useModal();
 
   return (
     <div
       role="presentation"
       aria-hidden
-      onClick={onClick}
+      onClick={onHide}
       className={classNames(
         'bg-black',
         'w-full',

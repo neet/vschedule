@@ -49,6 +49,7 @@ const ArticleLayout = (props: JustChildren): JSX.Element => {
             'm-auto',
             'h-full',
             'w-full',
+            'space-y-3',
             'md:max-w-screen-md',
           )}
         >

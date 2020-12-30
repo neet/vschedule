@@ -17,11 +17,12 @@ export interface Schedule {
 
 export interface TimetableProps {
   readonly schedules: readonly Schedule[];
+  readonly swapDelta?: boolean;
   readonly loading?: boolean;
 }
 
 export const Timetable = (props: TimetableProps): JSX.Element => {
-  const { schedules, loading } = props;
+  const { schedules, swapDelta, loading } = props;
 
   const { ref, scale, startAt, setFocusedAt, setFocusedAtRaw } = useTimetable();
   const { x: fromLeft } = useDebouncedScroll(ref);
@@ -46,6 +47,21 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
 
     setFocusedAtRaw(newValue);
   }, [fromLeft, startAt, scale, ref, setFocusedAtRaw]);
+
+  // Swap delta
+  useEffect(() => {
+    const handleWheel = (e: Readonly<WheelEvent>): void => {
+      if (swapDelta == null || !swapDelta) return;
+      e.preventDefault();
+      ref.current?.scrollBy(e.deltaY, e.deltaX);
+    };
+    ref.current?.addEventListener('wheel', handleWheel);
+
+    const t = ref.current;
+    return (): void => {
+      t?.removeEventListener('wheel', handleWheel);
+    };
+  }, [ref, swapDelta]);
 
   if (loading != null && loading) {
     return (

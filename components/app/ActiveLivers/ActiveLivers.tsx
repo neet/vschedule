@@ -16,9 +16,10 @@ export const ActiveLivers = (): JSX.Element => {
 
   return (
     <Card variant="wash">
-      <Typography as="h3" variant="wash" weight="semibold" size="2xl">
+      <Typography as="h3" variant="normal" weight="semibold" size="2xl">
         {events?.length ?? 0}人
         <Typography as="span" size="base" variant="wash">
+          {' '}
           が配信予定
         </Typography>
       </Typography>

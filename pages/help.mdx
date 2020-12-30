@@ -1,8 +1,7 @@
-import { MDXProvider } from '@mdx-js/react';
+import Head from 'next/head';
 
-import { Typography } from '../components/ui/Typography';
 import { TutorialButton } from '../components/app/TutorialButton';
-import { Link } from '../components/ui/Link';
+import { Prose } from '../components/app/Prose';
 import { Layout } from '../components/app/Layout';
 
 # 使いかた
@@ -29,17 +28,12 @@ Refined Itsukara.linkの使い方を説明します。チュートリアルを�
 
 export default ({ children }) => (
   <Layout variant="article">
-    <MDXProvider
-      components={{
-        h1: Typography.H1,
-        h2: Typography.H2,
-        h3: Typography.H3,
-        h4: Typography.H4,
-        p: Typography.Paragraph,
-        a: Link,
-      }}
-    >
+    <Head>
+      <title>使いかた | Refined Itsukara.link</title>
+      <meta name="description" content="Refined Itsukara.linkの使い方を説明します。チュートリアルをお探しの場合は、もう一度表示することができます。" />
+    </Head>
+    <Prose>
       {children}
-    </MDXProvider>
+    </Prose>
   </Layout>
 )

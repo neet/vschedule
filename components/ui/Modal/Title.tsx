@@ -5,13 +5,14 @@ import { forwardRef } from 'react';
 
 import { Button } from '../Button';
 import { Typography } from '../Typography';
+import { useModal } from './useModal';
 
-export type TitleProps = Readonly<JSX.IntrinsicElements['h2']> & {
-  readonly onClose?: () => void;
-};
+export type TitleProps = Readonly<JSX.IntrinsicElements['h2']>;
 
 export const Title = forwardRef<HTMLDivElement, TitleProps>((props, ref) => {
-  const { children, className, onClose, ...rest } = props;
+  const { children, className, ...rest } = props;
+
+  const { onHide } = useModal();
 
   return (
     <header
@@ -39,16 +40,14 @@ export const Title = forwardRef<HTMLDivElement, TitleProps>((props, ref) => {
         {children}
       </Typography>
 
-      {onClose && (
-        <Button
-          variant="skeleton"
-          title="閉じる"
-          aria-label="閉じる"
-          onClick={onClose}
-        >
-          <FontAwesomeIcon icon={faTimes} />
-        </Button>
-      )}
+      <Button
+        variant="skeleton"
+        title="閉じる"
+        aria-label="閉じる"
+        onClick={onHide}
+      >
+        <FontAwesomeIcon icon={faTimes} />
+      </Button>
     </header>
   );
 });

@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import dayjs from 'dayjs';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import { useLocalStorage } from 'react-use';
 
 import { ChangeLog } from '../components/app/ChangeLog';
 import { EventMarker } from '../components/app/EventMarker';
@@ -21,6 +22,7 @@ const Timetable = dynamic<TimetableProps>(
 
 const Events = (): JSX.Element => {
   const { data } = useEvents();
+  const [swapDelta] = useLocalStorage<boolean>('swap-delta');
 
   const startAt = data ? dayjs(data.data.events[0].start_date) : dayjs();
   const endAt = data
@@ -62,6 +64,7 @@ const Events = (): JSX.Element => {
             <TimetableController />
             <Timetable
               loading={data == null}
+              swapDelta={swapDelta}
               schedules={
                 data?.data.events.map((event) => ({
                   startAt: dayjs(event.start_date),

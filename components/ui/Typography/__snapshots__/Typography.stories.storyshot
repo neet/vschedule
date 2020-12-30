@@ -8,7 +8,7 @@ Array [
     hello world
   </h1>,
   <p
-    className="text-base leading-relaxed font-normal text-coolGray-900 dark:text-trueGray-100 text-left mt-3"
+    className="text-base leading-relaxed font-normal text-coolGray-900 dark:text-trueGray-100 text-left"
   >
     body and 
     <a
@@ -20,12 +20,12 @@ Array [
     .
   </p>,
   <h2
-    className="text-2xl leading-relaxed font-semibold text-coolGray-900 dark:text-trueGray-100 text-left mt-6"
+    className="text-2xl leading-relaxed font-semibold text-coolGray-900 dark:text-trueGray-100 text-left"
   >
     Lorem ipsum
   </h2>,
   <p
-    className="text-base leading-relaxed font-normal text-coolGray-900 dark:text-trueGray-100 text-left mt-3"
+    className="text-base leading-relaxed font-normal text-coolGray-900 dark:text-trueGray-100 text-left"
   >
     A vigilante is just a man lost in scramble for his own gratification. He can be destroyed or locked up. But if you make yourself more than just a man, if you devote yourself to an ideal and if they can’t stop you then you become something else entirely. Legend, Mr Wayne.
   </p>,

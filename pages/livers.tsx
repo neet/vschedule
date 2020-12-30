@@ -21,7 +21,7 @@ const Livers: NextPage = () => {
       </Typography.Paragraph>
 
       {data != null ? (
-        <ul className="my-8 divide-y divide-coolGray-100">
+        <ul className="my-8 divide-y divide-coolGray-200 dark:divide-trueGray-800">
           {data.data.liver_relationships.map((liverRel) => (
             <li key={liverRel.liver.id} className="py-2">
               <Liver

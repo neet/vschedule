@@ -11,7 +11,7 @@ const Tags: NextPage = () => {
         <title>タグ別の配信一覧 | Refined Itsukara.link</title>
       </Head>
 
-      <Typography.H2>タグ別の配信一覧</Typography.H2>
+      <Typography.H1>タグ別の配信一覧</Typography.H1>
       <Typography.Paragraph>このページは現在実装中です。</Typography.Paragraph>
     </Layout>
   );

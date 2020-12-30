@@ -21,18 +21,19 @@ const DarkMode = (): JSX.Element => (
   </div>
 );
 
-const Accessibility = (): JSX.Element => (
+const DeltaSwapping = (): JSX.Element => (
   <div>
     <img
-      src="/a11y.png"
-      alt="アクセシビリティのアイコン"
+      src="/track-pad.png"
+      alt="トラックパッドを触る手の写真"
       className="bg-primary-500 object-contain w-full h-36 md:h-80"
     />
 
     <Modal.Body>
-      <Typography.H4>アクセシビリティ</Typography.H4>
+      <Typography.H4>ホイールでの横スクロールに対応</Typography.H4>
       <Typography.Paragraph>
-        キーボード及びスクリーンリーダーでのテストを行い、マークアップやフォーカスマネージメントを改善しました。
+        フィードバックが多かったマウスホイールでの横スクロール（X軸の回転）に対応しました。
+        <Link href="/user">設定画面</Link>からオプションで有効化できます
       </Typography.Paragraph>
     </Modal.Body>
   </div>
@@ -67,8 +68,7 @@ const Tech = (): JSX.Element => (
       <Typography.H4>技術的な更新</Typography.H4>
       <Typography.Paragraph>
         SSR基盤をNext.jsでリプレイスしVercelでサーバーレス化、Tailwind
-        CSSによるデザインシステム改修、Intersection Observer
-        APIによるパフォーマンスの改善に取り組みました！これまで以上に低コスト高パフォーマンスで動作します。
+        CSSによるデザインシステム改修、アクセシビリティーの強化に取り組みました！これまで以上に低コスト高パフォーマンスで動作します。
       </Typography.Paragraph>
     </Modal.Body>
   </div>
@@ -85,13 +85,13 @@ const Feedback = (): JSX.Element => (
     <Modal.Body>
       <Typography.H4>フィードバック先</Typography.H4>
       <Typography.Paragraph>
-        質問や機能のリクエスト、改善点、バグの報告は Twitter（
-        <Link href="https://twitter.com/TheGodOfNeet">@TheGodOfNeet</Link>）
-        か、GitHub（
-        <Link href="https://github.com/neet/refined-itsukara-link">
-          neet/refined-itsukara-link
+        質問や機能のリクエスト、改善点、バグの報告はフィードバック用の
+        <Link href="https://forms.gle/1tg2n5KB9fcroJcc7" target="_blank">
+          問い合わせフォーム
         </Link>
-        ） までお寄せください！
+        か、
+        <Link href="https://github.com/neet/refined-itsukara-link">GitHub</Link>
+        までお寄せください！
         このプロジェクトはオープンソースソフトウェアで、より良い実装をしていただけるコントリビューターも募集しています！
       </Typography.Paragraph>
     </Modal.Body>
@@ -125,7 +125,7 @@ export default (props: Omit<SlideProps, 'pages' | 'title'>): JSX.Element => {
       title="更新情報"
       pages={[
         DarkMode,
-        Accessibility,
+        DeltaSwapping,
         VideoPreview,
         Tech,
         Feedback,

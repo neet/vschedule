@@ -14,10 +14,8 @@ export const Window = forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
       ref={ref}
       className={classNames(
         'z-20',
-        'max-w-screen-sm',
         'box-border',
-        'm-1',
-        'md:m-auto',
+        'm-auto',
         'shadow-lg',
         'rounded-lg',
         'overflow-scroll',
@@ -27,6 +25,8 @@ export const Window = forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
         'border',
         'border-coolGray-200',
         'dark:border-trueGray-800',
+        'w-full',
+        'md:max-w-screen-sm',
         className,
       )}
     >
