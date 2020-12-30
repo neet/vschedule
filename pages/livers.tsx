@@ -16,7 +16,9 @@ const Livers: NextPage = () => {
       </Head>
 
       <Typography.H1>にじさんじのライバー一覧</Typography.H1>
-      <p>にじさんじに所属するバーチャルライバーの一覧です。</p>
+      <Typography.Paragraph>
+        にじさんじに所属するバーチャルライバーの一覧です。
+      </Typography.Paragraph>
 
       {data != null ? (
         <ul className="my-8 divide-y divide-coolGray-100">

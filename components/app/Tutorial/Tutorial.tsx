@@ -5,6 +5,7 @@ import { useTutorial } from '../../hooks/useTutorial';
 import { Button } from '../../ui/Button';
 import { Link } from '../../ui/Link';
 import { Modal } from '../../ui/Modal';
+import { Typography } from '../../ui/Typography';
 
 const Page1 = (): JSX.Element => {
   return (
@@ -24,10 +25,10 @@ const Page1 = (): JSX.Element => {
       />
 
       <Modal.Body id="tutorial-1__description">
-        <p>
+        <Typography.Paragraph>
           Refined
           Itsukara.linkへようこそ！このwebサイトはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。これから使い方をご説明します！
-        </p>
+        </Typography.Paragraph>
       </Modal.Body>
     </div>
   );
@@ -51,11 +52,11 @@ const Page2 = (): JSX.Element => {
       />
 
       <Modal.Body id="tutorial-2__description">
-        <p>
+        <Typography.Paragraph>
           画面中央に表示されるのは過去の配信と、これから始まる配信です、各配信をタップするとYouTubeの配信画面が表示されます。左右にスクロールすると（パソコンをお使いの場合は
           <kbd>Shift</kbd>
           を押しながらホイールを回転）時間を前後に移動させることが出来ます。
-        </p>
+        </Typography.Paragraph>
       </Modal.Body>
     </div>
   );
@@ -79,9 +80,9 @@ const Page3 = (): JSX.Element => {
       />
 
       <Modal.Body id="tutorial-3__description">
-        <p>
+        <Typography.Paragraph>
           サイドバーやメニューからアクセスできるライバーの項目からは、現在配信中のライバーやライバーの一覧を表示することができます。
-        </p>
+        </Typography.Paragraph>
       </Modal.Body>
     </div>
   );
@@ -105,11 +106,11 @@ const Page4 = (): JSX.Element => {
       />
 
       <Modal.Body id="tutorial-4__description">
-        <p>
+        <Typography.Paragraph>
           Refined Itsukara.linkはVoiceOverとキーボードでテストされており、WCAG
           2.1
           AAの準拠を基準としています。アクセシビリティーに関するフィードバックをお持ちの方は開発者までご連絡ください。
-        </p>
+        </Typography.Paragraph>
       </Modal.Body>
     </div>
   );
@@ -133,7 +134,7 @@ const Page5 = (): JSX.Element => {
       />
 
       <Modal.Body id="tutorial-5__description">
-        <p>
+        <Typography.Paragraph>
           使い方はお分かりいただけましたか？
           質問や機能のリクエスト、改善点、バグの報告は Twitter（
           <Link href="https://twitter.com/TheGodOfNeet">@TheGodOfNeet</Link>）
@@ -144,7 +145,7 @@ const Page5 = (): JSX.Element => {
           ） までお寄せください！
           このプロジェクトはオープンソースソフトウェアで、より良い実装をしていただけるコントリビューターも募集しています！
           それではお楽しみください！
-        </p>
+        </Typography.Paragraph>
       </Modal.Body>
     </div>
   );

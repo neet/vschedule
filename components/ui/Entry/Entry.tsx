@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { useState } from 'react';
 
 import { Badge } from '../Badge';
+import { Typography } from '../Typography';
 
 export type EntryVariant = 'shade' | 'flat';
 type EmbedType = 'interaction' | 'never' | 'always';
@@ -117,9 +118,10 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
       <div
         className={classNames('text-coolGray-600', 'dark:text-trueGray-400')}
       >
-        <h4
+        <Typography
+          as="h4"
+          weight="semibold"
           className={classNames(
-            'font-semibold',
             'text-coolGray-700',
             'dark:text-trueGray-300',
             'group-hover:text-primary-600',
@@ -130,11 +132,18 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
           )}
         >
           {title}
-        </h4>
+        </Typography>
 
-        <p className="truncate-2-lines break-all">{description}</p>
+        <Typography.Paragraph className="truncate-2-lines break-all">
+          {description}
+        </Typography.Paragraph>
 
-        <dl className={classNames('flex', 'text-sm')}>
+        <Typography
+          as="dl"
+          size="sm"
+          variant="wash"
+          className={classNames('flex')}
+        >
           <dt className="sr-only">ライバー</dt>
           <dd className="mr-2">{author}</dd>
 
@@ -149,7 +158,7 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
               <dd className="mr-2">{tag}</dd>
             </>
           )}
-        </dl>
+        </Typography>
       </div>
     </a>
   );

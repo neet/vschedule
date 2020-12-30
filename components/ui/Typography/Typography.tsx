@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { createElement } from 'react';
 
-export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+export type Size = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
 const mapSize = (size: Size): string => {
   switch (size) {
@@ -10,8 +10,8 @@ const mapSize = (size: Size): string => {
       return 'text-xs';
     case 'sm':
       return 'text-sm';
-    case 'md':
-      return 'text-md';
+    case 'base':
+      return 'text-base';
     case 'lg':
       return 'text-lg';
     case 'xl':
@@ -68,7 +68,18 @@ const mapVariant = (variant: Variant): string => {
     case 'normal':
       return 'text-coolGray-900 dark:text-trueGray-100';
     case 'wash':
-      return 'text-coolGray-700 dark:text-trueGray-300';
+      return 'text-coolGray-600 dark:text-trueGray-400';
+  }
+};
+
+export type Align = 'center' | 'left';
+
+const mapAlign = (align: Align): string => {
+  switch (align) {
+    case 'center':
+      return 'text-center';
+    case 'left':
+      return 'text-left';
   }
 };
 
@@ -79,13 +90,23 @@ export type TypographyProps<T extends TagName> = {
   readonly size: Size;
   readonly weight: Weight;
   readonly leading: Leading;
+  readonly align: Align;
   readonly variant: Variant;
 } & Readonly<JSX.IntrinsicElements[T]>;
 
 export const Typography = <T extends TagName>(
   props: TypographyProps<T>,
 ): JSX.Element => {
-  const { as, size, leading, weight, variant, className, ...rest } = props;
+  const {
+    as,
+    size,
+    leading,
+    weight,
+    variant,
+    align,
+    className,
+    ...rest
+  } = props;
 
   return createElement(as, {
     className: classNames(
@@ -93,6 +114,7 @@ export const Typography = <T extends TagName>(
       mapLeading(leading),
       mapWeight(weight),
       mapVariant(variant),
+      mapAlign(align),
       className,
     ),
     ...rest,
@@ -103,12 +125,14 @@ Typography.defaultProps = {
   as: 'p',
   leading: 'normal',
   variant: 'normal',
-  size: 'md',
+  size: 'base',
   weight: 'normal',
+  align: 'left',
 };
 
 interface JustChildren {
   readonly children: ReactNode;
+  readonly className?: string;
 }
 
 Typography.H1 = (props: JustChildren): JSX.Element => (
@@ -118,22 +142,20 @@ Typography.H1 = (props: JustChildren): JSX.Element => (
     size="4xl"
     leading="loose"
     variant="normal"
-  >
-    {props.children}
-  </Typography>
+    {...props}
+  />
 );
 
-Typography.H2 = (props: JustChildren): JSX.Element => (
+Typography.H2 = ({ className, ...rest }: JustChildren): JSX.Element => (
   <Typography
     as="h2"
     weight="semibold"
     size="2xl"
     leading="relaxed"
     variant="normal"
-    className="mt-6"
-  >
-    {props.children}
-  </Typography>
+    className={classNames('mt-6', className)}
+    {...rest}
+  />
 );
 
 Typography.H3 = (props: JustChildren): JSX.Element => (
@@ -143,9 +165,8 @@ Typography.H3 = (props: JustChildren): JSX.Element => (
     size="2xl"
     leading="snug"
     variant="normal"
-  >
-    {props.children}
-  </Typography>
+    {...props}
+  />
 );
 
 Typography.H4 = (props: JustChildren): JSX.Element => (
@@ -155,20 +176,18 @@ Typography.H4 = (props: JustChildren): JSX.Element => (
     size="xl"
     leading="snug"
     variant="normal"
-  >
-    {props.children}
-  </Typography>
+    {...props}
+  />
 );
 
-Typography.Paragraph = (props: JustChildren): JSX.Element => (
+Typography.Paragraph = ({ className, ...rest }: JustChildren): JSX.Element => (
   <Typography
     as="p"
     weight="normal"
-    size="md"
+    size="base"
     leading="relaxed"
     variant="normal"
-    className="mb-3"
-  >
-    {props.children}
-  </Typography>
+    className={classNames('mt-3', className)}
+    {...rest}
+  />
 );

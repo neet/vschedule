@@ -87,17 +87,17 @@ exports[`Storyshots Entry Shade 1`] = `
       className="text-coolGray-600 dark:text-trueGray-400"
     >
       <h4
-        className="font-semibold text-coolGray-700 dark:text-trueGray-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 ease-out transition-colors truncate-2-lines"
+        className="text-base leading-normal font-semibold text-coolGray-900 dark:text-trueGray-100 text-left text-coolGray-700 dark:text-trueGray-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 ease-out transition-colors truncate-2-lines"
       >
         Example
       </h4>
       <p
-        className="truncate-2-lines break-all"
+        className="text-base leading-relaxed font-normal text-coolGray-900 dark:text-trueGray-100 text-left mt-3 truncate-2-lines break-all"
       >
         Lorem ipsum
       </p>
       <dl
-        className="flex text-sm"
+        className="text-sm leading-normal font-normal text-coolGray-600 dark:text-trueGray-400 text-left flex"
       >
         <dt
           className="sr-only"

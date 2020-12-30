@@ -14,6 +14,7 @@ import { Avatar } from '../../ui/Avatar';
 import { Card } from '../../ui/Card';
 import { Marker } from '../../ui/Marker';
 import { useTimetable } from '../../ui/Timetable';
+import { Typography } from '../../ui/Typography';
 import { Event } from '../Event';
 
 const AVATAR_BG_BRIGHTNESS = 0.15;
@@ -92,7 +93,6 @@ export const EventMarker = (props: EventProps): JSX.Element => {
             <h4
               className={classNames(
                 'w-full',
-                'text-sm',
                 'overflow-ellipsis',
                 'whitespace-nowrap',
                 'overflow-hidden',

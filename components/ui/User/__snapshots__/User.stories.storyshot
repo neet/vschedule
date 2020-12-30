@@ -33,13 +33,13 @@ exports[`Storyshots User Medium 1`] = `
     <div
       className="flex-grow order-2"
     >
-      <h4
-        className="text-coolGray-700 dark:text-trueGray-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-75 font-semibold ease-out"
+      <p
+        className="text-base leading-normal font-semibold text-coolGray-900 dark:text-trueGray-100 text-left group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-75 ease-out"
       >
         Ryo Igarashi
-      </h4>
+      </p>
       <p
-        className="text-coolGray-600 dark:text-trueGray-400 min-w-full"
+        className="text-base leading-normal font-normal text-coolGray-600 dark:text-trueGray-400 text-left min-w-full"
       >
         hey it's me
       </p>
