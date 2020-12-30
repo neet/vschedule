@@ -9,6 +9,9 @@ export const Banner = (): JSX.Element => {
     <header
       aria-label="ヘッダー"
       className={classNames(
+        'sticky',
+        'top-0',
+        'left-0',
         'flex',
         'justify-between',
         'box-border',
@@ -21,9 +24,6 @@ export const Banner = (): JSX.Element => {
         'lg:p-4',
         'lg:flex-col',
         'lg:h-screen',
-        'lg:sticky',
-        'lg:top-0',
-        'lg:left-0',
       )}
     >
       <div

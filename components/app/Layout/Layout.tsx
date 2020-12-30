@@ -18,7 +18,8 @@ const ThemeContainer = (props: JustChildren): JSX.Element => {
   return (
     <div
       className={classNames(
-        'w-full',
+        'min-h-full',
+        // 'h-auto',
         'h-full',
         darkModeActive ? 'dark' : 'light',
       )}
@@ -35,8 +36,8 @@ const AppContainer = (props: JustChildren): JSX.Element => {
     <div
       id="app"
       className={classNames(
-        'h-full',
-        'w-full',
+        'min-h-full',
+        'h-auto',
         'flex',
         'flex-col',
         'lg:flex-row',
