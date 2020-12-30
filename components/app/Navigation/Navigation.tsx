@@ -1,6 +1,7 @@
 import {
   faBars,
   faCalendar,
+  faCog,
   faQuestion,
   faTags,
   faUsers,
@@ -66,6 +67,14 @@ const Inner = (): JSX.Element => {
               title="使いかた"
               href="/help"
               icon={<FontAwesomeIcon fixedWidth icon={faQuestion} />}
+            />
+          </li>
+
+          <li>
+            <Item
+              title="設定"
+              href="/user"
+              icon={<FontAwesomeIcon fixedWidth icon={faCog} />}
             />
           </li>
         </ul>
