@@ -127,9 +127,10 @@ Typography.H2 = (props: JustChildren): JSX.Element => (
   <Typography
     as="h2"
     weight="semibold"
-    size="3xl"
+    size="2xl"
     leading="relaxed"
     variant="normal"
+    className="mt-6"
   >
     {props.children}
   </Typography>
@@ -166,6 +167,7 @@ Typography.Paragraph = (props: JustChildren): JSX.Element => (
     size="md"
     leading="relaxed"
     variant="normal"
+    className="mb-3"
   >
     {props.children}
   </Typography>
