@@ -146,15 +146,14 @@ Typography.H1 = (props: JustChildren): JSX.Element => (
   />
 );
 
-Typography.H2 = ({ className, ...rest }: JustChildren): JSX.Element => (
+Typography.H2 = (props: JustChildren): JSX.Element => (
   <Typography
     as="h2"
     weight="semibold"
     size="2xl"
     leading="relaxed"
     variant="normal"
-    className={classNames('mt-6', className)}
-    {...rest}
+    {...props}
   />
 );
 
@@ -180,14 +179,13 @@ Typography.H4 = (props: JustChildren): JSX.Element => (
   />
 );
 
-Typography.Paragraph = ({ className, ...rest }: JustChildren): JSX.Element => (
+Typography.Paragraph = (props: JustChildren): JSX.Element => (
   <Typography
     as="p"
     weight="normal"
     size="base"
     leading="relaxed"
     variant="normal"
-    className={classNames('mt-3', className)}
-    {...rest}
+    {...props}
   />
 );

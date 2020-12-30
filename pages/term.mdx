@@ -1,5 +1,20 @@
+import Head from 'next/head';
+
 import { Layout } from '../components/app/Layout';
+import { Prose } from '../components/app/Prose';
 
 # 利用規約
 
-export default ({ children }) => <Layout variant="article">{children}</Layout>
+このページは準備中です。
+
+export default ({ children }) => (
+  <Layout variant="article">
+    <Head>
+      <title>利用規約 | Refined Itsukara.link</title>
+      <meta name="description" content="このページは準備中です。" />
+    </Head>
+    <Prose>
+      {children}
+    </Prose>
+  </Layout>
+)
