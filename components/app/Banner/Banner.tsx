@@ -69,7 +69,16 @@ export const Banner = (): JSX.Element => {
         </h1>
       </div>
 
-      <div className="order-1 flex-grow flex-shrink-0 w-1/3 lg:w-auto lg:order-2">
+      <div
+        className={classNames(
+          'order-1',
+          'flex-grow',
+          'flex-shrink-0',
+          'w-1/3',
+          'lg:w-auto',
+          'lg:order-2',
+        )}
+      >
         <Navigation />
       </div>
 

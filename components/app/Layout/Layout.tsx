@@ -60,15 +60,19 @@ const ArticleLayout = (props: JustChildren): JSX.Element => {
         <main
           id="main"
           aria-label="メインコンテンツ"
-          className={classNames(
-            'flex-grow',
-            'h-full',
-            'w-full',
-            'px-2',
-            'md:max-w-screen-md',
-          )}
+          className={classNames('flex-grow', 'px-2')}
         >
-          <article className="mt-8 prose dark:prose-dark">{children}</article>
+          <article
+            className={classNames(
+              'mt-8',
+              'm-auto',
+              'h-full',
+              'w-full',
+              'md:max-w-screen-md',
+            )}
+          >
+            {children}
+          </article>
         </main>
       </AppContainer>
     </ThemeContainer>
