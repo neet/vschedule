@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
+import { ChangeLog } from '../components/app/ChangeLog';
 import { EventMarker } from '../components/app/EventMarker';
 import { Layout } from '../components/app/Layout';
 import { Skyscraper } from '../components/app/Skyscraper';
@@ -74,7 +75,12 @@ const Events = (): JSX.Element => {
         </div>
       </TimetableProvider>
 
-      {typeof window !== 'undefined' && <Tutorial />}
+      {typeof window !== 'undefined' && (
+        <>
+          <Tutorial />
+          <ChangeLog />
+        </>
+      )}
     </Layout>
   );
 };

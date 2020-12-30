@@ -7,7 +7,7 @@ export interface UseTutorialResponse {
 
 export const useTutorial = (): UseTutorialResponse => {
   const [hasTutorialDone, setTutorialStatus] = useLocalStorage(
-    'has-tutorial-done',
+    'has-got-started',
     false,
   );
 

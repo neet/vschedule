@@ -1,10 +1,7 @@
-import classNames from 'classnames';
-import { createElement, useState } from 'react';
-
 import { useTutorial } from '../../hooks/useTutorial';
-import { Button } from '../../ui/Button';
 import { Link } from '../../ui/Link';
 import { Modal } from '../../ui/Modal';
+import { Slide } from '../../ui/Slide';
 import { Typography } from '../../ui/Typography';
 
 const Page1 = (): JSX.Element => {
@@ -14,10 +11,6 @@ const Page1 = (): JSX.Element => {
       aria-labelledby="tutorial-1__title"
       aria-describedby="tutorial-1__description"
     >
-      <Modal.Title id="tutorial-1__title">
-        <a href="#tutorial-1__title">さあ、始めよう！</a>
-      </Modal.Title>
-
       <img
         src="/screenshot.png"
         alt="スクリーンショット"
@@ -25,6 +18,7 @@ const Page1 = (): JSX.Element => {
       />
 
       <Modal.Body id="tutorial-1__description">
+        <Typography.H4>さあ、始めよう！</Typography.H4>
         <Typography.Paragraph>
           Refined
           Itsukara.linkへようこそ！このwebサイトはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。これから使い方をご説明します！
@@ -41,10 +35,6 @@ const Page2 = (): JSX.Element => {
       aria-labelledby="tutorial-2__title"
       aria-describedby="tutorial-2__description"
     >
-      <Modal.Title id="tutorial-2__title">
-        <a href="#tutorial-2__title">配信をチェック</a>
-      </Modal.Title>
-
       <img
         src="/timetable.png"
         alt="タイムテーブルのスクリーンショット"
@@ -52,6 +42,7 @@ const Page2 = (): JSX.Element => {
       />
 
       <Modal.Body id="tutorial-2__description">
+        <Typography.H4>配信をチェック</Typography.H4>
         <Typography.Paragraph>
           画面中央に表示されるのは過去の配信と、これから始まる配信です、各配信をタップするとYouTubeの配信画面が表示されます。左右にスクロールすると（パソコンをお使いの場合は
           <kbd>Shift</kbd>
@@ -64,15 +55,7 @@ const Page2 = (): JSX.Element => {
 
 const Page3 = (): JSX.Element => {
   return (
-    <div
-      role="group"
-      aria-labelledby="tutorial-3__title"
-      aria-describedby="tutorial-3__description"
-    >
-      <Modal.Title id="tutorial-3__title">
-        <a href="#tutorial-3__title">ライバー</a>
-      </Modal.Title>
-
+    <div role="group" aria-describedby="tutorial-3__description">
       <img
         src="/livers.png"
         alt="ライバーの一覧のスクリーンショット"
@@ -80,6 +63,7 @@ const Page3 = (): JSX.Element => {
       />
 
       <Modal.Body id="tutorial-3__description">
+        <Typography.H4>ライバー</Typography.H4>
         <Typography.Paragraph>
           サイドバーやメニューからアクセスできるライバーの項目からは、現在配信中のライバーやライバーの一覧を表示することができます。
         </Typography.Paragraph>
@@ -90,15 +74,7 @@ const Page3 = (): JSX.Element => {
 
 const Page4 = (): JSX.Element => {
   return (
-    <div
-      role="group"
-      aria-labelledby="tutorial-4__title"
-      aria-describedby="tutorial-4__description"
-    >
-      <Modal.Title id="tutorial-4__title">
-        <a href="#tutorial-4__title">アクセシビリティー</a>
-      </Modal.Title>
-
+    <div role="group" aria-describedby="tutorial-4__description">
       <img
         src="/a11y.png"
         alt="丸と人の図形、アクセシビリティー"
@@ -106,6 +82,7 @@ const Page4 = (): JSX.Element => {
       />
 
       <Modal.Body id="tutorial-4__description">
+        <Typography.H4>アクセシビリティー</Typography.H4>
         <Typography.Paragraph>
           Refined Itsukara.linkはVoiceOverとキーボードでテストされており、WCAG
           2.1
@@ -118,15 +95,7 @@ const Page4 = (): JSX.Element => {
 
 const Page5 = (): JSX.Element => {
   return (
-    <div
-      role="group"
-      aria-labelledby="tutorial-5__title"
-      aria-describedby="tutorial-5__description"
-    >
-      <Modal.Title id="tutorial-5__title">
-        <a href="#tutorial-5__title">開発に参加</a>
-      </Modal.Title>
-
+    <div role="group" aria-describedby="tutorial-5__description">
       <img
         src="/agenda.png"
         alt="いつから.linkとリファインドいつから.linkを並べた画像"
@@ -134,6 +103,7 @@ const Page5 = (): JSX.Element => {
       />
 
       <Modal.Body id="tutorial-5__description">
+        <Typography.H4>開発に参加</Typography.H4>
         <Typography.Paragraph>
           使い方はお分かりいただけましたか？
           質問や機能のリクエスト、改善点、バグの報告は Twitter（
@@ -151,67 +121,28 @@ const Page5 = (): JSX.Element => {
   );
 };
 
-export const Tutorial = (): JSX.Element => {
+export interface TutorialProps {
+  readonly show?: boolean;
+  readonly onHide?: () => void;
+}
+
+export const Tutorial = (props: TutorialProps): JSX.Element => {
+  const { show, onHide } = props;
   const pages = [Page1, Page2, Page3, Page4, Page5];
 
   const { hasTutorialDone, setTutorialStatus } = useTutorial();
-  const [pageNum, setPageNum] = useState(0);
-
-  const handleClickNext = (): void => {
-    setPageNum(pageNum + 1);
-  };
-
-  const handleClickPrevious = (): void => {
-    setPageNum(pageNum - 1);
-  };
 
   const handleComplete = (): void => {
     setTutorialStatus(true);
+    onHide?.();
   };
 
   return (
-    <Modal
-      show={!hasTutorialDone}
+    <Slide
       title="チュートリアル"
+      pages={pages}
+      show={!hasTutorialDone || (show != null && show)}
       onHide={handleComplete}
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      root={document.getElementById('app')!}
-    >
-      <Modal.Window
-        aria-live="polite"
-        aria-label={`${pages.length}件中${pageNum + 1}件目`}
-        aria-roledescription="スライド"
-      >
-        {createElement(pages[pageNum])}
-
-        <Modal.Footer>
-          <span
-            className={classNames(
-              'text-sm',
-              'text-coolGray-700',
-              'dark:text-trueGray-300',
-              'tabular-nums',
-            )}
-            aria-hidden // page number will be announced by the label above
-          >
-            {pageNum + 1} / {pages.length}
-          </span>
-
-          <div className="space-x-2">
-            {pageNum + 1 !== 1 && (
-              <Button variant="wash" onClick={handleClickPrevious}>
-                前へ
-              </Button>
-            )}
-
-            {pageNum + 1 === pages.length ? (
-              <Button onClick={handleComplete}>閉じる</Button>
-            ) : (
-              <Button onClick={handleClickNext}>次へ</Button>
-            )}
-          </div>
-        </Modal.Footer>
-      </Modal.Window>
-    </Modal>
+    />
   );
 };
