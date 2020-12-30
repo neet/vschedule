@@ -19,7 +19,7 @@ describe('Modal', () => {
       </Modal>,
     );
 
-    expect(app).toHaveStyle({ overflow: 'hidden' });
+    expect(document.body).toHaveStyle({ overflow: 'hidden' });
     expect(app).toHaveAttribute('aria-hidden', 'true');
     expect(screen.getByLabelText('modal')).toHaveFocus();
 
@@ -32,7 +32,7 @@ describe('Modal', () => {
     await waitFor(() => {
       expect(document.body).toHaveFocus();
       expect(app).not.toHaveAttribute('aria-hidden', 'true');
-      expect(app).not.toHaveStyle({ overflow: 'hidden' });
+      expect(document.body).not.toHaveStyle({ overflow: 'hidden' });
     });
   });
 });

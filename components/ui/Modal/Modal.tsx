@@ -29,11 +29,11 @@ export const Modal = (props: ModalProps): JSX.Element | null => {
     const appRoot = document.getElementById(app);
 
     if (show) {
-      appRoot?.style.setProperty('overflow', 'hidden');
       appRoot?.setAttribute('aria-hidden', 'true');
+      document.body.style.setProperty('overflow', 'hidden');
     } else {
-      appRoot?.style.removeProperty('overflow');
       appRoot?.setAttribute('aria-hidden', 'false');
+      document.body.style.removeProperty('overflow');
       document.body.focus();
     }
   }, [app, show]);
