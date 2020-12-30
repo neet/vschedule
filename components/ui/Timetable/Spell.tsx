@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import type { Dayjs } from 'dayjs';
 import { useInView } from 'react-intersection-observer';
 
+import { Typography } from '../Typography';
 import { useTimetable } from './useTimetable';
 
 export interface SpellProps {
@@ -25,6 +26,7 @@ export const Spell = (props: SpellProps): JSX.Element => {
 
   return (
     <h4
+      id={date.toISOString()}
       className={classNames(
         'h-full',
         'absolute',
@@ -36,8 +38,7 @@ export const Spell = (props: SpellProps): JSX.Element => {
       ref={ref}
     >
       <a
-        href="#"
-        id={date.toISOString()}
+        href={`#${date.toISOString()}`}
         className={classNames(
           'flex',
           'flex-col',
@@ -53,15 +54,16 @@ export const Spell = (props: SpellProps): JSX.Element => {
         )}
         aria-label={`${date.format('LLL')}以降の配信予定`}
       >
-        <time
+        <Typography
+          as="time"
+          size="sm"
+          weight="semibold"
+          align="center"
           className={classNames(
+            'block',
             'flex-grow-0',
             'flex-shrink-0',
-            'block',
             'p-3',
-            'text-sm',
-            'font-semibold',
-            'text-center',
             'group-focus:text-primary-500',
             'dark:group-focus:text-primary-400',
             'text-coolGray-800',
@@ -70,7 +72,7 @@ export const Spell = (props: SpellProps): JSX.Element => {
           dateTime={date.toISOString()}
         >
           {date.format('HH:mm')}
-        </time>
+        </Typography>
 
         <div
           role="presentation"

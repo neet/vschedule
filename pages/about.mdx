@@ -1,12 +1,26 @@
+import { MDXProvider } from '@mdx-js/react';
+
+import { Typography } from '../components/ui/Typography';
+import { Link } from '../components/ui/Link';
 import { Layout } from '../components/app/Layout';
 
-# Refined Itsukara.linkとは
+# Refined Itsukara.link とは
 
-このwebサイトはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。このサイトは
+この web サイトはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。当サイトはいちから株式会社並びににじさんじとは一切の関係がありません。
 
-- いちから株式会社
-- にじさんじ
-
-とは一切の関係がありません。
-
-export default ({ children }) => <Layout variant="article">{children}</Layout>
+export default ({ children }) => (
+  <Layout variant="article">
+    <MDXProvider
+      components={{
+        h1: Typography.H1,
+        h2: Typography.H2,
+        h3: Typography.H3,
+        h4: Typography.H4,
+        p: Typography.Paragraph,
+        a: Link,
+      }}
+    >
+      {children}
+    </MDXProvider>
+  </Layout>
+);

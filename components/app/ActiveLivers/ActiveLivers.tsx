@@ -3,8 +3,9 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 
 import { useUpcomingEvents } from '../../hooks/useUpcomingEvents';
-import { Button } from '../../ui/Button';
 import { Card } from '../../ui/Card';
+import { Link } from '../../ui/Link';
+import { Typography } from '../../ui/Typography';
 import { User } from '../../ui/User';
 
 const MIN_ITEMS = 3;
@@ -15,16 +16,12 @@ export const ActiveLivers = (): JSX.Element => {
 
   return (
     <Card variant="wash">
-      <h3
-        className={classNames(
-          'mb-2',
-          'text-coolGray-700',
-          'dark:text-trueGray-300',
-        )}
-      >
-        <span className="font-semibold text-2xl">{events?.length ?? 0}人</span>
-        が配信予定
-      </h3>
+      <Typography as="h3" variant="wash" weight="semibold" size="2xl">
+        {events?.length ?? 0}人
+        <Typography as="span" size="base" variant="wash">
+          が配信予定
+        </Typography>
+      </Typography>
 
       <ul
         className={classNames(
@@ -57,21 +54,23 @@ export const ActiveLivers = (): JSX.Element => {
       {events && events.length - MIN_ITEMS > 0 && (
         <div className="flex justify-start">
           {expanded ? (
-            <Button
-              variant="link"
-              size="sm"
+            <Link
+              as="button"
+              variant="wash"
+              className="text-sm"
               onClick={() => void setExpanded(false)}
             >
               閉じる
-            </Button>
+            </Link>
           ) : (
-            <Button
-              variant="link"
-              size="sm"
+            <Link
+              as="button"
+              className="text-sm"
+              variant="wash"
               onClick={() => void setExpanded(true)}
             >
               さらに表示
-            </Button>
+            </Link>
           )}
         </div>
       )}

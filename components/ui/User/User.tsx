@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
 import { Avatar } from '../Avatar';
+import { Typography } from '../Typography';
 
 type Size = 'sm' | 'md' | 'lg';
 
@@ -48,25 +49,23 @@ export const User = (props: UserProps): JSX.Element => {
     <div>
       <a href={url} className={classNames('group', 'flex', 'py-1', 'rounded')}>
         <div className="flex-grow order-2">
-          <h4
+          <Typography
+            weight="semibold"
             className={classNames(
-              'text-coolGray-700',
-              'dark:text-trueGray-300',
               'group-hover:text-primary-600',
               'dark:group-hover:text-primary-400',
               'transition-colors',
               'duration-75',
-              'font-semibold',
               'ease-out',
             )}
           >
             {name}
-          </h4>
+          </Typography>
 
           {description != null && (
-            <p className="text-coolGray-600 dark:text-trueGray-400 min-w-full">
+            <Typography variant="wash" className="min-w-full">
               {description}
-            </p>
+            </Typography>
           )}
         </div>
 

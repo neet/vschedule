@@ -92,7 +92,6 @@ export const EventMarker = (props: EventProps): JSX.Element => {
             <h4
               className={classNames(
                 'w-full',
-                'text-sm',
                 'overflow-ellipsis',
                 'whitespace-nowrap',
                 'overflow-hidden',

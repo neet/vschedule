@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 
 import { Button } from '../../ui/Button';
 import { useTimetable } from '../../ui/Timetable';
+import { Typography } from '../../ui/Typography';
 
 export const TimetableController = (): JSX.Element => {
   const { focusedAt, startAt, endAt, setFocusedAt } = useTimetable();
@@ -42,16 +43,16 @@ export const TimetableController = (): JSX.Element => {
 
   return (
     <header aria-label="今日のにじさんじの配信">
-      <h1
+      <Typography
+        size="lg"
         className={classNames(
-          'text-lg',
           'md:text-2xl',
           'text-coolGray-700',
           'dark:text-trueGray-300',
         )}
       >
         今日のにじさんじの配信
-      </h1>
+      </Typography>
 
       <div className="flex justify-between md:justify-start md:space-x-4 items-center">
         <time

@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { createElement } from 'react';
 
-type Variant = 'primary' | 'secondary' | 'wash' | 'link';
-type Size = 'lg' | 'md' | 'sm' | 'xs';
+type Variant = 'primary' | 'secondary' | 'wash' | 'skeleton';
+type Size = 'lg' | 'md' | 'sm';
 type Shape = 'rounded' | 'circle';
 
 export type ButtonProps = Readonly<JSX.IntrinsicElements['button']> & {
@@ -55,25 +55,29 @@ const mapVariant = (variant: Variant): string => {
         'dark:disabled:bg-trueGray-800',
         'dark:active:bg-trueGray-700',
       );
-    case 'link':
-      return classNames(
-        'text-coolGray-700',
-        'dark:text-trueGray-300',
-        'hover:underline',
-      );
+    case 'skeleton':
+      return classNames('text-coolGray-700', 'dark:text-trueGray-300');
   }
 };
 
-const mapSize = (size: Size): string => {
+// prettier-ignore
+const mapSize = (size: Size, variant: Variant): string => {
   switch (size) {
-    case 'xs':
-      return '';
     case 'sm':
-      return classNames('py-1.5', 'px-2', 'text-sm');
+      return classNames(
+        variant !== 'skeleton' && ['py-1.5', 'px-2'],
+        'text-sm',
+      );
     case 'md':
-      return classNames('py-2', 'px-4', 'text-md');
+      return classNames(
+        variant !== 'skeleton' && ['py-2', 'px-4'],
+        'text-md',
+      );
     case 'lg':
-      return classNames('py-3', 'px-5', 'text-lg');
+      return classNames(
+        variant !== 'skeleton' && ['py-3', 'px-5'],
+        'text-lg',
+      );
   }
 };
 
@@ -93,9 +97,9 @@ export const Button = (props: ButtonProps): JSX.Element => {
     as,
     {
       className: classNames(
-        mapSize(size),
-        mapVariant(variant),
+        mapSize(size, variant),
         mapShape(shape),
+        mapVariant(variant),
         'rounded',
         'leading-none',
         'box-border',

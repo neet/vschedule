@@ -1,7 +1,7 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  purge: ['./ui/**/*.tsx', './pages/**/*.tsx', './components/**/*.tsx'],
+  purge: ['./pages/**/*.tsx', './components/**/*.tsx'],
   darkMode: 'class',
   theme: {
     colors: {
@@ -24,41 +24,12 @@ module.exports = {
         2: '2',
       },
     },
-
-    extend: {
-      typography: (theme) => ({
-        dark: {
-          css: {
-            color: theme('colors.trueGray.50'),
-            h1: {
-              color: theme('colors.trueGray.50'),
-            },
-            h2: {
-              color: theme('colors.trueGray.50'),
-            },
-            h3: {
-              color: theme('colors.trueGray.50'),
-            },
-            h4: {
-              color: theme('colors.trueGray.50'),
-            },
-            a: {
-              color: theme('colors.primary.400'),
-              '&:hover': {
-                color: theme('colors.primary.300'),
-              },
-            },
-          },
-        },
-      }),
-    },
   },
 
   variants: {
     extend: {
       backgroundColor: ['active', 'disabled'],
       borderWidth: ['dark'],
-      typography: ['dark'],
       textColor: ['group-focus'],
       cursor: ['disabled'],
     },
@@ -66,7 +37,6 @@ module.exports = {
 
   plugins: [
     require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/typography'),
     require('tailwindcss-truncate-multiline')(),
   ],
 };

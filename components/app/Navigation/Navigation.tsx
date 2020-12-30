@@ -11,7 +11,7 @@ import { useState } from 'react';
 
 import { Button } from '../../ui/Button';
 import { Modal } from '../../ui/Modal';
-import { ContentInfo } from '../ContentInfo';
+import { Imprint } from '../Imprint';
 import { Item } from './Item';
 
 const Inner = (): JSX.Element => {
@@ -71,7 +71,7 @@ const Inner = (): JSX.Element => {
         </ul>
       </nav>
 
-      <ContentInfo />
+      <Imprint />
     </div>
   );
 };

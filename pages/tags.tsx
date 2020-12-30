@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 
 import { Layout } from '../components/app/Layout';
+import { Typography } from '../components/ui/Typography';
 
 const Tags: NextPage = () => {
   return (
@@ -10,13 +11,8 @@ const Tags: NextPage = () => {
         <title>タグ別の配信一覧 | Refined Itsukara.link</title>
       </Head>
 
-      <article>
-        <h3 className="text-3xl text-coolGray-700 font-medium my-8">
-          タグ別の配信一覧
-        </h3>
-
-        <p>このページは現在実装中です。</p>
-      </article>
+      <Typography.H2>タグ別の配信一覧</Typography.H2>
+      <Typography.Paragraph>このページは現在実装中です。</Typography.Paragraph>
     </Layout>
   );
 };

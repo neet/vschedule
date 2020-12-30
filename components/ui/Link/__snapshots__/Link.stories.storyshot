@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Link Primary 1`] = `
+<a
+  className="text-primary-500 dark:text-primary-400 active:text-primary-400 dark:active:text-primary-300 hover:underline"
+>
+  test
+</a>
+`;
+
+exports[`Storyshots Link Wash 1`] = `
+<a
+  className="text-coolGray-800 dark:text-trueGray-200 active:text-coolGray-700 dark:active:text-trueGray-300 hover:underline"
+>
+  test
+</a>
+`;

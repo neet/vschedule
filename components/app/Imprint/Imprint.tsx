@@ -1,13 +1,15 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 
-// export interface ContentInfoProps {}
+import { Link as UILink } from '../../ui/Link';
 
-export const ContentInfo = (/* props: ContentInfoProps */): JSX.Element => {
+// export interface ImprintProps {}
+
+export const Imprint = (/* props: ImprintProps */): JSX.Element => {
   // const {} = props;
 
   return (
-    <div role="contentinfo" aria-label="コンテンツについて">
+    <div role="contentinfo" aria-label="運営者情報">
       <ul
         className={classNames(
           'flex',
@@ -19,31 +21,37 @@ export const ContentInfo = (/* props: ContentInfoProps */): JSX.Element => {
         )}
       >
         <li>
-          <Link href="/about">
-            <a>このサイトについて</a>
+          <Link href="/about" passHref>
+            <UILink variant="wash">このサイトについて</UILink>
           </Link>
         </li>
         {'・'}
         <li>
-          <Link href="/term">
-            <a>利用規約</a>
+          <Link href="/term" passHref>
+            <UILink variant="wash">利用規約</UILink>
           </Link>
         </li>
         {'・'}
         <li>
-          <a
+          <UILink
+            variant="wash"
             target="_blank"
             rel="noreferrer"
             href="https://github.com/neet/refined-itsukara-link"
           >
             GitHub
-          </a>
+          </UILink>
         </li>
         {'・'}
         <li>
-          <a href="https://itsukara.link" target="_blank" rel="noreferrer">
+          <UILink
+            variant="wash"
+            href="https://itsukara.link"
+            target="_blank"
+            rel="noreferrer"
+          >
             元サイトを表示
-          </a>
+          </UILink>
         </li>
       </ul>
 
