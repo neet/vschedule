@@ -43,6 +43,17 @@ export const Imprint = (/* props: ImprintProps */): JSX.Element => {
           </li>
           {'・'}
           <li>
+            <UILink
+              variant="wash"
+              as="a"
+              href="https://forms.gle/1tg2n5KB9fcroJcc7"
+              target="_blank"
+            >
+              フィードバック
+            </UILink>
+          </li>
+          {'・'}
+          <li>
             <Link href="/term" passHref>
               <UILink variant="wash">利用規約</UILink>
             </Link>
@@ -61,7 +72,7 @@ export const Imprint = (/* props: ImprintProps */): JSX.Element => {
           {'・'}
           <li>
             <Link href="/about" passHref>
-              <UILink variant="wash">このサイトについて</UILink>
+              <UILink variant="wash">運営情報</UILink>
             </Link>
           </li>
           {'・'}

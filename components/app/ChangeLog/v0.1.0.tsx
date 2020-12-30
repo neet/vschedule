@@ -85,14 +85,16 @@ const Feedback = (): JSX.Element => (
     <Modal.Body>
       <Typography.H4>フィードバック先</Typography.H4>
       <Typography.Paragraph>
-        質問や機能のリクエスト、改善点、バグの報告は Twitter（
-        <Link href="https://twitter.com/TheGodOfNeet">@TheGodOfNeet</Link>）
-        か、GitHub（
-        <Link href="https://github.com/neet/refined-itsukara-link">
-          neet/refined-itsukara-link
+        使い方はお分かりいただけましたか？
+        質問や機能のリクエスト、改善点、バグの報告はフィードバック用の
+        <Link href="https://forms.gle/1tg2n5KB9fcroJcc7" target="_blank">
+          問い合わせフォーム
         </Link>
-        ） までお寄せください！
+        か、
+        <Link href="https://github.com/neet/refined-itsukara-link">GitHub</Link>
+        までお寄せください！
         このプロジェクトはオープンソースソフトウェアで、より良い実装をしていただけるコントリビューターも募集しています！
+        それではお楽しみください！
       </Typography.Paragraph>
     </Modal.Body>
   </div>
