@@ -24,6 +24,8 @@ export const Switch = (props: SwitchProps): JSX.Element => {
         'w-12',
         'transition-colors',
         'duration-300',
+        'box-border',
+        'p-0.5',
         enabled
           ? 'bg-primary-500 dark:bg-primary-400'
           : 'bg-coolGray-300 dark:bg-trueGray-700',
@@ -39,11 +41,11 @@ export const Switch = (props: SwitchProps): JSX.Element => {
           'rounded-full',
           'relative',
           'transform',
-          'h-6',
-          'w-6',
+          'h-5',
+          'w-5',
           'transition-transform',
           'duration-300',
-          enabled && ['translate-x-6'],
+          enabled && 'translate-x-6',
         )}
       />
     </button>

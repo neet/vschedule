@@ -10,7 +10,7 @@
     "jest": "jest --coverage",
     "eslint": "eslint --cache './**/*.{ts,tsx}'",
     "cspell": "cspell './**/*.{ts,tsx}'",
-    "storybook": "start-storybook -p 9000"
+    "storybook": "start-storybook -p 9000 --no-manager-cache"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
@@ -73,6 +73,7 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.3",
     "jest-date-mock": "^1.0.8",
     "prettier": "^2.2.1",
@@ -90,8 +91,18 @@
       }
     },
     "moduleNameMapper": {
-      "\\.(css)$": "<rootDir>/scripts/null.ts"
+      "\\.(css)$": "identity-obj-proxy"
     },
+    "collectCoverageFrom": [
+      "**/*.{ts,tsx}",
+      "!**/*.d.ts",
+      "!**/node_modules/**"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/.next/",
+      "/.vercel/"
+    ],
     "setupFilesAfterEnv": [
       "<rootDir>/scripts/test-setup.ts"
     ]
