@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import classNames from 'classnames';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
@@ -5,6 +6,7 @@ import type { ReactNode } from 'react';
 import { useEffect, useLayoutEffect } from 'react';
 
 import { useDebouncedScroll } from '../../hooks/useDebouncedScroll';
+import { Loading } from './Loading';
 import { MinuteHand } from './MinuteHand';
 import { ScheduleList } from './ScheduleList';
 import { useTimetable } from './useTimetable';
@@ -29,9 +31,10 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
 
   // Focus on the current time at the first rendering
   useLayoutEffect(() => {
+    if (loading == null || loading) return;
     setFocusedAt(dayjs(), { behavior: 'auto', preventFocus: true });
     // eslint-disable-next-line
-  }, [ref.current]);
+  }, [loading]);
 
   // Sync focusedAt with the DOM
   // prettier-ignore
@@ -50,8 +53,9 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
 
   // Swap delta
   useEffect(() => {
+    if (swapDelta == null || !swapDelta) return;
+
     const handleWheel = (e: Readonly<WheelEvent>): void => {
-      if (swapDelta == null || !swapDelta) return;
       e.preventDefault();
       ref.current?.scrollBy(e.deltaY, e.deltaX);
     };
@@ -61,28 +65,7 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
     return (): void => {
       t?.removeEventListener('wheel', handleWheel);
     };
-  }, [ref, swapDelta]);
-
-  if (loading != null && loading) {
-    return (
-      <div
-        aria-busy
-        role="presentation"
-        className={classNames(
-          'animate-pulse',
-          'relative',
-          'flex-grow',
-          'w-full',
-          'rounded-xl',
-          'border',
-          'bg-coolGray-50',
-          'border-coolGray-200',
-          'dark:bg-trueGray-900',
-          'dark:border-trueGray-800',
-        )}
-      />
-    );
-  }
+  }, []);
 
   return (
     <div
@@ -113,15 +96,23 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
           'overflow-scroll',
           'select-none',
         )}
-        /* eslint-disable @typescript-eslint/naming-convention */
+        role="group"
+        aria-label="タイムテーブル"
+        aria-live="polite"
+        aria-busy={loading != null && loading}
         style={{
           WebkitOverflowScrolling: 'touch',
           WebkitTransform: 'translateZ(0px)',
         }}
-        /* eslint-enable @typescript-eslint/naming-convention */
       >
-        <ScheduleList schedules={schedules} />
-        <MinuteHand />
+        {loading != null && loading ? (
+          <Loading />
+        ) : (
+          <>
+            <ScheduleList schedules={schedules} />
+            <MinuteHand />
+          </>
+        )}
       </div>
     </div>
   );
