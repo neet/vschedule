@@ -63,7 +63,7 @@ export const Crown = (): JSX.Element => {
             'md:text-3xl',
             'text-primary-500',
             'dark:text-primary-400',
-            'font-medium',
+            'font-semibold',
             'tabular-nums',
             'leading-relaxed',
           )}

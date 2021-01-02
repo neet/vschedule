@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 config.autoAddCss = false;
+dayjs.locale('ja');
 dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
 dayjs.extend(minMax);
