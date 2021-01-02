@@ -13,7 +13,7 @@ interface BaseEntryProps {
   readonly variant: EntryVariant;
 }
 
-const thumbnailClass = (variant: EntryVariant): string =>
+const thumbnailClass = (): string =>
   classNames(
     'mb-2',
     'rounded',
@@ -22,20 +22,16 @@ const thumbnailClass = (variant: EntryVariant): string =>
     'bg-coolGray-200',
     'dark:bg-trueGray-800',
     'overflow-hidden',
-    variant === 'shade' && 'shadow dark:border dark:border-trueGray-700',
-    variant === 'flat' && 'border border-coolGray-200 dark:border-trueGray-700',
   );
 
 interface LoadingEntryProps extends BaseEntryProps {
   readonly loading: true;
 }
 
-const LoadingEntry = (props: LoadingEntryProps): JSX.Element => {
-  const { variant } = props;
-
+const LoadingEntry = (_props: LoadingEntryProps): JSX.Element => {
   return (
     <div className="animate-pulse">
-      <div className={thumbnailClass(variant)} />
+      <div className={thumbnailClass()} />
 
       <div>
         <div className="h-5 w-2/3 my-1 bg-coolGray-200 dark:bg-trueGray-800 rounded" />
@@ -95,7 +91,15 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
       onBlur={(): void => void setInteraction(false)}
     >
       <div className="relative">
-        <div className={thumbnailClass(variant)}>
+        <div
+          className={classNames(
+            thumbnailClass(),
+            variant === 'shade' &&
+              'shadow dark:border dark:border-trueGray-700',
+            variant === 'flat' &&
+              'border border-coolGray-200 dark:border-trueGray-700',
+          )}
+        >
           {showEmbed ? (
             embed
           ) : (
