@@ -7,7 +7,6 @@ export default class CustomDocument extends Document<DocumentProps> {
     return (
       <Html lang="ja">
         <Head>
-          <meta name="viewport" content="width=device-width" />
           <meta charSet="utf-8" />
           <meta name="twitter:card" content="summary_large_image" />
           <meta property="og:type" content="website" />
