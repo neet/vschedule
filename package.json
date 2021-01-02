@@ -8,8 +8,8 @@
     "start": "next start",
     "test": "yarn run jest && yarn run eslint && yarn run cspell",
     "jest": "jest --coverage",
-    "eslint": "eslint --cache './**/*.{ts,tsx}'",
-    "cspell": "cspell './**/*.{ts,tsx}'",
+    "eslint": "eslint --cache './**/*.{js,json,ts,tsx}'",
+    "cspell": "cspell './**/*.{js.json,ts,tsx}'",
     "storybook": "start-storybook -p 9000 --no-manager-cache"
   },
   "dependencies": {

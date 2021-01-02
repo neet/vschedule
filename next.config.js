@@ -19,7 +19,7 @@ module.exports = withMDX({
         destination: '/livers',
         permanent: true,
       },
-    ]
+    ];
   },
 
   pageExtensions: ['ts', 'tsx', 'mdx'],
