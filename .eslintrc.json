@@ -2,30 +2,22 @@
   "parser": "@typescript-eslint/parser",
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/all",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
-    "plugin:prettier/recommended",
-    "prettier/@typescript-eslint"
+    "plugin:prettier/recommended"
   ],
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
-  "plugins": [
-    "import",
-    "react-hooks",
-    "simple-import-sort"
-  ],
+  "plugins": ["import", "react-hooks", "simple-import-sort"],
   "parserOptions": {
     "ecmaVersion": 9,
-    "sourceType": "module",
-    "project": "./tsconfig.json"
+    "sourceType": "module"
   },
   "settings": {
     "react": {
@@ -34,83 +26,78 @@
   },
   "rules": {
     "no-console": "error",
-    "eqeqeq": [
-      "error",
-      "always",
-      { "null": "ignore" }
-    ],
-
+    "eqeqeq": ["error", "always", { "null": "ignore" }],
     "jsx-a11y/anchor-is-valid": "off",
     "react/display-name": "off",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
-
     "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
-
-    "@typescript-eslint/no-type-alias": "off",
-
-    "@typescript-eslint/no-magic-numbers": [
-      "error",
-      {
-        "ignore": [0, 1, 2],
-        "ignoreArrayIndexes": true,
-        "ignoreNumericLiteralTypes": true
-      }
-    ],
-
-    "@typescript-eslint/explicit-function-return-type": [
-      "error",
-      { "allowConciseArrowFunctionExpressionsStartingWithVoid": true }
-    ],
-
-    "@typescript-eslint/prefer-readonly-parameter-types": [
-      "error",
-      { "ignoreInferredTypes": true }
-    ],
-
-    "@typescript-eslint/no-confusing-void-expression": [
-      "error",
-      { "ignoreVoidOperator": true }
-    ],
-
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      { "argsIgnorePattern": "^_" }
-    ],
-
-    "@typescript-eslint/naming-convention": [
-      "error",
-      {
-        "selector": "default",
-        "format": ["camelCase"]
-      },
-      {
-        "selector": "variable",
-        "format": ["PascalCase", "camelCase", "UPPER_CASE"]
-      },
-      {
-        "selector": "parameter",
-        "format": ["camelCase"],
-        "leadingUnderscore": "allow"
-      },
-      {
-        "selector": "memberLike",
-        "modifiers": ["private"],
-        "format": ["camelCase"],
-        "leadingUnderscore": "require"
-      },
-      {
-        "selector": "typeLike",
-        "format": ["PascalCase"]
-      }
-    ]
+    "simple-import-sort/exports": "error"
   },
   "overrides": [
     {
-      "files": ["**/*.js"],
+      "files": ["**/*.{ts,tsx}"],
+      "extends": [
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/all",
+        "plugin:import/typescript",
+        "prettier/@typescript-eslint"
+      ],
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      },
       "rules": {
-        "@typescript-eslint/no-var-requires": "off"
+        "@typescript-eslint/no-type-alias": "off",
+        "@typescript-eslint/no-magic-numbers": [
+          "error",
+          {
+            "ignore": [0, 1, 2],
+            "ignoreArrayIndexes": true,
+            "ignoreNumericLiteralTypes": true
+          }
+        ],
+        "@typescript-eslint/explicit-function-return-type": [
+          "error",
+          { "allowConciseArrowFunctionExpressionsStartingWithVoid": true }
+        ],
+        "@typescript-eslint/prefer-readonly-parameter-types": [
+          "error",
+          { "ignoreInferredTypes": true }
+        ],
+        "@typescript-eslint/no-confusing-void-expression": [
+          "error",
+          { "ignoreVoidOperator": true }
+        ],
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          { "argsIgnorePattern": "^_" }
+        ],
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "default",
+            "format": ["camelCase"]
+          },
+          {
+            "selector": "variable",
+            "format": ["PascalCase", "camelCase", "UPPER_CASE"]
+          },
+          {
+            "selector": "parameter",
+            "format": ["camelCase"],
+            "leadingUnderscore": "allow"
+          },
+          {
+            "selector": "memberLike",
+            "modifiers": ["private"],
+            "format": ["camelCase"],
+            "leadingUnderscore": "require"
+          },
+          {
+            "selector": "typeLike",
+            "format": ["PascalCase"]
+          }
+        ]
       }
     }
   ]
