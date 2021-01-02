@@ -7,22 +7,20 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import minMax from 'dayjs/plugin/minMax';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 config.autoAddCss = false;
+dayjs.extend(localizedFormat);
+dayjs.extend(relativeTime);
+dayjs.extend(minMax);
 
 const App = (props: AppProps): JSX.Element => {
   const { Component, pageProps } = props;
-
   const router = useRouter();
-
-  useEffect(() => {
-    dayjs.extend(localizedFormat);
-    dayjs.extend(relativeTime);
-  }, []);
 
   useEffect(() => {
     const handleRouteChange = (): void => {

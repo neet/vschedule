@@ -54,7 +54,8 @@ const createDateSequence = (
   endAt: Readonly<Dayjs>,
   interval: number,
 ): readonly Readonly<Dayjs>[] => {
-  const length = endAt.diff(startAt, 'minute') / interval;
+  // 植木算
+  const length = endAt.diff(startAt, 'minute') / interval + 1;
 
   return Array.from({ length }, (_, i) => {
     const basis = startAt.clone();

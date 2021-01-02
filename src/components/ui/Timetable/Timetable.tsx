@@ -65,7 +65,7 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
     return (): void => {
       t?.removeEventListener('wheel', handleWheel);
     };
-  }, []);
+  }, [ref, swapDelta]);
 
   return (
     <div
