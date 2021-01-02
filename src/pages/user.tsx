@@ -23,7 +23,11 @@ const User: NextPage = () => {
 
       <div className="flex space-x-5">
         <Typography.H4>ホイールで横スクロール（実験中）</Typography.H4>
-        <Switch value={value ?? false} onChange={handleChange} />
+        <Switch
+          value={value ?? false}
+          onChange={handleChange}
+          aria-label={value != null && value ? '無効化する' : '有効化する'}
+        />
       </div>
 
       <Typography.Paragraph>

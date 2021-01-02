@@ -6,7 +6,9 @@ exports[`Storyshots Switch Default 1`] = `
   onClick={[Function]}
 >
   <div
+    aria-hidden={true}
     className="bg-white rounded-full relative transform h-5 w-5 transition-transform duration-300 translate-x-6"
+    role="presentation"
   />
 </button>
 `;
