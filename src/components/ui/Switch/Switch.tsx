@@ -1,13 +1,15 @@
 import classNames from 'classnames';
 import { useState } from 'react';
 
-export interface SwitchProps {
+export type SwitchProps = Readonly<
+  Omit<JSX.IntrinsicElements['button'], 'value' | 'onChange'>
+> & {
   readonly value: boolean;
   readonly onChange?: (value: boolean) => void;
-}
+};
 
 export const Switch = (props: SwitchProps): JSX.Element => {
-  const { value, onChange } = props;
+  const { value, onChange, ...rest } = props;
 
   const [enabled, setEnabled] = useState(value);
 
@@ -34,8 +36,11 @@ export const Switch = (props: SwitchProps): JSX.Element => {
         'focus:ring-primary-300',
       )}
       onClick={handleChange}
+      {...rest}
     >
       <div
+        aria-hidden
+        role="presentation"
         className={classNames(
           'bg-white',
           'rounded-full',

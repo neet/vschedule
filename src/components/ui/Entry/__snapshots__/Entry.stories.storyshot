@@ -12,7 +12,7 @@ exports[`Storyshots Entry Loading 1`] = `
     className="animate-pulse"
   >
     <div
-      className="mb-2 rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden border border-coolGray-200 dark:border-trueGray-700"
+      className="mb-2 rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden"
     />
     <div>
       <div

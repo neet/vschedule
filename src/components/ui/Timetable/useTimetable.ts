@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import type { Dayjs } from 'dayjs';
 import { useContext } from 'react';
 
@@ -38,10 +39,16 @@ const setFocusedAt = (ctx: TimetableContext) => (
 
   if (params.preventFocus != null && params.preventFocus) return;
 
+  // TODO: make this also work on the circumstance other than interval=30
+  // reference -> https://github.com/moment/moment/issues/959
+  const destination =
+    date.minute() <= 30
+      ? date.clone().minute(0).second(0).millisecond(0)
+      : date.clone().minute(30).second(0).millisecond(0);
+
   // Focus to the closest spell: important for a11y
-  const anchor = document.getElementById(
-    date.minute(0).second(0).millisecond(0).toISOString(),
-  )?.firstElementChild;
+  const anchor = document.getElementById(destination.toISOString())
+    ?.firstElementChild;
 
   if (anchor instanceof HTMLAnchorElement) {
     anchor.focus({ preventScroll: true });

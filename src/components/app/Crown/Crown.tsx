@@ -10,35 +10,36 @@ import { Button } from '../../ui/Button';
 import { useTimetable } from '../../ui/Timetable';
 import { Typography } from '../../ui/Typography';
 
-export const TimetableController = (): JSX.Element => {
+export const Crown = (): JSX.Element => {
   const { focusedAt, startAt, endAt, setFocusedAt } = useTimetable();
+
+  // "today" or "yesterday" "tomorrow" here are defined as relative from the focus
+  const zeroAmToday = focusedAt.millisecond(0).second(0).minute(0).hour(0);
+  const zeroAmTomorrow = zeroAmToday.add(1, 'day');
+  const zeroAmYesterday = zeroAmToday.subtract(1, 'day');
 
   const handleClickLatest = (): void => {
     setFocusedAt(dayjs());
   };
 
   const handleClickRight = (): void => {
-    const tomorrow = focusedAt
-      .clone()
-      .millisecond(0)
-      .second(0)
-      .minute(0)
-      .hour(0)
-      .add(1, 'day');
+    // If focus is before the closest 0 AM
+    if (focusedAt.isBefore(zeroAmToday)) {
+      setFocusedAt(zeroAmToday);
+      return;
+    }
 
-    setFocusedAt(tomorrow);
+    setFocusedAt(dayjs.min(endAt, zeroAmTomorrow));
   };
 
   const handleClickLeft = (): void => {
-    const yesterday = focusedAt
-      .clone()
-      .millisecond(0)
-      .second(0)
-      .minute(0)
-      .hour(0)
-      .subtract(1, 'day');
+    // If focus is after the closest 0 AM
+    if (focusedAt.isAfter(zeroAmToday)) {
+      setFocusedAt(zeroAmToday);
+      return;
+    }
 
-    setFocusedAt(yesterday);
+    setFocusedAt(dayjs.max(startAt, zeroAmYesterday));
   };
 
   return (
@@ -89,7 +90,7 @@ export const TimetableController = (): JSX.Element => {
             variant="wash"
             shape="circle"
             size="sm"
-            disabled={focusedAt.diff(startAt, 'day') < 1}
+            disabled={focusedAt.isSame(startAt)}
           >
             <FontAwesomeIcon icon={faChevronLeft} />
           </Button>
@@ -102,7 +103,7 @@ export const TimetableController = (): JSX.Element => {
             variant="wash"
             shape="circle"
             size="sm"
-            disabled={endAt.diff(focusedAt, 'day') < 1}
+            disabled={focusedAt.isSame(endAt)}
           >
             <FontAwesomeIcon icon={faChevronRight} />
           </Button>

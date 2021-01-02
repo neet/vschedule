@@ -5,10 +5,10 @@ import Head from 'next/head';
 import { useLocalStorage } from 'react-use';
 
 import { ChangeLog } from '../components/app/ChangeLog';
+import { Crown } from '../components/app/Crown';
 import { EventMarker } from '../components/app/EventMarker';
 import { Layout } from '../components/app/Layout';
 import { Skyscraper } from '../components/app/Skyscraper';
-import { TimetableController } from '../components/app/TimetableController';
 import { Tutorial } from '../components/app/Tutorial';
 import { useEvents } from '../components/hooks/useEvents';
 import type { TimetableProps } from '../components/ui/Timetable';
@@ -61,7 +61,7 @@ const Events = (): JSX.Element => {
           )}
         >
           <div className="flex flex-col flex-grow space-y-4">
-            <TimetableController />
+            <Crown />
             <Timetable
               loading={data == null}
               swapDelta={swapDelta}
