@@ -1,8 +1,8 @@
 import type { ComponentType } from 'react';
 import { createElement, useState } from 'react';
 
-import { Button } from '../../ui/Button';
-import { Modal } from '../../ui/Modal';
+import { Button } from '../Button';
+import { Modal } from '../Modal';
 import { Typography } from '../Typography';
 
 export interface SlideProps {

@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { useLocalStorage } from 'react-use';
 
-import packageJSON from '../../../package.json';
+import packageJSON from '../../../../package.json';
 import { useTutorial } from '../../hooks/useTutorial';
 // export interface MigrationProps {}
 
