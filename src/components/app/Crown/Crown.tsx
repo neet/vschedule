@@ -10,7 +10,7 @@ import { Button } from '../../ui/Button';
 import { useTimetable } from '../../ui/Timetable';
 import { Typography } from '../../ui/Typography';
 
-export const TimetableController = (): JSX.Element => {
+export const Crown = (): JSX.Element => {
   const { focusedAt, startAt, endAt, setFocusedAt } = useTimetable();
 
   const handleClickLatest = (): void => {
