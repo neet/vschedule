@@ -6,7 +6,7 @@ import { Layout } from '../components/app/Layout';
 
 # 使いかた
 
-Refined Itsukara.linkの使い方を説明します。チュートリアルをお探しの場合は、もう一度表示することができます。
+Refined Itsukara.link の使い方を説明します。チュートリアルをお探しの場合は、もう一度表示することができます。
 
 <TutorialButton />
 
@@ -14,7 +14,7 @@ Refined Itsukara.linkの使い方を説明します。チュートリアルを�
 
 ![配信のスクリーンショット](timetable.png)
 
-[配信ページ](/)からは、過去の配信と、これから始まる配信です、各配信をタップするとYouTubeの配信画面が表示されます。左右にスクロールすると時間を前後に移動させることが出来ます。
+[配信ページ](/)からは、過去の配信と、これから始まる配信です、各配信をタップすると YouTube の配信画面が表示されます。左右にスクロールすると時間を前後に移動させることが出来ます。
 
 マウスをお使いの方は <kbd>Shift</kbd> を押しながらホイールを回転させることで水平方向にスクロールできます。
 
@@ -27,13 +27,11 @@ Refined Itsukara.linkの使い方を説明します。チュートリアルを�
 準備中
 
 export default ({ children }) => (
-  <Layout variant="article">
-    <Head>
-      <title>使いかた | Refined Itsukara.link</title>
-      <meta name="description" content="Refined Itsukara.linkの使い方を説明します。チュートリアルをお探しの場合は、もう一度表示することができます。" />
-    </Head>
-    <Prose>
-      {children}
-    </Prose>
+  <Layout
+    variant="article"
+    title="使いかた | Refined Itsukara.link"
+    description="Refined Itsukara.linkの使い方を説明します。チュートリアルをお探しの場合は、もう一度表示することができます。"
+  >
+    <Prose>{children}</Prose>
   </Layout>
-)
+);

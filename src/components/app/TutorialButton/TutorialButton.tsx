@@ -14,7 +14,9 @@ export const TutorialButton = (): JSX.Element => {
 
   return (
     <>
-      {isOpen && <Tutorial show onHide={handleClose} />}
+      {typeof window !== 'undefined' && (
+        <Tutorial show={isOpen} onHide={handleClose} />
+      )}
 
       <Button ref={ref} onClick={(): void => void setOpen(true)}>
         チュートリアル

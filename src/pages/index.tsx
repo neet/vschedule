@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import dynamic from 'next/dynamic';
-import Head from 'next/head';
 import { useLocalStorage } from 'react-use';
 
 import { ChangeLog } from '../components/app/ChangeLog';
@@ -30,14 +29,11 @@ const Events = (): JSX.Element => {
     : dayjs();
 
   return (
-    <Layout variant="single">
-      <Head>
-        <title>にじさんじの配信一覧 | Refined Itsukara.link</title>
-        <meta
-          name="description"
-          content="にじさんじライバーの最近の配信の一覧です"
-        />
-      </Head>
+    <Layout
+      variant="single"
+      title="にじさんじの配信一覧 | Refined Itsukara.link"
+      description="にじさんじライバーの最近の配信の一覧です"
+    >
       <TimetableProvider
         startAt={startAt}
         endAt={endAt}

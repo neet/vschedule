@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import { useLocalStorage } from 'react-use';
 
 import { Layout } from '../components/app/Layout';
@@ -14,11 +13,11 @@ const User: NextPage = () => {
   };
 
   return (
-    <Layout variant="article">
-      <Head>
-        <title>設定 | Refined Itsukara.link</title>
-      </Head>
-
+    <Layout
+      variant="article"
+      title="設定 | Refined Itsukara.link"
+      description="ユーザー設定を行います"
+    >
       <Typography.H1>設定</Typography.H1>
 
       <div className="flex space-x-5">

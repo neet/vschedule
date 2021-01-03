@@ -8,13 +8,11 @@ import { Prose } from '../components/app/Prose';
 このページは準備中です。
 
 export default ({ children }) => (
-  <Layout variant="article">
-    <Head>
-      <title>利用規約 | Refined Itsukara.link</title>
-      <meta name="description" content="このページは準備中です。" />
-    </Head>
-    <Prose>
-      {children}
-    </Prose>
+  <Layout
+    variant="article"
+    title="利用規約 | Refined Itsukara.link"
+    description="このページは準備中す。"
+  >
+    <Prose>{children}</Prose>
   </Layout>
-)
+);

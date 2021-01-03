@@ -11,7 +11,8 @@ export const Skyscraper = (): JSX.Element => {
       className={classNames(
         'relative',
         'flex-shrink-0',
-        'overflow-scroll',
+        'overflow-y-scroll',
+        'overflow-x-hidden',
         'space-y-4',
         'hidden',
         'md:block',

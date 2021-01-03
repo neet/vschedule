@@ -110,8 +110,7 @@ export const Navigation = (): JSX.Element => {
           title="ナビゲーション"
           onHide={handleToggle}
           className="lg:hidden" // for clarify
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          root={document.getElementById('app')!}
+          root={document.body}
         >
           <Inner />
         </Modal>
