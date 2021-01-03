@@ -9,7 +9,7 @@ import { useModal } from './useModal';
 
 export type TitleProps = Readonly<JSX.IntrinsicElements['h2']>;
 
-export const Title = forwardRef<HTMLDivElement, TitleProps>((props, ref) => {
+export const Title = forwardRef<HTMLElement, TitleProps>((props, ref) => {
   const { children, className, ...rest } = props;
 
   const { onHide } = useModal();
@@ -17,6 +17,11 @@ export const Title = forwardRef<HTMLDivElement, TitleProps>((props, ref) => {
   return (
     <header
       aria-label="モーダルヘッダー"
+      // TODO: Add forwardRef to typography
+      /* cspell:disable-next-line */
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+      tabIndex={-1}
+      ref={ref}
       className={classNames(
         'flex',
         'items-center',
@@ -30,7 +35,6 @@ export const Title = forwardRef<HTMLDivElement, TitleProps>((props, ref) => {
       )}
     >
       <Typography
-        ref={ref}
         as="h2"
         weight="semibold"
         size="lg"

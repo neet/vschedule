@@ -26,6 +26,7 @@ describe('Tutorial', () => {
     fireEvent.click(screen.getByText('次へ'));
 
     expect(screen.getByLabelText('ページ2')).toBeVisible();
+    expect(screen.getByLabelText('モーダルヘッダー')).toHaveFocus();
     fireEvent.click(screen.getByText('閉じる'));
     expect(onHide).toBeCalled();
 

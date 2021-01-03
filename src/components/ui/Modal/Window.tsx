@@ -7,7 +7,7 @@ export type WindowProps = JSX.IntrinsicElements['div'] & {
 };
 
 export const Window = forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
-  const { children, className } = props;
+  const { children, className, ...rest } = props;
 
   return (
     <div
@@ -29,6 +29,7 @@ export const Window = forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
         'md:max-w-screen-sm',
         className,
       )}
+      {...rest}
     >
       {children}
     </div>

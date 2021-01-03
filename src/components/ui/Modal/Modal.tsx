@@ -1,7 +1,7 @@
 import { Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import { Backdrop } from './Backdrop';
@@ -23,7 +23,7 @@ export interface ModalProps {
 
 export const Modal = (props: ModalProps): JSX.Element | null => {
   const { show, title, children, className, app, root, onHide } = props;
-  const [ref, setRef] = useState<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const appRoot = document.getElementById(app);
@@ -39,7 +39,7 @@ export const Modal = (props: ModalProps): JSX.Element | null => {
   }, [app, show]);
 
   useEffect(() => {
-    ref?.focus();
+    ref.current?.focus();
   }, [ref]);
 
   if (root == null) {
@@ -87,7 +87,7 @@ export const Modal = (props: ModalProps): JSX.Element | null => {
             aria-modal
             // eslint-disable-next-line
             tabIndex={0}
-            ref={setRef}
+            ref={ref}
             className={classNames(
               'flex',
               'w-full',
