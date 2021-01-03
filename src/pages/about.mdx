@@ -1,21 +1,16 @@
-import Head from 'next/head';
-
 import { Prose } from '../components/app/Prose';
 import { Layout } from '../components/app/Layout';
-
 
 # Refined Itsukara.link とは
 
 この web サイトはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。当サイトはいちから株式会社並びににじさんじとは一切の関係がありません。
 
 export default ({ children }) => (
-  <Layout variant="article">
-    <Head>
-      <title>Refined Itsukara.link とは</title>
-      <meta name="description" content="この web サイトはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。" />
-    </Head>
-    <Prose>
-      {children}
-    </Prose>
+  <Layout
+    variant="article"
+    title="Refined Itsukara.linkとは"
+    description="この web サイトはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。"
+  >
+    <Prose>{children}</Prose>
   </Layout>
-)
+);

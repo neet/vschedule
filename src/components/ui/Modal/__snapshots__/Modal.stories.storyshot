@@ -7,6 +7,7 @@ exports[`Storyshots Modal Default 1`] = `
   <header
     aria-label="モーダルヘッダー"
     className="flex items-center px-4 py-2 box-border border-b border-coolGray-200 dark:border-trueGray-800"
+    tabIndex={-1}
   >
     <h2
       className="text-lg leading-normal font-semibold text-coolGray-900 dark:text-trueGray-100 text-left flex-grow"

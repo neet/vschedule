@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 
 import { Layout } from '../components/app/Layout';
 import { Liver } from '../components/app/Liver';
@@ -10,11 +9,11 @@ const Livers: NextPage = () => {
   const { data } = useLivers();
 
   return (
-    <Layout variant="article">
-      <Head>
-        <title>にじさんじのライバー一覧 | Refined Itsukara.link</title>
-      </Head>
-
+    <Layout
+      variant="article"
+      title="にじさんじのライバー一覧 | Refined Itsukara.link"
+      description="にじさんじに所属するバーチャルライバーの一覧です。"
+    >
       <Typography.H1>にじさんじのライバー一覧</Typography.H1>
       <Typography.Paragraph>
         にじさんじに所属するバーチャルライバーの一覧です。

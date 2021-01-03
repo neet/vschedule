@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react';
-import { createElement, useState } from 'react';
+import { createElement, useRef, useState } from 'react';
 
 import { Button } from '../Button';
 import { Modal } from '../Modal';
@@ -9,19 +9,23 @@ export interface SlideProps {
   readonly title: string;
   readonly pages: readonly ComponentType[];
   readonly show: boolean;
+  readonly root?: Element;
   readonly onHide?: () => void;
 }
 
 export const Slide = (props: SlideProps): JSX.Element => {
-  const { title, pages, show, onHide } = props;
+  const { title, pages, show, root, onHide } = props;
 
   const [pageNum, setPageNum] = useState(0);
+  const titleNode = useRef<HTMLElement | null>(null);
 
   const handleClickNext = (): void => {
+    titleNode.current?.focus();
     setPageNum(pageNum + 1);
   };
 
   const handleClickPrevious = (): void => {
+    titleNode.current?.focus();
     setPageNum(pageNum - 1);
   };
 
@@ -33,20 +37,19 @@ export const Slide = (props: SlideProps): JSX.Element => {
     <Modal
       show={show}
       title={title}
+      root={root ?? document.body}
       onHide={handleComplete}
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      root={document.getElementById('app')!}
     >
       <Modal.Window
         aria-live="polite"
         aria-label={`${pages.length}件中${pageNum + 1}件目`}
         aria-roledescription="スライド"
       >
-        <Modal.Title>{title}</Modal.Title>
+        <Modal.Title ref={titleNode}>{title}</Modal.Title>
 
         {createElement(pages[pageNum])}
 
-        <Modal.Footer>
+        <Modal.Footer aria-live="off">
           <Typography
             variant="wash"
             size="sm"
