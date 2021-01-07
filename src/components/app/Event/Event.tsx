@@ -5,14 +5,14 @@ import { useNow } from '../../hooks/useNow';
 import type { EntryVariant } from '../../ui/Entry';
 import { Entry } from '../../ui/Entry';
 
-export interface EventProps {
+export type EventProps = Readonly<JSX.IntrinsicElements['a']> & {
   readonly event: APIEvent;
   readonly variant?: EntryVariant;
   readonly embedType: 'always' | 'interaction' | 'never';
-}
+};
 
 export const Event = (props: EventProps): JSX.Element => {
-  const { event, variant, embedType } = props;
+  const { event, variant, embedType, ...rest } = props;
 
   const now = useNow();
   const startAt = dayjs(props.event.start_date);
@@ -47,6 +47,7 @@ export const Event = (props: EventProps): JSX.Element => {
       active={isStreaming}
       embed={embed}
       embedType={embedType}
+      {...rest}
     />
   );
 };

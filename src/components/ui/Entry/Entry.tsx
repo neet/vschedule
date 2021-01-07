@@ -42,20 +42,21 @@ const LoadingEntry = (_props: LoadingEntryProps): JSX.Element => {
   );
 };
 
-interface ReadyEntryProps extends BaseEntryProps {
-  readonly title: string;
-  readonly url: string;
-  readonly author: string;
-  readonly thumbnail: string;
-  readonly description: string;
-  readonly thumbnailAlt: string;
-  readonly date: Readonly<Date>;
-  readonly active: boolean;
-  readonly tag?: string;
-  readonly embed?: ReactNode;
-  readonly embedType?: EmbedType;
-  readonly loading?: false;
-}
+type ReadyEntryProps = BaseEntryProps &
+  Readonly<JSX.IntrinsicElements['a']> & {
+    readonly title: string;
+    readonly url: string;
+    readonly author: string;
+    readonly thumbnail: string;
+    readonly description: string;
+    readonly thumbnailAlt: string;
+    readonly date: Readonly<Date>;
+    readonly active: boolean;
+    readonly tag?: string;
+    readonly embed?: ReactNode;
+    readonly embedType?: EmbedType;
+    readonly loading?: false;
+  };
 
 const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
   const {
@@ -70,6 +71,7 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
     description,
     embed,
     embedType,
+    ...rest
   } = props;
 
   const date = dayjs(props.date.toISOString());
@@ -89,6 +91,7 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
       onMouseLeave={(): void => void setInteraction(false)}
       onFocus={(): void => void setInteraction(true)}
       onBlur={(): void => void setInteraction(false)}
+      {...rest}
     >
       <div className="relative">
         <div

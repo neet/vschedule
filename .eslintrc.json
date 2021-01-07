@@ -94,6 +94,10 @@
             "leadingUnderscore": "require"
           },
           {
+            "selector": "objectLiteralProperty",
+            "format": ["camelCase", "snake_case"]
+          },
+          {
             "selector": "typeLike",
             "format": ["PascalCase"]
           }

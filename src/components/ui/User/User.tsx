@@ -14,14 +14,15 @@ type LoadingUserProps = BaseUserProps & {
   readonly loading: true;
 };
 
-type ReadyUserProps = BaseUserProps & {
-  readonly name: string;
-  readonly avatar: string;
-  readonly url: string;
-  readonly description?: string;
-  readonly children?: ReactNode;
-  readonly loading?: false;
-};
+type ReadyUserProps = BaseUserProps &
+  Readonly<JSX.IntrinsicElements['a']> & {
+    readonly name: string;
+    readonly avatar: string;
+    readonly url: string;
+    readonly description?: string;
+    readonly children?: ReactNode;
+    readonly loading?: false;
+  };
 
 type UserProps = LoadingUserProps | ReadyUserProps;
 
@@ -43,11 +44,15 @@ export const User = (props: UserProps): JSX.Element => {
     );
   }
 
-  const { name, avatar, url, description, children } = props;
+  const { name, avatar, url, description, children, ...rest } = props;
 
   return (
     <div>
-      <a href={url} className={classNames('group', 'flex', 'py-1', 'rounded')}>
+      <a
+        href={url}
+        className={classNames('group', 'flex', 'py-1', 'rounded')}
+        {...rest}
+      >
         <div className="flex-grow order-2">
           <Typography
             weight="semibold"

@@ -7,6 +7,14 @@ export const TutorialButton = (): JSX.Element => {
   const [isOpen, setOpen] = useState(false);
   const ref = useRef<HTMLButtonElement | null>(null);
 
+  const handleOpen = (): void => {
+    setOpen(true);
+    gtag('event', 'start_tutorial_manually', {
+      event_category: 'tutorial',
+      event_label: 'チュートリアル',
+    });
+  };
+
   const handleClose = (): void => {
     setOpen(false);
     ref.current?.focus();
@@ -18,7 +26,7 @@ export const TutorialButton = (): JSX.Element => {
         <Tutorial show={isOpen} onHide={handleClose} />
       )}
 
-      <Button ref={ref} onClick={(): void => void setOpen(true)}>
+      <Button ref={ref} onClick={handleOpen}>
         チュートリアル
       </Button>
     </>
