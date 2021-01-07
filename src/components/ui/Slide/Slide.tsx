@@ -9,12 +9,11 @@ export interface SlideProps {
   readonly title: string;
   readonly pages: readonly ComponentType[];
   readonly show: boolean;
-  readonly root?: Element;
   readonly onHide?: () => void;
 }
 
 export const Slide = (props: SlideProps): JSX.Element => {
-  const { title, pages, show, root, onHide } = props;
+  const { title, pages, show, onHide } = props;
 
   const [pageNum, setPageNum] = useState(0);
   const titleNode = useRef<HTMLElement | null>(null);
@@ -34,12 +33,7 @@ export const Slide = (props: SlideProps): JSX.Element => {
   };
 
   return (
-    <Modal
-      show={show}
-      title={title}
-      root={root ?? document.body}
-      onHide={handleComplete}
-    >
+    <Modal show={show} title={title} onHide={handleComplete}>
       <Modal.Window
         aria-live="polite"
         aria-label={`${pages.length}件中${pageNum + 1}件目`}
