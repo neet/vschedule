@@ -21,7 +21,6 @@ describe('Tutorial', () => {
     );
 
     expect(screen.getByLabelText('スライド')).toBeVisible();
-    expect(screen.getByLabelText('スライド')).toHaveFocus();
     expect(screen.getByLabelText('ページ1')).toBeVisible();
     fireEvent.click(screen.getByText('次へ'));
 

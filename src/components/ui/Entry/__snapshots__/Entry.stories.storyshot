@@ -92,7 +92,7 @@ exports[`Storyshots Entry Shade 1`] = `
         Example
       </h4>
       <p
-        className="text-base leading-relaxed font-normal text-coolGray-900 dark:text-trueGray-100 text-left truncate-2-lines break-all"
+        className="text-base leading-normal font-normal text-coolGray-900 dark:text-trueGray-100 text-left truncate-2-lines break-all"
       >
         Lorem ipsum
       </p>
