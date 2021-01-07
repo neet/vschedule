@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 
 import { Modal } from './Modal';
 
@@ -14,17 +14,16 @@ describe('Modal', () => {
     document.body.appendChild(container);
 
     const { rerender } = render(
-      <Modal show title="modal" root={container} app="app">
+      <Modal show title="modal" getContainer={container} getRoot={app}>
         test
       </Modal>,
     );
 
     expect(document.body).toHaveStyle({ overflow: 'hidden' });
     expect(app).toHaveAttribute('aria-hidden', 'true');
-    expect(screen.getByLabelText('modal')).toHaveFocus();
 
     rerender(
-      <Modal show={false} title="modal" root={container} app="app">
+      <Modal show={false} title="modal" getContainer={container} getRoot={app}>
         test
       </Modal>,
     );

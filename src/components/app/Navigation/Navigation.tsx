@@ -110,7 +110,6 @@ export const Navigation = (): JSX.Element => {
           title="ナビゲーション"
           onHide={handleToggle}
           className="lg:hidden" // for clarify
-          root={document.body}
         >
           <Inner />
         </Modal>

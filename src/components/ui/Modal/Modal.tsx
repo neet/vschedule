@@ -1,7 +1,7 @@
 import { Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import { Backdrop } from './Backdrop';
@@ -13,38 +13,55 @@ import { Window } from './Window';
 
 export interface ModalProps {
   readonly show: boolean;
-  readonly app: string;
   readonly title: string;
-  readonly root?: Element;
   readonly children: ReactNode;
   readonly className?: string;
+  readonly getContainer: Element | (() => Element);
+  readonly getRoot: Element | (() => Element);
   readonly onHide?: () => void;
 }
 
+// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
 export const Modal = (props: ModalProps): JSX.Element | null => {
-  const { show, title, children, className, app, root, onHide } = props;
-  const ref = useRef<HTMLDivElement | null>(null);
+  const {
+    show,
+    title,
+    children,
+    className,
+    getRoot,
+    getContainer,
+    onHide,
+  } = props;
+
+  const root = getRoot instanceof Element ? getRoot : getRoot();
+  const container =
+    getContainer instanceof Element ? getContainer : getContainer();
+
+  const handleHide = useCallback((): void => {
+    root.setAttribute('aria-hidden', 'false');
+    document.body.style.removeProperty('overflow');
+    document.body.focus();
+  }, [root]);
+
+  const handleShow = useCallback((): void => {
+    root.setAttribute('aria-hidden', 'true');
+    document.body.style.setProperty('overflow', 'hidden');
+  }, [root]);
 
   useEffect(() => {
-    const appRoot = document.getElementById(app);
+    const handleKeydown = (e: Readonly<KeyboardEvent>): void => {
+      if (e.key === 'Escape') onHide?.();
+    };
 
-    if (show) {
-      appRoot?.setAttribute('aria-hidden', 'true');
-      document.body.style.setProperty('overflow', 'hidden');
-    } else {
-      appRoot?.setAttribute('aria-hidden', 'false');
-      document.body.style.removeProperty('overflow');
-      document.body.focus();
-    }
-  }, [app, show]);
+    document.addEventListener('keydown', handleKeydown);
+    return () => void document.removeEventListener('keydown', handleKeydown);
+  }, [onHide]);
 
   useEffect(() => {
-    ref.current?.focus();
-  }, [ref]);
-
-  if (root == null) {
-    return null;
-  }
+    if (show) handleShow();
+    else handleHide();
+    return handleHide;
+  }, [show, handleShow, handleHide]);
 
   return createPortal(
     <ModalProvider onHide={onHide}>
@@ -85,9 +102,6 @@ export const Modal = (props: ModalProps): JSX.Element | null => {
             role="dialog"
             aria-label={title}
             aria-modal
-            // eslint-disable-next-line
-            tabIndex={0}
-            ref={ref}
             className={classNames(
               'flex',
               'w-full',
@@ -101,13 +115,15 @@ export const Modal = (props: ModalProps): JSX.Element | null => {
         </Transition.Child>
       </Transition>
     </ModalProvider>,
-    root,
+    container,
   );
 };
 
 Modal.defaultProps = {
-  app: 'app',
   show: true,
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  getRoot: (): Element => document.getElementById('app')!,
+  getContainer: (): Element => document.body,
 };
 
 Modal.Window = Window;
