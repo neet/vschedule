@@ -10,7 +10,6 @@ export const TutorialButton = (): JSX.Element => {
   const handleOpen = (): void => {
     setOpen(true);
     gtag('event', 'start_tutorial_manually', {
-      event_category: 'tutorial',
       event_label: 'チュートリアル',
     });
   };

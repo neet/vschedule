@@ -43,7 +43,6 @@ export const EventMarker = (props: EventProps): JSX.Element => {
 
   const handleClick = (): void => {
     gtag('event', 'click_event_marker', {
-      event_category: 'events',
       event_label: event.name,
     });
   };
@@ -51,7 +50,6 @@ export const EventMarker = (props: EventProps): JSX.Element => {
   const handleOpenCard = (immediate = false): void => {
     handleFocus(immediate);
     gtag('event', 'open_event_card', {
-      event_category: 'events',
       event_label: event.name,
     });
   };

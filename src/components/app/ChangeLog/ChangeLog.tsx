@@ -30,7 +30,6 @@ export const ChangeLog = (/* props: MigrationProps */): JSX.Element | null => {
     setVersion(packageJSON.version);
 
     gtag('event', 'complete_change_log', {
-      event_category: 'change_log',
       event_label: packageJSON.version,
     });
   };

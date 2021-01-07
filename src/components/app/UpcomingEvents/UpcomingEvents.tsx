@@ -10,7 +10,6 @@ const Item = (props: { readonly event: APIEvent }): JSX.Element => {
   const handleClickEvent = (): void => {
     gtag('event', 'click_upcoming_event', {
       event_label: event.name,
-      event_category: 'events',
     });
   };
 

@@ -19,8 +19,7 @@ export const Crown = (): JSX.Element => {
   const zeroAmYesterday = zeroAmToday.subtract(1, 'day');
 
   const handleClickLatest = (): void => {
-    gtag('event', 'latest', {
-      event_category: 'crown',
+    gtag('event', 'click_crown_latest', {
       event_label: '最新の配信へ移動',
     });
 
@@ -28,8 +27,7 @@ export const Crown = (): JSX.Element => {
   };
 
   const handleClickRight = (): void => {
-    gtag('event', 'forward', {
-      event_category: 'crown',
+    gtag('event', 'click_crown_forward', {
       event_label: '一日前に移動',
     });
 
@@ -43,9 +41,8 @@ export const Crown = (): JSX.Element => {
   };
 
   const handleClickLeft = (): void => {
-    gtag('event', 'forward', {
-      event_category: 'crown',
-      event_label: '一日前に移動',
+    gtag('event', 'click_crown_forward', {
+      event_label: '一日後に移動',
     });
 
     // If focus is after the closest 0 AM
