@@ -2,86 +2,50 @@ import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { createElement } from 'react';
 
-export type Size = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
-
-const mapSize = (size: Size): string => {
-  switch (size) {
-    case 'xs':
-      return 'text-xs';
-    case 'sm':
-      return 'text-sm';
-    case 'base':
-      return 'text-base';
-    case 'lg':
-      return 'text-lg';
-    case 'xl':
-      return 'text-xl';
-    case '2xl':
-      return 'text-2xl';
-    case '3xl':
-      return 'text-3xl';
-    case '4xl':
-      return 'text-4xl';
-  }
+const sizes = {
+  xs: 'text-xs',
+  sm: 'text-sm',
+  base: 'text-base',
+  lg: 'text-lg',
+  xl: 'text-sl',
+  '2xl': 'text-2xl',
+  '3xl': 'text-3xl',
+  '4xl': 'text-4xl',
 };
 
-export type Leading =
-  | 'none'
-  | 'tight'
-  | 'snug'
-  | 'normal'
-  | 'relaxed'
-  | 'loose';
+export type Size = keyof typeof sizes;
 
-const mapLeading = (leading: Leading): string => {
-  switch (leading) {
-    case 'none':
-      return 'leading-none';
-    case 'tight':
-      return 'leading-tight';
-    case 'snug':
-      return 'leading-snug';
-    case 'normal':
-      return 'leading-normal';
-    case 'relaxed':
-      return 'leading-relaxed';
-    case 'loose':
-      return 'leading-loose';
-  }
+const leadings = {
+  none: 'leading-none',
+  tight: 'leading-tight',
+  snug: 'leading-snug',
+  normal: 'leading-normal',
+  relaxed: 'leading-relaxed',
+  loose: 'leading-loose',
 };
 
-export type Weight = 'normal' | 'semibold';
+export type Leading = keyof typeof leadings;
 
-const mapWeight = (weight: Weight): string => {
-  switch (weight) {
-    case 'normal':
-      return 'font-normal';
-    case 'semibold':
-      return 'font-semibold';
-  }
+const weights = {
+  normal: 'font-normal',
+  semibold: 'font-semibold',
 };
 
-export type Variant = 'normal' | 'wash';
+export type Weight = keyof typeof weights;
 
-const mapVariant = (variant: Variant): string => {
-  switch (variant) {
-    case 'normal':
-      return 'text-coolGray-900 dark:text-trueGray-100';
-    case 'wash':
-      return 'text-coolGray-600 dark:text-trueGray-400';
-  }
+const variants = {
+  normal: 'text-coolGray-900 dark:text-trueGray-100',
+  wash: 'text-coolGray-600 dark:text-trueGray-400',
 };
 
-export type Align = 'center' | 'left';
+export type Variant = keyof typeof variants;
 
-const mapAlign = (align: Align): string => {
-  switch (align) {
-    case 'center':
-      return 'text-center';
-    case 'left':
-      return 'text-left';
-  }
+const aligns = {
+  center: 'text-center',
+  left: 'text-left',
 };
+
+export type Align = keyof typeof aligns;
 
 type TagName = keyof JSX.IntrinsicElements;
 
@@ -110,11 +74,11 @@ export const Typography = <T extends TagName>(
 
   return createElement(as, {
     className: classNames(
-      mapSize(size),
-      mapLeading(leading),
-      mapWeight(weight),
-      mapVariant(variant),
-      mapAlign(align),
+      sizes[size],
+      leadings[leading],
+      weights[weight],
+      variants[variant],
+      aligns[align],
       className,
     ),
     ...rest,
@@ -140,7 +104,7 @@ Typography.H1 = (props: JustChildren): JSX.Element => (
     as="h1"
     weight="semibold"
     size="4xl"
-    leading="loose"
+    leading="tight"
     variant="normal"
     {...props}
   />
@@ -151,7 +115,7 @@ Typography.H2 = (props: JustChildren): JSX.Element => (
     as="h2"
     weight="semibold"
     size="2xl"
-    leading="relaxed"
+    leading="snug"
     variant="normal"
     {...props}
   />
@@ -162,7 +126,7 @@ Typography.H3 = (props: JustChildren): JSX.Element => (
     as="h3"
     weight="semibold"
     size="2xl"
-    leading="snug"
+    leading="normal"
     variant="normal"
     {...props}
   />
@@ -173,7 +137,7 @@ Typography.H4 = (props: JustChildren): JSX.Element => (
     as="h4"
     weight="semibold"
     size="xl"
-    leading="snug"
+    leading="relaxed"
     variant="normal"
     {...props}
   />
@@ -184,7 +148,7 @@ Typography.Paragraph = (props: JustChildren): JSX.Element => (
     as="p"
     weight="normal"
     size="base"
-    leading="relaxed"
+    leading="normal"
     variant="normal"
     {...props}
   />
