@@ -71,10 +71,13 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
     description,
     embed,
     embedType,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    loading,
+    date,
     ...rest
   } = props;
 
-  const date = dayjs(props.date.toISOString());
+  const formattedDate = dayjs(date.toISOString());
   const [interacting, setInteraction] = useState(false);
 
   const showEmbed =
@@ -156,7 +159,9 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
 
           <dt className="sr-only">開始時刻</dt>
           <dd className="mr-2">
-            <time dateTime={date.toISOString()}>{dayjs(date).fromNow()}</time>
+            <time dateTime={formattedDate.toISOString()}>
+              {dayjs(formattedDate).fromNow()}
+            </time>
           </dd>
 
           {tag != null && (

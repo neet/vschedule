@@ -14,6 +14,23 @@ type LoadingUserProps = BaseUserProps & {
   readonly loading: true;
 };
 
+const LoadingUser = (props: LoadingUserProps): JSX.Element => {
+  const { size } = props;
+
+  return (
+    <div className="flex py-2">
+      <div className="mr-4 flex-shrink-0">
+        <Avatar pending size={size} />
+      </div>
+
+      <div className="flex-grow">
+        <div className="rounded animate-pulse h-4 my-1 w-2/3 bg-coolGray-200 dark:bg-trueGray-800" />
+        <div className="rounded animate-pulse h-3 w-full bg-coolGray-200 dark:bg-trueGray-800" />
+      </div>
+    </div>
+  );
+};
+
 type ReadyUserProps = BaseUserProps &
   Readonly<JSX.IntrinsicElements['a']> & {
     readonly name: string;
@@ -24,27 +41,18 @@ type ReadyUserProps = BaseUserProps &
     readonly loading?: false;
   };
 
-type UserProps = LoadingUserProps | ReadyUserProps;
-
-export const User = (props: UserProps): JSX.Element => {
-  const { size } = props;
-
-  if (props.loading != null && props.loading) {
-    return (
-      <div className="flex py-2">
-        <div className="mr-4 flex-shrink-0">
-          <Avatar pending size={size} />
-        </div>
-
-        <div className="flex-grow">
-          <div className="rounded animate-pulse h-4 my-1 w-2/3 bg-coolGray-200 dark:bg-trueGray-800" />
-          <div className="rounded animate-pulse h-3 w-full bg-coolGray-200 dark:bg-trueGray-800" />
-        </div>
-      </div>
-    );
-  }
-
-  const { name, avatar, url, description, children, ...rest } = props;
+const ReadyUser = (props: ReadyUserProps): JSX.Element => {
+  const {
+    name,
+    avatar,
+    url,
+    description,
+    children,
+    size,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    loading,
+    ...rest
+  } = props;
 
   return (
     <div>
@@ -91,6 +99,16 @@ export const User = (props: UserProps): JSX.Element => {
       {children}
     </div>
   );
+};
+
+type UserProps = LoadingUserProps | ReadyUserProps;
+
+export const User = (props: UserProps): JSX.Element => {
+  if (props.loading != null && props.loading) {
+    return <LoadingUser {...props} />;
+  }
+
+  return <ReadyUser {...props} />;
 };
 
 User.defaultProps = {
