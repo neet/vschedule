@@ -19,10 +19,18 @@ export const Crown = (): JSX.Element => {
   const zeroAmYesterday = zeroAmToday.subtract(1, 'day');
 
   const handleClickLatest = (): void => {
+    gtag('event', 'click_crown_latest', {
+      event_label: '最新の配信へ移動',
+    });
+
     setFocusedAt(dayjs());
   };
 
   const handleClickRight = (): void => {
+    gtag('event', 'click_crown_forward', {
+      event_label: '一日前に移動',
+    });
+
     // If focus is before the closest 0 AM
     if (focusedAt.isBefore(zeroAmToday)) {
       setFocusedAt(zeroAmToday);
@@ -33,6 +41,10 @@ export const Crown = (): JSX.Element => {
   };
 
   const handleClickLeft = (): void => {
+    gtag('event', 'click_crown_forward', {
+      event_label: '一日後に移動',
+    });
+
     // If focus is after the closest 0 AM
     if (focusedAt.isAfter(zeroAmToday)) {
       setFocusedAt(zeroAmToday);
@@ -43,8 +55,9 @@ export const Crown = (): JSX.Element => {
   };
 
   return (
-    <header aria-label="今日のにじさんじの配信">
+    <header aria-labelledby="crown-title">
       <Typography
+        id="crown-title"
         size="lg"
         className={classNames(
           'md:text-2xl',

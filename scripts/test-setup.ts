@@ -24,6 +24,10 @@ window.matchMedia = jest.fn().mockImplementation((query: string) => ({
   dispatchEvent: jest.fn(),
 }));
 
+window.gtag = (): void => {
+  return;
+};
+
 jest.mock('next/router', () => ({
   useRouter: jest.fn().mockImplementation(() => ({
     query: {},

@@ -42,20 +42,21 @@ const LoadingEntry = (_props: LoadingEntryProps): JSX.Element => {
   );
 };
 
-interface ReadyEntryProps extends BaseEntryProps {
-  readonly title: string;
-  readonly url: string;
-  readonly author: string;
-  readonly thumbnail: string;
-  readonly description: string;
-  readonly thumbnailAlt: string;
-  readonly date: Readonly<Date>;
-  readonly active: boolean;
-  readonly tag?: string;
-  readonly embed?: ReactNode;
-  readonly embedType?: EmbedType;
-  readonly loading?: false;
-}
+type ReadyEntryProps = BaseEntryProps &
+  Readonly<JSX.IntrinsicElements['a']> & {
+    readonly title: string;
+    readonly url: string;
+    readonly author: string;
+    readonly thumbnail: string;
+    readonly description: string;
+    readonly thumbnailAlt: string;
+    readonly date: Readonly<Date>;
+    readonly active: boolean;
+    readonly tag?: string;
+    readonly embed?: ReactNode;
+    readonly embedType?: EmbedType;
+    readonly loading?: false;
+  };
 
 const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
   const {
@@ -70,9 +71,13 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
     description,
     embed,
     embedType,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    loading,
+    date,
+    ...rest
   } = props;
 
-  const date = dayjs(props.date.toISOString());
+  const formattedDate = dayjs(date.toISOString());
   const [interacting, setInteraction] = useState(false);
 
   const showEmbed =
@@ -89,6 +94,7 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
       onMouseLeave={(): void => void setInteraction(false)}
       onFocus={(): void => void setInteraction(true)}
       onBlur={(): void => void setInteraction(false)}
+      {...rest}
     >
       <div className="relative">
         <div
@@ -153,7 +159,9 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
 
           <dt className="sr-only">開始時刻</dt>
           <dd className="mr-2">
-            <time dateTime={date.toISOString()}>{dayjs(date).fromNow()}</time>
+            <time dateTime={formattedDate.toISOString()}>
+              {dayjs(formattedDate).fromNow()}
+            </time>
           </dd>
 
           {tag != null && (

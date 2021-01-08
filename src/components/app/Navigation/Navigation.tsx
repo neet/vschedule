@@ -90,6 +90,9 @@ export const Navigation = (): JSX.Element => {
 
   const handleToggle = (): void => {
     setShown(!shown);
+    gtag('event', 'open_navigation', {
+      event_label: 'メニューを開く',
+    });
   };
 
   return (

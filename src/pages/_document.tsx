@@ -2,6 +2,39 @@ import type { DocumentProps } from 'next/document';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 
+const GtagScript = (): JSX.Element => {
+  if (process.env.GA_MEASUREMENT_ID == null) {
+    return (
+      <script
+        dangerouslySetInnerHTML={{
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          __html: 'function gtag() { return; }',
+        }}
+      />
+    );
+  }
+
+  return (
+    <>
+      <script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_MEASUREMENT_ID}`}
+      />
+      <script
+        dangerouslySetInnerHTML={{
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.GA_MEASUREMENT_ID}');
+          `,
+        }}
+      />
+    </>
+  );
+};
+
 export default class CustomDocument extends Document<DocumentProps> {
   public render(): JSX.Element {
     return (
@@ -36,25 +69,7 @@ export default class CustomDocument extends Document<DocumentProps> {
           <meta name="apple-mobile-web-app-status-bar-style" content="black" />
           <link rel="mask-icon" href="/mask-icon.svg" color="#f80652" />
           <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-          {process.env.GA_MEASUREMENT_ID != null && (
-            <>
-              <script
-                async
-                src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_MEASUREMENT_ID}`}
-              />
-              <script
-                dangerouslySetInnerHTML={{
-                  // eslint-disable-next-line @typescript-eslint/naming-convention
-                  __html: `
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', '${process.env.GA_MEASUREMENT_ID}');
-                  `,
-                }}
-              />
-            </>
-          )}
+          <GtagScript />
         </Head>
 
         <body className="bg-white dark:bg-black">

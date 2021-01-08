@@ -41,6 +41,23 @@ export const EventMarker = (props: EventProps): JSX.Element => {
     modifiers: [{ name: 'flip', enabled: true }],
   });
 
+  const handleClick = (): void => {
+    gtag('event', 'click_event_marker', {
+      event_label: event.name,
+    });
+  };
+
+  const handleOpenCard = (immediate = false): void => {
+    handleFocus(immediate);
+    gtag('event', 'open_event_card', {
+      event_label: event.name,
+    });
+  };
+
+  const handleCloseCard = (): void => {
+    handleBlur();
+  };
+
   return (
     <div
       className={classNames(
@@ -65,10 +82,11 @@ export const EventMarker = (props: EventProps): JSX.Element => {
           'ring-primary-500',
           'dark:ring-primary-400',
         )}
-        onMouseOver={() => void handleFocus()}
-        onMouseLeave={() => void handleBlur()}
-        onFocus={() => void handleFocus(true)}
-        onBlur={() => void handleBlur()}
+        onClick={handleClick}
+        onMouseOver={() => void handleOpenCard()}
+        onMouseLeave={handleCloseCard}
+        onFocus={() => void handleOpenCard(true)}
+        onBlur={handleCloseCard}
       >
         <Marker
           backgroundColor={event.livers[0].color}

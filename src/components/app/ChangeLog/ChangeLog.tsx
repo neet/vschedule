@@ -28,6 +28,10 @@ export const ChangeLog = (/* props: MigrationProps */): JSX.Element | null => {
   const handleComplete = (): void => {
     setMigration(false);
     setVersion(packageJSON.version);
+
+    gtag('event', 'complete_change_log', {
+      event_label: packageJSON.version,
+    });
   };
 
   if (packageJSON.version === '0.1.0') {

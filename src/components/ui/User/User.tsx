@@ -14,40 +14,53 @@ type LoadingUserProps = BaseUserProps & {
   readonly loading: true;
 };
 
-type ReadyUserProps = BaseUserProps & {
-  readonly name: string;
-  readonly avatar: string;
-  readonly url: string;
-  readonly description?: string;
-  readonly children?: ReactNode;
-  readonly loading?: false;
-};
-
-type UserProps = LoadingUserProps | ReadyUserProps;
-
-export const User = (props: UserProps): JSX.Element => {
+const LoadingUser = (props: LoadingUserProps): JSX.Element => {
   const { size } = props;
 
-  if (props.loading != null && props.loading) {
-    return (
-      <div className="flex py-2">
-        <div className="mr-4 flex-shrink-0">
-          <Avatar pending size={size} />
-        </div>
-
-        <div className="flex-grow">
-          <div className="rounded animate-pulse h-4 my-1 w-2/3 bg-coolGray-200 dark:bg-trueGray-800" />
-          <div className="rounded animate-pulse h-3 w-full bg-coolGray-200 dark:bg-trueGray-800" />
-        </div>
+  return (
+    <div className="flex py-2">
+      <div className="mr-4 flex-shrink-0">
+        <Avatar pending size={size} />
       </div>
-    );
-  }
 
-  const { name, avatar, url, description, children } = props;
+      <div className="flex-grow">
+        <div className="rounded animate-pulse h-4 my-1 w-2/3 bg-coolGray-200 dark:bg-trueGray-800" />
+        <div className="rounded animate-pulse h-3 w-full bg-coolGray-200 dark:bg-trueGray-800" />
+      </div>
+    </div>
+  );
+};
+
+type ReadyUserProps = BaseUserProps &
+  Readonly<JSX.IntrinsicElements['a']> & {
+    readonly name: string;
+    readonly avatar: string;
+    readonly url: string;
+    readonly description?: string;
+    readonly children?: ReactNode;
+    readonly loading?: false;
+  };
+
+const ReadyUser = (props: ReadyUserProps): JSX.Element => {
+  const {
+    name,
+    avatar,
+    url,
+    description,
+    children,
+    size,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    loading,
+    ...rest
+  } = props;
 
   return (
     <div>
-      <a href={url} className={classNames('group', 'flex', 'py-1', 'rounded')}>
+      <a
+        href={url}
+        className={classNames('group', 'flex', 'py-1', 'rounded')}
+        {...rest}
+      >
         <div className="flex-grow order-2">
           <Typography
             weight="semibold"
@@ -86,6 +99,16 @@ export const User = (props: UserProps): JSX.Element => {
       {children}
     </div>
   );
+};
+
+type UserProps = LoadingUserProps | ReadyUserProps;
+
+export const User = (props: UserProps): JSX.Element => {
+  if (props.loading != null && props.loading) {
+    return <LoadingUser {...props} />;
+  }
+
+  return <ReadyUser {...props} />;
 };
 
 User.defaultProps = {

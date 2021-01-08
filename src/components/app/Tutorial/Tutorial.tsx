@@ -137,6 +137,7 @@ export const Tutorial = (props: TutorialProps): JSX.Element => {
   const handleComplete = (): void => {
     setTutorialStatus(true);
     onHide?.();
+    gtag('event', 'complete_tutorial');
   };
 
   return (
