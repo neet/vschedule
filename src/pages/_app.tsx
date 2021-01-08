@@ -11,7 +11,7 @@ import minMax from 'dayjs/plugin/minMax';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 config.autoAddCss = false;
 dayjs.locale('ja');
@@ -19,22 +19,29 @@ dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
 dayjs.extend(minMax);
 
-const App = (props: AppProps): JSX.Element => {
-  const { Component, pageProps } = props;
+const useGtag = (): void => {
   const router = useRouter();
 
+  // According to Google, we can send page_view manually by calling gtag('config') with new page path
+  // https://developers.google.com/analytics/devguides/collection/gtagjs/single-page-applications#measure_virtual_pageviews
+  const handleRouteChange = useCallback((url: string): void => {
+    if (process.env.GA_MEASUREMENT_ID == null) return;
+    gtag('config', process.env.GA_MEASUREMENT_ID, {
+      page_path: new URL(url).pathname,
+    });
+  }, []);
+
   useEffect(() => {
-    const handleRouteChange = (): void => {
-      if (process.env.GA_MEASUREMENT_ID == null) return;
-      gtag('config', process.env.GA_MEASUREMENT_ID);
-    };
-
     router.events.on('routeChangeComplete', handleRouteChange);
-
     return (): void => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
-  }, [router.events]);
+  }, [router.events, handleRouteChange]);
+};
+
+const App = (props: AppProps): JSX.Element => {
+  const { Component, pageProps } = props;
+  useGtag();
 
   return <Component {...pageProps} />;
 };
