@@ -2,7 +2,7 @@ import { Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { setLightness } from 'polished';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useInView } from 'react-intersection-observer';
 import { usePopper } from 'react-popper';
@@ -47,16 +47,12 @@ export const EventMarker = (props: EventProps): JSX.Element => {
     });
   };
 
-  const handleOpenCard = (immediate = false): void => {
-    handleFocus(immediate);
+  useEffect(() => {
+    if (!hover) return;
     gtag('event', 'open_event_card', {
       event_label: event.name,
     });
-  };
-
-  const handleCloseCard = (): void => {
-    handleBlur();
-  };
+  }, [hover, event.name]);
 
   return (
     <div
@@ -83,10 +79,10 @@ export const EventMarker = (props: EventProps): JSX.Element => {
           'dark:ring-primary-400',
         )}
         onClick={handleClick}
-        onMouseOver={() => void handleOpenCard()}
-        onMouseLeave={handleCloseCard}
-        onFocus={() => void handleOpenCard(true)}
-        onBlur={handleCloseCard}
+        onMouseOver={() => void handleFocus()}
+        onMouseLeave={() => void handleBlur()}
+        onFocus={() => void handleFocus(true)}
+        onBlur={() => void handleBlur()}
       >
         <Marker
           backgroundColor={event.livers[0].color}
