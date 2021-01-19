@@ -1,1 +1,0 @@
-export { Genres } from './Genres';
