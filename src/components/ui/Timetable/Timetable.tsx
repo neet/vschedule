@@ -6,6 +6,7 @@ import type { ReactNode } from 'react';
 import { useEffect, useLayoutEffect } from 'react';
 
 import { useDebouncedScroll } from '../../hooks/useDebouncedScroll';
+import { Empty } from './Empty';
 import { Loading } from './Loading';
 import { MinuteHand } from './MinuteHand';
 import { ScheduleList } from './ScheduleList';
@@ -107,6 +108,8 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
       >
         {loading != null && loading ? (
           <Loading />
+        ) : schedules.length === 0 ? (
+          <Empty />
         ) : (
           <>
             <ScheduleList schedules={schedules} />
