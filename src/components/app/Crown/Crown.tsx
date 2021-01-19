@@ -6,12 +6,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 
+import { useGenres } from '../../hooks/useGenres';
 import { Button } from '../../ui/Button';
+import { Radio } from '../../ui/Radio';
 import { useTimetable } from '../../ui/Timetable';
 import { Typography } from '../../ui/Typography';
 
-export const Crown = (): JSX.Element => {
+export interface CrownProps {
+  readonly genre: number;
+  readonly onGenreChange?: (genre: number) => void;
+}
+
+export const Crown = (props: CrownProps): JSX.Element => {
+  const { genre, onGenreChange } = props;
+
   const { focusedAt, startAt, endAt, setFocusedAt } = useTimetable();
+  const { data } = useGenres();
 
   // "today" or "yesterday" "tomorrow" here are defined as relative from the focus
   const zeroAmToday = focusedAt.millisecond(0).second(0).minute(0).hour(0);
@@ -54,6 +64,20 @@ export const Crown = (): JSX.Element => {
     setFocusedAt(dayjs.max(startAt, zeroAmYesterday));
   };
 
+  const handleGenreChange = (value: string): void => {
+    gtag('event', 'click_change_genre', {
+      event_label: value,
+    });
+
+    // DOMのフォームから取れる値をID where 数値に変換
+    onGenreChange?.(Number(value));
+
+    // 対応する座標がスクロール領域に存在する場合にしか動かないので、スクリーンリーダーでフォーカスされない
+    // 本当はジャンルが変更された後の副作用として pages/index.tsx に持たせたいけど、
+    // そうすると provider の関係上中間のコンポーネントが発生してしまう。そのコンポーネントの名前を考え中
+    setFocusedAt(dayjs());
+  };
+
   return (
     <header aria-labelledby="crown-title">
       <Typography
@@ -61,6 +85,7 @@ export const Crown = (): JSX.Element => {
         size="lg"
         className={classNames(
           'md:text-2xl',
+          'md:mb-1.5',
           'text-coolGray-700',
           'dark:text-trueGray-300',
         )}
@@ -68,7 +93,15 @@ export const Crown = (): JSX.Element => {
         今日のにじさんじの配信
       </Typography>
 
-      <div className="flex justify-between md:justify-start md:space-x-4 items-center">
+      <div
+        className={classNames(
+          'flex',
+          'justify-between',
+          'md:justify-start',
+          'md:space-x-4',
+          'items-center',
+        )}
+      >
         <time
           dateTime={focusedAt.toISOString()}
           className={classNames(
@@ -121,6 +154,31 @@ export const Crown = (): JSX.Element => {
             <FontAwesomeIcon icon={faChevronRight} />
           </Button>
         </div>
+
+        {data != null && (
+          // スマホはバーガーメニューから使えるのでクラウンに出す必要はないと思う
+          <form className="hidden md:block" aria-labelledby="crown-tags">
+            <h3 id="crown-tags" className="sr-only">
+              タグでフィルター
+            </h3>
+
+            <Radio
+              name="filter"
+              value={genre.toString()}
+              onChange={handleGenreChange}
+            >
+              <Radio.Item label="全ての配信" value="-1" />
+
+              {data.data.genres.map((item, i) => (
+                <Radio.Item
+                  key={`${item.id}-${i}`}
+                  label={item.name}
+                  value={item.id.toString()}
+                />
+              ))}
+            </Radio>
+          </form>
+        )}
       </div>
     </header>
   );

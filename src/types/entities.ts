@@ -57,6 +57,7 @@ export interface LiverRelationships {
   readonly user_liver?: null;
 }
 
+export type GenresResponse = Response<{ readonly genres: Genre[] }>;
 export type EventsResponse = Response<{ readonly events: Event[] }>;
 export type EventResponse = Response<{ readonly event: Event }>;
 export type LiversResponse = Response<{

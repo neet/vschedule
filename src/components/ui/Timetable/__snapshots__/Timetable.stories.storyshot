@@ -18,19 +18,18 @@ exports[`Storyshots Timetable Default 1`] = `
     }
   >
     <div
-      aria-hidden={true}
-      className="box-border sticky top-0 left-0 flex flex-col items-center h-full w-full pt-2 select-none z-10"
-      role="presentation"
+      className="w-full h-full flex flex-col justify-center items-center"
     >
-      <time
-        className="flex-grow-0 flex-shrink-0 py-1 px-2.5 rounded-full text-sm font-semibold tabular-nums text-white bg-primary-500 dark:bg-primary-400 border-b-2 border-primary-700 dark:border-primary-600"
-        dateTime="2020-12-29T07:46:53.578Z"
-      >
-        16:46
-      </time>
-      <div
-        className="w-0 flex-grow flex-shrink border-primary-600 dark:border-primary-400 border-r"
+      <img
+        alt="空の段ボールを持って立ち尽くす人"
+        className="block w-full md:max-w-sm mx-auto my-8"
+        src="/undraw_empty_xct9.svg"
       />
+      <p
+        className="text-base leading-normal font-normal text-coolGray-900 dark:text-trueGray-100 text-left text-center"
+      >
+        そのような配信は見つかりませんでした、別のキーワードをお試しください。
+      </p>
     </div>
   </div>
 </div>

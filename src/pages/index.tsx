@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import dynamic from 'next/dynamic';
-import { useLocalStorage } from 'react-use';
+import { useMemo, useState } from 'react';
+import { useLocalStorage, useSearchParam } from 'react-use';
 
 import { ChangeLog } from '../components/app/ChangeLog';
 import { Crown } from '../components/app/Crown';
@@ -19,14 +20,36 @@ const Timetable = dynamic<TimetableProps>(
   { ssr: false },
 );
 
+const GENRE_ALL = -1;
+
+// if you use this hook other than here, make this a module.
+const useGenreQueryParam = (): number | undefined => {
+  const queryGenre = useSearchParam('genre');
+  return queryGenre != null ? Number(queryGenre) : undefined;
+};
+
 const Events = (): JSX.Element => {
   const { data } = useEvents();
   const [swapDelta] = useLocalStorage<boolean>('swap-delta');
+  const genreQuery = useGenreQueryParam();
+  const [genre, setGenre] = useState(genreQuery ?? GENRE_ALL);
 
   const startAt = data ? dayjs(data.data.events[0].start_date) : dayjs();
   const endAt = data
     ? dayjs(data.data.events[data.data.events.length - 1].end_date)
     : dayjs();
+
+  // prettier-ignore
+  const schedules = useMemo(() => (
+    data?.data.events
+      .filter((event) => genre === GENRE_ALL || event.genre?.id === genre)
+      .map((event) => ({
+        startAt: dayjs(event.start_date),
+        endAt: dayjs(event.end_date),
+        node: <EventMarker event={event} />,
+      }))
+    ?? []
+  ), [data, genre]);
 
   return (
     <Layout
@@ -57,17 +80,11 @@ const Events = (): JSX.Element => {
           )}
         >
           <div className="flex flex-col flex-grow space-y-4">
-            <Crown />
+            <Crown genre={genre} onGenreChange={setGenre} />
             <Timetable
               loading={data == null}
               swapDelta={swapDelta}
-              schedules={
-                data?.data.events.map((event) => ({
-                  startAt: dayjs(event.start_date),
-                  endAt: dayjs(event.end_date),
-                  node: <EventMarker event={event} />,
-                })) ?? []
-              }
+              schedules={schedules}
             />
           </div>
           <Skyscraper />

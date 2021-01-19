@@ -65,7 +65,7 @@ const mapSize = (size: Size, variant: Variant): string => {
   switch (size) {
     case 'sm':
       return classNames(
-        variant !== 'skeleton' && ['py-1.5', 'px-2'],
+        variant !== 'skeleton' && ['py-1.5', 'px-3'],
         'text-sm',
       );
     case 'md':
@@ -105,9 +105,10 @@ export const Button = forwardRef<HTMLElement, Partial<ButtonProps>>((props, ref)
         'leading-none',
         'box-border',
         'duration-100',
-        'transition-colors',
+        'transition-all',
         'ease-out',
         'font-medium',
+        'cursor-pointer',
         'disabled:cursor-not-allowed',
         'focus:ring',
         'focus:ring-primary-200',
