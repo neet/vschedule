@@ -21,9 +21,9 @@ export const Banner = (): JSX.Element => {
         'bg-coolGray-100',
         'dark:bg-trueGray-900',
         'dark:text-trueGray-50',
-        'lg:p-4',
-        'lg:flex-col',
-        'lg:h-screen',
+        // 'lg:p-4',
+        // 'lg:flex-col',
+        // 'lg:h-screen',
       )}
     >
       <div
@@ -32,9 +32,9 @@ export const Banner = (): JSX.Element => {
           'flex-grow',
           'flex-shrink-0',
           'w-1/3',
-          'lg:w-auto',
-          'lg:order-1',
-          'lg:flex-grow-0',
+          // 'lg:w-auto',
+          // 'lg:order-1',
+          // 'lg:flex-grow-0',
         )}
       >
         <Button className="sr-only focus:not-sr-only" href="#main" as="a">
@@ -56,10 +56,10 @@ export const Banner = (): JSX.Element => {
                 'duration-75',
                 'hover:bg-coolGray-200',
                 'dark:hover:bg-trueGray-800',
-                'lg:p-2',
-                'lg:w-14',
-                'lg:h-14',
-                'lg:mx-0',
+                // 'lg:p-2',
+                // 'lg:w-14',
+                // 'lg:h-14',
+                // 'lg:mx-0',
               )}
             >
               <span className="sr-only">Refined Itsukara.link</span>
@@ -75,8 +75,8 @@ export const Banner = (): JSX.Element => {
           'flex-grow',
           'flex-shrink-0',
           'w-1/3',
-          'lg:w-auto',
-          'lg:order-2',
+          // 'lg:w-auto',
+          // 'lg:order-2',
         )}
       >
         <Navigation />
@@ -85,7 +85,7 @@ export const Banner = (): JSX.Element => {
       <div
         aria-hidden
         role="presentation"
-        className="order-2 flex-grow flex-shrink-0 w-1/3 lg:w-auto lg:hidden"
+        className="order-2 flex-grow flex-shrink-0 w-1/3"
       />
     </header>
   );

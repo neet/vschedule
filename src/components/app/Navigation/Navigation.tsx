@@ -31,8 +31,8 @@ const Inner = (): JSX.Element => {
         'bg-coolGray-100',
         'dark:bg-trueGray-900',
         'dark:text-trueGray-50',
-        'lg:p-2',
-        'lg:w-full',
+        // 'lg:p-2',
+        // 'lg:w-full',
         'pointer-events-auto',
       )}
     >
@@ -100,7 +100,6 @@ export const Navigation = (): JSX.Element => {
       <Button
         title="メニューを開く"
         aria-label="メニューを開く"
-        className={classNames('lg:hidden')}
         variant="wash"
         onClick={handleToggle}
       >
@@ -108,19 +107,14 @@ export const Navigation = (): JSX.Element => {
       </Button>
 
       {typeof window !== 'undefined' && (
-        <Modal
-          show={shown}
-          title="ナビゲーション"
-          onHide={handleToggle}
-          className="lg:hidden" // for clarify
-        >
+        <Modal show={shown} title="ナビゲーション" onHide={handleToggle}>
           <Inner />
         </Modal>
       )}
 
-      <div className={classNames('hidden', 'w-56', 'h-full', 'lg:block')}>
+      {/* <div className={classNames('hidden', 'w-56', 'h-full', 'lg:block')}>
         <Inner />
-      </div>
+      </div> */}
     </>
   );
 };

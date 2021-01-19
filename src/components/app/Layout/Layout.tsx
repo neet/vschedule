@@ -22,7 +22,7 @@ const AppContainer = (props: AppContainerProps): JSX.Element => {
         'h-auto',
         'flex',
         'flex-col',
-        'lg:flex-row',
+        // 'lg:flex-row',
         'bg-white',
         'dark:bg-black',
       )}
