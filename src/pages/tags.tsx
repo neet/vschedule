@@ -24,7 +24,7 @@ const Tags: NextPage = () => {
       </Typography.Paragraph>
 
       {data?.data.genres.map((genre) => (
-        <Card key={genre.id}>
+        <Card key={genre.id} variant="wash">
           <Link href={`/?genre=${genre.id}`}>
             <a className="block group">
               <div className={classNames('flex', 'items-center', 'space-x-4')}>
