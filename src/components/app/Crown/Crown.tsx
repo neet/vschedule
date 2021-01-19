@@ -93,7 +93,15 @@ export const Crown = (props: CrownProps): JSX.Element => {
         今日のにじさんじの配信
       </Typography>
 
-      <div className="flex justify-between md:justify-start md:space-x-4 items-center">
+      <div
+        className={classNames(
+          'flex',
+          'justify-between',
+          'md:justify-start',
+          'md:space-x-4',
+          'items-center',
+        )}
+      >
         <time
           dateTime={focusedAt.toISOString()}
           className={classNames(
@@ -148,7 +156,8 @@ export const Crown = (props: CrownProps): JSX.Element => {
         </div>
 
         {data != null && (
-          <form aria-labelledby="crown-tags">
+          // スマホはバーガーメニューから使えるのでクラウンに出す必要はないと思う
+          <form className="hidden md:block" aria-labelledby="crown-tags">
             <h3 id="crown-tags" className="sr-only">
               タグでフィルター
             </h3>
