@@ -72,8 +72,9 @@ export const Crown = (props: CrownProps): JSX.Element => {
     // DOMのフォームから取れる値をID where 数値に変換
     onGenreChange?.(Number(value));
 
-    // 本当は pages/index.tsx でやりたい。が、providerの都合上
-    // タイムテーブル全体をラップしたコンポーネントが必要になるためやっていない
+    // 対応する座標がスクロール領域に存在する場合にしか動かないので、スクリーンリーダーでフォーカスされない
+    // 本当はジャンルが変更された後の副作用として pages/index.tsx に持たせたいけど、
+    // そうすると provider の関係上中間のコンポーネントが発生してしまう。そのコンポーネントの名前を考え中
     setFocusedAt(dayjs());
   };
 
