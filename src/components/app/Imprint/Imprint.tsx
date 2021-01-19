@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import { Link as UILink } from '../../ui/Link';
 
-const ZeroOneZero = dynamic(import('../ChangeLog/v0.1.0'));
+const Changelog = dynamic(import('../ChangeLog/v0.2.0'));
 
 // export interface ImprintProps {}
 
@@ -18,7 +18,7 @@ export const Imprint = (/* props: ImprintProps */): JSX.Element => {
     <>
       {changeLog && (
         // note that this disables transition
-        <ZeroOneZero show={changeLog} onHide={() => void setChangeLog(false)} />
+        <Changelog show={changeLog} onHide={() => void setChangeLog(false)} />
       )}
 
       <div role="contentinfo" aria-label="運営者情報">
