@@ -66,7 +66,7 @@ export const Crown = (props: CrownProps): JSX.Element => {
 
   const handleGenreChange = (value: string): void => {
     // DOMのフォームから取れる値をID where 数値に変換
-    onGenreChange(Number(value));
+    onGenreChange?.(Number(value));
   };
 
   return (
