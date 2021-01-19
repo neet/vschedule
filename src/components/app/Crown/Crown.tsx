@@ -6,13 +6,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 
+import { useGenres } from '../../hooks/useGenres';
 import { Button } from '../../ui/Button';
 import { Radio } from '../../ui/Radio';
 import { useTimetable } from '../../ui/Timetable';
 import { Typography } from '../../ui/Typography';
 
-export const Crown = (): JSX.Element => {
+export interface CrownProps {
+  readonly genre: number;
+  readonly onGenreChange?: (genre: number) => void;
+}
+
+export const Crown = (props: CrownProps): JSX.Element => {
+  const { genre, onGenreChange } = props;
+
   const { focusedAt, startAt, endAt, setFocusedAt } = useTimetable();
+  const { data } = useGenres();
 
   // "today" or "yesterday" "tomorrow" here are defined as relative from the focus
   const zeroAmToday = focusedAt.millisecond(0).second(0).minute(0).hour(0);
@@ -53,6 +62,11 @@ export const Crown = (): JSX.Element => {
     }
 
     setFocusedAt(dayjs.max(startAt, zeroAmYesterday));
+  };
+
+  const handleGenreChange = (value: string): void => {
+    // DOMのフォームから取れる値をID where 数値に変換
+    onGenreChange(Number(value));
   };
 
   return (
@@ -123,21 +137,29 @@ export const Crown = (): JSX.Element => {
           </Button>
         </div>
 
-        <form aria-labelledby="crown-tags">
-          <h3 id="crown-tags" className="sr-only">
-            タグでフィルター
-          </h3>
+        {data != null && (
+          <form aria-labelledby="crown-tags">
+            <h3 id="crown-tags" className="sr-only">
+              タグでフィルター
+            </h3>
 
-          <Radio name="filter" value="all">
-            <Radio.Item label="全ての配信" value="all" />
-            <Radio.Item label="ゲーム" value="games" />
-            <Radio.Item label="雑談" value="chatting" />
-            <Radio.Item label="歌みた" value="cover" />
-            <Radio.Item label="企画" value="variety" />
-            <Radio.Item label="記念" value="anniversary" />
-            <Radio.Item label="ASMR" value="asmr" />
-          </Radio>
-        </form>
+            <Radio
+              name="filter"
+              value={genre.toString()}
+              onChange={handleGenreChange}
+            >
+              <Radio.Item label="全ての配信" value="-1" />
+
+              {data.data.genres.map((item, i) => (
+                <Radio.Item
+                  key={`${item.id}-${i}`}
+                  label={item.name}
+                  value={item.id.toString()}
+                />
+              ))}
+            </Radio>
+          </form>
+        )}
       </div>
     </header>
   );

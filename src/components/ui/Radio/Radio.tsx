@@ -60,18 +60,24 @@ export interface RadioProps {
   readonly name: string;
   readonly value?: string;
   readonly children: ReactNode;
+  readonly onChange?: (value: string) => void;
 }
 
 export const Radio = (props: RadioProps): JSX.Element => {
-  const { children, name } = props;
+  const { children, name, onChange } = props;
   const [value, setValue] = useState<string | undefined>(props.value);
+
+  const handleChange = (newValue: string): void => {
+    setValue(newValue);
+    onChange?.(newValue);
+  };
 
   return (
     <RadioContext.Provider
       value={{
         name,
-        setValue,
         value,
+        setValue: handleChange,
       }}
     >
       <div className={classNames('space-x-2')}>{children}</div>
