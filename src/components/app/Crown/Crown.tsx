@@ -84,6 +84,7 @@ export const Crown = (props: CrownProps): JSX.Element => {
         size="lg"
         className={classNames(
           'md:text-2xl',
+          'md:mb-1.5',
           'text-coolGray-700',
           'dark:text-trueGray-300',
         )}
