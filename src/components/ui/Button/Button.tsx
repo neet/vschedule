@@ -105,7 +105,7 @@ export const Button = forwardRef<HTMLElement, Partial<ButtonProps>>((props, ref)
         'leading-none',
         'box-border',
         'duration-100',
-        'transition-colors',
+        'transition-all',
         'ease-out',
         'font-medium',
         'cursor-pointer',
