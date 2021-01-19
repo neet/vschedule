@@ -65,6 +65,10 @@ export const Crown = (props: CrownProps): JSX.Element => {
   };
 
   const handleGenreChange = (value: string): void => {
+    gtag('event', 'click_change_genre', {
+      event_label: value,
+    });
+
     // DOMのフォームから取れる値をID where 数値に変換
     onGenreChange?.(Number(value));
 
