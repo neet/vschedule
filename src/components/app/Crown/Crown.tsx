@@ -1,6 +1,7 @@
 import {
   faChevronLeft,
   faChevronRight,
+  faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -14,11 +15,12 @@ import { Typography } from '../../ui/Typography';
 
 export interface CrownProps {
   readonly genre: number;
+  readonly loading: boolean;
   readonly onGenreChange?: (genre: number) => void;
 }
 
 export const Crown = (props: CrownProps): JSX.Element => {
-  const { genre, onGenreChange } = props;
+  const { genre, loading, onGenreChange } = props;
 
   const { focusedAt, startAt, endAt, setFocusedAt } = useTimetable();
   const { genres } = useGenres();
@@ -80,13 +82,24 @@ export const Crown = (props: CrownProps): JSX.Element => {
 
   return (
     <header aria-labelledby="crown-title">
-      <Typography
-        id="crown-title"
-        variant="wash"
-        className={classNames('md:text-xl', 'md:mb-1.5')}
+      <div
+        className={classNames('flex', 'space-x-4', 'items-center', 'md:mb-1.5')}
       >
-        今日のにじさんじの配信
-      </Typography>
+        <Typography
+          id="crown-title"
+          variant="wash"
+          as="h2"
+          className={classNames('md:text-xl')}
+        >
+          今日のにじさんじの配信
+        </Typography>
+
+        {loading && (
+          <Typography size="lg" leading="none" variant="wash">
+            <FontAwesomeIcon icon={faSpinner} spin />
+          </Typography>
+        )}
+      </div>
 
       <div className={classNames('flex', 'justify-between', 'md:space-x-4')}>
         <div

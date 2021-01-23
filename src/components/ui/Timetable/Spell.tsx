@@ -37,6 +37,7 @@ export const Spell = (props: SpellProps): JSX.Element => {
       id={date.toISOString()}
       className={classNames(
         'absolute',
+        'h-full',
         'transition-opacity',
         'duration-500',
         inView ? 'opacity-100' : 'opacity-0',
@@ -55,6 +56,7 @@ export const Spell = (props: SpellProps): JSX.Element => {
           'items-center',
           'group',
           'w-full',
+          'min-h-full',
           'focus:outline-none',
           'focus:ring',
           'ring-inset',
@@ -89,6 +91,7 @@ export const Spell = (props: SpellProps): JSX.Element => {
           className={classNames(
             'flex-grow',
             'w-0',
+            'min-h-full',
             'border-r',
             'border-coolGray-200',
             'dark:border-trueGray-800',
