@@ -21,7 +21,7 @@ export const Crown = (props: CrownProps): JSX.Element => {
   const { genre, onGenreChange } = props;
 
   const { focusedAt, startAt, endAt, setFocusedAt } = useTimetable();
-  const { data } = useGenres();
+  const { genres } = useGenres();
 
   // "today" or "yesterday" "tomorrow" here are defined as relative from the focus
   const zeroAmToday = focusedAt.millisecond(0).second(0).minute(0).hour(0);
@@ -155,7 +155,7 @@ export const Crown = (props: CrownProps): JSX.Element => {
           </Button>
         </div>
 
-        {data != null && (
+        {genres != null && (
           // スマホはバーガーメニューから使えるのでクラウンに出す必要はないと思う
           <form className="hidden md:block" aria-labelledby="crown-tags">
             <h3 id="crown-tags" className="sr-only">
@@ -169,7 +169,7 @@ export const Crown = (props: CrownProps): JSX.Element => {
             >
               <Radio.Item label="全ての配信" value="-1" />
 
-              {data.data.genres.map((item, i) => (
+              {genres.map((item, i) => (
                 <Radio.Item
                   key={`${item.id}-${i}`}
                   label={item.name}

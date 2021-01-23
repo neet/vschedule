@@ -6,14 +6,14 @@ import { useNow } from './useNow';
 
 export const useUpcomingEvents = (): Event[] | undefined => {
   const now = useNow();
-  const { data } = useEvents();
+  const { events } = useEvents();
 
   // prettier-ignore
-  const upcoming = useMemo(() => data?.data.events.filter(
+  const upcoming = useMemo(() => events?.filter(
     (event) =>
       now.isBefore(event.end_date) ||
       now.isBefore(event.start_date),
-  ), [data, now]);
+  ), [events, now]);
 
   return upcoming;
 };

@@ -1,16 +1,34 @@
 import { faHashtag } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
 
+import { api } from '../api';
 import { Layout } from '../components/app/Layout';
 import { useGenres } from '../components/hooks/useGenres';
 import { Card } from '../components/ui/Card';
 import { Typography } from '../components/ui/Typography';
+import type { GenresResponse } from '../types';
 
-const Tags: NextPage = () => {
-  const { data } = useGenres();
+export interface TagsProps {
+  readonly data: GenresResponse;
+}
+
+const DAILY = 86400;
+
+export const getStaticProps: GetStaticProps<TagsProps> = async () => {
+  return {
+    props: {
+      data: await api.fetchGenres(),
+    },
+    revalidate: DAILY,
+  };
+};
+
+const Tags: NextPage<TagsProps> = (props) => {
+  const { data } = props;
+  const { genres } = useGenres({ initialData: data });
 
   return (
     <Layout
@@ -23,7 +41,7 @@ const Tags: NextPage = () => {
         にじさんじのタグ別の配信一覧です。
       </Typography.Paragraph>
 
-      {data?.data.genres.map((genre) => (
+      {genres?.map((genre) => (
         <Card key={genre.id} variant="wash">
           <Link href={`/?genre=${genre.id}`}>
             <a className="block group">
