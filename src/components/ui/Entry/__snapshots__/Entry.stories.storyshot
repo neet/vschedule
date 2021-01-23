@@ -84,15 +84,15 @@ exports[`Storyshots Entry Shade 1`] = `
       </div>
     </div>
     <div
-      className="text-coolGray-600 dark:text-trueGray-400"
+      className="space-y-0.5"
     >
       <h4
-        className="text-base leading-normal font-semibold text-coolGray-900 dark:text-trueGray-100 text-left text-coolGray-700 dark:text-trueGray-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 ease-out transition-colors truncate-2-lines"
+        className="text-base leading-normal font-semibold text-coolGray-900 dark:text-trueGray-100 text-left group-hover:text-primary-600 dark:group-hover:text-primary-400 ease-out transition-colors truncate-2-lines"
       >
         Example
       </h4>
       <p
-        className="text-base leading-normal font-normal text-coolGray-900 dark:text-trueGray-100 text-left truncate-2-lines break-all"
+        className="text-base leading-normal font-normal text-coolGray-600 dark:text-trueGray-400 text-left truncate-2-lines break-all"
       >
         Lorem ipsum
       </p>

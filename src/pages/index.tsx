@@ -60,7 +60,7 @@ const Events = (): JSX.Element => {
         endAt={endAt}
         interval={30}
         scale={5}
-        itemHeight={60}
+        itemHeight={61.5}
       >
         <div
           className={classNames(
@@ -78,9 +78,9 @@ const Events = (): JSX.Element => {
           )}
         >
           <div className="flex flex-col flex-grow space-y-4">
-            <Crown genre={genre} onGenreChange={setGenre} />
+            <Crown genre={genre} loading={loading} onGenreChange={setGenre} />
             <Timetable
-              loading={loading}
+              loading={events == null}
               swapDelta={swapDelta}
               schedules={schedules}
             />

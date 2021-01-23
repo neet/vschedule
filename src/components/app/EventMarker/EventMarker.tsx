@@ -4,7 +4,6 @@ import dayjs from 'dayjs';
 import { setLightness } from 'polished';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useInView } from 'react-intersection-observer';
 import { usePopper } from 'react-popper';
 
 import type { Event as EventType } from '../../../types';
@@ -13,7 +12,6 @@ import { usePrefersColorScheme } from '../../hooks/usePrefersColorScheme';
 import { Avatar } from '../../ui/Avatar';
 import { Card } from '../../ui/Card';
 import { Marker } from '../../ui/Marker';
-import { useTimetable } from '../../ui/Timetable';
 import { Event } from '../Event';
 
 const AVATAR_BG_BRIGHTNESS = 0.15;
@@ -24,12 +22,6 @@ export interface EventProps {
 
 export const EventMarker = (props: EventProps): JSX.Element => {
   const { event } = props;
-
-  const { ref: timetable } = useTimetable();
-  const { ref, inView } = useInView({
-    root: timetable.current,
-    rootMargin: '200px',
-  });
 
   const isDark = usePrefersColorScheme();
   const { hover, handleFocus, handleBlur } = useDelayedHover();
@@ -55,22 +47,12 @@ export const EventMarker = (props: EventProps): JSX.Element => {
   }, [hover, event.name]);
 
   return (
-    <div
-      className={classNames(
-        'box-border',
-        'px-2',
-        'transition-opacity',
-        'duration-500',
-        inView ? 'opacity-100' : 'opacity-0',
-      )}
-      ref={setWrapperRef}
-    >
+    <div className={classNames('box-border', 'px-1.5')} ref={setWrapperRef}>
       <a
         href={event.url}
         rel="noreferrer"
         target="_blank"
         title={event.name}
-        ref={ref}
         className={classNames(
           'block',
           'focus:outline-none',
@@ -92,8 +74,8 @@ export const EventMarker = (props: EventProps): JSX.Element => {
             <Avatar
               loading="lazy"
               variant="minimal"
-              src={event.livers[0].avatar}
-              alt={event.livers[0].name}
+              src={event.livers.map((liver) => liver.avatar)}
+              alt={event.livers.map((liver) => liver.name).join(', ')}
               style={{
                 backgroundColor: isDark
                   ? setLightness(AVATAR_BG_BRIGHTNESS, event.livers[0].color)

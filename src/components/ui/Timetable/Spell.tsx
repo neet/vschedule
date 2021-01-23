@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import classNames from 'classnames';
 import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { useInView } from 'react-intersection-observer';
 
 import { Typography } from '../Typography';
@@ -7,15 +9,24 @@ import { useTimetable } from './useTimetable';
 
 export interface SpellProps {
   readonly date: Readonly<Dayjs>;
+  readonly size: number;
 }
 
 export const Spell = (props: SpellProps): JSX.Element => {
-  const { date } = props;
+  const { date, size } = props;
 
-  const { scale, interval, getItemX, ref: timetable } = useTimetable();
+  const {
+    scale,
+    interval,
+    getItemX,
+    ref: timetable,
+    itemHeight,
+  } = useTimetable();
+
   const { ref, inView } = useInView({
     root: timetable.current,
     rootMargin: '200px',
+    initialInView: Math.abs(date.diff(dayjs(), 'minute')) <= interval * 10,
   });
 
   const width = scale * interval;
@@ -28,13 +39,16 @@ export const Spell = (props: SpellProps): JSX.Element => {
     <h4
       id={date.toISOString()}
       className={classNames(
-        'h-full',
         'absolute',
+        'h-full',
         'transition-opacity',
         'duration-500',
         inView ? 'opacity-100' : 'opacity-0',
       )}
-      style={{ width, transform: `translateX(${x}px)` }}
+      style={{
+        width,
+        transform: `translateX(${x}px)`,
+      }}
       ref={ref}
     >
       <a
@@ -44,8 +58,8 @@ export const Spell = (props: SpellProps): JSX.Element => {
           'flex-col',
           'items-center',
           'group',
-          'h-full',
           'w-full',
+          'min-h-full',
           'focus:outline-none',
           'focus:ring',
           'ring-inset',
@@ -80,10 +94,12 @@ export const Spell = (props: SpellProps): JSX.Element => {
           className={classNames(
             'flex-grow',
             'w-0',
+            'min-h-full',
             'border-r',
             'border-coolGray-200',
             'dark:border-trueGray-800',
           )}
+          style={{ height: `${itemHeight * size}px` }}
         />
       </a>
     </h4>

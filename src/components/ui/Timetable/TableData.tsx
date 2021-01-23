@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+import classNames from 'classnames';
 import dayjs from 'dayjs';
+import { useInView } from 'react-intersection-observer';
 
 import type { Schedule } from './Timetable';
 import { useTimetable } from './useTimetable';
@@ -13,7 +16,14 @@ export interface ItemProps {
  */
 export const TableData = (props: ItemProps): JSX.Element => {
   const { schedule } = props;
-  const { getWidth, itemHeight } = useTimetable();
+  const { getWidth, itemHeight, ref: timetable, interval } = useTimetable();
+
+  const { ref, inView } = useInView({
+    root: timetable.current,
+    rootMargin: '200px',
+    initialInView:
+      Math.abs(schedule.startAt.diff(dayjs(), 'minute')) <= interval * 10,
+  });
 
   const width = getWidth(
     dayjs(schedule.endAt).diff(dayjs(schedule.startAt), 'millisecond'),
@@ -21,6 +31,12 @@ export const TableData = (props: ItemProps): JSX.Element => {
 
   return (
     <div
+      ref={ref}
+      className={classNames(
+        'transition-opacity',
+        'duration-500',
+        inView ? 'opacity-100' : 'opacity-0',
+      )}
       style={{
         width,
         height: itemHeight,
