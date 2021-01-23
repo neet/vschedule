@@ -69,7 +69,8 @@ const Events = (): JSX.Element => {
             'flex',
             'top-0',
             'left-0',
-            'p-2',
+            'py-2',
+            'px-3',
             'w-full',
             'h-full',
             'md:px-6',
@@ -77,7 +78,7 @@ const Events = (): JSX.Element => {
             'md:space-x-4',
           )}
         >
-          <div className="flex flex-col flex-grow space-y-4">
+          <div className="flex flex-col flex-grow space-y-2 md:space-y-4">
             <Crown genre={genre} loading={loading} onGenreChange={setGenre} />
             <Timetable
               loading={events == null}
