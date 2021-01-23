@@ -125,15 +125,11 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
         )}
       </div>
 
-      <div
-        className={classNames('text-coolGray-600', 'dark:text-trueGray-400')}
-      >
+      <div className={'space-y-0.5'}>
         <Typography
           as="h4"
           weight="semibold"
           className={classNames(
-            'text-coolGray-700',
-            'dark:text-trueGray-300',
             'group-hover:text-primary-600',
             'dark:group-hover:text-primary-400',
             'ease-out',
@@ -144,9 +140,13 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
           {title}
         </Typography>
 
-        <Typography.Paragraph className="truncate-2-lines break-all">
+        <Typography
+          as="p"
+          variant="wash"
+          className="truncate-2-lines break-all"
+        >
           {description}
-        </Typography.Paragraph>
+        </Typography>
 
         <Typography
           as="dl"
