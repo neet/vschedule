@@ -9,7 +9,7 @@ export type SwitchProps = Readonly<
 };
 
 export const Switch = (props: SwitchProps): JSX.Element => {
-  const { value, onChange, ...rest } = props;
+  const { value, className, onChange, ...rest } = props;
 
   const [enabled, setEnabled] = useState(value);
 
@@ -36,6 +36,7 @@ export const Switch = (props: SwitchProps): JSX.Element => {
         'focus:outline-none',
         'focus:ring',
         'focus:ring-primary-300',
+        className,
       )}
       onClick={handleChange}
       {...rest}
