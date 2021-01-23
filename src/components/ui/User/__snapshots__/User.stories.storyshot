@@ -8,7 +8,7 @@ exports[`Storyshots User Loading 1`] = `
     className="mr-4 flex-shrink-0"
   >
     <div
-      className="h-10 w-10 rounded-full bg-coolGray-200 dark:bg-trueGray-800 animate-pulse"
+      className="h-10 w-10 overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 animate-pulse"
     />
   </div>
   <div
@@ -47,11 +47,14 @@ exports[`Storyshots User Medium 1`] = `
     <div
       className="mr-4 ease-out order-1 transition-opacity duration-75 group-hover:opacity-75 flex-shrink-0"
     >
-      <img
-        alt="Ryo Igarashi"
-        className="h-10 w-10 rounded-full bg-coolGray-200 dark:bg-trueGray-800 border border-coolGray-300 dark:border-trueGray-700"
-        src="https://source.unsplash.com/random"
-      />
+      <div
+        className="h-10 w-10 overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 border border-coolGray-300 dark:border-trueGray-700"
+      >
+        <img
+          alt="Ryo Igarashi"
+          src="https://source.unsplash.com/random"
+        />
+      </div>
     </div>
   </a>
 </div>

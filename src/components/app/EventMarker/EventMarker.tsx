@@ -92,8 +92,8 @@ export const EventMarker = (props: EventProps): JSX.Element => {
             <Avatar
               loading="lazy"
               variant="minimal"
-              src={event.livers[0].avatar}
-              alt={event.livers[0].name}
+              src={event.livers.map((liver) => liver.avatar)}
+              alt={event.livers.map((liver) => liver.name).join(', ')}
               style={{
                 backgroundColor: isDark
                   ? setLightness(AVATAR_BG_BRIGHTNESS, event.livers[0].color)

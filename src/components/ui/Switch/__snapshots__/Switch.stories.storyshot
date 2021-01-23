@@ -2,8 +2,10 @@
 
 exports[`Storyshots Switch Default 1`] = `
 <button
+  aria-checked={true}
   className="rounded-full h-6 w-12 transition-colors duration-300 box-border p-0.5 bg-primary-500 dark:bg-primary-400 focus:outline-none focus:ring focus:ring-primary-300"
   onClick={[Function]}
+  role="switch"
 >
   <div
     aria-hidden={true}
