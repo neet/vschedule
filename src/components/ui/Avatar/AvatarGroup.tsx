@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
 
 const avatarGroupDuo = (
   [a, b]: readonly string[],
