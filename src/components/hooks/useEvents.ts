@@ -1,15 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import fetch from 'isomorphic-unfetch';
+import type { ConfigInterface } from 'swr';
 import useSWR from 'swr';
 
+import { proxyAPI } from '../../api';
 import type { EventsResponse } from '../../types';
 
-const fetcher = (): Promise<EventsResponse> =>
-  fetch('/api/v1.2/events.json').then((r) => r.json());
+export const useEvents = (config?: ConfigInterface<EventsResponse>) => {
+  const { data, error, isValidating } = useSWR<EventsResponse, unknown>(
+    '/api/v1.2/events.json',
+    proxyAPI.fetchEvents,
+    config,
+  );
 
-export const useEvents = () => {
-  return useSWR('/api/v1.2/events.json', fetcher);
+  return { events: data?.data.events, error, loading: isValidating };
 };

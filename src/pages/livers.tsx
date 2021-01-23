@@ -1,12 +1,30 @@
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 
+import { api } from '../api';
 import { Layout } from '../components/app/Layout';
 import { Liver } from '../components/app/Liver';
 import { useLivers } from '../components/hooks/useLivers';
 import { Typography } from '../components/ui/Typography';
+import type { LiversResponse } from '../types';
 
-const Livers: NextPage = () => {
-  const { data } = useLivers();
+export interface LiversProps {
+  readonly data: LiversResponse;
+}
+
+const DAILY = 86400;
+
+export const getStaticProps: GetStaticProps<LiversProps> = async () => {
+  return {
+    props: {
+      data: await api.fetchLivers(),
+    },
+    revalidate: DAILY,
+  };
+};
+
+const Livers: NextPage<LiversProps> = (props) => {
+  const { data } = props;
+  const { livers } = useLivers({ initialData: data });
 
   return (
     <Layout
@@ -19,9 +37,9 @@ const Livers: NextPage = () => {
         にじさんじに所属するバーチャルライバーの一覧です。
       </Typography.Paragraph>
 
-      {data != null ? (
+      {livers != null ? (
         <ul className="my-8 divide-y divide-coolGray-200 dark:divide-trueGray-800">
-          {data.data.liver_relationships.map((liverRel) => (
+          {livers.map((liverRel) => (
             <li key={liverRel.liver.id} className="py-2">
               <Liver
                 size="lg"
