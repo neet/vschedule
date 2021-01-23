@@ -82,82 +82,80 @@ export const Crown = (props: CrownProps): JSX.Element => {
     <header aria-labelledby="crown-title">
       <Typography
         id="crown-title"
-        size="lg"
-        className={classNames(
-          'md:text-2xl',
-          'md:mb-1.5',
-          'text-coolGray-700',
-          'dark:text-trueGray-300',
-        )}
+        variant="wash"
+        className={classNames('md:text-xl', 'md:mb-1.5')}
       >
         今日のにじさんじの配信
       </Typography>
 
-      <div
-        className={classNames(
-          'flex',
-          'justify-between',
-          'md:justify-start',
-          'md:space-x-4',
-          'items-center',
-        )}
-      >
-        <time
-          dateTime={focusedAt.toISOString()}
+      <div className={classNames('flex', 'justify-between', 'md:space-x-4')}>
+        <div
           className={classNames(
-            'text-xl',
-            'md:text-3xl',
-            'text-primary-500',
-            'dark:text-primary-400',
-            'font-semibold',
-            'tabular-nums',
-            'leading-relaxed',
+            'flex',
+            'flex-grow',
+            'justify-between',
+            'lg:justify-start',
+            'lg:space-x-4',
+            'items-center',
           )}
         >
-          {focusedAt.format('LL')}
-        </time>
-
-        <div className="space-x-2">
-          <Button
-            className="w-8 h-8 sr-only focus:not-sr-only"
-            onClick={handleClickLatest}
-            variant="wash"
-            shape="circle"
-            size="sm"
+          <time
+            dateTime={focusedAt.toISOString()}
+            className={classNames(
+              'text-xl',
+              'md:text-3xl',
+              'text-primary-500',
+              'dark:text-primary-400',
+              'font-semibold',
+              'tabular-nums',
+              'leading-relaxed',
+            )}
           >
-            最新の配信へ移動
-          </Button>
+            {focusedAt.format('LL')}
+          </time>
 
-          <Button
-            title="一日前へ移動"
-            aria-label="一日前へ移動"
-            className="w-8 h-8"
-            onClick={handleClickLeft}
-            variant="wash"
-            shape="circle"
-            size="sm"
-            disabled={focusedAt.isSame(startAt)}
-          >
-            <FontAwesomeIcon icon={faChevronLeft} />
-          </Button>
+          <div className="space-x-2">
+            <Button
+              className="w-8 h-8 sr-only focus:not-sr-only"
+              onClick={handleClickLatest}
+              variant="wash"
+              shape="circle"
+              size="sm"
+            >
+              最新の配信へ移動
+            </Button>
 
-          <Button
-            title="一日後へ移動"
-            aria-label="一日後へ移動"
-            className="w-8 h-8"
-            onClick={handleClickRight}
-            variant="wash"
-            shape="circle"
-            size="sm"
-            disabled={focusedAt.isSame(endAt)}
-          >
-            <FontAwesomeIcon icon={faChevronRight} />
-          </Button>
+            <Button
+              title="一日前へ移動"
+              aria-label="一日前へ移動"
+              className="w-8 h-8"
+              onClick={handleClickLeft}
+              variant="wash"
+              shape="circle"
+              size="sm"
+              disabled={focusedAt.isSame(startAt)}
+            >
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </Button>
+
+            <Button
+              title="一日後へ移動"
+              aria-label="一日後へ移動"
+              className="w-8 h-8"
+              onClick={handleClickRight}
+              variant="wash"
+              shape="circle"
+              size="sm"
+              disabled={focusedAt.isSame(endAt)}
+            >
+              <FontAwesomeIcon icon={faChevronRight} />
+            </Button>
+          </div>
         </div>
 
         {genres != null && (
           // スマホはバーガーメニューから使えるのでクラウンに出す必要はないと思う
-          <form className="hidden md:block" aria-labelledby="crown-tags">
+          <form className="hidden lg:block" aria-labelledby="crown-tags">
             <h3 id="crown-tags" className="sr-only">
               タグでフィルター
             </h3>
