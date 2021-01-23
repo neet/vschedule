@@ -169,11 +169,24 @@ export const ScheduleList = (props: ScheduleListProps): JSX.Element => {
     return chunkByInterval(ordered, interval);
   }, [schedules, interval]);
 
+  const largestSegmentSize = useMemo(
+    () =>
+      segments
+        .flatMap((segment) => segment.schedules)
+        .reduce((last, schedule) => Math.max(schedule.row, last), 0) + 1,
+    [segments],
+  );
+
   return (
     <>
       {segments.map((segment, i) => (
         <Fragment key={`segment-${i}`}>
-          <Spell key={segment.date.toISOString()} date={segment.date} />
+          <Spell
+            key={segment.date.toISOString()}
+            date={segment.date}
+            size={largestSegmentSize}
+          />
+
           {segment.schedules.length > 0 ? (
             <TableDataList segment={segment.schedules} />
           ) : (
