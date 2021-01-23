@@ -20,6 +20,8 @@ export const Switch = (props: SwitchProps): JSX.Element => {
 
   return (
     <button
+      role="switch"
+      aria-checked={enabled}
       className={classNames(
         'rounded-full',
         'h-6',

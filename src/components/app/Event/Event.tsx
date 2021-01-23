@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 
 import type { Event as APIEvent } from '../../../types';
+import { useAutoplay } from '../../hooks/useAutoplay';
 import { useNow } from '../../hooks/useNow';
 import type { EntryVariant } from '../../ui/Entry';
 import { Entry } from '../../ui/Entry';
@@ -15,6 +16,8 @@ export const Event = (props: EventProps): JSX.Element => {
   const { event, variant, embedType, ...rest } = props;
 
   const now = useNow();
+  const { autoplayEnabled } = useAutoplay();
+
   const startAt = dayjs(props.event.start_date);
   const endAt = dayjs(props.event.end_date);
 
@@ -46,7 +49,7 @@ export const Event = (props: EventProps): JSX.Element => {
       date={new Date(event.start_date)}
       active={isStreaming}
       embed={embed}
-      embedType={embedType}
+      embedType={!autoplayEnabled ? 'never' : embedType}
       {...rest}
     />
   );
