@@ -101,7 +101,7 @@ export const Navigation = (): JSX.Element => {
         title="メニューを開く"
         aria-label="メニューを開く"
         className={classNames('lg:hidden')}
-        variant="wash"
+        variant="skeleton"
         onClick={handleToggle}
       >
         <FontAwesomeIcon icon={faBars} />
