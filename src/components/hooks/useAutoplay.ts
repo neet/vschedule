@@ -8,7 +8,8 @@ export interface UseAutoplayResponse {
 export const useAutoplay = (): UseAutoplayResponse => {
   const [autoplayEnabled, setAutoplay] = useLocalStorage(
     'autoplay-enabled',
-    !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    typeof window !== 'undefined' &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   );
 
   if (autoplayEnabled == null) {
