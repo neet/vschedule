@@ -58,7 +58,7 @@ export const EventMarker = (props: EventProps): JSX.Element => {
     <div
       className={classNames(
         'box-border',
-        'px-2',
+        'px-1.5',
         'transition-opacity',
         'duration-500',
         inView ? 'opacity-100' : 'opacity-0',

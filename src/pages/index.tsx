@@ -60,7 +60,7 @@ const Events = (): JSX.Element => {
         endAt={endAt}
         interval={30}
         scale={5}
-        itemHeight={60}
+        itemHeight={61.5}
       >
         <div
           className={classNames(
