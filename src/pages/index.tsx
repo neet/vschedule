@@ -79,7 +79,7 @@ const Events = (): JSX.Element => {
           )}
         >
           <div className="flex flex-col flex-grow space-y-4">
-            <Alert />
+            {/* <Alert /> */}
             <Crown genre={genre} loading={loading} onGenreChange={setGenre} />
             <Timetable
               loading={events == null}
