@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { useMemo, useState } from 'react';
 import { useLocalStorage, useSearchParam } from 'react-use';
 
+import { Alert } from '../components/app/Alert';
 import { ChangeLog } from '../components/app/ChangeLog';
 import { Crown } from '../components/app/Crown';
 import { EventMarker } from '../components/app/EventMarker';
@@ -78,6 +79,7 @@ const Events = (): JSX.Element => {
           )}
         >
           <div className="flex flex-col flex-grow space-y-4">
+            <Alert />
             <Crown genre={genre} loading={loading} onGenreChange={setGenre} />
             <Timetable
               loading={events == null}
