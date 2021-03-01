@@ -22,7 +22,7 @@
     "@mdx-js/react": "^1.6.22",
     "@next/mdx": "^10.0.4",
     "@tailwindcss/aspect-ratio": "^0.2.0",
-    "@tailwindcss/postcss7-compat": "^2.0.2",
+    "@tailwindcss/postcss7-compat": "^2.0.3",
     "autoprefixer": "^9",
     "classnames": "^2.2.6",
     "dayjs": "^1.10.4",
