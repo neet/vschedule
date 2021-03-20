@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 
+import type { GenresResponse } from '../../../types';
 import { useGenres } from '../../hooks/useGenres';
 import { Button } from '../../ui/Button';
 import { Radio } from '../../ui/Radio';
@@ -15,6 +16,7 @@ import { Typography } from '../../ui/Typography';
 
 export interface CrownProps {
   readonly genre: number;
+  readonly genres?: GenresResponse;
   readonly loading: boolean;
   readonly onGenreChange?: (genre: number) => void;
 }
@@ -23,7 +25,7 @@ export const Crown = (props: CrownProps): JSX.Element => {
   const { genre, loading, onGenreChange } = props;
 
   const { focusedAt, startAt, endAt, setFocusedAt } = useTimetable();
-  const { genres } = useGenres();
+  const { genres } = useGenres(props.genres);
 
   // "today" or "yesterday" "tomorrow" here are defined as relative from the focus
   const zeroAmToday = focusedAt.millisecond(0).second(0).minute(0).hour(0);
