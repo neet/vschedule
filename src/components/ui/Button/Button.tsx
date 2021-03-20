@@ -101,7 +101,6 @@ export const Button = forwardRef<HTMLElement, Partial<ButtonProps>>((props, ref)
         mapSize(size, variant),
         mapShape(shape),
         mapVariant(variant),
-        'rounded',
         'leading-none',
         'box-border',
         'duration-100',
