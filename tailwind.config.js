@@ -1,7 +1,7 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  purge: ['./src/**/*.tsx'],
+  purge: ['./src/**/*.{js,tsx,ts,tsx}'],
   darkMode: 'media',
   theme: {
     colors: {
@@ -23,15 +23,6 @@ module.exports = {
       lines: {
         2: '2',
       },
-    },
-  },
-
-  variants: {
-    extend: {
-      backgroundColor: ['active', 'disabled'],
-      borderWidth: ['dark'],
-      textColor: ['group-focus'],
-      cursor: ['disabled'],
     },
   },
 
