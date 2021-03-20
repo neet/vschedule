@@ -1,19 +1,19 @@
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 import { useMemo, useState } from 'react';
 import { useLocalStorage, useSearchParam } from 'react-use';
 
-// import { Alert } from '../components/app/Alert';
 import { ChangeLog } from '../components/app/ChangeLog';
 import { Crown } from '../components/app/Crown';
 import { EventMarker } from '../components/app/EventMarker';
-import { Layout } from '../components/app/Layout';
 import { Skyscraper } from '../components/app/Skyscraper';
 import { Tutorial } from '../components/app/Tutorial';
 import { useEvents } from '../components/hooks/useEvents';
 import type { TimetableProps } from '../components/ui/Timetable';
 import { TimetableProvider } from '../components/ui/Timetable';
+import Single from '../layouts/Single';
 
 const Timetable = dynamic<TimetableProps>(
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
@@ -51,11 +51,14 @@ const Events = (): JSX.Element => {
   ), [events, genre]);
 
   return (
-    <Layout
-      variant="single"
-      title="にじさんじの配信一覧 | Refined Itsukara.link"
-      description="にじさんじライバーの最近の配信の一覧です"
-    >
+    <>
+      <Head>
+        <title>にじさんじの配信一覧 | Refined Itsukara.link</title>
+        <meta
+          name="description"
+          content="にじさんじライバーの最近の配信の一覧です"
+        />
+      </Head>
       <TimetableProvider
         startAt={startAt}
         endAt={endAt}
@@ -97,8 +100,10 @@ const Events = (): JSX.Element => {
           <ChangeLog />
         </>
       )}
-    </Layout>
+    </>
   );
 };
+
+Events.Layout = Single;
 
 export default Events;

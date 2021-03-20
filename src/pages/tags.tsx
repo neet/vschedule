@@ -1,14 +1,15 @@
 import { faHashtag } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import type { GetStaticProps, NextPage } from 'next';
+import type { GetStaticProps } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
 
 import { api } from '../api';
-import { Layout } from '../components/app/Layout';
 import { useGenres } from '../components/hooks/useGenres';
 import { Card } from '../components/ui/Card';
 import { Typography } from '../components/ui/Typography';
+import Article from '../layouts/Article';
 import type { GenresResponse } from '../types';
 
 export interface TagsProps {
@@ -26,16 +27,17 @@ export const getStaticProps: GetStaticProps<TagsProps> = async () => {
   };
 };
 
-const Tags: NextPage<TagsProps> = (props) => {
+const Tags = (props: TagsProps): JSX.Element => {
   const { data } = props;
   const { genres } = useGenres({ initialData: data });
 
   return (
-    <Layout
-      variant="article"
-      title="タグ別の配信一覧 | Refined Itsukara.link"
-      description="このページは現在実装中です"
-    >
+    <>
+      <Head>
+        <title>タグ別の配信一覧 | Refined Itsukara.link</title>
+        <meta name="description" content="このページは現在実装中です" />
+      </Head>
+
       <Typography.H1>タグ別の配信一覧</Typography.H1>
       <Typography.Paragraph>
         にじさんじのタグ別の配信一覧です。
@@ -69,8 +71,10 @@ const Tags: NextPage<TagsProps> = (props) => {
           </Link>
         </Card>
       ))}
-    </Layout>
+    </>
   );
 };
+
+Tags.Layout = Article;
 
 export default Tags;

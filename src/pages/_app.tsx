@@ -4,16 +4,16 @@ import '../style.css';
 import 'dayjs/locale/ja';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 
-import { config } from '@fortawesome/fontawesome-svg-core';
+// import { config } from '@fortawesome/fontawesome-svg-core';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import minMax from 'dayjs/plugin/minMax';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect } from 'react';
+import { Fragment, useCallback, useEffect } from 'react';
 
-config.autoAddCss = false;
+// config.autoAddCss = false;
 dayjs.locale('ja');
 dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
@@ -43,7 +43,14 @@ const App = (props: AppProps): JSX.Element => {
   const { Component, pageProps } = props;
   useGtag();
 
-  return <Component {...pageProps} />;
+  // eslint-disable-next-line
+  const Layout = (Component as any).Layout ?? Fragment;
+
+  return (
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  );
 };
 
 export default App;

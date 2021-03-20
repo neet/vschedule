@@ -1,24 +1,24 @@
 ---
 name: 'component'
-description: 'Generate React component within JSX'
-message: 'Enter the name of your component'
 root: '.'
 output: '**/*'
 ignore: []
+questions:
+  name: What is the name of your component?
 ---
 
-# `{{ input | pascal }}/index.ts`
+# `{{ inputs.name | pascal }}/index.ts`
 
 ```tsx
-export { {{ input | pascal }} } from './{{ input | pascal }}';
+export { {{ inputs.name | pascal }} } from './{{ inputs.name | pascal }}';
 ```
 
-# `{{ input | pascal }}/{{ input | pascal }}.tsx`
+# `{{ inputs.name | pascal }}/{{ inputs.name | pascal }}.tsx`
 
 ```tsx
-export interface {{ input | pascal }}Props {}
+export interface {{ inputs.name | pascal }}Props {}
 
-export const {{ input | pascal }} = (props: {{ input | pascal }}Props): JSX.Element => {
+export const {{ inputs.name | pascal }} = (props: {{ inputs.name | pascal }}Props): JSX.Element => {
   const {} = props;
 
   return (
@@ -28,16 +28,16 @@ export const {{ input | pascal }} = (props: {{ input | pascal }}Props): JSX.Elem
 
 ```
 
-# `{{ input | pascal }}/{{ input | pascal  }}.stories.tsx`
+# `{{ inputs.name | pascal }}/{{ inputs.name | pascal  }}.stories.tsx`
 
 ```tsx
-import { {{input | pascal }} } from './{{ input | pascal }}';
+import { {{inputs.name | pascal }} } from './{{ inputs.name | pascal }}';
 
 export default {
-  title: '{{ input | pascal }}',
-  component: {{ input | pascal }},
+  title: '{{ inputs.name | pascal }}',
+  component: {{ inputs.name | pascal }},
 };
 
-export const Default = (): JSX.Element => <{{ input | pascal }} />;
+export const Default = (): JSX.Element => <{{ inputs.name | pascal }} />;
 
 ```

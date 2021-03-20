@@ -1,10 +1,10 @@
-import type { NextPage } from 'next';
+import Head from 'next/head';
 import { useLocalStorage } from 'react-use';
 
-import { Layout } from '../components/app/Layout';
 import { useAutoplay } from '../components/hooks/useAutoplay';
 import { Switch } from '../components/ui/Switch';
 import { Typography } from '../components/ui/Typography';
+import Article from '../layouts/Article';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useSwapDelta = () => {
@@ -13,16 +13,20 @@ const useSwapDelta = () => {
   return { swapDelta, setSwapDelta };
 };
 
-const User: NextPage = () => {
+const User = (): JSX.Element => {
   const { swapDelta, setSwapDelta } = useSwapDelta();
   const { autoplayEnabled, setAutoplay } = useAutoplay();
 
   return (
-    <Layout
-      variant="article"
-      title="設定 | Refined Itsukara.link"
-      description="ユーザー設定を行います"
-    >
+    <>
+      <Head>
+        <title>にじさんじのライバー一覧 | Refined Itsukara.link</title>
+        <meta
+          name="description"
+          content="にじさんじに所属するバーチャルライバーの一覧です。"
+        />
+      </Head>
+
       <Typography.H1>設定</Typography.H1>
 
       <div className="flex space-x-5 items-center">
@@ -57,8 +61,10 @@ const User: NextPage = () => {
           aria-label={autoplayEnabled ? '無効化する' : '有効化する'}
         />
       </div>
-    </Layout>
+    </>
   );
 };
+
+User.Layout = Article;
 
 export default User;

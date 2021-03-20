@@ -1,16 +1,18 @@
+import Head from 'next/head';
 import Link from 'next/link';
 
-import { Layout } from '../components/app/Layout';
 import { Link as UILink } from '../components/ui/Link';
 import { Typography } from '../components/ui/Typography';
+import Single from '../layouts/Single';
 
-const NotFound = (): JSX.Element => {
+const ServiceUnavailable = (): JSX.Element => {
   return (
-    <Layout
-      title="一時的に繋がりにくくなっています | Refined Itsukara.link"
-      description="一時的に繋がりにくくなっています"
-      variant="article"
-    >
+    <>
+      <Head>
+        <title>一時的に繋がりにくくなっています | Refined Itsukara.link</title>
+        <meta name="description" content="一時的に繋がりにくくなっています" />
+      </Head>
+
       <Typography.H2>HTTP 503 ― Service Unavailable</Typography.H2>
 
       <div>
@@ -31,8 +33,10 @@ const NotFound = (): JSX.Element => {
           <UILink>トップページへ戻る</UILink>
         </Link>
       </Typography.Paragraph>
-    </Layout>
+    </>
   );
 };
 
-export default NotFound;
+ServiceUnavailable.Layout = Single;
+
+export default ServiceUnavailable;
