@@ -46,7 +46,7 @@ const Article = forwardRef<HTMLElement, LayoutVariantProps>(
         id="main"
         ref={ref}
         aria-label={title}
-        className={classNames('flex-grow', 'px-2')}
+        className={classNames('flex-grow', 'px-3')}
       >
         <div
           className={classNames(
@@ -74,13 +74,7 @@ const Single = forwardRef<HTMLElement, LayoutVariantProps>(
         id="main"
         ref={ref}
         aria-label={title}
-        className={classNames(
-          'flex-grow',
-          'relative',
-          'box-border',
-          'p-2',
-          'md:px-6',
-        )}
+        className={classNames('flex-grow', 'relative', 'box-border')}
       >
         {children}
       </main>
