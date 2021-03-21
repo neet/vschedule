@@ -13,6 +13,8 @@ import { EventMarker } from '../components/app/EventMarker';
 import { Skyscraper } from '../components/app/Skyscraper';
 import { Tutorial } from '../components/app/Tutorial';
 import { useEvents } from '../components/hooks/useEvents';
+import { useGenres } from '../components/hooks/useGenres';
+import { useUpcomingEvents } from '../components/hooks/useUpcomingEvents';
 import type { TimetableProps } from '../components/ui/Timetable';
 import { TimetableProvider } from '../components/ui/Timetable';
 import Single from '../layouts/Single';
@@ -47,11 +49,12 @@ export const getStaticProps: GetStaticProps<EventsProps> = async () => {
 };
 
 const Events = (props: EventsProps): JSX.Element => {
-  const { data } = props;
   const { events, loading } = useEvents();
+  const upcomingEvents = useUpcomingEvents();
   const [swapDelta] = useLocalStorage<boolean>('swap-delta');
   const genreQuery = useGenreQueryParam();
   const [genre, setGenre] = useState(genreQuery ?? GENRE_ALL);
+  const { genres } = useGenres({ initialData: props.data });
 
   const startAt = events ? dayjs(events[0].start_date) : dayjs();
   const endAt = events ? dayjs(events[events.length - 1].end_date) : dayjs();
@@ -105,7 +108,7 @@ const Events = (props: EventsProps): JSX.Element => {
               genre={genre}
               loading={loading}
               onGenreChange={setGenre}
-              genres={data}
+              genres={genres}
             />
 
             <Timetable
@@ -114,7 +117,7 @@ const Events = (props: EventsProps): JSX.Element => {
               schedules={schedules}
             />
           </div>
-          <Skyscraper />
+          <Skyscraper upcomingEvents={upcomingEvents} />
         </div>
       </TimetableProvider>
 

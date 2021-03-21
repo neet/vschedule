@@ -1,5 +1,4 @@
 import type { Event as APIEvent } from '../../../types';
-import { useUpcomingEvents } from '../../hooks/useUpcomingEvents';
 import { Card } from '../../ui/Card';
 import { Entry } from '../../ui/Entry';
 import { Event } from '../Event';
@@ -20,8 +19,12 @@ const Item = (props: { readonly event: APIEvent }): JSX.Element => {
   );
 };
 
-export const UpcomingEvents = (): JSX.Element => {
-  const upcoming = useUpcomingEvents();
+export interface UpcomingEventsProps {
+  readonly upcomingEvents?: readonly APIEvent[];
+}
+
+export const UpcomingEvents = (props: UpcomingEventsProps): JSX.Element => {
+  const { upcomingEvents } = props;
 
   return (
     <>
@@ -29,9 +32,9 @@ export const UpcomingEvents = (): JSX.Element => {
         今後の配信予定
       </h2>
 
-      {upcoming ? (
+      {upcomingEvents ? (
         <ul className="space-y-4">
-          {upcoming.map((event) => (
+          {upcomingEvents.map((event) => (
             <li key={event.id}>
               <Item event={event} />
             </li>

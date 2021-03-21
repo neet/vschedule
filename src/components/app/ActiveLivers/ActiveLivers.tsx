@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 
-import { useUpcomingEvents } from '../../hooks/useUpcomingEvents';
+import type { Event } from '../../../types';
 import { Card } from '../../ui/Card';
 import { Link } from '../../ui/Link';
 import { Typography } from '../../ui/Typography';
@@ -10,8 +10,12 @@ import { User } from '../../ui/User';
 
 const MIN_ITEMS = 3;
 
-export const ActiveLivers = (): JSX.Element => {
-  const events = useUpcomingEvents();
+export interface ActiveLiversProps {
+  readonly upcomingEvents?: readonly Event[];
+}
+
+export const ActiveLivers = (props: ActiveLiversProps): JSX.Element => {
+  const { upcomingEvents: events } = props;
   const [expanded, setExpanded] = useState(false);
 
   return (
