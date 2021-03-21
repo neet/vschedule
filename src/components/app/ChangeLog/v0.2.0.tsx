@@ -41,6 +41,8 @@ const Recommendation = (): JSX.Element => (
   </div>
 );
 
-export default (props: Omit<SlideProps, 'pages' | 'title'>): JSX.Element => {
+const Updates = (props: Omit<SlideProps, 'pages' | 'title'>): JSX.Element => {
   return <Slide title="更新情報" pages={[Tag, Recommendation]} {...props} />;
 };
+
+export default Updates;

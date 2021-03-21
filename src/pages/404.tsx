@@ -1,16 +1,18 @@
+import Head from 'next/head';
 import Link from 'next/link';
 
-import { Layout } from '../components/app/Layout';
 import { Link as UILink } from '../components/ui/Link';
 import { Typography } from '../components/ui/Typography';
+import Article from '../layouts/Article';
 
 const NotFound = (): JSX.Element => {
   return (
-    <Layout
-      title="お探しのページは見つかりません | Refined Itsukara.link"
-      description="お探しのページは見つかりません。"
-      variant="article"
-    >
+    <>
+      <Head>
+        <title>お探しのページは見つかりません | Refined Itsukara.link</title>
+        <meta name="description" content="お探しのページは見つかりません。" />
+      </Head>
+
       <Typography.H2>HTTP 404 ― Not found</Typography.H2>
 
       <div>
@@ -27,8 +29,10 @@ const NotFound = (): JSX.Element => {
           <UILink>トップページへ戻る</UILink>
         </Link>
       </Typography.Paragraph>
-    </Layout>
+    </>
   );
 };
+
+NotFound.Layout = Article;
 
 export default NotFound;

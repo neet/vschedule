@@ -1,10 +1,17 @@
 import classNames from 'classnames';
 
+import type { Event } from '../../../types';
 import { ActiveLivers } from '../ActiveLivers';
 import { Clock } from '../Clock';
 import { UpcomingEvents } from '../UpcomingEvents';
 
-export const Skyscraper = (): JSX.Element => {
+export interface SkyscraperProps {
+  readonly upcomingEvents?: readonly Event[];
+}
+
+export const Skyscraper = (props: SkyscraperProps): JSX.Element => {
+  const { upcomingEvents } = props;
+
   return (
     <aside
       aria-label="サイドバー"
@@ -31,11 +38,11 @@ export const Skyscraper = (): JSX.Element => {
       </section>
 
       <section aria-label="配信中のライバー一覧">
-        <ActiveLivers />
+        <ActiveLivers upcomingEvents={upcomingEvents} />
       </section>
 
       <section aria-labelledby="skyscraper__upcoming">
-        <UpcomingEvents />
+        <UpcomingEvents upcomingEvents={upcomingEvents} />
       </section>
     </aside>
   );

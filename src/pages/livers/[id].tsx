@@ -1,19 +1,22 @@
-import type { NextPage } from 'next';
+import Head from 'next/head';
 
-import { Layout } from '../../components/app/Layout';
 import { Typography } from '../../components/ui/Typography';
+import Article from '../../layouts/Article';
 
-const Tags: NextPage = () => {
+const Tags = (): JSX.Element => {
   return (
-    <Layout
-      variant="article"
-      title="ライバー別の配信一覧 | Refined Itsukara.link"
-      description="このページは現在実装中です。"
-    >
+    <>
+      <Head>
+        <title>お探しのページは見つかりません | Refined Itsukara.link</title>
+        <meta name="description" content="お探しのページは見つかりません。" />
+      </Head>
+
       <Typography.H1>ライバー別の配信一覧</Typography.H1>
       <Typography.Paragraph>このページは現在実装中です。</Typography.Paragraph>
-    </Layout>
+    </>
   );
 };
+
+Tags.Layout = Article;
 
 export default Tags;

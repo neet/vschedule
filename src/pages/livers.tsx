@@ -1,10 +1,11 @@
-import type { GetStaticProps, NextPage } from 'next';
+import type { GetStaticProps } from 'next';
+import Head from 'next/head';
 
 import { api } from '../api';
-import { Layout } from '../components/app/Layout';
 import { Liver } from '../components/app/Liver';
 import { useLivers } from '../components/hooks/useLivers';
 import { Typography } from '../components/ui/Typography';
+import Article from '../layouts/Article';
 import type { LiversResponse } from '../types';
 
 export interface LiversProps {
@@ -22,16 +23,19 @@ export const getStaticProps: GetStaticProps<LiversProps> = async () => {
   };
 };
 
-const Livers: NextPage<LiversProps> = (props) => {
+const Livers = (props: LiversProps): JSX.Element => {
   const { data } = props;
   const { livers } = useLivers({ initialData: data });
 
   return (
-    <Layout
-      variant="article"
-      title="にじさんじのライバー一覧 | Refined Itsukara.link"
-      description="にじさんじに所属するバーチャルライバーの一覧です。"
-    >
+    <>
+      <Head>
+        <title>にじさんじのライバー一覧 | Refined Itsukara.link</title>
+        <meta
+          name="description"
+          content="にじさんじに所属するバーチャルライバーの一覧です。"
+        />
+      </Head>
       <Typography.H1>にじさんじのライバー一覧</Typography.H1>
       <Typography.Paragraph>
         にじさんじに所属するバーチャルライバーの一覧です。
@@ -53,8 +57,10 @@ const Livers: NextPage<LiversProps> = (props) => {
       ) : (
         <span aria-busy>loading...</span>
       )}
-    </Layout>
+    </>
   );
 };
+
+Livers.Layout = Article;
 
 export default Livers;
