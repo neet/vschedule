@@ -1,27 +1,25 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
+import { useToggleState } from '@react-stately/toggle';
 import classNames from 'classnames';
-import { useState } from 'react';
+import type { PropsWithoutRef } from 'react';
+import { forwardRef, useRef } from 'react';
+import { useFocusRing, useSwitch, VisuallyHidden } from 'react-aria';
 
-export type SwitchProps = Readonly<
-  Omit<JSX.IntrinsicElements['button'], 'value' | 'onChange'>
-> & {
+export type SwitchProps = PropsWithoutRef<Element> & {
   readonly value: boolean;
   readonly onChange?: (value: boolean) => void;
 };
 
 export const Switch = (props: SwitchProps): JSX.Element => {
   const { value, className, onChange, ...rest } = props;
+  const ref = useRef<HTMLInputElement | null>(null);
 
-  const [enabled, setEnabled] = useState(value);
-
-  const handleChange = (): void => {
-    setEnabled(!enabled);
-    onChange?.(!enabled);
-  };
+  const state = useToggleState({ isSelected: value, onChange });
+  const { isFocusVisible, focusProps } = useFocusRing();
+  const { inputProps } = useSwitch(rest, state, ref);
 
   return (
-    <button
-      role="switch"
-      aria-checked={enabled}
+    <label
       className={classNames(
         'rounded-full',
         'h-6',
@@ -30,17 +28,17 @@ export const Switch = (props: SwitchProps): JSX.Element => {
         'duration-300',
         'box-border',
         'p-0.5',
-        enabled
+        state.isSelected
           ? 'bg-primary-500 dark:bg-primary-400'
           : 'bg-coolGray-300 dark:bg-trueGray-700',
-        'focus:outline-none',
-        'focus:ring',
-        'focus:ring-primary-300',
+        isFocusVisible && ['outline-none', 'ring', 'ring-primary-300'],
         className,
       )}
-      onClick={handleChange}
-      {...rest}
     >
+      <VisuallyHidden>
+        <input {...inputProps} {...focusProps} ref={ref} />
+      </VisuallyHidden>
+
       <div
         aria-hidden
         role="presentation"
@@ -53,9 +51,9 @@ export const Switch = (props: SwitchProps): JSX.Element => {
           'w-5',
           'transition-transform',
           'duration-300',
-          enabled && 'translate-x-6',
+          state.isSelected && 'translate-x-6',
         )}
       />
-    </button>
+    </label>
   );
 };
