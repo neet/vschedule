@@ -5,7 +5,15 @@ module.exports = {
     '@storybook/addon-actions',
     '@storybook/addon-links',
     '@storybook/addon-knobs',
-    '@storybook/addon-a11y',
+    // apply PostCSS 8 until the major release of Sb 6.2.0
+    {
+      name: '@storybook/addon-postcss',
+      options: {
+        postcssLoaderOptions: {
+          implementation: require('postcss'),
+        },
+      },
+    },
   ],
   typescript: {
     check: false,
