@@ -5,4 +5,6 @@ export default {
   component: Switch,
 };
 
-export const Default = (): JSX.Element => <Switch value />;
+export const Default = (): JSX.Element => (
+  <Switch value={true} aria-label="my button" />
+);
