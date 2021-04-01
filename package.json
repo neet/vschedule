@@ -79,7 +79,7 @@
     "prettier": "^2.2.1",
     "scaffdog": "^1.0.0",
     "ts-jest": "^26.4.4",
-    "ts-loader": "^8.0.13"
+    "ts-loader": "^8.1.0"
   },
   "jest": {
     "preset": "ts-jest",
