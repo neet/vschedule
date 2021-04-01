@@ -49,7 +49,7 @@
     "@storybook/addon-storyshots": "^6.2.0-rc.10",
     "@storybook/cli": "^6.2.0-rc.10",
     "@storybook/preset-typescript": "^3.0.0",
-    "@storybook/react": "^6.2.0-rc.10",
+    "@storybook/react": "^6.2.1",
     "@storybook/theming": "^6.2.0-rc.10",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
