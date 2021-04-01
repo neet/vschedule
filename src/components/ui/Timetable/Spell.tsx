@@ -5,7 +5,13 @@ import dayjs from 'dayjs';
 import { useInView } from 'react-intersection-observer';
 
 import { Typography } from '../Typography';
-import { useTimetable } from './useTimetable';
+import {
+  useInterval,
+  useItemHeight,
+  useItemX,
+  useScale,
+  useTimetableRef,
+} from './hooks';
 
 export interface SpellProps {
   readonly date: Readonly<Dayjs>;
@@ -15,16 +21,14 @@ export interface SpellProps {
 export const Spell = (props: SpellProps): JSX.Element => {
   const { date, size } = props;
 
-  const {
-    scale,
-    interval,
-    getItemX,
-    ref: timetable,
-    itemHeight,
-  } = useTimetable();
+  const [scale] = useScale();
+  const [interval] = useInterval();
+  const [timetable] = useTimetableRef();
+  const [itemHeight] = useItemHeight();
+  const itemX = useItemX(date);
 
   const { ref, inView } = useInView({
-    root: timetable.current,
+    root: timetable,
     rootMargin: '200px',
     initialInView: Math.abs(date.diff(dayjs(), 'minute')) <= interval * 10,
   });
@@ -33,7 +37,7 @@ export const Spell = (props: SpellProps): JSX.Element => {
 
   // 00:00 actually starts from 23:30 since the time is centered
   // so taking it back by subtracting width/2
-  const x = getItemX(date) - width / 2;
+  const x = itemX - width / 2;
 
   return (
     <h4

@@ -1,9 +1,13 @@
 import classNames from 'classnames';
+import type { Dayjs } from 'dayjs';
+import { memo } from 'react';
 
-import { useTimetable } from './useTimetable';
+export interface MinuteHandProps {
+  readonly focusedAt: Readonly<Dayjs>;
+}
 
-export const MinuteHand = (): JSX.Element => {
-  const { focusedAt } = useTimetable();
+const MinuteHandPure = (props: MinuteHandProps): JSX.Element => {
+  const { focusedAt } = props;
 
   return (
     <div
@@ -59,3 +63,7 @@ export const MinuteHand = (): JSX.Element => {
     </div>
   );
 };
+
+export const MinuteHand = memo(MinuteHandPure, (prev, current) => {
+  return prev.focusedAt.format('HH:mm') === current.focusedAt.format('HH:mm');
+});

@@ -4,13 +4,13 @@ import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 import type { ReactNode } from 'react';
 import { useEffect, useLayoutEffect } from 'react';
+import { useScroll } from 'react-use';
 
-import { useDebouncedScroll } from '../../hooks/useDebouncedScroll';
 import { Empty } from './Empty';
+import { useFocusedAt, useScale, useStartAt, useTimetableRef } from './hooks';
 import { Loading } from './Loading';
 import { MinuteHand } from './MinuteHand';
 import { ScheduleList } from './ScheduleList';
-import { useTimetable } from './useTimetable';
 
 export interface Schedule {
   readonly node: ReactNode;
@@ -27,30 +27,38 @@ export interface TimetableProps {
 export const Timetable = (props: TimetableProps): JSX.Element => {
   const { schedules, swapDelta, loading } = props;
 
-  const { ref, scale, startAt, setFocusedAt, setFocusedAtRaw } = useTimetable();
-  const { x: fromLeft } = useDebouncedScroll(ref);
+  const [ref, setRef] = useTimetableRef();
+  const [scale] = useScale();
+  const [startAt] = useStartAt();
+  const { focusedAt, setFocusedAt } = useFocusedAt();
+  const { x: fromLeft } = useScroll({ current: ref });
 
   // Focus on the current time at the first rendering
-  useLayoutEffect(() => {
-    if (loading == null || loading) return;
-    setFocusedAt(dayjs(), { behavior: 'auto', preventFocus: true });
-    // eslint-disable-next-line
-  }, [loading]);
+  // useLayoutEffect(() => {
+  //   if (loading == null || loading) return;
+  //   void setFocusedAt(dayjs(), {
+  //     mode: 'effective',
+  //     behavior: 'auto',
+  //     preventFocus: true,
+  //   });
+  //   // eslint-disable-next-line
+  // }, [loading]);
 
   // Sync focusedAt with the DOM
   // prettier-ignore
   useEffect(() => {
-    if (ref.current == null) return;
+    if (ref == null) return;
 
-    const halfTimetableWidth = ref.current.clientWidth / 2;
+    const halfTimetableWidth = ref.clientWidth / 2;
     const logicalScroll = fromLeft + halfTimetableWidth;
 
     const newValue = startAt
       .clone()
       .add(logicalScroll / scale, 'minute');
 
-    setFocusedAtRaw(newValue);
-  }, [fromLeft, startAt, scale, ref, setFocusedAtRaw]);
+    void setFocusedAt(newValue, { mode: "pure" });
+    // eslint-disable-next-line
+  }, [fromLeft, scale, ref]);
 
   // Swap delta
   useEffect(() => {
@@ -58,13 +66,12 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
 
     const handleWheel = (e: Readonly<WheelEvent>): void => {
       e.preventDefault();
-      ref.current?.scrollBy(e.deltaY, e.deltaX);
+      ref?.scrollBy(e.deltaY, e.deltaX);
     };
-    ref.current?.addEventListener('wheel', handleWheel);
+    ref?.addEventListener('wheel', handleWheel);
 
-    const t = ref.current;
     return (): void => {
-      t?.removeEventListener('wheel', handleWheel);
+      ref?.removeEventListener('wheel', handleWheel);
     };
   }, [ref, swapDelta]);
 
@@ -87,7 +94,7 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
         sticky container on Safari thus putting absolute wrapper here
       */}
       <div
-        ref={ref}
+        ref={setRef}
         className={classNames(
           'absolute',
           'top-0',
@@ -113,7 +120,7 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
         ) : (
           <>
             <ScheduleList schedules={schedules} />
-            <MinuteHand />
+            <MinuteHand focusedAt={focusedAt} />
           </>
         )}
       </div>

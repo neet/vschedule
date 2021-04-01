@@ -1,21 +1,21 @@
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
-import { useCallback } from 'react';
-import { atom, selectorFamily, useRecoilState } from 'recoil';
+import type { Snapshot } from 'recoil';
+import { atom, selectorFamily } from 'recoil';
 
 export const focusedAtState = atom({
   key: 'focusedAtState',
   default: dayjs(),
 });
 
-export const refState = atom<HTMLElement | undefined>({
+export const refState = atom<HTMLElement | null>({
   key: 'ref',
-  default: undefined,
+  default: null,
 });
 
 export const scaleState = atom({
   key: 'scale',
-  default: 0,
+  default: 5,
 });
 
 export const intervalState = atom({
@@ -25,20 +25,25 @@ export const intervalState = atom({
 
 export const itemHeightState = atom({
   key: 'height',
-  default: 50,
+  default: 61.5,
 });
 
 export const startAtState = atom({
-  key: 'scale',
+  key: 'startAt',
   default: dayjs(),
 });
 
-export const itemXState = selectorFamily<number, string>({
+export const endAtState = atom({
+  key: 'endAt',
+  default: dayjs(),
+});
+
+export const itemXState = selectorFamily<number, Dayjs>({
   key: 'itemX',
   get: (date) => ({ get }): number => {
     const startAt = get(startAtState);
     const scale = get(scaleState);
-    return dayjs(date).diff(startAt, 'minute') * scale;
+    return date.diff(startAt, 'minute') * scale;
   },
 });
 
@@ -59,54 +64,51 @@ export const widthState = selectorFamily({
 });
 
 export interface SetFocusedAtParam {
+  readonly mode?: 'pure' | 'effective';
   readonly behavior?: ScrollBehavior;
   readonly preventFocus?: boolean;
 }
 
-interface UseFocusedAtResponse {
-  focusedAt: Dayjs;
-  setFocusedAt: (dayjs: Readonly<Dayjs>, params: SetFocusedAtParam) => void;
-  setFocusedAtPure: (dayjs: Readonly<Dayjs>) => void;
-}
+export const setFocusedAt = (snapshot: Readonly<Snapshot>) => async (
+  date: Readonly<Dayjs>,
+  params: SetFocusedAtParam = {},
+): Promise<Snapshot> => {
+  const ref = await snapshot.getPromise(refState);
+  const startAt = await snapshot.getPromise(startAtState);
+  const scale = await snapshot.getPromise(scaleState);
 
-export const useFocusedAt = (): UseFocusedAtResponse => {
-  const [focusedAt, setFocusedAtPure] = useRecoilState(focusedAtState);
-  const [ref] = useRecoilState(refState);
-  const [startAt] = useRecoilState(startAtState);
-  const [scale] = useRecoilState(scaleState);
+  const newSnapshot = snapshot.map(({ set }) => {
+    set(focusedAtState, date);
+  });
 
-  // prettier-ignore
-  const setFocusedAt = useCallback((date: Readonly<Dayjs>, params: SetFocusedAtParam) => {
-    setFocusedAtPure(date);
+  if (params.mode === 'pure') return newSnapshot;
 
-    // Scroll to the time
-    if (ref == null) return;
-    const diff = date.diff(startAt, 'minute') * scale;
+  if (ref == null) return newSnapshot;
+  const diff = date.diff(startAt, 'minute') * scale;
 
-    ref.scrollTo({
-      top: 0,
-      left: diff - ref.clientWidth / 2,
-      behavior: params.behavior ?? 'smooth',
-    });
+  ref.scrollTo({
+    top: 0,
+    left: diff - ref.clientWidth / 2,
+    behavior: params.behavior ?? 'smooth',
+  });
 
-    if (params.preventFocus != null && params.preventFocus) return;
+  if (params.preventFocus != null && params.preventFocus) return newSnapshot;
 
-    // TODO: make this also work on the circumstance other than interval=30
-    // reference -> https://github.com/moment/moment/issues/959
-    const INTERVAL = 30;
-    const destination =
-      date.minute() <= INTERVAL
-        ? date.clone().minute(0).second(0).millisecond(0)
-        : date.clone().minute(INTERVAL).second(0).millisecond(0);
+  // TODO: make this also work on the circumstance other than interval=30
+  // reference -> https://github.com/moment/moment/issues/959
+  const INTERVAL = 30;
+  const destination =
+    date.minute() <= INTERVAL
+      ? date.clone().minute(0).second(0).millisecond(0)
+      : date.clone().minute(INTERVAL).second(0).millisecond(0);
 
-    // Focus to the closest spell: important for a11y
-    const anchor = document.getElementById(destination.toISOString())
-      ?.firstElementChild;
+  // Focus to the closest spell: important for a11y
+  const anchor = document.getElementById(destination.toISOString())
+    ?.firstElementChild;
 
-    if (anchor instanceof HTMLAnchorElement) {
-      anchor.focus({ preventScroll: true });
-    }
-  }, [ref, startAt, scale, setFocusedAtPure]);
+  if (anchor instanceof HTMLAnchorElement) {
+    anchor.focus({ preventScroll: true });
+  }
 
-  return { focusedAt, setFocusedAt, setFocusedAtPure };
+  return newSnapshot;
 };

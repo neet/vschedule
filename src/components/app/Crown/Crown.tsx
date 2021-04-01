@@ -5,79 +5,39 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import dayjs from 'dayjs';
+import type { Dayjs } from 'dayjs';
 
 import type { Genre } from '../../../types';
 import { Button } from '../../ui/Button';
 import { Radio } from '../../ui/Radio';
-import { useTimetable } from '../../ui/Timetable';
 import { Typography } from '../../ui/Typography';
 
 export interface CrownProps {
+  readonly focusedAt: Readonly<Dayjs>;
   readonly genre: number;
   readonly genres?: readonly Genre[];
   readonly loading: boolean;
+  readonly nextDisabled?: boolean;
+  readonly prevDisabled?: boolean;
+  readonly onClickLatest?: () => void;
+  readonly onClickNext?: () => void;
+  readonly onClickPrev?: () => void;
   readonly onGenreChange?: (genre: number) => void;
 }
 
 export const Crown = (props: CrownProps): JSX.Element => {
-  const { genre, genres, loading, onGenreChange } = props;
-  const { focusedAt, startAt, endAt, setFocusedAt } = useTimetable();
-
-  // "today" or "yesterday" "tomorrow" here are defined as relative from the focus
-  const zeroAmToday = focusedAt.millisecond(0).second(0).minute(0).hour(0);
-  const zeroAmTomorrow = zeroAmToday.add(1, 'day');
-  const zeroAmYesterday = zeroAmToday.subtract(1, 'day');
-
-  const handleClickLatest = (): void => {
-    gtag('event', 'click_crown_latest', {
-      event_label: '最新の配信へ移動',
-    });
-
-    setFocusedAt(dayjs());
-  };
-
-  const handleClickRight = (): void => {
-    gtag('event', 'click_crown_forward', {
-      event_label: '一日前に移動',
-    });
-
-    // If focus is before the closest 0 AM
-    if (focusedAt.isBefore(zeroAmToday)) {
-      setFocusedAt(zeroAmToday);
-      return;
-    }
-
-    setFocusedAt(dayjs.min(endAt, zeroAmTomorrow));
-  };
-
-  const handleClickLeft = (): void => {
-    gtag('event', 'click_crown_forward', {
-      event_label: '一日後に移動',
-    });
-
-    // If focus is after the closest 0 AM
-    if (focusedAt.isAfter(zeroAmToday)) {
-      setFocusedAt(zeroAmToday);
-      return;
-    }
-
-    setFocusedAt(dayjs.max(startAt, zeroAmYesterday));
-  };
-
-  const handleGenreChange = (value: string): void => {
-    gtag('event', 'click_change_genre', {
-      event_label: value,
-    });
-
-    // DOMのフォームから取れる値をID where 数値に変換
-    onGenreChange?.(Number(value));
-
-    // 対応する座標がスクロール領域に存在する場合にしか動かないので、スクリーンリーダーでフォーカスされない
-    // 本当はジャンルが変更された後の副作用として pages/index.tsx に持たせたいけど、
-    // そうすると provider の関係上中間のコンポーネントが発生してしまう。そのコンポーネントの名前を考え中
-    setFocusedAt(dayjs());
-  };
+  const {
+    genre,
+    genres,
+    loading,
+    focusedAt,
+    nextDisabled,
+    prevDisabled,
+    onGenreChange,
+    onClickLatest,
+    onClickNext,
+    onClickPrev,
+  } = props;
 
   return (
     <header aria-labelledby="crown-title">
@@ -129,7 +89,7 @@ export const Crown = (props: CrownProps): JSX.Element => {
           <div className="space-x-2">
             <Button
               className="w-8 h-8 sr-only focus:not-sr-only"
-              onClick={handleClickLatest}
+              onClick={onClickLatest}
               variant="wash"
               shape="circle"
               size="sm"
@@ -141,11 +101,11 @@ export const Crown = (props: CrownProps): JSX.Element => {
               title="一日前へ移動"
               aria-label="一日前へ移動"
               className="w-8 h-8"
-              onClick={handleClickLeft}
+              onClick={onClickPrev}
               variant="wash"
               shape="circle"
               size="sm"
-              disabled={focusedAt.isSame(startAt)}
+              disabled={prevDisabled}
             >
               <FontAwesomeIcon icon={faChevronLeft} />
             </Button>
@@ -154,11 +114,11 @@ export const Crown = (props: CrownProps): JSX.Element => {
               title="一日後へ移動"
               aria-label="一日後へ移動"
               className="w-8 h-8"
-              onClick={handleClickRight}
+              onClick={onClickNext}
               variant="wash"
               shape="circle"
               size="sm"
-              disabled={focusedAt.isSame(endAt)}
+              disabled={nextDisabled}
             >
               <FontAwesomeIcon icon={faChevronRight} />
             </Button>
@@ -175,7 +135,7 @@ export const Crown = (props: CrownProps): JSX.Element => {
             <Radio
               name="filter"
               value={genre.toString()}
-              onChange={handleGenreChange}
+              onChange={(v) => void onGenreChange?.(Number(v))}
             >
               <Radio.Item label="全ての配信" value="-1" />
 

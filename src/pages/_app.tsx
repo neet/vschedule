@@ -12,6 +12,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { Fragment, useCallback, useEffect } from 'react';
+import { RecoilRoot } from 'recoil';
 
 // config.autoAddCss = false;
 dayjs.locale('ja');
@@ -47,9 +48,11 @@ const App = (props: AppProps): JSX.Element => {
   const Layout = (Component as any).Layout ?? Fragment;
 
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <RecoilRoot>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </RecoilRoot>
   );
 };
 

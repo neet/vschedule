@@ -1,4 +1,3 @@
-import type { RefObject } from 'react';
 import { useEffect } from 'react';
 import { useRafState } from 'react-use';
 import { debounce } from 'throttle-debounce';
@@ -9,7 +8,7 @@ export interface State {
 }
 
 export const useDebouncedScroll = (
-  ref: RefObject<Readonly<HTMLElement> | null>,
+  ref?: Readonly<HTMLElement> | null,
 ): State => {
   const [state, setState] = useRafState<State>({
     x: 0,
@@ -19,23 +18,23 @@ export const useDebouncedScroll = (
   const HALF_SECOND = 500;
 
   const handler = debounce(HALF_SECOND, false, () => {
-    if (ref.current) {
+    if (ref) {
       setState({
-        x: ref.current.scrollLeft,
-        y: ref.current.scrollTop,
+        x: ref.scrollLeft,
+        y: ref.scrollTop,
       });
     }
   });
 
   useEffect(() => {
-    if (ref.current != null) {
-      ref.current.addEventListener('scroll', handler, {
+    if (ref != null) {
+      ref.addEventListener('scroll', handler, {
         capture: false,
         passive: true,
       });
     }
 
-    const t = ref.current;
+    const t = ref;
 
     return (): void => {
       if (t != null) {

@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { useInView } from 'react-intersection-observer';
 
+import { useInterval, useItemHeight, useTimetableRef, useWidth } from './hooks';
 import type { Schedule } from './Timetable';
-import { useTimetable } from './useTimetable';
 
 export interface ItemProps {
   readonly schedule: Schedule;
@@ -16,18 +16,20 @@ export interface ItemProps {
  */
 export const TableData = (props: ItemProps): JSX.Element => {
   const { schedule } = props;
-  const { getWidth, itemHeight, ref: timetable, interval } = useTimetable();
+
+  const width = useWidth(
+    dayjs(schedule.endAt).diff(dayjs(schedule.startAt), 'millisecond'),
+  );
+  const [itemHeight] = useItemHeight();
+  const [timetable] = useTimetableRef();
+  const [interval] = useInterval();
 
   const { ref, inView } = useInView({
-    root: timetable.current,
+    root: timetable,
     rootMargin: '200px',
     initialInView:
       Math.abs(schedule.startAt.diff(dayjs(), 'minute')) <= interval * 10,
   });
-
-  const width = getWidth(
-    dayjs(schedule.endAt).diff(dayjs(schedule.startAt), 'millisecond'),
-  );
 
   return (
     <div

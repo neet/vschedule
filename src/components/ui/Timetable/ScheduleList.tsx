@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import type { Dayjs } from 'dayjs';
-import { Fragment, useMemo } from 'react';
+import { Fragment, memo, useMemo } from 'react';
 
 import { inRange } from '../../../utils/inRange';
 import { isOverlapping } from '../../../utils/overlap';
+import { useInterval, useItemX, useItemY, useWidth } from './hooks';
 import { Spell } from './Spell';
 import { TableData } from './TableData';
 import type { Schedule } from './Timetable';
-import { useTimetable } from './useTimetable';
 
 export interface ScheduleListProps {
   readonly schedules: readonly Schedule[];
@@ -102,8 +102,7 @@ interface EmptyListProps {
 
 const EmptyList = (props: EmptyListProps): JSX.Element => {
   const { date } = props;
-
-  const { getItemX } = useTimetable();
+  const itemX = useItemX(date);
 
   // Do not remove this;
   // though this component is totally hidden from the screen,
@@ -111,13 +110,40 @@ const EmptyList = (props: EmptyListProps): JSX.Element => {
   // so we are setting the coordinates to prevent the SRs to scroll
   // back to the origin (0, 0)
   const style = {
-    transform: `translateX(${getItemX(date)}px)`,
+    transform: `translateX(${itemX}px)`,
   };
 
   return (
     <div className={classNames('absolute', 'top-0', 'left-0')} style={style}>
       <p className={classNames('sr-only')}>配信予定はありません</p>
     </div>
+  );
+};
+
+interface TableDataListItemProps {
+  readonly row: number;
+  readonly schedule: Schedule;
+  readonly herald: Readonly<Dayjs>;
+  readonly index: number;
+}
+
+const TableDataListItem = (props: TableDataListItemProps): JSX.Element => {
+  const { row, schedule, herald, index } = props;
+
+  const itemY = useItemY(row);
+  const width = useWidth(schedule.startAt.diff(herald, 'millisecond'));
+
+  return (
+    <li
+      key={`item-${row}-${index}`}
+      data-row={row}
+      className={classNames('absolute', 'top-0', 'left-0')}
+      style={{
+        transform: `translate(${width}px, ${itemY}px)`,
+      }}
+    >
+      <TableData schedule={schedule} />
+    </li>
   );
 };
 
@@ -129,37 +155,31 @@ const TableDataList = (props: TableDataListProps): JSX.Element => {
   const { segment } = props;
   const herald = segment[0].schedule.startAt;
 
-  const { getWidth, getItemX, getItemY } = useTimetable();
+  const itemX = useItemX(herald);
 
   return (
     <ul
       className={classNames('absolute', 'top-0', 'left-0', 'z-50', 'mt-14')}
       style={{
-        transform: `translateX(${getItemX(herald)}px)`,
+        transform: `translateX(${itemX}px)`,
       }}
     >
       {segment.map(({ schedule, row }, i) => (
-        <li
-          key={`item-${i}-${row}`}
-          data-row={row}
-          className={classNames('absolute', 'top-0', 'left-0')}
-          style={{
-            transform: `translate(
-              ${getWidth(schedule.startAt.diff(herald, 'millisecond'))}px,
-              ${getItemY(row)}px
-            )`,
-          }}
-        >
-          <TableData schedule={schedule} />
-        </li>
+        <TableDataListItem
+          schedule={schedule}
+          row={row}
+          key={`${row}-${i}`}
+          index={i}
+          herald={herald}
+        />
       ))}
     </ul>
   );
 };
 
-export const ScheduleList = (props: ScheduleListProps): JSX.Element => {
+const ScheduleListPure = (props: ScheduleListProps): JSX.Element => {
   const { schedules } = props;
-  const { interval } = useTimetable();
+  const [interval] = useInterval();
 
   const segments = useMemo(() => {
     const ordered = orderSchedule(schedules).sort((a, b) =>
@@ -197,3 +217,5 @@ export const ScheduleList = (props: ScheduleListProps): JSX.Element => {
     </>
   );
 };
+
+export const ScheduleList = memo(ScheduleListPure);
