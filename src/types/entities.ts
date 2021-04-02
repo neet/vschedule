@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 export interface Response<Data> {
-  readonly status: 'ok' | 'ng';
+  readonly status: 'ng' | 'ok';
   readonly data: Data;
 }
 

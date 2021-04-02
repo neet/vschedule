@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 import { Avatar } from '../Avatar';
 import { Typography } from '../Typography';
 
-type Size = 'sm' | 'md' | 'lg';
+type Size = 'lg' | 'md' | 'sm';
 
 interface BaseUserProps {
   readonly size: Size;

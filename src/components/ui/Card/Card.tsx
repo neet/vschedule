@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
-type Size = 'sm' | 'md' | 'lg';
-type Variant = 'wash' | 'default';
+type Size = 'lg' | 'md' | 'sm';
+type Variant = 'default' | 'wash';
 
 export interface CardProps {
   readonly children: ReactNode;

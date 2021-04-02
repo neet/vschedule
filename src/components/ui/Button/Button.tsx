@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { createElement, forwardRef } from 'react';
 
-type Variant = 'primary' | 'secondary' | 'wash' | 'skeleton';
+type Variant = 'primary' | 'secondary' | 'skeleton' | 'wash';
 type Size = 'lg' | 'md' | 'sm';
-type Shape = 'rounded' | 'circle';
+type Shape = 'circle' | 'rounded';
 
 export type ButtonProps = Readonly<JSX.IntrinsicElements['button']> & {
   readonly variant: Variant;

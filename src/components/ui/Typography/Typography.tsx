@@ -49,14 +49,16 @@ export type Align = keyof typeof aligns;
 
 type TagName = keyof JSX.IntrinsicElements;
 
-export type TypographyProps<T extends TagName> = {
+export type TypographyProps<T extends TagName> = Readonly<
+  JSX.IntrinsicElements[T]
+> & {
   readonly as: T;
   readonly size: Size;
   readonly weight: Weight;
   readonly leading: Leading;
   readonly align: Align;
   readonly variant: Variant;
-} & Readonly<JSX.IntrinsicElements[T]>;
+};
 
 export const Typography = <T extends TagName>(
   props: TypographyProps<T>,

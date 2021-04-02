@@ -138,7 +138,7 @@ const avatarGroupQuartet = (
 );
 
 export type AvatarGroupProps = Readonly<
-  Omit<JSX.IntrinsicElements['img'], 'src' | 'alt'>
+  Omit<JSX.IntrinsicElements['img'], 'alt' | 'src'>
 > & {
   readonly src?: string | readonly string[];
   readonly alt?: string;

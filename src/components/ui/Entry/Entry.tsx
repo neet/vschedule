@@ -6,8 +6,8 @@ import { useState } from 'react';
 import { Badge } from '../Badge';
 import { Typography } from '../Typography';
 
-export type EntryVariant = 'shade' | 'flat';
-type EmbedType = 'interaction' | 'never' | 'always';
+export type EntryVariant = 'flat' | 'shade';
+type EmbedType = 'always' | 'interaction' | 'never';
 
 interface BaseEntryProps {
   readonly variant: EntryVariant;

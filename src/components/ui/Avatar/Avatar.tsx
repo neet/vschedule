@@ -2,8 +2,8 @@ import classNames from 'classnames';
 
 import { AvatarGroup } from './AvatarGroup';
 
-type Variant = 'minimal' | 'flat';
-type Size = 'sm' | 'md' | 'lg';
+type Variant = 'flat' | 'minimal';
+type Size = 'lg' | 'md' | 'sm';
 
 const mapSize = (size: Size): string => {
   switch (size) {

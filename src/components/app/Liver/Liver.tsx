@@ -13,7 +13,7 @@ export interface LiverProps {
   readonly liver: LiverType;
   readonly twitter?: LiverTwitterAccount;
   readonly youtube?: LiverYoutubeChannel;
-  readonly size: 'sm' | 'md' | 'lg';
+  readonly size: 'lg' | 'md' | 'sm';
 }
 
 export const Liver = (props: LiverProps): JSX.Element => {

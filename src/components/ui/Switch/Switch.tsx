@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useState } from 'react';
 
 export type SwitchProps = Readonly<
-  Omit<JSX.IntrinsicElements['button'], 'value' | 'onChange'>
+  Omit<JSX.IntrinsicElements['button'], 'onChange' | 'value'>
 > & {
   readonly value: boolean;
   readonly onChange?: (value: boolean) => void;
