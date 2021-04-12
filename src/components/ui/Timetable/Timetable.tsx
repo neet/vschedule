@@ -4,8 +4,8 @@ import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 import type { ReactNode } from 'react';
 import { useEffect, useLayoutEffect } from 'react';
+import { useScroll } from 'react-use';
 
-import { useDebouncedScroll } from '../../hooks/useDebouncedScroll';
 import { Empty } from './Empty';
 import { Loading } from './Loading';
 import { MinuteHand } from './MinuteHand';
@@ -28,7 +28,7 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
   const { schedules, swapDelta, loading } = props;
 
   const { ref, scale, startAt, setFocusedAt, setFocusedAtRaw } = useTimetable();
-  const { x: fromLeft } = useDebouncedScroll(ref);
+  const { x: fromLeft } = useScroll(ref);
 
   // Focus on the current time at the first rendering
   useLayoutEffect(() => {

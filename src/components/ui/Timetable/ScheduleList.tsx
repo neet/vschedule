@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { Dayjs } from 'dayjs';
-import { Fragment, useMemo } from 'react';
+import { Fragment, memo, useMemo } from 'react';
 
 import { inRange } from '../../../utils/inRange';
 import { isOverlapping } from '../../../utils/overlap';
@@ -157,7 +157,7 @@ const TableDataList = (props: TableDataListProps): JSX.Element => {
   );
 };
 
-export const ScheduleList = (props: ScheduleListProps): JSX.Element => {
+const ScheduleListPure = (props: ScheduleListProps): JSX.Element => {
   const { schedules } = props;
   const { interval } = useTimetable();
 
@@ -197,3 +197,5 @@ export const ScheduleList = (props: ScheduleListProps): JSX.Element => {
     </>
   );
 };
+
+export const ScheduleList = memo(ScheduleListPure);
