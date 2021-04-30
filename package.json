@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^6.2.9",
-    "@storybook/addon-knobs": "^6.2.0-rc.10",
+    "@storybook/addon-knobs": "^6.2.9",
     "@storybook/addon-links": "^6.2.0-rc.10",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addon-storyshots": "^6.2.0-rc.10",
