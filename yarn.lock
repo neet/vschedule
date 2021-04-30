@@ -2766,18 +2766,18 @@
     regenerator-runtime "^0.13.7"
     ts-dedent "^2.0.0"
 
-"@storybook/addon-knobs@^6.2.0-rc.10":
-  version "6.2.0-rc.10"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-knobs/-/addon-knobs-6.2.0-rc.10.tgz#0383f58e55d2550912fbe19e276397b15c78471b"
-  integrity sha512-QFRAueNyoV9VjmgtWO30J3jt55D2n3lbQBsVJ6S4I5kFtr3gttVVCQuDIYHKXB+RMqy3N0BeRW0p+pT+3ehNXA==
+"@storybook/addon-knobs@^6.2.9":
+  version "6.2.9"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-knobs/-/addon-knobs-6.2.9.tgz#879b2e3861c29b30b53f1d624315a2f3a463785a"
+  integrity sha512-ic3xXy9uWPfIGP4x3VuGnrUmg/Jn9rHKIqZMhRcC7mFDRVlgbekvQxaruC6VY9LW6o8jV/miReSZkJf7M8o0aQ==
   dependencies:
-    "@storybook/addons" "6.2.0-rc.10"
-    "@storybook/api" "6.2.0-rc.10"
-    "@storybook/channels" "6.2.0-rc.10"
-    "@storybook/client-api" "6.2.0-rc.10"
-    "@storybook/components" "6.2.0-rc.10"
-    "@storybook/core-events" "6.2.0-rc.10"
-    "@storybook/theming" "6.2.0-rc.10"
+    "@storybook/addons" "6.2.9"
+    "@storybook/api" "6.2.9"
+    "@storybook/channels" "6.2.9"
+    "@storybook/client-api" "6.2.9"
+    "@storybook/components" "6.2.9"
+    "@storybook/core-events" "6.2.9"
+    "@storybook/theming" "6.2.9"
     copy-to-clipboard "^3.3.1"
     core-js "^3.8.2"
     escape-html "^1.0.3"
@@ -4143,7 +4143,7 @@
     prettier "~2.2.1"
     regenerator-runtime "^0.13.7"
 
-"@storybook/theming@6.2.0-rc.10", "@storybook/theming@^6.2.0-rc.10":
+"@storybook/theming@6.2.0-rc.10":
   version "6.2.0-rc.10"
   resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-6.2.0-rc.10.tgz#bce4e1f4a3fde12a7da22f7c8822dc009ff7ae20"
   integrity sha512-kUYbQPsYGuEKNHM8XjruufXUStaMuy6KjTPt/Ohi3NojcybOsStJ8ZqtJh8EPBBb9MPaTPJ4L7scXKcuUKZ6yQ==
@@ -4179,7 +4179,7 @@
     resolve-from "^5.0.0"
     ts-dedent "^2.0.0"
 
-"@storybook/theming@6.2.9":
+"@storybook/theming@6.2.9", "@storybook/theming@^6.2.0-rc.10":
   version "6.2.9"
   resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-6.2.9.tgz#16bf40180861f222c7ed1d80abd5d1e3cb315660"
   integrity sha512-183oJW7AD7Fhqg5NT4ct3GJntwteAb9jZnQ6yhf9JSdY+fk8OhxRbPf7ov0au2gYACcGrWDd9K5pYQsvWlP5gA==
