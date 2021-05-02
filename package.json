@@ -35,7 +35,7 @@
     "react-intersection-observer": "^8.31.0",
     "react-popper": "^2.2.4",
     "react-use": "^17.2.4",
-    "swr": "^0.3.11",
+    "swr": "^0.5.5",
     "tailwindcss": "^2.0.4",
     "tailwindcss-truncate-multiline": "^1.0.3",
     "throttle-debounce": "^3.0.1",
