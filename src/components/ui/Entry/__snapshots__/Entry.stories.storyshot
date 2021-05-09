@@ -84,7 +84,7 @@ exports[`Storyshots Entry Shade 1`] = `
       </div>
     </div>
     <div
-      className="space-y-0.5"
+      className="space-y-1"
     >
       <h4
         className="text-base leading-normal font-semibold text-coolGray-900 dark:text-trueGray-100 text-left group-hover:text-primary-600 dark:group-hover:text-primary-400 ease-out transition-colors truncate-2-lines"
@@ -109,6 +109,12 @@ exports[`Storyshots Entry Shade 1`] = `
         >
           Ryo Igarashi
         </dd>
+        <span
+          aria-hidden={true}
+          className="mr-2"
+        >
+          •
+        </span>
         <dt
           className="sr-only"
         >
@@ -123,6 +129,12 @@ exports[`Storyshots Entry Shade 1`] = `
             in 2 years
           </time>
         </dd>
+        <span
+          aria-hidden={true}
+          className="mr-2"
+        >
+          •
+        </span>
         <dt
           className="sr-only"
         >

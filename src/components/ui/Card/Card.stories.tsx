@@ -5,10 +5,10 @@ export default {
   component: Card,
 };
 
-export const Primary = (): JSX.Element => <Card>hello world</Card>;
+export const Default = (): JSX.Element => <Card>hello world</Card>;
 
 export const Wash = (): JSX.Element => <Card variant="wash">hello world</Card>;
 
-export const Secondary = (): JSX.Element => (
-  <Card variant="secondary">hello world</Card>
+export const Primary = (): JSX.Element => (
+  <Card variant="primary">hello world</Card>
 );

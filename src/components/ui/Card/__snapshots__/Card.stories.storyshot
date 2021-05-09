@@ -8,6 +8,14 @@ exports[`Storyshots Card Default 1`] = `
 </div>
 `;
 
+exports[`Storyshots Card Primary 1`] = `
+<div
+  className="p-4 bg-primary-50 dark:bg-primary-900 box-border rounded-md text-coolGray-900 dark:text-trueGray-100"
+>
+  hello world
+</div>
+`;
+
 exports[`Storyshots Card Wash 1`] = `
 <div
   className="p-4 bg-coolGray-100 dark:bg-trueGray-900 box-border rounded-md text-coolGray-900 dark:text-trueGray-100"
