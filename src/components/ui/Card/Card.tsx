@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
 type Size = 'lg' | 'md' | 'sm';
-type Variant = 'default' | 'wash';
+type Variant = 'default' | 'primary' | 'wash';
 
 export interface CardProps {
   readonly children: ReactNode;
@@ -32,6 +32,8 @@ const mapVariant = (variant: Variant): string => {
         'dark:border-trueGray-800',
         'shadow-lg',
       );
+    case 'primary':
+      return classNames('bg-primary-50', 'dark:bg-primary-900');
     case 'wash':
       return classNames('bg-coolGray-100', 'dark:bg-trueGray-900');
   }

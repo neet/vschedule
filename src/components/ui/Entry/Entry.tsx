@@ -55,7 +55,8 @@ type ReadyEntryProps = BaseEntryProps &
     readonly tag?: string;
     readonly embed?: ReactNode;
     readonly embedType?: EmbedType;
-    readonly loading?: false;
+    readonly loading: false;
+    readonly pinned: boolean;
   };
 
 const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
@@ -73,6 +74,7 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
     embedType,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     loading,
+    pinned,
     date,
     ...rest
   } = props;
@@ -123,9 +125,15 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
             <Badge variant="ping">配信中</Badge>
           </div>
         )}
+
+        {!active && pinned && (
+          <div className="absolute top-2 right-2">
+            <Badge>注目の配信</Badge>
+          </div>
+        )}
       </div>
 
-      <div className={'space-y-0.5'}>
+      <div className={'space-y-1'}>
         <Typography
           as="h4"
           weight="semibold"
@@ -157,6 +165,10 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
           <dt className="sr-only">ライバー</dt>
           <dd className="mr-2">{author}</dd>
 
+          <span aria-hidden className="mr-2">
+            •
+          </span>
+
           <dt className="sr-only">開始時刻</dt>
           <dd className="mr-2">
             <time dateTime={formattedDate.toISOString()}>
@@ -166,6 +178,9 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
 
           {tag != null && (
             <>
+              <span aria-hidden className="mr-2">
+                •
+              </span>
               <dt className="sr-only">タグ</dt>
               <dd className="mr-2">{tag}</dd>
             </>
@@ -179,7 +194,7 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
 export type EntryProps = LoadingEntryProps | ReadyEntryProps;
 
 export const Entry = (props: EntryProps): JSX.Element => {
-  if (props.loading != null && props.loading) {
+  if (props.loading) {
     return <LoadingEntry {...props} />;
   }
 
@@ -191,4 +206,5 @@ Entry.defaultProps = {
   variant: 'shade',
   embed: null,
   embedType: 'interaction',
+  pinned: false,
 };

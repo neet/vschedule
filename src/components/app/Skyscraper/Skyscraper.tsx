@@ -6,11 +6,12 @@ import { Clock } from '../Clock';
 import { UpcomingEvents } from '../UpcomingEvents';
 
 export interface SkyscraperProps {
+  readonly pinnedEventId?: number;
   readonly upcomingEvents?: readonly Event[];
 }
 
 export const Skyscraper = (props: SkyscraperProps): JSX.Element => {
-  const { upcomingEvents } = props;
+  const { upcomingEvents, pinnedEventId } = props;
 
   return (
     <aside
@@ -42,7 +43,10 @@ export const Skyscraper = (props: SkyscraperProps): JSX.Element => {
       </section>
 
       <section aria-labelledby="skyscraper__upcoming">
-        <UpcomingEvents upcomingEvents={upcomingEvents} />
+        <UpcomingEvents
+          pinnedEventId={pinnedEventId}
+          upcomingEvents={upcomingEvents}
+        />
       </section>
     </aside>
   );

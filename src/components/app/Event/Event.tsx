@@ -9,6 +9,7 @@ import { Entry } from '../../ui/Entry';
 export type EventProps = Readonly<JSX.IntrinsicElements['a']> & {
   readonly event: APIEvent;
   readonly variant?: EntryVariant;
+  readonly pinned: boolean;
   readonly embedType: 'always' | 'interaction' | 'never';
 };
 
@@ -57,4 +58,5 @@ export const Event = (props: EventProps): JSX.Element => {
 
 Event.defaultProps = {
   embedType: 'interaction',
+  pinned: false,
 };
