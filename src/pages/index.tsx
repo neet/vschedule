@@ -117,7 +117,7 @@ const Events = (props: EventsProps): JSX.Element => {
               schedules={schedules}
             />
           </div>
-          <Skyscraper pinnedEventId={46909} upcomingEvents={upcomingEvents} />
+          <Skyscraper pinnedEventId={48139} upcomingEvents={upcomingEvents} />
         </div>
       </TimetableProvider>
 
