@@ -46,7 +46,7 @@
     "@storybook/addon-knobs": "^6.2.9",
     "@storybook/addon-links": "^6.2.0-rc.10",
     "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/addon-storyshots": "^6.2.0-rc.10",
+    "@storybook/addon-storyshots": "^6.2.9",
     "@storybook/cli": "^6.2.9",
     "@storybook/preset-typescript": "^3.0.0",
     "@storybook/react": "^6.2.9",
