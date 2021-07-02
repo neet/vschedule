@@ -60,7 +60,7 @@ export default class CustomDocument extends Document<DocumentProps> {
             content="Refined Itsukara.linkはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。"
           />
           <link rel="icon" href="/favicon.ico" />
-          <meta name="theme-color" content="#f80652" />
+          <meta name="theme-color" content="#f3f4f6" />
           <meta
             name="apple-mobile-web-app-title"
             content="Refined Itsukara.link"
