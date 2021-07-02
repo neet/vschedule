@@ -50,7 +50,7 @@
     "@storybook/cli": "^6.2.9",
     "@storybook/preset-typescript": "^3.0.0",
     "@storybook/react": "^6.2.9",
-    "@storybook/theming": "^6.2.0-rc.10",
+    "@storybook/theming": "^6.3.2",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/react-hooks": "^7.0.0",
