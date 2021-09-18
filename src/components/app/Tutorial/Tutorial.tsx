@@ -128,9 +128,10 @@ export interface TutorialProps {
   readonly onHide?: () => void;
 }
 
+const pages = [Page1, Page2, Page3, Page4, Page5];
+
 export const Tutorial = (props: TutorialProps): JSX.Element => {
   const { show, onHide } = props;
-  const pages = [Page1, Page2, Page3, Page4, Page5];
 
   const { hasTutorialDone, setTutorialStatus } = useTutorial();
 

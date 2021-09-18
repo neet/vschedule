@@ -44,6 +44,7 @@ export const Skyscraper = (props: SkyscraperProps): JSX.Element => {
 
       <section aria-labelledby="skyscraper__upcoming">
         <UpcomingEvents
+          id="skyscraper__upcoming"
           pinnedEventId={pinnedEventId}
           upcomingEvents={upcomingEvents}
         />

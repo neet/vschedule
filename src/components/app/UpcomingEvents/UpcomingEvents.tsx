@@ -37,12 +37,13 @@ const sortByPriority = (pinned?: number) => (
 };
 
 export interface UpcomingEventsProps {
+  readonly id?: string;
   readonly pinnedEventId?: number;
   readonly upcomingEvents?: readonly APIEvent[];
 }
 
 export const UpcomingEvents = (props: UpcomingEventsProps): JSX.Element => {
-  const { pinnedEventId } = props;
+  const { id, pinnedEventId } = props;
 
   const upcomingEvents = useMemo(() => {
     if (props.upcomingEvents == null) return;
@@ -51,7 +52,7 @@ export const UpcomingEvents = (props: UpcomingEventsProps): JSX.Element => {
 
   return (
     <>
-      <h2 id="skyscraper__upcoming" className="sr-only">
+      <h2 id={id} className="sr-only">
         今後の配信予定
       </h2>
 
