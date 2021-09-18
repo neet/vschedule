@@ -8,7 +8,7 @@ exports[`Storyshots User Loading 1`] = `
     className="mr-4 flex-shrink-0"
   >
     <div
-      className="h-10 w-10 overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 animate-pulse"
+      className="h-10 w-10 relative overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 animate-pulse"
     />
   </div>
   <div
@@ -27,7 +27,7 @@ exports[`Storyshots User Loading 1`] = `
 exports[`Storyshots User Medium 1`] = `
 <div>
   <a
-    className="group flex py-1 rounded"
+    className="group flex items-center py-1 rounded"
     href="https://neet.love"
   >
     <div
@@ -48,12 +48,87 @@ exports[`Storyshots User Medium 1`] = `
       className="mr-4 ease-out order-1 transition-opacity duration-75 group-hover:opacity-75 flex-shrink-0"
     >
       <div
-        className="h-10 w-10 overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 border border-coolGray-300 dark:border-trueGray-700"
+        className="h-10 w-10 relative overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 border border-coolGray-300 dark:border-trueGray-700"
       >
-        <img
-          alt="Ryo Igarashi"
-          src="https://source.unsplash.com/random"
-        />
+        <div>
+          <div
+            style={
+              Object {
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "left": 0,
+                "margin": 0,
+                "overflow": "hidden",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              }
+            }
+          >
+            <img
+              alt="Ryo Igarashi"
+              data-nimg="fill"
+              decoding="async"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              style={
+                Object {
+                  "border": "none",
+                  "bottom": 0,
+                  "boxSizing": "border-box",
+                  "display": "block",
+                  "height": 0,
+                  "left": 0,
+                  "margin": "auto",
+                  "maxHeight": "100%",
+                  "maxWidth": "100%",
+                  "minHeight": "100%",
+                  "minWidth": "100%",
+                  "objectFit": "cover",
+                  "objectPosition": undefined,
+                  "padding": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                  "width": 0,
+                }
+              }
+            />
+            <noscript>
+              <img
+                alt="Ryo Igarashi"
+                data-nimg="fill"
+                decoding="async"
+                loading="lazy"
+                sizes="100vw"
+                src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75"
+                srcSet="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75 3840w"
+                style={
+                  Object {
+                    "border": "none",
+                    "bottom": 0,
+                    "boxSizing": "border-box",
+                    "display": "block",
+                    "height": 0,
+                    "left": 0,
+                    "margin": "auto",
+                    "maxHeight": "100%",
+                    "maxWidth": "100%",
+                    "minHeight": "100%",
+                    "minWidth": "100%",
+                    "objectFit": "cover",
+                    "objectPosition": undefined,
+                    "padding": 0,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                    "width": 0,
+                  }
+                }
+              />
+            </noscript>
+          </div>
+        </div>
       </div>
     </div>
   </a>

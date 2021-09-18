@@ -24,17 +24,16 @@ const Item = (props: {
   );
 };
 
-const sortByPriority = (pinned?: number) => (
-  a: APIEvent,
-  b: APIEvent,
-): number => {
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-  if (pinned === a.id) return -999;
-  const deltaT =
-    new Date(a.start_date).valueOf() - new Date(b.start_date).valueOf();
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-  return Math.max(-1, Math.min(1, deltaT));
-};
+const sortByPriority =
+  (pinned?: number) =>
+  (a: APIEvent, b: APIEvent): number => {
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    if (pinned === a.id) return -999;
+    const deltaT =
+      new Date(a.start_date).valueOf() - new Date(b.start_date).valueOf();
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    return Math.max(-1, Math.min(1, deltaT));
+  };
 
 export interface UpcomingEventsProps {
   readonly id?: string;

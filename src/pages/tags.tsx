@@ -29,7 +29,7 @@ export const getStaticProps: GetStaticProps<TagsProps> = async () => {
 
 const Tags = (props: TagsProps): JSX.Element => {
   const { data } = props;
-  const { genres } = useGenres({ initialData: data });
+  const { genres } = useGenres({ fallbackData: data });
 
   return (
     <>

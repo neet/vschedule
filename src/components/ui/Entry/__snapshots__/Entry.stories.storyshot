@@ -12,9 +12,50 @@ exports[`Storyshots Entry Loading 1`] = `
     className="animate-pulse"
   >
     <div
-      className="mb-2 rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden"
-    />
-    <div>
+      className="flex-grow-0 flex-shrink-0"
+    >
+      <div
+        className="rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden"
+      />
+    </div>
+    <div
+      className="flex-1"
+    >
+      <div
+        className="h-5 w-2/3 my-1 bg-coolGray-200 dark:bg-trueGray-800 rounded"
+      />
+      <div
+        className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800 rounded"
+      />
+      <div
+        className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800 rounded"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Entry Loading Horizontal 1`] = `
+<div
+  style={
+    Object {
+      "maxWidth": "300px",
+    }
+  }
+>
+  <div
+    className="animate-pulse flex"
+  >
+    <div
+      className="flex-grow-0 flex-shrink-0"
+    >
+      <div
+        className="w-40 rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden"
+      />
+    </div>
+    <div
+      className="flex-1"
+    >
       <div
         className="h-5 w-2/3 my-1 bg-coolGray-200 dark:bg-trueGray-800 rounded"
       />
@@ -38,7 +79,7 @@ exports[`Storyshots Entry Shade 1`] = `
   }
 >
   <a
-    className="group"
+    className="group space-y-2"
     href="https://example.com"
     onBlur={[Function]}
     onFocus={[Function]}
@@ -51,14 +92,278 @@ exports[`Storyshots Entry Shade 1`] = `
       className="relative"
     >
       <div
-        className="mb-2 rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden shadow dark:border dark:border-trueGray-700"
+        className="rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden shadow dark:border dark:border-trueGray-700"
       >
-        <img
-          alt="random image"
-          className="rounded object-cover"
-          loading="lazy"
-          src="https://source.unsplash.com/random"
-        />
+        <div
+          style={
+            Object {
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "left": 0,
+              "margin": 0,
+              "overflow": "hidden",
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
+        >
+          <img
+            alt="random image"
+            data-nimg="fill"
+            decoding="async"
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            style={
+              Object {
+                "border": "none",
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "height": 0,
+                "left": 0,
+                "margin": "auto",
+                "maxHeight": "100%",
+                "maxWidth": "100%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "objectFit": "cover",
+                "objectPosition": undefined,
+                "padding": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "width": 0,
+              }
+            }
+          />
+          <noscript>
+            <img
+              alt="random image"
+              data-nimg="fill"
+              decoding="async"
+              loading="lazy"
+              sizes="100vw"
+              src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75"
+              srcSet="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75 3840w"
+              style={
+                Object {
+                  "border": "none",
+                  "bottom": 0,
+                  "boxSizing": "border-box",
+                  "display": "block",
+                  "height": 0,
+                  "left": 0,
+                  "margin": "auto",
+                  "maxHeight": "100%",
+                  "maxWidth": "100%",
+                  "minHeight": "100%",
+                  "minWidth": "100%",
+                  "objectFit": "cover",
+                  "objectPosition": undefined,
+                  "padding": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                  "width": 0,
+                }
+              }
+            />
+          </noscript>
+        </div>
+      </div>
+      <div
+        className="absolute top-2 right-2"
+      >
+        <div
+          className="relative"
+        >
+          <div
+            aria-hidden={true}
+            className="absolute top-0 left-0 w-full h-full opacity-75 bg-primary-400 animate-ping rounded-full"
+            role="presentation"
+          />
+          <div
+            className="flex items-center px-2 py-1 rounded-full shadow-sm bg-primary-500 text-white relative"
+          >
+            <span
+              className="block leading-none text-sm font-semibold"
+            >
+              配信中
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="space-y-1"
+    >
+      <h4
+        className="text-base leading-normal font-semibold text-coolGray-900 dark:text-trueGray-100 text-left group-hover:text-primary-600 dark:group-hover:text-primary-400 ease-out transition-colors truncate-2-lines"
+      >
+        Example
+      </h4>
+      <p
+        className="text-base leading-normal font-normal text-coolGray-600 dark:text-trueGray-400 text-left truncate-2-lines break-all"
+      >
+        Lorem ipsum
+      </p>
+      <dl
+        className="text-sm leading-normal font-normal text-coolGray-600 dark:text-trueGray-400 text-left flex"
+      >
+        <dt
+          className="sr-only"
+        >
+          ライバー
+        </dt>
+        <dd
+          className="mr-2"
+        >
+          Ryo Igarashi
+        </dd>
+        <span
+          aria-hidden={true}
+          className="mr-2"
+        >
+          •
+        </span>
+        <dt
+          className="sr-only"
+        >
+          開始時刻
+        </dt>
+        <dd
+          className="mr-2"
+        >
+          <time
+            dateTime="2020-12-25T16:44:43.757Z"
+          >
+            in 2 years
+          </time>
+        </dd>
+        <span
+          aria-hidden={true}
+          className="mr-2"
+        >
+          •
+        </span>
+        <dt
+          className="sr-only"
+        >
+          タグ
+        </dt>
+        <dd
+          className="mr-2"
+        >
+          blog
+        </dd>
+      </dl>
+    </div>
+  </a>
+</div>
+`;
+
+exports[`Storyshots Entry Shade Horizontal 1`] = `
+<div
+  style={
+    Object {
+      "maxWidth": "300px",
+    }
+  }
+>
+  <a
+    className="group flex space-x-4 items-center"
+    href="https://example.com"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    rel="noreferrer noopener"
+    target="_blank"
+  >
+    <div
+      className="relative"
+    >
+      <div
+        className="w-40 rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden shadow dark:border dark:border-trueGray-700"
+      >
+        <div
+          style={
+            Object {
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "left": 0,
+              "margin": 0,
+              "overflow": "hidden",
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
+        >
+          <img
+            alt="random image"
+            data-nimg="fill"
+            decoding="async"
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            style={
+              Object {
+                "border": "none",
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "height": 0,
+                "left": 0,
+                "margin": "auto",
+                "maxHeight": "100%",
+                "maxWidth": "100%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "objectFit": "cover",
+                "objectPosition": undefined,
+                "padding": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "width": 0,
+              }
+            }
+          />
+          <noscript>
+            <img
+              alt="random image"
+              data-nimg="fill"
+              decoding="async"
+              loading="lazy"
+              sizes="100vw"
+              src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75"
+              srcSet="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75 3840w"
+              style={
+                Object {
+                  "border": "none",
+                  "bottom": 0,
+                  "boxSizing": "border-box",
+                  "display": "block",
+                  "height": 0,
+                  "left": 0,
+                  "margin": "auto",
+                  "maxHeight": "100%",
+                  "maxWidth": "100%",
+                  "minHeight": "100%",
+                  "minWidth": "100%",
+                  "objectFit": "cover",
+                  "objectPosition": undefined,
+                  "padding": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                  "width": 0,
+                }
+              }
+            />
+          </noscript>
+        </div>
       </div>
       <div
         className="absolute top-2 right-2"

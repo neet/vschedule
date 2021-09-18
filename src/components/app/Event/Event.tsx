@@ -1,20 +1,23 @@
 import dayjs from 'dayjs';
+import { memo } from 'react';
 
 import type { Event as APIEvent } from '../../../types';
 import { useAutoplay } from '../../hooks/useAutoplay';
 import { useNow } from '../../hooks/useNow';
 import type { EntryVariant } from '../../ui/Entry';
 import { Entry } from '../../ui/Entry';
+import type { EntryLayout } from '../../ui/Entry/Entry';
 
 export type EventProps = Readonly<JSX.IntrinsicElements['a']> & {
   readonly event: APIEvent;
   readonly variant?: EntryVariant;
-  readonly pinned: boolean;
-  readonly embedType: 'always' | 'interaction' | 'never';
+  readonly layout?: EntryLayout;
+  readonly embedType?: 'always' | 'interaction' | 'never';
+  readonly pinned?: boolean;
 };
 
-export const Event = (props: EventProps): JSX.Element => {
-  const { event, variant, embedType, ...rest } = props;
+const EventPure = (props: EventProps): JSX.Element => {
+  const { event, variant, embedType = 'interaction', layout, ...rest } = props;
 
   const now = useNow();
   const { autoplayEnabled } = useAutoplay();
@@ -40,6 +43,7 @@ export const Event = (props: EventProps): JSX.Element => {
   return (
     <Entry
       variant={variant}
+      layout={layout}
       title={event.name}
       url={event.url}
       author={event.livers.map((liver) => liver.name).join(', ')}
@@ -56,7 +60,4 @@ export const Event = (props: EventProps): JSX.Element => {
   );
 };
 
-Event.defaultProps = {
-  embedType: 'interaction',
-  pinned: false,
-};
+export const Event = memo(EventPure);

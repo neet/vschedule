@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps<LiversProps> = async () => {
 
 const Livers = (props: LiversProps): JSX.Element => {
   const { data } = props;
-  const { livers } = useLivers({ initialData: data });
+  const { livers } = useLivers({ fallbackData: data });
 
   return (
     <>

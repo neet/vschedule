@@ -41,13 +41,14 @@
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/all",
         "plugin:import/typescript",
-        "prettier/@typescript-eslint"
+        "plugin:prettier/recommended"
       ],
       "parserOptions": {
         "project": "./tsconfig.json"
       },
       "rules": {
         "@typescript-eslint/no-type-alias": "off",
+        "@typescript-eslint/no-meaningless-void-operator": "off",
         "@typescript-eslint/no-magic-numbers": [
           "error",
           {

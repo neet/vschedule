@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
 
@@ -8,14 +9,16 @@ import { Typography } from '../Typography';
 
 export type EntryVariant = 'flat' | 'shade';
 type EmbedType = 'always' | 'interaction' | 'never';
+export type EntryLayout = 'horizontal' | 'vertical';
 
 interface BaseEntryProps {
+  readonly layout: EntryLayout;
   readonly variant: EntryVariant;
 }
 
-const thumbnailClass = (): string =>
+const thumbnailClass = (layout: EntryLayout): string =>
   classNames(
-    'mb-2',
+    layout === 'horizontal' && 'w-40',
     'rounded',
     'aspect-w-16',
     'aspect-h-9',
@@ -28,12 +31,18 @@ interface LoadingEntryProps extends BaseEntryProps {
   readonly loading: true;
 }
 
-const LoadingEntry = (_props: LoadingEntryProps): JSX.Element => {
-  return (
-    <div className="animate-pulse">
-      <div className={thumbnailClass()} />
+const LoadingEntry = (props: LoadingEntryProps): JSX.Element => {
+  const { layout } = props;
 
-      <div>
+  return (
+    <div
+      className={classNames('animate-pulse', layout === 'horizontal' && 'flex')}
+    >
+      <div className="flex-grow-0 flex-shrink-0">
+        <div className={thumbnailClass(layout)} />
+      </div>
+
+      <div className="flex-1">
         <div className="h-5 w-2/3 my-1 bg-coolGray-200 dark:bg-trueGray-800 rounded" />
         <div className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800 rounded" />
         <div className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800 rounded" />
@@ -62,6 +71,7 @@ type ReadyEntryProps = BaseEntryProps &
 const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
   const {
     variant,
+    layout,
     url,
     thumbnail,
     thumbnailAlt,
@@ -76,6 +86,7 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
     loading,
     pinned,
     date,
+    className,
     ...rest
   } = props;
 
@@ -88,20 +99,25 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
 
   return (
     <a
-      className="group"
       href={url}
       target="_blank"
       rel="noreferrer noopener"
-      onMouseOver={(): void => void setInteraction(true)}
-      onMouseLeave={(): void => void setInteraction(false)}
-      onFocus={(): void => void setInteraction(true)}
-      onBlur={(): void => void setInteraction(false)}
+      onMouseOver={() => void setInteraction(true)}
+      onMouseLeave={() => void setInteraction(false)}
+      onFocus={() => void setInteraction(true)}
+      onBlur={() => void setInteraction(false)}
+      className={classNames(
+        'group',
+        layout === 'horizontal' && ['flex', 'space-x-4', 'items-center'],
+        layout === 'vertical' && 'space-y-2',
+        className,
+      )}
       {...rest}
     >
       <div className="relative">
         <div
           className={classNames(
-            thumbnailClass(),
+            thumbnailClass(layout),
             variant === 'shade' &&
               'shadow dark:border dark:border-trueGray-700',
             variant === 'flat' &&
@@ -111,9 +127,10 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
           {showEmbed ? (
             embed
           ) : (
-            <img
+            <Image
               loading="lazy"
-              className={classNames('rounded', 'object-cover')}
+              layout="fill"
+              objectFit="cover"
               src={thumbnail}
               alt={thumbnailAlt}
             />
@@ -207,4 +224,5 @@ Entry.defaultProps = {
   embed: null,
   embedType: 'interaction',
   pinned: false,
+  layout: 'vertical',
 };
