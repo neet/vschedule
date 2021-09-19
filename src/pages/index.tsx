@@ -4,7 +4,7 @@ import type { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useMemo, useState } from 'react';
-import { useLocalStorage, useSearchParam } from 'react-use';
+import { useSearchParam } from 'react-use';
 
 import { api } from '../api';
 import { ChangeLog } from '../components/app/ChangeLog';
@@ -14,6 +14,7 @@ import { Skyscraper } from '../components/app/Skyscraper';
 import { Tutorial } from '../components/app/Tutorial';
 import { useEvents } from '../components/hooks/useEvents';
 import { useGenres } from '../components/hooks/useGenres';
+import { useSwapDelta } from '../components/hooks/useSwapDelta';
 import { useUpcomingEvents } from '../components/hooks/useUpcomingEvents';
 import type { TimetableProps } from '../components/ui/Timetable';
 import { TimetableProvider } from '../components/ui/Timetable';
@@ -51,10 +52,10 @@ export const getStaticProps: GetStaticProps<EventsProps> = async () => {
 const Events = (props: EventsProps): JSX.Element => {
   const { events, loading } = useEvents();
   const upcomingEvents = useUpcomingEvents();
-  const [swapDelta] = useLocalStorage<boolean>('swap-delta');
   const genreQuery = useGenreQueryParam();
   const [genre, setGenre] = useState(genreQuery ?? GENRE_ALL);
   const { genres } = useGenres({ fallbackData: props.data });
+  const [swapDelta] = useSwapDelta();
 
   const startAt = events ? dayjs(events[0].start_date) : dayjs();
   const endAt = events ? dayjs(events[events.length - 1].end_date) : dayjs();

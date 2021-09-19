@@ -1,20 +1,15 @@
 import Head from 'next/head';
-import { useLocalStorage } from 'react-use';
 
 import { useAutoplay } from '../components/hooks/useAutoplay';
+import { useSwapDelta } from '../components/hooks/useSwapDelta';
 import { Switch } from '../components/ui/Switch';
 import { Typography } from '../components/ui/Typography';
 import Article from '../layouts/Article';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const useSwapDelta = () => {
-  const [swapDelta, setSwapDelta] = useLocalStorage('swap-delta', false);
-  if (swapDelta == null) throw new Error();
-  return { swapDelta, setSwapDelta };
-};
 
 const User = (): JSX.Element => {
-  const { swapDelta, setSwapDelta } = useSwapDelta();
+  const [swapDelta, setSwapDelta] = useSwapDelta();
   const { autoplayEnabled, setAutoplay } = useAutoplay();
 
   return (
