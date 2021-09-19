@@ -27,8 +27,8 @@ const mapVariant = (variant: Variant): string => {
     case 'default':
       return classNames(
         'bg-white',
+        'border',
         'dark:bg-black',
-        'dark:border',
         'dark:border-trueGray-800',
         'shadow-lg',
       );

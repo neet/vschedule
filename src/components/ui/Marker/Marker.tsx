@@ -35,12 +35,12 @@ export const Marker = (props: MakerProps): JSX.Element => {
         'ease-out',
         'transition-shadow',
         'shadow',
-        'dark:border',
         'hover:shadow-lg',
       )}
       style={{
         width,
         color: isDark ? 'white' : fgLight,
+        borderWidth: isDark ? '1px' : 0,
         borderColor: isDark ? bgBorder : 'transparent',
         backgroundColor: isDark ? bgDark : backgroundColor,
       }}

@@ -36,7 +36,10 @@ const LoadingEntry = (props: LoadingEntryProps): JSX.Element => {
 
   return (
     <div
-      className={classNames('animate-pulse', layout === 'horizontal' && 'flex')}
+      className={classNames(
+        'animate-pulse',
+        layout === 'horizontal' && ['flex', 'space-x-4', 'items-center'],
+      )}
     >
       <div className="flex-grow-0 flex-shrink-0">
         <div className={thumbnailClass(layout)} />
@@ -118,8 +121,7 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
         <div
           className={classNames(
             thumbnailClass(layout),
-            variant === 'shade' &&
-              'shadow dark:border dark:border-trueGray-700',
+            variant === 'shade' && 'shadow border dark:border-trueGray-700',
             variant === 'flat' &&
               'border border-coolGray-200 dark:border-trueGray-700',
           )}

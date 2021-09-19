@@ -97,7 +97,7 @@ const SearchPure = (props: SearchProps): JSX.Element => {
           <div className="flex items-center flex-1">
             <FontAwesomeIcon
               icon={faSearch}
-              className="text-coolGray-500 dark:bg-trueGray-400"
+              className="text-coolGray-500 dark:text-trueGray-500"
               size="lg"
             />
 
