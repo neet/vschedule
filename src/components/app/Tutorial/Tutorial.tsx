@@ -44,9 +44,7 @@ const Page2 = (): JSX.Element => {
       <Modal.Body id="tutorial-2__description">
         <Typography.H4>配信をチェック</Typography.H4>
         <Typography.Paragraph>
-          画面中央に表示されるのは過去の配信と、これから始まる配信です、各配信をタップするとYouTubeの配信画面が表示されます。左右にスクロールすると（パソコンをお使いの場合は
-          <kbd>Shift</kbd>
-          を押しながらホイールを回転）時間を前後に移動させることが出来ます。
+          画面中央に表示されるのは過去の配信と、これから始まる配信です、各配信をタップするとYouTubeの配信画面が表示されます。左右にスクロールすると時間を前後に移動させることが出来ます。
         </Typography.Paragraph>
       </Modal.Body>
     </div>

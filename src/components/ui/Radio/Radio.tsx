@@ -41,6 +41,7 @@ const RadioItem = (props: RadioItemProps): JSX.Element => {
       variant={checked ? 'secondary' : 'wash'}
       shape="circle"
       size="sm"
+      className="flex-shrink-0"
     >
       {label}
 
@@ -60,11 +61,12 @@ export interface RadioProps {
   readonly name: string;
   readonly value?: string;
   readonly children: ReactNode;
+  readonly className?: string;
   readonly onChange?: (value: string) => void;
 }
 
 export const Radio = (props: RadioProps): JSX.Element => {
-  const { children, name, onChange } = props;
+  const { children, name, className, onChange } = props;
   const [value, setValue] = useState<string | undefined>(props.value);
 
   const handleChange = (newValue: string): void => {
@@ -80,7 +82,11 @@ export const Radio = (props: RadioProps): JSX.Element => {
         setValue: handleChange,
       }}
     >
-      <div className={classNames('space-x-2')}>{children}</div>
+      <div
+        className={classNames('space-x-2', 'flex', 'flex-nowrap', className)}
+      >
+        {children}
+      </div>
     </RadioContext.Provider>
   );
 };

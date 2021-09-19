@@ -44,7 +44,7 @@ exports[`Storyshots Entry Loading Horizontal 1`] = `
   }
 >
   <div
-    className="animate-pulse flex"
+    className="animate-pulse flex space-x-4 items-center"
   >
     <div
       className="flex-grow-0 flex-shrink-0"
@@ -92,7 +92,7 @@ exports[`Storyshots Entry Shade 1`] = `
       className="relative"
     >
       <div
-        className="rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden shadow dark:border dark:border-trueGray-700"
+        className="rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden shadow border dark:border-trueGray-700"
       >
         <div
           style={
@@ -285,7 +285,7 @@ exports[`Storyshots Entry Shade Horizontal 1`] = `
       className="relative"
     >
       <div
-        className="w-40 rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden shadow dark:border dark:border-trueGray-700"
+        className="w-40 rounded aspect-w-16 aspect-h-9 bg-coolGray-200 dark:bg-trueGray-800 overflow-hidden shadow border dark:border-trueGray-700"
       >
         <div
           style={

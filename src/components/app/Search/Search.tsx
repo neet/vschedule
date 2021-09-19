@@ -1,4 +1,8 @@
-import { faExternalLinkAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
+import {
+  faExternalLinkAlt,
+  faSearch,
+  faSpinner,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
@@ -23,7 +27,7 @@ export interface SearchProps {
 }
 
 const SearchPure = (props: SearchProps): JSX.Element => {
-  const { show, loading = false, events, onHide } = props;
+  const { show, loading, events, onHide } = props;
 
   const [ref, setRef] = useState<HTMLInputElement | null>(null);
   const listbox = useRef<HTMLUListElement | null>(null);
@@ -96,11 +100,19 @@ const SearchPure = (props: SearchProps): JSX.Element => {
       >
         <div className="flex">
           <div className="flex items-center flex-1">
-            <FontAwesomeIcon
-              icon={faSearch}
-              className="text-coolGray-500 dark:text-trueGray-500"
-              size="lg"
-            />
+            {loading != null && loading ? (
+              <FontAwesomeIcon
+                size="lg"
+                className="animate-spin text-coolGray-500 dark:text-trueGray-500"
+                icon={faSpinner}
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon={faSearch}
+                className="text-coolGray-500 dark:text-trueGray-500"
+                size="lg"
+              />
+            )}
 
             <input
               aria-controls="search-listbox"
@@ -177,7 +189,7 @@ const SearchPure = (props: SearchProps): JSX.Element => {
             </>
           )}
 
-          {loading || !initialized ? (
+          {!initialized ? (
             Array.from({ length: 5 }, (_, i) => (
               <Card key={i} variant="wash">
                 <Entry loading layout="horizontal" variant="flat" />

@@ -29,13 +29,17 @@ export const ActiveLivers = (props: ActiveLiversProps): JSX.Element => {
 
   return (
     <Card variant="wash">
-      <Typography as="h3" variant="normal" weight="semibold" size="2xl">
-        {events?.length ?? 0}人
-        <Typography as="span" size="base" variant="wash">
-          {' '}
-          が配信予定
+      {events != null ? (
+        <Typography as="h3" variant="normal" weight="semibold" size="2xl">
+          {events.length}人
+          <Typography as="span" size="base" variant="wash">
+            {' '}
+            が配信予定
+          </Typography>
         </Typography>
-      </Typography>
+      ) : (
+        <div className="rounded animate-pulse h-8 my-2 w-2/3 bg-coolGray-200 dark:bg-trueGray-800" />
+      )}
 
       <ul
         className={classNames(

@@ -2,6 +2,7 @@ import {
   faChevronLeft,
   faChevronRight,
   faSpinner,
+  faUndo,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -100,9 +101,18 @@ export const Crown = (props: CrownProps): JSX.Element => {
         )}
       </div>
 
-      <div className={classNames('flex', 'justify-between', 'md:space-x-4')}>
+      <div
+        className={classNames(
+          'flex',
+          'items-center',
+          'justify-between',
+          'md:space-x-4',
+        )}
+      >
         <div
           className={classNames(
+            'flex-grow',
+            'flex-shrink-0',
             'flex',
             'flex-grow',
             'justify-between',
@@ -126,17 +136,7 @@ export const Crown = (props: CrownProps): JSX.Element => {
             {focusedAt.format('LL')}
           </time>
 
-          <div className="space-x-2">
-            <Button
-              className="w-8 h-8 sr-only focus:not-sr-only"
-              onClick={handleClickLatest}
-              variant="wash"
-              shape="circle"
-              size="sm"
-            >
-              最新の配信へ移動
-            </Button>
-
+          <div className="space-x-2 flex flex-nowrap">
             <Button
               title="一日前へ移動"
               aria-label="一日前へ移動"
@@ -148,6 +148,18 @@ export const Crown = (props: CrownProps): JSX.Element => {
               disabled={focusedAt.isSame(startAt)}
             >
               <FontAwesomeIcon icon={faChevronLeft} />
+            </Button>
+
+            <Button
+              title="最新の配信へ移動"
+              aria-label="最新の配信へ移動"
+              className="w-8 h-8"
+              onClick={handleClickLatest}
+              variant="wash"
+              shape="circle"
+              size="sm"
+            >
+              <FontAwesomeIcon icon={faUndo} />
             </Button>
 
             <Button
@@ -167,12 +179,16 @@ export const Crown = (props: CrownProps): JSX.Element => {
 
         {genres != null && (
           // スマホはバーガーメニューから使えるのでクラウンに出す必要はないと思う
-          <form className="hidden lg:block" aria-labelledby="crown-tags">
+          <form
+            className="flex-grow flex-shrink hidden xl:block"
+            aria-labelledby="crown-tags"
+          >
             <h3 id="crown-tags" className="sr-only">
               タグでフィルター
             </h3>
 
             <Radio
+              className="overflow-hidden justify-end"
               name="filter"
               value={genre.toString()}
               onChange={handleGenreChange}

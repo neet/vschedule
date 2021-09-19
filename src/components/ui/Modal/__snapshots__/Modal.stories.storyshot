@@ -2,7 +2,7 @@
 
 exports[`Storyshots Modal Default 1`] = `
 <div
-  className="z-20 box-border m-auto shadow-lg rounded-lg overflow-hidden pointer-events-auto w-full bg-white dark:bg-black dark:border dark:border-trueGray-800 md:max-w-screen-sm"
+  className="z-20 box-border m-auto shadow-lg rounded-lg overflow-hidden pointer-events-auto w-full bg-white dark:bg-black border dark:border-trueGray-800 md:max-w-screen-sm"
 >
   <header
     aria-label="モーダルヘッダー"

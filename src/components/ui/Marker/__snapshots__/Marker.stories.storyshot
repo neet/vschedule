@@ -2,11 +2,12 @@
 
 exports[`Storyshots Marker Combination Of Avatar 1`] = `
 <div
-  className="box-border flex p-1 pr-4 items-center rounded-full ease-out transition-shadow shadow dark:border hover:shadow-lg"
+  className="box-border flex p-1 pr-4 items-center rounded-full ease-out transition-shadow shadow hover:shadow-lg"
   style={
     Object {
       "backgroundColor": "black",
       "borderColor": "transparent",
+      "borderWidth": 0,
       "color": "#ffffff",
       "width": "auto",
     }
@@ -103,11 +104,12 @@ exports[`Storyshots Marker Combination Of Avatar 1`] = `
 
 exports[`Storyshots Marker Default 1`] = `
 <div
-  className="box-border flex p-1 pr-4 items-center rounded-full ease-out transition-shadow shadow dark:border hover:shadow-lg"
+  className="box-border flex p-1 pr-4 items-center rounded-full ease-out transition-shadow shadow hover:shadow-lg"
   style={
     Object {
       "backgroundColor": "black",
       "borderColor": "transparent",
+      "borderWidth": 0,
       "color": "#ffffff",
       "width": "auto",
     }

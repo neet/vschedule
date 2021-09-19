@@ -20,9 +20,9 @@ export const AppContainer = (props: AppContainerProps): JSX.Element => {
           'h-auto',
           'flex',
           'flex-col',
-          'lg:flex-row',
           'bg-white',
           'dark:bg-black',
+          'xl:flex-row',
         )}
       >
         <Banner />

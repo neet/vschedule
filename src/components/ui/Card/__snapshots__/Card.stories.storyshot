@@ -2,7 +2,7 @@
 
 exports[`Storyshots Card Default 1`] = `
 <div
-  className="p-4 bg-white dark:bg-black dark:border dark:border-trueGray-800 shadow-lg box-border rounded-md text-coolGray-900 dark:text-trueGray-100"
+  className="p-4 bg-white border dark:bg-black dark:border-trueGray-800 shadow-lg box-border rounded-md text-coolGray-900 dark:text-trueGray-100"
 >
   hello world
 </div>
