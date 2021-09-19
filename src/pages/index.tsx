@@ -54,7 +54,7 @@ const Events = (props: EventsProps): JSX.Element => {
   const [swapDelta] = useLocalStorage<boolean>('swap-delta');
   const genreQuery = useGenreQueryParam();
   const [genre, setGenre] = useState(genreQuery ?? GENRE_ALL);
-  const { genres } = useGenres({ initialData: props.data });
+  const { genres } = useGenres({ fallbackData: props.data });
 
   const startAt = events ? dayjs(events[0].start_date) : dayjs();
   const endAt = events ? dayjs(events[events.length - 1].end_date) : dayjs();
@@ -117,7 +117,12 @@ const Events = (props: EventsProps): JSX.Element => {
               schedules={schedules}
             />
           </div>
-          <Skyscraper pinnedEventId={48139} upcomingEvents={upcomingEvents} />
+
+          <Skyscraper
+            events={events}
+            loading={loading}
+            upcomingEvents={upcomingEvents}
+          />
         </div>
       </TimetableProvider>
 

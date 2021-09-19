@@ -63,16 +63,8 @@ export type TypographyProps<T extends TagName> = Readonly<
 export const Typography = <T extends TagName>(
   props: TypographyProps<T>,
 ): JSX.Element => {
-  const {
-    as,
-    size,
-    leading,
-    weight,
-    variant,
-    align,
-    className,
-    ...rest
-  } = props;
+  const { as, size, leading, weight, variant, align, className, ...rest } =
+    props;
 
   return createElement(as, {
     className: classNames(

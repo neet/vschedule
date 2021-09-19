@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { Event } from '../../../types';
 import { Card } from '../../ui/Card';
@@ -17,6 +17,15 @@ export interface ActiveLiversProps {
 export const ActiveLivers = (props: ActiveLiversProps): JSX.Element => {
   const { upcomingEvents: events } = props;
   const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    if (expanded) {
+      const elm = document.querySelector(
+        `*[data-liver="${MIN_ITEMS}"] > div > a`,
+      );
+      if (elm instanceof HTMLElement) elm.focus();
+    }
+  }, [expanded]);
 
   return (
     <Card variant="wash">
@@ -44,7 +53,7 @@ export const ActiveLivers = (props: ActiveLiversProps): JSX.Element => {
               </li>
             ))
           : events.slice(0, expanded ? Infinity : MIN_ITEMS).map((event, i) => (
-              <li key={`${event.id}-${i}`}>
+              <li key={`${event.id}-${i}`} data-liver={i}>
                 <User
                   name={event.livers[0].name}
                   avatar={event.livers[0].avatar}

@@ -58,7 +58,13 @@ const ReadyUser = (props: ReadyUserProps): JSX.Element => {
     <div>
       <a
         href={url}
-        className={classNames('group', 'flex', 'py-1', 'rounded')}
+        className={classNames(
+          'group',
+          'flex',
+          'items-center',
+          'py-1',
+          'rounded',
+        )}
         {...rest}
       >
         <div className="flex-grow order-2">

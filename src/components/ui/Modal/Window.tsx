@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
-import { forwardRef } from 'react';
+import { forwardRef, memo } from 'react';
 
 export type WindowProps = JSX.IntrinsicElements['div'] & {
   readonly children: ReactNode;
 };
 
-export const Window = forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
+const WindowPure = forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
   const { children, className, ...rest } = props;
 
   return (
@@ -23,7 +23,7 @@ export const Window = forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
         'w-full',
         'bg-white',
         'dark:bg-black',
-        'dark:border',
+        'border',
         'dark:border-trueGray-800',
         'md:max-w-screen-sm',
         className,
@@ -34,3 +34,5 @@ export const Window = forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
     </div>
   );
 });
+
+export const Window = memo(WindowPure);

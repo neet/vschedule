@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import { Link as UILink } from '../../ui/Link';
 
-const Changelog = dynamic(import('../ChangeLog/v0.2.0'));
+const Changelog = dynamic(import('../ChangeLog/v0.3.0'));
 
 // export interface ImprintProps {}
 

@@ -3,15 +3,18 @@ import classNames from 'classnames';
 import type { Event } from '../../../types';
 import { ActiveLivers } from '../ActiveLivers';
 import { Clock } from '../Clock';
+import { SearchButton } from '../SearchButton';
 import { UpcomingEvents } from '../UpcomingEvents';
 
 export interface SkyscraperProps {
+  readonly events?: readonly Event[];
+  readonly loading?: boolean;
   readonly pinnedEventId?: number;
   readonly upcomingEvents?: readonly Event[];
 }
 
 export const Skyscraper = (props: SkyscraperProps): JSX.Element => {
-  const { upcomingEvents, pinnedEventId } = props;
+  const { events, loading, upcomingEvents, pinnedEventId } = props;
 
   return (
     <aside
@@ -36,6 +39,10 @@ export const Skyscraper = (props: SkyscraperProps): JSX.Element => {
           現在時刻
         </h2>
         <Clock />
+      </section>
+
+      <section aria-label="検索">
+        <SearchButton events={events} loading={loading} />
       </section>
 
       <section aria-label="配信中のライバー一覧">

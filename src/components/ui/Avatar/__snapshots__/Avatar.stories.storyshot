@@ -2,101 +2,860 @@
 
 exports[`Storyshots Avatar Default 1`] = `
 <div
-  className="h-10 w-10 overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 border border-coolGray-300 dark:border-trueGray-700"
+  className="h-10 w-10 relative overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 border border-coolGray-300 dark:border-trueGray-700"
 >
-  <img
-    alt="avatar"
-    src="https://source.unsplash.com/random"
-  />
+  <div>
+    <div
+      style={
+        Object {
+          "bottom": 0,
+          "boxSizing": "border-box",
+          "display": "block",
+          "left": 0,
+          "margin": 0,
+          "overflow": "hidden",
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        }
+      }
+    >
+      <img
+        alt="avatar"
+        data-nimg="fill"
+        decoding="async"
+        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        style={
+          Object {
+            "border": "none",
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "height": 0,
+            "left": 0,
+            "margin": "auto",
+            "maxHeight": "100%",
+            "maxWidth": "100%",
+            "minHeight": "100%",
+            "minWidth": "100%",
+            "objectFit": "cover",
+            "objectPosition": undefined,
+            "padding": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "width": 0,
+          }
+        }
+      />
+      <noscript>
+        <img
+          alt="avatar"
+          data-nimg="fill"
+          decoding="async"
+          loading="lazy"
+          sizes="100vw"
+          src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75"
+          srcSet="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75 3840w"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": "cover",
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+      </noscript>
+    </div>
+  </div>
 </div>
 `;
 
 exports[`Storyshots Avatar Duo 1`] = `
 <div
-  className="h-10 w-10 overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 border border-coolGray-300 dark:border-trueGray-700"
+  className="h-10 w-10 relative overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 border border-coolGray-300 dark:border-trueGray-700"
 >
   <div
     aria-label="avatar"
     className="flex h-full w-full"
     role="img"
   >
-    <img
-      alt=""
-      className="-translate-x-1/2 w-1/2 h-full object-cover"
-      src="https://source.unsplash.com/random"
-    />
-    <img
-      alt=""
-      className="translate-x-1/2 w-1/2 h-full object-cover"
-      src="https://source.unsplash.com/random"
-    />
+    <div
+      className="relative -translate-x-1/2 w-1/2 h-full"
+    >
+      <div
+        style={
+          Object {
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "left": 0,
+            "margin": 0,
+            "overflow": "hidden",
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      >
+        <img
+          alt=""
+          data-nimg="fill"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": "cover",
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+        <noscript>
+          <img
+            alt=""
+            data-nimg="fill"
+            decoding="async"
+            loading="lazy"
+            sizes="100vw"
+            src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75 3840w"
+            style={
+              Object {
+                "border": "none",
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "height": 0,
+                "left": 0,
+                "margin": "auto",
+                "maxHeight": "100%",
+                "maxWidth": "100%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "objectFit": "cover",
+                "objectPosition": undefined,
+                "padding": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "width": 0,
+              }
+            }
+          />
+        </noscript>
+      </div>
+    </div>
+    <div
+      className="relative translate-x-1/2 w-1/2 h-full"
+    >
+      <div
+        style={
+          Object {
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "left": 0,
+            "margin": 0,
+            "overflow": "hidden",
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      >
+        <img
+          alt=""
+          data-nimg="fill"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": "cover",
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+        <noscript>
+          <img
+            alt=""
+            data-nimg="fill"
+            decoding="async"
+            loading="lazy"
+            sizes="100vw"
+            src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75 3840w"
+            style={
+              Object {
+                "border": "none",
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "height": 0,
+                "left": 0,
+                "margin": "auto",
+                "maxHeight": "100%",
+                "maxWidth": "100%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "objectFit": "cover",
+                "objectPosition": undefined,
+                "padding": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "width": 0,
+              }
+            }
+          />
+        </noscript>
+      </div>
+    </div>
   </div>
 </div>
 `;
 
 exports[`Storyshots Avatar Pending 1`] = `
 <div
-  className="h-10 w-10 overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 animate-pulse"
+  className="h-10 w-10 relative overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 animate-pulse"
 />
 `;
 
 exports[`Storyshots Avatar Quartet 1`] = `
 <div
-  className="h-10 w-10 overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 border border-coolGray-300 dark:border-trueGray-700"
+  className="h-10 w-10 relative overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 border border-coolGray-300 dark:border-trueGray-700"
 >
   <div
     aria-label="avatar"
     className="flex w-full h-full flex-wrap"
     role="img"
   >
-    <img
-      alt=""
-      className="w-1/2 h-1/2 object-cover"
-      src="https://source.unsplash.com/random"
-    />
-    <img
-      alt=""
-      className="translate-y-1/2 w-1/2 h-1/2 object-cover"
-      src="https://source.unsplash.com/random"
-    />
-    <img
-      alt=""
-      className="-translate-x-1/2 translate-y-1/2 w-1/2 h-1/2 object-cover"
-      src="https://source.unsplash.com/random"
-    />
-    <img
-      alt=""
-      className="translate-x-1/2 translate-y-1/2 w-1/2 h-1/2 object-cover"
-      src="https://source.unsplash.com/random"
-    />
+    <div
+      className="relative w-1/2 h-1/2"
+    >
+      <div
+        style={
+          Object {
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "left": 0,
+            "margin": 0,
+            "overflow": "hidden",
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      >
+        <img
+          alt=""
+          data-nimg="fill"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": "cover",
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+        <noscript>
+          <img
+            alt=""
+            data-nimg="fill"
+            decoding="async"
+            loading="lazy"
+            sizes="100vw"
+            src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75 3840w"
+            style={
+              Object {
+                "border": "none",
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "height": 0,
+                "left": 0,
+                "margin": "auto",
+                "maxHeight": "100%",
+                "maxWidth": "100%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "objectFit": "cover",
+                "objectPosition": undefined,
+                "padding": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "width": 0,
+              }
+            }
+          />
+        </noscript>
+      </div>
+    </div>
+    <div
+      className="relative translate-y-1/2 w-1/2 h-1/2"
+    >
+      <div
+        style={
+          Object {
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "left": 0,
+            "margin": 0,
+            "overflow": "hidden",
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      >
+        <img
+          alt=""
+          data-nimg="fill"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": "cover",
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+        <noscript>
+          <img
+            alt=""
+            data-nimg="fill"
+            decoding="async"
+            loading="lazy"
+            sizes="100vw"
+            src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75 3840w"
+            style={
+              Object {
+                "border": "none",
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "height": 0,
+                "left": 0,
+                "margin": "auto",
+                "maxHeight": "100%",
+                "maxWidth": "100%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "objectFit": "cover",
+                "objectPosition": undefined,
+                "padding": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "width": 0,
+              }
+            }
+          />
+        </noscript>
+      </div>
+    </div>
+    <div
+      className="relative -translate-x-1/2 translate-y-1/2 w-1/2 h-1/2"
+    >
+      <div
+        style={
+          Object {
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "left": 0,
+            "margin": 0,
+            "overflow": "hidden",
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      >
+        <img
+          alt=""
+          data-nimg="fill"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": "cover",
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+        <noscript>
+          <img
+            alt=""
+            data-nimg="fill"
+            decoding="async"
+            loading="lazy"
+            sizes="100vw"
+            src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75 3840w"
+            style={
+              Object {
+                "border": "none",
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "height": 0,
+                "left": 0,
+                "margin": "auto",
+                "maxHeight": "100%",
+                "maxWidth": "100%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "objectFit": "cover",
+                "objectPosition": undefined,
+                "padding": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "width": 0,
+              }
+            }
+          />
+        </noscript>
+      </div>
+    </div>
+    <div
+      className="relative translate-x-1/2 translate-y-1/2 w-1/2 h-1/2"
+    >
+      <div
+        style={
+          Object {
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "left": 0,
+            "margin": 0,
+            "overflow": "hidden",
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      >
+        <img
+          alt=""
+          data-nimg="fill"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": "cover",
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+        <noscript>
+          <img
+            alt=""
+            data-nimg="fill"
+            decoding="async"
+            loading="lazy"
+            sizes="100vw"
+            src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75 3840w"
+            style={
+              Object {
+                "border": "none",
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "height": 0,
+                "left": 0,
+                "margin": "auto",
+                "maxHeight": "100%",
+                "maxWidth": "100%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "objectFit": "cover",
+                "objectPosition": undefined,
+                "padding": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "width": 0,
+              }
+            }
+          />
+        </noscript>
+      </div>
+    </div>
   </div>
 </div>
 `;
 
 exports[`Storyshots Avatar Trio 1`] = `
 <div
-  className="h-10 w-10 overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 border border-coolGray-300 dark:border-trueGray-700"
+  className="h-10 w-10 relative overflow-hidden rounded-full bg-coolGray-200 dark:bg-trueGray-800 border border-coolGray-300 dark:border-trueGray-700"
 >
   <div
     aria-label="avatar"
     className="flex flex-wrap h-full w-full"
     role="img"
   >
-    <img
-      alt=""
-      className="w-full h-1/2 object-cover"
-      src="https://source.unsplash.com/random"
-    />
-    <img
-      alt=""
-      className="-translate-x-1/2 translate-y-1/2 w-1/2 h-1/2 object-cover"
-      src="https://source.unsplash.com/random"
-    />
-    <img
-      alt=""
-      className="translate-x-1/2 translate-y-1/2 w-1/2 h-1/2 object-cover"
-      src="https://source.unsplash.com/random"
-    />
+    <div
+      className="relative w-full h-1/2"
+    >
+      <div
+        style={
+          Object {
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "left": 0,
+            "margin": 0,
+            "overflow": "hidden",
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      >
+        <img
+          alt=""
+          data-nimg="fill"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": "cover",
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+        <noscript>
+          <img
+            alt=""
+            data-nimg="fill"
+            decoding="async"
+            loading="lazy"
+            sizes="100vw"
+            src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75 3840w"
+            style={
+              Object {
+                "border": "none",
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "height": 0,
+                "left": 0,
+                "margin": "auto",
+                "maxHeight": "100%",
+                "maxWidth": "100%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "objectFit": "cover",
+                "objectPosition": undefined,
+                "padding": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "width": 0,
+              }
+            }
+          />
+        </noscript>
+      </div>
+    </div>
+    <div
+      className="relative -translate-x-1/2 translate-y-1/2 w-1/2 h-1/2"
+    >
+      <div
+        style={
+          Object {
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "left": 0,
+            "margin": 0,
+            "overflow": "hidden",
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      >
+        <img
+          alt=""
+          data-nimg="fill"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": "cover",
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+        <noscript>
+          <img
+            alt=""
+            data-nimg="fill"
+            decoding="async"
+            loading="lazy"
+            sizes="100vw"
+            src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75 3840w"
+            style={
+              Object {
+                "border": "none",
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "height": 0,
+                "left": 0,
+                "margin": "auto",
+                "maxHeight": "100%",
+                "maxWidth": "100%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "objectFit": "cover",
+                "objectPosition": undefined,
+                "padding": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "width": 0,
+              }
+            }
+          />
+        </noscript>
+      </div>
+    </div>
+    <div
+      className="relative translate-x-1/2 translate-y-1/2 w-1/2 h-1/2"
+    >
+      <div
+        style={
+          Object {
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "left": 0,
+            "margin": 0,
+            "overflow": "hidden",
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      >
+        <img
+          alt=""
+          data-nimg="fill"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": "cover",
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+        <noscript>
+          <img
+            alt=""
+            data-nimg="fill"
+            decoding="async"
+            loading="lazy"
+            sizes="100vw"
+            src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Frandom&w=3840&q=75 3840w"
+            style={
+              Object {
+                "border": "none",
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "height": 0,
+                "left": 0,
+                "margin": "auto",
+                "maxHeight": "100%",
+                "maxWidth": "100%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "objectFit": "cover",
+                "objectPosition": undefined,
+                "padding": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "width": 0,
+              }
+            }
+          />
+        </noscript>
+      </div>
+    </div>
   </div>
 </div>
 `;

@@ -7,6 +7,7 @@ import packageJSON from '../../../../package.json';
 
 const ZeroOneZero = dynamic(import('./v0.1.0'));
 const ZeroTwoZero = dynamic(import('./v0.2.0'));
+const ZeroThreeZero = dynamic(import('./v0.3.0'));
 
 export const ChangeLog = (/* props: MigrationProps */): JSX.Element | null => {
   const [migration, setMigration] = useState(false);
@@ -33,6 +34,10 @@ export const ChangeLog = (/* props: MigrationProps */): JSX.Element | null => {
 
   if (packageJSON.version === '0.2.0') {
     return <ZeroTwoZero show={migration} onHide={handleComplete} />;
+  }
+
+  if (packageJSON.version === '0.3.0') {
+    return <ZeroThreeZero show={migration} onHide={handleComplete} />;
   }
 
   return null;

@@ -10,6 +10,16 @@ module.exports = withMdxEnhanced(mdxOptions)({
     GA_MEASUREMENT_ID: process.env.GA_MEASUREMENT_ID,
   },
 
+  images: {
+    domains: [
+      'i.ytimg.com',
+      'source.unsplash.com',
+      's3-ap-northeast-1.amazonaws.com',
+      'liver-icons.s3.ap-northeast-1.amazonaws.com',
+      'liver-icons.s3-ap-northeast-1.amazonaws.com',
+    ],
+  },
+
   async redirects() {
     return [
       {
