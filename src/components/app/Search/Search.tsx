@@ -29,6 +29,7 @@ const SearchPure = (props: SearchProps): JSX.Element => {
   const listbox = useRef<HTMLUListElement | null>(null);
   const [active, setActive] = useState<number>(0);
   const [matches, search, lastTerm] = useFuzzySearch(events);
+  const initialized = !(lastTerm == null && matches.length === 0);
 
   useEffect(() => {
     if (show) ref?.focus();
@@ -176,7 +177,7 @@ const SearchPure = (props: SearchProps): JSX.Element => {
             </>
           )}
 
-          {loading ? (
+          {loading || !initialized ? (
             Array.from({ length: 5 }, (_, i) => (
               <Card key={i} variant="wash">
                 <Entry loading layout="horizontal" variant="flat" />
