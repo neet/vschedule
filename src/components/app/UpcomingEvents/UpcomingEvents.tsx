@@ -12,6 +12,12 @@ const Item = (props: {
   const { event, pinned } = props;
 
   const handleClickEvent = (): void => {
+    if (pinned) {
+      gtag('event', 'click_pinned_event', {
+        event_label: event.name,
+      });
+    }
+
     gtag('event', 'click_upcoming_event', {
       event_label: event.name,
     });
