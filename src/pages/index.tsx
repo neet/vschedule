@@ -122,6 +122,7 @@ const Events = (props: EventsProps): JSX.Element => {
           <Skyscraper
             events={events}
             loading={loading}
+            pinnedEventId={54458}
             upcomingEvents={upcomingEvents}
           />
         </div>
