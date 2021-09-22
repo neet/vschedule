@@ -73,10 +73,16 @@ const SearchPure = (props: SearchProps): JSX.Element => {
       const COMPOSING = 229;
       if (e.key === 'Enter' && e.which !== COMPOSING) {
         e.preventDefault();
+
+        // onChangeで送ると重複するため
+        gtag('event', 'search', {
+          event_label: ref?.value,
+        });
+
         window.open(matches[active].url, '_blank');
       }
     },
-    [active, matches],
+    [active, matches, ref],
   );
 
   return (
