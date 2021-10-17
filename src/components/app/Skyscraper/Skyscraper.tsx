@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 
 import type { Event } from '../../../types';
+import { isWindows } from '../../../utils/isWindows';
 import { ActiveLivers } from '../ActiveLivers';
 import { Clock } from '../Clock';
 import { SearchButton } from '../SearchButton';
@@ -29,6 +30,14 @@ export const Skyscraper = (props: SkyscraperProps): JSX.Element => {
         'md:block',
         'md:w-60',
         'lg:w-72',
+        isWindows() && [
+          'scrollbar-thin',
+          'scrollbar-thumb-rounded-md',
+          'scrollbar-thumb-trueGray-200',
+          'scrollbar-track-trueGray-100',
+          'dark:scrollbar-thumb-trueGray-700',
+          'dark:scrollbar-track-trueGray-800',
+        ],
       )}
     >
       <section

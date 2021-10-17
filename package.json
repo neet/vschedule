@@ -38,6 +38,7 @@
     "react-use": "^17.3.1",
     "swr": "^1.0.1",
     "tailwindcss": "^2.2.16",
+    "tailwind-scrollbar": "^1.3.1",
     "tailwindcss-truncate-multiline": "^1.0.3",
     "throttle-debounce": "^3.0.1",
     "typescript": "^4.3.5"

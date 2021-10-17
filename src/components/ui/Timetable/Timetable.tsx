@@ -6,6 +6,7 @@ import type { ReactNode } from 'react';
 import { useEffect, useLayoutEffect } from 'react';
 import { useScroll } from 'react-use';
 
+import { isWindows } from '../../../utils/isWindows';
 import { Empty } from './Empty';
 import { Loading } from './Loading';
 import { MinuteHand } from './MinuteHand';
@@ -96,6 +97,14 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
           'h-full',
           'overflow-scroll',
           'select-none',
+          isWindows() && [
+            'scrollbar-thin',
+            'scrollbar-thumb-rounded-md',
+            'scrollbar-thumb-trueGray-200',
+            'scrollbar-track-trueGray-100',
+            'dark:scrollbar-thumb-trueGray-700',
+            'dark:scrollbar-track-trueGray-800',
+          ],
         )}
         role="group"
         aria-label="タイムテーブル"

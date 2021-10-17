@@ -28,8 +28,13 @@ module.exports = {
     },
   },
 
+  variants: {
+    scrollbar: ['dark', 'rounded'],
+  },
+
   plugins: [
     require('@tailwindcss/aspect-ratio'),
     require('tailwindcss-truncate-multiline')(),
+    require('tailwind-scrollbar'),
   ],
 };
