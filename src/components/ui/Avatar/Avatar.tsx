@@ -1,7 +1,5 @@
 import classNames from 'classnames';
-import type { CSSProperties } from 'react';
 
-import type { AvatarGroupProps } from './AvatarGroup';
 import { AvatarGroup } from './AvatarGroup';
 
 type Variant = 'flat' | 'minimal';
@@ -21,22 +19,24 @@ const mapSize = (size: Size): string => {
 const avatarClass = (size: Size): string =>
   classNames(
     mapSize(size),
-    'relative',
     'overflow-hidden',
     'rounded-full',
     'bg-coolGray-200',
     'dark:bg-trueGray-800',
   );
 
-export type AvatarProps = AvatarGroupProps & {
+export type AvatarProps = Readonly<
+  Omit<JSX.IntrinsicElements['img'], 'src'>
+> & {
+  readonly src?: string | readonly string[];
+  readonly alt?: string;
   readonly size: Size;
   readonly variant: Variant;
   readonly pending: boolean;
-  readonly style?: Readonly<CSSProperties>;
 };
 
 export const Avatar = (props: AvatarProps): JSX.Element => {
-  const { src, alt, variant, size, className, style, pending, ...rest } = props;
+  const { src, alt, variant, size, className, pending, ...rest } = props;
 
   if (pending) {
     return (
@@ -57,7 +57,6 @@ export const Avatar = (props: AvatarProps): JSX.Element => {
         ],
         className,
       )}
-      style={style}
     >
       <AvatarGroup src={src} alt={alt} {...rest} />
     </div>
