@@ -62,7 +62,7 @@
     "@types/jest": "^26.0.23",
     "@types/mdx-js__react": "^1.5.5",
     "@types/mousetrap": "^1.6.8",
-    "@types/react": "^17.0.26",
+    "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.9",
     "@types/throttle-debounce": "^2.1.0",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
