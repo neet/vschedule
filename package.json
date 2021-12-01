@@ -49,7 +49,7 @@
     "@storybook/addon-links": "^6.4.3",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addon-storyshots": "^6.3.9",
-    "@storybook/cli": "^6.3.2",
+    "@storybook/cli": "^6.4.3",
     "@storybook/preset-typescript": "^3.0.0",
     "@storybook/react": "^6.3.2",
     "@storybook/theming": "^6.3.2",
