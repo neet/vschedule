@@ -8,7 +8,7 @@ export const Clock = (): JSX.Element => {
     <Card variant="wash">
       <div className="flex items-center justify-between">
         <time
-          className="text-coolGray-700 dark:text-trueGray-300 font-semibold text-4xl tabular-nums"
+          className="text-gray-700 dark:text-neutral-300 font-semibold text-4xl tabular-nums"
           dateTime={now.toISOString()}
           aria-live="polite"
           aria-label={now.format('HH:mm')}

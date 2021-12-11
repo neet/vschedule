@@ -27,16 +27,16 @@ const Inner = (): JSX.Element => {
         'p-4',
         'w-4/5',
         'h-full',
-        'text-coolGray-900',
-        'bg-coolGray-100',
-        'dark:bg-trueGray-900',
-        'dark:text-trueGray-50',
+        'text-gray-900',
+        'bg-gray-100',
+        'dark:bg-neutral-900',
+        'dark:text-neutral-50',
         'xl:p-2',
         'xl:w-full',
         'pointer-events-auto',
       )}
     >
-      <nav aria-label="主要なページ" className="flex-grow">
+      <nav aria-label="主要なページ" className="grow">
         <ul className="space-y-2 my-8">
           <li>
             <Item

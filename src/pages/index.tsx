@@ -104,7 +104,7 @@ const Events = (props: EventsProps): JSX.Element => {
             'md:space-x-4',
           )}
         >
-          <div className="flex flex-col flex-grow space-y-2 md:space-y-4">
+          <div className="flex flex-col grow space-y-2 md:space-y-4">
             <Crown
               genre={genre}
               loading={loading}

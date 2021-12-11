@@ -27,8 +27,8 @@ export const MinuteHand = (): JSX.Element => {
       <time
         dateTime={focusedAt.toISOString()}
         className={classNames(
-          'flex-grow-0',
-          'flex-shrink-0',
+          'grow-0',
+          'shrink-0',
           'py-1',
           'px-2.5',
           'rounded-full',
@@ -49,8 +49,8 @@ export const MinuteHand = (): JSX.Element => {
       <div
         className={classNames(
           'w-0',
-          'flex-grow',
-          'flex-shrink',
+          'grow',
+          'shrink',
           'border-primary-600',
           'dark:border-primary-400',
           'border-r',

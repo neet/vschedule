@@ -14,10 +14,10 @@ export const Keyboard = (props: KeyboardProps): JSX.Element => {
         'text-xs',
         'p-1.5',
         'border',
-        'text-coolGray-500',
-        'dark:text-trueGray-500',
-        'border-coolGray-300',
-        'dark:border-trueGray-700',
+        'text-gray-500',
+        'dark:text-neutral-500',
+        'border-gray-300',
+        'dark:border-neutral-700',
         'rounded',
       )}
     >

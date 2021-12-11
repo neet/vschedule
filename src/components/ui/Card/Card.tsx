@@ -29,13 +29,13 @@ const mapVariant = (variant: Variant): string => {
         'bg-white',
         'border',
         'dark:bg-black',
-        'dark:border-trueGray-800',
+        'dark:border-neutral-800',
         'shadow-lg',
       );
     case 'primary':
       return classNames('bg-primary-50', 'dark:bg-primary-900');
     case 'wash':
-      return classNames('bg-coolGray-100', 'dark:bg-trueGray-900');
+      return classNames('bg-gray-100', 'dark:bg-neutral-900');
   }
 };
 
@@ -49,8 +49,8 @@ export const Card = (props: CardProps): JSX.Element => {
         mapVariant(variant),
         'box-border',
         'rounded-md',
-        'text-coolGray-900',
-        'dark:text-trueGray-100',
+        'text-gray-900',
+        'dark:text-neutral-100',
         className,
       )}
     >

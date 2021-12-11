@@ -28,8 +28,8 @@ export const Imprint = (/* props: ImprintProps */): JSX.Element => {
             'flex-wrap',
             'text-sm',
             'mb-4',
-            'text-coolGray-600',
-            'dark:text-trueGray-400',
+            'text-gray-600',
+            'dark:text-neutral-400',
           )}
         >
           <li>
@@ -92,10 +92,10 @@ export const Imprint = (/* props: ImprintProps */): JSX.Element => {
           className={classNames(
             'block',
             'box-border',
-            'bg-coolGray-200',
-            'dark:bg-trueGray-800',
-            'text-coolGray-700',
-            'dark:text-trueGray-400',
+            'bg-gray-200',
+            'dark:bg-neutral-800',
+            'text-gray-700',
+            'dark:text-neutral-400',
             'p-2',
             'text-sm',
             'rounded',

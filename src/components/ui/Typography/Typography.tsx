@@ -34,8 +34,8 @@ const weights = {
 export type Weight = keyof typeof weights;
 
 const variants = {
-  normal: 'text-coolGray-900 dark:text-trueGray-100',
-  wash: 'text-coolGray-600 dark:text-trueGray-400',
+  normal: 'text-gray-900 dark:text-neutral-100',
+  wash: 'text-gray-600 dark:text-neutral-400',
 };
 
 export type Variant = keyof typeof variants;

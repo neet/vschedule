@@ -22,7 +22,7 @@ export const Skyscraper = (props: SkyscraperProps): JSX.Element => {
       aria-label="サイドバー"
       className={classNames(
         'relative',
-        'flex-shrink-0',
+        'shrink-0',
         'overflow-y-scroll',
         'overflow-x-hidden',
         'space-y-4',
@@ -33,10 +33,10 @@ export const Skyscraper = (props: SkyscraperProps): JSX.Element => {
         isWindows() && [
           'scrollbar-thin',
           'scrollbar-thumb-rounded-md',
-          'scrollbar-thumb-trueGray-200',
-          'scrollbar-track-trueGray-100',
-          'dark:scrollbar-thumb-trueGray-700',
-          'dark:scrollbar-track-trueGray-800',
+          'scrollbar-thumb-neutral-200',
+          'scrollbar-track-neutral-100',
+          'dark:scrollbar-thumb-neutral-700',
+          'dark:scrollbar-track-neutral-800',
         ],
       )}
     >

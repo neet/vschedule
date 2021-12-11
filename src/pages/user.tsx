@@ -25,7 +25,7 @@ const User = (): JSX.Element => {
       <Typography.H1>設定</Typography.H1>
 
       <div className="flex space-x-5 items-center">
-        <div className="flex-grow">
+        <div className="grow">
           <Typography.H4>ホイールで横スクロール（実験中）</Typography.H4>
           <Typography.Paragraph>
             タイムテーブル上のマウスホイールのX軸とY軸を入れ替え、Shiftを押さなくても横スクロールが行えるようになります。
@@ -35,14 +35,14 @@ const User = (): JSX.Element => {
 
         <Switch
           value={swapDelta}
-          className="flex-shrink-0 mt-2"
+          className="shrink-0 mt-2"
           onChange={setSwapDelta}
           aria-label={swapDelta ? '無効化する' : '有効化する'}
         />
       </div>
 
       <div className="flex space-x-5 items-center">
-        <div className="flex-grow">
+        <div className="grow">
           <Typography.H4>自動再生</Typography.H4>
           <Typography.Paragraph>
             YouTubeの埋め込み動画などをホバーした際の自動再生を有効化します。
@@ -51,7 +51,7 @@ const User = (): JSX.Element => {
 
         <Switch
           value={autoplayEnabled}
-          className="flex-shrink-0 mt-2"
+          className="shrink-0 mt-2"
           onChange={setAutoplay}
           aria-label={autoplayEnabled ? '無効化する' : '有効化する'}
         />

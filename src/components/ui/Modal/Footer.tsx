@@ -19,8 +19,8 @@ export const Footer = forwardRef<HTMLDivElement, FooterProps>((props, ref) => {
         'py-2.5',
         'px-4',
         'space-x-2',
-        'bg-coolGray-100',
-        'dark:bg-trueGray-900',
+        'bg-gray-100',
+        'dark:bg-neutral-900',
         className,
       )}
     >

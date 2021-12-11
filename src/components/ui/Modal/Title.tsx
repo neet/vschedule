@@ -29,8 +29,8 @@ export const Title = forwardRef<HTMLElement, TitleProps>((props, ref) => {
         'py-2',
         'box-border',
         'border-b',
-        'border-coolGray-200',
-        'dark:border-trueGray-800',
+        'border-gray-200',
+        'dark:border-neutral-800',
         className,
       )}
     >
@@ -38,7 +38,7 @@ export const Title = forwardRef<HTMLElement, TitleProps>((props, ref) => {
         as="h2"
         weight="semibold"
         size="lg"
-        className="flex-grow"
+        className="grow"
         {...rest}
       >
         {children}

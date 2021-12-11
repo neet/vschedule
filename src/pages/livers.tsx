@@ -42,7 +42,7 @@ const Livers = (props: LiversProps): JSX.Element => {
       </Typography.Paragraph>
 
       {livers != null ? (
-        <ul className="my-8 divide-y divide-coolGray-200 dark:divide-trueGray-800">
+        <ul className="my-8 divide-y divide-gray-200 dark:divide-neutral-800">
           {livers.map((liverRel) => (
             <li key={liverRel.liver.id} className="py-2">
               <Liver

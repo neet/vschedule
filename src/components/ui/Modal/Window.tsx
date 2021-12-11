@@ -24,7 +24,7 @@ const WindowPure = forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
         'bg-white',
         'dark:bg-black',
         'border',
-        'dark:border-trueGray-800',
+        'dark:border-neutral-800',
         'md:max-w-screen-sm',
         className,
       )}

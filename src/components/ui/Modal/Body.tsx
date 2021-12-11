@@ -15,8 +15,8 @@ export const Body = forwardRef<HTMLDivElement, BodyProps>((props, ref) => {
       className={classNames(
         'px-4',
         'py-2',
-        'text-coolGray-800',
-        'dark:text-trueGray-200',
+        'text-gray-800',
+        'dark:text-neutral-200',
       )}
     >
       {children}

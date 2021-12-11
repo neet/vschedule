@@ -38,7 +38,7 @@ export const Alert = (): JSX.Element | null => {
         'dark:text-primary-200',
       )}
     >
-      <p className={classNames('flex-grow')}>
+      <p className={classNames('grow')}>
         <FontAwesomeIcon icon={faExclamationCircle} />
         「いつから.link」の障害による影響で最新データの反映が行われていない可能性があります。{' '}
         <Link>

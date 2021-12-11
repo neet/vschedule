@@ -22,8 +22,8 @@ const thumbnailClass = (layout: EntryLayout): string =>
     'rounded',
     'aspect-w-16',
     'aspect-h-9',
-    'bg-coolGray-200',
-    'dark:bg-trueGray-800',
+    'bg-gray-200',
+    'dark:bg-neutral-800',
     'overflow-hidden',
   );
 
@@ -41,14 +41,14 @@ const LoadingEntry = (props: LoadingEntryProps): JSX.Element => {
         layout === 'horizontal' && ['flex', 'space-x-4', 'items-center'],
       )}
     >
-      <div className="flex-grow-0 flex-shrink-0">
+      <div className="grow-0 shrink-0">
         <div className={thumbnailClass(layout)} />
       </div>
 
       <div className="flex-1">
-        <div className="h-5 w-2/3 my-1 bg-coolGray-200 dark:bg-trueGray-800 rounded" />
-        <div className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800 rounded" />
-        <div className="h-3 w-full mb-1 bg-coolGray-200 dark:bg-trueGray-800 rounded" />
+        <div className="h-5 w-2/3 my-1 bg-gray-200 dark:bg-neutral-800 rounded" />
+        <div className="h-3 w-full mb-1 bg-gray-200 dark:bg-neutral-800 rounded" />
+        <div className="h-3 w-full mb-1 bg-gray-200 dark:bg-neutral-800 rounded" />
       </div>
     </div>
   );
@@ -121,9 +121,9 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
         <div
           className={classNames(
             thumbnailClass(layout),
-            variant === 'shade' && 'shadow border dark:border-trueGray-700',
+            variant === 'shade' && 'shadow border dark:border-neutral-700',
             variant === 'flat' &&
-              'border border-coolGray-200 dark:border-trueGray-700',
+              'border border-gray-200 dark:border-neutral-700',
           )}
         >
           {showEmbed ? (
@@ -161,17 +161,13 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
             'dark:group-hover:text-primary-400',
             'ease-out',
             'transition-colors',
-            'truncate-2-lines',
+            'line-clamp-2',
           )}
         >
           {title}
         </Typography>
 
-        <Typography
-          as="p"
-          variant="wash"
-          className="truncate-2-lines break-all"
-        >
+        <Typography as="p" variant="wash" className="line-clamp-2 break-all">
           {description}
         </Typography>
 

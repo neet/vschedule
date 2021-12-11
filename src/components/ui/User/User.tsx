@@ -19,13 +19,13 @@ const LoadingUser = (props: LoadingUserProps): JSX.Element => {
 
   return (
     <div className="flex py-2">
-      <div className="mr-4 flex-shrink-0">
+      <div className="mr-4 shrink-0">
         <Avatar pending size={size} />
       </div>
 
-      <div className="flex-grow">
-        <div className="rounded animate-pulse h-4 my-1 w-2/3 bg-coolGray-200 dark:bg-trueGray-800" />
-        <div className="rounded animate-pulse h-3 w-full bg-coolGray-200 dark:bg-trueGray-800" />
+      <div className="grow">
+        <div className="rounded animate-pulse h-4 my-1 w-2/3 bg-gray-200 dark:bg-neutral-800" />
+        <div className="rounded animate-pulse h-3 w-full bg-gray-200 dark:bg-neutral-800" />
       </div>
     </div>
   );
@@ -67,7 +67,7 @@ const ReadyUser = (props: ReadyUserProps): JSX.Element => {
         )}
         {...rest}
       >
-        <div className="flex-grow order-2">
+        <div className="grow order-2">
           <Typography
             weight="semibold"
             className={classNames(
@@ -96,7 +96,7 @@ const ReadyUser = (props: ReadyUserProps): JSX.Element => {
             'transition-opacity',
             'duration-75',
             'group-hover:opacity-75',
-            'flex-shrink-0',
+            'shrink-0',
           )}
         >
           <Avatar size={size} src={avatar} alt={name} />

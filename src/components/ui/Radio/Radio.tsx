@@ -41,7 +41,7 @@ const RadioItem = (props: RadioItemProps): JSX.Element => {
       variant={checked ? 'secondary' : 'wash'}
       shape="circle"
       size="sm"
-      className="flex-shrink-0"
+      className="shrink-0"
     >
       {label}
 

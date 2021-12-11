@@ -1,9 +1,19 @@
----
-title: Refined Itsukara.link とは
-description: この web サイトはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。
-layout: Article
----
+import Head from 'next/head';
+import Article from '../layouts/Article.tsx';
 
 # Refined Itsukara.link とは
 
 この web サイトはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。当サイトはいちから株式会社並びににじさんじとは一切の関係がありません。
+
+export default (props) => (
+  <>
+    <Head>
+      <title>Refined Itsukara.link とは | Refined Itsukara.link</title>
+      <meta
+        name="description"
+        content="この web サイトはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。"
+      />
+    </Head>
+    <Article {...props} />
+  </>
+);

@@ -44,19 +44,19 @@ const mapVariant = (variant: Variant): string => {
       );
     case 'wash':
       return classNames(
-        'text-coolGray-700',
-        'bg-coolGray-100',
-        'hover:bg-coolGray-200',
-        'disabled:bg-coolGray-200',
-        'active:bg-coolGray-300',
-        'dark:text-trueGray-300',
-        'dark:bg-trueGray-900',
-        'dark:hover:bg-trueGray-800',
-        'dark:disabled:bg-trueGray-800',
-        'dark:active:bg-trueGray-700',
+        'text-gray-700',
+        'bg-gray-100',
+        'hover:bg-gray-200',
+        'disabled:bg-gray-200',
+        'active:bg-gray-300',
+        'dark:text-neutral-300',
+        'dark:bg-neutral-900',
+        'dark:hover:bg-neutral-800',
+        'dark:disabled:bg-neutral-800',
+        'dark:active:bg-neutral-700',
       );
     case 'skeleton':
-      return classNames('text-coolGray-700', 'dark:text-trueGray-300');
+      return classNames('text-gray-700', 'dark:text-neutral-300');
   }
 };
 

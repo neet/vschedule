@@ -14,7 +14,7 @@ const Article = forwardRef<HTMLElement, ArticleProps>(
 
     return (
       <AppContainer>
-        <main id="main" ref={ref} className={classNames('flex-grow', 'px-3')}>
+        <main id="main" ref={ref} className={classNames('grow', 'px-3')}>
           <div
             className={classNames(
               'mt-8',
