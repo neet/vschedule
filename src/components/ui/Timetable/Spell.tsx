@@ -2,6 +2,7 @@
 import classNames from 'classnames';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
+import { memo } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { Typography } from '../Typography';
@@ -12,7 +13,7 @@ export interface SpellProps {
   readonly size: number;
 }
 
-export const Spell = (props: SpellProps): JSX.Element => {
+const SpellPure = (props: SpellProps): JSX.Element => {
   const { date, size } = props;
 
   const {
@@ -105,3 +106,5 @@ export const Spell = (props: SpellProps): JSX.Element => {
     </h4>
   );
 };
+
+export const Spell = memo(SpellPure);

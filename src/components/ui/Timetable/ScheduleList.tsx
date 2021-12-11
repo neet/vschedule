@@ -4,18 +4,13 @@ import { Fragment, memo, useMemo } from 'react';
 
 import { inRange } from '../../../utils/inRange';
 import { isOverlapping } from '../../../utils/overlap';
+import type { OrderedSchedule, Schedule, Segment } from './models';
 import { Spell } from './Spell';
 import { TableData } from './TableData';
-import type { Schedule } from './Timetable';
 import { useTimetable } from './useTimetable';
 
 export interface ScheduleListProps {
   readonly schedules: readonly Schedule[];
-}
-
-interface OrderedSchedule {
-  readonly schedule: Schedule;
-  readonly row: number;
 }
 
 // let A = schedule[]
@@ -62,11 +57,6 @@ const createDateSequence = (
     return basis.add(i * interval, 'minute');
   });
 };
-
-interface Segment {
-  readonly date: Readonly<Dayjs>;
-  readonly schedules: readonly OrderedSchedule[];
-}
 
 // 垂直方向にチャンクにするイメージ。
 const chunkByInterval = (

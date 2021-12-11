@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 
+import { Triangle } from './Triangle';
 import { useTimetable } from './useTimetable';
 
 export const MinuteHand = (): JSX.Element => {
@@ -27,23 +28,41 @@ export const MinuteHand = (): JSX.Element => {
       <time
         dateTime={focusedAt.toISOString()}
         className={classNames(
+          'relative',
           'grow-0',
           'shrink-0',
-          'py-1',
+          'py-2',
           'px-2.5',
           'rounded-full',
-          'text-sm',
-          'font-semibold',
-          'tabular-nums',
+          'shadow-lg',
           'text-white',
           'bg-primary-500',
           'dark:bg-primary-400',
-          'border-b-2',
-          'border-primary-700',
-          'dark:border-primary-600',
         )}
       >
-        {focusedAt.format('HH:mm')}
+        <span
+          className={classNames(
+            'block',
+            'my-auto',
+            'text-sm',
+            'font-semibold',
+            'tabular-nums',
+            'leading-none',
+          )}
+        >
+          {focusedAt.format('HH:mm')}
+        </span>
+
+        <div
+          className={classNames(
+            'absolute',
+            '-bottom-[11px]',
+            'left-0',
+            'right-0',
+          )}
+        >
+          <Triangle className="fill-primary-500 dark:fill-primary-400 mx-auto" />
+        </div>
       </time>
 
       <div
@@ -51,8 +70,8 @@ export const MinuteHand = (): JSX.Element => {
           'w-0',
           'grow',
           'shrink',
-          'border-primary-600',
-          'dark:border-primary-400',
+          'border-primary-400',
+          'dark:border-primary-700',
           'border-r',
         )}
       />
