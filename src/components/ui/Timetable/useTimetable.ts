@@ -68,10 +68,19 @@ const getWidth =
     return (ms / SECOND / MINUTE) * scale;
   };
 
+export const getDateFromX =
+  (ctx: TimetableContext) =>
+  (x: number): Dayjs => {
+    const { startAt, scale } = ctx;
+    const diff = x / scale;
+    return startAt.clone().add(diff, 'minute');
+  };
+
 export interface UseTimetableResponse extends TimetableContext {
   readonly getItemX: (date: Readonly<Dayjs>) => number;
   readonly getItemY: (row: number) => number;
   readonly getWidth: (ms: number) => number;
+  readonly getDateFromX: (x: number) => Readonly<Dayjs>;
   readonly setFocusedAt: (
     date: Readonly<Dayjs>,
     params?: SetFocusedAtParam,
@@ -86,6 +95,7 @@ export const useTimetable = (): UseTimetableResponse => {
     getItemX: getItemX(ctx),
     getItemY: getItemY(ctx),
     getWidth: getWidth(ctx),
+    getDateFromX: getDateFromX(ctx),
     setFocusedAt: setFocusedAt(ctx),
   };
 };

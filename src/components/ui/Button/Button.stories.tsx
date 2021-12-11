@@ -70,3 +70,9 @@ export const CircleWithTinyLetter = {
     children: 'a',
   },
 };
+
+export const Vertial = {
+  args: {
+    children: <p style={{ writingMode: 'vertical-rl' }}>こんにちは</p>,
+  },
+};

@@ -7,7 +7,7 @@ export interface TimetableContext {
   readonly ref: RefObject<Readonly<HTMLDivElement>>;
 
   readonly interval: number;
-  readonly scale: number; // pixel / interval
+  readonly scale: number; // pixel per minute
   readonly itemHeight: number;
 
   readonly focusedAt: Readonly<Dayjs>;
