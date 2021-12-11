@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import { memo } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import type { Schedule } from './Timetable';
+import type { Schedule } from './models';
 import { useTimetable } from './useTimetable';
 
 export interface ItemProps {
@@ -14,7 +14,7 @@ export interface ItemProps {
  * This is the only layer that knows the exact size of each schedule.
  * children must use "width: 100%" or "height: 100%" to fill this box
  */
-export const TableData = (props: ItemProps): JSX.Element => {
+const TableDataPure = (props: ItemProps): JSX.Element => {
   const { schedule } = props;
   const { getWidth, itemHeight, ref: timetable, interval } = useTimetable();
 
@@ -22,6 +22,7 @@ export const TableData = (props: ItemProps): JSX.Element => {
     root: timetable.current,
     rootMargin: '200px',
     initialInView:
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       Math.abs(schedule.startAt.diff(dayjs(), 'minute')) <= interval * 10,
   });
 
@@ -46,3 +47,5 @@ export const TableData = (props: ItemProps): JSX.Element => {
     </div>
   );
 };
+
+export const TableData = memo(TableDataPure);
