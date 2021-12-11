@@ -49,7 +49,6 @@
     "@storybook/addon-knobs": "^6.4.0",
     "@storybook/addon-links": "^6.4.9",
     "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/addon-storyshots": "^6.4.9",
     "@storybook/cli": "^6.4.9",
     "@storybook/preset-typescript": "^3.0.0",
     "@storybook/react": "^6.4.9",
@@ -95,18 +94,16 @@
         }
       }
     },
+    "testEnvironment": "jsdom",
     "moduleNameMapper": {
       "\\.(css)$": "identity-obj-proxy"
     },
     "collectCoverageFrom": [
-      "**/*.{ts,tsx}",
-      "!**/*.d.ts",
-      "!**/node_modules/**"
+      "src/**/*.{ts,tsx}",
+      "!**/*.d.ts"
     ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/.next/",
-      "/.vercel/"
+    "testMatch": [
+      "<rootDir>/src/**/*.spec.{ts,tsx}"
     ],
     "setupFilesAfterEnv": [
       "<rootDir>/scripts/test-setup.ts"
