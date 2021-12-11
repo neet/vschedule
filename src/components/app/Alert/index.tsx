@@ -8,6 +8,7 @@ import { useLocalStorage } from 'react-use';
 
 import { Button } from '../../ui/Button';
 import { Link } from '../../ui/Link';
+import { Message } from '../../ui/Message';
 
 const INCIDENT_LINK =
   'https://twitter.com/nijisanji_app/status/1355068179337375745';
@@ -23,21 +24,7 @@ export const Alert = (): JSX.Element | null => {
   }
 
   return (
-    <div
-      className={classNames(
-        'flex',
-        'border',
-        'py-2',
-        'px-4',
-        'rounded',
-        'bg-primary-100',
-        'border-primary-500',
-        'text-primary-800',
-        'dark:bg-primary-900',
-        'dark:border-primary-400',
-        'dark:text-primary-200',
-      )}
-    >
+    <Message>
       <p className={classNames('grow')}>
         <FontAwesomeIcon icon={faExclamationCircle} />
         「いつから.link」の障害による影響で最新データの反映が行われていない可能性があります。{' '}
@@ -58,6 +45,6 @@ export const Alert = (): JSX.Element | null => {
           onClick={() => void setHidden(true)}
         />
       </Button>
-    </div>
+    </Message>
   );
 };

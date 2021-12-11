@@ -1,48 +1,72 @@
-import { text } from '@storybook/addon-knobs';
+import type { Meta } from '@storybook/react';
 
 import { Button } from '.';
 
 export default {
-  title: 'Button',
   component: Button,
+  args: {
+    children: 'Button',
+  },
+} as Meta;
+
+export const PrimaryLarge = {
+  args: {
+    size: 'lg',
+  },
 };
 
-export const PrimaryLarge = (): JSX.Element => (
-  <Button size="lg">{text('text', 'hello')}</Button>
-);
+export const PrimaryMedium = {
+  args: {
+    size: 'md',
+  },
+};
 
-export const PrimaryMedium = (): JSX.Element => (
-  <Button>{text('text', 'hello')}</Button>
-);
+export const PrimarySmall = {
+  args: {
+    size: 'sm',
+  },
+};
 
-export const PrimarySmall = (): JSX.Element => (
-  <Button size="sm">{text('text', 'hello')}</Button>
-);
+export const PrimaryDisabled = {
+  args: {
+    size: 'lg',
+    disabled: true,
+  },
+};
 
-export const PrimaryDisabled = (): JSX.Element => (
-  <Button size="lg" disabled>
-    {text('text', 'hello')}
-  </Button>
-);
+export const SecondaryLarge = {
+  args: {
+    size: 'lg',
+    variant: 'secondary',
+    disabled: true,
+  },
+};
 
-export const SecondaryLarge = (): JSX.Element => (
-  <Button variant="secondary">{text('text', 'hello')}</Button>
-);
+export const WashLarge = {
+  args: {
+    size: 'lg',
+    variant: 'wash',
+  },
+};
 
-export const WashLarge = (): JSX.Element => (
-  <Button variant="wash">{text('text', 'hello')}</Button>
-);
+export const Skeleton = {
+  args: {
+    size: 'lg',
+    variant: 'skeleton',
+  },
+};
 
-export const Skeleton = (): JSX.Element => (
-  <Button variant="skeleton">{text('text', 'hello')}</Button>
-);
+export const Circle = {
+  args: {
+    size: 'lg',
+    shape: 'circle',
+  },
+};
 
-export const Circle = (): JSX.Element => (
-  <Button shape="circle">{text('text', 'hello')}</Button>
-);
-
-export const TinyLetter = (): JSX.Element => (
-  <Button shape="circle" size="sm">
-    {text('text', 'a')}
-  </Button>
-);
+export const CircleWithTinyLetter = {
+  args: {
+    size: 'sm',
+    shape: 'circle',
+    children: 'a',
+  },
+};

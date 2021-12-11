@@ -1,47 +1,51 @@
+import type { Meta } from '@storybook/react';
+
+import type { AvatarProps } from './Avatar';
 import { Avatar } from './Avatar';
 
 export default {
-  title: 'Avatar',
   component: Avatar,
+} as Meta;
+
+export const Default = {
+  args: {
+    src: 'https://source.unsplash.com/random',
+  },
+  render: (args: AvatarProps): JSX.Element => <Avatar {...args} alt="avatar" />,
 };
 
-export const Default = (): JSX.Element => (
-  <Avatar src="https://source.unsplash.com/random" alt="avatar" />
-);
+export const Pending = {
+  args: {
+    pending: true,
+  },
+};
 
-export const Pending = (): JSX.Element => (
-  <Avatar src="https://source.unsplash.com/random" alt="avatar" pending />
-);
+export const Duo = {
+  args: {
+    src: [
+      'https://source.unsplash.com/random',
+      'https://source.unsplash.com/random',
+    ],
+  },
+};
 
-export const Duo = (): JSX.Element => (
-  <Avatar
-    src={[
+export const Trio = {
+  args: {
+    src: [
       'https://source.unsplash.com/random',
       'https://source.unsplash.com/random',
-    ]}
-    alt="avatar"
-  />
-);
+      'https://source.unsplash.com/random',
+    ],
+  },
+};
 
-export const Trio = (): JSX.Element => (
-  <Avatar
-    src={[
-      'https://source.unsplash.com/random',
-      'https://source.unsplash.com/random',
-      'https://source.unsplash.com/random',
-    ]}
-    alt="avatar"
-  />
-);
-
-export const Quartet = (): JSX.Element => (
-  <Avatar
-    src={[
+export const Quartet = {
+  args: {
+    src: [
       'https://source.unsplash.com/random',
       'https://source.unsplash.com/random',
       'https://source.unsplash.com/random',
       'https://source.unsplash.com/random',
-    ]}
-    alt="avatar"
-  />
-);
+    ],
+  },
+};

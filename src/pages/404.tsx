@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import Link from 'next/link';
 
+import Article from '../components/layouts/Article';
 import { Link as UILink } from '../components/ui/Link';
 import { Typography } from '../components/ui/Typography';
-import Article from '../layouts/Article';
 
 const NotFound = (): JSX.Element => {
   return (

@@ -7,9 +7,9 @@ import Link from 'next/link';
 
 import { api } from '../api';
 import { useGenres } from '../components/hooks/useGenres';
+import Article from '../components/layouts/Article';
 import { Card } from '../components/ui/Card';
 import { Typography } from '../components/ui/Typography';
-import Article from '../layouts/Article';
 import type { GenresResponse } from '../types';
 
 export interface TagsProps {

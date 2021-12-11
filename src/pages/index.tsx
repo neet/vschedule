@@ -16,9 +16,9 @@ import { useEvents } from '../components/hooks/useEvents';
 import { useGenres } from '../components/hooks/useGenres';
 import { useSwapDelta } from '../components/hooks/useSwapDelta';
 import { useUpcomingEvents } from '../components/hooks/useUpcomingEvents';
+import Single from '../components/layouts/Single';
 import type { TimetableProps } from '../components/ui/Timetable';
 import { TimetableProvider } from '../components/ui/Timetable';
-import Single from '../layouts/Single';
 import type { GenresResponse } from '../types';
 
 const Timetable = dynamic<TimetableProps>(

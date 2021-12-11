@@ -2,9 +2,9 @@ import Head from 'next/head';
 
 import { useAutoplay } from '../components/hooks/useAutoplay';
 import { useSwapDelta } from '../components/hooks/useSwapDelta';
+import Article from '../components/layouts/Article';
 import { Switch } from '../components/ui/Switch';
 import { Typography } from '../components/ui/Typography';
-import Article from '../layouts/Article';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 

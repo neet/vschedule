@@ -1,7 +1,7 @@
 import Head from 'next/head';
 
+import Article from '../../components/layouts/Article';
 import { Typography } from '../../components/ui/Typography';
-import Article from '../../layouts/Article';
 
 const Tags = (): JSX.Element => {
   return (

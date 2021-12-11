@@ -4,8 +4,8 @@ import Head from 'next/head';
 import { api } from '../api';
 import { Liver } from '../components/app/Liver';
 import { useLivers } from '../components/hooks/useLivers';
+import Article from '../components/layouts/Article';
 import { Typography } from '../components/ui/Typography';
-import Article from '../layouts/Article';
 import type { LiversResponse } from '../types';
 
 export interface LiversProps {

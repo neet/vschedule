@@ -1,16 +1,16 @@
 import { actions } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
+import type { Meta } from '@storybook/react';
 
 import { Button } from '../Button';
 import { Modal } from './Modal';
 
 export default {
-  title: 'Modal',
   component: Modal,
-};
+} as Meta;
 
-export const Default = (): JSX.Element => {
-  return (
+export const Default = {
+  render: (): JSX.Element => (
     <Modal.Window>
       <Modal.Title {...actions('onClose')}>
         {text('title', 'Modal')}
@@ -22,5 +22,5 @@ export const Default = (): JSX.Element => {
         <Button>Close</Button>
       </Modal.Footer>
     </Modal.Window>
-  );
+  ),
 };

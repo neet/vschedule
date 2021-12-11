@@ -1,18 +1,23 @@
+import type { Meta } from '@storybook/react';
+
 import { Avatar } from '../Avatar';
 import { Marker } from './Marker';
 
 export default {
-  title: 'Marker',
   component: Marker,
+} as Meta;
+
+export const Default = {
+  args: {
+    backgroundColor: 'black',
+  },
 };
 
-export const Default = (): JSX.Element => (
-  <Marker backgroundColor="black">test</Marker>
-);
-
-export const CombinationOfAvatar = (): JSX.Element => (
-  <Marker backgroundColor="black">
-    <Avatar src="https://source.unsplash.com/random" alt="avatar" />
-    <div>test</div>
-  </Marker>
-);
+export const CombinationOfAvatar = {
+  render: (): JSX.Element => (
+    <Marker backgroundColor="black">
+      <Avatar src="https://source.unsplash.com/random" alt="avatar" />
+      <div>test</div>
+    </Marker>
+  ),
+};
