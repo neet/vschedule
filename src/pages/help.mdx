@@ -1,9 +1,5 @@
----
-title: 使いかた | Refined Itsukara.link
-description: Refined Itsukara.linkの使い方を説明します。チュートリアルをお探しの場合は、もう一度表示することができます。
-layout: Article
----
-
+import Head from 'next/head';
+import Article from '../components/layouts/Article';
 import { TutorialButton } from '../components/app/TutorialButton';
 
 # 使いかた
@@ -27,3 +23,16 @@ Refined Itsukara.link の使い方を説明します。チュートリアルを�
 ## タグ
 
 準備中
+
+export default (props) => (
+  <>
+    <Head>
+      <title>使いかた | Refined Itsukara.link</title>
+      <meta
+        name="description"
+        content="Refined Itsukara.linkの使い方を説明します。チュートリアルをお探しの場合は、もう一度表示することができます。"
+      />
+    </Head>
+    <Article {...props} />
+  </>
+);

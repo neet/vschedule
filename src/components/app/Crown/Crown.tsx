@@ -111,10 +111,10 @@ export const Crown = (props: CrownProps): JSX.Element => {
       >
         <div
           className={classNames(
-            'flex-grow',
-            'flex-shrink-0',
+            'grow',
+            'shrink-0',
             'flex',
-            'flex-grow',
+            'grow',
             'justify-between',
             'lg:justify-start',
             'lg:space-x-4',
@@ -180,7 +180,7 @@ export const Crown = (props: CrownProps): JSX.Element => {
         {genres != null && (
           // スマホはバーガーメニューから使えるのでクラウンに出す必要はないと思う
           <form
-            className="flex-grow flex-shrink hidden xl:block"
+            className="grow shrink hidden xl:block"
             aria-labelledby="crown-tags"
           >
             <h3 id="crown-tags" className="sr-only">

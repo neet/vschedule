@@ -1,9 +1,16 @@
----
-title: 利用規約 | Refined Itsukara.link
-description: このページは準備中です。
-layout: Article
----
+import Head from 'next/head';
+import Article from '../components/layouts/Article';
 
 # 利用規約
 
 このページは準備中です。
+
+export default (props) => (
+  <>
+    <Head>
+      <title>利用規約 | Refined Itsukara.link</title>
+      <meta name="description" content="このページは準備中です。" />
+    </Head>
+    <Article {...props} />
+  </>
+);

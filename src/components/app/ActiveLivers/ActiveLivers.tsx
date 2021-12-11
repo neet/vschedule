@@ -38,7 +38,7 @@ export const ActiveLivers = (props: ActiveLiversProps): JSX.Element => {
           </Typography>
         </Typography>
       ) : (
-        <div className="rounded animate-pulse h-8 my-2 w-2/3 bg-coolGray-200 dark:bg-trueGray-800" />
+        <div className="rounded animate-pulse h-8 my-2 w-2/3 bg-gray-200 dark:bg-neutral-800" />
       )}
 
       <ul
@@ -46,8 +46,8 @@ export const ActiveLivers = (props: ActiveLiversProps): JSX.Element => {
           'space-y-1',
           'mb-2',
           'divide-y',
-          'divide-coolGray-200',
-          'dark:divide-trueGray-800',
+          'divide-gray-200',
+          'dark:divide-neutral-800',
         )}
       >
         {events == null

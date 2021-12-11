@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
-import { Banner } from '../components/app/Banner';
-import { Prose } from '../components/app/Prose';
+import { Banner } from '../app/Banner';
+import { Prose } from '../app/Prose';
 
 interface AppContainerProps {
   readonly children: ReactNode;

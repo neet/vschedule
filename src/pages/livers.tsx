@@ -4,8 +4,8 @@ import Head from 'next/head';
 import { api } from '../api';
 import { Liver } from '../components/app/Liver';
 import { useLivers } from '../components/hooks/useLivers';
+import Article from '../components/layouts/Article';
 import { Typography } from '../components/ui/Typography';
-import Article from '../layouts/Article';
 import type { LiversResponse } from '../types';
 
 export interface LiversProps {
@@ -42,7 +42,7 @@ const Livers = (props: LiversProps): JSX.Element => {
       </Typography.Paragraph>
 
       {livers != null ? (
-        <ul className="my-8 divide-y divide-coolGray-200 dark:divide-trueGray-800">
+        <ul className="my-8 divide-y divide-gray-200 dark:divide-neutral-800">
           {livers.map((liverRel) => (
             <li key={liverRel.liver.id} className="py-2">
               <Liver

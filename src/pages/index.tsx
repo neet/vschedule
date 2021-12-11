@@ -16,9 +16,9 @@ import { useEvents } from '../components/hooks/useEvents';
 import { useGenres } from '../components/hooks/useGenres';
 import { useSwapDelta } from '../components/hooks/useSwapDelta';
 import { useUpcomingEvents } from '../components/hooks/useUpcomingEvents';
+import Single from '../components/layouts/Single';
 import type { TimetableProps } from '../components/ui/Timetable';
 import { TimetableProvider } from '../components/ui/Timetable';
-import Single from '../layouts/Single';
 import type { GenresResponse } from '../types';
 
 const Timetable = dynamic<TimetableProps>(
@@ -104,7 +104,7 @@ const Events = (props: EventsProps): JSX.Element => {
             'md:space-x-4',
           )}
         >
-          <div className="flex flex-col flex-grow space-y-2 md:space-y-4">
+          <div className="flex flex-col grow space-y-2 md:space-y-4">
             <Crown
               genre={genre}
               loading={loading}

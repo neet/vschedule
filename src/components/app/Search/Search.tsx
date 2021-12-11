@@ -109,13 +109,13 @@ const SearchPure = (props: SearchProps): JSX.Element => {
             {loading != null && loading ? (
               <FontAwesomeIcon
                 size="lg"
-                className="animate-spin text-coolGray-500 dark:text-trueGray-500"
+                className="animate-spin text-gray-500 dark:text-neutral-500"
                 icon={faSpinner}
               />
             ) : (
               <FontAwesomeIcon
                 icon={faSearch}
-                className="text-coolGray-500 dark:text-trueGray-500"
+                className="text-gray-500 dark:text-neutral-500"
                 size="lg"
               />
             )}
@@ -146,7 +146,7 @@ const SearchPure = (props: SearchProps): JSX.Element => {
           </div>
         </div>
 
-        <hr className="px-2 border-t border-coolGray-100 dark:border-trueGray-800" />
+        <hr className="px-2 border-t border-gray-100 dark:border-neutral-800" />
 
         <ul
           id="search-listbox"

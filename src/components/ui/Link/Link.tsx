@@ -19,10 +19,10 @@ const mapVariant = (variant: Variant): string => {
       );
     case 'wash':
       return classNames(
-        'text-coolGray-800',
-        'dark:text-trueGray-200',
-        'active:text-coolGray-700',
-        'dark:active:text-trueGray-300',
+        'text-gray-800',
+        'dark:text-neutral-200',
+        'active:text-gray-700',
+        'dark:active:text-neutral-300',
       );
   }
 };

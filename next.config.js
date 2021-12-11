@@ -1,14 +1,11 @@
-const withMdxEnhanced = require('next-mdx-enhanced');
+const withMDX = require('@next/mdx')();
 
-// https://github.com/hashicorp/next-mdx-enhanced
-const mdxOptions = {
-  layoutPath: 'src/layouts',
-};
-
-module.exports = withMdxEnhanced(mdxOptions)({
+module.exports = withMDX({
   env: {
     GA_MEASUREMENT_ID: process.env.GA_MEASUREMENT_ID,
   },
+
+  pageExtensions: ['mdx', 'md', 'jsx', 'js', 'tsx', 'ts'],
 
   images: {
     domains: [

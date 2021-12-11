@@ -73,14 +73,14 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
     <div
       className={classNames(
         'relative',
-        'flex-grow',
+        'grow',
         'w-full',
         'rounded-xl',
         'border',
-        'bg-coolGray-50',
-        'border-coolGray-200',
-        'dark:bg-trueGray-900',
-        'dark:border-trueGray-800',
+        'bg-gray-50',
+        'border-gray-200',
+        'dark:bg-neutral-900',
+        'dark:border-neutral-800',
       )}
     >
       {/*
@@ -100,10 +100,10 @@ export const Timetable = (props: TimetableProps): JSX.Element => {
           isWindows() && [
             'scrollbar-thin',
             'scrollbar-thumb-rounded-md',
-            'scrollbar-thumb-trueGray-200',
-            'scrollbar-track-trueGray-100',
-            'dark:scrollbar-thumb-trueGray-700',
-            'dark:scrollbar-track-trueGray-800',
+            'scrollbar-thumb-neutral-200',
+            'scrollbar-track-neutral-100',
+            'dark:scrollbar-thumb-neutral-700',
+            'dark:scrollbar-track-neutral-800',
           ],
         )}
         role="group"

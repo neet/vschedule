@@ -17,7 +17,7 @@ const Single = forwardRef<HTMLElement, SingleProps>(
         <main
           id="main"
           ref={ref}
-          className={classNames('flex-grow', 'relative', 'box-border')}
+          className={classNames('grow', 'relative', 'box-border')}
         >
           {children}
         </main>

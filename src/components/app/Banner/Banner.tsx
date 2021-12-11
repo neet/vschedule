@@ -17,11 +17,11 @@ export const Banner = (): JSX.Element => {
         'box-border',
         'py-2',
         'px-3',
-        'flex-shrink-0',
-        'text-coolGray-900',
-        'bg-coolGray-100',
-        'dark:bg-trueGray-900',
-        'dark:text-trueGray-50',
+        'shrink-0',
+        'text-gray-900',
+        'bg-gray-100',
+        'dark:bg-neutral-900',
+        'dark:text-neutral-50',
         'xl:p-4',
         'xl:flex-col',
         'xl:h-screen',
@@ -30,12 +30,12 @@ export const Banner = (): JSX.Element => {
       <div
         className={classNames(
           'order-2',
-          'flex-grow',
-          'flex-shrink-0',
+          'grow',
+          'shrink-0',
           'w-1/3',
           'xl:w-auto',
           'xl:order-1',
-          'xl:flex-grow-0',
+          'xl:grow-0',
         )}
       >
         <Button className="sr-only focus:not-sr-only" href="#main" as="a">
@@ -55,8 +55,8 @@ export const Banner = (): JSX.Element => {
                 'transition-colors',
                 'ease-out',
                 'duration-75',
-                'hover:bg-coolGray-200',
-                'dark:hover:bg-trueGray-800',
+                'hover:bg-gray-200',
+                'dark:hover:bg-neutral-800',
                 'xl:p-2',
                 'xl:w-14',
                 'xl:h-14',
@@ -73,8 +73,8 @@ export const Banner = (): JSX.Element => {
       <div
         className={classNames(
           'order-1',
-          'flex-grow',
-          'flex-shrink-0',
+          'grow',
+          'shrink-0',
           'flex',
           'items-center',
           'w-1/3',
@@ -88,7 +88,7 @@ export const Banner = (): JSX.Element => {
       <div
         aria-hidden
         role="presentation"
-        className="order-2 flex-grow flex-shrink-0 w-1/3 xl:w-auto xl:hidden"
+        className="order-2 grow shrink-0 w-1/3 xl:w-auto xl:hidden"
       />
     </header>
   );

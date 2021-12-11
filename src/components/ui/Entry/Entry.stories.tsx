@@ -1,53 +1,52 @@
+import type { Meta } from '@storybook/react';
+
 import { Entry } from './Entry';
 
 export default {
-  title: 'Entry',
   component: Entry,
+  args: {
+    url: 'https://example.com',
+    thumbnail: 'https://source.unsplash.com/random',
+    thumbnailAlt: 'random image',
+    active: true,
+    title: 'Example',
+    author: 'Ryo Igarashi',
+    tag: 'blog',
+    description: 'Lorem ipsum',
+    date: new Date('2020-12-25T16:44:43.757Z'),
+  },
+  render: (args) => (
+    <div style={{ maxWidth: '300px' }}>
+      <Entry {...args} />
+    </div>
+  ),
+} as Meta;
+
+export const Shade = {
+  args: {
+    variant: 'shade',
+  },
 };
 
-export const Shade = (): JSX.Element => (
-  <div style={{ maxWidth: '300px' }}>
-    <Entry
-      variant="shade"
-      url="https://example.com"
-      thumbnail="https://source.unsplash.com/random"
-      thumbnailAlt="random image"
-      active
-      title="Example"
-      author="Ryo Igarashi"
-      tag="blog"
-      description="Lorem ipsum"
-      date={new Date('2020-12-25T16:44:43.757Z')}
-    />
-  </div>
-);
+export const Loading = {
+  args: {
+    loading: true,
+    variant: 'flat',
+  },
+};
 
-export const Loading = (): JSX.Element => (
-  <div style={{ maxWidth: '300px' }}>
-    <Entry loading variant="flat" />
-  </div>
-);
+export const LoadingHorizontal = {
+  args: {
+    loading: true,
+    variant: 'flat',
+    layout: 'horizontal',
+  },
+};
 
-export const LoadingHorizontal = (): JSX.Element => (
-  <div style={{ maxWidth: '300px' }}>
-    <Entry loading variant="flat" layout="horizontal" />
-  </div>
-);
-
-export const ShadeHorizontal = (): JSX.Element => (
-  <div style={{ maxWidth: '300px' }}>
-    <Entry
-      variant="shade"
-      layout="horizontal"
-      url="https://example.com"
-      thumbnail="https://source.unsplash.com/random"
-      thumbnailAlt="random image"
-      active
-      title="Example"
-      author="Ryo Igarashi"
-      tag="blog"
-      description="Lorem ipsum"
-      date={new Date('2020-12-25T16:44:43.757Z')}
-    />
-  </div>
-);
+export const ShadeHorizontal = {
+  args: {
+    loading: true,
+    variant: 'shade',
+    layout: 'horizontal',
+  },
+};

@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import Link from 'next/link';
 
+import Single from '../components/layouts/Single';
 import { Link as UILink } from '../components/ui/Link';
 import { Typography } from '../components/ui/Typography';
-import Single from '../layouts/Single';
 
 const ServiceUnavailable = (): JSX.Element => {
   return (

@@ -1,13 +1,13 @@
 import type { Meta } from '@storybook/react';
 
-import { Switch } from './Switch';
+import { Keyboard } from './Keyboard';
 
 export default {
-  component: Switch,
+  component: Keyboard,
 } as Meta;
 
 export const Default = {
   args: {
-    value: true,
+    children: 'Ctrl+K',
   },
 };

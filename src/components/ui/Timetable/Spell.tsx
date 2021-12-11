@@ -75,13 +75,13 @@ export const Spell = (props: SpellProps): JSX.Element => {
           align="center"
           className={classNames(
             'block',
-            'flex-grow-0',
-            'flex-shrink-0',
+            'grow-0',
+            'shrink-0',
             'p-3',
             'group-focus:text-primary-500',
             'dark:group-focus:text-primary-400',
-            'text-coolGray-800',
-            'dark:text-trueGray-200',
+            'text-gray-800',
+            'dark:text-neutral-200',
           )}
           dateTime={date.toISOString()}
         >
@@ -92,12 +92,12 @@ export const Spell = (props: SpellProps): JSX.Element => {
           role="presentation"
           aria-hidden
           className={classNames(
-            'flex-grow',
+            'grow',
             'w-0',
             'min-h-full',
             'border-r',
-            'border-coolGray-200',
-            'dark:border-trueGray-800',
+            'border-gray-200',
+            'dark:border-neutral-800',
           )}
           style={{ height: `${itemHeight * size}px` }}
         />

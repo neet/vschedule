@@ -1,20 +1,13 @@
 import type { Meta } from '@storybook/react';
 
-import { Badge } from './Badge';
+import { Message } from './Message';
 
 export default {
-  component: Badge,
+  component: Message,
 } as Meta;
 
 export const Default = {
   args: {
     children: 'Lorem ipsum',
-  },
-};
-
-export const Ping = {
-  args: {
-    ...Default.args,
-    variant: 'ping',
   },
 };

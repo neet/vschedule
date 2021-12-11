@@ -70,7 +70,7 @@ export const EventMarker = (props: EventProps): JSX.Element => {
           backgroundColor={event.livers[0].color}
           appearance={isDark ? 'dark' : 'light'}
         >
-          <div className="flex-shrink-0 mr-1">
+          <div className="shrink-0 mr-1">
             <Avatar
               loading="lazy"
               variant="minimal"
@@ -88,7 +88,7 @@ export const EventMarker = (props: EventProps): JSX.Element => {
             <h4
               className={classNames(
                 'w-full',
-                'overflow-ellipsis',
+                'text-ellipsis',
                 'whitespace-nowrap',
                 'overflow-hidden',
                 'leading-relaxed',
@@ -111,7 +111,7 @@ export const EventMarker = (props: EventProps): JSX.Element => {
                 'w-full',
                 'opacity-75',
                 'text-xs',
-                'overflow-ellipsis',
+                'text-ellipsis',
                 'whitespace-nowrap',
                 'overflow-hidden',
               )}

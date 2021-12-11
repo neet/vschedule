@@ -21,8 +21,8 @@ const avatarClass = (size: Size): string =>
     mapSize(size),
     'overflow-hidden',
     'rounded-full',
-    'bg-coolGray-200',
-    'dark:bg-trueGray-800',
+    'bg-gray-200',
+    'dark:bg-neutral-800',
   );
 
 export type AvatarProps = Readonly<
@@ -52,8 +52,8 @@ export const Avatar = (props: AvatarProps): JSX.Element => {
         avatarClass(size),
         variant === 'flat' && [
           'border',
-          'border-coolGray-300',
-          'dark:border-trueGray-700',
+          'border-gray-300',
+          'dark:border-neutral-700',
         ],
         className,
       )}
