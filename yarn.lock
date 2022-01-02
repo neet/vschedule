@@ -3763,10 +3763,10 @@
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
-"@types/fuzzy-search@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@types/fuzzy-search/-/fuzzy-search-2.1.1.tgz#9f765f4acd249cb2a8b3b1192c196958c573f31c"
-  integrity sha512-Hxra+pa7pb9yiRT+liXIi6B1QH9tyEGliKdQWQ5O+pl0iAdn7pyxFDbNw4VdEzz/K/0jFgk69eJkOPyBF4ehyQ==
+"@types/fuzzy-search@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@types/fuzzy-search/-/fuzzy-search-2.1.2.tgz#d57b2af8fb723baa1792d40d511f431c4c8f75af"
+  integrity sha512-YOqA50Z3xcycm4Br5+MBUpSumfdOAcv34A8A8yFn62zBQPTzJSXQk11qYE5w8BWQ0KrVThXUgEQh7ZLrYI1NaQ==
 
 "@types/glob@*", "@types/glob@^7.1.1":
   version "7.1.3"
