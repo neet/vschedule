@@ -1,0 +1,12 @@
+{
+  "extends": "@ril/tsconfig",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "types": ["reflect-metadata"],
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  }
+}

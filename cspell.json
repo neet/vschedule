@@ -1,9 +1,8 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "language": "en",
   "ignorePaths": [
     "**/node_modules/**",
-    "**/.vercel/**",
     "**/.next/**",
     "**/.vercel/**",
     "**/coverage/**"
@@ -19,12 +18,15 @@
     "gtag",
     "headlessui",
     "igarashi",
+    "inversify",
     "itsukara",
     "multiline",
     "neet",
+    "nextjs",
     "nums",
     "postcss",
     "rerender",
+    "ril",
     "scaffdog",
     "semibold",
     "storyshots",

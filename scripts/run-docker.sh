@@ -1,0 +1,8 @@
+docker run \
+  -it ril/api:latest \
+  -p 3000:3000 \
+  --env \
+    NODE_ENV=$NODE_ENV \
+    DATABASE_URL=$DATABASE_URL \
+    STORAGE_BUCKET=$STORAGE_BUCKET \
+    YOUTUBE_DATA_API_KEY=$YOUTUBE_DATA_API_KEY

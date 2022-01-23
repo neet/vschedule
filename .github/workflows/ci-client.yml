@@ -1,0 +1,67 @@
+name: 'CI: client'
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - '*'
+    paths:
+      - packages/@ril/client/**
+      - packages/@ril/eslint-plugin/**
+      - packages/@ril/tsconfig/**
+
+env:
+  TZ: 'Asia/Tokyo'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # https://dev.to/mpocock1/how-to-cache-nodemodules-in-github-actions-with-yarn-24e
+      - name: Restore Yarn Caches
+        uses: actions/cache@v2.1.7
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-client-${{ hashFiles('**/yarn.lock') }}
+
+      # c.f. https://github.com/vercel/next.js/blob/canary/errors/no-cache.md#github-actions
+      - name: Restore Next.js Caches
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/packages/@ril/client/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
+
+      - name: Yarn
+        run: |
+          yarn workspaces focus @ril/client
+
+      - name: Build
+        run: |
+          yarn workspaces foreach -ptR --from @ril/client run build
+
+      - name: Tests
+        run: |
+          yarn workspace @ril/client run test
+
+      - name: Codecov
+        uses: codecov/codecov-action@v1.0.15
+        with:
+          flags: client
+          token: ${{ secrets.CODECOV_TOKEN }}
