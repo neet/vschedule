@@ -1,7 +1,7 @@
 {
   "name": "@ril/api",
   "scripts": {
-    "build": "tsc",
+    "build": "prisma generate && tsc",
     "start": "node ./dist/infra/app.js",
     "dev": "ts-node-dev --respawn --transpile-only --exit-child --watch src ./src/infra/app"
   },
