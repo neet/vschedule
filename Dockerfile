@@ -8,9 +8,8 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends \
   libssl-dev 
 
-RUN yarn \
-  && yarn workspaces foreach -ptR run build \
-  && yarn workspace @ril/api run prisma generate
+RUN yarn workspaces focus @ril/api \
+  && yarn workspaces foreach -ptR --from @ril/api run build
 
 # ---
 

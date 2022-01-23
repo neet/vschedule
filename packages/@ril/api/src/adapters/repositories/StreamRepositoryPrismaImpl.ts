@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import { inject, injectable } from 'inversify';
 import { Stream } from '@ril/core';
+import { inject, injectable } from 'inversify';
 
 import {
   ListStreamsParams,
