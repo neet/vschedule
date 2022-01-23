@@ -114,3 +114,4 @@ dist
 
 data
 !.keep
+.DS_Store
