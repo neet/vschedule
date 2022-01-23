@@ -4,7 +4,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "dayjs": "^1.10.7",

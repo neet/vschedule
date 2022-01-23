@@ -8,7 +8,9 @@
     "**/coverage/**"
   ],
   "words": [
+    "Codecov",
     "inversify",
+    "nextjs",
     "ril"
   ]
 }
