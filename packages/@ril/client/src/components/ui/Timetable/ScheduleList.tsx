@@ -63,13 +63,12 @@ const chunkByInterval = (
   schedules: readonly OrderedSchedule[],
   interval: number,
 ): Segment[] => {
+  const head = schedules[0];
+  const tail = schedules[schedules.length - 1];
+
   const dates =
-    schedules.length !== 0
-      ? createDateSequence(
-          schedules[0].schedule.startAt,
-          schedules[schedules.length - 1].schedule.endAt,
-          interval,
-        )
+    head != null && tail != null
+      ? createDateSequence(head.schedule.startAt, tail.schedule.endAt, interval)
       : [];
 
   return dates.flatMap((date) => {
@@ -115,17 +114,21 @@ interface TableDataListProps {
   readonly segment: readonly OrderedSchedule[];
 }
 
-const TableDataList = (props: TableDataListProps): JSX.Element => {
+const TableDataList = (props: TableDataListProps): JSX.Element | null => {
   const { segment } = props;
-  const herald = segment[0].schedule.startAt;
+  const beginning = segment[0]?.schedule.startAt;
 
   const { getWidth, getItemX, getItemY } = useTimetable();
+
+  if (beginning == null) {
+    return null;
+  }
 
   return (
     <ul
       className={classNames('absolute', 'top-0', 'left-0', 'z-50', 'mt-14')}
       style={{
-        transform: `translateX(${getItemX(herald)}px)`,
+        transform: `translateX(${getItemX(beginning)}px)`,
       }}
     >
       {segment.map(({ schedule, row }, i) => (
@@ -135,7 +138,7 @@ const TableDataList = (props: TableDataListProps): JSX.Element => {
           className={classNames('absolute', 'top-0', 'left-0')}
           style={{
             transform: `translate(
-              ${getWidth(schedule.startAt.diff(herald, 'millisecond'))}px,
+              ${getWidth(schedule.startAt.diff(beginning, 'millisecond'))}px,
               ${getItemY(row)}px
             )`,
           }}

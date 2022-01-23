@@ -18,8 +18,6 @@ export const Title = forwardRef<HTMLElement, TitleProps>((props, ref) => {
     <header
       aria-label="モーダルヘッダー"
       // TODO: Add forwardRef to typography
-      /* cspell:disable-next-line */
-      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
       tabIndex={-1}
       ref={ref}
       className={classNames(

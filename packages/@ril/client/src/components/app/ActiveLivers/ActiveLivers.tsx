@@ -56,17 +56,22 @@ export const ActiveLivers = (props: ActiveLiversProps): JSX.Element => {
                 <User loading size="md" />
               </li>
             ))
-          : events.slice(0, expanded ? Infinity : MIN_ITEMS).map((event, i) => (
-              <li key={`${event.id}-${i}`} data-liver={i}>
-                <User
-                  name={event.livers[0].name}
-                  avatar={event.livers[0].avatar}
-                  url={'/livers/' + event.livers[0].id.toString()}
-                  size="md"
-                  description={dayjs(event.start_date).fromNow()}
-                />
-              </li>
-            ))}
+          : events.slice(0, expanded ? Infinity : MIN_ITEMS).map((event, i) => {
+              const liver = event.livers[0];
+              if (liver == null) return null;
+
+              return (
+                <li key={`${event.id}-${i}`} data-liver={i}>
+                  <User
+                    name={liver.name}
+                    avatar={liver.avatar}
+                    url={'/livers/' + liver.id.toString()}
+                    size="md"
+                    description={dayjs(event.start_date).fromNow()}
+                  />
+                </li>
+              );
+            })}
       </ul>
 
       {events && events.length - MIN_ITEMS > 0 && (

@@ -49,16 +49,13 @@ export const getStaticProps: GetStaticProps<EventsProps> = async () => {
   };
 };
 
-const Events = (props: EventsProps): JSX.Element => {
+const Events = (props: EventsProps): JSX.Element | null => {
   const { events, loading } = useEvents();
   const upcomingEvents = useUpcomingEvents();
   const genreQuery = useGenreQueryParam();
   const [genre, setGenre] = useState(genreQuery ?? GENRE_ALL);
   const { genres } = useGenres({ fallbackData: props.data });
   const [swapDelta] = useSwapDelta();
-
-  const startAt = events ? dayjs(events[0].start_date) : dayjs();
-  const endAt = events ? dayjs(events[events.length - 1].end_date) : dayjs();
 
   // prettier-ignore
   const schedules = useMemo(() => (
@@ -71,6 +68,16 @@ const Events = (props: EventsProps): JSX.Element => {
       }))
     ?? []
   ), [events, genre]);
+
+  const head = events?.[0];
+  const tail = events?.[events.length - 1];
+
+  if (head == null || tail == null) {
+    return null;
+  }
+
+  const startAt = events ? dayjs(head.start_date) : dayjs();
+  const endAt = events ? dayjs(tail.end_date) : dayjs();
 
   return (
     <>

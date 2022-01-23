@@ -10,6 +10,7 @@
     "@google-cloud/storage": "^5.18.0",
     "@google-cloud/tasks": "^2.5.0",
     "@prisma/client": "^3.8.1",
+    "@ril/core": "workspace:^",
     "body-parser": "^1.19.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
@@ -25,10 +26,11 @@
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.9.0",
     "sharp": "^0.29.3",
-    "uuid": "^8.3.2",
-    "@ril/core": "workspace:^"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@ril/eslint-plugin": "workspace:^",
+    "@ril/tsconfig": "workspace:^",
     "@types/body-parser": "^1",
     "@types/cors": "^2",
     "@types/express": "^4",
@@ -38,10 +40,8 @@
     "@types/node-fetch": "2",
     "@types/sharp": "^0",
     "@types/uuid": "^8",
-    "@ril/eslint-plugin": "workspace:^",
     "ts-node": "^10.4.0",
     "ts-node-dev": "^1.1.8",
-    "@ril/tsconfig": "workspace:^",
     "typescript": "^4.5.4"
   }
 }

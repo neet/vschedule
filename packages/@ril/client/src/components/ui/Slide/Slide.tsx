@@ -12,11 +12,12 @@ export interface SlideProps {
   readonly onHide?: () => void;
 }
 
-export const Slide = (props: SlideProps): JSX.Element => {
+export const Slide = (props: SlideProps): JSX.Element | null => {
   const { title, pages, show, onHide } = props;
 
   const [pageNum, setPageNum] = useState(0);
   const titleNode = useRef<HTMLElement | null>(null);
+  const page = pages[pageNum];
 
   const handleClickNext = (): void => {
     titleNode.current?.focus();
@@ -32,6 +33,10 @@ export const Slide = (props: SlideProps): JSX.Element => {
     onHide?.();
   };
 
+  if (page == null) {
+    return null;
+  }
+
   return (
     <Modal show={show} title={title} onHide={handleComplete}>
       <Modal.Window
@@ -41,7 +46,7 @@ export const Slide = (props: SlideProps): JSX.Element => {
       >
         <Modal.Title ref={titleNode}>{title}</Modal.Title>
 
-        {createElement(pages[pageNum])}
+        {createElement(page)}
 
         <Modal.Footer aria-live="off">
           <Typography

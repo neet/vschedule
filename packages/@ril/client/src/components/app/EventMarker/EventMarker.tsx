@@ -20,8 +20,9 @@ export interface EventProps {
   readonly event: EventType;
 }
 
-export const EventMarker = (props: EventProps): JSX.Element => {
+export const EventMarker = (props: EventProps): JSX.Element | null => {
   const { event } = props;
+  const liver = event.livers[0];
 
   const isDark = usePrefersColorScheme();
   const { hover, handleFocus, handleBlur } = useDelayedHover();
@@ -46,6 +47,10 @@ export const EventMarker = (props: EventProps): JSX.Element => {
     });
   }, [hover, event.name]);
 
+  if (liver == null) {
+    return null;
+  }
+
   return (
     <div className={classNames('box-border', 'px-1.5')} ref={setWrapperRef}>
       <a
@@ -67,7 +72,7 @@ export const EventMarker = (props: EventProps): JSX.Element => {
         onBlur={() => void handleBlur()}
       >
         <Marker
-          backgroundColor={event.livers[0].color}
+          backgroundColor={liver.color}
           appearance={isDark ? 'dark' : 'light'}
         >
           <div className="shrink-0 mr-1">
@@ -78,7 +83,7 @@ export const EventMarker = (props: EventProps): JSX.Element => {
               alt={event.livers.map((liver) => liver.name).join(', ')}
               style={{
                 backgroundColor: isDark
-                  ? setLightness(AVATAR_BG_BRIGHTNESS, event.livers[0].color)
+                  ? setLightness(AVATAR_BG_BRIGHTNESS, liver.color)
                   : '#ffffff',
               }}
             />

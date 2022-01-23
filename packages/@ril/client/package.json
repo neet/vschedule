@@ -1,5 +1,5 @@
 {
-  "name": "ril",
+  "name": "@ril/client",
   "version": "0.3.0",
   "private": true,
   "scripts": {

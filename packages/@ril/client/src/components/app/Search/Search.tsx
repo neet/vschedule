@@ -18,6 +18,7 @@ import { Event } from '../Event';
 import { useFuzzySearch } from './useFuzzySearch';
 
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
+const COMPOSING = 229;
 
 export interface SearchProps {
   readonly show: boolean;
@@ -70,8 +71,8 @@ const SearchPure = (props: SearchProps): JSX.Element => {
           ?.scrollIntoView({ block: 'nearest' });
       }
 
-      const COMPOSING = 229;
-      if (e.key === 'Enter' && e.which !== COMPOSING) {
+      const match = matches[active];
+      if (e.key === 'Enter' && e.which !== COMPOSING && match != null) {
         e.preventDefault();
 
         // onChangeで送ると重複するため
@@ -79,7 +80,7 @@ const SearchPure = (props: SearchProps): JSX.Element => {
           event_label: ref?.value,
         });
 
-        window.open(matches[active].url, '_blank');
+        window.open(match.url, '_blank');
       }
     },
     [active, matches, ref],
