@@ -8,9 +8,33 @@
     "**/coverage/**"
   ],
   "words": [
-    "Codecov",
+    "agpl",
+    "codecov",
+    "compat",
+    "darkmodejs",
+    "fontawesome",
+    "fortawesome",
+    "furigana",
+    "gtag",
+    "headlessui",
+    "igarashi",
     "inversify",
+    "itsukara",
+    "multiline",
+    "neet",
     "nextjs",
-    "ril"
+    "nums",
+    "postcss",
+    "rerender",
+    "ril",
+    "scaffdog",
+    "semibold",
+    "storyshots",
+    "tailwindcss",
+    "unfetch",
+    "unmount",
+    "vercel",
+    "wcag",
+    "youtube"
   ]
 }
