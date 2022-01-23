@@ -1,0 +1,60 @@
+{
+  "name": "@ril/core",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "dayjs": "^1.10.7",
+    "shallow-equal-object": "^1.1.1",
+    "uuid": "^8.3.2",
+    "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.2.130",
+    "@swc/jest": "^0.2.17",
+    "@types/eslint": "^8",
+    "@types/jest": "^27.4.0",
+    "@types/uuid": "^8",
+    "@types/validator": "^13",
+    "eslint": "^8.7.0",
+    "@ril/eslint-plugin": "workspace:^",
+    "jest": "^27.4.7",
+    "ts-jest": "^27.1.3",
+    "@ril/tsconfig": "workspace:^",
+    "typescript": "^4.5.4"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/test-utils/setup.ts"
+    ],
+    "transform": {
+      "^.+\\.(t|j)sx?$": [
+        "@swc/jest",
+        {
+          "sourceMaps": "inline",
+          "jsc": {
+            "parser": {
+              "syntax": "typescript",
+              "tsx": true
+            },
+            "transform": {
+              "react": {
+                "runtime": "automatic"
+              }
+            }
+          },
+          "module": {
+            "type": "commonjs"
+          }
+        }
+      ]
+    },
+    "testMatch": [
+      "<rootDir>/src/**/*.spec.ts"
+    ]
+  }
+}

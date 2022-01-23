@@ -1,0 +1,7 @@
+{
+  "extends": "@ril/tsconfig",
+  "compilerOptions": {
+    "declaration": true,
+    "outDir": "./dist"
+  }
+}

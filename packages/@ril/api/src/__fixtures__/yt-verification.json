@@ -1,0 +1,6 @@
+{
+  "hub.topic": "https://www.youtube.com/xml/feeds/videos.xml?channel_id=UC_4tXjqecqox5Uc05ncxpxg",
+  "hub.challenge": "4605398436710972921",
+  "hub.mode": "subscribe",
+  "hub.lease_seconds": "432000"
+}

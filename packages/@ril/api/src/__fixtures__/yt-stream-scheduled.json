@@ -1,0 +1,48 @@
+{
+  "feed": {
+    "$": {
+      "xmlns:yt": "http://www.youtube.com/xml/schemas/2015",
+      "xmlns": "http://www.w3.org/2005/Atom"
+    },
+    "link": [
+      {
+        "$": {
+          "rel": "hub",
+          "href": "https://pubsubhubbub.appspot.com"
+        }
+      },
+      {
+        "$": {
+          "rel": "self",
+          "href": "https://www.youtube.com/xml/feeds/videos.xml?channel_id=UCMaKN2rdygEs39Zkp1Bo6FA"
+        }
+      }
+    ],
+    "title": ["YouTube video feed"],
+    "updated": ["2022-01-19T06:01:59.644667386+00:00"],
+    "entry": [
+      {
+        "id": ["yt:video:kMzHpSj2JI0"],
+        "yt:videoId": ["kMzHpSj2JI0"],
+        "yt:channelId": ["UCMaKN2rdygEs39Zkp1Bo6FA"],
+        "title": ["配信予定のテスト"],
+        "link": [
+          {
+            "$": {
+              "rel": "alternate",
+              "href": "https://www.youtube.com/watch?v=kMzHpSj2JI0"
+            }
+          }
+        ],
+        "author": [
+          {
+            "name": ["Ryō Igarashi"],
+            "uri": ["https://www.youtube.com/channel/UCMaKN2rdygEs39Zkp1Bo6FA"]
+          }
+        ],
+        "published": ["2022-01-19T05:56:56+00:00"],
+        "updated": ["2022-01-19T06:01:59.644667386+00:00"]
+      }
+    ]
+  }
+}

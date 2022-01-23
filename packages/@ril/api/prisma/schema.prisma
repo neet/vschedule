@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model MediaAttachment {
+  id        String   @id @default(uuid())
+  filename  String
+  blur      String
+  bucket    String?
+  createdAt DateTime
+  updatedAt DateTime
+
+  actor  Actor[]
+  stream Stream[]
+}
+
+model Stream {
+  id          String           @id @default(uuid())
+  title       String
+  url         String           @unique
+  description String?
+  createdAt   DateTime
+  updatedAt   DateTime
+  startedAt   DateTime
+  endedAt     DateTime?
+  actor       Actor            @relation(fields: [actorId], references: [id])
+  actorId     String
+  thumbnail   MediaAttachment? @relation(fields: [thumbnailId], references: [id])
+  thumbnailId String?
+}
+
+model Actor {
+  id               String           @id @default(uuid())
+  name             String
+  color            String
+  description      String?
+  youtubeChannelId String           @unique
+  twitterUsername  String?          @unique
+  stream           Stream[]
+  organization     Organization?    @relation(fields: [organizationId], references: [id])
+  organizationId   String?
+  avatar           MediaAttachment? @relation(fields: [avatarId], references: [id])
+  avatarId         String?
+}
+
+model Organization {
+  id     String  @id @default(uuid())
+  name   String
+  url    String?
+  actors Actor[]
+}

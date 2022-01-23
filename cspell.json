@@ -1,38 +1,14 @@
 {
-  "version": "0.1",
+  "version": "0.2",
   "language": "en",
   "ignorePaths": [
     "**/node_modules/**",
-    "**/.vercel/**",
     "**/.next/**",
     "**/.vercel/**",
     "**/coverage/**"
   ],
   "words": [
-    "agpl",
-    "codecov",
-    "compat",
-    "darkmodejs",
-    "fontawesome",
-    "fortawesome",
-    "furigana",
-    "gtag",
-    "headlessui",
-    "igarashi",
-    "itsukara",
-    "multiline",
-    "neet",
-    "nums",
-    "postcss",
-    "rerender",
-    "scaffdog",
-    "semibold",
-    "storyshots",
-    "tailwindcss",
-    "unfetch",
-    "unmount",
-    "vercel",
-    "wcag",
-    "youtube"
+    "inversify",
+    "ril"
   ]
 }
