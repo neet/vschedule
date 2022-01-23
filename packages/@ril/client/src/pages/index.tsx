@@ -71,13 +71,8 @@ const Events = (props: EventsProps): JSX.Element | null => {
 
   const head = events?.[0];
   const tail = events?.[events.length - 1];
-
-  if (head == null || tail == null) {
-    return null;
-  }
-
-  const startAt = events ? dayjs(head.start_date) : dayjs();
-  const endAt = events ? dayjs(tail.end_date) : dayjs();
+  const startAt = head != null ? dayjs(head.start_date) : dayjs();
+  const endAt = tail != null ? dayjs(tail.end_date) : dayjs();
 
   return (
     <>
