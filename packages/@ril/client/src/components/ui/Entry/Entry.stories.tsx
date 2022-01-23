@@ -6,7 +6,7 @@ export default {
   component: Entry,
   args: {
     url: 'https://example.com',
-    thumbnail: 'https://source.unsplash.com/random',
+    thumbnail: 'https://picsum.photos/seed/ril/200',
     thumbnailAlt: 'random image',
     active: true,
     title: 'Example',

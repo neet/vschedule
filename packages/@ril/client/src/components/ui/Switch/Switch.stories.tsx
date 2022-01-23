@@ -11,3 +11,9 @@ export const Default = {
     value: true,
   },
 };
+
+export const Off = {
+  args: {
+    value: false,
+  },
+};

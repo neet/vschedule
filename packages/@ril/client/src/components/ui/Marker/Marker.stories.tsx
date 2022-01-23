@@ -16,7 +16,7 @@ export const Default = {
 export const CombinationOfAvatar = {
   render: (): JSX.Element => (
     <Marker backgroundColor="black">
-      <Avatar src="https://source.unsplash.com/random" alt="avatar" />
+      <Avatar src="https://picsum.photos/seed/ril/200" alt="avatar" />
       <div>test</div>
     </Marker>
   ),

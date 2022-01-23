@@ -10,7 +10,7 @@ module.exports = withMDX({
   images: {
     domains: [
       'i.ytimg.com',
-      'source.unsplash.com',
+      'picsum.photos',
       's3-ap-northeast-1.amazonaws.com',
       'liver-icons.s3.ap-northeast-1.amazonaws.com',
       'liver-icons.s3-ap-northeast-1.amazonaws.com',

@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
 
@@ -129,13 +128,7 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
           {showEmbed ? (
             embed
           ) : (
-            <Image
-              loading="lazy"
-              layout="fill"
-              objectFit="cover"
-              src={thumbnail}
-              alt={thumbnailAlt}
-            />
+            <img loading="lazy" src={thumbnail} alt={thumbnailAlt} />
           )}
         </div>
 

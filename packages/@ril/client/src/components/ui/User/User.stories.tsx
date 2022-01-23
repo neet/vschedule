@@ -6,7 +6,7 @@ export default {
   component: User,
   args: {
     name: 'Ryo Igarashi',
-    avatar: 'https://source.unsplash.com/random',
+    avatar: 'https://picsum.photos/seed/ril/200',
     url: 'https://neet.love',
     description: "hey it's me",
     size: 'md',
