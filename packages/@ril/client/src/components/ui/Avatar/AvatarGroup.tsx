@@ -7,12 +7,13 @@ const avatarGroupDuo = (
 ): JSX.Element => (
   <div
     role="img"
-    className={classNames('flex', 'h-full', 'w-full')}
+    className={classNames('relative', 'h-full', 'w-full')}
     aria-label={alt}
   >
     <img
       className={classNames(
-        '-translate-x-1/2',
+        'absolute',
+        'inset-0',
         'w-1/2',
         'h-full',
         'object-cover',
@@ -24,7 +25,9 @@ const avatarGroupDuo = (
 
     <img
       className={classNames(
-        'translate-x-1/2',
+        'absolute',
+        'inset-0',
+        'translate-x-full',
         'w-1/2',
         'h-full',
         'object-cover',
@@ -43,11 +46,17 @@ const avatarGroupTrio = (
 ): JSX.Element => (
   <div
     role="img"
-    className={classNames('flex', 'flex-wrap', 'h-full', 'w-full')}
+    className={classNames('relative', 'h-full', 'w-full')}
     aria-label={alt}
   >
     <img
-      className={classNames('w-full', 'h-1/2', 'object-cover')}
+      className={classNames(
+        'absolute',
+        'inset-0',
+        'w-full',
+        'h-1/2',
+        'object-cover',
+      )}
       src={a}
       alt=""
       {...props}
@@ -55,8 +64,9 @@ const avatarGroupTrio = (
 
     <img
       className={classNames(
-        '-translate-x-1/2',
-        'translate-y-1/2',
+        'absolute',
+        'inset-0',
+        'translate-y-full',
         'w-1/2',
         'h-1/2',
         'object-cover',
@@ -68,8 +78,10 @@ const avatarGroupTrio = (
 
     <img
       className={classNames(
-        'translate-x-1/2',
-        'translate-y-1/2',
+        'absolute',
+        'inset-0',
+        'translate-x-full',
+        'translate-y-full',
         'w-1/2',
         'h-1/2',
         'object-cover',
@@ -88,21 +100,29 @@ const avatarGroupQuartet = (
 ): JSX.Element => (
   <div
     role="img"
-    className={classNames('flex', 'w-full', 'h-full', 'flex-wrap')}
+    className={classNames('relative', 'w-full', 'h-full')}
     aria-label={alt}
   >
     <img
-      className={classNames('w-1/2', 'h-1/2', 'object-cover')}
+      className={classNames(
+        'absolute',
+        'inset-0',
+        'w-1/2',
+        'h-1/2',
+        'object-cover',
+      )}
       src={a}
       alt=""
     />
 
     <img
       className={classNames(
-        'translate-y-1/2',
+        'absolute',
+        'inset-0',
         'w-1/2',
         'h-1/2',
         'object-cover',
+        'translate-x-full',
       )}
       src={b}
       alt=""
@@ -111,10 +131,11 @@ const avatarGroupQuartet = (
 
     <img
       className={classNames(
-        '-translate-x-1/2',
-        'translate-y-1/2',
+        'absolute',
+        'inset-0',
         'w-1/2',
         'h-1/2',
+        'translate-y-full',
         'object-cover',
       )}
       src={c}
@@ -124,10 +145,12 @@ const avatarGroupQuartet = (
 
     <img
       className={classNames(
-        'translate-x-1/2',
-        'translate-y-1/2',
+        'absolute',
+        'inset-0',
         'w-1/2',
         'h-1/2',
+        'translate-x-full',
+        'translate-y-full',
         'object-cover',
       )}
       src={d}

@@ -3144,6 +3144,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.6.0
     autoprefixer: ^10.4.0
     babel-loader: ^8.2.3
+    chromatic: ^6.4.1
     classnames: ^2.2.6
     cspell: ^5.13.2
     dayjs: ^1.10.7
@@ -7776,6 +7777,17 @@ __metadata:
   dependencies:
     cross-env: ^6.0.3
   checksum: abbd70377446e3cc401ac58c40cdac6c70c41a349e6aca08881d0deb775051ba69c93099f4d47ef83c41b4562b0480b5dfd56d77e2e6f3a81ebb6667ce8d4627
+  languageName: node
+  linkType: hard
+
+"chromatic@npm:^6.4.1":
+  version: 6.4.1
+  resolution: "chromatic@npm:6.4.1"
+  bin:
+    chroma: bin/main.cjs
+    chromatic: bin/main.cjs
+    chromatic-cli: bin/main.cjs
+  checksum: 10146329a78e4d16d091840be369428e5e4d6ad441ac112c7778ef37799156cf7bdc04b58f53a45cff4385645b028da3db9304631b9f92d5f260f64cd10fab04
   languageName: node
   linkType: hard
 

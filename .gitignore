@@ -115,3 +115,4 @@ dist
 data
 !.keep
 .DS_Store
+storybook-static

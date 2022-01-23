@@ -1,4 +1,5 @@
-name: 'CI: client'
+# Borrowed from https://www.chromatic.com/docs/github-actions
+name: 'CI: Chromatic'
 
 on:
   push:
@@ -12,13 +13,11 @@ on:
       - packages/@ril/eslint-plugin/**
       - packages/@ril/tsconfig/**
 
-env:
-  TZ: 'Asia/Tokyo'
-
 jobs:
-  build:
-    name: Build
+  chromatic-deployment:
+    name: Chromatic Deployment
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
 
     steps:
       - uses: actions/checkout@v2
@@ -37,29 +36,20 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-client-${{ hashFiles('**/yarn.lock') }}
 
-      # c.f. https://github.com/vercel/next.js/blob/canary/errors/no-cache.md#github-actions
-      - name: Restore Next.js Caches
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}/packages/@ril/client/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
-
       - name: Yarn
         run: |
           yarn workspaces focus @ril/client
 
       - name: Build
         run: |
-          yarn workspaces foreach -ptR --from @ril/client run build
+          yarn workspace @ril/client build-storybook
 
-      - name: Tests
-        run: |
-          yarn workspace @ril/client run test
-
-      - name: Codecov
-        uses: codecov/codecov-action@v1.0.15
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
         with:
-          flags: client
-          token: ${{ secrets.CODECOV_TOKEN }}
+          autoAcceptChanges: main
+          exitZeroOnChanges: true
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          skip: 'dependabot/**'
+          storybookBuildDir: packages/@ril/client/storybook-static
+          token: ${{ secrets.GITHUB_TOKEN }}

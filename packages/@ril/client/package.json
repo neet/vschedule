@@ -10,7 +10,9 @@
     "jest": "jest --coverage",
     "eslint": "eslint --cache './**/*.{js,json,ts,tsx}'",
     "cspell": "cspell './**/*.{js.json,ts,tsx}'",
-    "storybook": "start-storybook -p 9000 --no-manager-cache"
+    "storybook": "TAILWIND_MODE=watch start-storybook -p 9000 --no-manager-cache",
+    "build-storybook": "build-storybook",
+    "chromatic": "chromatic"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -27,6 +29,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/line-clamp": "^0.3.0",
     "autoprefixer": "^10.4.0",
+    "chromatic": "^6.4.1",
     "classnames": "^2.2.6",
     "dayjs": "^1.10.7",
     "fuzzy-search": "^3.2.1",
