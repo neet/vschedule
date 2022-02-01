@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@google-cloud/pubsub": "^2.18.4",
-    "@google-cloud/storage": "^5.18.0",
+    "@google-cloud/storage": "^5.18.1",
     "@google-cloud/tasks": "^2.5.0",
     "@prisma/client": "^3.8.1",
     "@ril/core": "workspace:^",
