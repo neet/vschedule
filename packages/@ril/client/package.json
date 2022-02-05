@@ -50,7 +50,7 @@
     "typescript": "^4.5.3"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.18",
     "@storybook/addon-knobs": "^6.4.0",
     "@storybook/addon-links": "^6.4.9",
     "@storybook/addon-postcss": "^2.0.0",
