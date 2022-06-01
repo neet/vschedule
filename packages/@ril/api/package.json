@@ -22,7 +22,7 @@
     "googleapis": "^92.0.0",
     "inversify": "^6.0.1",
     "node-fetch": "2",
-    "prisma": "^3.9.0",
+    "prisma": "^3.14.0",
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.9.0",
     "sharp": "^0.29.3",
