@@ -22,7 +22,7 @@
     "@fortawesome/react-fontawesome": "^0.1.17",
     "@headlessui/react": "^1.4.2",
     "@mdx-js/loader": "^1.6.22",
-    "@mdx-js/react": "^1.6.22",
+    "@mdx-js/react": "^2.1.3",
     "@next/mdx": "^12.0.7",
     "@ril/eslint-plugin": "workspace:^",
     "@ril/tsconfig": "workspace:^",
