@@ -14,11 +14,11 @@ export const Prose = (props: ProseProps): JSX.Element => {
   return (
     <MDXProvider
       components={{
-        h1: Typography.H1,
-        h2: Typography.H2,
-        h3: Typography.H3,
-        h4: Typography.H4,
-        p: Typography.Paragraph,
+        h1: (props) => <Typography.FourXl as="h1" {...props} />,
+        h2: (props) => <Typography.ThreeXl as="h2" {...props} />,
+        h3: (props) => <Typography.TwoXl as="h3" {...props} />,
+        h4: (props) => <Typography.Xl as="h4" {...props} />,
+        p: Typography.Base,
         a: Link,
       }}
     >
