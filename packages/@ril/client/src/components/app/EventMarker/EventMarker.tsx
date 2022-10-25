@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { setLightness } from 'polished';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { H } from 'react-headings';
 import { usePopper } from 'react-popper';
 
 import type { Event as EventType } from '../../../types';
@@ -90,7 +91,7 @@ export const EventMarker = (props: EventProps): JSX.Element | null => {
           </div>
 
           <div className="flex flex-col min-w-0 justify-center">
-            <h4
+            <H
               className={classNames(
                 'w-full',
                 'text-ellipsis',
@@ -100,7 +101,7 @@ export const EventMarker = (props: EventProps): JSX.Element | null => {
               )}
             >
               {event.name}
-            </h4>
+            </H>
 
             {/* for display users the start and end dates are obvious */}
             <dl className="sr-only">

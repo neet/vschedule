@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
+import { Section } from 'react-headings';
 
 import { Banner } from '../app/Banner';
 import { Prose } from '../app/Prose';
@@ -25,9 +26,7 @@ export const AppContainer = (props: AppContainerProps): JSX.Element => {
           'xl:flex-row',
         )}
       >
-        <Banner />
-
-        {children}
+        <Section component={<Banner />}>{children}</Section>
       </div>
     </Prose>
   );

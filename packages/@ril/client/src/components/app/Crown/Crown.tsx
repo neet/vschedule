@@ -7,6 +7,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import { H } from 'react-headings';
 
 import type { Genre } from '../../../types';
 import { Button } from '../../ui/Button';
@@ -183,9 +184,9 @@ export const Crown = (props: CrownProps): JSX.Element => {
             className="grow shrink hidden xl:block"
             aria-labelledby="crown-tags"
           >
-            <h3 id="crown-tags" className="sr-only">
+            <H id="crown-tags" className="sr-only">
               タグでフィルター
-            </h3>
+            </H>
 
             <Radio
               className="overflow-hidden justify-end"

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { H, Section } from 'react-headings';
 
 import type { Event as APIEvent } from '../../../types';
 import { Card } from '../../ui/Card';
@@ -56,11 +57,13 @@ export const UpcomingEvents = (props: UpcomingEventsProps): JSX.Element => {
   }, [pinnedEventId, props.upcomingEvents]);
 
   return (
-    <>
-      <h2 id={id} className="sr-only">
-        今後の配信予定
-      </h2>
-
+    <Section
+      component={
+        <H id={id} className="sr-only">
+          今後の配信予定
+        </H>
+      }
+    >
       {upcomingEvents ? (
         <ul className="space-y-4">
           {upcomingEvents.map((event) => (
@@ -78,6 +81,6 @@ export const UpcomingEvents = (props: UpcomingEventsProps): JSX.Element => {
           ))}
         </div>
       )}
-    </>
+    </Section>
   );
 };

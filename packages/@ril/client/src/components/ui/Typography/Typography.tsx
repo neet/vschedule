@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
+import type { ComponentType, ElementType, ReactNode } from 'react';
 import { createElement } from 'react';
+import { overridable, OverridableComponentType } from 'react-as-prop';
 
 const sizes = {
   xs: 'text-xs',
@@ -47,24 +48,27 @@ const aligns = {
 
 export type Align = keyof typeof aligns;
 
-type TagName = keyof JSX.IntrinsicElements;
-
-export type TypographyProps<T extends TagName> = Readonly<
-  JSX.IntrinsicElements[T]
-> & {
-  readonly as: T;
-  readonly size: Size;
-  readonly weight: Weight;
-  readonly leading: Leading;
-  readonly align: Align;
-  readonly variant: Variant;
+export type InternalTypographyProps = {
+  readonly as: ElementType;
+  readonly size?: Size;
+  readonly weight?: Weight;
+  readonly leading?: Leading;
+  readonly align?: Align;
+  readonly variant?: Variant;
+  readonly className?: string;
 };
 
-export const Typography = <T extends TagName>(
-  props: TypographyProps<T>,
-): JSX.Element => {
-  const { as, size, leading, weight, variant, align, className, ...rest } =
-    props;
+const InternalTypography = (props: InternalTypographyProps): JSX.Element => {
+  const {
+    as,
+    size = 'base',
+    leading = 'normal',
+    weight = 'normal',
+    variant = 'normal',
+    align = 'left',
+    className,
+    ...rest
+  } = props;
 
   return createElement(as, {
     className: classNames(
@@ -79,23 +83,28 @@ export const Typography = <T extends TagName>(
   });
 };
 
-Typography.defaultProps = {
-  as: 'p',
-  leading: 'normal',
-  variant: 'normal',
-  size: 'base',
-  weight: 'normal',
-  align: 'left',
-};
+export interface TypographyPresets {
+  FourXl: ComponentType<JustChildren>;
+  ThreeXl: ComponentType<JustChildren>;
+  TwoXl: ComponentType<JustChildren>;
+  Xl: ComponentType<JustChildren>;
+  Base: ComponentType<JustChildren>;
+}
+
+export const Typography = overridable(
+  InternalTypography,
+  'h2',
+) as OverridableComponentType<'h2', InternalTypographyProps, 'as'> &
+  TypographyPresets;
 
 interface JustChildren {
   readonly children: ReactNode;
+  readonly as?: ElementType;
   readonly className?: string;
 }
 
-Typography.H1 = (props: JustChildren): JSX.Element => (
+Typography.FourXl = (props: JustChildren): JSX.Element => (
   <Typography
-    as="h1"
     weight="semibold"
     size="4xl"
     leading="tight"
@@ -104,18 +113,18 @@ Typography.H1 = (props: JustChildren): JSX.Element => (
   />
 );
 
-Typography.H2 = (props: JustChildren): JSX.Element => (
+Typography.ThreeXl = (props: JustChildren): JSX.Element => (
   <Typography
     as="h2"
     weight="semibold"
-    size="2xl"
+    size="3xl"
     leading="snug"
     variant="normal"
     {...props}
   />
 );
 
-Typography.H3 = (props: JustChildren): JSX.Element => (
+Typography.TwoXl = (props: JustChildren): JSX.Element => (
   <Typography
     as="h3"
     weight="semibold"
@@ -126,7 +135,7 @@ Typography.H3 = (props: JustChildren): JSX.Element => (
   />
 );
 
-Typography.H4 = (props: JustChildren): JSX.Element => (
+Typography.Xl = (props: JustChildren): JSX.Element => (
   <Typography
     as="h4"
     weight="semibold"
@@ -137,7 +146,7 @@ Typography.H4 = (props: JustChildren): JSX.Element => (
   />
 );
 
-Typography.Paragraph = (props: JustChildren): JSX.Element => (
+Typography.Base = (props: JustChildren): JSX.Element => (
   <Typography
     as="p"
     weight="normal"
