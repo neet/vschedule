@@ -83,7 +83,7 @@ const ModalPure = (props: ModalProps): JSX.Element | null => {
       >
         <Backdrop className="absolute inset-0" />
 
-        <dialog
+        <div
           role="dialog"
           aria-label={title}
           aria-modal
@@ -98,7 +98,7 @@ const ModalPure = (props: ModalProps): JSX.Element | null => {
           )}
         >
           {children}
-        </dialog>
+        </div>
       </Transition>
     </ModalProvider>,
     container,
