@@ -19,9 +19,9 @@ export const Empty = (): JSX.Element => {
         alt="空の段ボールを持って立ち尽くす人"
         className="block w-full md:max-w-sm mx-auto my-8"
       />
-      <Typography.Paragraph className={classNames('text-center')}>
+      <Typography.Base className={classNames('text-center')}>
         そのような配信は見つかりませんでした、別のキーワードをお試しください。
-      </Typography.Paragraph>
+      </Typography.Base>
     </div>
   );
 };

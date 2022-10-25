@@ -1,7 +1,13 @@
 import classNames from 'classnames';
-import type { ComponentType, ElementType, ReactNode } from 'react';
+import type {
+  ComponentProps,
+  ComponentType,
+  ElementType,
+  ForwardRefRenderFunction,
+  ReactNode,
+} from 'react';
 import { createElement } from 'react';
-import { overridable, OverridableComponentType } from 'react-as-prop';
+import { OverridableComponentType, overridableWithRef } from 'react-as-prop';
 
 const sizes = {
   xs: 'text-xs',
@@ -58,7 +64,10 @@ export type InternalTypographyProps = {
   readonly className?: string;
 };
 
-const InternalTypography = (props: InternalTypographyProps): JSX.Element => {
+const InternalTypography: ForwardRefRenderFunction<
+  unknown,
+  InternalTypographyProps
+> = (props, forwardedRef) => {
   const {
     as,
     size = 'base',
@@ -79,6 +88,7 @@ const InternalTypography = (props: InternalTypographyProps): JSX.Element => {
       aligns[align],
       className,
     ),
+    ref: forwardedRef,
     ...rest,
   });
 };
@@ -91,11 +101,13 @@ export interface TypographyPresets {
   Base: ComponentType<JustChildren>;
 }
 
-export const Typography = overridable(
+export const Typography = overridableWithRef(
   InternalTypography,
   'h2',
 ) as OverridableComponentType<'h2', InternalTypographyProps, 'as'> &
   TypographyPresets;
+
+export type TypographyProps = ComponentProps<typeof Typography>;
 
 interface JustChildren {
   readonly children: ReactNode;

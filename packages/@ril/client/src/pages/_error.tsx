@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { Section } from 'react-headings';
 
 import Single from '../components/layouts/Single';
 import { Link as UILink } from '../components/ui/Link';
@@ -7,13 +8,15 @@ import { Typography } from '../components/ui/Typography';
 
 const ServiceUnavailable = (): JSX.Element => {
   return (
-    <>
+    <Section
+      component={
+        <Typography.ThreeXl>HTTP 503 ― Service Unavailable</Typography.ThreeXl>
+      }
+    >
       <Head>
         <title>一時的に繋がりにくくなっています | Refined Itsukara.link</title>
         <meta name="description" content="一時的に繋がりにくくなっています" />
       </Head>
-
-      <Typography.H2>HTTP 503 ― Service Unavailable</Typography.H2>
 
       <div>
         <img
@@ -23,7 +26,7 @@ const ServiceUnavailable = (): JSX.Element => {
         />
       </div>
 
-      <Typography.Paragraph>
+      <Typography.Base>
         このページは一時的に繋がりにくくなっています。暫く経っても治らない場合は、
         <Link href="https://forms.gle/1tg2n5KB9fcroJcc7" passHref>
           <UILink>お問い合わせ</UILink>
@@ -32,8 +35,8 @@ const ServiceUnavailable = (): JSX.Element => {
         <Link href="/" passHref>
           <UILink>トップページへ戻る</UILink>
         </Link>
-      </Typography.Paragraph>
-    </>
+      </Typography.Base>
+    </Section>
   );
 };
 

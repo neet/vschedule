@@ -24,6 +24,7 @@
     "@mdx-js/loader": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
     "@next/mdx": "^12.0.7",
+    "@popperjs/core": "^2.11.6",
     "@ril/eslint-plugin": "workspace:^",
     "@ril/tsconfig": "workspace:^",
     "@tailwindcss/aspect-ratio": "^0.4.0",

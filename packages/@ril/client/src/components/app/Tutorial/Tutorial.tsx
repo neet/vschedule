@@ -1,3 +1,5 @@
+import { H } from 'react-headings';
+
 import { useTutorial } from '../../hooks/useTutorial';
 import { Link } from '../../ui/Link';
 import { Modal } from '../../ui/Modal';
@@ -18,11 +20,11 @@ const Page1 = (): JSX.Element => {
       />
 
       <Modal.Body id="tutorial-1__description">
-        <Typography.H4>さあ、始めよう！</Typography.H4>
-        <Typography.Paragraph>
+        <Typography.Xl as={H}>さあ、始めよう！</Typography.Xl>
+        <Typography.Base>
           Refined
           Itsukara.linkへようこそ！このwebサイトはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。これから使い方をご説明します！
-        </Typography.Paragraph>
+        </Typography.Base>
       </Modal.Body>
     </div>
   );
@@ -42,12 +44,12 @@ const Page2 = (): JSX.Element => {
       />
 
       <Modal.Body id="tutorial-2__description">
-        <Typography.H4>配信をチェック</Typography.H4>
-        <Typography.Paragraph>
+        <Typography.Xl as={H}>配信をチェック</Typography.Xl>
+        <Typography.Base>
           画面中央には、過去の配信とこれから始まる配信が表示されています。各配信をタップすると
           YouTube
           の配信画面が表示されます。左右にスクロールすると時間を前後に移動させることが出来ます。
-        </Typography.Paragraph>
+        </Typography.Base>
       </Modal.Body>
     </div>
   );
@@ -63,10 +65,10 @@ const Page3 = (): JSX.Element => {
       />
 
       <Modal.Body id="tutorial-3__description">
-        <Typography.H4>ライバー</Typography.H4>
-        <Typography.Paragraph>
+        <Typography.Xl as={H}>ライバー</Typography.Xl>
+        <Typography.Base>
           サイドバーやメニューからアクセスできるライバーの項目からは、現在配信中のライバーやライバーの一覧を表示することができます。
-        </Typography.Paragraph>
+        </Typography.Base>
       </Modal.Body>
     </div>
   );
@@ -82,12 +84,12 @@ const Page4 = (): JSX.Element => {
       />
 
       <Modal.Body id="tutorial-4__description">
-        <Typography.H4>アクセシビリティー</Typography.H4>
-        <Typography.Paragraph>
+        <Typography.Xl as={H}>アクセシビリティー</Typography.Xl>
+        <Typography.Base>
           Refined Itsukara.linkはVoiceOverとキーボードでテストされており、WCAG
           2.1
           AAの準拠を基準としています。アクセシビリティーに関するフィードバックをお持ちの方は開発者までご連絡ください。
-        </Typography.Paragraph>
+        </Typography.Base>
       </Modal.Body>
     </div>
   );
@@ -103,8 +105,8 @@ const Page5 = (): JSX.Element => {
       />
 
       <Modal.Body id="tutorial-5__description">
-        <Typography.H4>開発に参加</Typography.H4>
-        <Typography.Paragraph>
+        <Typography.Xl as={H}>開発に参加</Typography.Xl>
+        <Typography.Base>
           使い方はお分かりいただけましたか？
           質問や機能のリクエスト、改善点、バグの報告はフィードバック用の
           <Link href="https://forms.gle/1tg2n5KB9fcroJcc7" target="_blank">
@@ -117,7 +119,7 @@ const Page5 = (): JSX.Element => {
           までお寄せください！
           このプロジェクトはオープンソースソフトウェアで、より良い実装をしていただけるコントリビューターも募集しています！
           それではお楽しみください！
-        </Typography.Paragraph>
+        </Typography.Base>
       </Modal.Body>
     </div>
   );

@@ -3090,6 +3090,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@popperjs/core@npm:^2.11.6":
+  version: 2.11.6
+  resolution: "@popperjs/core@npm:2.11.6"
+  checksum: 47fb328cec1924559d759b48235c78574f2d71a8a6c4c03edb6de5d7074078371633b91e39bbf3f901b32aa8af9b9d8f82834856d2f5737a23475036b16817f0
+  languageName: node
+  linkType: hard
+
 "@prisma/client@npm:^3.8.1":
   version: 3.8.1
   resolution: "@prisma/client@npm:3.8.1"
@@ -3252,6 +3259,7 @@ __metadata:
     "@mdx-js/loader": ^1.6.22
     "@mdx-js/react": ^1.6.22
     "@next/mdx": ^12.0.7
+    "@popperjs/core": ^2.11.6
     "@ril/eslint-plugin": "workspace:^"
     "@ril/tsconfig": "workspace:^"
     "@storybook/addon-essentials": ^6.4.18

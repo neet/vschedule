@@ -10,20 +10,20 @@ export default {
 export const Prose = {
   render: (): JSX.Element => (
     <>
-      <Typography.H1>hello world</Typography.H1>
+      <Typography.FourXl>hello world</Typography.FourXl>
 
-      <Typography.Paragraph>
+      <Typography.Base>
         body and <Link href="https://example.com">link</Link>.
-      </Typography.Paragraph>
+      </Typography.Base>
 
-      <Typography.H2>Lorem ipsum</Typography.H2>
+      <Typography.ThreeXl>Lorem ipsum</Typography.ThreeXl>
 
-      <Typography.Paragraph>
+      <Typography.Base>
         A vigilante is just a man lost in scramble for his own gratification. He
         can be destroyed or locked up. But if you make yourself more than just a
         man, if you devote yourself to an ideal and if they can’t stop you then
         you become something else entirely. Legend, Mr Wayne.
-      </Typography.Paragraph>
+      </Typography.Base>
     </>
   ),
 };

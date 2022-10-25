@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { Section } from 'react-headings';
 
 import Article from '../components/layouts/Article';
 import { Link as UILink } from '../components/ui/Link';
@@ -7,13 +8,13 @@ import { Typography } from '../components/ui/Typography';
 
 const NotFound = (): JSX.Element => {
   return (
-    <>
+    <Section
+      component={<Typography.ThreeXl>HTTP 404 ― Not found</Typography.ThreeXl>}
+    >
       <Head>
         <title>お探しのページは見つかりません | Refined Itsukara.link</title>
         <meta name="description" content="お探しのページは見つかりません。" />
       </Head>
-
-      <Typography.H2>HTTP 404 ― Not found</Typography.H2>
 
       <div>
         <img
@@ -23,13 +24,13 @@ const NotFound = (): JSX.Element => {
         />
       </div>
 
-      <Typography.Paragraph>
+      <Typography.Base>
         お探しのページは見つかりません。{' '}
         <Link href="/" passHref>
           <UILink>トップページへ戻る</UILink>
         </Link>
-      </Typography.Paragraph>
-    </>
+      </Typography.Base>
+    </Section>
   );
 };
 
