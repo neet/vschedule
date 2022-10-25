@@ -14,7 +14,7 @@ export const Prose = (props: ProseProps): JSX.Element => {
   const { level } = useLevel();
 
   const getHeading = useCallback(
-    (relativeLevel: number) => 'h' + Math.max(level + relativeLevel, 6),
+    (relativeLevel: number) => 'h' + Math.min(level + relativeLevel, 6),
     [level],
   );
 
