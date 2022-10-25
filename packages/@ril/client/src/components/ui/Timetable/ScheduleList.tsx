@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import type { Dayjs } from 'dayjs';
 import { Fragment, memo, useMemo } from 'react';
+import { Section } from 'react-headings';
 
 import { inRange } from '../../../utils/inRange';
 import { isOverlapping } from '../../../utils/overlap';
@@ -174,17 +175,21 @@ const ScheduleListPure = (props: ScheduleListProps): JSX.Element => {
     <>
       {segments.map((segment, i) => (
         <Fragment key={`segment-${i}`}>
-          <Spell
-            key={segment.date.toISOString()}
-            date={segment.date}
-            size={largestSegmentSize}
-          />
-
-          {segment.schedules.length > 0 ? (
-            <TableDataList segment={segment.schedules} />
-          ) : (
-            <EmptyList key={`message-${i}`} date={segment.date} />
-          )}
+          <Section
+            component={
+              <Spell
+                key={segment.date.toISOString()}
+                date={segment.date}
+                size={largestSegmentSize}
+              />
+            }
+          >
+            {segment.schedules.length > 0 ? (
+              <TableDataList segment={segment.schedules} />
+            ) : (
+              <EmptyList key={`message-${i}`} date={segment.date} />
+            )}
+          </Section>
         </Fragment>
       ))}
     </>

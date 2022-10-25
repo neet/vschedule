@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 import { memo } from 'react';
+import { H } from 'react-headings';
 import { useInView } from 'react-intersection-observer';
 
 import { Typography } from '../Typography';
@@ -37,7 +38,7 @@ const SpellPure = (props: SpellProps): JSX.Element => {
   const x = getItemX(date) - width / 2;
 
   return (
-    <h4
+    <H
       id={date.toISOString()}
       className={classNames(
         'absolute',
@@ -103,7 +104,7 @@ const SpellPure = (props: SpellProps): JSX.Element => {
           style={{ height: `${itemHeight * size}px` }}
         />
       </a>
-    </h4>
+    </H>
   );
 };
 
