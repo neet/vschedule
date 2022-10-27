@@ -19,6 +19,8 @@
     "gtag",
     "headlessui",
     "igarashi",
+    "immer",
+    "immerable",
     "inversify",
     "itsukara",
     "multiline",

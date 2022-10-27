@@ -2,7 +2,7 @@
   "extends": "@ril/tsconfig",
   "compilerOptions": {
     "outDir": "./dist",
-    "types": ["reflect-metadata"],
+    "types": ["reflect-metadata", "jest"],
     "module": "CommonJS",
     "esModuleInterop": true,
     "moduleResolution": "node",
