@@ -2956,13 +2956,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/mdx@npm:^12.0.7":
-  version: 12.0.8
-  resolution: "@next/mdx@npm:12.0.8"
+"@next/mdx@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "@next/mdx@npm:13.0.0"
   peerDependencies:
     "@mdx-js/loader": ">=0.15.0"
     "@mdx-js/react": "*"
-  checksum: 5a7a0a61e1bfd754d2f24bc12de3b5be8f934687edabf596581f30cfc0a4a9bae27810a7dfee97db2e4cbcc71a18c5c892790f3bab88a74a07853062a3febda7
+  checksum: efcef546555855be5b9e2e83ac9545a425846107466b1cb6ed6bc2f41e95c59191efc39f192854c0992255d0542a770af8b6ed4e232048504269a65d0c4a39d1
   languageName: node
   linkType: hard
 
@@ -3318,7 +3318,7 @@ __metadata:
     "@headlessui/react": ^1.4.2
     "@mdx-js/loader": ^1.6.22
     "@mdx-js/react": ^1.6.22
-    "@next/mdx": ^12.0.7
+    "@next/mdx": ^13.0.0
     "@popperjs/core": ^2.11.6
     "@ril/eslint-plugin": "workspace:^"
     "@ril/tsconfig": "workspace:^"
