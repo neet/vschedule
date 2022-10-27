@@ -1,22 +1,22 @@
+import { injectable } from 'inversify';
 import fetch from 'node-fetch';
 import { URLSearchParams } from 'url';
 
-export interface SubscribeToYoutubeChannelParams {
-  readonly channelId: string;
-  readonly callbackUrl: string;
-}
+import { IYoutubeWebHubService } from '../app/services/YoutubeWebHubService';
 
-export class SubscribeToYoutubeChannel {
-  async invoke(params: SubscribeToYoutubeChannelParams): Promise<void> {
-    const { channelId, callbackUrl } = params;
+@injectable()
+export class YoutubeWebHubService implements IYoutubeWebHubService {
+  // TODO: config使う
+  private readonly _callbackUrl = process.env.API_URL + '/webhook/youtube';
 
+  public async subscribeToChannel(channelId: string): Promise<void> {
     const res = await fetch('https://pubsubhubbub.appspot.com/subscribe', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        'hub.callback': callbackUrl,
+        'hub.callback': this._callbackUrl,
         'hub.topic': `https://www.youtube.com/xml/feeds/videos.xml?channel_id=${channelId}`,
         'hub.verify': 'async',
         'hub.mode': 'subscribe',

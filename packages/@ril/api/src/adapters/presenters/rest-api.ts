@@ -1,5 +1,5 @@
-import { injectable } from 'inversify';
 import { Actor, MediaAttachment, Stream } from '@ril/core';
+import { injectable } from 'inversify';
 
 @injectable()
 export class RestApiPresenter {

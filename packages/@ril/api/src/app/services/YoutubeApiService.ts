@@ -15,8 +15,7 @@ export interface Channel {
   readonly thumbnailUrl: string;
 }
 
-export interface YoutubeStreamService {
+export interface IYoutubeApiService {
   fetchVideo(videoId: string): Promise<Video>;
   fetchChannel(channelId: string): Promise<Channel>;
-  subscribeToChannel(channelId: string): Promise<void>;
 }

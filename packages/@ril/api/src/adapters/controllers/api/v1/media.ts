@@ -40,7 +40,7 @@ export class MediaAttachmentController {
 
       return res
         .setHeader('Content-Type', data.headers.get('content-type') as string)
-        .send(await data.buffer());
+        .send(await data.arrayBuffer());
     } catch (e) {
       if (e instanceof NoSuchMediaAttachmentError) {
         throw new NotFoundError('No such media attachment');

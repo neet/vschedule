@@ -11,9 +11,9 @@ import {
   Res,
 } from 'routing-controllers';
 
-import { CreateSubscription } from '../../../app/use-cases/CreateSubscription';
-import { RemoveYoutubeStream } from '../../../app/use-cases/RemoveYoutubeStream';
+import { RemoveStream } from '../../../app/use-cases/RemoveStream';
 import { SaveYoutubeStream } from '../../../app/use-cases/SaveYoutubeStream';
+import { VerifyYoutubeWebHubSubscription } from '../../../app/use-cases/VerifyYoutubeWebHubSubscription';
 
 interface XmlNamespace {
   readonly xmlns: string;
@@ -74,16 +74,16 @@ export class YoutubeWebhookController {
     @inject(SaveYoutubeStream)
     private readonly _saveYoutubeStream: SaveYoutubeStream,
 
-    @inject(RemoveYoutubeStream)
-    private readonly _removeYoutubeStream: RemoveYoutubeStream,
+    @inject(RemoveStream)
+    private readonly _removeStream: RemoveStream,
 
-    @inject(CreateSubscription)
-    private readonly _createSubscription: CreateSubscription,
+    @inject(VerifyYoutubeWebHubSubscription)
+    private readonly _verifyYoutubeWebHubSubscription: VerifyYoutubeWebHubSubscription,
   ) {}
 
   @Get('/')
   async verify(@Params() params: Verification) {
-    await this._createSubscription.invoke({
+    await this._verifyYoutubeWebHubSubscription.invoke({
       topic: params['hub.topic'],
       leaseSeconds: params['hub.lease_seconds'],
     });
@@ -99,9 +99,7 @@ export class YoutubeWebhookController {
       if (href == null) {
         throw new BadRequestError('error');
       }
-      await this._removeYoutubeStream.invoke({
-        url: href,
-      });
+      await this._removeStream.invoke({ url: href });
       return res.sendStatus(200);
     }
 

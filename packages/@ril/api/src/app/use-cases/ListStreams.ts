@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
-import { Stream } from '@ril/core';
 
+import { Stream } from '../../domain/entities';
 import { TYPES } from '../../types';
 import { StreamRepository } from '../repositories/StreamRepository';
 

@@ -1,20 +1,16 @@
+import { MediaAttachment, MediaAttachmentFilename, Stream, StreamTitle } from '../../domain/entities';
 import dayjs from 'dayjs';
 import { inject, injectable } from 'inversify';
 import fetch from 'node-fetch';
 import * as uuid from 'uuid';
-import {
-  MediaAttachment,
-  Stream,
-  StreamTitle,
-  Url,
-  Uuid,
-} from '@ril/core';
+import { YoutubeChannelId } from '../../domain/_shared';
 
 import { TYPES } from '../../types';
-import { ActorRepository } from '../repositories/ActorRepository';
 import { MediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
+import { PerformerRepository } from '../repositories/PerformerRepository';
 import { StreamRepository } from '../repositories/StreamRepository';
-import { YoutubeStreamService } from '../services/YoutubeStreamService';
+import { YoutubeStreamService } from '../services/YoutubeApiService';
+import { URL } from 'url';
 
 export interface SaveYoutubeStreamParams {
   readonly videoId: string;
@@ -26,8 +22,8 @@ export class SaveYoutubeStream {
     @inject(TYPES.StreamRepository)
     private readonly _streamRepository: StreamRepository,
 
-    @inject(TYPES.ActorRepository)
-    private readonly _actorRepository: ActorRepository,
+    @inject(TYPES.PerformerRepository)
+    private readonly _performerRepository: PerformerRepository,
 
     @inject(TYPES.MediaAttachmentRepository)
     private readonly _mediaAttachmentRepository: MediaAttachmentRepository,
@@ -40,12 +36,12 @@ export class SaveYoutubeStream {
     const { videoId } = params;
 
     const video = await this._youtubeStreamService.fetchVideo(videoId);
-    const actor = await this._actorRepository.findByYoutubeChannelId(
-      video.channelId,
+    const performer = await this._performerRepository.findByYoutubeChannelId(
+      new YoutubeChannelId(video.channelId),
     );
 
-    if (actor == null) {
-      throw new Error(`actor not found with channel id: ${video.channelId}`);
+    if (performer == null) {
+      throw new Error(`performer not found with channel id: ${video.channelId}`);
     }
 
     const thumbnail =
@@ -53,15 +49,15 @@ export class SaveYoutubeStream {
         ? await this._makeThumbnail(video.thumbnailUrl)
         : undefined;
 
-    const stream = Stream.from({
-      id: Uuid.from(uuid.v4()),
-      title: StreamTitle.from(video.title),
-      url: Url.from(video.url),
+    const stream = Stream.fromPrimitive({
+      id: uuid.v4(),
+      title: video.title,
+      url: new URL(video.url),
       createdAt: dayjs(),
       updatedAt: dayjs(),
       startedAt: dayjs(video.startedAt),
       endedAt: dayjs(video.endedAt),
-      actor,
+      actor: performer,
       thumbnail,
     });
 
@@ -72,7 +68,7 @@ export class SaveYoutubeStream {
     const file = await fetch(url);
     const buffer = await file.buffer();
     return await this._mediaAttachmentRepository.save(
-      `${uuid.v4()}.png`,
+      new MediaAttachmentFilename(`${uuid.v4()}.png`),
       buffer,
     );
   }

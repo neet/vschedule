@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
-import { MediaAttachment } from '@ril/core';
 
+import { MediaAttachment, MediaAttachmentId } from '../../domain/entities';
 import { TYPES } from '../../types';
 import { MediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
 
@@ -14,7 +14,9 @@ export class ShowMediaAttachment {
   ) {}
 
   async invoke(id: string): Promise<MediaAttachment> {
-    const data = await this._mediaRepository.findById(id);
+    const data = await this._mediaRepository.findById(
+      new MediaAttachmentId(id),
+    );
 
     if (data == null) {
       throw new NoSuchMediaAttachmentError(`MediaAttachment not found: ${id}`);

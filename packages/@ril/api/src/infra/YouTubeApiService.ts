@@ -1,13 +1,11 @@
 import { google, youtube_v3 } from 'googleapis';
 import { injectable } from 'inversify';
-import fetch from 'node-fetch';
-import { URLSearchParams } from 'url';
 
 import {
   Channel,
+  IYoutubeApiService,
   Video,
-  YoutubeStreamService,
-} from '../app/services/YoutubeStreamService';
+} from '../app/services/YoutubeApiService';
 
 export interface FetchStreamsByChannelIdParams {
   readonly channelId: string;
@@ -15,9 +13,8 @@ export interface FetchStreamsByChannelIdParams {
 }
 
 @injectable()
-export class YoutubeStreamServiceImpl implements YoutubeStreamService {
+export class YoutubeApiService implements IYoutubeApiService {
   private readonly _yt: youtube_v3.Youtube;
-  private readonly _callbackUrl = process.env.API_URL + '/webhook/youtube';
 
   constructor() {
     this._yt = google.youtube({
@@ -87,29 +84,5 @@ export class YoutubeStreamServiceImpl implements YoutubeStreamService {
       name: channel.snippet.title,
       thumbnailUrl: channel.snippet.thumbnails.default.url,
     };
-  }
-
-  async subscribeToChannel(channelId: string): Promise<void> {
-    const res = await fetch('https://pubsubhubbub.appspot.com/subscribe', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({
-        'hub.callback': this._callbackUrl,
-        'hub.topic': `https://www.youtube.com/xml/feeds/videos.xml?channel_id=${channelId}`,
-        'hub.verify': 'async',
-        'hub.mode': 'subscribe',
-        'hub.verify_token': '',
-        'hub.secret': '',
-        'hub.lease_seconds': '',
-      }),
-    });
-
-    if (!res.ok) {
-      throw new Error(
-        `Failed to subscribe to a youtube channel: ${res.status} ${res.statusText}`,
-      );
-    }
   }
 }

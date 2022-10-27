@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client';
-import { inject, injectable } from 'inversify';
 import { Actor } from '@ril/core';
+import { inject, injectable } from 'inversify';
 
-import { ActorRepository } from '../../app/repositories/ActorRepository';
+import { ActorRepository } from '../../app/repositories/PerformerRepository';
 import { TYPES } from '../../types';
 import { createActorFromPrisma } from './data-mapper';
 

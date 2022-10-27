@@ -9,6 +9,7 @@ import { MediaAttachmentId } from './MediaAttachmentId';
 export interface MediaAttachmentProps {
   readonly id: MediaAttachmentId;
   readonly filename: MediaAttachmentFilename;
+  readonly blur: Buffer;
   readonly bucket?: MediaAttachmentBucket;
   readonly createdAt: Dayjs;
   readonly updatedAt: Dayjs;
@@ -28,6 +29,10 @@ export class MediaAttachment extends Entity<
 
   get filename(): MediaAttachmentFilename {
     return this._props.filename;
+  }
+
+  get blur(): Buffer {
+    return this._props.blur;
   }
 
   get bucket(): MediaAttachmentBucket | undefined {
@@ -51,6 +56,7 @@ export class MediaAttachment extends Entity<
   ): MediaAttachment {
     return new MediaAttachment({
       id: new MediaAttachmentId(props.id),
+      blur: props.blur,
       filename: new MediaAttachmentFilename(props.filename),
       bucket:
         props.bucket != null

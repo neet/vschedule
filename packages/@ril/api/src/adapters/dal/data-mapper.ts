@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import {
   Actor,
   ActorName,
@@ -12,6 +11,7 @@ import {
   Uuid,
   YoutubeChannelId,
 } from '@ril/core';
+import dayjs from 'dayjs';
 
 import * as Prisma from '.prisma/client';
 

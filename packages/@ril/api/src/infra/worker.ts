@@ -1,11 +1,11 @@
 import { PubSub } from '@google-cloud/pubsub';
 
-import { RefreshSubscription } from '../app/use-cases/RefreshSubscription';
-import { container } from './inversify.config';
+import { RefreshYoutubeWebHubSubscription } from '../app/use-cases/RefreshYoutubeWebHubSubscription';
+import { container } from './inversify-config';
 
 const main = async () => {
   const pubSub = new PubSub();
-  const refreshSubscription = container.get(RefreshSubscription);
+  const refreshSubscription = container.get(RefreshYoutubeWebHubSubscription);
 
   const [subscription] = await pubSub.createSubscription(
     'refresh-topic',

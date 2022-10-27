@@ -1,14 +1,14 @@
 import { PrismaClient } from '@prisma/client';
-import dayjs from 'dayjs';
-import { inject, injectable } from 'inversify';
-import sharp from 'sharp';
-import * as uuid from 'uuid';
 import {
   MediaAttachment,
   MediaAttachmentBucket,
   MediaAttachmentFilename,
   Uuid,
 } from '@ril/core';
+import dayjs from 'dayjs';
+import { inject, injectable } from 'inversify';
+import sharp from 'sharp';
+import * as uuid from 'uuid';
 
 import { MediaAttachmentRepository } from '../../app/repositories/MediaAttachmentRepository';
 import { TYPES } from '../../types';

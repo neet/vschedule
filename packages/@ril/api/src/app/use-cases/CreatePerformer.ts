@@ -3,44 +3,43 @@ import { inject, injectable } from 'inversify';
 import fetch from 'node-fetch';
 import sharp from 'sharp';
 import * as uuid from 'uuid';
-import {
-  Actor,
-  ActorDescription,
-  ActorName,
-  HexColor,
-  TwitterUsername,
-  Uuid,
-  YoutubeChannelId,
-} from '@ril/core';
 
+import { MediaAttachmentFilename, Performer } from '../../domain/entities';
 import { TYPES } from '../../types';
-import { ActorRepository } from '../repositories/ActorRepository';
 import { MediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
-import { YoutubeStreamService } from '../services/YoutubeStreamService';
+import { PerformerRepository } from '../repositories/PerformerRepository';
+import { IYoutubeApiService } from '../services/YoutubeApiService';
+import { IYoutubeWebHubService } from '../services/YoutubeWebHubService';
 
-export interface CreateActorParams {
-  readonly youtubeChannelId: string;
-  readonly twitterUsername: string;
+export interface CreatePerformerParams {
   readonly name?: string;
   readonly description?: string;
   readonly color?: string;
+  readonly youtubeChannelId: string;
+  readonly twitterUsername: string;
   readonly webHubEnabled: boolean;
 }
 
+/**
+ * 管理画面などから配信者を追加する
+ */
 @injectable()
-export class CreateActor {
+export class CreatePerformer {
   constructor(
-    @inject(TYPES.ActorRepository)
-    private readonly _actorRepository: ActorRepository,
+    @inject(TYPES.PerformerRepository)
+    private readonly _actorRepository: PerformerRepository,
 
     @inject(TYPES.MediaAttachmentRepository)
     private readonly _mediaAttachmentRepository: MediaAttachmentRepository,
 
-    @inject(TYPES.YoutubeStreamService)
-    private readonly _youtubeStreamService: YoutubeStreamService,
+    @inject(TYPES.YoutubeApiService)
+    private readonly _youtubeApiService: IYoutubeApiService,
+
+    @inject(TYPES.YoutubeWebHubService)
+    private readonly _youtubeWebHubService: IYoutubeWebHubService,
   ) {}
 
-  public async invoke(params: CreateActorParams): Promise<void> {
+  public async invoke(params: CreatePerformerParams): Promise<void> {
     const {
       name,
       youtubeChannelId,
@@ -49,7 +48,7 @@ export class CreateActor {
       webHubEnabled,
     } = params;
 
-    const channel = await this._youtubeStreamService.fetchChannel(
+    const channel = await this._youtubeApiService.fetchChannel(
       youtubeChannelId,
     );
 
@@ -67,27 +66,23 @@ export class CreateActor {
     }
 
     const avatar = await this._mediaAttachmentRepository.save(
-      `${uuid.v4()}.png`,
+      new MediaAttachmentFilename(`${uuid.v4()}.png`),
       await sharp(imageBuffer).png().toBuffer(),
     );
 
-    const actor = Actor.from({
-      id: Uuid.from(uuid.v4()),
-      name: ActorName.from(name ?? channel.name),
-      description:
-        description != null ? ActorDescription.from(description) : undefined,
-      color: HexColor.from(primaryColor.hex()),
-      youtubeChannelId: YoutubeChannelId.from(youtubeChannelId),
-      twitterUsername:
-        twitterUsername != null
-          ? TwitterUsername.from(twitterUsername)
-          : undefined,
+    const actor = Performer.fromPrimitive({
+      id: uuid.v4(),
+      name: name ?? channel.name,
+      description: description,
+      color: primaryColor.hex(),
+      twitterUsername,
       avatar,
+      youtubeChannelId,
     });
 
     await this._actorRepository.save(actor);
     if (webHubEnabled) {
-      await this._youtubeStreamService.subscribeToChannel(youtubeChannelId);
+      await this._youtubeWebHubService.subscribeToChannel(youtubeChannelId);
     }
   }
 }

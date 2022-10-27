@@ -1,27 +1,30 @@
 import { inject, injectable } from 'inversify';
 import { URL } from 'url';
+import { YoutubeChannelId } from '../../domain/_shared';
 
 import { TYPES } from '../../types';
-import { ActorRepository } from '../repositories/ActorRepository';
 import { JobRepository } from '../repositories/JobRepository';
+import { PerformerRepository } from '../repositories/PerformerRepository';
 
-export interface CreateSubscriptionParams {
+export interface VerifyYoutubeWebHubSubscriptionParams {
   readonly topic: string;
   readonly leaseSeconds: number;
 }
 
-// TODO: AcceptVerificationとかのほうが良さそう
+/**
+ * 
+ */
 @injectable()
-export class CreateSubscription {
+export class VerifyYoutubeWebHubSubscription {
   constructor(
     @inject(TYPES.JobRepository)
     private readonly _jobRepository: JobRepository,
 
-    @inject(TYPES.ActorRepository)
-    private readonly _actorRepository: ActorRepository,
+    @inject(TYPES.PerformerRepository)
+    private readonly _performerRepository: PerformerRepository,
   ) {}
 
-  async invoke(params: CreateSubscriptionParams): Promise<void> {
+  async invoke(params: VerifyYoutubeWebHubSubscriptionParams): Promise<void> {
     const topic = new URL(params.topic);
 
     const channelId = topic.searchParams.get('channel_id');
@@ -29,14 +32,17 @@ export class CreateSubscription {
       throw new Error(`Invalid topic: ${params.topic}`);
     }
 
-    const actor = await this._actorRepository.findByYoutubeChannelId(channelId);
+    const actor = await this._performerRepository.findByYoutubeChannelId(
+      new YoutubeChannelId(channelId),
+    );
+
     if (actor == null) {
       throw new Error(`No actor associated with yt channel ${channelId}`);
     }
 
     await this._jobRepository.queue({
       type: 'refresh',
-      actorId: actor.id,
+      actorId: actor.id.value,
       scheduledAt: new Date(),
     });
   }

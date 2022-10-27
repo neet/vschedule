@@ -9,8 +9,8 @@ import { useContainer, useExpressServer } from 'routing-controllers';
 import { MediaAttachmentController } from '../adapters/controllers/api/v1/media';
 import { StreamsRestApiController } from '../adapters/controllers/api/v1/streams';
 import { YoutubeWebhookController } from '../adapters/controllers/webhook/youtube';
-import { container } from './inversify.config';
 import { InversifyAdapter } from './inversify-adapter';
+import { container } from './inversify-config';
 
 dayjs.extend(DurationPlugin);
 
