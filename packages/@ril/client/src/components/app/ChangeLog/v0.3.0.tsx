@@ -1,3 +1,5 @@
+import { H } from 'react-headings';
+
 import { Keyboard } from '../../ui/Keyboard';
 import { Modal } from '../../ui/Modal';
 import type { SlideProps } from '../../ui/Slide';
@@ -13,11 +15,11 @@ const Tag = (): JSX.Element => (
     />
 
     <Modal.Body>
-      <Typography.H4>検索機能を実装</Typography.H4>
-      <Typography.Paragraph>
+      <Typography.Xl as={H}>検索機能を実装</Typography.Xl>
+      <Typography.Base>
         タイムテーブル上に表示されている予定を横断で検索できる検索機能を実装しました。サイドバーの検索フォームをクリックするか、{' '}
         <Keyboard>Ctrl+K</Keyboard> キーで表示できます。
-      </Typography.Paragraph>
+      </Typography.Base>
     </Modal.Body>
   </div>
 );

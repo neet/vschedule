@@ -7,6 +7,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import { H } from 'react-headings';
 
 import type { Genre } from '../../../types';
 import { Button } from '../../ui/Button';
@@ -88,7 +89,7 @@ export const Crown = (props: CrownProps): JSX.Element => {
         <Typography
           id="crown-title"
           variant="wash"
-          as="h2"
+          as={H}
           className={classNames('md:text-xl')}
         >
           今日のにじさんじの配信
@@ -181,12 +182,8 @@ export const Crown = (props: CrownProps): JSX.Element => {
           // スマホはバーガーメニューから使えるのでクラウンに出す必要はないと思う
           <form
             className="grow shrink hidden xl:block"
-            aria-labelledby="crown-tags"
+            aria-label="タグでフィルター"
           >
-            <h3 id="crown-tags" className="sr-only">
-              タグでフィルター
-            </h3>
-
             <Radio
               className="overflow-hidden justify-end"
               name="filter"

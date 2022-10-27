@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { H, Section } from 'react-headings';
 
 import type { Event } from '../../../types';
 import { isWindows } from '../../../utils/isWindows';
@@ -44,10 +45,15 @@ export const Skyscraper = (props: SkyscraperProps): JSX.Element => {
         className="bg-white dark:bg-black sticky top-0 left-0 z-10"
         aria-labelledby="skyscraper__clock"
       >
-        <h2 className="sr-only" id="skyscraper__clock">
-          現在時刻
-        </h2>
-        <Clock />
+        <Section
+          component={
+            <H className="sr-only" id="skyscraper__clock">
+              現在時刻
+            </H>
+          }
+        >
+          <Clock />
+        </Section>
       </section>
 
       <section aria-label="検索">

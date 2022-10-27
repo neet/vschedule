@@ -1,11 +1,16 @@
 module.exports = {
-  stories: ['../src/components/**/*.stories.tsx'],
+  core: {
+    builder: 'webpack5',
+  },
+  stories: [
+    '../src/components/**/*.stories.mdx',
+    '../src/components/**/*.stories.@(js|jsx|ts|tsx)',
+  ],
   addons: [
-    '@storybook/addon-docs',
-    '@storybook/addon-actions',
     '@storybook/addon-links',
-    '@storybook/addon-knobs',
-    // apply PostCSS 8 until the major release of Sb 6.2.0
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+
     {
       name: '@storybook/addon-postcss',
       options: {
@@ -15,13 +20,5 @@ module.exports = {
       },
     },
   ],
-  typescript: {
-    check: false,
-    checkOptions: {},
-    reactDocgen: 'react-docgen-typescript',
-    reactDocgenTypescriptOptions: {
-      shouldExtractLiteralValuesFromEnum: true,
-      propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
-    },
-  },
+  framework: '@storybook/react',
 };

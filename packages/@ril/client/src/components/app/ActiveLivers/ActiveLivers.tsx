@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
+import { H } from 'react-headings';
 
 import type { Event } from '../../../types';
 import { Card } from '../../ui/Card';
@@ -30,7 +31,7 @@ export const ActiveLivers = (props: ActiveLiversProps): JSX.Element => {
   return (
     <Card variant="wash">
       {events != null ? (
-        <Typography as="h3" variant="normal" weight="semibold" size="2xl">
+        <Typography as={H} variant="normal" weight="semibold" size="2xl">
           {events.length}人
           <Typography as="span" size="base" variant="wash">
             {' '}

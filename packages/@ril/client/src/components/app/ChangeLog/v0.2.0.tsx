@@ -1,3 +1,5 @@
+import { H } from 'react-headings';
+
 import { Link } from '../../ui/Link';
 import { Modal } from '../../ui/Modal';
 import type { SlideProps } from '../../ui/Slide';
@@ -13,10 +15,10 @@ const Tag = (): JSX.Element => (
     />
 
     <Modal.Body>
-      <Typography.H4>タグ機能が復活</Typography.H4>
-      <Typography.Paragraph>
+      <Typography.Xl as={H}>タグ機能が復活</Typography.Xl>
+      <Typography.Base>
         一時的に廃止されていたタグ機能が再開し、タイムテーブルの上部に表示されるようになりました！
-      </Typography.Paragraph>
+      </Typography.Base>
     </Modal.Body>
   </div>
 );
@@ -31,12 +33,12 @@ const Recommendation = (): JSX.Element => (
     />
 
     <Modal.Body>
-      <Typography.H4>開発者が最近の見たおすすめの配信</Typography.H4>
-      <Typography.Paragraph>
+      <Typography.Xl as={H}>開発者が最近の見たおすすめの配信</Typography.Xl>
+      <Typography.Base>
         <Link href="https://youtu.be/U837mYKhotM" target="_blank">
           あした...明日、剣持ひまぁ？♡ ←ここすき
         </Link>
-      </Typography.Paragraph>
+      </Typography.Base>
     </Modal.Body>
   </div>
 );

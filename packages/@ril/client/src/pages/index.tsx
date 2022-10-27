@@ -4,6 +4,7 @@ import type { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useMemo, useState } from 'react';
+import { Section } from 'react-headings';
 import { useSearchParam } from 'react-use';
 
 import { api } from '../api';
@@ -107,18 +108,22 @@ const Events = (props: EventsProps): JSX.Element | null => {
           )}
         >
           <div className="flex flex-col grow space-y-2 md:space-y-4">
-            <Crown
-              genre={genre}
-              loading={loading}
-              onGenreChange={setGenre}
-              genres={genres}
-            />
-
-            <Timetable
-              loading={events == null}
-              swapDelta={swapDelta}
-              schedules={schedules}
-            />
+            <Section
+              component={
+                <Crown
+                  genre={genre}
+                  loading={loading}
+                  onGenreChange={setGenre}
+                  genres={genres}
+                />
+              }
+            >
+              <Timetable
+                loading={events == null}
+                swapDelta={swapDelta}
+                schedules={schedules}
+              />
+            </Section>
           </div>
 
           <Skyscraper

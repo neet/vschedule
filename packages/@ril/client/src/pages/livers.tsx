@@ -1,5 +1,6 @@
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
+import { H, Section } from 'react-headings';
 
 import { api } from '../api';
 import { Liver } from '../components/app/Liver';
@@ -28,7 +29,11 @@ const Livers = (props: LiversProps): JSX.Element => {
   const { livers } = useLivers({ fallbackData: data });
 
   return (
-    <>
+    <Section
+      component={
+        <Typography.FourXl as={H}>にじさんじのライバー一覧</Typography.FourXl>
+      }
+    >
       <Head>
         <title>にじさんじのライバー一覧 | Refined Itsukara.link</title>
         <meta
@@ -36,10 +41,9 @@ const Livers = (props: LiversProps): JSX.Element => {
           content="にじさんじに所属するバーチャルライバーの一覧です。"
         />
       </Head>
-      <Typography.H1>にじさんじのライバー一覧</Typography.H1>
-      <Typography.Paragraph>
+      <Typography.Base>
         にじさんじに所属するバーチャルライバーの一覧です。
-      </Typography.Paragraph>
+      </Typography.Base>
 
       {livers != null ? (
         <ul className="my-8 divide-y divide-gray-200 dark:divide-neutral-800">
@@ -57,7 +61,7 @@ const Livers = (props: LiversProps): JSX.Element => {
       ) : (
         <span aria-busy>loading...</span>
       )}
-    </>
+    </Section>
   );
 };
 

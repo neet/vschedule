@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import Link from 'next/link';
+import { H } from 'react-headings';
 
 import { Button } from '../../ui/Button';
 import { Navigation } from '../Navigation';
@@ -42,7 +43,7 @@ export const Banner = (): JSX.Element => {
           本文へスキップ
         </Button>
 
-        <h1>
+        <H>
           <Link href="/">
             <a
               className={classNames(
@@ -67,7 +68,7 @@ export const Banner = (): JSX.Element => {
               <img src="/logo-small.png" alt="logo" />
             </a>
           </Link>
-        </h1>
+        </H>
       </div>
 
       <div

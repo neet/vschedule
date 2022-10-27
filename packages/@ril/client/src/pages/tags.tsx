@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { H, Section } from 'react-headings';
 
 import { api } from '../api';
 import { useGenres } from '../components/hooks/useGenres';
@@ -32,16 +33,15 @@ const Tags = (props: TagsProps): JSX.Element => {
   const { genres } = useGenres({ fallbackData: data });
 
   return (
-    <>
+    <Section
+      component={<Typography.FourXl as={H}>タグ別の配信一覧</Typography.FourXl>}
+    >
       <Head>
         <title>タグ別の配信一覧 | Refined Itsukara.link</title>
         <meta name="description" content="このページは現在実装中です" />
       </Head>
 
-      <Typography.H1>タグ別の配信一覧</Typography.H1>
-      <Typography.Paragraph>
-        にじさんじのタグ別の配信一覧です。
-      </Typography.Paragraph>
+      <Typography.Base>にじさんじのタグ別の配信一覧です。</Typography.Base>
 
       {genres?.map((genre) => (
         <Card key={genre.id} variant="wash">
@@ -63,15 +63,15 @@ const Tags = (props: TagsProps): JSX.Element => {
                   <FontAwesomeIcon icon={faHashtag} />
                 </div>
 
-                <h3 className={classNames('group-hover:underline')}>
+                <H className={classNames('group-hover:underline')}>
                   {genre.name}
-                </h3>
+                </H>
               </div>
             </a>
           </Link>
         </Card>
       ))}
-    </>
+    </Section>
   );
 };
 

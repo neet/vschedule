@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { H, Section } from 'react-headings';
 
 import { useAutoplay } from '../components/hooks/useAutoplay';
 import { useSwapDelta } from '../components/hooks/useSwapDelta';
@@ -13,7 +14,7 @@ const User = (): JSX.Element => {
   const { autoplayEnabled, setAutoplay } = useAutoplay();
 
   return (
-    <>
+    <Section component={<Typography.FourXl>設定</Typography.FourXl>}>
       <Head>
         <title>にじさんじのライバー一覧 | Refined Itsukara.link</title>
         <meta
@@ -22,15 +23,13 @@ const User = (): JSX.Element => {
         />
       </Head>
 
-      <Typography.H1>設定</Typography.H1>
-
       <div className="flex space-x-5 items-center">
         <div className="grow">
-          <Typography.H4>ホイールで横スクロール（実験中）</Typography.H4>
-          <Typography.Paragraph>
+          <Typography.Xl as={H}>ホイールで横スクロール（実験中）</Typography.Xl>
+          <Typography.Base>
             タイムテーブル上のマウスホイールのX軸とY軸を入れ替え、Shiftを押さなくても横スクロールが行えるようになります。
             トラックパッドをお使いの場合は無効にすることをお勧めします。
-          </Typography.Paragraph>
+          </Typography.Base>
         </div>
 
         <Switch
@@ -43,10 +42,10 @@ const User = (): JSX.Element => {
 
       <div className="flex space-x-5 items-center">
         <div className="grow">
-          <Typography.H4>自動再生</Typography.H4>
-          <Typography.Paragraph>
+          <Typography.Xl as={H}>自動再生</Typography.Xl>
+          <Typography.Base>
             YouTubeの埋め込み動画などをホバーした際の自動再生を有効化します。
-          </Typography.Paragraph>
+          </Typography.Base>
         </div>
 
         <Switch
@@ -56,7 +55,7 @@ const User = (): JSX.Element => {
           aria-label={autoplayEnabled ? '無効化する' : '有効化する'}
         />
       </div>
-    </>
+    </Section>
   );
 };
 
