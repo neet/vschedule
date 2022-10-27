@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import dayjs from 'dayjs';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
+import { H } from 'react-headings';
 
 import { Badge } from '../Badge';
 import { Typography } from '../Typography';
@@ -147,7 +148,7 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
 
       <div className={'space-y-1'}>
         <Typography
-          as="h4"
+          as={H}
           weight="semibold"
           className={classNames(
             'group-hover:text-primary-600',

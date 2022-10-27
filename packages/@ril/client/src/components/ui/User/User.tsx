@@ -71,6 +71,7 @@ const ReadyUser = (props: ReadyUserProps): JSX.Element => {
           <Typography
             weight="semibold"
             className={classNames(
+              'block',
               'group-hover:text-primary-600',
               'dark:group-hover:text-primary-400',
               'transition-colors',
@@ -82,7 +83,7 @@ const ReadyUser = (props: ReadyUserProps): JSX.Element => {
           </Typography>
 
           {description != null && (
-            <Typography variant="wash" className="min-w-full">
+            <Typography variant="wash" className="block min-w-full">
               {description}
             </Typography>
           )}

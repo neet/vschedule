@@ -103,8 +103,8 @@ export interface TypographyPresets {
 
 export const Typography = overridableWithRef(
   InternalTypography,
-  'h2',
-) as OverridableComponentType<'h2', InternalTypographyProps, 'as'> &
+  'span',
+) as OverridableComponentType<'span', InternalTypographyProps, 'as'> &
   TypographyPresets;
 
 export type TypographyProps = ComponentProps<typeof Typography>;

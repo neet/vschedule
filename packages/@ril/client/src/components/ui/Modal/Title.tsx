@@ -1,14 +1,14 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import { ComponentProps, forwardRef } from 'react';
+import { ComponentPropsWithoutRef, forwardRef } from 'react';
 import { H } from 'react-headings';
 
 import { Button } from '../Button';
 import { Typography } from '../Typography';
 import { useModal } from './useModal';
 
-export type TitleProps = ComponentProps<typeof Typography>;
+export type TitleProps = ComponentPropsWithoutRef<typeof Typography>;
 
 export const Title = forwardRef<HTMLElement, TitleProps>(
   (props, forwardedRef) => {
