@@ -11,12 +11,14 @@
     "@google-cloud/storage": "^5.18.1",
     "@google-cloud/tasks": "^2.5.0",
     "@prisma/client": "^3.8.1",
+    "@ril/api-spec": "workspace:^",
     "body-parser": "^1.19.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "cors": "^2.8.5",
     "dayjs": "^1.10.7",
     "express": "^4.17.2",
+    "express-openapi-validator": "^4.13.8",
     "express-xml-bodyparser": "^0.3.0",
     "get-image-colors": "^4.0.0",
     "googleapis": "^92.0.0",
@@ -30,7 +32,8 @@
     "sharp": "^0.29.3",
     "ts-mixer": "^6.0.1",
     "uuid": "^8.3.2",
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@ril/eslint-plugin": "workspace:^",

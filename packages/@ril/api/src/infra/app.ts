@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import dayjs from 'dayjs';
 import DurationPlugin from 'dayjs/plugin/duration';
 import express from 'express';
+import * as OpenApiValidator from 'express-openapi-validator';
 import xmlParser from 'express-xml-bodyparser';
 import { useContainer, useExpressServer } from 'routing-controllers';
 
@@ -18,9 +19,18 @@ const inversifyAdapter = new InversifyAdapter(container);
 useContainer(inversifyAdapter);
 
 const app = express();
-app.use(express.json(), express.urlencoded({ extended: true }), xmlParser());
+app.use(
+  express.json(),
+  express.urlencoded({ extended: true }),
+  xmlParser(),
+  OpenApiValidator.middleware({
+    apiSpec: require.resolve('@ril/api-spec'),
+  }),
+);
 
 useExpressServer(app, {
+  classTransformer: false,
+  validation: false,
   controllers: [
     YoutubeWebhookController,
     StreamsRestApiController,

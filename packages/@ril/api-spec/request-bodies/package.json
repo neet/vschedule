@@ -1,0 +1,5 @@
+{
+  "name": "@ril/api-spec/openapi",
+  "main": "../dist/components/request-bodies/index.js",
+  "types": "../dist/components/request-bodies/index.d.ts"
+}
