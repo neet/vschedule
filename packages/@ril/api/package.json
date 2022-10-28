@@ -7,10 +7,10 @@
     "test": "jest --coverage"
   },
   "dependencies": {
-    "@google-cloud/pubsub": "^2.18.4",
     "@google-cloud/storage": "^5.18.1",
-    "@google-cloud/tasks": "^2.5.0",
+    "@google-cloud/tasks": "^3.0.4",
     "@prisma/client": "^3.8.1",
+    "@ril/api-client": "workspace:^",
     "@ril/api-spec": "workspace:^",
     "body-parser": "^1.19.1",
     "class-transformer": "^0.5.1",
@@ -31,6 +31,7 @@
     "shallow-equal-object": "^1.1.1",
     "sharp": "^0.29.3",
     "ts-mixer": "^6.0.1",
+    "type-fest": "^3.1.0",
     "uuid": "^8.3.2",
     "validator": "^13.7.0",
     "zod": "^3.19.1"

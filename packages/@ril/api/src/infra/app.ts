@@ -10,6 +10,8 @@ import { useContainer, useExpressServer } from 'routing-controllers';
 import { MediaAttachmentController } from '../adapters/controllers/api/v1/media';
 import { StreamsRestApiController } from '../adapters/controllers/api/v1/streams';
 import { YoutubeWebhookController } from '../adapters/controllers/webhook/youtube';
+import { IAppConfig } from '../app/services/AppConfig/AppConfig';
+import { TYPES } from '../types';
 import { InversifyAdapter } from './inversify-adapter';
 import { container } from './inversify-config';
 
@@ -17,6 +19,8 @@ dayjs.extend(DurationPlugin);
 
 const inversifyAdapter = new InversifyAdapter(container);
 useContainer(inversifyAdapter);
+
+const config = container.get<IAppConfig>(TYPES.AppConfig);
 
 const app = express();
 app.use(
@@ -38,7 +42,9 @@ useExpressServer(app, {
   ],
 });
 
-app.listen(process.env.PORT ?? 3000, () => {
+app.listen(config.entries.server.port, () => {
   // eslint-disable-next-line no-console
-  console.log('server is ready at http://localhost:3000');
+  console.log(
+    'server is ready at http://localhost:${config.entries.server.port}',
+  );
 });

@@ -1,16 +1,21 @@
-import { MediaAttachment, MediaAttachmentFilename, Stream, StreamTitle } from '../../domain/entities';
 import dayjs from 'dayjs';
 import { inject, injectable } from 'inversify';
 import fetch from 'node-fetch';
+import { URL } from 'url';
 import * as uuid from 'uuid';
-import { YoutubeChannelId } from '../../domain/_shared';
 
+import { YoutubeChannelId } from '../../domain/_shared';
+import {
+  MediaAttachment,
+  MediaAttachmentFilename,
+  Stream,
+  StreamTitle,
+} from '../../domain/entities';
 import { TYPES } from '../../types';
 import { MediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
 import { PerformerRepository } from '../repositories/PerformerRepository';
 import { StreamRepository } from '../repositories/StreamRepository';
 import { YoutubeStreamService } from '../services/YoutubeApiService';
-import { URL } from 'url';
 
 export interface SaveYoutubeStreamParams {
   readonly videoId: string;
@@ -41,7 +46,9 @@ export class SaveYoutubeStream {
     );
 
     if (performer == null) {
-      throw new Error(`performer not found with channel id: ${video.channelId}`);
+      throw new Error(
+        `performer not found with channel id: ${video.channelId}`,
+      );
     }
 
     const thumbnail =

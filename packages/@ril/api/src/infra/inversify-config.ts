@@ -7,7 +7,7 @@ import { StreamRepositoryPrismaImpl } from '../adapters/dal/StreamRepositoryPris
 import { TYPES } from '../types';
 import { StorageGcsImpl } from './StorageGcsImpl';
 import { YoutubeApiService } from './YouTubeApiService';
-import { YoutubeWebHubService } from './YoutubeWebHubService';
+import { YoutubeWebSubService } from './YoutubeWebSubService';
 
 const container = new Container({
   autoBindInjectable: true,
@@ -21,7 +21,7 @@ container
 container.bind(TYPES.PerformerRepository).to(ActorRepositoryPrismaImpl);
 container.bind(TYPES.StreamRepository).to(StreamRepositoryPrismaImpl);
 container.bind(TYPES.YoutubeApiService).to(YoutubeApiService);
-container.bind(TYPES.YoutubeWebHubService).to(YoutubeWebHubService);
+container.bind(TYPES.YoutubeWebSubService).to(YoutubeWebSubService);
 container
   .bind(TYPES.MediaAttachmentRepository)
   .to(MediaAttachmentRepositoryPrismaImpl);

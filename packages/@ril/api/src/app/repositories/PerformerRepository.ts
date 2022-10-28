@@ -1,5 +1,5 @@
-import { ActorId, Performer } from '../../domain/entities';
 import { YoutubeChannelId } from '../../domain/_shared';
+import { ActorId, Performer } from '../../domain/entities';
 
 export interface PerformerRepository {
   save(actor: Performer): Promise<Performer>;

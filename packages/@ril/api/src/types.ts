@@ -1,6 +1,6 @@
 export const TYPES = Object.freeze({
   YoutubeApiService: Symbol('YoutubeApiService'),
-  YoutubeWebHubService: Symbol('YoutubeWebHubService'),
+  YoutubeWebSubService: Symbol('YoutubeWebSubService'),
 
   PerformerRepository: Symbol('PerformerRepository'),
   MediaAttachmentRepository: Symbol('MediaAttachmentRepository'),
@@ -9,4 +9,5 @@ export const TYPES = Object.freeze({
 
   PrismaClient: Symbol('PrismaClient'),
   Storage: Symbol('Storage'),
+  AppConfig: Symbol('AppConfig'),
 });

@@ -2,6 +2,9 @@
   "name": "@ril/api-spec",
   "version": "0.0.0",
   "main": "./dist/api.json",
+  "scripts": {
+    "build": "./build.sh"
+  },
   "devDependencies": {
     "@asteasolutions/zod-to-openapi": "^2.3.0",
     "@ril/eslint-plugin": "workspace:^",

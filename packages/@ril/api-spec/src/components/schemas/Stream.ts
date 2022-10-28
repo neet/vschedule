@@ -16,6 +16,7 @@ export const Stream = registry.register(
     updatedAt: z.string().openapi({ format: 'date-time' }),
     startedAt: z.string().openapi({ format: 'date-time' }),
     endedAt: z.string().openapi({ format: 'date-time' }).optional(),
+    duration: z.string().optional(),
     actor: Actor,
   }),
 );

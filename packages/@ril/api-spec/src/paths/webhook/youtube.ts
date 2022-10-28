@@ -2,13 +2,13 @@ import { z } from 'zod';
 
 import { registry } from '../../api';
 import { YoutubeAtomFeed } from '../../components/request-bodies/YoutubeAtomFeed';
-import { YoutubeWebHubVerification } from '../../components/request-bodies/YoutubeWebHubVerification';
+import { YoutubeWebSubVerification } from '../../components/request-bodies/YoutubeWebSubVerification';
 
 registry.registerWebhook({
   method: 'get',
   path: '/webhook/youtube',
   request: {
-    params: YoutubeWebHubVerification,
+    params: YoutubeWebSubVerification,
   },
   responses: {
     200: {

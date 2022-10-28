@@ -2,7 +2,7 @@ import {
   YoutubeAtomFeed,
   YoutubeAtomFeedCreate,
   YoutubeAtomFeedDelete,
-  YoutubeWebHubVerification,
+  YoutubeWebSubVerification,
 } from '@ril/api-spec/request-bodies';
 import { Response } from 'express';
 import { inject, injectable } from 'inversify';
@@ -19,7 +19,7 @@ import { TypeOf } from 'zod';
 
 import { RemoveStream } from '../../../app/use-cases/RemoveStream';
 import { SaveYoutubeStream } from '../../../app/use-cases/SaveYoutubeStream';
-import { VerifyYoutubeWebHubSubscription } from '../../../app/use-cases/VerifyYoutubeWebHubSubscription';
+import { VerifyYoutubeWebSubSubscription } from '../../../app/use-cases/VerifyYoutubeWebSubSubscription';
 
 const isDeletion = (
   atom: TypeOf<typeof YoutubeAtomFeed>,
@@ -40,13 +40,13 @@ export class YoutubeWebhookController {
     @inject(RemoveStream)
     private readonly _removeStream: RemoveStream,
 
-    @inject(VerifyYoutubeWebHubSubscription)
-    private readonly _verifyYoutubeWebHubSubscription: VerifyYoutubeWebHubSubscription,
+    @inject(VerifyYoutubeWebSubSubscription)
+    private readonly _verifyYoutubeWebSubSubscription: VerifyYoutubeWebSubSubscription,
   ) {}
 
   @Get('/')
-  async verify(@Params() params: TypeOf<typeof YoutubeWebHubVerification>) {
-    await this._verifyYoutubeWebHubSubscription.invoke({
+  async verify(@Params() params: TypeOf<typeof YoutubeWebSubVerification>) {
+    await this._verifyYoutubeWebSubSubscription.invoke({
       topic: params['hub.topic'],
       leaseSeconds: params['hub.lease_seconds'],
     });

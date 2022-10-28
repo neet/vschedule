@@ -1,11 +1,13 @@
 import { google, youtube_v3 } from 'googleapis';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 
+import { IAppConfig } from '../app/services/AppConfig/AppConfig';
 import {
   Channel,
   IYoutubeApiService,
   Video,
 } from '../app/services/YoutubeApiService';
+import { TYPES } from '../types';
 
 export interface FetchStreamsByChannelIdParams {
   readonly channelId: string;
@@ -16,10 +18,13 @@ export interface FetchStreamsByChannelIdParams {
 export class YoutubeApiService implements IYoutubeApiService {
   private readonly _yt: youtube_v3.Youtube;
 
-  constructor() {
+  constructor(
+    @inject(TYPES.AppConfig)
+    config: IAppConfig,
+  ) {
     this._yt = google.youtube({
       version: 'v3',
-      auth: process.env.YOUTUBE_DATA_API_KEY,
+      auth: config.entries.youtube.dataApiKey,
     });
   }
 

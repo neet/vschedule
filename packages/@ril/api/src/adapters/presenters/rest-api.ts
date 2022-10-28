@@ -1,28 +1,37 @@
-import { Actor, MediaAttachment, Stream } from '@ril/core';
+import { Schemas } from '@ril/api-client';
 import { injectable } from 'inversify';
+
+import {
+  Actor,
+  MediaAttachment,
+  Performer,
+  Stream,
+} from '../../domain/entities';
 
 @injectable()
 export class RestApiPresenter {
-  public presentMediaAttachment(mediaAttachment: MediaAttachment) {
+  public presentMediaAttachment(
+    mediaAttachment: MediaAttachment,
+  ): Schemas.MediaAttachment {
     return {
-      id: mediaAttachment.id,
-      url: `/api/v1/media/${mediaAttachment.id}.${mediaAttachment.extension}`,
+      id: mediaAttachment.id.value,
+      url: `/api/v1/media/${mediaAttachment.id.value}.${mediaAttachment.extension}`,
       blur: `data:image/png;base64,${encodeURIComponent(
         mediaAttachment.blur.toString('base64'),
       )}`,
+      filename: mediaAttachment.filename.value,
       createdAt: mediaAttachment.createdAt.toISOString(),
       updatedAt: mediaAttachment.updatedAt.toISOString(),
     };
   }
 
-  public presentActor(actor: Actor) {
+  public presentActor(actor: Actor): Schemas.Actor {
     return {
-      id: actor.id,
-      name: actor.name,
-      color: actor.color,
-      description: actor.description,
-      youtubeChannelId: actor.youtubeChannelId,
-      twitterUsername: actor.twitterUsername,
+      id: actor.id.value,
+      name: actor.name.value,
+      color: actor.color.value,
+      description: actor.description?.value,
+      twitterUsername: actor.twitterUsername?.value,
       avatar:
         actor.avatar != null
           ? this.presentMediaAttachment(actor.avatar)
@@ -30,12 +39,19 @@ export class RestApiPresenter {
     };
   }
 
-  public presentStream(stream: Stream) {
+  public presentPerformer(actor: Performer): Schemas.Performer {
     return {
-      id: stream.id,
-      title: stream.title,
-      url: stream.url,
-      description: stream.description,
+      ...this.presentActor(actor),
+      youtubeChannelId: actor.youtubeChannelId.value,
+    };
+  }
+
+  public presentStream(stream: Stream): Schemas.Stream {
+    return {
+      id: stream.id.value,
+      title: stream.title.value,
+      url: stream.url.toString(),
+      description: stream.description?.value,
       createdAt: stream.createdAt.toISOString(),
       updatedAt: stream.updatedAt.toISOString(),
       startedAt: stream.startedAt.toISOString(),
