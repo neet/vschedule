@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 
 import { MediaAttachment, MediaAttachmentId } from '../../domain/entities';
 import { TYPES } from '../../types';
-import { MediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
+import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
 
 export class NoSuchMediaAttachmentError extends Error {}
 
@@ -10,7 +10,7 @@ export class NoSuchMediaAttachmentError extends Error {}
 export class ShowMediaAttachment {
   constructor(
     @inject(TYPES.MediaAttachmentRepository)
-    private readonly _mediaRepository: MediaAttachmentRepository,
+    private readonly _mediaRepository: IMediaAttachmentRepository,
   ) {}
 
   async invoke(id: string): Promise<MediaAttachment> {

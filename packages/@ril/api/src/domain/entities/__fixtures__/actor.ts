@@ -1,19 +1,20 @@
 import dayjs from 'dayjs';
 import * as uuid from 'uuid';
 
-import { Actor } from '../Actor';
 import { MediaAttachment } from '../MediaAttachment';
+import { Performer } from '../Performer';
 import { organizationFixture } from './organization';
 
-export const actorFixture = Actor.fromPrimitive({
+export const actorFixture = Performer.fromPrimitive({
   id: uuid.v4(),
   description: 'description',
   name: '鷹宮リオン',
   youtubeChannelId: 'UCV5ZZlLjk5MKGg3L0n0vbzw',
-  organization: organizationFixture,
+  organizationId: organizationFixture.id.value,
   color: '#ff0000',
   avatar: MediaAttachment.fromPrimitive({
     id: uuid.v4(),
+    base64: '',
     createdAt: dayjs(),
     updatedAt: dayjs(),
     filename: 'avatar.png',

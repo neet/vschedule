@@ -5,7 +5,7 @@ import { ListStreams } from '../../../../app/use-cases/ListStreams';
 import { RestApiPresenter } from '../../../presenters/rest-api';
 
 @injectable()
-@JsonController('/api/v1')
+@JsonController('/api/v1/streams')
 export class StreamsRestApiController {
   constructor(
     @inject(ListStreams)

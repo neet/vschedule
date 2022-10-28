@@ -9,7 +9,7 @@ import { StreamDescription } from './StreamDescription';
 import { StreamId } from './StreamId';
 import { StreamTitle } from './StreamTitle';
 
-export interface StreamProps {
+export interface IStream {
   readonly id: StreamId;
   readonly title: StreamTitle;
   readonly url: URL;
@@ -22,8 +22,8 @@ export interface StreamProps {
   readonly actor: Actor;
 }
 
-export class Stream extends Entity<StreamId, StreamProps> {
-  public constructor(props: StreamProps) {
+export class Stream extends Entity<StreamId, IStream> {
+  public constructor(props: IStream) {
     super(props);
   }
 
@@ -75,7 +75,7 @@ export class Stream extends Entity<StreamId, StreamProps> {
     return dayjs.duration(this.endedAt.diff(this.startedAt));
   }
 
-  public static fromPrimitive(props: PrimitiveOf<StreamProps>): Stream {
+  public static fromPrimitive(props: PrimitiveOf<IStream>): Stream {
     return new Stream({
       id: new StreamId(props.id),
       title: new StreamTitle(props.title),

@@ -19,7 +19,7 @@ import { TypeOf } from 'zod';
 
 import { RemoveStream } from '../../../app/use-cases/RemoveStream';
 import { SaveYoutubeStream } from '../../../app/use-cases/SaveYoutubeStream';
-import { VerifyYoutubeWebSubSubscription } from '../../../app/use-cases/VerifyYoutubeWebSubSubscription';
+import { VerifyYoutubeWebSubSubscription } from '../../../app/use-cases/VerifyYoutubeWebHubSubscription';
 
 const isDeletion = (
   atom: TypeOf<typeof YoutubeAtomFeed>,

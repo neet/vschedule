@@ -1,21 +1,25 @@
+import { URL } from 'url';
+
 import { Entity, PrimitiveOf } from '../../_core';
-import { Color, TwitterUsername } from '../../_shared';
+import { Color, TwitterUsername, YoutubeChannelId } from '../../_shared';
 import { MediaAttachment } from '../MediaAttachment';
 import { ActorDescription } from './ActorDescription';
 import { ActorId } from './ActorId';
 import { ActorName } from './ActorName';
 
-export interface ActorProps {
+export interface IActor {
   readonly id: ActorId;
   readonly name: ActorName;
   readonly color: Color;
   readonly description?: ActorDescription;
   readonly avatar?: MediaAttachment;
+  readonly url?: URL;
   readonly twitterUsername?: TwitterUsername;
+  readonly youtubeChannelId?: YoutubeChannelId;
 }
 
-export abstract class Actor extends Entity<ActorId, ActorProps> {
-  public constructor(props: ActorProps) {
+export abstract class Actor extends Entity<ActorId, IActor> implements IActor {
+  public constructor(props: IActor) {
     super(props);
   }
 
@@ -31,6 +35,10 @@ export abstract class Actor extends Entity<ActorId, ActorProps> {
     return this._props.color;
   }
 
+  public get url(): URL | undefined {
+    return this._props.url;
+  }
+
   public get description(): ActorDescription | undefined {
     return this._props.description;
   }
@@ -43,7 +51,11 @@ export abstract class Actor extends Entity<ActorId, ActorProps> {
     return this._props.twitterUsername;
   }
 
-  public static createProps(props: PrimitiveOf<ActorProps>): ActorProps {
+  public get youtubeChannelId(): YoutubeChannelId | undefined {
+    return this._props.youtubeChannelId;
+  }
+
+  public static createProps(props: PrimitiveOf<IActor>): IActor {
     return {
       id: new ActorId(props.id),
       name: new ActorName(props.name),

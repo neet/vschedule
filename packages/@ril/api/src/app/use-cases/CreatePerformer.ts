@@ -6,8 +6,8 @@ import * as uuid from 'uuid';
 
 import { MediaAttachmentFilename, Performer } from '../../domain/entities';
 import { TYPES } from '../../types';
-import { MediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
-import { PerformerRepository } from '../repositories/PerformerRepository';
+import { IActorRepository } from '../repositories/ActorRepository';
+import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
 import { IYoutubeApiService } from '../services/YoutubeApiService';
 import { IYoutubeWebSubService } from '../services/YoutubeWebSubService';
 
@@ -26,11 +26,11 @@ export interface CreatePerformerParams {
 @injectable()
 export class CreatePerformer {
   constructor(
-    @inject(TYPES.PerformerRepository)
-    private readonly _actorRepository: PerformerRepository,
+    @inject(TYPES.ActorRepository)
+    private readonly _actorRepository: IActorRepository,
 
     @inject(TYPES.MediaAttachmentRepository)
-    private readonly _mediaAttachmentRepository: MediaAttachmentRepository,
+    private readonly _mediaAttachmentRepository: IMediaAttachmentRepository,
 
     @inject(TYPES.YoutubeApiService)
     private readonly _youtubeApiService: IYoutubeApiService,
@@ -53,7 +53,7 @@ export class CreatePerformer {
     );
 
     const image = await fetch(channel.thumbnailUrl);
-    const imageBuffer = await image.buffer();
+    const imageBuffer = Buffer.from(await image.arrayBuffer());
 
     // make color
     const shade = await getColors(
@@ -65,9 +65,10 @@ export class CreatePerformer {
       throw new Error('Could not find primary color');
     }
 
+    // トランザクション貼りたいけどどうしよう..
     const avatar = await this._mediaAttachmentRepository.save(
-      new MediaAttachmentFilename(`${uuid.v4()}.png`),
-      await sharp(imageBuffer).png().toBuffer(),
+      new MediaAttachmentFilename(`${uuid.v4()}.webp`),
+      await sharp(imageBuffer).webp().toBuffer(),
     );
 
     const actor = Performer.fromPrimitive({
@@ -75,8 +76,8 @@ export class CreatePerformer {
       name: name ?? channel.name,
       description: description,
       color: primaryColor.hex(),
-      twitterUsername,
       avatar,
+      twitterUsername,
       youtubeChannelId,
     });
 

@@ -1,10 +1,11 @@
+import dayjs from 'dayjs';
 import { inject, injectable } from 'inversify';
 import { URL } from 'url';
 
 import { YoutubeChannelId } from '../../domain/_shared';
 import { TYPES } from '../../types';
-import { JobRepository } from '../repositories/JobRepository';
-import { PerformerRepository } from '../repositories/PerformerRepository';
+import { IActorRepository } from '../repositories/ActorRepository';
+import { IJobRepository } from '../repositories/JobRepository';
 
 export interface VerifyYoutubeWebSubSubscriptionParams {
   readonly topic: string;
@@ -18,10 +19,10 @@ export interface VerifyYoutubeWebSubSubscriptionParams {
 export class VerifyYoutubeWebSubSubscription {
   constructor(
     @inject(TYPES.JobRepository)
-    private readonly _jobRepository: JobRepository,
+    private readonly _jobRepository: IJobRepository,
 
-    @inject(TYPES.PerformerRepository)
-    private readonly _performerRepository: PerformerRepository,
+    @inject(TYPES.ActorRepository)
+    private readonly _actorRepository: IActorRepository,
   ) {}
 
   async invoke(params: VerifyYoutubeWebSubSubscriptionParams): Promise<void> {
@@ -32,7 +33,7 @@ export class VerifyYoutubeWebSubSubscription {
       throw new Error(`Invalid topic: ${params.topic}`);
     }
 
-    const actor = await this._performerRepository.findByYoutubeChannelId(
+    const actor = await this._actorRepository.findByYoutubeChannelId(
       new YoutubeChannelId(channelId),
     );
 
@@ -43,7 +44,7 @@ export class VerifyYoutubeWebSubSubscription {
     await this._jobRepository.queue({
       type: 'refresh',
       actorId: actor.id.value,
-      scheduledAt: new Date(),
+      scheduledAt: dayjs(),
     });
   }
 }

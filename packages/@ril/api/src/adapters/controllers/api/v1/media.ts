@@ -1,6 +1,5 @@
 import { Response } from 'express';
 import { inject, injectable } from 'inversify';
-import fetch from 'node-fetch';
 import {
   BadRequestError,
   Controller,
@@ -34,13 +33,9 @@ export class MediaAttachmentController {
 
       const media = await this._showMediaAttachment.invoke(id);
 
-      const data = await fetch(
-        `https://storage.googleapis.com/${media.bucket}/${media.filename}`,
+      res.redirect(
+        `https://storage.googleapis.com/${media.bucket?.value}/${media.filename.value}`,
       );
-
-      return res
-        .setHeader('Content-Type', data.headers.get('content-type') as string)
-        .send(await data.arrayBuffer());
     } catch (e) {
       if (e instanceof NoSuchMediaAttachmentError) {
         throw new NotFoundError('No such media attachment');

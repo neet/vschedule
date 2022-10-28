@@ -6,7 +6,7 @@ export class InvalidMediaAttachmentIdError extends Error {}
 
 export class MediaAttachmentId extends ValueObject<string> {
   public constructor(value: string) {
-    if (validator.isUUID(value)) {
+    if (!validator.isUUID(value)) {
       throw new InvalidMediaAttachmentIdError('Invalid uuid');
     }
 

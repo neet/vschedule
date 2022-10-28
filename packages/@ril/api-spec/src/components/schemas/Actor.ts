@@ -8,9 +8,11 @@ export const Actor = registry.register(
   z.object({
     id: z.string().uuid(),
     name: z.string(),
+    url: z.string().url().optional(),
     color: z.string(),
     description: z.string().optional(),
     avatar: MediaAttachment.optional(),
     twitterUsername: z.string().optional(),
+    youtubeChannelId: z.string().optional(),
   }),
 );

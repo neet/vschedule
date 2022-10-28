@@ -6,20 +6,19 @@ import { MediaAttachmentBucket } from './MediaAttachmentBucket';
 import { MediaAttachmentFilename } from './MediaAttachmentFilename';
 import { MediaAttachmentId } from './MediaAttachmentId';
 
-export interface MediaAttachmentProps {
+export interface IMediaAttachment {
   readonly id: MediaAttachmentId;
   readonly filename: MediaAttachmentFilename;
-  readonly blur: Buffer;
+  readonly base64: string;
   readonly bucket?: MediaAttachmentBucket;
   readonly createdAt: Dayjs;
   readonly updatedAt: Dayjs;
 }
 
-export class MediaAttachment extends Entity<
-  MediaAttachmentId,
-  MediaAttachmentProps
-> {
-  public constructor(props: MediaAttachmentProps) {
+const mixins = Entity<MediaAttachmentId, IMediaAttachment>;
+
+export class MediaAttachment extends mixins implements IMediaAttachment {
+  public constructor(props: IMediaAttachment) {
     super(props);
   }
 
@@ -31,8 +30,8 @@ export class MediaAttachment extends Entity<
     return this._props.filename;
   }
 
-  get blur(): Buffer {
-    return this._props.blur;
+  get base64(): string {
+    return this._props.base64;
   }
 
   get bucket(): MediaAttachmentBucket | undefined {
@@ -52,11 +51,11 @@ export class MediaAttachment extends Entity<
   }
 
   public static fromPrimitive(
-    props: PrimitiveOf<MediaAttachmentProps>,
+    props: PrimitiveOf<IMediaAttachment>,
   ): MediaAttachment {
     return new MediaAttachment({
       id: new MediaAttachmentId(props.id),
-      blur: props.blur,
+      base64: props.base64,
       filename: new MediaAttachmentFilename(props.filename),
       bucket:
         props.bucket != null

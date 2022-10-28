@@ -9,8 +9,10 @@ export const organizationFixture = Organization.fromPrimitive({
   id: uuid.v4(),
   name: 'にじさんじ',
   url: new URL('https://example.com/'),
+  color: '#ffffff',
   avatar: MediaAttachment.fromPrimitive({
     id: uuid.v4(),
+    base64: '',
     createdAt: dayjs(),
     updatedAt: dayjs(),
     filename: 'avatar.png',

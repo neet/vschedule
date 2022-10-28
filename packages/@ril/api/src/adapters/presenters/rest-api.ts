@@ -4,6 +4,7 @@ import { injectable } from 'inversify';
 import {
   Actor,
   MediaAttachment,
+  Organization,
   Performer,
   Stream,
 } from '../../domain/entities';
@@ -16,9 +17,7 @@ export class RestApiPresenter {
     return {
       id: mediaAttachment.id.value,
       url: `/api/v1/media/${mediaAttachment.id.value}.${mediaAttachment.extension}`,
-      blur: `data:image/png;base64,${encodeURIComponent(
-        mediaAttachment.blur.toString('base64'),
-      )}`,
+      base64: mediaAttachment.base64,
       filename: mediaAttachment.filename.value,
       createdAt: mediaAttachment.createdAt.toISOString(),
       updatedAt: mediaAttachment.updatedAt.toISOString(),
@@ -29,9 +28,11 @@ export class RestApiPresenter {
     return {
       id: actor.id.value,
       name: actor.name.value,
+      url: actor.url?.toString(),
       color: actor.color.value,
       description: actor.description?.value,
       twitterUsername: actor.twitterUsername?.value,
+      youtubeChannelId: actor.youtubeChannelId?.value,
       avatar:
         actor.avatar != null
           ? this.presentMediaAttachment(actor.avatar)
@@ -39,10 +40,13 @@ export class RestApiPresenter {
     };
   }
 
-  public presentPerformer(actor: Performer): Schemas.Performer {
+  public presentPerformer(
+    performer: Performer,
+    organization: Organization,
+  ): Schemas.Performer {
     return {
-      ...this.presentActor(actor),
-      youtubeChannelId: actor.youtubeChannelId.value,
+      ...this.presentActor(performer),
+      organization: this.presentActor(organization),
     };
   }
 

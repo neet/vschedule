@@ -6,7 +6,7 @@ export interface ListStreamsParams {
   readonly limit?: number;
 }
 
-export interface StreamRepository {
+export interface IStreamRepository {
   findById(id: StreamId): Promise<Stream | null>;
   findByUrl(url: URL): Promise<Stream | null>;
 

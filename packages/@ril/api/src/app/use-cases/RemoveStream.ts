@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import { URL } from 'url';
 
 import { TYPES } from '../../types';
-import { StreamRepository } from '../repositories/StreamRepository';
+import { IStreamRepository } from '../repositories/StreamRepository';
 
 export interface RemoveStreamParams {
   readonly url: string;
@@ -12,7 +12,7 @@ export interface RemoveStreamParams {
 export class RemoveStream {
   constructor(
     @inject(TYPES.StreamRepository)
-    private readonly _streamRepository: StreamRepository,
+    private readonly _streamRepository: IStreamRepository,
   ) {}
 
   async invoke(params: RemoveStreamParams): Promise<void> {

@@ -1,27 +1,14 @@
 import { Mixin } from 'ts-mixer';
-import { URL } from 'url';
 
 import { Entity, PrimitiveOf } from '../../_core';
-import { Actor, ActorId, ActorProps } from '../Actor';
+import { Actor, ActorId, IActor } from '../Actor';
 
-export interface OrganizationProps extends ActorProps {
-  readonly url: URL;
-}
+export type IOrganization = IActor;
 
-const mixins = Mixin(Actor, Entity<ActorId, OrganizationProps>);
+const mixins = Mixin(Actor, Entity<ActorId, IOrganization>);
 
-export class Organization extends mixins {
-  public constructor(props: OrganizationProps) {
-    super(props);
-  }
-
-  public get url(): URL {
-    return this._props.url;
-  }
-
-  public static fromPrimitive(
-    props: PrimitiveOf<OrganizationProps>,
-  ): Organization {
+export class Organization extends mixins implements IOrganization {
+  public static fromPrimitive(props: PrimitiveOf<IOrganization>): Organization {
     return new Organization({
       ...Actor.createProps(props),
       url: props.url,

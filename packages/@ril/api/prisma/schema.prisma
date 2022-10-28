@@ -6,54 +6,88 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model MediaAttachment {
   id        String   @id @default(uuid())
   filename  String
-  blur      String
+  base64    String   @db.Text
   bucket    String?
-  createdAt DateTime
-  updatedAt DateTime
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
 
   actor  Actor[]
   stream Stream[]
+
+  @@map("media_attachments")
 }
 
 model Stream {
-  id          String           @id @default(uuid())
+  id          String  @id @default(uuid())
+  url         String  @unique
   title       String
-  url         String           @unique
-  description String?
-  createdAt   DateTime
-  updatedAt   DateTime
-  startedAt   DateTime
-  endedAt     DateTime?
-  actor       Actor            @relation(fields: [actorId], references: [id])
-  actorId     String
+  description String? @db.Text
+
+  createdAt DateTime  @map("created_at")
+  updatedAt DateTime  @map("updated_at")
+  startedAt DateTime  @map("started_at")
+  endedAt   DateTime? @map("ended_at")
+
+  actorId String @map("actor_id")
+  actor   Actor  @relation(fields: [actorId], references: [id])
+
   thumbnail   MediaAttachment? @relation(fields: [thumbnailId], references: [id])
-  thumbnailId String?
+  thumbnailId String?          @map("thumbnail_id")
+
+  @@index([url])
+  @@index([createdAt])
+  @@index([updatedAt])
+  @@index([startedAt])
+  @@index([endedAt])
+  @@index([actorId])
+  @@map("streams")
 }
 
 model Actor {
-  id               String           @id @default(uuid())
-  name             String
-  color            String
-  description      String?
-  youtubeChannelId String           @unique
-  twitterUsername  String?          @unique
-  stream           Stream[]
-  organization     Organization?    @relation(fields: [organizationId], references: [id])
-  organizationId   String?
-  avatar           MediaAttachment? @relation(fields: [avatarId], references: [id])
-  avatarId         String?
+  id          String  @id @default(uuid())
+  name        String
+  color       String
+  url         String?
+  description String? @db.Text
+
+  youtubeChannelId String? @unique @map("youtube_channel_id")
+  twitterUsername  String? @unique @map("twitter_username")
+
+  avatar   MediaAttachment? @relation(fields: [avatarId], references: [id])
+  avatarId String?          @map("avatar_id")
+  stream   Stream[]
+
+  // decendants
+  performer    Performer?
+  organization Organization?
+
+  @@index([youtubeChannelId])
+  @@index([twitterUsername])
+  @@map("actors")
+}
+
+model Performer {
+  actorId String @id @unique @map("actor_id")
+  actor   Actor  @relation(fields: [actorId], references: [id])
+
+  organizationId String?       @map("organization_id")
+  organization   Organization? @relation(fields: [organizationId], references: [actorId])
+
+  @@index([organizationId])
+  @@map("performers")
 }
 
 model Organization {
-  id     String  @id @default(uuid())
-  name   String
-  url    String?
-  actors Actor[]
+  actorId   String      @id @unique @map("actor_id")
+  actor     Actor       @relation(fields: [actorId], references: [id])
+  performer Performer[]
+
+  @@map("organizations")
 }

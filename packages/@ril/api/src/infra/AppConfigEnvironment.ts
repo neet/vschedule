@@ -1,3 +1,5 @@
+import { injectable } from 'inversify';
+
 import { IAppConfig } from '../app/services/AppConfig/AppConfig';
 import { AppConfigBase } from '../app/services/AppConfig/AppConfigBase';
 
@@ -5,6 +7,7 @@ const env = <T = string>(name: string): T | undefined => {
   return process.env[name] as T | undefined;
 };
 
+@injectable()
 export class AppConfigEnvironment extends AppConfigBase implements IAppConfig {
   public constructor() {
     super({

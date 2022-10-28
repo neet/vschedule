@@ -10,6 +10,7 @@ describe('Organization', () => {
       id,
       name: 'にじさんじ',
       url: new URL('https://www.nijisanji.jp/en'),
+      color: '#ffffff',
       twitterUsername: 'nijisanji',
     });
 

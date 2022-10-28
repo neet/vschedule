@@ -1,10 +1,19 @@
 import { PrismaClient } from '@prisma/client';
 import { Container } from 'inversify';
 
-import { ActorRepositoryPrismaImpl } from '../adapters/dal/ActorRepositoryPrismaImpl';
-import { MediaAttachmentRepositoryPrismaImpl } from '../adapters/dal/MediaAttachmentRepositoryImpl';
-import { StreamRepositoryPrismaImpl } from '../adapters/dal/StreamRepositoryPrismaImpl';
+import { ActorRepository } from '../adapters/dal/ActorRepository';
+import { JobRepository } from '../adapters/dal/JobRepository';
+import { MediaAttachmentRepositoryPrismaImpl } from '../adapters/dal/MediaAttachmentRepository';
+import { StreamRepository } from '../adapters/dal/StreamRepository';
+import { IActorRepository } from '../app/repositories/ActorRepository';
+import { IJobRepository } from '../app/repositories/JobRepository';
+import { IMediaAttachmentRepository } from '../app/repositories/MediaAttachmentRepository';
+import { IStreamRepository } from '../app/repositories/StreamRepository';
+import { IAppConfig } from '../app/services/AppConfig/AppConfig';
+import { IYoutubeApiService } from '../app/services/YoutubeApiService';
+import { IYoutubeWebSubService } from '../app/services/YoutubeWebSubService';
 import { TYPES } from '../types';
+import { AppConfigEnvironment } from './AppConfigEnvironment';
 import { StorageGcsImpl } from './StorageGcsImpl';
 import { YoutubeApiService } from './YouTubeApiService';
 import { YoutubeWebSubService } from './YoutubeWebSubService';
@@ -14,17 +23,27 @@ const container = new Container({
   skipBaseClassChecks: true,
 });
 
-container
-  .bind<PrismaClient>(TYPES.PrismaClient)
-  .toConstantValue(new PrismaClient());
+container.bind<PrismaClient>(TYPES.PrismaClient).toConstantValue(
+  new PrismaClient({
+    log: [{ emit: 'event', level: 'query' }],
+  }),
+);
 
-container.bind(TYPES.PerformerRepository).to(ActorRepositoryPrismaImpl);
-container.bind(TYPES.StreamRepository).to(StreamRepositoryPrismaImpl);
-container.bind(TYPES.YoutubeApiService).to(YoutubeApiService);
-container.bind(TYPES.YoutubeWebSubService).to(YoutubeWebSubService);
+container.bind<IAppConfig>(TYPES.AppConfig).to(AppConfigEnvironment);
+container.bind<IActorRepository>(TYPES.ActorRepository).to(ActorRepository);
+container.bind<IStreamRepository>(TYPES.StreamRepository).to(StreamRepository);
 container
-  .bind(TYPES.MediaAttachmentRepository)
+  .bind<IMediaAttachmentRepository>(TYPES.MediaAttachmentRepository)
   .to(MediaAttachmentRepositoryPrismaImpl);
+container.bind<IJobRepository>(TYPES.JobRepository).to(JobRepository);
+
+container
+  .bind<IYoutubeApiService>(TYPES.YoutubeApiService)
+  .to(YoutubeApiService);
+container
+  .bind<IYoutubeWebSubService>(TYPES.YoutubeWebSubService)
+  .to(YoutubeWebSubService);
+
 container.bind(TYPES.Storage).to(StorageGcsImpl);
 
 export { container };

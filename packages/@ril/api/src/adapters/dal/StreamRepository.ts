@@ -1,29 +1,32 @@
 import { PrismaClient } from '@prisma/client';
-import { Stream } from '@ril/core';
 import { inject, injectable } from 'inversify';
+import { URL } from 'url';
 
 import {
+  IStreamRepository,
   ListStreamsParams,
-  StreamRepository,
 } from '../../app/repositories/StreamRepository';
+import { Stream, StreamId } from '../../domain/entities';
 import { TYPES } from '../../types';
 import { createStreamFromPrisma } from './data-mapper';
 
 @injectable()
-export class StreamRepositoryPrismaImpl implements StreamRepository {
+export class StreamRepository implements IStreamRepository {
   constructor(
     @inject(TYPES.PrismaClient)
     private readonly _prisma: PrismaClient,
   ) {}
 
-  async findById(id: string): Promise<Stream | null> {
+  async findById(id: StreamId): Promise<Stream | null> {
     const stream = await this._prisma.stream.findFirst({
-      where: { id },
+      where: { id: id.value },
       include: {
         thumbnail: true,
         actor: {
           include: {
             avatar: true,
+            performer: true,
+            organization: true,
           },
         },
       },
@@ -34,14 +37,16 @@ export class StreamRepositoryPrismaImpl implements StreamRepository {
     return createStreamFromPrisma(stream);
   }
 
-  async findByUrl(url: string): Promise<Stream | null> {
+  async findByUrl(url: URL): Promise<Stream | null> {
     const stream = await this._prisma.stream.findFirst({
-      where: { url },
+      where: { url: url.toString() },
       include: {
         thumbnail: true,
         actor: {
           include: {
             avatar: true,
+            performer: true,
+            organization: true,
           },
         },
       },
@@ -55,22 +60,24 @@ export class StreamRepositoryPrismaImpl implements StreamRepository {
   async save(stream: Stream): Promise<Stream> {
     const data = await this._prisma.stream.create({
       data: {
-        id: stream.id,
-        title: stream.title,
-        url: stream.url,
-        description: stream.description,
+        id: stream.id.value,
+        title: stream.title.value,
+        url: stream.url.toString(),
+        description: stream.description?.value,
         createdAt: stream.createdAt.toDate(),
         updatedAt: stream.updatedAt.toDate(),
         startedAt: stream.startedAt.toDate(),
         endedAt: stream.endedAt?.toDate(),
-        thumbnailId: stream.thumbnail?.id,
-        actorId: stream.actor.id,
+        thumbnailId: stream.thumbnail?.id?.value,
+        actorId: stream.actor.id?.value,
       },
       include: {
         thumbnail: true,
         actor: {
           include: {
             avatar: true,
+            performer: true,
+            organization: true,
           },
         },
       },
@@ -79,9 +86,9 @@ export class StreamRepositoryPrismaImpl implements StreamRepository {
     return createStreamFromPrisma(data);
   }
 
-  async remove(streamId: string): Promise<void> {
+  async remove(id: StreamId): Promise<void> {
     await this._prisma.stream.delete({
-      where: { id: streamId },
+      where: { id: id.value },
     });
   }
 
@@ -92,6 +99,8 @@ export class StreamRepositoryPrismaImpl implements StreamRepository {
         actor: {
           include: {
             avatar: true,
+            performer: true,
+            organization: true,
           },
         },
       },
