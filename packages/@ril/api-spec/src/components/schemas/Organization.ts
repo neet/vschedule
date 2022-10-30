@@ -1,5 +1,3 @@
-import { z } from 'zod';
-
 import { registry } from '../../api';
 import { Actor } from './Actor';
 
