@@ -1,12 +1,12 @@
 import { Storage as CloudStorage } from '@google-cloud/storage';
 import { inject, injectable } from 'inversify';
 
-import { File, Storage } from '../adapters/services/storage';
-import { IAppConfig } from '../app/services/AppConfig/AppConfig';
-import { TYPES } from '../types';
+import { IAppConfig } from '../../app/services/AppConfig/AppConfig';
+import { File, IStorage } from '../../app/services/Storage';
+import { TYPES } from '../../types';
 
 @injectable()
-export class StorageGcsImpl implements Storage {
+export class Storage implements IStorage {
   private readonly _bucket: string;
 
   constructor(

@@ -10,40 +10,59 @@ import { IJobRepository } from '../app/repositories/JobRepository';
 import { IMediaAttachmentRepository } from '../app/repositories/MediaAttachmentRepository';
 import { IStreamRepository } from '../app/repositories/StreamRepository';
 import { IAppConfig } from '../app/services/AppConfig/AppConfig';
+import { IStorage } from '../app/services/Storage';
 import { IYoutubeApiService } from '../app/services/YoutubeApiService';
-import { IYoutubeWebSubService } from '../app/services/YoutubeWebSubService';
+import { IYoutubeWebsubService } from '../app/services/YoutubeWebsubService';
 import { TYPES } from '../types';
-import { AppConfigEnvironment } from './AppConfigEnvironment';
-import { StorageGcsImpl } from './StorageGcsImpl';
-import { YoutubeApiService } from './YouTubeApiService';
-import { YoutubeWebSubService } from './YoutubeWebSubService';
+import { AppConfigEnvironment } from './services/AppConfigEnvironment';
+import { Storage } from './services/Storage';
+import { YoutubeApiService } from './services/YouTubeApiService';
+import { YoutubeWebsubService } from './services/YoutubeWebsubService';
 
 const container = new Container({
   autoBindInjectable: true,
   skipBaseClassChecks: true,
 });
 
-container.bind<PrismaClient>(TYPES.PrismaClient).toConstantValue(
-  new PrismaClient({
-    log: [{ emit: 'event', level: 'query' }],
-  }),
-);
+// prettier-ignore
+{
+  container
+    .bind<PrismaClient>(TYPES.PrismaClient)
+    .toConstantValue(
+      new PrismaClient({
+        log: [{ emit: 'event', level: 'query' }],
+      }),
+    );
 
-container.bind<IAppConfig>(TYPES.AppConfig).to(AppConfigEnvironment);
-container.bind<IActorRepository>(TYPES.ActorRepository).to(ActorRepository);
-container.bind<IStreamRepository>(TYPES.StreamRepository).to(StreamRepository);
-container
-  .bind<IMediaAttachmentRepository>(TYPES.MediaAttachmentRepository)
-  .to(MediaAttachmentRepositoryPrismaImpl);
-container.bind<IJobRepository>(TYPES.JobRepository).to(JobRepository);
+  container
+    .bind<IAppConfig>(TYPES.AppConfig)
+    .to(AppConfigEnvironment);
 
-container
-  .bind<IYoutubeApiService>(TYPES.YoutubeApiService)
-  .to(YoutubeApiService);
-container
-  .bind<IYoutubeWebSubService>(TYPES.YoutubeWebSubService)
-  .to(YoutubeWebSubService);
+  container
+    .bind<IActorRepository>(TYPES.ActorRepository)
+    .to(ActorRepository);
 
-container.bind(TYPES.Storage).to(StorageGcsImpl);
+  container
+    .bind<IStreamRepository>(TYPES.StreamRepository)
+    .to(StreamRepository);
+
+  container
+    .bind<IMediaAttachmentRepository>(TYPES.MediaAttachmentRepository)
+    .to(MediaAttachmentRepositoryPrismaImpl);
+
+  container
+    .bind<IJobRepository>(TYPES.JobRepository)
+    .to(JobRepository);
+
+  container
+    .bind<IYoutubeApiService>(TYPES.YoutubeApiService)
+    .to(YoutubeApiService);
+
+  container
+    .bind<IYoutubeWebsubService>(TYPES.YoutubeWebsubService)
+    .to(YoutubeWebsubService);
+
+  container.bind<IStorage>(TYPES.Storage).to(Storage);
+}
 
 export { container };

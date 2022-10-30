@@ -1,7 +1,7 @@
 export interface IAppConfigYoutube {
   readonly dataApiKey?: string;
-  readonly webSubEnabled?: boolean;
-  readonly webSubHmacSecret?: string;
+  readonly websubEnabled?: boolean;
+  readonly websubHmacSecret?: string;
 }
 
 export type CookieStorageType = 'cloud-storage' | 'filesystem';

@@ -1,6 +1,9 @@
-import { Schemas } from '@ril/api-client';
-import { injectable } from 'inversify';
+import { URL } from 'node:url';
 
+import { Schemas } from '@ril/api-client';
+import { inject, injectable } from 'inversify';
+
+import { IAppConfig } from '../../app/services/AppConfig/AppConfig';
 import {
   Actor,
   MediaAttachment,
@@ -8,15 +11,29 @@ import {
   Performer,
   Stream,
 } from '../../domain/entities';
+import { TYPES } from '../../types';
 
 @injectable()
 export class RestApiPresenter {
+  private readonly _origin: string;
+
+  public constructor(
+    @inject(TYPES.AppConfig)
+    config: IAppConfig,
+  ) {
+    this._origin = config.entries.server.origin;
+  }
+
   public presentMediaAttachment(
     mediaAttachment: MediaAttachment,
   ): Schemas.MediaAttachment {
+    const pathname = `/api/v1/media/${mediaAttachment.id.value}.${mediaAttachment.extension}`;
+    const url = new URL(this._origin);
+    url.pathname = pathname;
+
     return {
       id: mediaAttachment.id.value,
-      url: `/api/v1/media/${mediaAttachment.id.value}.${mediaAttachment.extension}`,
+      url: url.toString(),
       base64: mediaAttachment.base64,
       filename: mediaAttachment.filename.value,
       createdAt: mediaAttachment.createdAt.toISOString(),

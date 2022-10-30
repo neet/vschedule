@@ -9,7 +9,7 @@ import { TYPES } from '../../types';
 import { IActorRepository } from '../repositories/ActorRepository';
 import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
 import { IYoutubeApiService } from '../services/YoutubeApiService';
-import { IYoutubeWebSubService } from '../services/YoutubeWebSubService';
+import { IYoutubeWebsubService } from '../services/YoutubeWebsubService';
 
 export interface CreatePerformerParams {
   readonly name?: string;
@@ -17,7 +17,7 @@ export interface CreatePerformerParams {
   readonly color?: string;
   readonly youtubeChannelId: string;
   readonly twitterUsername: string;
-  readonly webSubEnabled: boolean;
+  readonly websubEnabled: boolean;
 }
 
 /**
@@ -35,8 +35,8 @@ export class CreatePerformer {
     @inject(TYPES.YoutubeApiService)
     private readonly _youtubeApiService: IYoutubeApiService,
 
-    @inject(TYPES.YoutubeWebSubService)
-    private readonly _youtubeWebSubService: IYoutubeWebSubService,
+    @inject(TYPES.YoutubeWebsubService)
+    private readonly _youtubeWebsubService: IYoutubeWebsubService,
   ) {}
 
   public async invoke(params: CreatePerformerParams): Promise<void> {
@@ -45,7 +45,7 @@ export class CreatePerformer {
       youtubeChannelId,
       description,
       twitterUsername,
-      webSubEnabled,
+      websubEnabled,
     } = params;
 
     const channel = await this._youtubeApiService.fetchChannel(
@@ -82,8 +82,8 @@ export class CreatePerformer {
     });
 
     await this._actorRepository.save(actor);
-    if (webSubEnabled) {
-      await this._youtubeWebSubService.subscribeToChannel(youtubeChannelId);
+    if (websubEnabled) {
+      await this._youtubeWebsubService.subscribeToChannel(youtubeChannelId);
     }
   }
 }

@@ -7,7 +7,7 @@ import { TYPES } from '../../types';
 import { IActorRepository } from '../repositories/ActorRepository';
 import { IJobRepository } from '../repositories/JobRepository';
 
-export interface VerifyYoutubeWebSubSubscriptionParams {
+export interface VerifyYoutubeWebsubSubscriptionParams {
   readonly topic: string;
   readonly leaseSeconds: number;
 }
@@ -16,7 +16,7 @@ export interface VerifyYoutubeWebSubSubscriptionParams {
  *
  */
 @injectable()
-export class VerifyYoutubeWebSubSubscription {
+export class VerifyYoutubeWebsubSubscription {
   constructor(
     @inject(TYPES.JobRepository)
     private readonly _jobRepository: IJobRepository,
@@ -25,7 +25,7 @@ export class VerifyYoutubeWebSubSubscription {
     private readonly _actorRepository: IActorRepository,
   ) {}
 
-  async invoke(params: VerifyYoutubeWebSubSubscriptionParams): Promise<void> {
+  async invoke(params: VerifyYoutubeWebsubSubscriptionParams): Promise<void> {
     const topic = new URL(params.topic);
 
     const channelId = topic.searchParams.get('channel_id');

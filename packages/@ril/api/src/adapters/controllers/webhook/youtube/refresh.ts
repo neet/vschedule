@@ -1,25 +1,29 @@
-import { IsString } from 'class-validator';
-import { inject, injectable } from 'inversify';
-import { Body, JsonController, Post } from 'routing-controllers';
+import { inject } from 'inversify';
+import {
+  BaseHttpController,
+  controller,
+  httpPost,
+  requestBody,
+} from 'inversify-express-utils';
 
-import { RefreshYoutubeWebSubSubscription } from '../../../../app/use-cases/RefreshYoutubeWebHubSubscription';
+import { RefreshYoutubeWebsubSubscription } from '../../../../app/use-cases/RefreshYoutubeWebsubSubscription';
 
-class RefreshParams {
-  @IsString()
-  readonly actorId!: string;
+interface RefreshParams {
+  actorId: string;
 }
 
-@injectable()
-@JsonController('/webhook/youtube/refresh')
-export class YoutubeWebhookRefreshController {
+@controller('/webhook/youtube/refresh')
+export class YoutubeWebhookRefreshController extends BaseHttpController {
   public constructor(
-    @inject(RefreshYoutubeWebSubSubscription)
-    private readonly _refreshYoutubeWebSubSubscription: RefreshYoutubeWebSubSubscription,
-  ) {}
+    @inject(RefreshYoutubeWebsubSubscription)
+    private readonly _refreshYoutubeWebsubSubscription: RefreshYoutubeWebsubSubscription,
+  ) {
+    super();
+  }
 
-  @Post('/')
-  public async refresh(@Body() body: RefreshParams) {
-    await this._refreshYoutubeWebSubSubscription.invoke({
+  @httpPost('/')
+  public async refresh(@requestBody() body: RefreshParams) {
+    await this._refreshYoutubeWebsubSubscription.invoke({
       actorId: body.actorId,
     });
   }

@@ -9,7 +9,7 @@ const main = async () => {
     description: '本間ひまわりさん',
     youtubeChannelId: 'UC0g1AE0DOjBYnLhkgoRWN1w',
     twitterUsername: 'honmahimawari',
-    webSubEnabled: process.env.NODE_ENV === 'production',
+    websubEnabled: process.env.NODE_ENV === 'production',
   });
 };
 

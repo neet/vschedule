@@ -1,6 +1,6 @@
 export const TYPES = Object.freeze({
   YoutubeApiService: Symbol('YoutubeApiService'),
-  YoutubeWebSubService: Symbol('YoutubeWebSubService'),
+  YoutubeWebsubService: Symbol('YoutubeWebsubService'),
 
   ActorRepository: Symbol('IActorRepository'),
   MediaAttachmentRepository: Symbol('MediaAttachmentRepository'),

@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 
-import { IAppConfig } from '../app/services/AppConfig/AppConfig';
-import { AppConfigBase } from '../app/services/AppConfig/AppConfigBase';
+import { IAppConfig } from '../../app/services/AppConfig/AppConfig';
+import { AppConfigBase } from '../../app/services/AppConfig/AppConfigBase';
 
 const env = <T = string>(name: string): T | undefined => {
   return process.env[name] as T | undefined;
@@ -12,8 +12,8 @@ export class AppConfigEnvironment extends AppConfigBase implements IAppConfig {
   public constructor() {
     super({
       youtube: {
-        webSubEnabled: env('YOUTUBE_WEBSUB_ENABLED'),
-        webSubHmacSecret: env('YOUTUBE_WEBSUB_HMAC_SECRET'),
+        websubEnabled: env('YOUTUBE_WEBSUB_ENABLED'),
+        websubHmacSecret: env('YOUTUBE_WEBSUB_HMAC_SECRET'),
         dataApiKey: env('YOUTUBE_DATA_API_KEY'),
       },
       storage: {

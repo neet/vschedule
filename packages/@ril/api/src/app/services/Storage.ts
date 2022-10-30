@@ -3,6 +3,6 @@ export interface File {
   readonly bucket?: string;
 }
 
-export interface Storage {
+export interface IStorage {
   create(filename: string, source: Buffer): Promise<File>;
 }

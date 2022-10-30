@@ -1,6 +1,6 @@
 import { CloudTasksClient } from '@google-cloud/tasks';
 import { google } from '@google-cloud/tasks/build/protos/protos';
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { URL } from 'url';
 
 import {
@@ -10,6 +10,7 @@ import {
 import { IAppConfig } from '../../app/services/AppConfig/AppConfig';
 import { TYPES } from '../../types';
 
+@injectable()
 export class JobRepository implements IJobRepository {
   private readonly _origin: string;
   private readonly _tasks = new CloudTasksClient();

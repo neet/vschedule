@@ -2,13 +2,14 @@ import { z } from 'zod';
 
 import { registry } from '../../api';
 import { YoutubeAtomFeed } from '../../components/request-bodies/YoutubeAtomFeed';
-import { YoutubeWebSubVerification } from '../../components/request-bodies/YoutubeWebSubVerification';
+import { YoutubeWebsubVerification } from '../../components/request-bodies/YoutubeWebsubVerification';
 
-registry.registerWebhook({
+registry.registerPath({
   method: 'get',
   path: '/webhook/youtube',
+  operationId: 'verifyYoutubeWebsub',
   request: {
-    params: YoutubeWebSubVerification,
+    params: YoutubeWebsubVerification,
   },
   responses: {
     200: {
@@ -22,9 +23,10 @@ registry.registerWebhook({
   },
 });
 
-registry.registerWebhook({
+registry.registerPath({
   method: 'post',
   path: '/webhook/youtube',
+  operationId: 'notifyYoutubeWebsub',
   request: {
     body: {
       required: true,

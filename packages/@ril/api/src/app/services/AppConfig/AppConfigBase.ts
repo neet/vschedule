@@ -14,8 +14,8 @@ export abstract class AppConfigBase implements IAppConfig {
       },
       youtube: {
         dataApiKey: entries.youtube?.dataApiKey,
-        webSubEnabled: entries.youtube?.webSubEnabled,
-        webSubHmacSecret: entries.youtube?.webSubHmacSecret,
+        websubEnabled: entries.youtube?.websubEnabled,
+        websubHmacSecret: entries.youtube?.websubHmacSecret,
       },
       server: {
         port: entries.server?.port ?? 3000,

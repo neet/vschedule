@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const YoutubeWebSubVerification = z.object({
+export const YoutubeWebsubVerification = z.object({
   'hub.topic': z.string().url(),
   'hub.challenge': z.string(),
   'hub.mode': z.union([z.literal('subscribe'), z.literal('unsubscribe')]),

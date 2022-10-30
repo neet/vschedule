@@ -1,46 +1,43 @@
-import { Response } from 'express';
-import { inject, injectable } from 'inversify';
+import { inject } from 'inversify';
 import {
-  BadRequestError,
-  Controller,
-  Get,
-  InternalServerError,
-  NotFoundError,
-  Param,
-  Res,
-} from 'routing-controllers';
+  BaseHttpController,
+  controller,
+  httpGet,
+  requestParam,
+} from 'inversify-express-utils';
 
 import {
   NoSuchMediaAttachmentError,
   ShowMediaAttachment,
 } from '../../../../app/use-cases/ShowMediaAttachment';
 
-@injectable()
-@Controller('/api/v1/media')
-export class MediaAttachmentController {
+@controller('/api/v1/media')
+export class MediaAttachmentController extends BaseHttpController {
   constructor(
     @inject(ShowMediaAttachment)
     private readonly _showMediaAttachment: ShowMediaAttachment,
-  ) {}
+  ) {
+    super();
+  }
 
-  @Get('/:id')
-  async show(@Param('id') _id: string, @Res() res: Response) {
+  @httpGet('/:id')
+  async show(@requestParam('id') _id: string) {
     try {
       const id = _id.split('.')[0];
       if (id == null) {
-        throw new BadRequestError('Invalid media attachment id');
+        return this.json({ message: 'Invalid media attachment id' }, 400);
       }
 
       const media = await this._showMediaAttachment.invoke(id);
 
-      res.redirect(
+      return this.redirect(
         `https://storage.googleapis.com/${media.bucket?.value}/${media.filename.value}`,
       );
     } catch (e) {
       if (e instanceof NoSuchMediaAttachmentError) {
-        throw new NotFoundError('No such media attachment');
+        return this.json({ message: 'No such media attachment' }, 400);
       }
-      throw new InternalServerError('Failed to show media attachment');
+      return this.json({ message: 'Failed to show media attachment' }, 503);
     }
   }
 }

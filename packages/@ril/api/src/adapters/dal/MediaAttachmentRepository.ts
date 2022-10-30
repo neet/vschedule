@@ -5,13 +5,13 @@ import { getPlaiceholder } from 'plaiceholder';
 import * as uuid from 'uuid';
 
 import { IMediaAttachmentRepository } from '../../app/repositories/MediaAttachmentRepository';
+import { IStorage } from '../../app/services/Storage';
 import {
   MediaAttachment,
   MediaAttachmentFilename,
   MediaAttachmentId,
 } from '../../domain/entities';
 import { TYPES } from '../../types';
-import { Storage } from '../services/storage';
 
 @injectable()
 export class MediaAttachmentRepositoryPrismaImpl
@@ -22,7 +22,7 @@ export class MediaAttachmentRepositoryPrismaImpl
     private readonly _prisma: PrismaClient,
 
     @inject(TYPES.Storage)
-    private readonly _storage: Storage,
+    private readonly _storage: IStorage,
   ) {}
 
   async findById(id: MediaAttachmentId): Promise<MediaAttachment | undefined> {

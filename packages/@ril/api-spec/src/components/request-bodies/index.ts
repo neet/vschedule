@@ -1,2 +1,2 @@
 export * from './YoutubeAtomFeed';
-export * from './YoutubeWebSubVerification';
+export * from './YoutubeWebsubVerification';

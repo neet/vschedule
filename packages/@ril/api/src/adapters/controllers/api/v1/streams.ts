@@ -1,11 +1,10 @@
-import { inject, injectable } from 'inversify';
-import { Get, JsonController } from 'routing-controllers';
+import { inject } from 'inversify';
+import { controller, httpGet } from 'inversify-express-utils';
 
 import { ListStreams } from '../../../../app/use-cases/ListStreams';
 import { RestApiPresenter } from '../../../presenters/rest-api';
 
-@injectable()
-@JsonController('/api/v1/streams')
+@controller('/api/v1/streams')
 export class StreamsRestApiController {
   constructor(
     @inject(ListStreams)
@@ -15,7 +14,7 @@ export class StreamsRestApiController {
     private readonly _presenter: RestApiPresenter,
   ) {}
 
-  @Get('/')
+  @httpGet('/')
   async show() {
     const data = await this._listStreams.invoke();
     return data.map((item) => this._presenter.presentStream(item));

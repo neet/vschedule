@@ -1,55 +1,50 @@
 import 'reflect-metadata';
+import '../adapters/controllers/api/v1/actors';
+import '../adapters/controllers/api/v1/media';
+import '../adapters/controllers/api/v1/streams';
+import '../adapters/controllers/webhook/youtube';
+import '../adapters/controllers/webhook/youtube/refresh';
+import './setup';
 
 import api from '@ril/api-spec';
-import dayjs from 'dayjs';
-import DurationPlugin from 'dayjs/plugin/duration';
 import express from 'express';
 import * as OpenApiValidator from 'express-openapi-validator';
 import xmlParser from 'express-xml-bodyparser';
-import { useContainer, useExpressServer } from 'routing-controllers';
+import { InversifyExpressServer } from 'inversify-express-utils';
 import swaggerUi from 'swagger-ui-express';
 
-import { ActorController } from '../adapters/controllers/api/v1/actors';
-import { MediaAttachmentController } from '../adapters/controllers/api/v1/media';
-import { StreamsRestApiController } from '../adapters/controllers/api/v1/streams';
-import { YoutubeWebhookController } from '../adapters/controllers/webhook/youtube';
-import { YoutubeWebhookRefreshController } from '../adapters/controllers/webhook/youtube/refresh';
 import { IAppConfig } from '../app/services/AppConfig/AppConfig';
 import { TYPES } from '../types';
-import { InversifyAdapter } from './inversify-adapter';
 import { container } from './inversify-config';
 
-dayjs.extend(DurationPlugin);
-
-const inversifyAdapter = new InversifyAdapter(container);
-useContainer(inversifyAdapter);
-
 const config = container.get<IAppConfig>(TYPES.AppConfig);
+const server = new InversifyExpressServer(container);
 
-const app = express();
-app.use(express.json(), express.urlencoded({ extended: true }), xmlParser());
-
-app.use(
-  '/api',
-  OpenApiValidator.middleware({
-    validateApiSpec: false, // なんかwebhookが使えない？
-    apiSpec: require.resolve('@ril/api-spec'),
-  }),
-);
-
-useExpressServer(app, {
-  classTransformer: false,
-  validation: false,
-  controllers: [
-    ActorController,
-    MediaAttachmentController,
-    StreamsRestApiController,
-    YoutubeWebhookController,
-    YoutubeWebhookRefreshController,
-  ],
+server.setConfig((app) => {
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(xmlParser());
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(api));
+  app.use(
+    '/api',
+    OpenApiValidator.middleware({
+      apiSpec: require.resolve('@ril/api-spec'),
+      validateApiSpec: true,
+      validateRequests: true,
+      validateResponses: true,
+    }),
+  );
 });
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(api));
+const app = server.build();
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+app.use((err: any, _req: unknown, res: any) => {
+  res.status(err.status ?? 500).json({
+    message: err.message,
+    errors: err.errors,
+  });
+});
 
 app.listen(config.entries.server.port, () => {
   // eslint-disable-next-line no-console
