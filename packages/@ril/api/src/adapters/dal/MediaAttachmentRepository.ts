@@ -39,6 +39,8 @@ export class MediaAttachmentRepositoryPrismaImpl
     return MediaAttachment.fromPrimitive({
       id: data.id,
       filename: data.filename,
+      width: data.width,
+      height: data.height,
       bucket: data.bucket ?? undefined,
       base64: data.base64,
       createdAt: dayjs(data.createdAt),
@@ -54,12 +56,14 @@ export class MediaAttachmentRepositoryPrismaImpl
     const file = await this._storage.create(filename.value, buffer);
 
     // https://plaiceholder.co/usage#base64
-    const { base64 } = await getPlaiceholder(buffer);
+    const plaiceholder = await getPlaiceholder(buffer);
 
     const mediaAttachment = MediaAttachment.fromPrimitive({
       id,
       filename: file.filename,
-      base64,
+      width: plaiceholder.img.width,
+      height: plaiceholder.img.height,
+      base64: plaiceholder.base64,
       bucket: file.bucket ?? undefined,
       createdAt: dayjs(),
       updatedAt: dayjs(),
@@ -69,7 +73,9 @@ export class MediaAttachmentRepositoryPrismaImpl
       data: {
         id: mediaAttachment.id.value,
         filename: mediaAttachment.filename.value,
-        base64,
+        width: mediaAttachment.width.value,
+        height: mediaAttachment.height.value,
+        base64: mediaAttachment.base64.value,
         bucket: file.bucket,
         createdAt: mediaAttachment.createdAt.toDate(),
         updatedAt: mediaAttachment.updatedAt.toDate(),

@@ -30,7 +30,7 @@ const container = new Container({
     .bind<PrismaClient>(TYPES.PrismaClient)
     .toConstantValue(
       new PrismaClient({
-        log: [{ emit: 'event', level: 'query' }],
+        log: ['query', 'info', 'warn', 'error'],
       }),
     );
 

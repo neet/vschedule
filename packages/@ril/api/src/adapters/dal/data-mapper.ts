@@ -17,6 +17,8 @@ export const createMediaAttachmentFromPrisma = (
     id: mediaAttachment.id,
     base64: mediaAttachment.base64,
     filename: mediaAttachment.filename,
+    width: mediaAttachment.width,
+    height: mediaAttachment.height,
     bucket: mediaAttachment.bucket ?? undefined,
     createdAt: dayjs(mediaAttachment.createdAt),
     updatedAt: dayjs(mediaAttachment.updatedAt),

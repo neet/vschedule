@@ -13,6 +13,8 @@ datasource db {
 model MediaAttachment {
   id        String   @id @default(uuid())
   filename  String
+  width     Float
+  height    Float
   base64    String   @db.Text
   bucket    String?
   createdAt DateTime @map("created_at")

@@ -79,15 +79,19 @@ export class YoutubeApiService implements IYoutubeApiService {
     if (
       channel.id == null ||
       channel.snippet?.title == null ||
-      channel.snippet.thumbnails?.default?.url == null
+      channel.snippet.description == null ||
+      channel.snippet.thumbnails?.high?.url == null
     ) {
-      throw new Error(`Either channelId or title or thumbnailUrl is null`);
+      throw new Error(
+        `Either channelId or description or title or thumbnailUrl is null`,
+      );
     }
 
     return {
       id: channel.id,
       name: channel.snippet.title,
-      thumbnailUrl: channel.snippet.thumbnails.default.url,
+      description: channel.snippet.description,
+      thumbnailUrl: channel.snippet.thumbnails.high.url,
     };
   }
 }

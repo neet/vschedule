@@ -8,6 +8,8 @@ export const MediaAttachment = registry.register(
     id: z.string().uuid(),
     filename: z.string(),
     base64: z.string(),
+    width: z.number(),
+    height: z.number(),
     url: z.string().url(),
     createdAt: z.string().openapi({ format: 'date-time' }),
     updatedAt: z.string().openapi({ format: 'date-time' }),

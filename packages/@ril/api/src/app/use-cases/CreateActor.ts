@@ -4,19 +4,23 @@ import fetch from 'node-fetch';
 import sharp from 'sharp';
 import * as uuid from 'uuid';
 
-import { MediaAttachmentFilename, Performer } from '../../domain/entities';
+import {
+  Actor,
+  MediaAttachmentFilename,
+  Performer,
+} from '../../domain/entities';
 import { TYPES } from '../../types';
 import { IActorRepository } from '../repositories/ActorRepository';
 import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
 import { IYoutubeApiService } from '../services/YoutubeApiService';
 import { IYoutubeWebsubService } from '../services/YoutubeWebsubService';
 
-export interface CreatePerformerParams {
+export interface CreateActorParams {
   readonly name?: string;
   readonly description?: string;
   readonly color?: string;
   readonly youtubeChannelId: string;
-  readonly twitterUsername: string;
+  readonly twitterUsername?: string;
   readonly websubEnabled: boolean;
 }
 
@@ -24,7 +28,7 @@ export interface CreatePerformerParams {
  * 管理画面などから配信者を追加する
  */
 @injectable()
-export class CreatePerformer {
+export class CreateActor {
   constructor(
     @inject(TYPES.ActorRepository)
     private readonly _actorRepository: IActorRepository,
@@ -39,7 +43,7 @@ export class CreatePerformer {
     private readonly _youtubeWebsubService: IYoutubeWebsubService,
   ) {}
 
-  public async invoke(params: CreatePerformerParams): Promise<void> {
+  public async invoke(params: CreateActorParams): Promise<Actor> {
     const {
       name,
       youtubeChannelId,
@@ -52,6 +56,7 @@ export class CreatePerformer {
       youtubeChannelId,
     );
 
+    // image
     const image = await fetch(channel.thumbnailUrl);
     const imageBuffer = Buffer.from(await image.arrayBuffer());
 
@@ -74,7 +79,7 @@ export class CreatePerformer {
     const actor = Performer.fromPrimitive({
       id: uuid.v4(),
       name: name ?? channel.name,
-      description: description,
+      description: description ?? channel.description.substring(0, 500),
       color: primaryColor.hex(),
       avatar,
       twitterUsername,
@@ -85,5 +90,7 @@ export class CreatePerformer {
     if (websubEnabled) {
       await this._youtubeWebsubService.subscribeToChannel(youtubeChannelId);
     }
+
+    return actor;
   }
 }

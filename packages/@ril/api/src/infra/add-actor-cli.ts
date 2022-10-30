@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 
-import { CreatePerformer } from '../app/use-cases/CreatePerformer';
+import { CreateActor } from '../app/use-cases/CreateActor';
 import { container } from './inversify-config';
 
 const main = async () => {
-  await container.get(CreatePerformer).invoke({
+  await container.get(CreateActor).invoke({
     name: '本間ひまわり',
     description: '本間ひまわりさん',
     youtubeChannelId: 'UC0g1AE0DOjBYnLhkgoRWN1w',

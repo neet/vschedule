@@ -34,7 +34,9 @@ export class RestApiPresenter {
     return {
       id: mediaAttachment.id.value,
       url: url.toString(),
-      base64: mediaAttachment.base64,
+      base64: mediaAttachment.base64.value,
+      width: mediaAttachment.width.value,
+      height: mediaAttachment.height.value,
       filename: mediaAttachment.filename.value,
       createdAt: mediaAttachment.createdAt.toISOString(),
       updatedAt: mediaAttachment.updatedAt.toISOString(),

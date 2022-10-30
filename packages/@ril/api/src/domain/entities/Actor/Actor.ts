@@ -65,6 +65,10 @@ export abstract class Actor extends Entity<ActorId, IActor> implements IActor {
           ? new ActorDescription(props.description)
           : undefined,
       avatar: props.avatar,
+      youtubeChannelId:
+        props.youtubeChannelId != null
+          ? new YoutubeChannelId(props.youtubeChannelId)
+          : undefined,
       twitterUsername:
         props.twitterUsername != null
           ? new TwitterUsername(props.twitterUsername)
