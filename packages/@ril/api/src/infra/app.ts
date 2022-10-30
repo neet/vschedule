@@ -2,8 +2,8 @@ import 'reflect-metadata';
 import '../adapters/controllers/api/v1/actors';
 import '../adapters/controllers/api/v1/media';
 import '../adapters/controllers/api/v1/streams';
-import '../adapters/controllers/webhook/youtube';
-import '../adapters/controllers/webhook/youtube/refresh';
+import '../adapters/controllers/webhub/youtube';
+import '../adapters/controllers/webhub/youtube/resubscribe';
 import './setup';
 
 import api from '@ril/api-spec';

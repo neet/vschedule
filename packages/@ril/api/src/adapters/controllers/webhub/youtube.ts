@@ -14,7 +14,8 @@ import {
 
 import { RemoveStream } from '../../../app/use-cases/RemoveStream';
 import { SaveYoutubeStream } from '../../../app/use-cases/SaveYoutubeStream';
-import { VerifyYoutubeWebsubSubscription } from '../../../app/use-cases/VerifyYoutubeWebsubSubscription';
+import { ScheduleYoutubeWebsubResubscription } from '../../../app/use-cases/ScheduleYoutubeWebsubResubscription';
+import { TYPES } from '../../../types';
 
 @controller('/webhook/youtube')
 export class YoutubeWebhookController extends BaseHttpController {
@@ -25,23 +26,24 @@ export class YoutubeWebhookController extends BaseHttpController {
     @inject(RemoveStream)
     private readonly _removeStream: RemoveStream,
 
-    @inject(VerifyYoutubeWebsubSubscription)
-    private readonly _verifyYoutubeWebsubSubscription: VerifyYoutubeWebsubSubscription,
+    @inject(ScheduleYoutubeWebsubResubscription)
+    private readonly _queueYoutubeWebsubResubscription: ScheduleYoutubeWebsubResubscription,
   ) {
     super();
   }
 
   @httpGet('/')
   async verify(@requestParam() params: Parameter$verifyYoutubeWebsub) {
-    await this._verifyYoutubeWebsubSubscription.invoke({
+    // TODO: Unsubscribeのときのハンドリング
+    await this._queueYoutubeWebsubResubscription.invoke({
       topic: params['hub.topic'],
       leaseSeconds: params['hub.lease_seconds'],
     });
 
-    return params['hub.challenge'];
+    this.ok(params['hub.challenge']);
   }
 
-  @httpPost('/')
+  @httpPost('/', TYPES.YoutubeHmacMiddleware)
   async notify(
     @requestBody()
     body: RequestBody$notifyYoutubeWebsub['application/atom+xml'],

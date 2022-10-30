@@ -10,4 +10,6 @@ export const TYPES = Object.freeze({
   PrismaClient: Symbol('PrismaClient'),
   Storage: Symbol('Storage'),
   AppConfig: Symbol('AppConfig'),
+
+  YoutubeHmacMiddleware: Symbol('YoutubeHmacMiddleware'),
 });

@@ -6,7 +6,7 @@ import { YoutubeWebsubVerification } from '../../components/request-bodies/Youtu
 
 registry.registerPath({
   method: 'get',
-  path: '/webhook/youtube',
+  path: '/websub/youtube',
   operationId: 'verifyYoutubeWebsub',
   request: {
     params: YoutubeWebsubVerification,
@@ -25,7 +25,7 @@ registry.registerPath({
 
 registry.registerPath({
   method: 'post',
-  path: '/webhook/youtube',
+  path: '/websub/youtube',
   operationId: 'notifyYoutubeWebsub',
   request: {
     body: {
@@ -33,6 +33,29 @@ registry.registerPath({
       content: {
         'application/atom+xml': {
           schema: YoutubeAtomFeed,
+        },
+      },
+    },
+  },
+  responses: {
+    200: {
+      description: '成功時のレスポンスです',
+    },
+  },
+});
+
+registry.registerPath({
+  method: 'post',
+  path: '/websub/youtube/resubscribe',
+  operationId: 'resubscribeYoutubeWebsub',
+  request: {
+    body: {
+      required: true,
+      content: {
+        'application/json': {
+          schema: z.object({
+            actorId: z.string().uuid(),
+          }),
         },
       },
     },

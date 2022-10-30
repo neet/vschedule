@@ -7,16 +7,13 @@ import { TYPES } from '../../types';
 import { IActorRepository } from '../repositories/ActorRepository';
 import { IJobRepository } from '../repositories/JobRepository';
 
-export interface VerifyYoutubeWebsubSubscriptionParams {
+export interface ScheduleYoutubeWebsubResubscriptionParams {
   readonly topic: string;
   readonly leaseSeconds: number;
 }
 
-/**
- *
- */
 @injectable()
-export class VerifyYoutubeWebsubSubscription {
+export class ScheduleYoutubeWebsubResubscription {
   constructor(
     @inject(TYPES.JobRepository)
     private readonly _jobRepository: IJobRepository,
@@ -25,8 +22,11 @@ export class VerifyYoutubeWebsubSubscription {
     private readonly _actorRepository: IActorRepository,
   ) {}
 
-  async invoke(params: VerifyYoutubeWebsubSubscriptionParams): Promise<void> {
+  async invoke(
+    params: ScheduleYoutubeWebsubResubscriptionParams,
+  ): Promise<void> {
     const topic = new URL(params.topic);
+    const scheduledAt = dayjs().add(params.leaseSeconds, 'seconds');
 
     const channelId = topic.searchParams.get('channel_id');
     if (channelId == null) {
@@ -44,7 +44,7 @@ export class VerifyYoutubeWebsubSubscription {
     await this._jobRepository.queue({
       type: 'refresh',
       actorId: actor.id.value,
-      scheduledAt: dayjs(),
+      scheduledAt,
     });
   }
 }

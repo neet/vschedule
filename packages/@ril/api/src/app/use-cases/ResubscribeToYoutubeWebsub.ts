@@ -5,12 +5,12 @@ import { TYPES } from '../../types';
 import { IActorRepository } from '../repositories/ActorRepository';
 import { IYoutubeWebsubService } from '../services/YoutubeWebsubService';
 
-export interface RefreshYoutubeWebsubSubscriptionParams {
+export interface ResubscribeToYoutubeWebsubParams {
   readonly actorId: string;
 }
 
 @injectable()
-export class RefreshYoutubeWebsubSubscription {
+export class ResubscribeToYoutubeWebsub {
   constructor(
     @inject(TYPES.ActorRepository)
     private readonly _actorRepository: IActorRepository,
@@ -19,7 +19,7 @@ export class RefreshYoutubeWebsubSubscription {
     private readonly _youtubeWebsubService: IYoutubeWebsubService,
   ) {}
 
-  async invoke(params: RefreshYoutubeWebsubSubscriptionParams): Promise<void> {
+  async invoke(params: ResubscribeToYoutubeWebsubParams): Promise<void> {
     const actor = await this._actorRepository.findById(
       new ActorId(params.actorId),
     );

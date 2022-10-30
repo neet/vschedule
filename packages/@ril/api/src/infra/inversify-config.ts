@@ -14,6 +14,7 @@ import { IStorage } from '../app/services/Storage';
 import { IYoutubeApiService } from '../app/services/YoutubeApiService';
 import { IYoutubeWebsubService } from '../app/services/YoutubeWebsubService';
 import { TYPES } from '../types';
+import { YoutubeHmacMiddleware } from './middlewares/YoutubeHmacMiddleware';
 import { AppConfigEnvironment } from './services/AppConfigEnvironment';
 import { Storage } from './services/Storage';
 import { YoutubeApiService } from './services/YouTubeApiService';
@@ -63,6 +64,8 @@ const container = new Container({
     .to(YoutubeWebsubService);
 
   container.bind<IStorage>(TYPES.Storage).to(Storage);
+
+  container.bind<YoutubeHmacMiddleware>(TYPES.YoutubeHmacMiddleware).to(YoutubeHmacMiddleware);
 }
 
 export { container };
