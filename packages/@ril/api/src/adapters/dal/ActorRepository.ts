@@ -5,7 +5,7 @@ import { IActorRepository } from '../../app/repositories/ActorRepository';
 import { YoutubeChannelId } from '../../domain/_shared';
 import { Actor, ActorId, Performer } from '../../domain/entities';
 import { TYPES } from '../../types';
-import { createActorFromPrisma } from './data-mapper';
+import { createActorFromPrisma } from '../mappers/PrismaMapper';
 
 @injectable()
 export class ActorRepository implements IActorRepository {

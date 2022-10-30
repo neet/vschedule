@@ -2,7 +2,7 @@ import { inject } from 'inversify';
 import { controller, httpGet } from 'inversify-express-utils';
 
 import { ListStreams } from '../../../../app/use-cases/ListStreams';
-import { RestApiPresenter } from '../../../presenters/rest-api';
+import { RestApiPresenter } from '../../../mappers/RestApiMapper';
 
 @controller('/api/v1/streams')
 export class StreamsRestApiController {

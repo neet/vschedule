@@ -8,7 +8,7 @@ import {
 } from '../../app/repositories/StreamRepository';
 import { Stream, StreamId } from '../../domain/entities';
 import { TYPES } from '../../types';
-import { createStreamFromPrisma } from './data-mapper';
+import { createStreamFromPrisma } from '../mappers/PrismaMapper';
 
 @injectable()
 export class StreamRepository implements IStreamRepository {

@@ -11,7 +11,7 @@ import {
 
 import { CreateActor } from '../../../../app/use-cases/CreateActor';
 import { ShowActor } from '../../../../app/use-cases/ShowActor';
-import { RestApiPresenter } from '../../../presenters/rest-api';
+import { RestApiPresenter } from '../../../mappers/RestApiMapper';
 
 @controller('/api/v1/actors')
 export class ActorController extends BaseHttpController {
