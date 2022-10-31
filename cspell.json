@@ -21,6 +21,7 @@
     "gtag",
     "headlessui",
     "himenon",
+    "hololive",
     "igarashi",
     "immer",
     "immerable",
@@ -29,8 +30,10 @@
     "multiline",
     "neet",
     "nextjs",
+    "nijisanji",
     "nums",
     "openapi",
+    "outdent",
     "overridable",
     "plaiceholder",
     "postcss",
@@ -45,7 +48,7 @@
     "unmount",
     "vercel",
     "wcag",
-    "WEBSUB",
+    "websub",
     "youtube"
   ]
 }

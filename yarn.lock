@@ -2656,15 +2656,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/create-cache-key-function@npm:^27.4.2":
-  version: 27.4.2
-  resolution: "@jest/create-cache-key-function@npm:27.4.2"
-  dependencies:
-    "@jest/types": ^27.4.2
-  checksum: 46eeb4460798c6bba9da5bba6d07030012a9290ee6d2e3537e49110e57e6bcb118d9075a942ec3c1b1a2eebb50746d231bc9b15749980dd3817c41db3179c27a
-  languageName: node
-  linkType: hard
-
 "@jest/environment@npm:^27.4.6":
   version: 27.4.6
   resolution: "@jest/environment@npm:27.4.6"
@@ -3330,9 +3321,8 @@ __metadata:
     "@ril/api-client": "workspace:^"
     "@ril/api-spec": "workspace:^"
     "@ril/eslint-plugin": "workspace:^"
+    "@ril/seeds": "workspace:^"
     "@ril/tsconfig": "workspace:^"
-    "@swc/core": ^1.2.130
-    "@swc/jest": ^0.2.17
     "@types/cors": ^2
     "@types/express": ^4
     "@types/express-xml-bodyparser": ^0
@@ -3475,6 +3465,19 @@ __metadata:
     eslint-plugin-simple-import-sort: ^8.0.0
   peerDependencies:
     eslint: ^8.7.0
+  languageName: unknown
+  linkType: soft
+
+"@ril/seeds@workspace:^, @ril/seeds@workspace:packages/@ril/seeds":
+  version: 0.0.0-use.local
+  resolution: "@ril/seeds@workspace:packages/@ril/seeds"
+  dependencies:
+    "@ril/eslint-plugin": "workspace:^"
+    "@ril/tsconfig": "workspace:^"
+    "@types/eslint": ^8
+    eslint: ^8.26.0
+    outdent: ^0.8.0
+    typescript: ^4.8.4
   languageName: unknown
   linkType: soft
 
@@ -4978,156 +4981,6 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
   checksum: d2866987f51d945246776d42628bc2b79e701f1e59fd511bb1e590c83c4b9d9adee5c7e1a11ecb2ef12b9192613e2d576694bbc9aeb1df5545567f2aa44c0145
-  languageName: node
-  linkType: hard
-
-"@swc/core-android-arm-eabi@npm:1.2.133":
-  version: 1.2.133
-  resolution: "@swc/core-android-arm-eabi@npm:1.2.133"
-  conditions: os=android & cpu=arm
-  languageName: node
-  linkType: hard
-
-"@swc/core-android-arm64@npm:1.2.133":
-  version: 1.2.133
-  resolution: "@swc/core-android-arm64@npm:1.2.133"
-  conditions: os=android & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@swc/core-darwin-arm64@npm:1.2.133":
-  version: 1.2.133
-  resolution: "@swc/core-darwin-arm64@npm:1.2.133"
-  conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@swc/core-darwin-x64@npm:1.2.133":
-  version: 1.2.133
-  resolution: "@swc/core-darwin-x64@npm:1.2.133"
-  conditions: os=darwin & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@swc/core-freebsd-x64@npm:1.2.133":
-  version: 1.2.133
-  resolution: "@swc/core-freebsd-x64@npm:1.2.133"
-  conditions: os=freebsd & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@swc/core-linux-arm-gnueabihf@npm:1.2.133":
-  version: 1.2.133
-  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.2.133"
-  conditions: os=linux & cpu=arm
-  languageName: node
-  linkType: hard
-
-"@swc/core-linux-arm64-gnu@npm:1.2.133":
-  version: 1.2.133
-  resolution: "@swc/core-linux-arm64-gnu@npm:1.2.133"
-  conditions: os=linux & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@swc/core-linux-arm64-musl@npm:1.2.133":
-  version: 1.2.133
-  resolution: "@swc/core-linux-arm64-musl@npm:1.2.133"
-  conditions: os=linux & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@swc/core-linux-x64-gnu@npm:1.2.133":
-  version: 1.2.133
-  resolution: "@swc/core-linux-x64-gnu@npm:1.2.133"
-  conditions: os=linux & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@swc/core-linux-x64-musl@npm:1.2.133":
-  version: 1.2.133
-  resolution: "@swc/core-linux-x64-musl@npm:1.2.133"
-  conditions: os=linux & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@swc/core-win32-arm64-msvc@npm:1.2.133":
-  version: 1.2.133
-  resolution: "@swc/core-win32-arm64-msvc@npm:1.2.133"
-  conditions: os=win32 & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@swc/core-win32-ia32-msvc@npm:1.2.133":
-  version: 1.2.133
-  resolution: "@swc/core-win32-ia32-msvc@npm:1.2.133"
-  conditions: os=win32 & cpu=ia32
-  languageName: node
-  linkType: hard
-
-"@swc/core-win32-x64-msvc@npm:1.2.133":
-  version: 1.2.133
-  resolution: "@swc/core-win32-x64-msvc@npm:1.2.133"
-  conditions: os=win32 & cpu=x64
-  languageName: node
-  linkType: hard
-
-"@swc/core@npm:^1.2.130":
-  version: 1.2.133
-  resolution: "@swc/core@npm:1.2.133"
-  dependencies:
-    "@swc/core-android-arm-eabi": 1.2.133
-    "@swc/core-android-arm64": 1.2.133
-    "@swc/core-darwin-arm64": 1.2.133
-    "@swc/core-darwin-x64": 1.2.133
-    "@swc/core-freebsd-x64": 1.2.133
-    "@swc/core-linux-arm-gnueabihf": 1.2.133
-    "@swc/core-linux-arm64-gnu": 1.2.133
-    "@swc/core-linux-arm64-musl": 1.2.133
-    "@swc/core-linux-x64-gnu": 1.2.133
-    "@swc/core-linux-x64-musl": 1.2.133
-    "@swc/core-win32-arm64-msvc": 1.2.133
-    "@swc/core-win32-ia32-msvc": 1.2.133
-    "@swc/core-win32-x64-msvc": 1.2.133
-  dependenciesMeta:
-    "@swc/core-android-arm-eabi":
-      optional: true
-    "@swc/core-android-arm64":
-      optional: true
-    "@swc/core-darwin-arm64":
-      optional: true
-    "@swc/core-darwin-x64":
-      optional: true
-    "@swc/core-freebsd-x64":
-      optional: true
-    "@swc/core-linux-arm-gnueabihf":
-      optional: true
-    "@swc/core-linux-arm64-gnu":
-      optional: true
-    "@swc/core-linux-arm64-musl":
-      optional: true
-    "@swc/core-linux-x64-gnu":
-      optional: true
-    "@swc/core-linux-x64-musl":
-      optional: true
-    "@swc/core-win32-arm64-msvc":
-      optional: true
-    "@swc/core-win32-ia32-msvc":
-      optional: true
-    "@swc/core-win32-x64-msvc":
-      optional: true
-  checksum: cc2f28ce7f70e7d94491fef9ed75f3db564f0f00c54d6230e8acac466ec0301481a2bbde8c85daa03bbf9f796cabf11e57b27524495e8db6daa62cdd9bb3ad9b
-  languageName: node
-  linkType: hard
-
-"@swc/jest@npm:^0.2.17":
-  version: 0.2.17
-  resolution: "@swc/jest@npm:0.2.17"
-  dependencies:
-    "@jest/create-cache-key-function": ^27.4.2
-  peerDependencies:
-    "@swc/core": "*"
-  checksum: 33e08c71adaa3d46f47b888b954c8f61513804a1b3ee24fdc13ccbbb89ca6c96b474eef4002b96edcd6090a308a1aafd313073ae4bcd6339fcc3a22e2f29f1b7
   languageName: node
   linkType: hard
 
@@ -17206,6 +17059,13 @@ __metadata:
   version: 1.0.2
   resolution: "os-tmpdir@npm:1.0.2"
   checksum: 5666560f7b9f10182548bf7013883265be33620b1c1b4a4d405c25be2636f970c5488ff3e6c48de75b55d02bde037249fe5dbfbb4c0fb7714953d56aed062e6d
+  languageName: node
+  linkType: hard
+
+"outdent@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "outdent@npm:0.8.0"
+  checksum: 72b7c1a287674317ea477999ec24e73a9eda21de35eb9429218f4a5bab899e964afaee7508265898118fee5cbee1d79397916b66dd8aeee285cd948ea5b1f562
   languageName: node
   linkType: hard
 

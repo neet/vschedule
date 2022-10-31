@@ -56,6 +56,7 @@ export class CreatePerformer {
       name,
       youtubeChannelId,
       description,
+      color,
       twitterUsername,
       organizationId,
       websubEnabled,
@@ -98,8 +99,8 @@ export class CreatePerformer {
     const performer = Performer.fromPrimitive({
       id: uuid.v4(),
       name: name ?? channel.name,
-      description: description ?? channel.description.substring(0, 500),
-      color: primaryColor.hex(),
+      description: description === '' ? undefined : description,
+      color: color ?? primaryColor.hex(),
       avatar,
       twitterUsername,
       youtubeChannelId,

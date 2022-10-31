@@ -46,7 +46,7 @@ export class CreateOrganization {
       id: uuid.v4(),
       name,
       url: url != null ? new URL(url) : undefined,
-      description,
+      description: description === '' ? undefined : description,
       color: color ?? r?.color.hex() ?? '#000000',
       avatar: r?.avatar ?? undefined,
       youtubeChannelId,

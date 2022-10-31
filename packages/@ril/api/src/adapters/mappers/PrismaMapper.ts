@@ -47,7 +47,7 @@ export const createPerformerFromPrisma = (
   },
 ): Performer => {
   if (actor.performer == null) {
-    throw new Error('Unknown actor type #50');
+    throw new Error(`Unknown actor type #50 ${actor.id}`);
   }
 
   return Performer.fromPrimitive({
