@@ -2,6 +2,7 @@ import getColors from 'get-image-colors';
 import { inject, injectable } from 'inversify';
 import fetch from 'node-fetch';
 import sharp from 'sharp';
+import { URL } from 'url';
 import * as uuid from 'uuid';
 
 import {
@@ -21,15 +22,13 @@ export interface CreatePerformerParams {
   readonly name?: string;
   readonly description?: string;
   readonly color?: string;
+  readonly url?: string;
   readonly youtubeChannelId: string;
   readonly twitterUsername?: string;
   readonly organizationId?: string;
   readonly websubEnabled: boolean;
 }
 
-/**
- * 管理画面などから配信者を追加する
- */
 @injectable()
 export class CreatePerformer {
   constructor(
@@ -57,6 +56,7 @@ export class CreatePerformer {
       youtubeChannelId,
       description,
       color,
+      url,
       twitterUsername,
       organizationId,
       websubEnabled,
@@ -102,6 +102,7 @@ export class CreatePerformer {
       description: description === '' ? undefined : description,
       color: color ?? primaryColor.hex(),
       avatar,
+      url: url != null ? new URL(url) : undefined,
       twitterUsername,
       youtubeChannelId,
       organizationId,
