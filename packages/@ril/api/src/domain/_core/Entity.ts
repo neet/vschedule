@@ -1,7 +1,7 @@
 import { immerable } from 'immer';
 
-import { DeepPrimitiveOf } from './PrimitiveOf';
-import type { ValueObject } from './ValueObject';
+import { DeepPrimitiveOf, PrimitiveOf } from './PrimitiveOf';
+import { ValueObject } from './ValueObject';
 
 export abstract class Entity<
   Id extends ValueObject = ValueObject,
@@ -28,6 +28,21 @@ export abstract class Entity<
       }
       return record;
     }, {} as DeepPrimitiveOf<Props>);
+  }
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+
+  // TODO: なんか微妙
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  public toPrimitive(): PrimitiveOf<Props> {
+    return Object.entries(this._props as any).reduce((record, [key, value]) => {
+      const _value = value as any;
+      if (_value instanceof ValueObject) {
+        (record as any)[key] = _value.value;
+      } else {
+        (record as any)[key] = value;
+      }
+      return record;
+    }, {} as PrimitiveOf<Props>);
   }
   /* eslint-enable @typescript-eslint/no-explicit-any */
 }

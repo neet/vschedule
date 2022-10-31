@@ -1,5 +1,5 @@
 import { YoutubeChannelId } from '../../domain/_shared';
-import { Actor, ActorId, Performer } from '../../domain/entities';
+import { ActorId, Performer } from '../../domain/entities';
 
 export interface FindPerformerParams {
   readonly limit?: number;
@@ -7,8 +7,9 @@ export interface FindPerformerParams {
 }
 
 export interface IPerformerRepository {
-  save(performer: Performer): Promise<Performer>;
+  create(performer: Performer): Promise<Performer>;
+  update(performer: Performer): Promise<Performer>;
   find(params?: FindPerformerParams): Promise<Performer[]>;
-  findById(id: ActorId): Promise<Actor | null>;
+  findById(id: ActorId): Promise<Performer | null>;
   findByYoutubeChannelId(id: YoutubeChannelId): Promise<Performer | null>;
 }

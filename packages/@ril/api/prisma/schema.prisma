@@ -64,7 +64,7 @@ model Actor {
 
   avatar   MediaAttachment? @relation(fields: [avatarId], references: [id])
   avatarId String?          @map("avatar_id")
-  stream   Stream[]
+  streams  Stream[]
 
   // decendants
   performer    Performer?
@@ -87,9 +87,9 @@ model Performer {
 }
 
 model Organization {
-  actorId   String      @id @unique @map("actor_id")
-  actor     Actor       @relation(fields: [actorId], references: [id])
-  performer Performer[]
+  actorId    String      @id @unique @map("actor_id")
+  actor      Actor       @relation(fields: [actorId], references: [id])
+  performers Performer[]
 
   @@map("organizations")
 }

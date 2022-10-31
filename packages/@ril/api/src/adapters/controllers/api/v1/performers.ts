@@ -1,12 +1,14 @@
 import {
   Parameter$listPerformers,
   RequestBody$createPerformer,
+  RequestBody$updatePerformer,
 } from '@ril/api-client';
 import { inject } from 'inversify';
 import {
   BaseHttpController,
   controller,
   httpGet,
+  httpPatch,
   httpPost,
   requestBody,
   requestParam,
@@ -15,6 +17,7 @@ import {
 import { CreatePerformer } from '../../../../app/use-cases/CreatePerformer';
 import { ListPerformers } from '../../../../app/use-cases/ListPerformers';
 import { ShowPerformer } from '../../../../app/use-cases/ShowPerformer';
+import { UpdatePerformer } from '../../../../app/use-cases/UpdatePerformer';
 import { RestApiPresenter } from '../../../mappers/RestApiMapper';
 
 @controller('/api/v1/performers')
@@ -22,6 +25,9 @@ export class PerformersController extends BaseHttpController {
   constructor(
     @inject(ShowPerformer)
     private readonly _showPerformer: ShowPerformer,
+
+    @inject(UpdatePerformer)
+    private readonly _updatePerformer: UpdatePerformer,
 
     @inject(CreatePerformer)
     private readonly _createPerformer: CreatePerformer,
@@ -37,7 +43,10 @@ export class PerformersController extends BaseHttpController {
 
   @httpGet('/:performerId')
   async show(@requestParam('performerId') performerId: string) {
-    const performer = await this._showPerformer.invoke(performerId);
+    const [performer, organization] = await this._showPerformer.invoke(
+      performerId,
+    );
+
     if (performer == null) {
       return this.json(
         { message: `No performer found with ${performerId}` },
@@ -45,8 +54,27 @@ export class PerformersController extends BaseHttpController {
       );
     }
 
-    // TODO: organizationが拾えてない
-    return this._presenter.presentActor(performer);
+    return this._presenter.presentPerformer(performer, organization);
+  }
+
+  @httpPatch('/:performerId')
+  async update(
+    @requestParam('performerId') performerId: string,
+    @requestBody() body: RequestBody$updatePerformer['application/json'],
+  ) {
+    const [performer, organization] = await this._updatePerformer.invoke(
+      performerId,
+      {
+        name: body.name,
+        color: body.color,
+        description: body.description,
+        youtubeChannelId: body.youtubeChannelId,
+        twitterUsername: body.twitterUsername,
+        organizationId: body.organizationId,
+      },
+    );
+
+    return this._presenter.presentPerformer(performer, organization);
   }
 
   @httpGet('/')
@@ -66,7 +94,7 @@ export class PerformersController extends BaseHttpController {
   async create(
     @requestBody() body: RequestBody$createPerformer['application/json'],
   ) {
-    const performer = await this._createPerformer.invoke({
+    const [performer, organization] = await this._createPerformer.invoke({
       name: body.name,
       description: body.description,
       color: body.color,
@@ -75,6 +103,6 @@ export class PerformersController extends BaseHttpController {
       websubEnabled: false,
     });
 
-    return this._presenter.presentActor(performer);
+    return this._presenter.presentPerformer(performer, organization);
   }
 }

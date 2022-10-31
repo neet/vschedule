@@ -53,7 +53,7 @@ export class CreateOrganization {
       twitterUsername,
     });
 
-    await this._organizationRepository.save(organization);
+    await this._organizationRepository.create(organization);
     return organization;
   }
 

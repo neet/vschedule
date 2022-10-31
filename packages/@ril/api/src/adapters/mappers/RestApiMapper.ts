@@ -61,11 +61,12 @@ export class RestApiPresenter {
 
   public presentPerformer(
     performer: Performer,
-    organization: Organization,
+    organization?: Organization,
   ): Schemas.Performer {
     return {
       ...this.presentActor(performer),
-      organization: this.presentActor(organization),
+      organization:
+        organization != null ? this.presentActor(organization) : undefined,
     };
   }
 

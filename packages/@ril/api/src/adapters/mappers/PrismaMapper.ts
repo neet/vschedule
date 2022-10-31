@@ -47,7 +47,7 @@ export const createPerformerFromPrisma = (
   },
 ): Performer => {
   if (actor.performer == null) {
-    throw new Error('Unknown actor type');
+    throw new Error('Unknown actor type #50');
   }
 
   return Performer.fromPrimitive({
@@ -63,7 +63,7 @@ export const createOrganizationFromPrisma = (
   },
 ): Organization => {
   if (actor.organization == null) {
-    throw new Error('Unknown actor type');
+    throw new Error('Unknown actor type #66');
   }
 
   return Organization.fromPrimitive({
@@ -84,7 +84,7 @@ const createActorFromPrisma = (
   if (actor.organization != null) {
     return createOrganizationFromPrisma(actor);
   }
-  throw new Error('Unknown actor type');
+  throw new Error('Unknown actor type #87');
 };
 
 export const createStreamFromPrisma = (

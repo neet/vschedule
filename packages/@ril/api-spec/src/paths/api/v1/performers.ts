@@ -52,7 +52,7 @@ const CreatePerformer = z.object({
   url: z.string().url().optional(),
   youtubeChannelId: z.string(),
   twitterUsername: z.string().optional(),
-  organizationId: z.string().uuid(),
+  organizationId: z.string().uuid().optional(),
 });
 
 registry.registerPath({
@@ -89,6 +89,9 @@ registry.registerPath({
   operationId: 'updatePerformer',
   summary: 'パフォーマーを更新',
   request: {
+    params: z.object({
+      performerId: PathPerformerId,
+    }),
     body: {
       required: true,
       description: 'パフォーマーの情報です',

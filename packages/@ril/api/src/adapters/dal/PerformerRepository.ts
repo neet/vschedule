@@ -17,7 +17,7 @@ export class PerformerRepository implements IPerformerRepository {
     private readonly _prisma: PrismaClient,
   ) {}
 
-  async save(actor: Performer): Promise<Performer> {
+  async create(actor: Performer): Promise<Performer> {
     const entry: Prisma.ActorUncheckedCreateInput = {
       id: actor.id.value,
       name: actor.name.value,
@@ -34,6 +34,35 @@ export class PerformerRepository implements IPerformerRepository {
     };
 
     const data = await this._prisma.actor.create({
+      data: entry,
+      include: {
+        avatar: true,
+        performer: true,
+      },
+    });
+
+    return createPerformerFromPrisma(data);
+  }
+
+  async update(actor: Performer): Promise<Performer> {
+    const entry: Prisma.ActorUncheckedUpdateInput = {
+      name: actor.name.value,
+      description: actor.description?.value,
+      color: actor.color.value,
+      youtubeChannelId: actor.youtubeChannelId?.value,
+      twitterUsername: actor.twitterUsername?.value,
+      avatarId: actor.avatar != null ? actor.avatar.id.value : undefined,
+      performer: {
+        update: {
+          organizationId: actor.organizationId?.value,
+        },
+      },
+    };
+
+    const data = await this._prisma.actor.update({
+      where: {
+        id: actor.id.value,
+      },
       data: entry,
       include: {
         avatar: true,

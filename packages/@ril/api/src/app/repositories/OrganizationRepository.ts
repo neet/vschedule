@@ -7,8 +7,10 @@ export interface FindOrganizationParams {
 }
 
 export interface IOrganizationRepository {
-  save(organization: Organization): Promise<Organization>;
+  create(organization: Organization): Promise<Organization>;
+  update(organization: Organization): Promise<Organization>;
   find(params?: FindOrganizationParams): Promise<Organization[]>;
   findById(id: ActorId): Promise<Organization | null>;
+  findByPerformerId(id: ActorId): Promise<Organization | null>;
   findByYoutubeChannelId(id: YoutubeChannelId): Promise<Organization | null>;
 }

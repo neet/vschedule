@@ -17,7 +17,7 @@ export class OrganizationRepository implements IOrganizationRepository {
     private readonly _prisma: PrismaClient,
   ) {}
 
-  async save(organization: Organization): Promise<Organization> {
+  async create(organization: Organization): Promise<Organization> {
     const entry: Prisma.ActorUncheckedCreateInput = {
       id: organization.id.value,
       name: organization.name.value,
@@ -33,7 +33,40 @@ export class OrganizationRepository implements IOrganizationRepository {
       },
     };
 
-    const data = await this._prisma.actor.create({
+    const data = await this._prisma.actor.upsert({
+      where: {
+        id: organization.id.value,
+      },
+      create: entry,
+      update: entry,
+      include: {
+        avatar: true,
+        organization: true,
+      },
+    });
+
+    return createOrganizationFromPrisma(data);
+  }
+
+  async update(organization: Organization): Promise<Organization> {
+    const entry: Prisma.ActorUncheckedUpdateInput = {
+      name: organization.name.value,
+      color: organization.color.value,
+      description: organization.description?.value,
+      url: organization.url?.toString(),
+      twitterUsername: organization.twitterUsername?.value,
+      youtubeChannelId: organization.youtubeChannelId?.value,
+      avatarId:
+        organization.avatar != null ? organization.avatar.id.value : undefined,
+      organization: {
+        create: {},
+      },
+    };
+
+    const data = await this._prisma.actor.update({
+      where: {
+        id: organization.id.value,
+      },
       data: entry,
       include: {
         avatar: true,
@@ -66,6 +99,32 @@ export class OrganizationRepository implements IOrganizationRepository {
     const data = await this._prisma.actor.findFirst({
       where: {
         id: id.value,
+      },
+      include: {
+        avatar: true,
+        organization: true,
+      },
+    });
+
+    if (data == null) {
+      return null;
+    }
+
+    return createOrganizationFromPrisma(data);
+  }
+
+  async findByPerformerId(id: ActorId): Promise<Organization | null> {
+    const data = await this._prisma.actor.findFirst({
+      where: {
+        organization: {
+          performers: {
+            some: {
+              actorId: {
+                equals: id.value,
+              },
+            },
+          },
+        },
       },
       include: {
         avatar: true,

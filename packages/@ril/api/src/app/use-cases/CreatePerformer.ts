@@ -4,9 +4,15 @@ import fetch from 'node-fetch';
 import sharp from 'sharp';
 import * as uuid from 'uuid';
 
-import { MediaAttachmentFilename, Performer } from '../../domain/entities';
+import {
+  ActorId,
+  MediaAttachmentFilename,
+  Organization,
+  Performer,
+} from '../../domain/entities';
 import { TYPES } from '../../types';
 import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
+import { IOrganizationRepository } from '../repositories/OrganizationRepository';
 import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { IYoutubeApiService } from '../services/YoutubeApiService';
 import { IYoutubeWebsubService } from '../services/YoutubeWebsubService';
@@ -17,6 +23,7 @@ export interface CreatePerformerParams {
   readonly color?: string;
   readonly youtubeChannelId: string;
   readonly twitterUsername?: string;
+  readonly organizationId?: string;
   readonly websubEnabled: boolean;
 }
 
@@ -35,18 +42,34 @@ export class CreatePerformer {
     @inject(TYPES.YoutubeApiService)
     private readonly _youtubeApiService: IYoutubeApiService,
 
+    @inject(TYPES.OrganizationRepository)
+    private readonly _organizationRepository: IOrganizationRepository,
+
     @inject(TYPES.YoutubeWebsubService)
     private readonly _youtubeWebsubService: IYoutubeWebsubService,
   ) {}
 
-  public async invoke(params: CreatePerformerParams): Promise<Performer> {
+  public async invoke(
+    params: CreatePerformerParams,
+  ): Promise<[Performer, Organization | undefined]> {
     const {
       name,
       youtubeChannelId,
       description,
       twitterUsername,
+      organizationId,
       websubEnabled,
     } = params;
+
+    const organization =
+      organizationId != null
+        ? await this._organizationRepository.findById(
+            new ActorId(organizationId),
+          )
+        : null;
+    if (organizationId != null && organization == null) {
+      throw new Error(`No such organization ${organizationId}`);
+    }
 
     const channel = await this._youtubeApiService.fetchChannel(
       youtubeChannelId,
@@ -80,13 +103,14 @@ export class CreatePerformer {
       avatar,
       twitterUsername,
       youtubeChannelId,
+      organizationId,
     });
 
-    await this._performerRepository.save(performer);
+    await this._performerRepository.create(performer);
     if (websubEnabled) {
       await this._youtubeWebsubService.subscribeToChannel(youtubeChannelId);
     }
 
-    return performer;
+    return [performer, organization ?? undefined];
   }
 }
