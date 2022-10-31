@@ -12,8 +12,8 @@ import {
   Stream,
 } from '../../domain/entities';
 import { TYPES } from '../../types';
-import { IActorRepository } from '../repositories/ActorRepository';
 import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
+import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { IStreamRepository } from '../repositories/StreamRepository';
 import { IYoutubeApiService } from '../services/YoutubeApiService';
 
@@ -27,8 +27,8 @@ export class SaveYoutubeStream {
     @inject(TYPES.StreamRepository)
     private readonly _streamRepository: IStreamRepository,
 
-    @inject(TYPES.ActorRepository)
-    private readonly _actorRepository: IActorRepository,
+    @inject(TYPES.PerformerRepository)
+    private readonly _performerRepository: IPerformerRepository,
 
     @inject(TYPES.MediaAttachmentRepository)
     private readonly _mediaAttachmentRepository: IMediaAttachmentRepository,
@@ -41,7 +41,7 @@ export class SaveYoutubeStream {
     const { videoId } = params;
 
     const video = await this._youtubeStreamService.fetchVideo(videoId);
-    const performer = await this._actorRepository.findByYoutubeChannelId(
+    const performer = await this._performerRepository.findByYoutubeChannelId(
       new YoutubeChannelId(video.channelId),
     );
 

@@ -1,13 +1,15 @@
 import { PrismaClient } from '@prisma/client';
 import { Container } from 'inversify';
 
-import { ActorRepository } from '../adapters/dal/ActorRepository';
 import { JobRepository } from '../adapters/dal/JobRepository';
 import { MediaAttachmentRepositoryPrismaImpl } from '../adapters/dal/MediaAttachmentRepository';
+import { OrganizationRepository } from '../adapters/dal/OrganizationRepository';
+import { PerformerRepository } from '../adapters/dal/PerformerRepository';
 import { StreamRepository } from '../adapters/dal/StreamRepository';
-import { IActorRepository } from '../app/repositories/ActorRepository';
 import { IJobRepository } from '../app/repositories/JobRepository';
 import { IMediaAttachmentRepository } from '../app/repositories/MediaAttachmentRepository';
+import { IOrganizationRepository } from '../app/repositories/OrganizationRepository';
+import { IPerformerRepository } from '../app/repositories/PerformerRepository';
 import { IStreamRepository } from '../app/repositories/StreamRepository';
 import { IAppConfig } from '../app/services/AppConfig/AppConfig';
 import { IStorage } from '../app/services/Storage';
@@ -40,8 +42,12 @@ const container = new Container({
     .to(AppConfigEnvironment);
 
   container
-    .bind<IActorRepository>(TYPES.ActorRepository)
-    .to(ActorRepository);
+    .bind<IPerformerRepository>(TYPES.PerformerRepository)
+    .to(PerformerRepository);
+
+  container
+    .bind<IOrganizationRepository>(TYPES.OrganizationRepository)
+    .to(OrganizationRepository);
 
   container
     .bind<IStreamRepository>(TYPES.StreamRepository)

@@ -2,7 +2,6 @@ import dayjs from 'dayjs';
 import { URL } from 'url';
 
 import {
-  Actor,
   MediaAttachment,
   Organization,
   Performer,
@@ -25,14 +24,10 @@ export const createMediaAttachmentFromPrisma = (
   });
 };
 
-export const createActorFromPrisma = (
-  actor: Prisma.Actor & {
-    avatar: Prisma.MediaAttachment | null;
-    performer: Prisma.Performer | null;
-    organization: Prisma.Organization | null;
-  },
-): Actor => {
-  const baseProps = {
+const createActorProps = (
+  actor: Prisma.Actor & { avatar: Prisma.MediaAttachment | null },
+) => {
+  return {
     id: actor.id,
     name: actor.name,
     color: actor.color,
@@ -43,20 +38,52 @@ export const createActorFromPrisma = (
         : undefined,
     url: actor.url != null ? new URL(actor.url) : undefined,
   };
+};
 
+export const createPerformerFromPrisma = (
+  actor: Prisma.Actor & {
+    avatar: Prisma.MediaAttachment | null;
+    performer: Prisma.Performer | null;
+  },
+): Performer => {
+  if (actor.performer == null) {
+    throw new Error('Unknown actor type');
+  }
+
+  return Performer.fromPrimitive({
+    ...createActorProps(actor),
+    organizationId: actor.performer?.organizationId ?? undefined,
+  });
+};
+
+export const createOrganizationFromPrisma = (
+  actor: Prisma.Actor & {
+    avatar: Prisma.MediaAttachment | null;
+    organization: Prisma.Organization | null;
+  },
+): Organization => {
+  if (actor.organization == null) {
+    throw new Error('Unknown actor type');
+  }
+
+  return Organization.fromPrimitive({
+    ...createActorProps(actor),
+  });
+};
+
+const createActorFromPrisma = (
+  actor: Prisma.Actor & {
+    avatar: Prisma.MediaAttachment | null;
+    performer: Prisma.Performer | null;
+    organization: Prisma.Organization | null;
+  },
+) => {
   if (actor.performer != null) {
-    return Performer.fromPrimitive({
-      ...baseProps,
-      organizationId: actor.performer?.organizationId ?? undefined,
-    });
+    return createPerformerFromPrisma(actor);
   }
-
   if (actor.organization != null) {
-    return Organization.fromPrimitive({
-      ...baseProps,
-    });
+    return createOrganizationFromPrisma(actor);
   }
-
   throw new Error('Unknown actor type');
 };
 

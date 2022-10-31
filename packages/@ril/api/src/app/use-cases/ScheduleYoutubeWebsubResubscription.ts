@@ -4,8 +4,8 @@ import { URL } from 'url';
 
 import { YoutubeChannelId } from '../../domain/_shared';
 import { TYPES } from '../../types';
-import { IActorRepository } from '../repositories/ActorRepository';
 import { IJobRepository } from '../repositories/JobRepository';
+import { IPerformerRepository } from '../repositories/PerformerRepository';
 
 export interface ScheduleYoutubeWebsubResubscriptionParams {
   readonly topic: string;
@@ -18,8 +18,8 @@ export class ScheduleYoutubeWebsubResubscription {
     @inject(TYPES.JobRepository)
     private readonly _jobRepository: IJobRepository,
 
-    @inject(TYPES.ActorRepository)
-    private readonly _actorRepository: IActorRepository,
+    @inject(TYPES.PerformerRepository)
+    private readonly _performerRepository: IPerformerRepository,
   ) {}
 
   async invoke(
@@ -33,7 +33,7 @@ export class ScheduleYoutubeWebsubResubscription {
       throw new Error(`Invalid topic: ${params.topic}`);
     }
 
-    const actor = await this._actorRepository.findByYoutubeChannelId(
+    const actor = await this._performerRepository.findByYoutubeChannelId(
       new YoutubeChannelId(channelId),
     );
 

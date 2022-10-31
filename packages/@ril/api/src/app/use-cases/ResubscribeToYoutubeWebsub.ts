@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 
 import { ActorId } from '../../domain/entities';
 import { TYPES } from '../../types';
-import { IActorRepository } from '../repositories/ActorRepository';
+import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { IYoutubeWebsubService } from '../services/YoutubeWebsubService';
 
 export interface ResubscribeToYoutubeWebsubParams {
@@ -12,15 +12,16 @@ export interface ResubscribeToYoutubeWebsubParams {
 @injectable()
 export class ResubscribeToYoutubeWebsub {
   constructor(
-    @inject(TYPES.ActorRepository)
-    private readonly _actorRepository: IActorRepository,
+    @inject(TYPES.PerformerRepository)
+    private readonly _performerRepository: IPerformerRepository,
 
     @inject(TYPES.YoutubeWebsubService)
     private readonly _youtubeWebsubService: IYoutubeWebsubService,
   ) {}
 
   async invoke(params: ResubscribeToYoutubeWebsubParams): Promise<void> {
-    const actor = await this._actorRepository.findById(
+    // TODO: actorから取得するやつがあってもいいかなぁ。どうしよう
+    const actor = await this._performerRepository.findById(
       new ActorId(params.actorId),
     );
 

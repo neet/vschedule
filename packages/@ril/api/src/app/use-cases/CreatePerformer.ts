@@ -4,18 +4,14 @@ import fetch from 'node-fetch';
 import sharp from 'sharp';
 import * as uuid from 'uuid';
 
-import {
-  Actor,
-  MediaAttachmentFilename,
-  Performer,
-} from '../../domain/entities';
+import { MediaAttachmentFilename, Performer } from '../../domain/entities';
 import { TYPES } from '../../types';
-import { IActorRepository } from '../repositories/ActorRepository';
 import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
+import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { IYoutubeApiService } from '../services/YoutubeApiService';
 import { IYoutubeWebsubService } from '../services/YoutubeWebsubService';
 
-export interface CreateActorParams {
+export interface CreatePerformerParams {
   readonly name?: string;
   readonly description?: string;
   readonly color?: string;
@@ -28,10 +24,10 @@ export interface CreateActorParams {
  * 管理画面などから配信者を追加する
  */
 @injectable()
-export class CreateActor {
+export class CreatePerformer {
   constructor(
-    @inject(TYPES.ActorRepository)
-    private readonly _actorRepository: IActorRepository,
+    @inject(TYPES.PerformerRepository)
+    private readonly _performerRepository: IPerformerRepository,
 
     @inject(TYPES.MediaAttachmentRepository)
     private readonly _mediaAttachmentRepository: IMediaAttachmentRepository,
@@ -43,7 +39,7 @@ export class CreateActor {
     private readonly _youtubeWebsubService: IYoutubeWebsubService,
   ) {}
 
-  public async invoke(params: CreateActorParams): Promise<Actor> {
+  public async invoke(params: CreatePerformerParams): Promise<Performer> {
     const {
       name,
       youtubeChannelId,
@@ -76,7 +72,7 @@ export class CreateActor {
       await sharp(imageBuffer).webp().toBuffer(),
     );
 
-    const actor = Performer.fromPrimitive({
+    const performer = Performer.fromPrimitive({
       id: uuid.v4(),
       name: name ?? channel.name,
       description: description ?? channel.description.substring(0, 500),
@@ -86,11 +82,11 @@ export class CreateActor {
       youtubeChannelId,
     });
 
-    await this._actorRepository.save(actor);
+    await this._performerRepository.save(performer);
     if (websubEnabled) {
       await this._youtubeWebsubService.subscribeToChannel(youtubeChannelId);
     }
 
-    return actor;
+    return performer;
   }
 }

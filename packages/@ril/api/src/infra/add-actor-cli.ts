@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import { CreateActor } from '../app/use-cases/CreateActor';
+import { CreateActor } from '../app/use-cases/CreatePerformer';
 import { container } from './inversify-config';
 
 const main = async () => {
