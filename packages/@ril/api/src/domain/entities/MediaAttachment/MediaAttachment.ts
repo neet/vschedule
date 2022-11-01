@@ -3,20 +3,19 @@ import { Dayjs } from 'dayjs';
 import { PrimitiveOf } from '../../_core';
 import { Entity } from '../../_core/Entity';
 import { Base64 } from '../../_shared/Base64';
+import { ITimestamped } from '../../_shared/Timestamped';
 import { MediaAttachmentBucket } from './MediaAttachmentBucket';
 import { MediaAttachmentFilename } from './MediaAttachmentFilename';
 import { MediaAttachmentId } from './MediaAttachmentId';
 import { MediaAttachmentSize } from './MediaAttachmentSize';
 
-export interface IMediaAttachment {
+export interface IMediaAttachment extends ITimestamped {
   readonly id: MediaAttachmentId;
   readonly filename: MediaAttachmentFilename;
   readonly base64: Base64;
   readonly width: MediaAttachmentSize;
   readonly height: MediaAttachmentSize;
   readonly bucket?: MediaAttachmentBucket;
-  readonly createdAt: Dayjs;
-  readonly updatedAt: Dayjs;
 }
 
 const mixins = Entity<MediaAttachmentId, IMediaAttachment>;

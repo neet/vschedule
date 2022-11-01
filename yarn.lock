@@ -3332,7 +3332,6 @@ __metadata:
     "@types/node-fetch": ^2.6.2
     "@types/sharp": ^0
     "@types/swagger-ui-express": ^4
-    "@types/uuid": ^8
     "@types/validator": ^13
     "@vercel/ncc": ^0.34.0
     cors: ^2.8.5
@@ -3346,6 +3345,7 @@ __metadata:
     inversify: ^6.0.1
     inversify-express-utils: ^6.4.3
     jest: ^27.4.7
+    nanoid: ^4.0.0
     node-fetch: cjs
     plaiceholder: ^2.5.0
     prisma: ^4.5.0
@@ -3360,7 +3360,6 @@ __metadata:
     ts-node-dev: ^2.0.0
     type-fest: ^3.1.0
     typescript: ^4.8.4
-    uuid: ^8.3.2
     validator: ^13.7.0
   languageName: unknown
   linkType: soft
@@ -5784,13 +5783,6 @@ __metadata:
   version: 2.0.6
   resolution: "@types/unist@npm:2.0.6"
   checksum: 25cb860ff10dde48b54622d58b23e66214211a61c84c0f15f88d38b61aa1b53d4d46e42b557924a93178c501c166aa37e28d7f6d994aba13d24685326272d5db
-  languageName: node
-  linkType: hard
-
-"@types/uuid@npm:^8":
-  version: 8.3.4
-  resolution: "@types/uuid@npm:8.3.4"
-  checksum: 6f11f3ff70f30210edaa8071422d405e9c1d4e53abbe50fdce365150d3c698fe7bbff65c1e71ae080cbfb8fded860dbb5e174da96fdbbdfcaa3fb3daa474d20f
   languageName: node
   linkType: hard
 
@@ -16295,6 +16287,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "nanoid@npm:4.0.0"
+  bin:
+    nanoid: bin/nanoid.js
+  checksum: 7d5946df5c6d383694195b781ae7b5067c149d164ec71e910d6b06676309c3459b68af570b944fb5ecd5065d19df464f05700d141d70bb712ff8ca06642fd8df
+  languageName: node
+  linkType: hard
+
 "nanomatch@npm:^1.2.9":
   version: 1.2.13
   resolution: "nanomatch@npm:1.2.13"
@@ -22270,7 +22271,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:^8.0.0, uuid@npm:^8.3.2":
+"uuid@npm:^8.0.0":
   version: 8.3.2
   resolution: "uuid@npm:8.3.2"
   bin:

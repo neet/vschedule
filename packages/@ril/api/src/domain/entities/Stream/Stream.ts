@@ -3,28 +3,41 @@ import { Duration } from 'dayjs/plugin/duration';
 import { URL } from 'url';
 
 import { Entity, PrimitiveOf } from '../../_core';
-import { Actor } from '../Actor';
+import { ITimestamped } from '../../_shared/Timestamped';
 import { MediaAttachment } from '../MediaAttachment';
+import { PerformerId } from '../Performer/PerformerId';
 import { StreamDescription } from './StreamDescription';
 import { StreamId } from './StreamId';
 import { StreamTitle } from './StreamTitle';
 
-export interface IStream {
+export class InvalidStreamTimestampError extends Error {}
+
+export interface IStream extends ITimestamped {
   readonly id: StreamId;
   readonly title: StreamTitle;
   readonly url: URL;
+  readonly ownerId: PerformerId;
   readonly description?: StreamDescription;
   readonly thumbnail?: MediaAttachment;
-  readonly createdAt: Dayjs;
-  readonly updatedAt: Dayjs;
   readonly startedAt: Dayjs;
   readonly endedAt?: Dayjs;
-  readonly actor: Actor;
 }
 
-export class Stream extends Entity<StreamId, IStream> {
+export class Stream extends Entity<StreamId, IStream> implements IStream {
   public constructor(props: IStream) {
     super(props);
+
+    if (props.createdAt.isAfter(props.updatedAt)) {
+      throw new InvalidStreamTimestampError(
+        'createdAt cannot be after updatedAt',
+      );
+    }
+
+    if (props.startedAt.isAfter(props.endedAt)) {
+      throw new InvalidStreamTimestampError(
+        'createdAt cannot be after updatedAt',
+      );
+    }
   }
 
   public get id(): StreamId {
@@ -63,8 +76,8 @@ export class Stream extends Entity<StreamId, IStream> {
     return this._props.endedAt;
   }
 
-  public get actor(): Actor {
-    return this._props.actor;
+  public get ownerId(): PerformerId {
+    return this._props.ownerId;
   }
 
   public get duration(): Duration | undefined {
@@ -80,6 +93,7 @@ export class Stream extends Entity<StreamId, IStream> {
       id: new StreamId(props.id),
       title: new StreamTitle(props.title),
       url: props.url,
+      ownerId: new PerformerId(props.ownerId),
       thumbnail: props.thumbnail,
       description:
         props.description != null
@@ -88,7 +102,6 @@ export class Stream extends Entity<StreamId, IStream> {
       createdAt: props.createdAt,
       updatedAt: props.updatedAt,
       startedAt: props.startedAt,
-      actor: props.actor,
     });
   }
 }

@@ -3,15 +3,19 @@ import { immerable } from 'immer';
 import { DeepPrimitiveOf, PrimitiveOf } from './PrimitiveOf';
 import { ValueObject } from './ValueObject';
 
+type Identifiable = { readonly id: ValueObject };
+
 export abstract class Entity<
   Id extends ValueObject = ValueObject,
-  Props = unknown,
+  Props extends Identifiable = Identifiable,
 > {
   public readonly [immerable] = true;
 
-  public abstract readonly id: Id;
-
   public constructor(protected readonly _props: Props) {}
+
+  public get id(): Id {
+    return this.id;
+  }
 
   public equals(that: typeof this): boolean {
     return this.id.equals(that.id);

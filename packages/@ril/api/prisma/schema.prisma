@@ -11,7 +11,7 @@ datasource db {
 }
 
 model MediaAttachment {
-  id        String   @id @default(uuid())
+  id        String   @id @db.VarChar(21)
   filename  String
   width     Float
   height    Float
@@ -27,7 +27,7 @@ model MediaAttachment {
 }
 
 model Stream {
-  id          String  @id @default(uuid())
+  id          String  @id @db.VarChar(21)
   url         String  @unique
   title       String
   description String? @db.Text
@@ -53,7 +53,7 @@ model Stream {
 }
 
 model Actor {
-  id          String  @id @default(uuid())
+  id          String  @id @db.VarChar(21)
   name        String
   color       String
   url         String?
