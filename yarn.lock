@@ -3178,10 +3178,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/engines@npm:3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e":
-  version: 3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e
-  resolution: "@prisma/engines@npm:3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e"
-  checksum: 4be65608ab55f17e16791143dcdb7578f5461efb3de211e75cc256eb1b8282ffa7ed50a91c098d0267b6e5b47ad90d4aaeb1600958b1667652ee17bb75b16b8c
+"@prisma/engines@npm:4.5.0":
+  version: 4.5.0
+  resolution: "@prisma/engines@npm:4.5.0"
+  checksum: d34ba4ceee67809b4a6d756763b118b3fbf273ab35378e568495248c7c62633c4cccca1e6b94411d5312a272f268f3dec5e8ae0a3e4177ad5f593f38daca7c58
   languageName: node
   linkType: hard
 
@@ -3295,7 +3295,7 @@ __metadata:
     googleapis: ^92.0.0
     inversify: ^6.0.1
     node-fetch: 2
-    prisma: ^3.9.0
+    prisma: ^4.5.0
     reflect-metadata: ^0.1.13
     routing-controllers: ^0.9.0
     sharp: ^0.29.3
@@ -17635,15 +17635,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prisma@npm:^3.9.0":
-  version: 3.15.2
-  resolution: "prisma@npm:3.15.2"
+"prisma@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "prisma@npm:4.5.0"
   dependencies:
-    "@prisma/engines": 3.15.1-1.461d6a05159055555eb7dfb337c9fb271cbd4d7e
+    "@prisma/engines": 4.5.0
   bin:
     prisma: build/index.js
     prisma2: build/index.js
-  checksum: 2efdd77cadad51c7c2ff6fcfe0b594849733dffee73755b0e48cefd426e75f0cb5dbe134360a92e47865d331b11308878be91c009acf9f51ca57f86212492118
+  checksum: 83a6d28475a31e8d69b355f949c0484b6d64324c45c452c57bf9ed50f85129b8df22fecb671c00a28f0cb80360a3f691888c463548949e94078f7f9be4bd0c79
   languageName: node
   linkType: hard
 
