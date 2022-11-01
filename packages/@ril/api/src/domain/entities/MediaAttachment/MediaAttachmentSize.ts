@@ -11,4 +11,6 @@ export class MediaAttachmentSize extends ValueObject<number> {
     }
     super(value);
   }
+
+  public static from = ValueObject.createFactory(MediaAttachmentSize);
 }

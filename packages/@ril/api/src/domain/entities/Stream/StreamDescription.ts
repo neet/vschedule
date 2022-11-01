@@ -12,4 +12,6 @@ export class StreamDescription extends ValueObject<string> {
 
     super(value);
   }
+
+  public static from = ValueObject.createFactory(StreamDescription);
 }

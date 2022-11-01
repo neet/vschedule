@@ -17,4 +17,6 @@ export class OrganizationId extends ValueObject<string> {
   public static create(): OrganizationId {
     return new OrganizationId(nanoid());
   }
+
+  public static from = ValueObject.createFactory(OrganizationId);
 }

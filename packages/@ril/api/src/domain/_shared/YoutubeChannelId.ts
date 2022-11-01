@@ -5,4 +5,6 @@ export class YoutubeChannelId extends ValueObject<string> {
   public constructor(value: string) {
     super(value);
   }
+
+  public static from = ValueObject.createFactory(YoutubeChannelId);
 }

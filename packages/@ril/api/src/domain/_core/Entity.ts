@@ -1,20 +1,21 @@
 import { immerable } from 'immer';
 
-import { DeepPrimitiveOf, PrimitiveOf } from './PrimitiveOf';
-import { ValueObject } from './ValueObject';
+import { Color } from '../_shared';
+import { DeepPrimitiveOf } from './PrimitiveOf';
+import { ValueObject, ValueOf } from './ValueObject';
 
-type Identifiable = { readonly id: ValueObject };
+export type Identifiable<T> = { readonly id: T };
 
 export abstract class Entity<
   Id extends ValueObject = ValueObject,
-  Props extends Identifiable = Identifiable,
+  Props extends Identifiable<Id> = Identifiable<Id>,
 > {
   public readonly [immerable] = true;
 
   public constructor(protected readonly _props: Props) {}
 
   public get id(): Id {
-    return this.id;
+    return this._props.id;
   }
 
   public equals(that: typeof this): boolean {
@@ -34,23 +35,17 @@ export abstract class Entity<
     }, {} as DeepPrimitiveOf<Props>);
   }
   /* eslint-enable @typescript-eslint/no-explicit-any */
-
-  // TODO: なんか微妙
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  public toPrimitive(): PrimitiveOf<Props> {
-    return Object.entries(this._props as any).reduce((record, [key, value]) => {
-      const _value = value as any;
-      if (_value instanceof ValueObject) {
-        (record as any)[key] = _value.value;
-      } else {
-        (record as any)[key] = value;
-      }
-      return record;
-    }, {} as PrimitiveOf<Props>);
-  }
-  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
 export type PropsOf<T extends Entity> = T extends Entity<ValueObject, infer R>
   ? R
   : never;
+
+/** 複数コンストラクタを持つVO */
+type PolymorphicCtor = Color;
+
+export type RehydrateParameters<T> = {
+  [key in keyof T]: T[key] extends PolymorphicCtor
+    ? T[key]
+    : ValueOf<T[key]> | T[key];
+};

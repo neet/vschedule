@@ -18,4 +18,6 @@ export class TwitterUsername extends ValueObject<string> {
 
     super(value);
   }
+
+  public static from = ValueObject.createFactory(TwitterUsername);
 }

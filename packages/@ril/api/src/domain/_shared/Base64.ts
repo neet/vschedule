@@ -15,4 +15,6 @@ export class Base64 extends ValueObject<string> {
 
     super(value);
   }
+
+  public static from = ValueObject.createFactory(Base64);
 }

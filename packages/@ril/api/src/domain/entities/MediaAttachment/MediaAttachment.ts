@@ -1,27 +1,34 @@
-import { Dayjs } from 'dayjs';
+import { Mixin } from 'ts-mixer';
 
-import { PrimitiveOf } from '../../_core';
-import { Entity } from '../../_core/Entity';
+import { Entity, RehydrateParameters } from '../../_core/Entity';
 import { Base64 } from '../../_shared/Base64';
-import { ITimestamped } from '../../_shared/Timestamped';
+import {
+  ITimestamps,
+  TimestampMixin,
+  Timestamps,
+} from '../../_shared/Timestamps';
 import { MediaAttachmentBucket } from './MediaAttachmentBucket';
 import { MediaAttachmentFilename } from './MediaAttachmentFilename';
 import { MediaAttachmentId } from './MediaAttachmentId';
 import { MediaAttachmentSize } from './MediaAttachmentSize';
 
-export interface IMediaAttachment extends ITimestamped {
+export interface MediaAttachmentProps {
   readonly id: MediaAttachmentId;
   readonly filename: MediaAttachmentFilename;
   readonly base64: Base64;
   readonly width: MediaAttachmentSize;
   readonly height: MediaAttachmentSize;
   readonly bucket?: MediaAttachmentBucket;
+  readonly timestamps: Timestamps;
 }
 
-const mixins = Entity<MediaAttachmentId, IMediaAttachment>;
+const mixins = Mixin(
+  Entity<MediaAttachmentId, MediaAttachmentProps>,
+  TimestampMixin,
+);
 
-export class MediaAttachment extends mixins implements IMediaAttachment {
-  public constructor(props: IMediaAttachment) {
+export class MediaAttachment extends mixins implements ITimestamps {
+  public constructor(props: MediaAttachmentProps) {
     super(props);
   }
 
@@ -49,33 +56,34 @@ export class MediaAttachment extends mixins implements IMediaAttachment {
     return this._props.bucket;
   }
 
-  get createdAt(): Dayjs {
-    return this._props.createdAt;
-  }
-
-  get updatedAt(): Dayjs {
-    return this._props.updatedAt;
-  }
-
   get extension(): string | undefined {
     return this.filename.value.split('.').pop();
   }
 
-  public static fromPrimitive(
-    props: PrimitiveOf<IMediaAttachment>,
+  public static rehydrate(
+    props: RehydrateParameters<MediaAttachmentProps>,
   ): MediaAttachment {
     return new MediaAttachment({
-      id: new MediaAttachmentId(props.id),
-      base64: new Base64(props.base64),
-      width: new MediaAttachmentSize(props.width),
-      height: new MediaAttachmentSize(props.height),
-      filename: new MediaAttachmentFilename(props.filename),
+      id: MediaAttachmentId.from(props.id),
+      base64: Base64.from(props.base64),
+      width: MediaAttachmentSize.from(props.width),
+      height: MediaAttachmentSize.from(props.height),
+      filename: MediaAttachmentFilename.from(props.filename),
       bucket:
         props.bucket != null
-          ? new MediaAttachmentBucket(props.bucket)
+          ? MediaAttachmentBucket.from(props.bucket)
           : undefined,
-      createdAt: props.createdAt,
-      updatedAt: props.updatedAt,
+      timestamps: props.timestamps,
+    });
+  }
+
+  public static create(
+    props: Omit<RehydrateParameters<MediaAttachmentProps>, 'id' | 'timestamps'>,
+  ) {
+    return MediaAttachment.rehydrate({
+      ...props,
+      id: MediaAttachmentId.create(),
+      timestamps: Timestamps.create(),
     });
   }
 }

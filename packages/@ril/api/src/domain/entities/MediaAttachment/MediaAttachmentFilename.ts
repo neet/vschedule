@@ -15,4 +15,6 @@ export class MediaAttachmentFilename extends ValueObject<string> {
 
     super(value);
   }
+
+  public static from = ValueObject.createFactory(MediaAttachmentFilename);
 }
