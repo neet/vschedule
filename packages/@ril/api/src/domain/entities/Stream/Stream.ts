@@ -35,7 +35,7 @@ export class Stream extends Entity<StreamId, IStream> implements IStream {
 
     if (props.startedAt.isAfter(props.endedAt)) {
       throw new InvalidStreamTimestampError(
-        'createdAt cannot be after updatedAt',
+        'startedAt cannot be after endedAt',
       );
     }
   }
