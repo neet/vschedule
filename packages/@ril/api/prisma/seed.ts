@@ -41,10 +41,10 @@ const main = async (): Promise<void> => {
     await createOrganization.invoke({
       name: organization.name,
       color: organization.color,
-      url: organization.url,
-      description: organization.description,
       youtubeChannelId: organization.youtubeChannelId,
-      twitterUsername: organization.twitterUsername,
+      url: organization.url ?? null,
+      description: organization.description ?? null,
+      twitterUsername: organization.twitterUsername ?? null,
     });
   }
 
@@ -73,11 +73,11 @@ const main = async (): Promise<void> => {
     await createPerformer.invoke({
       name: performer.name,
       color: performer.color,
-      description: performer.description,
-      url: performer.url,
       youtubeChannelId: performer.youtubeChannelId,
-      twitterUsername: performer.twitterUsername,
       organizationId: nijisanji.id.value,
+      description: performer.description ?? null,
+      url: performer.url ?? null,
+      twitterUsername: performer.twitterUsername ?? null,
       websubEnabled: false,
     });
   }
@@ -97,11 +97,11 @@ const main = async (): Promise<void> => {
     await createPerformer.invoke({
       name: performer.name,
       color: performer.color,
-      description: performer.description,
-      url: performer.url,
       youtubeChannelId: performer.youtubeChannelId,
-      twitterUsername: performer.twitterUsername,
       organizationId: hololive.id.value,
+      description: performer.description ?? null,
+      url: performer.url ?? null,
+      twitterUsername: performer.twitterUsername ?? null,
       websubEnabled: false,
     });
   }

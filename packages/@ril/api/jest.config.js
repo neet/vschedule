@@ -1,12 +1,15 @@
-const esModules = ['nanoid'].join('|');
+// const esModules = ['nanoid'].join('|');
 
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  preset: 'ts-jest/presets/js-with-ts-esm',
+  preset: 'ts-jest',
   testEnvironment: 'node',
-  transformIgnorePatterns: [`/node_modules/(?!(${esModules}))`],
   setupFilesAfterEnv: ['<rootDir>/test-utils/setup.ts'],
   collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}'],
+
+  // Uncomment when you use ESM
+  // preset: 'ts-jest/presets/js-with-ts-esm',
+  // transformIgnorePatterns: [`/node_modules/(?!(${esModules}))`],
 };
 
 // TODO: runInBand しないと重い。

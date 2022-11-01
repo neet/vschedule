@@ -4,6 +4,7 @@ import { Schemas } from '@ril/api-client';
 import { inject, injectable } from 'inversify';
 
 import { IAppConfig } from '../../app/services/AppConfig/AppConfig';
+import { unwrap } from '../../domain/_core';
 import {
   Actor,
   MediaAttachment,
@@ -27,7 +28,7 @@ export class RestApiPresenter {
   public presentMediaAttachment(
     mediaAttachment: MediaAttachment,
   ): Schemas.MediaAttachment {
-    const pathname = `/api/v1/media/${mediaAttachment.id.value}.${mediaAttachment.extension}`;
+    const pathname = `/api/v1/media/${mediaAttachment.filename}`;
     const url = new URL(this._origin);
     url.pathname = pathname;
 
@@ -45,47 +46,64 @@ export class RestApiPresenter {
 
   public presentActor(actor: Actor): Schemas.Actor {
     return {
-      id: actor.id.value,
       name: actor.name.value,
-      url: actor.url?.toString(),
+      url: actor.url === null ? null : actor.url.toString(),
       color: actor.color.value,
-      description: actor.description?.value,
-      twitterUsername: actor.twitterUsername?.value,
-      youtubeChannelId: actor.youtubeChannelId?.value,
+      description: unwrap(actor.description),
+      twitterUsername: unwrap(actor.twitterUsername),
+      youtubeChannelId: unwrap(actor.youtubeChannelId),
       avatar:
-        actor.avatar != null
+        actor.avatar !== null
           ? this.presentMediaAttachment(actor.avatar)
-          : undefined,
+          : null,
+    };
+  }
+
+  public presentOrganization(organization: Organization): Schemas.Organization {
+    return {
+      ...this.presentActor(organization),
+      id: organization.id.value,
+      createdAt: organization.createdAt.toISOString(),
+      updatedAt: organization.updatedAt.toISOString(),
     };
   }
 
   public presentPerformer(
     performer: Performer,
-    organization?: Organization,
+    organization: Organization | null,
   ): Schemas.Performer {
     return {
       ...this.presentActor(performer),
+      id: performer.id.value,
+      createdAt: performer.createdAt.toISOString(),
+      updatedAt: performer.updatedAt.toISOString(),
       organization:
-        organization != null ? this.presentActor(organization) : undefined,
+        organization !== null ? this.presentOrganization(organization) : null,
     };
   }
 
-  public presentStream(stream: Stream): Schemas.Stream {
+  public presentStream(
+    stream: Stream,
+    owner: Performer | null,
+    ownerOrganization: Organization | null,
+  ): Schemas.Stream {
     return {
       id: stream.id.value,
       title: stream.title.value,
       url: stream.url.toString(),
-      description: stream.description?.value,
+      description: unwrap(stream.description),
       createdAt: stream.createdAt.toISOString(),
       updatedAt: stream.updatedAt.toISOString(),
       startedAt: stream.startedAt.toISOString(),
-      endedAt: stream.endedAt?.toISOString(),
-      actor: this.presentActor(stream.actor),
-      duration: stream.duration?.toISOString(),
+      endedAt: stream.endedAt === null ? null : stream.endedAt.toISOString(),
+      owner:
+        owner === null ? null : this.presentPerformer(owner, ownerOrganization),
+      duration: stream.duration === null ? null : stream.duration.toISOString(),
+      casts: [], // TODO
       thumbnail:
-        stream.thumbnail != null
+        stream.thumbnail !== null
           ? this.presentMediaAttachment(stream.thumbnail)
-          : undefined,
+          : null,
     };
   }
 }

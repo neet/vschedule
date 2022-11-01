@@ -1,8 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import dayjs from 'dayjs';
 import { inject, injectable } from 'inversify';
 import { getPlaiceholder } from 'plaiceholder';
-import * as uuid from 'uuid';
 
 import { IMediaAttachmentRepository } from '../../app/repositories/MediaAttachmentRepository';
 import { IStorage } from '../../app/services/Storage';
@@ -12,6 +10,7 @@ import {
   MediaAttachmentId,
 } from '../../domain/entities';
 import { TYPES } from '../../types';
+import { rehydrateMediaAttachmentFromPrisma } from '../mappers/PrismaMapper';
 
 @injectable()
 export class MediaAttachmentRepositoryPrismaImpl
@@ -36,37 +35,40 @@ export class MediaAttachmentRepositoryPrismaImpl
       return;
     }
 
-    return MediaAttachment.fromPrimitive({
-      id: data.id,
-      filename: data.filename,
-      width: data.width,
-      height: data.height,
-      bucket: data.bucket ?? undefined,
-      base64: data.base64,
-      createdAt: dayjs(data.createdAt),
-      updatedAt: dayjs(data.updatedAt),
+    return rehydrateMediaAttachmentFromPrisma(data);
+  }
+
+  async findByFilename(
+    filename: MediaAttachmentFilename,
+  ): Promise<MediaAttachment | undefined> {
+    const data = await this._prisma.mediaAttachment.findFirst({
+      where: {
+        filename: filename.value,
+      },
     });
+
+    if (data == null) {
+      return;
+    }
+
+    return rehydrateMediaAttachmentFromPrisma(data);
   }
 
   async save(
     filename: MediaAttachmentFilename,
     buffer: Buffer,
   ): Promise<MediaAttachment> {
-    const id = uuid.v4();
     const file = await this._storage.create(filename.value, buffer);
 
     // https://plaiceholder.co/usage#base64
     const plaiceholder = await getPlaiceholder(buffer);
 
-    const mediaAttachment = MediaAttachment.fromPrimitive({
-      id,
+    const mediaAttachment = MediaAttachment.create({
       filename: file.filename,
       width: plaiceholder.img.width,
       height: plaiceholder.img.height,
       base64: plaiceholder.base64,
-      bucket: file.bucket ?? undefined,
-      createdAt: dayjs(),
-      updatedAt: dayjs(),
+      bucket: file.bucket ?? null,
     });
 
     await this._prisma.mediaAttachment.create({

@@ -25,11 +25,11 @@ export interface StreamProps {
   readonly url: URL;
   readonly ownerId: PerformerId;
   readonly castIds: readonly PerformerId[];
-  readonly description?: StreamDescription;
-  readonly thumbnail?: MediaAttachment;
   readonly startedAt: Dayjs;
-  readonly endedAt?: Dayjs;
   readonly timestamps: Timestamps;
+  readonly description: StreamDescription | null;
+  readonly thumbnail: MediaAttachment | null;
+  readonly endedAt: Dayjs | null;
 }
 
 const mixins = Mixin(Entity<StreamId, StreamProps>, TimestampMixin);
@@ -57,11 +57,11 @@ export class Stream extends mixins implements ITimestamps {
     return this._props.url;
   }
 
-  public get thumbnail(): MediaAttachment | undefined {
+  public get thumbnail(): MediaAttachment | null {
     return this._props.thumbnail;
   }
 
-  public get description(): StreamDescription | undefined {
+  public get description(): StreamDescription | null {
     return this._props.description;
   }
 
@@ -69,7 +69,7 @@ export class Stream extends mixins implements ITimestamps {
     return this._props.startedAt;
   }
 
-  public get endedAt(): Dayjs | undefined {
+  public get endedAt(): Dayjs | null {
     return this._props.endedAt;
   }
 
@@ -81,16 +81,16 @@ export class Stream extends mixins implements ITimestamps {
     return this._props.castIds;
   }
 
-  public get duration(): Duration | undefined {
+  public get duration(): Duration | null {
     if (this.endedAt == null) {
-      return;
+      return null;
     }
 
     return dayjs.duration(this.endedAt.diff(this.startedAt));
   }
 
   public end(endedAt: Dayjs): Stream {
-    if (this.endedAt != null) {
+    if (this.endedAt !== null) {
       throw new InvalidStreamEndingError(`Stream ${this.id} has already ended`);
     }
 
@@ -121,9 +121,9 @@ export class Stream extends mixins implements ITimestamps {
       castIds: props.castIds,
       thumbnail: props.thumbnail,
       description:
-        props.description != null
+        props.description !== null
           ? StreamDescription.from(props.description)
-          : undefined,
+          : null,
       timestamps: props.timestamps,
       startedAt: props.startedAt,
       endedAt: props.endedAt,

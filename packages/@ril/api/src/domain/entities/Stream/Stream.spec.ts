@@ -19,6 +19,7 @@ describe('Stream', () => {
         createdAt: dayjs('2021-01-01T00:00:00+09:00'),
         updatedAt: dayjs('2021-01-01T00:00:00+09:00'),
       }),
+      thumbnail: null,
       startedAt: dayjs('2021-01-01T00:00:00+09:00'),
       endedAt: dayjs('2021-01-02T00:00:00+09:00'),
     });
@@ -33,6 +34,9 @@ describe('Stream', () => {
       url: new URL('https://example.com'),
       ownerId: actorFixture.id,
       castIds: [],
+      description: null,
+      thumbnail: null,
+      endedAt: null,
       startedAt: dayjs(),
     });
 

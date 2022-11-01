@@ -3,8 +3,8 @@ import { inject, injectable } from 'inversify';
 import fetch from 'node-fetch';
 import sharp from 'sharp';
 import { URL } from 'url';
-import * as uuid from 'uuid';
 
+import { Color } from '../../domain/_shared';
 import { MediaAttachmentFilename, Organization } from '../../domain/entities';
 import { TYPES } from '../../types';
 import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
@@ -13,11 +13,11 @@ import { IYoutubeApiService } from '../services/YoutubeApiService';
 
 export interface CreateOrganizationParams {
   readonly name: string;
-  readonly url?: string;
-  readonly description?: string;
-  readonly color?: string;
-  readonly youtubeChannelId?: string;
-  readonly twitterUsername?: string;
+  readonly url: string | null;
+  readonly description: string | null;
+  readonly color: string | null;
+  readonly youtubeChannelId: string | null;
+  readonly twitterUsername: string | null;
 }
 
 @injectable()
@@ -37,18 +37,23 @@ export class CreateOrganization {
     const { name, url, description, color, youtubeChannelId, twitterUsername } =
       params;
 
+    // TODO: 汚い
     const r =
       youtubeChannelId != null
         ? await this._createAvatar(youtubeChannelId)
         : null;
 
-    const organization = Organization.fromPrimitive({
-      id: uuid.v4(),
+    const organization = Organization.create({
       name,
-      url: url != null ? new URL(url) : undefined,
-      description: description === '' ? undefined : description,
-      color: color ?? r?.color.hex() ?? '#000000',
-      avatar: r?.avatar ?? undefined,
+      url: url != null ? new URL(url) : null,
+      description: description === '' ? null : description,
+      color:
+        color != null
+          ? Color.fromHex(color)
+          : r?.color != null
+          ? Color.fromHex(r?.color.hex())
+          : Color.fromHex('#000000'),
+      avatar: r?.avatar ?? null,
       youtubeChannelId,
       twitterUsername,
     });
@@ -64,7 +69,7 @@ export class CreateOrganization {
     const image = await fetch(channel.thumbnailUrl);
     const imageBuffer = Buffer.from(await image.arrayBuffer());
     const avatar = await this._mediaAttachmentRepository.save(
-      new MediaAttachmentFilename(`${uuid.v4()}.webp`),
+      new MediaAttachmentFilename(`${youtubeChannelId}_avatar.webp`),
       await sharp(imageBuffer).webp().toBuffer(),
     );
 

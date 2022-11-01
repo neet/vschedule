@@ -1,14 +1,16 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
+import { nanoid } from 'nanoid';
 
 import {
   FindPerformerParams,
   IPerformerRepository,
 } from '../../app/repositories/PerformerRepository';
+import { unwrap } from '../../domain/_core';
 import { YoutubeChannelId } from '../../domain/_shared';
-import { ActorId, Performer } from '../../domain/entities';
+import { Performer, PerformerId } from '../../domain/entities';
 import { TYPES } from '../../types';
-import { createPerformerFromPrisma } from '../mappers/PrismaMapper';
+import { rehydratePerformerFromPrisma } from '../mappers/PrismaMapper';
 
 @injectable()
 export class PerformerRepository implements IPerformerRepository {
@@ -17,88 +19,127 @@ export class PerformerRepository implements IPerformerRepository {
     private readonly _prisma: PrismaClient,
   ) {}
 
-  async create(actor: Performer): Promise<Performer> {
-    const entry: Prisma.ActorUncheckedCreateInput = {
-      id: actor.id.value,
-      name: actor.name.value,
-      description: actor.description?.value,
-      color: actor.color.value,
-      youtubeChannelId: actor.youtubeChannelId?.value,
-      twitterUsername: actor.twitterUsername?.value,
-      avatarId: actor.avatar != null ? actor.avatar.id.value : undefined,
-      performer: {
+  async create(performer: Performer): Promise<Performer> {
+    const entry: Prisma.PerformerCreateInput = {
+      id: performer.id.value,
+      createdAt: performer.createdAt.toISOString(),
+      updatedAt: performer.updatedAt.toISOString(),
+      organization: {
+        connect: {
+          // なんかこれでいいっぽい
+          id: performer.organizationId?.value,
+        },
+      },
+      actor: {
         create: {
-          organizationId: actor.organizationId?.value,
+          id: nanoid(),
+          name: performer.name.value,
+          description: unwrap(performer.description),
+          color: performer.color.value,
+          youtubeChannelId: unwrap(performer.youtubeChannelId),
+          twitterUsername: unwrap(performer.twitterUsername),
+          avatarId:
+            performer.avatar != null ? performer.avatar.id.value : undefined,
         },
       },
     };
 
-    const data = await this._prisma.actor.create({
+    const data = await this._prisma.performer.create({
       data: entry,
       include: {
-        avatar: true,
-        performer: true,
+        actor: {
+          include: {
+            avatar: true,
+          },
+        },
       },
     });
 
-    return createPerformerFromPrisma(data);
+    return rehydratePerformerFromPrisma(data);
   }
 
-  async update(actor: Performer): Promise<Performer> {
-    const entry: Prisma.ActorUncheckedUpdateInput = {
-      name: actor.name.value,
-      description: actor.description?.value,
-      color: actor.color.value,
-      youtubeChannelId: actor.youtubeChannelId?.value,
-      twitterUsername: actor.twitterUsername?.value,
-      avatarId: actor.avatar != null ? actor.avatar.id.value : undefined,
-      performer: {
+  async update(performer: Performer): Promise<Performer> {
+    const entry: Prisma.PerformerUpdateInput = {
+      // id: performer.id.value,
+      // createdAt: performer.createdAt.toISOString(),
+      updatedAt: performer.updatedAt.toISOString(),
+      organization: {
         update: {
-          organizationId: actor.organizationId?.value,
+          id: performer.organizationId?.value,
+        },
+      },
+      actor: {
+        update: {
+          name: performer.name.value,
+          color: performer.color.value,
+          description: unwrap(performer.description),
+          youtubeChannelId: unwrap(performer.youtubeChannelId),
+          twitterUsername: unwrap(performer.twitterUsername),
+          avatarId:
+            performer.avatar != null ? performer.avatar.id.value : undefined,
         },
       },
     };
 
-    const data = await this._prisma.actor.update({
+    const data = await this._prisma.performer.update({
       where: {
-        id: actor.id.value,
+        id: performer.id.value,
       },
       data: entry,
       include: {
-        avatar: true,
-        performer: true,
+        actor: {
+          include: {
+            avatar: true,
+          },
+        },
       },
     });
 
-    return createPerformerFromPrisma(data);
+    return rehydratePerformerFromPrisma(data);
   }
 
   async find(params: FindPerformerParams): Promise<Performer[]> {
-    const data = await this._prisma.actor.findMany({
+    const where: Prisma.PerformerWhereInput[] = [];
+
+    if (params.channelIds != null) {
+      where.push({
+        actor: {
+          youtubeChannelId: {
+            in: [...params.channelIds],
+          },
+        },
+      });
+    }
+
+    const data = await this._prisma.performer.findMany({
       skip: params.offset,
       take: params.limit,
       where: {
-        NOT: {
-          performer: null,
-        },
+        AND: where,
       },
       include: {
-        avatar: true,
-        performer: true,
+        actor: {
+          include: {
+            avatar: true,
+          },
+        },
       },
     });
 
-    return data.map((d) => createPerformerFromPrisma(d));
+    return data.map((d) => rehydratePerformerFromPrisma(d));
   }
 
-  async findById(id: ActorId): Promise<Performer | null> {
-    const data = await this._prisma.actor.findFirst({
+  async findById(id: PerformerId): Promise<Performer | null> {
+    const data = await this._prisma.performer.findFirst({
       where: {
         id: id.value,
       },
       include: {
-        avatar: true,
-        performer: true,
+        actor: {
+          include: {
+            avatar: true,
+          },
+        },
       },
     });
 
@@ -106,19 +147,24 @@ export class PerformerRepository implements IPerformerRepository {
       return null;
     }
 
-    return createPerformerFromPrisma(data);
+    return rehydratePerformerFromPrisma(data);
   }
 
   async findByYoutubeChannelId(
     id: YoutubeChannelId,
   ): Promise<Performer | null> {
-    const data = await this._prisma.actor.findFirst({
+    const data = await this._prisma.performer.findFirst({
       where: {
-        youtubeChannelId: id.value,
+        actor: {
+          youtubeChannelId: id.value,
+        },
       },
       include: {
-        avatar: true,
-        performer: true,
+        actor: {
+          include: {
+            avatar: true,
+          },
+        },
       },
     });
 
@@ -126,6 +172,6 @@ export class PerformerRepository implements IPerformerRepository {
       return null;
     }
 
-    return createPerformerFromPrisma(data);
+    return rehydratePerformerFromPrisma(data);
   }
 }

@@ -31,10 +31,26 @@ export class YoutubeApiService implements IYoutubeApiService {
   async fetchVideo(videoId: string): Promise<Video> {
     const videos = await this._yt.videos.list({
       id: [videoId],
-      part: ['snippet', 'contentDetails', 'statistics', 'liveStreamingDetails'],
+      // part: ['snippet', 'contentDetails', 'statistics', 'liveStreamingDetails'],
+      part: [
+        'contentDetails',
+        // 'fileDetails',
+        'id',
+        'liveStreamingDetails',
+        'localizations',
+        'player',
+        // 'processingDetails',
+        'recordingDetails',
+        'snippet',
+        'statistics',
+        'status',
+        // 'suggestions',
+        'topicDetails',
+      ],
     });
 
     const video = videos.data.items?.[0];
+    console.log(JSON.stringify(videos));
     if (video == null) {
       throw new Error(`video not found: ${videoId}`);
     }
@@ -44,6 +60,7 @@ export class YoutubeApiService implements IYoutubeApiService {
       video.snippet == null ||
       video.snippet.title == null ||
       video.snippet.channelId == null ||
+      video.snippet.description == null ||
       video.snippet.publishedAt == null ||
       video.snippet.thumbnails?.default?.url == null ||
       video.liveStreamingDetails?.actualStartTime == null
@@ -56,6 +73,7 @@ export class YoutubeApiService implements IYoutubeApiService {
     return {
       id: video.id,
       title: video.snippet.title,
+      description: video.snippet.description,
       thumbnailUrl: video.snippet.thumbnails.default.url,
       url: `https://www.youtube.com/watch?v=${video.id}`,
       channelId: video.snippet.channelId,

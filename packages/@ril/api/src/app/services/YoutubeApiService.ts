@@ -1,6 +1,7 @@
 export interface Video {
   readonly id: string;
   readonly title: string;
+  readonly description: string;
   readonly thumbnailUrl?: string;
   readonly url: string;
   readonly channelId: string;

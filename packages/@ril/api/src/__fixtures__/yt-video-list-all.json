@@ -1,0 +1,169 @@
+{
+  "config": {
+    "url": "https://youtube.googleapis.com/youtube/v3/videos?id=EqWLVy08zFY&part=contentDetails&part=id&part=liveStreamingDetails&part=localizations&part=player&part=recordingDetails&part=snippet&part=statistics&part=status&part=topicDetails&key=AIzaSyAYs8dBkVkV7jSPnvpBoZyckaBtpwWvsEg",
+    "method": "GET",
+    "userAgentDirectives": [
+      {
+        "product": "google-api-nodejs-client",
+        "version": "5.0.5",
+        "comment": "gzip"
+      }
+    ],
+    "headers": {
+      "x-goog-api-client": "gdcl/5.0.5 gl-node/18.9.0 auth/7.11.0",
+      "Accept-Encoding": "gzip",
+      "User-Agent": "google-api-nodejs-client/5.0.5 (gzip)",
+      "Accept": "application/json"
+    },
+    "params": {
+      "id": ["EqWLVy08zFY"],
+      "part": [
+        "contentDetails",
+        "id",
+        "liveStreamingDetails",
+        "localizations",
+        "player",
+        "recordingDetails",
+        "snippet",
+        "statistics",
+        "status",
+        "topicDetails"
+      ],
+      "key": "AIzaSyAYs8dBkVkV7jSPnvpBoZyckaBtpwWvsEg"
+    },
+    "retry": true,
+    "responseType": "json"
+  },
+  "data": {
+    "kind": "youtube#videoListResponse",
+    "etag": "QBilLU3ssNwOGvcYuW1LzrJfJj8",
+    "items": [
+      {
+        "kind": "youtube#video",
+        "etag": "DBVi98NnMczUIsVVvDFn4sxPlL0",
+        "id": "EqWLVy08zFY",
+        "snippet": {
+          "publishedAt": "2022-10-31T08:00:08Z",
+          "channelId": "UCX7YkU9nEeaoZbkVLVajcMg",
+          "title": "樋口楓「WIN-WIN HALLOWEEN」Music Video【2022/11/9発売『ビューティーMYジンセイ！』収録曲】",
+          "description": "樋口楓メジャー3rdシングル 『ビューティーMYジンセイ！』収録曲から\n「WIN-WIN HALLOWEEN」のミュージックビデオを公開！\n『ビューティーMYジンセイ！』は11/9発売です！\nhttps://lnk.to/LACM-34318\n\n[Music Video Staff]\n　illustrator：レニィレアン（ https://twitter.com/reni_023 ）\n　Movie：木葉はづく( https://twitter.com/hazuqu )\n　Director：さつきちゃん\n\n■WIN-WIN HALLOWEEN\n　作詞：松井洋平\n　作編曲：光増ハジメ\n　All Instruments :光増ハジメ\n　Recording and Mixing Engineer :青木礼門\n　Recording and Mixing Studio at Studio Vibes\n＝＝＝＝＝＝＝＝＝＝\n魑魅魍魎跋扈していいなんて都合がいい日でしょうか\n「欲しがり並んで詰め寄り持っていってなにもかも。」\n\n悪夢を見るほどには　夢見がちになれない彼女\nいっそ星に願いましょうよ　「今宵叶えたまへ。」と\n\nプリンセス妬む魔女でさえ持ってる　存在証明なんてない哀れな命\n\n“Trick or Treat？”なんていう間怠っこしい呪文\n唱えて強請って甘いご褒美辿って彷徨うMonsters\n「面倒は掛けないわ。全部あげるから。\n　感情も感傷も感動も官能も完了させてくれないかな？…WIN-WINで。」\n\n「嗚呼、怖い怕い惧い惶い懾い畏いよ。こんなにもある恐ろしさが、\n　踊ろうと纏い付いてくる舞踏会、終わんない。\n　退席していいかどうか、いちいち尋ねなくちゃ駄目なの？」\n今日だけは向こうから問い掛けてくれるでしょう\n\n叶えるために自分から何かしよう　なんて思うなら望まない願い\n\n“Dead or Alive？”なんてのも中途半端な愚問\n答えてみたって普通に悲痛に至って選択肢じゃない\n人間じゃない皆様、ヒトオモイにどう？\n無償な愛情も薄情な憐情も無常なものだから\n\n「灰を被っても生きていたい、なんて思うほどには生きたくない。\n　魔法使い、変えて欲しい、カボチャを馬車より化け物に。」\n\nわかりやすく噛み砕いてあげて　\n甘いお菓子を齧る様に　ほら　ほら　ホラ…\n\n無邪気な亡者が欲も露わに群がった\n今宵は願いが叶いそうじゃないですか\n「面倒は掛けないわ。全部あげるから。何一つ遺さないで。」\n\n“Trick or Treat？”なんていう間怠っこしい呪文\n唱えて強請って甘いご褒美辿って彷徨うMonsters\n人間じゃない皆様、ヒトオモイにどう？\n感情も感傷も感動も持っていってあげて\nおとぎ話終わった…HALLOWEEN NIGHT\n＝＝＝＝＝＝＝＝＝＝\n\n■CD\n1.ビューティーMYジンセイ！\n（ドラマ『量産型リコ -プラモ女子の人生組み立て記-』オープニングテーマ） \n作詞：安藤紗々 \n作曲：光増ハジメ \n編曲：PandaBoY \n\n2.WIN-WIN HALLOWEEN \n作詞：松井洋平　\n作曲・編曲：光増ハジメ \n\n3.響鳴(2022 Ver.) \n※リアレンジセルフカバー \n作詞：磯田 泰寛(KLab Sound Team)　\n作曲：塙 大輝(KLab Sound Team)　 \n編曲：光増ハジメ\n\n\n\n■『ビューティーMYジンセイ！』商品仕様\n＜品番／価格＞\n【初回生産限定盤】\nビューティーMYジンセイ！【週刊\"樋口楓をつくる\"創刊号（初回生産限定盤）】\nLACM-34318 / 税込価格￥2,750\n※「量産型紙式模型・樋口楓」(ペーパークラフト)付\n\n【通常盤】\nビューティーMYジンセイ！(通常盤)\nLACM-24318 / 税込価格￥1,430\n\n\n■店舗別オリジナル特典\n■対象店舗：特典内容\nA-on STORE／A-on STORE Powered by A!SMART：2L判ブロマイド\nアニメイト（通販含む）：L判ブロマイド\nAmazon：メガジャケ\nあみあみオンラインショップ：L判ブロマイド\nゲーマーズ（オンライン含む）：【初回生産限定盤】丸型缶バッジ（56㎜）／【通常盤】L判ブロマイド\nソフマップ・アニメガ：【初回生産限定盤】アクリルコースター（76mm）\nタワーレコード（オンライン含む）：L判ブロマイド\nTSUTAYA RECORDS／TSUTAYAオンラインショッピング：L判ブロマイド\nとらのあな（通販含む）：L判ブロマイド\n楽天ブックス：A4クリアポスター\n※記載がない場合は、全形態対象となります。\n※一部実施のない店舗もございます。\n※特典の有無についての詳細は各店舗様へご確認をお願いいたします。\n※特典はなくなり次第終了となります。予めご了承ください。\n\n更に、下記対象店舗で【週刊\"樋口楓をつくる\"創刊号（初回生産限定盤）】をご購入いただいた方には\n＜描き下ろしミニ色紙＞もしくは＜ジャケットイラストステッカーシート＞をプレゼント！\nご購入いただく店舗により特典が異なりますので、ご注意ください。\n\n＜描き下ろしミニ色紙＞\n■対象法人\nA-on STORE/A-on STORE Powered by A!SMART\n全国アニメイト(アニメイト通販含む)\n赤い熊さん\nHMV,HMV&BOOKS online\nげっちゅ屋（Getchu.com）\nソフマップ・アニメガ(一部店舗除く）\nTSUTAYAオンライン（予約のみ）\nヨドバシカメラ\n楽天ブックス\n\n＜ジャケットイラストステッカーシート＞\n■対象法人\nAmazon.co.jp\nゲーマーズ全店（オンラインショップ含む）\nあみあみオンラインショップ\nJoshinディスクピア(Joshin webショップ 含む)\nセブンネットショッピング\nタワーレコード（一部店舗を除く）\nとらのあな\nネオ・ウィング\nメロンブックス（通販含む）\n\n※ミニ色紙・ステッカーは初回生産限定盤のみ対象の特典となりますので、通常盤は対象外となります。\n※一部実施のない店舗もございます。\n※特典の有無についての詳細は各店舗様へご確認をお願いいたします。\n※特典はなくなり次第終了となります。予めご了承ください。\n\n■『ビューティーMYジンセイ！』発売記念オンラインおしゃべり会情報\n＜イベント内容＞\n樋口楓 3rdシングル「ビューティーMYジンセイ！」発売記念オンラインおしゃべり会\n\n・開催日時：2022年12月18日（日）14:00～15:30\n・応募期間：2022年10月14日（金）12:30～12月5日（月）23：59\n・当選発表：2022年12月上旬予定\n\n・配信プラットフォーム：WithLIVE  \n「withLIVE」に関する注意事項はこちら\n・応募券配布対象店舗：全国アニメイト（一部店舗除く）、アニメイト通販\n詳細：https://www.animate-onlineshop.jp/contents/fair_event/detail.php?id=108199\n\n■@樋口楓【にじさんじ所属】 \n■樋口楓YouTube　https://www.youtube.com/channel/UCsg-YqdqQ-KFF0LNk23BY4A\n■樋口楓Twitter　https://twitter.com/HiguchiKaede\n■樋口楓アーティストページ　https://lantis.jp/artist/kaede_higuchi/news_1665718201.html\n\n#ビューティーMYジンセイ！ #にじさんじ #樋口楓 #でろおんえあ #でらんてぃす  #NIJISANJI #lantis",
+          "thumbnails": {
+            "default": {
+              "url": "https://i.ytimg.com/vi/EqWLVy08zFY/default.jpg",
+              "width": 120,
+              "height": 90
+            },
+            "medium": {
+              "url": "https://i.ytimg.com/vi/EqWLVy08zFY/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+            },
+            "high": {
+              "url": "https://i.ytimg.com/vi/EqWLVy08zFY/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+            },
+            "standard": {
+              "url": "https://i.ytimg.com/vi/EqWLVy08zFY/sddefault.jpg",
+              "width": 640,
+              "height": 480
+            },
+            "maxres": {
+              "url": "https://i.ytimg.com/vi/EqWLVy08zFY/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+            }
+          },
+          "channelTitle": "にじさんじ",
+          "tags": [
+            "バーチャルライバー",
+            "UCX7YkU9nEeaoZbkVLVajcMg",
+            "にじさんじ",
+            "バーチャルYouTuber",
+            "VTuber",
+            "YouTuber",
+            "ユーチューバー",
+            "バーチャルユーチューバー",
+            "ライバー",
+            "アニメ",
+            "anime",
+            "nijisanji",
+            "ゲーム配信"
+          ],
+          "categoryId": "24",
+          "liveBroadcastContent": "none",
+          "defaultLanguage": "ja",
+          "localized": {
+            "title": "樋口楓「WIN-WIN HALLOWEEN」Music Video【2022/11/9発売『ビューティーMYジンセイ！』収録曲】",
+            "description": "樋口楓メジャー3rdシングル 『ビューティーMYジンセイ！』収録曲から\n「WIN-WIN HALLOWEEN」のミュージックビデオを公開！\n『ビューティーMYジンセイ！』は11/9発売です！\nhttps://lnk.to/LACM-34318\n\n[Music Video Staff]\n　illustrator：レニィレアン（ https://twitter.com/reni_023 ）\n　Movie：木葉はづく( https://twitter.com/hazuqu )\n　Director：さつきちゃん\n\n■WIN-WIN HALLOWEEN\n　作詞：松井洋平\n　作編曲：光増ハジメ\n　All Instruments :光増ハジメ\n　Recording and Mixing Engineer :青木礼門\n　Recording and Mixing Studio at Studio Vibes\n＝＝＝＝＝＝＝＝＝＝\n魑魅魍魎跋扈していいなんて都合がいい日でしょうか\n「欲しがり並んで詰め寄り持っていってなにもかも。」\n\n悪夢を見るほどには　夢見がちになれない彼女\nいっそ星に願いましょうよ　「今宵叶えたまへ。」と\n\nプリンセス妬む魔女でさえ持ってる　存在証明なんてない哀れな命\n\n“Trick or Treat？”なんていう間怠っこしい呪文\n唱えて強請って甘いご褒美辿って彷徨うMonsters\n「面倒は掛けないわ。全部あげるから。\n　感情も感傷も感動も官能も完了させてくれないかな？…WIN-WINで。」\n\n「嗚呼、怖い怕い惧い惶い懾い畏いよ。こんなにもある恐ろしさが、\n　踊ろうと纏い付いてくる舞踏会、終わんない。\n　退席していいかどうか、いちいち尋ねなくちゃ駄目なの？」\n今日だけは向こうから問い掛けてくれるでしょう\n\n叶えるために自分から何かしよう　なんて思うなら望まない願い\n\n“Dead or Alive？”なんてのも中途半端な愚問\n答えてみたって普通に悲痛に至って選択肢じゃない\n人間じゃない皆様、ヒトオモイにどう？\n無償な愛情も薄情な憐情も無常なものだから\n\n「灰を被っても生きていたい、なんて思うほどには生きたくない。\n　魔法使い、変えて欲しい、カボチャを馬車より化け物に。」\n\nわかりやすく噛み砕いてあげて　\n甘いお菓子を齧る様に　ほら　ほら　ホラ…\n\n無邪気な亡者が欲も露わに群がった\n今宵は願いが叶いそうじゃないですか\n「面倒は掛けないわ。全部あげるから。何一つ遺さないで。」\n\n“Trick or Treat？”なんていう間怠っこしい呪文\n唱えて強請って甘いご褒美辿って彷徨うMonsters\n人間じゃない皆様、ヒトオモイにどう？\n感情も感傷も感動も持っていってあげて\nおとぎ話終わった…HALLOWEEN NIGHT\n＝＝＝＝＝＝＝＝＝＝\n\n■CD\n1.ビューティーMYジンセイ！\n（ドラマ『量産型リコ -プラモ女子の人生組み立て記-』オープニングテーマ） \n作詞：安藤紗々 \n作曲：光増ハジメ \n編曲：PandaBoY \n\n2.WIN-WIN HALLOWEEN \n作詞：松井洋平　\n作曲・編曲：光増ハジメ \n\n3.響鳴(2022 Ver.) \n※リアレンジセルフカバー \n作詞：磯田 泰寛(KLab Sound Team)　\n作曲：塙 大輝(KLab Sound Team)　 \n編曲：光増ハジメ\n\n\n\n■『ビューティーMYジンセイ！』商品仕様\n＜品番／価格＞\n【初回生産限定盤】\nビューティーMYジンセイ！【週刊\"樋口楓をつくる\"創刊号（初回生産限定盤）】\nLACM-34318 / 税込価格￥2,750\n※「量産型紙式模型・樋口楓」(ペーパークラフト)付\n\n【通常盤】\nビューティーMYジンセイ！(通常盤)\nLACM-24318 / 税込価格￥1,430\n\n\n■店舗別オリジナル特典\n■対象店舗：特典内容\nA-on STORE／A-on STORE Powered by A!SMART：2L判ブロマイド\nアニメイト（通販含む）：L判ブロマイド\nAmazon：メガジャケ\nあみあみオンラインショップ：L判ブロマイド\nゲーマーズ（オンライン含む）：【初回生産限定盤】丸型缶バッジ（56㎜）／【通常盤】L判ブロマイド\nソフマップ・アニメガ：【初回生産限定盤】アクリルコースター（76mm）\nタワーレコード（オンライン含む）：L判ブロマイド\nTSUTAYA RECORDS／TSUTAYAオンラインショッピング：L判ブロマイド\nとらのあな（通販含む）：L判ブロマイド\n楽天ブックス：A4クリアポスター\n※記載がない場合は、全形態対象となります。\n※一部実施のない店舗もございます。\n※特典の有無についての詳細は各店舗様へご確認をお願いいたします。\n※特典はなくなり次第終了となります。予めご了承ください。\n\n更に、下記対象店舗で【週刊\"樋口楓をつくる\"創刊号（初回生産限定盤）】をご購入いただいた方には\n＜描き下ろしミニ色紙＞もしくは＜ジャケットイラストステッカーシート＞をプレゼント！\nご購入いただく店舗により特典が異なりますので、ご注意ください。\n\n＜描き下ろしミニ色紙＞\n■対象法人\nA-on STORE/A-on STORE Powered by A!SMART\n全国アニメイト(アニメイト通販含む)\n赤い熊さん\nHMV,HMV&BOOKS online\nげっちゅ屋（Getchu.com）\nソフマップ・アニメガ(一部店舗除く）\nTSUTAYAオンライン（予約のみ）\nヨドバシカメラ\n楽天ブックス\n\n＜ジャケットイラストステッカーシート＞\n■対象法人\nAmazon.co.jp\nゲーマーズ全店（オンラインショップ含む）\nあみあみオンラインショップ\nJoshinディスクピア(Joshin webショップ 含む)\nセブンネットショッピング\nタワーレコード（一部店舗を除く）\nとらのあな\nネオ・ウィング\nメロンブックス（通販含む）\n\n※ミニ色紙・ステッカーは初回生産限定盤のみ対象の特典となりますので、通常盤は対象外となります。\n※一部実施のない店舗もございます。\n※特典の有無についての詳細は各店舗様へご確認をお願いいたします。\n※特典はなくなり次第終了となります。予めご了承ください。\n\n■『ビューティーMYジンセイ！』発売記念オンラインおしゃべり会情報\n＜イベント内容＞\n樋口楓 3rdシングル「ビューティーMYジンセイ！」発売記念オンラインおしゃべり会\n\n・開催日時：2022年12月18日（日）14:00～15:30\n・応募期間：2022年10月14日（金）12:30～12月5日（月）23：59\n・当選発表：2022年12月上旬予定\n\n・配信プラットフォーム：WithLIVE  \n「withLIVE」に関する注意事項はこちら\n・応募券配布対象店舗：全国アニメイト（一部店舗除く）、アニメイト通販\n詳細：https://www.animate-onlineshop.jp/contents/fair_event/detail.php?id=108199\n\n■@樋口楓【にじさんじ所属】 \n■樋口楓YouTube　https://www.youtube.com/channel/UCsg-YqdqQ-KFF0LNk23BY4A\n■樋口楓Twitter　https://twitter.com/HiguchiKaede\n■樋口楓アーティストページ　https://lantis.jp/artist/kaede_higuchi/news_1665718201.html\n\n#ビューティーMYジンセイ！ #にじさんじ #樋口楓 #でろおんえあ #でらんてぃす  #NIJISANJI #lantis"
+          },
+          "defaultAudioLanguage": "ja"
+        },
+        "contentDetails": {
+          "duration": "PT3M51S",
+          "dimension": "2d",
+          "definition": "hd",
+          "caption": "false",
+          "licensedContent": true,
+          "contentRating": {},
+          "projection": "rectangular"
+        },
+        "status": {
+          "uploadStatus": "processed",
+          "privacyStatus": "public",
+          "license": "youtube",
+          "embeddable": true,
+          "publicStatsViewable": true,
+          "madeForKids": false
+        },
+        "statistics": {
+          "viewCount": "54132",
+          "likeCount": "6158",
+          "favoriteCount": "0",
+          "commentCount": "79"
+        },
+        "player": {
+          "embedHtml": "<iframe width=\"480\" height=\"270\" src=\"//www.youtube.com/embed/EqWLVy08zFY\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
+        },
+        "topicDetails": {
+          "topicCategories": [
+            "https://en.wikipedia.org/wiki/Music",
+            "https://en.wikipedia.org/wiki/Music_of_Asia"
+          ]
+        },
+        "recordingDetails": {},
+        "liveStreamingDetails": {
+          "actualStartTime": "2022-10-31T08:00:08Z",
+          "actualEndTime": "2022-10-31T08:05:56Z",
+          "scheduledStartTime": "2022-10-31T08:00:00Z"
+        },
+        "localizations": {
+          "ja": {
+            "title": "樋口楓「WIN-WIN HALLOWEEN」Music Video【2022/11/9発売『ビューティーMYジンセイ！』収録曲】",
+            "description": "樋口楓メジャー3rdシングル 『ビューティーMYジンセイ！』収録曲から\n「WIN-WIN HALLOWEEN」のミュージックビデオを公開！\n『ビューティーMYジンセイ！』は11/9発売です！\nhttps://lnk.to/LACM-34318\n\n[Music Video Staff]\n　illustrator：レニィレアン（ https://twitter.com/reni_023 ）\n　Movie：木葉はづく( https://twitter.com/hazuqu )\n　Director：さつきちゃん\n\n■WIN-WIN HALLOWEEN\n　作詞：松井洋平\n　作編曲：光増ハジメ\n　All Instruments :光増ハジメ\n　Recording and Mixing Engineer :青木礼門\n　Recording and Mixing Studio at Studio Vibes\n＝＝＝＝＝＝＝＝＝＝\n魑魅魍魎跋扈していいなんて都合がいい日でしょうか\n「欲しがり並んで詰め寄り持っていってなにもかも。」\n\n悪夢を見るほどには　夢見がちになれない彼女\nいっそ星に願いましょうよ　「今宵叶えたまへ。」と\n\nプリンセス妬む魔女でさえ持ってる　存在証明なんてない哀れな命\n\n“Trick or Treat？”なんていう間怠っこしい呪文\n唱えて強請って甘いご褒美辿って彷徨うMonsters\n「面倒は掛けないわ。全部あげるから。\n　感情も感傷も感動も官能も完了させてくれないかな？…WIN-WINで。」\n\n「嗚呼、怖い怕い惧い惶い懾い畏いよ。こんなにもある恐ろしさが、\n　踊ろうと纏い付いてくる舞踏会、終わんない。\n　退席していいかどうか、いちいち尋ねなくちゃ駄目なの？」\n今日だけは向こうから問い掛けてくれるでしょう\n\n叶えるために自分から何かしよう　なんて思うなら望まない願い\n\n“Dead or Alive？”なんてのも中途半端な愚問\n答えてみたって普通に悲痛に至って選択肢じゃない\n人間じゃない皆様、ヒトオモイにどう？\n無償な愛情も薄情な憐情も無常なものだから\n\n「灰を被っても生きていたい、なんて思うほどには生きたくない。\n　魔法使い、変えて欲しい、カボチャを馬車より化け物に。」\n\nわかりやすく噛み砕いてあげて　\n甘いお菓子を齧る様に　ほら　ほら　ホラ…\n\n無邪気な亡者が欲も露わに群がった\n今宵は願いが叶いそうじゃないですか\n「面倒は掛けないわ。全部あげるから。何一つ遺さないで。」\n\n“Trick or Treat？”なんていう間怠っこしい呪文\n唱えて強請って甘いご褒美辿って彷徨うMonsters\n人間じゃない皆様、ヒトオモイにどう？\n感情も感傷も感動も持っていってあげて\nおとぎ話終わった…HALLOWEEN NIGHT\n＝＝＝＝＝＝＝＝＝＝\n\n■CD\n1.ビューティーMYジンセイ！\n（ドラマ『量産型リコ -プラモ女子の人生組み立て記-』オープニングテーマ） \n作詞：安藤紗々 \n作曲：光増ハジメ \n編曲：PandaBoY \n\n2.WIN-WIN HALLOWEEN \n作詞：松井洋平　\n作曲・編曲：光増ハジメ \n\n3.響鳴(2022 Ver.) \n※リアレンジセルフカバー \n作詞：磯田 泰寛(KLab Sound Team)　\n作曲：塙 大輝(KLab Sound Team)　 \n編曲：光増ハジメ\n\n\n\n■『ビューティーMYジンセイ！』商品仕様\n＜品番／価格＞\n【初回生産限定盤】\nビューティーMYジンセイ！【週刊\"樋口楓をつくる\"創刊号（初回生産限定盤）】\nLACM-34318 / 税込価格￥2,750\n※「量産型紙式模型・樋口楓」(ペーパークラフト)付\n\n【通常盤】\nビューティーMYジンセイ！(通常盤)\nLACM-24318 / 税込価格￥1,430\n\n\n■店舗別オリジナル特典\n■対象店舗：特典内容\nA-on STORE／A-on STORE Powered by A!SMART：2L判ブロマイド\nアニメイト（通販含む）：L判ブロマイド\nAmazon：メガジャケ\nあみあみオンラインショップ：L判ブロマイド\nゲーマーズ（オンライン含む）：【初回生産限定盤】丸型缶バッジ（56㎜）／【通常盤】L判ブロマイド\nソフマップ・アニメガ：【初回生産限定盤】アクリルコースター（76mm）\nタワーレコード（オンライン含む）：L判ブロマイド\nTSUTAYA RECORDS／TSUTAYAオンラインショッピング：L判ブロマイド\nとらのあな（通販含む）：L判ブロマイド\n楽天ブックス：A4クリアポスター\n※記載がない場合は、全形態対象となります。\n※一部実施のない店舗もございます。\n※特典の有無についての詳細は各店舗様へご確認をお願いいたします。\n※特典はなくなり次第終了となります。予めご了承ください。\n\n更に、下記対象店舗で【週刊\"樋口楓をつくる\"創刊号（初回生産限定盤）】をご購入いただいた方には\n＜描き下ろしミニ色紙＞もしくは＜ジャケットイラストステッカーシート＞をプレゼント！\nご購入いただく店舗により特典が異なりますので、ご注意ください。\n\n＜描き下ろしミニ色紙＞\n■対象法人\nA-on STORE/A-on STORE Powered by A!SMART\n全国アニメイト(アニメイト通販含む)\n赤い熊さん\nHMV,HMV&BOOKS online\nげっちゅ屋（Getchu.com）\nソフマップ・アニメガ(一部店舗除く）\nTSUTAYAオンライン（予約のみ）\nヨドバシカメラ\n楽天ブックス\n\n＜ジャケットイラストステッカーシート＞\n■対象法人\nAmazon.co.jp\nゲーマーズ全店（オンラインショップ含む）\nあみあみオンラインショップ\nJoshinディスクピア(Joshin webショップ 含む)\nセブンネットショッピング\nタワーレコード（一部店舗を除く）\nとらのあな\nネオ・ウィング\nメロンブックス（通販含む）\n\n※ミニ色紙・ステッカーは初回生産限定盤のみ対象の特典となりますので、通常盤は対象外となります。\n※一部実施のない店舗もございます。\n※特典の有無についての詳細は各店舗様へご確認をお願いいたします。\n※特典はなくなり次第終了となります。予めご了承ください。\n\n■『ビューティーMYジンセイ！』発売記念オンラインおしゃべり会情報\n＜イベント内容＞\n樋口楓 3rdシングル「ビューティーMYジンセイ！」発売記念オンラインおしゃべり会\n\n・開催日時：2022年12月18日（日）14:00～15:30\n・応募期間：2022年10月14日（金）12:30～12月5日（月）23：59\n・当選発表：2022年12月上旬予定\n\n・配信プラットフォーム：WithLIVE  \n「withLIVE」に関する注意事項はこちら\n・応募券配布対象店舗：全国アニメイト（一部店舗除く）、アニメイト通販\n詳細：https://www.animate-onlineshop.jp/contents/fair_event/detail.php?id=108199\n\n■@樋口楓【にじさんじ所属】 \n■樋口楓YouTube　https://www.youtube.com/channel/UCsg-YqdqQ-KFF0LNk23BY4A\n■樋口楓Twitter　https://twitter.com/HiguchiKaede\n■樋口楓アーティストページ　https://lantis.jp/artist/kaede_higuchi/news_1665718201.html\n\n#ビューティーMYジンセイ！ #にじさんじ #樋口楓 #でろおんえあ #でらんてぃす  #NIJISANJI #lantis"
+          }
+        }
+      }
+    ],
+    "pageInfo": { "totalResults": 1, "resultsPerPage": 1 }
+  },
+  "headers": {
+    "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"",
+    "cache-control": "private",
+    "connection": "close",
+    "content-encoding": "gzip",
+    "content-type": "application/json; charset=UTF-8",
+    "date": "Tue, 01 Nov 2022 22:39:30 GMT",
+    "server": "scaffolding on HTTPServer2",
+    "transfer-encoding": "chunked",
+    "vary": "Origin, X-Origin, Referer",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "SAMEORIGIN",
+    "x-xss-protection": "0"
+  },
+  "status": 200,
+  "statusText": "OK",
+  "request": {
+    "responseURL": "https://youtube.googleapis.com/youtube/v3/videos?id=EqWLVy08zFY&part=contentDetails&part=id&part=liveStreamingDetails&part=localizations&part=player&part=recordingDetails&part=snippet&part=statistics&part=status&part=topicDetails&key=AIzaSyAYs8dBkVkV7jSPnvpBoZyckaBtpwWvsEg"
+  }
+}

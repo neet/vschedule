@@ -13,8 +13,8 @@ import { PerformerId } from './PerformerId';
 
 export interface PerformerProps extends ActorProps {
   readonly id: PerformerId;
-  readonly organizationId?: OrganizationId;
   readonly timestamps: Timestamps;
+  readonly organizationId: OrganizationId | null;
 }
 
 const mixins = Mixin(
@@ -24,14 +24,14 @@ const mixins = Mixin(
 );
 
 export class Performer extends mixins implements ITimestamps {
-  public get organizationId(): OrganizationId | undefined {
+  public get organizationId(): OrganizationId | null {
     return this._props.organizationId;
   }
 
   public update(patch: Partial<RehydrateParameters<this>>) {
     const updated = produce(this._props, (draft) => {
       Object.entries(patch).forEach(([key, value]) => {
-        if (value != null) {
+        if (value !== undefined) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (draft as any)[key] = castDraft(value);
         }
@@ -47,9 +47,9 @@ export class Performer extends mixins implements ITimestamps {
       id: PerformerId.from(props.id),
       timestamps: props.timestamps,
       organizationId:
-        props.organizationId != null
+        props.organizationId !== null
           ? OrganizationId.from(props.organizationId)
-          : undefined,
+          : null,
     });
   }
 

@@ -18,7 +18,7 @@ export interface MediaAttachmentProps {
   readonly base64: Base64;
   readonly width: MediaAttachmentSize;
   readonly height: MediaAttachmentSize;
-  readonly bucket?: MediaAttachmentBucket;
+  readonly bucket: MediaAttachmentBucket | null;
   readonly timestamps: Timestamps;
 }
 
@@ -52,7 +52,7 @@ export class MediaAttachment extends mixins implements ITimestamps {
     return this._props.height;
   }
 
-  get bucket(): MediaAttachmentBucket | undefined {
+  get bucket(): MediaAttachmentBucket | null {
     return this._props.bucket;
   }
 
@@ -70,9 +70,7 @@ export class MediaAttachment extends mixins implements ITimestamps {
       height: MediaAttachmentSize.from(props.height),
       filename: MediaAttachmentFilename.from(props.filename),
       bucket:
-        props.bucket != null
-          ? MediaAttachmentBucket.from(props.bucket)
-          : undefined,
+        props.bucket !== null ? MediaAttachmentBucket.from(props.bucket) : null,
       timestamps: props.timestamps,
     });
   }

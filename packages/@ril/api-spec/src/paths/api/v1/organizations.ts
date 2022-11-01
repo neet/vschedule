@@ -47,11 +47,11 @@ registry.registerPath({
 
 const CreateOrganization = z.object({
   name: z.string(),
-  description: z.string().optional(),
-  color: z.string().optional(),
-  url: z.string().url().optional(),
-  youtubeChannelId: z.string().optional(),
-  twitterUsername: z.string().optional(),
+  description: z.string().nullable(),
+  color: z.string().nullable(),
+  url: z.string().url().nullable(),
+  youtubeChannelId: z.string().nullable(),
+  twitterUsername: z.string().nullable(),
 });
 
 registry.registerPath({

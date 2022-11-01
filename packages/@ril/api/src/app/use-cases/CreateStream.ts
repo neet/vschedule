@@ -1,14 +1,15 @@
 import dayjs from 'dayjs';
 import { inject, injectable } from 'inversify';
+import { nanoid } from 'nanoid';
 import fetch from 'node-fetch';
 import sharp from 'sharp';
 import { URL } from 'url';
-import * as uuid from 'uuid';
 
 import { YoutubeChannelId } from '../../domain/_shared';
 import {
   MediaAttachment,
   MediaAttachmentFilename,
+  Performer,
   Stream,
 } from '../../domain/entities';
 import { TYPES } from '../../types';
@@ -16,6 +17,9 @@ import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepos
 import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { IStreamRepository } from '../repositories/StreamRepository';
 import { IYoutubeApiService } from '../services/YoutubeApiService';
+
+const YOUTUBE_CHANNEL_REGEXP =
+  /https:\/\/www\.youtube\.com\/channel\/(.+?)(\/|\s|\n|\?)/g;
 
 export interface SaveYoutubeStreamParams {
   readonly videoId: string;
@@ -54,17 +58,18 @@ export class SaveYoutubeStream {
     const thumbnail =
       video.thumbnailUrl != null
         ? await this._createThumbnail(video.thumbnailUrl)
-        : undefined;
+        : null;
 
-    const stream = Stream.fromPrimitive({
-      id: uuid.v4(),
+    const casts = await this._listCasts(video.description);
+
+    const stream = Stream.create({
       title: video.title,
       url: new URL(video.url),
-      createdAt: dayjs(),
-      updatedAt: dayjs(),
+      description: video.description,
       startedAt: dayjs(video.startedAt),
       endedAt: dayjs(video.endedAt),
-      actor: performer,
+      ownerId: performer.id,
+      castIds: casts.map((cast) => cast.id),
       thumbnail,
     });
 
@@ -76,8 +81,16 @@ export class SaveYoutubeStream {
     const imageBuffer = Buffer.from(await image.arrayBuffer());
 
     return await this._mediaAttachmentRepository.save(
-      new MediaAttachmentFilename(`${uuid.v4()}.png`),
+      new MediaAttachmentFilename(`${nanoid()}_thumbnail.png`),
       await sharp(imageBuffer).webp().toBuffer(),
     );
+  }
+
+  private async _listCasts(description: string): Promise<Performer[]> {
+    const channelIds = [...description.matchAll(YOUTUBE_CHANNEL_REGEXP)]
+      .map((match) => match.at(1))
+      .filter((match): match is string => match != null);
+
+    return this._performerRepository.find({ channelIds });
   }
 }

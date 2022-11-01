@@ -23,6 +23,7 @@ model MediaAttachment {
   actor  Actor[]
   stream Stream[]
 
+  @@index([filename])
   @@map("media_attachments")
 }
 
@@ -37,8 +38,8 @@ model Stream {
   startedAt DateTime  @map("started_at")
   endedAt   DateTime? @map("ended_at")
 
-  actorId String @map("actor_id")
-  actor   Actor  @relation(fields: [actorId], references: [id])
+  ownerId String    @map("owner_id")
+  owner   Performer @relation(fields: [ownerId], references: [id])
 
   thumbnail   MediaAttachment? @relation(fields: [thumbnailId], references: [id])
   thumbnailId String?          @map("thumbnail_id")
@@ -48,12 +49,14 @@ model Stream {
   @@index([updatedAt])
   @@index([startedAt])
   @@index([endedAt])
-  @@index([actorId])
+  @@index([ownerId])
   @@map("streams")
 }
 
 model Actor {
-  id          String  @id @db.VarChar(21)
+  // Actor.id won't appear on domain model, but presents for Class Table Inheritance
+  id String @id @db.VarChar(21)
+
   name        String
   color       String
   url         String?
@@ -64,7 +67,6 @@ model Actor {
 
   avatar   MediaAttachment? @relation(fields: [avatarId], references: [id])
   avatarId String?          @map("avatar_id")
-  streams  Stream[]
 
   // decendants
   performer    Performer?
@@ -76,20 +78,33 @@ model Actor {
 }
 
 model Performer {
-  actorId String @id @unique @map("actor_id")
+  id String @id @unique @db.VarChar(21)
+
+  actorId String @unique @map("actor_id")
   actor   Actor  @relation(fields: [actorId], references: [id])
 
   organizationId String?       @map("organization_id")
   organization   Organization? @relation(fields: [organizationId], references: [actorId])
+
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
+
+  streams Stream[]
 
   @@index([organizationId])
   @@map("performers")
 }
 
 model Organization {
-  actorId    String      @id @unique @map("actor_id")
-  actor      Actor       @relation(fields: [actorId], references: [id])
+  id String @id @unique @db.VarChar(21)
+
+  actorId String @unique @map("actor_id")
+  actor   Actor  @relation(fields: [actorId], references: [id])
+
   performers Performer[]
+
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
 
   @@map("organizations")
 }

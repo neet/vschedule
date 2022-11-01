@@ -3,12 +3,12 @@ import { inject, injectable } from 'inversify';
 import fetch from 'node-fetch';
 import sharp from 'sharp';
 import { URL } from 'url';
-import * as uuid from 'uuid';
 
+import { Color } from '../../domain/_shared';
 import {
-  ActorId,
   MediaAttachmentFilename,
   Organization,
+  OrganizationId,
   Performer,
 } from '../../domain/entities';
 import { TYPES } from '../../types';
@@ -19,14 +19,14 @@ import { IYoutubeApiService } from '../services/YoutubeApiService';
 import { IYoutubeWebsubService } from '../services/YoutubeWebsubService';
 
 export interface CreatePerformerParams {
-  readonly name?: string;
-  readonly description?: string;
-  readonly color?: string;
-  readonly url?: string;
   readonly youtubeChannelId: string;
-  readonly twitterUsername?: string;
-  readonly organizationId?: string;
   readonly websubEnabled: boolean;
+  readonly name: string | null;
+  readonly description: string | null;
+  readonly color: string | null;
+  readonly url: string | null;
+  readonly twitterUsername: string | null;
+  readonly organizationId: string | null;
 }
 
 @injectable()
@@ -50,7 +50,7 @@ export class CreatePerformer {
 
   public async invoke(
     params: CreatePerformerParams,
-  ): Promise<[Performer, Organization | undefined]> {
+  ): Promise<[Performer, Organization | null]> {
     const {
       name,
       youtubeChannelId,
@@ -62,15 +62,7 @@ export class CreatePerformer {
       websubEnabled,
     } = params;
 
-    const organization =
-      organizationId != null
-        ? await this._organizationRepository.findById(
-            new ActorId(organizationId),
-          )
-        : null;
-    if (organizationId != null && organization == null) {
-      throw new Error(`No such organization ${organizationId}`);
-    }
+    const organization = await this._fetchOrganization(organizationId);
 
     const channel = await this._youtubeApiService.fetchChannel(
       youtubeChannelId,
@@ -92,20 +84,19 @@ export class CreatePerformer {
 
     // トランザクション貼りたいけどどうしよう..
     const avatar = await this._mediaAttachmentRepository.save(
-      new MediaAttachmentFilename(`${uuid.v4()}.webp`),
+      new MediaAttachmentFilename(`${youtubeChannelId}_avatar.webp`),
       await sharp(imageBuffer).webp().toBuffer(),
     );
 
-    const performer = Performer.fromPrimitive({
-      id: uuid.v4(),
+    const performer = Performer.create({
       name: name ?? channel.name,
-      description: description === '' ? undefined : description,
-      color: color ?? primaryColor.hex(),
       avatar,
-      url: url != null ? new URL(url) : undefined,
-      twitterUsername,
       youtubeChannelId,
-      organizationId,
+      description: description ?? null,
+      color: Color.fromHex(color ?? primaryColor.hex()),
+      url: url != null ? new URL(url) : null,
+      twitterUsername: twitterUsername ?? null,
+      organizationId: organizationId ?? null,
     });
 
     await this._performerRepository.create(performer);
@@ -113,6 +104,22 @@ export class CreatePerformer {
       await this._youtubeWebsubService.subscribeToChannel(youtubeChannelId);
     }
 
-    return [performer, organization ?? undefined];
+    return [performer, organization ?? null];
+  }
+
+  private async _fetchOrganization(
+    organizationId?: string | null,
+  ): Promise<Organization | null> {
+    if (organizationId == null) {
+      return null;
+    }
+
+    const id = new OrganizationId(organizationId);
+    const org = this._organizationRepository.findById(id);
+    if (org == null) {
+      throw new Error(`No such organization ${organizationId}`);
+    }
+
+    return org;
   }
 }

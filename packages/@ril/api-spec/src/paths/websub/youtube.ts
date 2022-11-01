@@ -54,7 +54,7 @@ registry.registerPath({
       content: {
         'application/json': {
           schema: z.object({
-            actorId: z.string().uuid(),
+            performerId: z.string(),
           }),
         },
       },

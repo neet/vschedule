@@ -17,6 +17,8 @@ export class StreamsRestApiController {
   @httpGet('/')
   async show() {
     const data = await this._listStreams.invoke();
-    return data.map((item) => this._presenter.presentStream(item));
+    return data.map(([stream, owner, ownerOrganization]) =>
+      this._presenter.presentStream(stream, owner, ownerOrganization),
+    );
   }
 }

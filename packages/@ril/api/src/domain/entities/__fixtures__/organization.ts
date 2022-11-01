@@ -12,6 +12,9 @@ export const organizationFixture = Organization.rehydrate({
   name: 'にじさんじ',
   url: new URL('https://example.com/'),
   color: Color.fromHex('#ffffff'),
+  description: null,
+  twitterUsername: null,
+  youtubeChannelId: null,
   timestamps: new Timestamps({
     createdAt: dayjs(),
     updatedAt: dayjs(),
@@ -23,6 +26,7 @@ export const organizationFixture = Organization.rehydrate({
       createdAt: dayjs(),
       updatedAt: dayjs(),
     }),
+    bucket: null,
     filename: 'avatar.png',
     width: 1,
     height: 1,

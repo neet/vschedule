@@ -24,7 +24,7 @@
     "immer": "^9.0.16",
     "inversify": "^6.0.1",
     "inversify-express-utils": "^6.4.3",
-    "nanoid": "^4.0.0",
+    "nanoid": "^3.3.4",
     "node-fetch": "cjs",
     "plaiceholder": "^2.5.0",
     "prisma": "^4.5.0",

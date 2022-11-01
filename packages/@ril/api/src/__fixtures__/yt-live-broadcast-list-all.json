@@ -1,0 +1,173 @@
+{
+  "config": {
+    "url": "https://youtube.googleapis.com/youtube/v3/videos?id=DxFvWl69s7M&part=contentDetails&part=id&part=liveStreamingDetails&part=localizations&part=player&part=recordingDetails&part=snippet&part=statistics&part=status&part=topicDetails&key=AIzaSyAYs8dBkVkV7jSPnvpBoZyckaBtpwWvsEg",
+    "method": "GET",
+    "userAgentDirectives": [
+      {
+        "product": "google-api-nodejs-client",
+        "version": "5.0.5",
+        "comment": "gzip"
+      }
+    ],
+    "headers": {
+      "x-goog-api-client": "gdcl/5.0.5 gl-node/18.9.0 auth/7.11.0",
+      "Accept-Encoding": "gzip",
+      "User-Agent": "google-api-nodejs-client/5.0.5 (gzip)",
+      "Accept": "application/json"
+    },
+    "params": {
+      "id": ["DxFvWl69s7M"],
+      "part": [
+        "contentDetails",
+        "id",
+        "liveStreamingDetails",
+        "localizations",
+        "player",
+        "recordingDetails",
+        "snippet",
+        "statistics",
+        "status",
+        "topicDetails"
+      ],
+      "key": "AIzaSyAYs8dBkVkV7jSPnvpBoZyckaBtpwWvsEg"
+    },
+    "retry": true,
+    "responseType": "json"
+  },
+  "data": {
+    "kind": "youtube#videoListResponse",
+    "etag": "I3BvT0wn9WvJ0s-5Cj2U6rEIzWU",
+    "items": [
+      {
+        "kind": "youtube#video",
+        "etag": "hVXN9M4grutQeSV9ak2E0GJgazc",
+        "id": "DxFvWl69s7M",
+        "snippet": {
+          "publishedAt": "2022-10-31T18:29:50Z",
+          "channelId": "UCL34fAoFim9oHLbVzMKFavQ",
+          "title": "【雑談】すみませーん　まだハロウィンやってるー？🐤【夜見れな／にじさんじ】",
+          "description": "今日のお話し\nハロウィンまだやってる？\n-------❥------------❥----------------❥-----------------❥-----------------❥---------------\n❥Twitter\nhttps://twitter.com/rena_yorumi\n\n❥ファンアート→れなの鳥っくあーと\n　　（配信で使用することがあります）\n\n❥配信タグ→#れなのマジックショー\n❥ファンタグ→鳩( ・Θ・)\n❥ファンマーク→❥🎩🐤\n\n-------❥------------❥----------------❥-----------------❥-----------------❥---------------\n\n✦✦お知らせ✦✦\n【Lilly Crown オリジナルグッズ 販売開始！】\nにじさんじ公式BOOTHにて、\nLilly Crown（鷹宮リオン/椎名唯華/夜見れな/天宮こころ）オリジナルグッズ\nイラスト：夜見れな描きおろし\n詳細：nijisanji.booth.pm\nふかふかクッション：https://nijisanji.booth.pm/items/3505068\nトートバック：https://nijisanji.booth.pm/items/3505081\n\n-------❥------------❥----------------❥-----------------❥-----------------❥---------------\nサムネ！！\n\n🌟𝕄𝕖𝕣𝕣𝕪𝕓𝕖𝕒𝕣🧸🍫　様\n@merrybear_chan\n-------❥------------❥----------------❥-----------------❥-----------------❥---------------\n素材\n\n\n-------❥------------❥----------------❥-----------------❥-----------------❥---------------\n❥お手紙\n\n〒107-0052\n東京都港区赤坂9-7-2\nミッドタウン・イースト11F\n「ANYCOLOR株式会社」夜見れな 宛\n\n❥お問い合わせ\nhttps://www.nijisanji.jp/contact\n\n※未成年者の視聴者の方々は、下記リンク先の注意事項もご覧ください。\nhttps://www.anycolor.co.jp/notice-for-minors\n\n-------❥------------❥----------------❥-----------------❥-----------------❥---------------\nBGM：ニコニココモンズ\n-------❥------------❥----------------❥-----------------❥-----------------❥---------------\n\n❥お問い合わせ\n（公式HP）https://www.anycolor.co.jp/news/33670\n（公式twitter）https://twitter.com/ANYCOLOR_Inc/status/1422505441318244352\n\n#にじさんじ​\n#夜見れな​\n--------------------------------------------------------------------\n\n\n ------------------------\n素材\n\n\"Twemoji\" Graphics licensed under CC-BY 4.0(Modified Graphics)\nhttps://twemoji.twitter.com/",
+          "thumbnails": {
+            "default": {
+              "url": "https://i.ytimg.com/vi/DxFvWl69s7M/default.jpg",
+              "width": 120,
+              "height": 90
+            },
+            "medium": {
+              "url": "https://i.ytimg.com/vi/DxFvWl69s7M/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+            },
+            "high": {
+              "url": "https://i.ytimg.com/vi/DxFvWl69s7M/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+            },
+            "standard": {
+              "url": "https://i.ytimg.com/vi/DxFvWl69s7M/sddefault.jpg",
+              "width": 640,
+              "height": 480
+            },
+            "maxres": {
+              "url": "https://i.ytimg.com/vi/DxFvWl69s7M/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+            }
+          },
+          "channelTitle": "夜見れな/yorumi rena【にじさんじ所属】",
+          "tags": [
+            "夜見れな",
+            "よるみれな",
+            "nijisanji",
+            "にじさんじ",
+            "Vtuber",
+            "anime",
+            "アニメ",
+            "japan",
+            "切り抜き",
+            "雑談",
+            "game",
+            "ゲーム",
+            "実況",
+            "歌ってみた",
+            "カバー",
+            "新衣装",
+            "お披露目",
+            "FANTASIA",
+            "にじフェス",
+            "にじさんじフェス",
+            "感想配信",
+            "ライブ",
+            "にじさんじフェス２０２２",
+            "りりくら",
+            "げーむるげーむる"
+          ],
+          "categoryId": "24",
+          "liveBroadcastContent": "none",
+          "localized": {
+            "title": "【雑談】すみませーん　まだハロウィンやってるー？🐤【夜見れな／にじさんじ】",
+            "description": "今日のお話し\nハロウィンまだやってる？\n-------❥------------❥----------------❥-----------------❥-----------------❥---------------\n❥Twitter\nhttps://twitter.com/rena_yorumi\n\n❥ファンアート→れなの鳥っくあーと\n　　（配信で使用することがあります）\n\n❥配信タグ→#れなのマジックショー\n❥ファンタグ→鳩( ・Θ・)\n❥ファンマーク→❥🎩🐤\n\n-------❥------------❥----------------❥-----------------❥-----------------❥---------------\n\n✦✦お知らせ✦✦\n【Lilly Crown オリジナルグッズ 販売開始！】\nにじさんじ公式BOOTHにて、\nLilly Crown（鷹宮リオン/椎名唯華/夜見れな/天宮こころ）オリジナルグッズ\nイラスト：夜見れな描きおろし\n詳細：nijisanji.booth.pm\nふかふかクッション：https://nijisanji.booth.pm/items/3505068\nトートバック：https://nijisanji.booth.pm/items/3505081\n\n-------❥------------❥----------------❥-----------------❥-----------------❥---------------\nサムネ！！\n\n🌟𝕄𝕖𝕣𝕣𝕪𝕓𝕖𝕒𝕣🧸🍫　様\n@merrybear_chan\n-------❥------------❥----------------❥-----------------❥-----------------❥---------------\n素材\n\n\n-------❥------------❥----------------❥-----------------❥-----------------❥---------------\n❥お手紙\n\n〒107-0052\n東京都港区赤坂9-7-2\nミッドタウン・イースト11F\n「ANYCOLOR株式会社」夜見れな 宛\n\n❥お問い合わせ\nhttps://www.nijisanji.jp/contact\n\n※未成年者の視聴者の方々は、下記リンク先の注意事項もご覧ください。\nhttps://www.anycolor.co.jp/notice-for-minors\n\n-------❥------------❥----------------❥-----------------❥-----------------❥---------------\nBGM：ニコニココモンズ\n-------❥------------❥----------------❥-----------------❥-----------------❥---------------\n\n❥お問い合わせ\n（公式HP）https://www.anycolor.co.jp/news/33670\n（公式twitter）https://twitter.com/ANYCOLOR_Inc/status/1422505441318244352\n\n#にじさんじ​\n#夜見れな​\n--------------------------------------------------------------------\n\n\n ------------------------\n素材\n\n\"Twemoji\" Graphics licensed under CC-BY 4.0(Modified Graphics)\nhttps://twemoji.twitter.com/"
+          }
+        },
+        "contentDetails": {
+          "duration": "PT2H30M42S",
+          "dimension": "2d",
+          "definition": "hd",
+          "caption": "false",
+          "licensedContent": true,
+          "contentRating": {},
+          "projection": "rectangular"
+        },
+        "status": {
+          "uploadStatus": "processed",
+          "privacyStatus": "public",
+          "license": "youtube",
+          "embeddable": true,
+          "publicStatsViewable": true,
+          "madeForKids": false
+        },
+        "statistics": {
+          "viewCount": "29132",
+          "likeCount": "1885",
+          "favoriteCount": "0",
+          "commentCount": "8"
+        },
+        "player": {
+          "embedHtml": "<iframe width=\"480\" height=\"270\" src=\"//www.youtube.com/embed/DxFvWl69s7M\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
+        },
+        "topicDetails": {
+          "topicCategories": [
+            "https://en.wikipedia.org/wiki/Action_game",
+            "https://en.wikipedia.org/wiki/Video_game_culture"
+          ]
+        },
+        "recordingDetails": {},
+        "liveStreamingDetails": {
+          "actualStartTime": "2022-10-31T15:45:40Z",
+          "actualEndTime": "2022-10-31T18:16:23Z",
+          "scheduledStartTime": "2022-10-31T15:45:00Z"
+        }
+      }
+    ],
+    "pageInfo": { "totalResults": 1, "resultsPerPage": 1 }
+  },
+  "headers": {
+    "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"",
+    "cache-control": "private",
+    "connection": "close",
+    "content-encoding": "gzip",
+    "content-type": "application/json; charset=UTF-8",
+    "date": "Tue, 01 Nov 2022 22:44:30 GMT",
+    "server": "scaffolding on HTTPServer2",
+    "transfer-encoding": "chunked",
+    "vary": "Origin, X-Origin, Referer",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "SAMEORIGIN",
+    "x-xss-protection": "0"
+  },
+  "status": 200,
+  "statusText": "OK",
+  "request": {
+    "responseURL": "https://youtube.googleapis.com/youtube/v3/videos?id=DxFvWl69s7M&part=contentDetails&part=id&part=liveStreamingDetails&part=localizations&part=player&part=recordingDetails&part=snippet&part=statistics&part=status&part=topicDetails&key=AIzaSyAYs8dBkVkV7jSPnvpBoZyckaBtpwWvsEg"
+  }
+}

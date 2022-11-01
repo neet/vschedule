@@ -26,7 +26,11 @@ export abstract class Entity<
   public toJSON(): DeepPrimitiveOf<Props> {
     return Object.entries(this._props as any).reduce((record, [key, value]) => {
       const _value = value as any;
-      if ('toJSON' in _value && typeof _value.toJSON === 'function') {
+      if (
+        _value != null &&
+        'toJSON' in _value &&
+        typeof _value.toJSON === 'function'
+      ) {
         (record as any)[key] = _value.toJSON();
       } else {
         (record as any)[key] = value;

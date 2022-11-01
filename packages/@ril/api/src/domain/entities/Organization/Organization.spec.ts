@@ -12,7 +12,10 @@ describe('Organization', () => {
       name: 'にじさんじ',
       url: new URL('https://www.nijisanji.jp/en'),
       color: Color.fromHex('#ffffff'),
+      description: null,
+      avatar: null,
       twitterUsername: 'nijisanji',
+      youtubeChannelId: null,
     });
 
     expect(organization.name.value).toBe('にじさんじ');
@@ -26,6 +29,9 @@ describe('Organization', () => {
       url: new URL('https://www.nijisanji.jp/en'),
       color: Color.fromHex('#ffffff'),
       twitterUsername: 'nijisanji',
+      description: null,
+      avatar: null,
+      youtubeChannelId: null,
       timestamps: new Timestamps({
         createdAt: dayjs(),
         updatedAt: dayjs(),

@@ -14,6 +14,8 @@ export const actorFixture = Performer.rehydrate({
   youtubeChannelId: 'UCV5ZZlLjk5MKGg3L0n0vbzw',
   organizationId: organizationFixture.id,
   color: Color.fromHex('#ff0000'),
+  url: null,
+  twitterUsername: 'TakamiyaRion',
   timestamps: new Timestamps({
     createdAt: dayjs(),
     updatedAt: dayjs(),
@@ -25,6 +27,7 @@ export const actorFixture = Performer.rehydrate({
       createdAt: dayjs(),
       updatedAt: dayjs(),
     }),
+    bucket: null,
     filename: 'avatar.png',
     width: 1,
     height: 1,

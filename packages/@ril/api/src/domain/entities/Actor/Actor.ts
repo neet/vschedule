@@ -9,11 +9,11 @@ import { ActorName } from './ActorName';
 export interface ActorProps {
   readonly name: ActorName;
   readonly color: Color;
-  readonly description?: ActorDescription;
-  readonly avatar?: MediaAttachment;
-  readonly url?: URL;
-  readonly twitterUsername?: TwitterUsername;
-  readonly youtubeChannelId?: YoutubeChannelId;
+  readonly description: ActorDescription | null;
+  readonly avatar: MediaAttachment | null;
+  readonly url: URL | null;
+  readonly twitterUsername: TwitterUsername | null;
+  readonly youtubeChannelId: YoutubeChannelId | null;
 }
 
 export abstract class Actor {
@@ -27,23 +27,23 @@ export abstract class Actor {
     return this._props.color;
   }
 
-  public get url(): URL | undefined {
+  public get url(): URL | null {
     return this._props.url;
   }
 
-  public get description(): ActorDescription | undefined {
+  public get description(): ActorDescription | null {
     return this._props.description;
   }
 
-  public get avatar(): MediaAttachment | undefined {
+  public get avatar(): MediaAttachment | null {
     return this._props.avatar;
   }
 
-  public get twitterUsername(): TwitterUsername | undefined {
+  public get twitterUsername(): TwitterUsername | null {
     return this._props.twitterUsername;
   }
 
-  public get youtubeChannelId(): YoutubeChannelId | undefined {
+  public get youtubeChannelId(): YoutubeChannelId | null {
     return this._props.youtubeChannelId;
   }
 
@@ -52,18 +52,19 @@ export abstract class Actor {
       name: ActorName.from(props.name),
       color: props.color,
       description:
-        props.description != null
+        props.description !== null
           ? ActorDescription.from(props.description)
-          : undefined,
+          : null,
       avatar: props.avatar,
+      url: props.url,
       youtubeChannelId:
-        props.youtubeChannelId != null
+        props.youtubeChannelId !== null
           ? YoutubeChannelId.from(props.youtubeChannelId)
-          : undefined,
+          : null,
       twitterUsername:
-        props.twitterUsername != null
+        props.twitterUsername !== null
           ? TwitterUsername.from(props.twitterUsername)
-          : undefined,
+          : null,
     };
   }
 

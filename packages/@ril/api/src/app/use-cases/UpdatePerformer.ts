@@ -1,17 +1,23 @@
 import { inject, injectable } from 'inversify';
 
-import { ActorId, Organization, Performer } from '../../domain/entities';
+import { Color } from '../../domain/_shared';
+import {
+  Organization,
+  OrganizationId,
+  Performer,
+  PerformerId,
+} from '../../domain/entities';
 import { TYPES } from '../../types';
 import { IOrganizationRepository } from '../repositories/OrganizationRepository';
 import { IPerformerRepository } from '../repositories/PerformerRepository';
 
 export interface UpdatePerformerParams {
   readonly name?: string;
-  readonly description?: string;
+  readonly description?: string | null;
   readonly color?: string;
-  readonly youtubeChannelId?: string;
-  readonly twitterUsername?: string;
-  readonly organizationId?: string;
+  readonly youtubeChannelId?: string | null;
+  readonly twitterUsername?: string | null;
+  readonly organizationId?: string | null;
 }
 
 @injectable()
@@ -27,7 +33,7 @@ export class UpdatePerformer {
   public async invoke(
     id: string,
     params: UpdatePerformerParams,
-  ): Promise<[Performer, Organization | undefined]> {
+  ): Promise<[Performer, Organization | null]> {
     const {
       name,
       color,
@@ -37,34 +43,41 @@ export class UpdatePerformer {
       organizationId,
     } = params;
 
-    const performerId = new ActorId(id);
+    const performerId = new PerformerId(id);
 
     const performer = await this._performerRepository.findById(performerId);
     if (performer == null) {
       throw new Error(`No performer found with id ${performerId.value}`);
     }
 
-    const organization =
-      organizationId != null
-        ? await this._organizationRepository.findById(
-            new ActorId(organizationId),
-          )
-        : null;
-    // TODO: もっときれいに書く
-    if (organizationId != null && organization == null) {
-      throw new Error(`No such organization ${organizationId}`);
-    }
+    const organization = await this._fetchOrganization(organizationId);
 
     const newPerformer = performer.update({
       name,
       description,
-      color,
+      color: color !== undefined ? Color.fromHex(color) : undefined,
       youtubeChannelId,
       twitterUsername,
       organizationId,
     });
 
     await this._performerRepository.update(newPerformer);
-    return [newPerformer, organization ?? undefined];
+    return [newPerformer, organization];
+  }
+
+  private async _fetchOrganization(
+    organizationId?: string | null,
+  ): Promise<Organization | null> {
+    if (organizationId == null) {
+      return null;
+    }
+
+    const id = new OrganizationId(organizationId);
+    const org = this._organizationRepository.findById(id);
+    if (org == null) {
+      throw new Error(`No such organization ${organizationId}`);
+    }
+
+    return org;
   }
 }

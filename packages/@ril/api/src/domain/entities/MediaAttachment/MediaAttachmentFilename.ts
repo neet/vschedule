@@ -13,6 +13,12 @@ export class MediaAttachmentFilename extends ValueObject<string> {
       throw new InvalidFilenameError('Invalid filename');
     }
 
+    if (value.split('.').length < 2) {
+      throw new InvalidFilenameError(
+        'Filename must be consisted from name and extension',
+      );
+    }
+
     super(value);
   }
 
