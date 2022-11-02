@@ -17,7 +17,7 @@ export class ShowMediaAttachment {
   ) {}
 
   async invoke(filename: string): Promise<MediaAttachment> {
-    const data = await this._mediaRepository.findById(
+    const data = await this._mediaRepository.findByFilename(
       new MediaAttachmentFilename(filename),
     );
 

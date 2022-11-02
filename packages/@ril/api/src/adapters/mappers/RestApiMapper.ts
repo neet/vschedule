@@ -28,7 +28,7 @@ export class RestApiPresenter {
   public presentMediaAttachment(
     mediaAttachment: MediaAttachment,
   ): Schemas.MediaAttachment {
-    const pathname = `/api/v1/media/${mediaAttachment.filename}`;
+    const pathname = `/api/v1/media/${mediaAttachment.filename.value}`;
     const url = new URL(this._origin);
     url.pathname = pathname;
 
@@ -55,7 +55,7 @@ export class RestApiPresenter {
       avatar:
         actor.avatar !== null
           ? this.presentMediaAttachment(actor.avatar)
-          : null,
+          : undefined,
     };
   }
 
@@ -78,7 +78,9 @@ export class RestApiPresenter {
       createdAt: performer.createdAt.toISOString(),
       updatedAt: performer.updatedAt.toISOString(),
       organization:
-        organization !== null ? this.presentOrganization(organization) : null,
+        organization !== null
+          ? this.presentOrganization(organization)
+          : undefined,
     };
   }
 
@@ -97,13 +99,15 @@ export class RestApiPresenter {
       startedAt: stream.startedAt.toISOString(),
       endedAt: stream.endedAt === null ? null : stream.endedAt.toISOString(),
       owner:
-        owner === null ? null : this.presentPerformer(owner, ownerOrganization),
+        owner === null
+          ? undefined
+          : this.presentPerformer(owner, ownerOrganization),
       duration: stream.duration === null ? null : stream.duration.toISOString(),
       casts: [], // TODO
       thumbnail:
         stream.thumbnail !== null
           ? this.presentMediaAttachment(stream.thumbnail)
-          : null,
+          : undefined,
     };
   }
 }

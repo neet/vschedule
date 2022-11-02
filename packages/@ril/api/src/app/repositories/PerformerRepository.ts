@@ -4,7 +4,7 @@ import { Performer, PerformerId } from '../../domain/entities';
 export interface FindPerformerParams {
   readonly limit?: number;
   readonly offset?: number;
-  readonly channelIds: readonly string[];
+  readonly channelIds?: readonly string[];
 }
 
 export interface IPerformerRepository {

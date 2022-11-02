@@ -12,7 +12,7 @@ import {
   requestParam,
 } from 'inversify-express-utils';
 
-import { SaveYoutubeStream } from '../../../app/use-cases/CreateStream';
+import { CreateStream } from '../../../app/use-cases/CreateStream';
 import { RemoveStream } from '../../../app/use-cases/RemoveStream';
 import { ScheduleYoutubeWebsubResubscription } from '../../../app/use-cases/ScheduleYoutubeWebsubResubscription';
 import { TYPES } from '../../../types';
@@ -20,8 +20,8 @@ import { TYPES } from '../../../types';
 @controller('/webhook/youtube')
 export class YoutubeWebhookController extends BaseHttpController {
   constructor(
-    @inject(SaveYoutubeStream)
-    private readonly _saveYoutubeStream: SaveYoutubeStream,
+    @inject(CreateStream)
+    private readonly _saveYoutubeStream: CreateStream,
 
     @inject(RemoveStream)
     private readonly _removeStream: RemoveStream,

@@ -21,12 +21,12 @@ import { IYoutubeApiService } from '../services/YoutubeApiService';
 const YOUTUBE_CHANNEL_REGEXP =
   /https:\/\/www\.youtube\.com\/channel\/(.+?)(\/|\s|\n|\?)/g;
 
-export interface SaveYoutubeStreamParams {
+export interface CreateStreamParams {
   readonly videoId: string;
 }
 
 @injectable()
-export class SaveYoutubeStream {
+export class CreateStream {
   constructor(
     @inject(TYPES.StreamRepository)
     private readonly _streamRepository: IStreamRepository,
@@ -41,7 +41,7 @@ export class SaveYoutubeStream {
     private readonly _youtubeStreamService: IYoutubeApiService,
   ) {}
 
-  async invoke(params: SaveYoutubeStreamParams): Promise<void> {
+  async invoke(params: CreateStreamParams): Promise<Stream> {
     const { videoId } = params;
 
     const video = await this._youtubeStreamService.fetchVideo(videoId);
@@ -74,6 +74,7 @@ export class SaveYoutubeStream {
     });
 
     await this._streamRepository.save(stream);
+    return stream;
   }
 
   private async _createThumbnail(url: string): Promise<MediaAttachment> {

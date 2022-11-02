@@ -25,6 +25,33 @@ registry.registerPath({
 });
 
 registry.registerPath({
+  method: 'post',
+  path: '/api/v1/streams',
+  operationId: 'createStream',
+  summary: '配信を作成',
+  request: {
+    body: {
+      required: true,
+      content: {
+        'application/json': {
+          schema: z.object({
+            videoId: z.string(),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    200: {
+      description: '成功時のレスポンスです',
+      content: {
+        'application/json': { schema: Stream },
+      },
+    },
+  },
+});
+
+registry.registerPath({
   method: 'get',
   path: '/api/v1/streams',
   operationId: 'listStreams',

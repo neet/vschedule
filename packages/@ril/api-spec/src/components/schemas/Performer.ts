@@ -10,6 +10,6 @@ export const Performer = registry.register(
     id: z.string(),
     createdAt: z.string().openapi({ format: 'date-time' }),
     updatedAt: z.string().openapi({ format: 'date-time' }),
-    organization: z.union([Organization, z.null()]),
+    organization: Organization.optional(),
   }),
 );
