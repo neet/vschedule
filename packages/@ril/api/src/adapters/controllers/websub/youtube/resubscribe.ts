@@ -9,8 +9,8 @@ import {
 
 import { ResubscribeToYoutubeWebsub } from '../../../../app/use-cases/ResubscribeToYoutubeWebsub';
 
-@controller('/webhook/youtube/resubscribe')
-export class YoutubeWebhookRefreshController extends BaseHttpController {
+@controller('/websub/youtube/resubscribe')
+export class YoutubeWebsubRefreshController extends BaseHttpController {
   public constructor(
     @inject(ResubscribeToYoutubeWebsub)
     private readonly _resubscribeToYoutubeWebsub: ResubscribeToYoutubeWebsub,

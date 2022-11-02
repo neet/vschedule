@@ -1,4 +1,4 @@
-import { client } from '../test-utils/client';
+import { client } from '../../test-utils/client';
 
 describe('StreamController', () => {
   it('can list streams', async () => {

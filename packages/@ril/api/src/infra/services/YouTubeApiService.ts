@@ -50,7 +50,6 @@ export class YoutubeApiService implements IYoutubeApiService {
     });
 
     const video = videos.data.items?.[0];
-    console.log(JSON.stringify(videos));
     if (video == null) {
       throw new Error(`video not found: ${videoId}`);
     }
@@ -62,8 +61,8 @@ export class YoutubeApiService implements IYoutubeApiService {
       video.snippet.channelId == null ||
       video.snippet.description == null ||
       video.snippet.publishedAt == null ||
-      video.snippet.thumbnails?.default?.url == null ||
-      video.liveStreamingDetails?.actualStartTime == null
+      video.snippet.thumbnails?.default?.url == null
+      // video.liveStreamingDetails?.actualStartTime == null
     ) {
       throw new Error(
         `Either videoId or publishedAt or actualStartTime is null`,
@@ -78,8 +77,8 @@ export class YoutubeApiService implements IYoutubeApiService {
       url: `https://www.youtube.com/watch?v=${video.id}`,
       channelId: video.snippet.channelId,
       publishedAt: video.snippet.publishedAt,
-      startedAt: video.liveStreamingDetails.actualStartTime,
-      endedAt: video.liveStreamingDetails.actualEndTime ?? undefined,
+      startedAt: video.liveStreamingDetails?.actualStartTime,
+      endedAt: video.liveStreamingDetails?.actualEndTime ?? undefined,
     };
   }
 

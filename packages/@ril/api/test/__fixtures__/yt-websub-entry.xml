@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015" xmlns="http://www.w3.org/2005/Atom">
+  <link rel="hub" href="https://pubsubhubbub.appspot.com" />
+  <link rel="self" href="https://www.youtube.com/xml/feeds/videos.xml?channel_id=UCjXHjE-OBd--vYcT83XdzTA" />
+  <title>YouTube video feed</title>
+  <updated>2022-10-30T19:20:35.294651961+00:00</updated>
+  <entry>
+    <id>yt:video:0XnCry1Afzc</id>
+    <yt:videoId>0XnCry1Afzc</yt:videoId>
+    <yt:channelId>UCjXHjE-OBd--vYcT83XdzTA</yt:channelId>
+    <title>テスト動画</title>
+    <link rel="alternate" href="https://www.youtube.com/watch?v=0XnCry1Afzc" />
+    <author>
+      <name>都 -みやこ-</name>
+      <uri>https://www.youtube.com/channel/UCjXHjE-OBd--vYcT83XdzTA</uri>
+    </author>
+    <published>2022-10-30T19:11:41+00:00</published>
+    <updated>2022-10-30T19:20:35.294651961+00:00</updated>
+  </entry>
+</feed>

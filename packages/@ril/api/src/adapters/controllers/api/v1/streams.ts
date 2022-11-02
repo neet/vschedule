@@ -28,7 +28,7 @@ export class StreamsRestApiController extends BaseHttpController {
   }
 
   @httpGet('/')
-  async show() {
+  async list() {
     const data = await this._listStreams.invoke();
     return this.json(
       data.map(([stream, owner, ownerOrganization]) =>

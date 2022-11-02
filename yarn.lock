@@ -3739,9 +3739,9 @@ __metadata:
     "@ril/eslint-plugin": "workspace:^"
     "@ril/seeds": "workspace:^"
     "@ril/tsconfig": "workspace:^"
+    "@types/body-parser-xml": ^2
     "@types/cors": ^2
     "@types/express": ^4
-    "@types/express-xml-bodyparser": ^0
     "@types/get-image-colors": ^4.0.1
     "@types/jest": ^29.2.1
     "@types/node": ^17.0.10
@@ -3751,11 +3751,12 @@ __metadata:
     "@types/swagger-ui-express": ^4
     "@types/validator": ^13
     "@vercel/ncc": ^0.34.0
+    body-parser-xml: ^2.0.3
     cors: ^2.8.5
     dayjs: ^1.10.7
+    execa: ^5.1.1
     express: ^4.17.2
     express-openapi-validator: ^4.13.8
-    express-xml-bodyparser: ^0.3.0
     get-image-colors: ^4.0.0
     googleapis: ^92.0.0
     immer: ^9.0.16
@@ -3766,7 +3767,6 @@ __metadata:
     node-fetch: cjs
     plaiceholder: ^2.5.0
     prisma: ^4.5.0
-    raw-body: ^2.5.1
     reflect-metadata: ^0.1.13
     shallow-equal-object: ^1.1.1
     sharp: ^0.31.1
@@ -5602,6 +5602,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/body-parser-xml@npm:^2":
+  version: 2.0.2
+  resolution: "@types/body-parser-xml@npm:2.0.2"
+  dependencies:
+    "@types/body-parser": "*"
+    "@types/connect": "*"
+    "@types/express-serve-static-core": "*"
+    "@types/node": "*"
+    "@types/xml2js": "*"
+  checksum: ddac93399bc85b7402193004954215b9152374cd3e0e54e6f500ea71e8bf962ff091300a265551832c863e63539af1a2d9483838073ff43362d0bdf867802a50
+  languageName: node
+  linkType: hard
+
 "@types/body-parser@npm:*":
   version: 1.19.2
   resolution: "@types/body-parser@npm:1.19.2"
@@ -5685,6 +5698,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/express-serve-static-core@npm:*":
+  version: 4.17.31
+  resolution: "@types/express-serve-static-core@npm:4.17.31"
+  dependencies:
+    "@types/node": "*"
+    "@types/qs": "*"
+    "@types/range-parser": "*"
+  checksum: 009bfbe1070837454a1056aa710d0390ee5fb8c05dfe5a1691cc3e2ca88dc256f80e1ca27cb51a978681631d2f6431bfc9ec352ea46dd0c6eb183d0170bde5df
+  languageName: node
+  linkType: hard
+
 "@types/express-serve-static-core@npm:^4.17.18":
   version: 4.17.28
   resolution: "@types/express-serve-static-core@npm:4.17.28"
@@ -5693,16 +5717,6 @@ __metadata:
     "@types/qs": "*"
     "@types/range-parser": "*"
   checksum: 826489811a5b371c10f02443b4ca894ffc05813bfdf2b60c224f5c18ac9a30a2e518cb9ef9fdfcaa2a1bb17f8bfa4ed1859ccdb252e879c9276271b4ee2df5a9
-  languageName: node
-  linkType: hard
-
-"@types/express-xml-bodyparser@npm:^0":
-  version: 0.3.2
-  resolution: "@types/express-xml-bodyparser@npm:0.3.2"
-  dependencies:
-    "@types/express": "*"
-    "@types/xml2js": "*"
-  checksum: 5d40669bf8b1f031c405e7172f12ecf53ccff5a35a7d08a7824a79f5a33bf450204bc1fa4c5bc618e32c9826dbf81170118f9aa6db7d0f2fa007ddc59e21929f
   languageName: node
   linkType: hard
 
@@ -8118,6 +8132,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"body-parser-xml@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "body-parser-xml@npm:2.0.3"
+  dependencies:
+    xml2js: ^0.4.23
+  checksum: 347473092392d07989fa403de2c7cbb003282341f85e1eaffe966cd13ccb03d62fd887a785b897fd9a7d8297495a6c81e4895b0f89c1f0b348e97a0ad88f3c0d
+  languageName: node
+  linkType: hard
+
 "body-parser@npm:1.19.1":
   version: 1.19.1
   resolution: "body-parser@npm:1.19.1"
@@ -8431,13 +8454,6 @@ __metadata:
   version: 3.1.1
   resolution: "bytes@npm:3.1.1"
   checksum: 949ab99a385d6acf4d2c69f1afc618615dc905936e0b0b9aa94a9e94d722baaba44d6a0851536585a0892ae4d462b5a270ccb1b04c774640742cbde5538ca328
-  languageName: node
-  linkType: hard
-
-"bytes@npm:3.1.2":
-  version: 3.1.2
-  resolution: "bytes@npm:3.1.2"
-  checksum: e4bcd3948d289c5127591fbedf10c0b639ccbf00243504e4e127374a15c3bc8eed0d28d4aaab08ff6f1cf2abc0cce6ba3085ed32f4f90e82a5683ce0014e1b6e
   languageName: node
   linkType: hard
 
@@ -10206,13 +10222,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"depd@npm:2.0.0":
-  version: 2.0.0
-  resolution: "depd@npm:2.0.0"
-  checksum: abbe19c768c97ee2eed6282d8ce3031126662252c58d711f646921c9623f9052e3e1906443066beec1095832f534e57c523b7333f8e7e0d93051ab6baef5ab3a
-  languageName: node
-  linkType: hard
-
 "depd@npm:^1.1.2, depd@npm:~1.1.2":
   version: 1.1.2
   resolution: "depd@npm:1.1.2"
@@ -11540,15 +11549,6 @@ __metadata:
     ono: ^7.1.3
     path-to-regexp: ^6.2.0
   checksum: a20a82c37115ed0125207f5c54983a012dcc4699b70e97be99ee80d12abe572c787af566338e3bcb37d04e69a48f6d565d454e189dbab709ede8b0c6d286b86f
-  languageName: node
-  linkType: hard
-
-"express-xml-bodyparser@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "express-xml-bodyparser@npm:0.3.0"
-  dependencies:
-    xml2js: ^0.4.11
-  checksum: 37c2d2f9bc5bd748f7481423a26a334d82c352be1d58694dbc0b149e54bdcb3fc7aa70800c3bbbbbbede29c868680f2e4d4fc6990459191b5de615e263d28fec
   languageName: node
   linkType: hard
 
@@ -13467,19 +13467,6 @@ __metadata:
     statuses: ">= 1.5.0 < 2"
     toidentifier: 1.0.1
   checksum: d3c7e7e776fd51c0a812baff570bdf06fe49a5dc448b700ab6171b1250e4cf7db8b8f4c0b133e4bfe2451022a5790c1ca6c2cae4094dedd6ac8304a1267f91d2
-  languageName: node
-  linkType: hard
-
-"http-errors@npm:2.0.0":
-  version: 2.0.0
-  resolution: "http-errors@npm:2.0.0"
-  dependencies:
-    depd: 2.0.0
-    inherits: 2.0.4
-    setprototypeof: 1.2.0
-    statuses: 2.0.1
-    toidentifier: 1.0.1
-  checksum: 9b0a3782665c52ce9dc658a0d1560bcb0214ba5699e4ea15aefb2a496e2ca83db03ebc42e1cce4ac1f413e4e0d2d736a3fd755772c556a9a06853ba2a0b7d920
   languageName: node
   linkType: hard
 
@@ -19523,18 +19510,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"raw-body@npm:^2.5.1":
-  version: 2.5.1
-  resolution: "raw-body@npm:2.5.1"
-  dependencies:
-    bytes: 3.1.2
-    http-errors: 2.0.0
-    iconv-lite: 0.4.24
-    unpipe: 1.0.0
-  checksum: 5362adff1575d691bb3f75998803a0ffed8c64eabeaa06e54b4ada25a0cd1b2ae7f4f5ec46565d1bec337e08b5ac90c76eaa0758de6f72a633f025d754dec29e
-  languageName: node
-  linkType: hard
-
 "raw-loader@npm:^4.0.2":
   version: 4.0.2
   resolution: "raw-loader@npm:4.0.2"
@@ -21520,13 +21495,6 @@ __metadata:
     define-property: ^0.2.5
     object-copy: ^0.1.0
   checksum: 8657485b831f79e388a437260baf22784540417a9b29e11572c87735df24c22b84eda42107403a64b30861b2faf13df9f7fc5525d51f9d1d2303aba5cbf4e12c
-  languageName: node
-  linkType: hard
-
-"statuses@npm:2.0.1":
-  version: 2.0.1
-  resolution: "statuses@npm:2.0.1"
-  checksum: 18c7623fdb8f646fb213ca4051be4df7efb3484d4ab662937ca6fbef7ced9b9e12842709872eb3020cc3504b93bde88935c9f6417489627a7786f24f8031cbcb
   languageName: node
   linkType: hard
 
@@ -24105,7 +24073,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"xml2js@npm:^0.4.11":
+"xml2js@npm:^0.4.23":
   version: 0.4.23
   resolution: "xml2js@npm:0.4.23"
   dependencies:

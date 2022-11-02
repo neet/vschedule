@@ -2,12 +2,12 @@ export interface Video {
   readonly id: string;
   readonly title: string;
   readonly description: string;
-  readonly thumbnailUrl?: string;
+  readonly thumbnailUrl: string;
   readonly url: string;
   readonly channelId: string;
   readonly publishedAt: string;
-  readonly startedAt: string;
-  readonly endedAt?: string;
+  readonly startedAt?: string | null;
+  readonly endedAt?: string | null;
 }
 
 export interface Channel {

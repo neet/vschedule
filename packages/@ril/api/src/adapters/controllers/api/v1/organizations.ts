@@ -8,6 +8,7 @@ import {
   controller,
   httpGet,
   httpPost,
+  queryParam,
   requestBody,
   requestParam,
 } from 'inversify-express-utils';
@@ -36,7 +37,7 @@ export class OrganizationsController extends BaseHttpController {
   }
 
   @httpGet('/:organizationId')
-  async show(@requestParam('organizationId') organizationId: string) {
+  async show(@queryParam('organizationId') organizationId: string) {
     const organization = await this._showOrganization.invoke(organizationId);
     return this.json(this._presenter.presentActor(organization));
   }

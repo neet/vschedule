@@ -1,14 +1,6 @@
-import { client } from '../test-utils/client';
+import { client } from '../../test-utils/client';
 
 describe('Performer', () => {
-  beforeAll(() => {
-    jest.setTimeout(Infinity);
-  });
-
-  afterAll(() => {
-    jest.setTimeout(5000);
-  });
-
   it('can create performer', async () => {
     const { id } = await client.createPerformer({
       requestBody: {

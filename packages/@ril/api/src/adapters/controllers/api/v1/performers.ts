@@ -10,6 +10,7 @@ import {
   httpGet,
   httpPatch,
   httpPost,
+  queryParam,
   requestBody,
   requestParam,
 } from 'inversify-express-utils';
@@ -78,7 +79,7 @@ export class PerformersController extends BaseHttpController {
   }
 
   @httpGet('/')
-  async list(@requestParam() params: Parameter$listPerformers) {
+  async list(@queryParam() params: Parameter$listPerformers) {
     const performers = await this._listPerformers.invoke({
       limit: params.limit,
       offset: params.offset,

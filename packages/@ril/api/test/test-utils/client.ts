@@ -10,7 +10,7 @@ import {
 } from '@ril/api-client';
 import supertest from 'supertest';
 
-import { app } from '../src/infra/app';
+import { app } from '../../src/infra/app';
 import { generateQueryString } from './generateQueryString';
 
 class Requester<RequestOption> implements ApiClient<RequestOption> {
@@ -67,4 +67,5 @@ class Requester<RequestOption> implements ApiClient<RequestOption> {
   }
 }
 
-export const client = new Client(new Requester(supertest(app)), '');
+export const request = supertest(app);
+export const client = new Client(new Requester(request), '');

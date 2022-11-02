@@ -25,7 +25,7 @@ export class ListStreams {
     const owners = await Promise.all(
       streams.map(async (stream) => {
         const d = await this._performerRepository.findById(stream.ownerId);
-        if (d === null) throw 'unreachable';
+        if (d === null) throw new Error('unreachable');
         return d;
       }),
     );
@@ -38,7 +38,8 @@ export class ListStreams {
     return streams.map((stream, i) => {
       const owner = owners[i];
       const organization = organizations[i];
-      if (owner == null || organization === undefined) throw 'unreachable';
+      if (owner == null || organization === undefined)
+        throw new Error('unreachable');
       return [stream, owner, organization];
     });
   }

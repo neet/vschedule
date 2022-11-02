@@ -15,6 +15,7 @@
     "codecov",
     "compat",
     "darkmodejs",
+    "execa",
     "fontawesome",
     "fortawesome",
     "furigana",

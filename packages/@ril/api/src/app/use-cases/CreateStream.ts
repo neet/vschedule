@@ -82,7 +82,7 @@ export class CreateStream {
     const imageBuffer = Buffer.from(await image.arrayBuffer());
 
     return await this._mediaAttachmentRepository.save(
-      new MediaAttachmentFilename(`${nanoid()}_thumbnail.png`),
+      new MediaAttachmentFilename(`${nanoid()}_thumbnail.webp`),
       await sharp(imageBuffer).webp().toBuffer(),
     );
   }

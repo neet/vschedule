@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { Container } from 'inversify';
 
 import { JobRepository } from '../adapters/dal/JobRepository';
+import { JobRepositoryInMemory } from '../adapters/dal/JobRepositoryInMemory';
 import { MediaAttachmentRepositoryPrismaImpl } from '../adapters/dal/MediaAttachmentRepository';
 import { OrganizationRepository } from '../adapters/dal/OrganizationRepository';
 import { PerformerRepository } from '../adapters/dal/PerformerRepository';
@@ -16,9 +17,9 @@ import { IStorage } from '../app/services/Storage';
 import { IYoutubeApiService } from '../app/services/YoutubeApiService';
 import { IYoutubeWebsubService } from '../app/services/YoutubeWebsubService';
 import { TYPES } from '../types';
-import { YoutubeHmacMiddleware } from './middlewares/YoutubeHmacMiddleware';
 import { AppConfigEnvironment } from './services/AppConfigEnvironment';
 import { Storage } from './services/Storage';
+import { StorageInMemory } from './services/StorageInMemory';
 import { YoutubeApiService } from './services/YouTubeApiService';
 import { YoutubeWebsubService } from './services/YoutubeWebsubService';
 
@@ -27,19 +28,14 @@ const container = new Container({
   skipBaseClassChecks: true,
 });
 
-// prettier-ignore
 {
-  container
-    .bind<PrismaClient>(TYPES.PrismaClient)
-    .toConstantValue(
-      new PrismaClient({
-        log: ['query', 'info', 'warn', 'error'],
-      }),
-    );
+  container.bind<PrismaClient>(TYPES.PrismaClient).toConstantValue(
+    new PrismaClient({
+      log: ['query', 'info', 'warn', 'error'],
+    }),
+  );
 
-  container
-    .bind<IAppConfig>(TYPES.AppConfig)
-    .to(AppConfigEnvironment);
+  container.bind<IAppConfig>(TYPES.AppConfig).to(AppConfigEnvironment);
 
   container
     .bind<IPerformerRepository>(TYPES.PerformerRepository)
@@ -59,7 +55,13 @@ const container = new Container({
 
   container
     .bind<IJobRepository>(TYPES.JobRepository)
-    .to(JobRepository);
+    .to(JobRepository)
+    .when(() => process.env.NODE_ENV !== 'test');
+
+  container
+    .bind<IJobRepository>(TYPES.JobRepository)
+    .to(JobRepositoryInMemory)
+    .when(() => process.env.NODE_ENV === 'test');
 
   container
     .bind<IYoutubeApiService>(TYPES.YoutubeApiService)
@@ -69,9 +71,15 @@ const container = new Container({
     .bind<IYoutubeWebsubService>(TYPES.YoutubeWebsubService)
     .to(YoutubeWebsubService);
 
-  container.bind<IStorage>(TYPES.Storage).to(Storage);
+  container
+    .bind<IStorage>(TYPES.Storage)
+    .to(Storage)
+    .when(() => process.env.NODE_ENV !== 'test');
 
-  container.bind<YoutubeHmacMiddleware>(TYPES.YoutubeHmacMiddleware).to(YoutubeHmacMiddleware);
+  container
+    .bind<IStorage>(TYPES.Storage)
+    .to(StorageInMemory)
+    .when(() => process.env.NODE_ENV === 'test');
 }
 
 export { container };
