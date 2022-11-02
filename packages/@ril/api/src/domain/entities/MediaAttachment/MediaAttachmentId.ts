@@ -17,4 +17,6 @@ export class MediaAttachmentId extends ValueObject<string> {
   public static create(): MediaAttachmentId {
     return new MediaAttachmentId(nanoid());
   }
+
+  public static from = ValueObject.createFactory(MediaAttachmentId);
 }

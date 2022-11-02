@@ -1,42 +1,66 @@
 import { castDraft, produce } from 'immer';
 import { Mixin } from 'ts-mixer';
 
-import { Entity, PrimitiveOf } from '../../_core';
-import { Actor, IActor } from '../Actor';
+import { Entity, RehydrateParameters } from '../../_core';
+import {
+  ITimestamps,
+  TimestampMixin,
+  Timestamps,
+} from '../../_shared/Timestamps';
+import { Actor, ActorProps } from '../Actor';
 import { OrganizationId } from '../Organization';
 import { PerformerId } from './PerformerId';
 
-export interface IPerformer extends IActor {
+export interface PerformerProps extends ActorProps {
   readonly id: PerformerId;
-  readonly organizationId?: OrganizationId;
+  readonly timestamps: Timestamps;
+  readonly organizationId: OrganizationId | null;
 }
 
-const mixins = Mixin(Actor, Entity<PerformerId, IPerformer>);
-export class Performer extends mixins implements IPerformer {
-  public get organizationId(): OrganizationId | undefined {
+const mixins = Mixin(
+  Entity<PerformerId, PerformerProps>,
+  Actor,
+  TimestampMixin,
+);
+
+export class Performer extends mixins implements ITimestamps {
+  public get organizationId(): OrganizationId | null {
     return this._props.organizationId;
   }
 
-  public update(patch: Partial<PrimitiveOf<IPerformer>>) {
-    const updated = produce(this.toPrimitive(), (props) => {
+  public update(patch: Partial<RehydrateParameters<this>>) {
+    const updated = produce(this._props, (draft) => {
       Object.entries(patch).forEach(([key, value]) => {
-        if (value != null) {
+        if (value !== undefined) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (props as any)[key] = castDraft(value);
+          (draft as any)[key] = castDraft(value);
         }
       });
+      draft.timestamps = draft.timestamps.update();
     });
-    return Performer.fromPrimitive(updated);
+    return Performer.rehydrate(updated);
   }
 
-  public static fromPrimitive(props: PrimitiveOf<IPerformer>) {
+  public static rehydrate(props: RehydrateParameters<PerformerProps>) {
     return new Performer({
-      ...Actor.fromPrimitive(props),
-      id: new PerformerId(props.id),
+      ...Actor.rehydrate(props),
+      id: PerformerId.from(props.id),
+      timestamps: props.timestamps,
       organizationId:
-        props.organizationId != null
-          ? new OrganizationId(props.organizationId)
-          : undefined,
+        props.organizationId !== null
+          ? OrganizationId.from(props.organizationId)
+          : null,
+    });
+  }
+
+  public static create(
+    props: Omit<RehydrateParameters<PerformerProps>, 'id' | 'timestamps'>,
+  ) {
+    return Performer.rehydrate({
+      // ...Actor.create(props),
+      ...props,
+      id: PerformerId.create(),
+      timestamps: Timestamps.create(),
     });
   }
 }

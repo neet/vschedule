@@ -46,13 +46,13 @@ registry.registerPath({
 });
 
 const CreatePerformer = z.object({
-  name: z.string().optional(),
-  description: z.string().optional(),
-  color: z.string().optional(),
-  url: z.string().url().optional(),
+  name: z.string().nullable(),
+  description: z.string().nullable(),
+  color: z.string().nullable(),
+  url: z.string().url().nullable(),
   youtubeChannelId: z.string(),
-  twitterUsername: z.string().optional(),
-  organizationId: z.string().uuid().optional(),
+  twitterUsername: z.string().nullable(),
+  organizationId: z.string().nullable(),
 });
 
 registry.registerPath({
@@ -81,7 +81,17 @@ registry.registerPath({
   },
 });
 
-const UpdatePerformer = CreatePerformer.partial();
+const UpdatePerformer = z
+  .object({
+    name: z.string(),
+    color: z.string(),
+    description: z.string().nullable(),
+    url: z.string().url().nullable(),
+    youtubeChannelId: z.string(),
+    twitterUsername: z.string().nullable(),
+    organizationId: z.string().nullable(),
+  })
+  .partial();
 
 registry.registerPath({
   method: 'patch',

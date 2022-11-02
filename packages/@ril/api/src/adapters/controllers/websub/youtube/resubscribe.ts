@@ -24,7 +24,7 @@ export class YoutubeWebhookRefreshController extends BaseHttpController {
     body: RequestBody$resubscribeYoutubeWebsub['application/json'],
   ) {
     await this._resubscribeToYoutubeWebsub.invoke({
-      actorId: body.actorId,
+      performerId: body.performerId,
     });
   }
 }

@@ -17,4 +17,6 @@ export class StreamId extends ValueObject<string> {
   public static create(): StreamId {
     return new StreamId(nanoid());
   }
+
+  public static from = ValueObject.createFactory(StreamId);
 }

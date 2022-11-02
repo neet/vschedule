@@ -12,8 +12,8 @@ import {
   requestParam,
 } from 'inversify-express-utils';
 
+import { SaveYoutubeStream } from '../../../app/use-cases/CreateStream';
 import { RemoveStream } from '../../../app/use-cases/RemoveStream';
-import { SaveYoutubeStream } from '../../../app/use-cases/SaveYoutubeStream';
 import { ScheduleYoutubeWebsubResubscription } from '../../../app/use-cases/ScheduleYoutubeWebsubResubscription';
 import { TYPES } from '../../../types';
 

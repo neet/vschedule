@@ -15,4 +15,6 @@ export class MediaAttachmentBucket extends ValueObject<string> {
 
     super(value);
   }
+
+  public static from = ValueObject.createFactory(MediaAttachmentBucket);
 }

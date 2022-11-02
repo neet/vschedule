@@ -1,6 +1,9 @@
 import { inject, injectable } from 'inversify';
 
-import { MediaAttachment, MediaAttachmentId } from '../../domain/entities';
+import {
+  MediaAttachment,
+  MediaAttachmentFilename,
+} from '../../domain/entities';
 import { TYPES } from '../../types';
 import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
 
@@ -13,13 +16,15 @@ export class ShowMediaAttachment {
     private readonly _mediaRepository: IMediaAttachmentRepository,
   ) {}
 
-  async invoke(id: string): Promise<MediaAttachment> {
+  async invoke(filename: string): Promise<MediaAttachment> {
     const data = await this._mediaRepository.findById(
-      new MediaAttachmentId(id),
+      new MediaAttachmentFilename(filename),
     );
 
     if (data == null) {
-      throw new NoSuchMediaAttachmentError(`MediaAttachment not found: ${id}`);
+      throw new NoSuchMediaAttachmentError(
+        `MediaAttachment not found: ${filename}`,
+      );
     }
 
     return data;

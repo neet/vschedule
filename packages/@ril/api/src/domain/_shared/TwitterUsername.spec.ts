@@ -7,7 +7,7 @@ import {
 describe('TwitterUsername', () => {
   it('constructs', () => {
     const username = new TwitterUsername('twitter_japan');
-    expect(username.valueOf()).toBe('twitter_japan');
+    expect(username.value).toBe('twitter_japan');
   });
 
   it('throws when non-username char given', () => {

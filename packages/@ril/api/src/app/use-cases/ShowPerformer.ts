@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 
-import { ActorId, Organization, Performer } from '../../domain/entities';
+import { Organization, Performer, PerformerId } from '../../domain/entities';
 import { TYPES } from '../../types';
 import { IOrganizationRepository } from '../repositories/OrganizationRepository';
 import { IPerformerRepository } from '../repositories/PerformerRepository';
@@ -15,8 +15,8 @@ export class ShowPerformer {
     private readonly _organizationRepository: IOrganizationRepository,
   ) {}
 
-  async invoke(id: string): Promise<[Performer, Organization | undefined]> {
-    const actorId = new ActorId(id);
+  async invoke(id: string): Promise<[Performer, Organization | null]> {
+    const actorId = new PerformerId(id);
 
     const performer = await this._performerRepository.findById(actorId);
     if (!(performer instanceof Performer)) {
@@ -27,6 +27,6 @@ export class ShowPerformer {
       actorId,
     );
 
-    return [performer, organization ?? undefined];
+    return [performer, organization];
   }
 }

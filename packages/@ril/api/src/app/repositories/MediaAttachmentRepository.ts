@@ -6,6 +6,9 @@ import {
 
 export interface IMediaAttachmentRepository {
   findById(id: MediaAttachmentId): Promise<MediaAttachment | undefined>;
+  findByFilename(
+    filename: MediaAttachmentFilename,
+  ): Promise<MediaAttachment | undefined>;
 
   save(
     filename: MediaAttachmentFilename,

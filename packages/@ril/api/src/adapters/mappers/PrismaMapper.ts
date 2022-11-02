@@ -1,7 +1,10 @@
 import dayjs from 'dayjs';
 import { URL } from 'url';
 
+import { Color } from '../../domain/_shared';
+import { Timestamps } from '../../domain/_shared/Timestamps';
 import {
+  Actor,
   MediaAttachment,
   Organization,
   Performer,
@@ -9,112 +12,109 @@ import {
 } from '../../domain/entities';
 import * as Prisma from '.prisma/client';
 
-export const createMediaAttachmentFromPrisma = (
+export const rehydrateMediaAttachmentFromPrisma = (
   mediaAttachment: Prisma.MediaAttachment,
 ) => {
-  return MediaAttachment.fromPrimitive({
+  return MediaAttachment.rehydrate({
     id: mediaAttachment.id,
     base64: mediaAttachment.base64,
     filename: mediaAttachment.filename,
     width: mediaAttachment.width,
     height: mediaAttachment.height,
-    bucket: mediaAttachment.bucket ?? undefined,
-    createdAt: dayjs(mediaAttachment.createdAt),
-    updatedAt: dayjs(mediaAttachment.updatedAt),
+    bucket: mediaAttachment.bucket,
+    timestamps: new Timestamps({
+      createdAt: dayjs(mediaAttachment.createdAt),
+      updatedAt: dayjs(mediaAttachment.updatedAt),
+    }),
   });
 };
 
-const createActorProps = (
+const rehydrateActorFromPrisma = (
   actor: Prisma.Actor & { avatar: Prisma.MediaAttachment | null },
 ) => {
-  return {
-    id: actor.id,
+  return Actor.rehydrate({
+    // id: actor.id
     name: actor.name,
-    color: actor.color,
-    youtubeChannelId: actor.youtubeChannelId ?? undefined,
+    description: actor.description,
+    color: Color.fromHex(actor.color),
+    twitterUsername: actor.twitterUsername,
+    youtubeChannelId: actor.youtubeChannelId,
     avatar:
-      actor.avatar != null
-        ? createMediaAttachmentFromPrisma(actor.avatar)
-        : undefined,
-    url: actor.url != null ? new URL(actor.url) : undefined,
-  };
-};
-
-export const createPerformerFromPrisma = (
-  actor: Prisma.Actor & {
-    avatar: Prisma.MediaAttachment | null;
-    performer: Prisma.Performer | null;
-  },
-): Performer => {
-  if (actor.performer == null) {
-    throw new Error(`Unknown actor type #50 ${actor.id}`);
-  }
-
-  return Performer.fromPrimitive({
-    ...createActorProps(actor),
-    organizationId: actor.performer?.organizationId ?? undefined,
+      actor.avatar !== null
+        ? rehydrateMediaAttachmentFromPrisma(actor.avatar)
+        : null,
+    url: actor.url !== null ? new URL(actor.url) : null,
   });
 };
 
-export const createOrganizationFromPrisma = (
-  actor: Prisma.Actor & {
-    avatar: Prisma.MediaAttachment | null;
-    organization: Prisma.Organization | null;
-  },
-): Organization => {
-  if (actor.organization == null) {
-    throw new Error('Unknown actor type #66');
-  }
-
-  return Organization.fromPrimitive({
-    ...createActorProps(actor),
-  });
-};
-
-const createActorFromPrisma = (
-  actor: Prisma.Actor & {
-    avatar: Prisma.MediaAttachment | null;
-    performer: Prisma.Performer | null;
-    organization: Prisma.Organization | null;
-  },
-) => {
-  if (actor.performer != null) {
-    return createPerformerFromPrisma(actor);
-  }
-  if (actor.organization != null) {
-    return createOrganizationFromPrisma(actor);
-  }
-  throw new Error('Unknown actor type #87');
-};
-
-export const createStreamFromPrisma = (
-  stream: Prisma.Stream & {
+export const rehydratePerformerFromPrisma = (
+  performer: Prisma.Performer & {
     actor:
       | (Prisma.Actor & {
           avatar: Prisma.MediaAttachment | null;
-          performer: Prisma.Performer | null;
-          organization: Prisma.Organization | null;
         })
       | null;
+  },
+): Performer => {
+  if (performer.actor === null) {
+    throw new Error(`isolated performer ${performer.id}`);
+  }
+
+  return Performer.rehydrate({
+    ...rehydrateActorFromPrisma(performer.actor),
+    id: performer.id,
+    organizationId: performer.organizationId,
+    timestamps: new Timestamps({
+      createdAt: dayjs(performer.createdAt),
+      updatedAt: dayjs(performer.updatedAt),
+    }),
+  });
+};
+
+export const rehydrateOrganizationFromPrisma = (
+  organization: Prisma.Organization & {
+    actor:
+      | (Prisma.Actor & {
+          avatar: Prisma.MediaAttachment | null;
+        })
+      | null;
+  },
+): Organization => {
+  if (organization.actor == null) {
+    throw new Error(`isolated organization ${organization.id}`);
+  }
+
+  return Organization.rehydrate({
+    ...rehydrateActorFromPrisma(organization.actor),
+    id: organization.id,
+    timestamps: new Timestamps({
+      createdAt: dayjs(organization.createdAt),
+      updatedAt: dayjs(organization.updatedAt),
+    }),
+  });
+};
+
+export const rehydrateStreamFromPrisma = (
+  stream: Prisma.Stream & {
     thumbnail: Prisma.MediaAttachment | null;
   },
 ) => {
-  if (stream.actor == null) {
-    throw new Error('You forgot to JOIN actor');
-  }
-
-  return Stream.fromPrimitive({
+  return Stream.rehydrate({
     id: stream.id,
     url: new URL(stream.url),
-    createdAt: dayjs(stream.createdAt),
-    updatedAt: dayjs(stream.updatedAt),
     startedAt: dayjs(stream.startedAt),
-    actor: createActorFromPrisma(stream.actor),
+    timestamps: new Timestamps({
+      createdAt: dayjs(stream.createdAt),
+      updatedAt: dayjs(stream.updatedAt),
+    }),
+    ownerId: stream.ownerId,
+    castIds: [], // TODO キャスト
+    description: stream.description,
     title: stream.title,
-    endedAt: stream.endedAt != null ? dayjs(stream.endedAt) : undefined,
+    endedAt: stream.endedAt !== null ? dayjs(stream.endedAt) : null,
     thumbnail:
-      stream.thumbnail != null
-        ? createMediaAttachmentFromPrisma(stream.thumbnail)
-        : undefined,
+      stream.thumbnail !== null
+        ? rehydrateMediaAttachmentFromPrisma(stream.thumbnail)
+        : null,
   });
 };

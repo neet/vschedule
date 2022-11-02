@@ -4,8 +4,5 @@ import { registry } from '../../api';
 
 export const PathOrganizationId = registry.registerParameter(
   'PathOrganizationId',
-  z
-    .string()
-    .uuid()
-    .openapi({ param: { name: 'organizationId', in: 'path' } }),
+  z.string().openapi({ param: { name: 'organizationId', in: 'path' } }),
 );

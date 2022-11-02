@@ -5,7 +5,9 @@ import { ValueObject } from '../_core';
 export class InvalidColorError extends Error {}
 
 export class Color extends ValueObject<string> {
-  constructor(value: string) {
+  public readonly type = Symbol();
+
+  private constructor(value: string) {
     if (!validator.isHexColor(value)) {
       throw new InvalidColorError(`invalid hex color ${value}`);
     }

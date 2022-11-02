@@ -20,15 +20,10 @@ export class MediaAttachmentController extends BaseHttpController {
     super();
   }
 
-  @httpGet('/:id')
-  async show(@requestParam('id') _id: string) {
+  @httpGet('/:filename')
+  async show(@requestParam('filename') filename: string) {
     try {
-      const id = _id.split('.')[0];
-      if (id == null) {
-        return this.json({ message: 'Invalid media attachment id' }, 400);
-      }
-
-      const media = await this._showMediaAttachment.invoke(id);
+      const media = await this._showMediaAttachment.invoke(filename);
 
       return this.redirect(
         `https://storage.googleapis.com/${media.bucket?.value}/${media.filename.value}`,

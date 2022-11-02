@@ -1,9 +1,15 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { Duration } from 'dayjs/plugin/duration';
+import { produce } from 'immer';
+import { Mixin } from 'ts-mixer';
 import { URL } from 'url';
 
-import { Entity, PrimitiveOf } from '../../_core';
-import { ITimestamped } from '../../_shared/Timestamped';
+import { Entity, RehydrateParameters } from '../../_core';
+import {
+  ITimestamps,
+  TimestampMixin,
+  Timestamps,
+} from '../../_shared/Timestamps';
 import { MediaAttachment } from '../MediaAttachment';
 import { PerformerId } from '../Performer/PerformerId';
 import { StreamDescription } from './StreamDescription';
@@ -11,31 +17,30 @@ import { StreamId } from './StreamId';
 import { StreamTitle } from './StreamTitle';
 
 export class InvalidStreamTimestampError extends Error {}
+export class InvalidStreamEndingError extends Error {}
 
-export interface IStream extends ITimestamped {
+export interface StreamProps {
   readonly id: StreamId;
   readonly title: StreamTitle;
   readonly url: URL;
   readonly ownerId: PerformerId;
-  readonly description?: StreamDescription;
-  readonly thumbnail?: MediaAttachment;
+  readonly castIds: readonly PerformerId[];
   readonly startedAt: Dayjs;
-  readonly endedAt?: Dayjs;
+  readonly timestamps: Timestamps;
+  readonly description: StreamDescription | null;
+  readonly thumbnail: MediaAttachment | null;
+  readonly endedAt: Dayjs | null;
 }
 
-export class Stream extends Entity<StreamId, IStream> implements IStream {
-  public constructor(props: IStream) {
-    super(props);
+const mixins = Mixin(Entity<StreamId, StreamProps>, TimestampMixin);
 
-    if (props.createdAt.isAfter(props.updatedAt)) {
-      throw new InvalidStreamTimestampError(
-        'createdAt cannot be after updatedAt',
-      );
-    }
+export class Stream extends mixins implements ITimestamps {
+  public constructor(props: StreamProps) {
+    super(props);
 
     if (props.startedAt.isAfter(props.endedAt)) {
       throw new InvalidStreamTimestampError(
-        'createdAt cannot be after updatedAt',
+        'startedAt cannot be after endedAt',
       );
     }
   }
@@ -52,27 +57,19 @@ export class Stream extends Entity<StreamId, IStream> implements IStream {
     return this._props.url;
   }
 
-  public get thumbnail(): MediaAttachment | undefined {
+  public get thumbnail(): MediaAttachment | null {
     return this._props.thumbnail;
   }
 
-  public get description(): StreamDescription | undefined {
+  public get description(): StreamDescription | null {
     return this._props.description;
-  }
-
-  public get createdAt(): Dayjs {
-    return this._props.createdAt;
-  }
-
-  public get updatedAt(): Dayjs {
-    return this._props.updatedAt;
   }
 
   public get startedAt(): Dayjs {
     return this._props.startedAt;
   }
 
-  public get endedAt(): Dayjs | undefined {
+  public get endedAt(): Dayjs | null {
     return this._props.endedAt;
   }
 
@@ -80,28 +77,56 @@ export class Stream extends Entity<StreamId, IStream> implements IStream {
     return this._props.ownerId;
   }
 
-  public get duration(): Duration | undefined {
+  public get castIds(): readonly PerformerId[] {
+    return this._props.castIds;
+  }
+
+  public get duration(): Duration | null {
     if (this.endedAt == null) {
-      return;
+      return null;
     }
 
     return dayjs.duration(this.endedAt.diff(this.startedAt));
   }
 
-  public static fromPrimitive(props: PrimitiveOf<IStream>): Stream {
+  public end(endedAt: Dayjs): Stream {
+    if (this.endedAt !== null) {
+      throw new InvalidStreamEndingError(`Stream ${this.id} has already ended`);
+    }
+
+    return new Stream(
+      produce(this._props, (draft) => {
+        draft.endedAt = endedAt;
+        draft.timestamps = draft.timestamps.update();
+      }),
+    );
+  }
+
+  public static create(
+    props: Omit<RehydrateParameters<StreamProps>, 'id' | 'timestamps'>,
+  ) {
+    return Stream.rehydrate({
+      ...props,
+      id: StreamId.create().value,
+      timestamps: Timestamps.create(),
+    });
+  }
+
+  public static rehydrate(props: RehydrateParameters<StreamProps>): Stream {
     return new Stream({
-      id: new StreamId(props.id),
-      title: new StreamTitle(props.title),
+      id: StreamId.from(props.id),
+      title: StreamTitle.from(props.title),
       url: props.url,
-      ownerId: new PerformerId(props.ownerId),
+      ownerId: PerformerId.from(props.ownerId),
+      castIds: props.castIds,
       thumbnail: props.thumbnail,
       description:
-        props.description != null
-          ? new StreamDescription(props.description)
-          : undefined,
-      createdAt: props.createdAt,
-      updatedAt: props.updatedAt,
+        props.description !== null
+          ? StreamDescription.from(props.description)
+          : null,
+      timestamps: props.timestamps,
       startedAt: props.startedAt,
+      endedAt: props.endedAt,
     });
   }
 }

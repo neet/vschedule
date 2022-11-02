@@ -12,4 +12,6 @@ export class ActorDescription extends ValueObject<string> {
 
     super(value);
   }
+
+  public static from = ValueObject.createFactory(ActorDescription);
 }

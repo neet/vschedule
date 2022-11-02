@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 import { registry } from '../../api';
 import { Actor } from './Actor';
 import { Organization } from './Organization';
@@ -5,6 +7,9 @@ import { Organization } from './Organization';
 export const Performer = registry.register(
   'Performer',
   Actor.extend({
-    organization: Organization.optional(),
+    id: z.string(),
+    createdAt: z.string().openapi({ format: 'date-time' }),
+    updatedAt: z.string().openapi({ format: 'date-time' }),
+    organization: z.union([Organization, z.null()]),
   }),
 );

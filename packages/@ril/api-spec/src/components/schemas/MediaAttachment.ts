@@ -5,7 +5,7 @@ import { registry } from '../../api';
 export const MediaAttachment = registry.register(
   'MediaAttachment',
   z.object({
-    id: z.string().uuid(),
+    id: z.string(),
     filename: z.string(),
     base64: z.string(),
     width: z.number(),

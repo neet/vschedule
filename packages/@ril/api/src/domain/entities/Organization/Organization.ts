@@ -1,32 +1,43 @@
-import { Dayjs } from 'dayjs';
 import { Mixin } from 'ts-mixer';
 
-import { Entity, PrimitiveOf } from '../../_core';
-import { ITimestamped } from '../../_shared/Timestamped';
-import { Actor, IActor } from '../Actor';
+import { Entity, RehydrateParameters } from '../../_core';
+import {
+  ITimestamps,
+  TimestampMixin,
+  Timestamps,
+} from '../../_shared/Timestamps';
+import { Actor, ActorProps } from '../Actor';
 import { OrganizationId } from './OrganizationId';
 
-export interface IOrganization extends IActor, ITimestamped {
+export interface OrganizationProps extends ActorProps {
   readonly id: OrganizationId;
+  readonly timestamps: Timestamps;
 }
 
-const mixins = Mixin(Actor, Entity<OrganizationId, IOrganization>);
+const mixins = Mixin(
+  Actor,
+  Entity<OrganizationId, OrganizationProps>,
+  TimestampMixin,
+);
 
-export class Organization extends mixins implements IOrganization {
-  get createdAt(): Dayjs {
-    return this._props.createdAt;
+export class Organization extends mixins implements ITimestamps {
+  public static create(
+    props: Omit<RehydrateParameters<OrganizationProps>, 'id' | 'timestamps'>,
+  ): Organization {
+    return Organization.rehydrate({
+      ...props,
+      id: OrganizationId.create(),
+      timestamps: Timestamps.create(),
+    });
   }
 
-  get updatedAt(): Dayjs {
-    return this._props.updatedAt;
-  }
-
-  public static fromPrimitive(props: PrimitiveOf<IOrganization>): Organization {
+  public static rehydrate(
+    props: RehydrateParameters<OrganizationProps>,
+  ): Organization {
     return new Organization({
-      ...Actor.fromPrimitive(props),
-      id: new OrganizationId(props.id),
-      createdAt: props.createdAt,
-      updatedAt: props.updatedAt,
+      ...Actor.rehydrate(props),
+      id: OrganizationId.from(props.id),
+      timestamps: props.timestamps,
     });
   }
 }

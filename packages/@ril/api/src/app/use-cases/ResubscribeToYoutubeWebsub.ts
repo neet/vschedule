@@ -1,12 +1,12 @@
 import { inject, injectable } from 'inversify';
 
-import { ActorId } from '../../domain/entities';
+import { PerformerId } from '../../domain/entities';
 import { TYPES } from '../../types';
 import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { IYoutubeWebsubService } from '../services/YoutubeWebsubService';
 
 export interface ResubscribeToYoutubeWebsubParams {
-  readonly actorId: string;
+  readonly performerId: string;
 }
 
 @injectable()
@@ -22,15 +22,17 @@ export class ResubscribeToYoutubeWebsub {
   async invoke(params: ResubscribeToYoutubeWebsubParams): Promise<void> {
     // TODO: actorから取得するやつがあってもいいかなぁ。どうしよう
     const actor = await this._performerRepository.findById(
-      new ActorId(params.actorId),
+      new PerformerId(params.performerId),
     );
 
     if (actor == null) {
-      throw new Error(`Actor with id ${params.actorId} not found`);
+      throw new Error(`Actor with id ${params.performerId} not found`);
     }
 
     if (actor.youtubeChannelId == null) {
-      throw new Error(`Actor with id ${params.actorId} has no youtube channel`);
+      throw new Error(
+        `Actor with id ${params.performerId} has no youtube channel`,
+      );
     }
 
     await this._youtubeWebsubService.subscribeToChannel(

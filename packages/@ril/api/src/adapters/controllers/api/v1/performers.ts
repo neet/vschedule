@@ -95,12 +95,14 @@ export class PerformersController extends BaseHttpController {
     @requestBody() body: RequestBody$createPerformer['application/json'],
   ) {
     const [performer, organization] = await this._createPerformer.invoke({
+      youtubeChannelId: body.youtubeChannelId,
+      websubEnabled: false,
       name: body.name,
       description: body.description,
       color: body.color,
-      youtubeChannelId: body.youtubeChannelId,
       twitterUsername: body.twitterUsername,
-      websubEnabled: false,
+      url: body.url,
+      organizationId: body.organizationId,
     });
 
     return this._presenter.presentPerformer(performer, organization);

@@ -1,23 +1,23 @@
 import { URL } from 'url';
 
-import { PrimitiveOf } from '../../_core';
+import { RehydrateParameters } from '../../_core';
 import { Color, TwitterUsername, YoutubeChannelId } from '../../_shared';
 import { MediaAttachment } from '../MediaAttachment';
 import { ActorDescription } from './ActorDescription';
 import { ActorName } from './ActorName';
 
-export interface IActor {
+export interface ActorProps {
   readonly name: ActorName;
   readonly color: Color;
-  readonly description?: ActorDescription;
-  readonly avatar?: MediaAttachment;
-  readonly url?: URL;
-  readonly twitterUsername?: TwitterUsername;
-  readonly youtubeChannelId?: YoutubeChannelId;
+  readonly description: ActorDescription | null;
+  readonly avatar: MediaAttachment | null;
+  readonly url: URL | null;
+  readonly twitterUsername: TwitterUsername | null;
+  readonly youtubeChannelId: YoutubeChannelId | null;
 }
 
-export abstract class Actor implements IActor {
-  protected abstract readonly _props: IActor;
+export abstract class Actor {
+  protected abstract readonly _props: ActorProps;
 
   public get name(): ActorName {
     return this._props.name;
@@ -27,43 +27,46 @@ export abstract class Actor implements IActor {
     return this._props.color;
   }
 
-  public get url(): URL | undefined {
+  public get url(): URL | null {
     return this._props.url;
   }
 
-  public get description(): ActorDescription | undefined {
+  public get description(): ActorDescription | null {
     return this._props.description;
   }
 
-  public get avatar(): MediaAttachment | undefined {
+  public get avatar(): MediaAttachment | null {
     return this._props.avatar;
   }
 
-  public get twitterUsername(): TwitterUsername | undefined {
+  public get twitterUsername(): TwitterUsername | null {
     return this._props.twitterUsername;
   }
 
-  public get youtubeChannelId(): YoutubeChannelId | undefined {
+  public get youtubeChannelId(): YoutubeChannelId | null {
     return this._props.youtubeChannelId;
   }
 
-  public static fromPrimitive(props: PrimitiveOf<IActor>): IActor {
+  public static rehydrate(props: RehydrateParameters<ActorProps>): ActorProps {
     return {
-      name: new ActorName(props.name),
-      color: Color.fromHex(props.color),
+      name: ActorName.from(props.name),
+      color: props.color,
       description:
-        props.description != null
-          ? new ActorDescription(props.description)
-          : undefined,
+        props.description !== null
+          ? ActorDescription.from(props.description)
+          : null,
       avatar: props.avatar,
+      url: props.url,
       youtubeChannelId:
-        props.youtubeChannelId != null
-          ? new YoutubeChannelId(props.youtubeChannelId)
-          : undefined,
+        props.youtubeChannelId !== null
+          ? YoutubeChannelId.from(props.youtubeChannelId)
+          : null,
       twitterUsername:
-        props.twitterUsername != null
-          ? new TwitterUsername(props.twitterUsername)
-          : undefined,
+        props.twitterUsername !== null
+          ? TwitterUsername.from(props.twitterUsername)
+          : null,
     };
   }
+
+  public static create = Actor.rehydrate;
 }

@@ -1,14 +1,16 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
+import { nanoid } from 'nanoid';
 
 import {
   FindOrganizationParams,
   IOrganizationRepository,
 } from '../../app/repositories/OrganizationRepository';
+import { unwrap } from '../../domain/_core';
 import { YoutubeChannelId } from '../../domain/_shared';
-import { ActorId, Organization } from '../../domain/entities';
+import { Organization, OrganizationId } from '../../domain/entities';
 import { TYPES } from '../../types';
-import { createOrganizationFromPrisma } from '../mappers/PrismaMapper';
+import { rehydrateOrganizationFromPrisma } from '../mappers/PrismaMapper';
 
 @injectable()
 export class OrganizationRepository implements IOrganizationRepository {
@@ -18,91 +20,101 @@ export class OrganizationRepository implements IOrganizationRepository {
   ) {}
 
   async create(organization: Organization): Promise<Organization> {
-    const entry: Prisma.ActorUncheckedCreateInput = {
+    const entry: Prisma.OrganizationCreateInput = {
       id: organization.id.value,
-      name: organization.name.value,
-      color: organization.color.value,
-      description: organization.description?.value,
-      url: organization.url?.toString(),
-      twitterUsername: organization.twitterUsername?.value,
-      youtubeChannelId: organization.youtubeChannelId?.value,
-      avatarId:
-        organization.avatar != null ? organization.avatar.id.value : undefined,
-      organization: {
-        create: {},
+      createdAt: organization.createdAt.toISOString(),
+      updatedAt: organization.updatedAt.toISOString(),
+      actor: {
+        create: {
+          id: nanoid(),
+          name: organization.name.value,
+          color: organization.color.value,
+          description: unwrap(organization.description),
+          url: organization.url === null ? null : organization.url.toString(),
+          twitterUsername: unwrap(organization.twitterUsername),
+          youtubeChannelId: unwrap(organization.youtubeChannelId),
+          avatarId:
+            organization.avatar !== null ? organization.avatar.id.value : null,
+        },
       },
     };
 
-    const data = await this._prisma.actor.upsert({
-      where: {
-        id: organization.id.value,
-      },
-      create: entry,
-      update: entry,
+    const data = await this._prisma.organization.create({
+      data: entry,
       include: {
-        avatar: true,
-        organization: true,
+        actor: {
+          include: {
+            avatar: true,
+          },
+        },
       },
     });
 
-    return createOrganizationFromPrisma(data);
+    return rehydrateOrganizationFromPrisma(data);
   }
 
   async update(organization: Organization): Promise<Organization> {
-    const entry: Prisma.ActorUncheckedUpdateInput = {
-      name: organization.name.value,
-      color: organization.color.value,
-      description: organization.description?.value,
-      url: organization.url?.toString(),
-      twitterUsername: organization.twitterUsername?.value,
-      youtubeChannelId: organization.youtubeChannelId?.value,
-      avatarId:
-        organization.avatar != null ? organization.avatar.id.value : undefined,
-      organization: {
-        create: {},
+    const entry: Prisma.OrganizationUpdateInput = {
+      updatedAt: organization.updatedAt.toISOString(),
+      actor: {
+        update: {
+          id: nanoid(),
+          name: organization.name.value,
+          color: organization.color.value,
+          description: unwrap(organization.description),
+          url: organization.url === null ? null : organization.url.toString(),
+          twitterUsername: unwrap(organization.twitterUsername),
+          youtubeChannelId: unwrap(organization.youtubeChannelId),
+          avatarId:
+            organization.avatar !== null ? organization.avatar.id.value : null,
+        },
       },
     };
 
-    const data = await this._prisma.actor.update({
+    const data = await this._prisma.organization.update({
       where: {
         id: organization.id.value,
       },
       data: entry,
       include: {
-        avatar: true,
-        organization: true,
+        actor: {
+          include: {
+            avatar: true,
+          },
+        },
       },
     });
 
-    return createOrganizationFromPrisma(data);
+    return rehydrateOrganizationFromPrisma(data);
   }
 
   async find(params: FindOrganizationParams): Promise<Organization[]> {
-    const data = await this._prisma.actor.findMany({
+    const data = await this._prisma.organization.findMany({
       skip: params.offset,
       take: params.limit,
-      where: {
-        NOT: {
-          organization: null,
-        },
-      },
       include: {
-        avatar: true,
-        organization: true,
+        actor: {
+          include: {
+            avatar: true,
+          },
+        },
       },
     });
 
-    return data.map((d) => createOrganizationFromPrisma(d));
+    return data.map((d) => rehydrateOrganizationFromPrisma(d));
   }
 
-  async findById(id: ActorId): Promise<Organization | null> {
-    const data = await this._prisma.actor.findFirst({
+  async findById(id: OrganizationId): Promise<Organization | null> {
+    const data = await this._prisma.organization.findFirst({
       where: {
         id: id.value,
       },
       include: {
-        avatar: true,
-        organization: true,
+        actor: {
+          include: {
+            avatar: true,
+          },
+        },
       },
     });
 
@@ -110,25 +122,26 @@ export class OrganizationRepository implements IOrganizationRepository {
       return null;
     }
 
-    return createOrganizationFromPrisma(data);
+    return rehydrateOrganizationFromPrisma(data);
   }
 
-  async findByPerformerId(id: ActorId): Promise<Organization | null> {
-    const data = await this._prisma.actor.findFirst({
+  async findByPerformerId(id: OrganizationId): Promise<Organization | null> {
+    const data = await this._prisma.organization.findFirst({
       where: {
-        organization: {
-          performers: {
-            some: {
-              actorId: {
-                equals: id.value,
-              },
+        performers: {
+          some: {
+            actorId: {
+              equals: id.value,
             },
           },
         },
       },
       include: {
-        avatar: true,
-        organization: true,
+        actor: {
+          include: {
+            avatar: true,
+          },
+        },
       },
     });
 
@@ -136,19 +149,24 @@ export class OrganizationRepository implements IOrganizationRepository {
       return null;
     }
 
-    return createOrganizationFromPrisma(data);
+    return rehydrateOrganizationFromPrisma(data);
   }
 
   async findByYoutubeChannelId(
     id: YoutubeChannelId,
   ): Promise<Organization | null> {
-    const data = await this._prisma.actor.findFirst({
+    const data = await this._prisma.organization.findFirst({
       where: {
-        youtubeChannelId: id.value,
+        actor: {
+          youtubeChannelId: id.value,
+        },
       },
       include: {
-        avatar: true,
-        organization: true,
+        actor: {
+          include: {
+            avatar: true,
+          },
+        },
       },
     });
 
@@ -156,6 +174,6 @@ export class OrganizationRepository implements IOrganizationRepository {
       return null;
     }
 
-    return createOrganizationFromPrisma(data);
+    return rehydrateOrganizationFromPrisma(data);
   }
 }
