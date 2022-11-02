@@ -46,8 +46,8 @@ registry.registerPath({
 
 registry.registerPath({
   method: 'post',
-  path: '/websub/youtube/resubscribe',
-  operationId: 'resubscribeYoutubeWebsub',
+  path: '/websub/youtube/subscribe',
+  operationId: 'subscribeYoutubeWebsub',
   request: {
     body: {
       required: true,

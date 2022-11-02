@@ -37,7 +37,6 @@ export const installSeed = async () => {
   const createPerformer = container.get(CreatePerformer);
   await createPerformer.invoke({
     youtubeChannelId: 'UCjXHjE-OBd--vYcT83XdzTA',
-    websubEnabled: false,
     url: null,
     twitterUsername: null,
     organizationId: organization?.id.value ?? null,

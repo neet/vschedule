@@ -20,7 +20,6 @@ import { IYoutubeWebsubService } from '../services/YoutubeWebsubService';
 
 export interface CreatePerformerParams {
   readonly youtubeChannelId: string;
-  readonly websubEnabled: boolean;
   readonly url: string | null;
   readonly twitterUsername: string | null;
   readonly organizationId: string | null;
@@ -63,7 +62,6 @@ export class CreatePerformer {
       url,
       twitterUsername,
       organizationId,
-      websubEnabled,
     } = params;
 
     const organization = await this._fetchOrganization(organizationId);
@@ -104,10 +102,6 @@ export class CreatePerformer {
     });
 
     await this._performerRepository.create(performer);
-    if (websubEnabled) {
-      await this._youtubeWebsubService.subscribeToChannel(youtubeChannelId);
-    }
-
     return [performer, organization ?? null];
   }
 

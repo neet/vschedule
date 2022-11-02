@@ -3,7 +3,7 @@ import '../adapters/controllers/api/v1/organizations';
 import '../adapters/controllers/api/v1/media';
 import '../adapters/controllers/api/v1/streams';
 import '../adapters/controllers/websub/youtube';
-import '../adapters/controllers/websub/youtube/resubscribe';
+import '../adapters/controllers/websub/youtube/subscribe';
 import './setup';
 
 import api from '@ril/api-spec';

@@ -10,7 +10,7 @@ export interface ResubscribeToYoutubeWebsubParams {
 }
 
 @injectable()
-export class ResubscribeToYoutubeWebsub {
+export class SubscribeToYoutubeWebsub {
   constructor(
     @inject(TYPES.PerformerRepository)
     private readonly _performerRepository: IPerformerRepository,
@@ -20,7 +20,6 @@ export class ResubscribeToYoutubeWebsub {
   ) {}
 
   async invoke(params: ResubscribeToYoutubeWebsubParams): Promise<void> {
-    // TODO: actorから取得するやつがあってもいいかなぁ。どうしよう
     const actor = await this._performerRepository.findById(
       new PerformerId(params.performerId),
     );

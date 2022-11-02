@@ -78,7 +78,6 @@ const main = async (): Promise<void> => {
       description: performer.description ?? null,
       url: performer.url ?? null,
       twitterUsername: performer.twitterUsername ?? null,
-      websubEnabled: false,
     });
   }
 
@@ -102,7 +101,6 @@ const main = async (): Promise<void> => {
       description: performer.description ?? null,
       url: performer.url ?? null,
       twitterUsername: performer.twitterUsername ?? null,
-      websubEnabled: false,
     });
   }
 };

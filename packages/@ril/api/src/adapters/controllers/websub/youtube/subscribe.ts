@@ -7,13 +7,13 @@ import {
   requestBody,
 } from 'inversify-express-utils';
 
-import { ResubscribeToYoutubeWebsub } from '../../../../app/use-cases/ResubscribeToYoutubeWebsub';
+import { SubscribeToYoutubeWebsub } from '../../../../app/use-cases/SubscribeToYoutubeWebsub';
 
-@controller('/websub/youtube/resubscribe')
+@controller('/websub/youtube/subscribe')
 export class YoutubeWebsubRefreshController extends BaseHttpController {
   public constructor(
-    @inject(ResubscribeToYoutubeWebsub)
-    private readonly _resubscribeToYoutubeWebsub: ResubscribeToYoutubeWebsub,
+    @inject(SubscribeToYoutubeWebsub)
+    private readonly _subscribeToYoutubeWebsub: SubscribeToYoutubeWebsub,
   ) {
     super();
   }
@@ -23,7 +23,7 @@ export class YoutubeWebsubRefreshController extends BaseHttpController {
     @requestBody()
     body: RequestBody$resubscribeYoutubeWebsub['application/json'],
   ) {
-    await this._resubscribeToYoutubeWebsub.invoke({
+    await this._subscribeToYoutubeWebsub.invoke({
       performerId: body.performerId,
     });
   }
