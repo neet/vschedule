@@ -24,12 +24,6 @@ export class PerformerRepository implements IPerformerRepository {
       id: performer.id.value,
       createdAt: performer.createdAt.toISOString(),
       updatedAt: performer.updatedAt.toISOString(),
-      organization: {
-        connect: {
-          // なんかこれでいいっぽい
-          id: performer.organizationId?.value,
-        },
-      },
       actor: {
         create: {
           id: nanoid(),
@@ -43,6 +37,14 @@ export class PerformerRepository implements IPerformerRepository {
         },
       },
     };
+
+    if (performer.organizationId) {
+      entry.organization = {
+        connect: {
+          id: performer.organizationId.value,
+        },
+      };
+    }
 
     const data = await this._prisma.performer.create({
       data: entry,
@@ -63,11 +65,6 @@ export class PerformerRepository implements IPerformerRepository {
       // id: performer.id.value,
       // createdAt: performer.createdAt.toISOString(),
       updatedAt: performer.updatedAt.toISOString(),
-      organization: {
-        update: {
-          id: performer.organizationId?.value,
-        },
-      },
       actor: {
         update: {
           name: performer.name.value,
@@ -80,6 +77,14 @@ export class PerformerRepository implements IPerformerRepository {
         },
       },
     };
+
+    if (performer.organizationId) {
+      entry.organization = {
+        update: {
+          id: performer.organizationId.value,
+        },
+      };
+    }
 
     const data = await this._prisma.performer.update({
       where: {

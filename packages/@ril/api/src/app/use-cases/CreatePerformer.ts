@@ -21,12 +21,16 @@ import { IYoutubeWebsubService } from '../services/YoutubeWebsubService';
 export interface CreatePerformerParams {
   readonly youtubeChannelId: string;
   readonly websubEnabled: boolean;
-  readonly name: string | null;
-  readonly description: string | null;
-  readonly color: string | null;
   readonly url: string | null;
   readonly twitterUsername: string | null;
   readonly organizationId: string | null;
+
+  /** @default string Generated from Youtube avatar  */
+  readonly color?: string | null;
+  /** @default string YouTube channel name  */
+  readonly name?: string | null;
+  /** @default string YouTube channel description  */
+  readonly description?: string | null;
 }
 
 @injectable()
@@ -92,7 +96,7 @@ export class CreatePerformer {
       name: name ?? channel.name,
       avatar,
       youtubeChannelId,
-      description: description ?? null,
+      description: description ?? channel.description ?? null,
       color: Color.fromHex(color ?? primaryColor.hex()),
       url: url != null ? new URL(url) : null,
       twitterUsername: twitterUsername ?? null,

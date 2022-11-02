@@ -54,7 +54,7 @@ export class PerformersController extends BaseHttpController {
       );
     }
 
-    return this._presenter.presentPerformer(performer, organization);
+    return this.json(this._presenter.presentPerformer(performer, organization));
   }
 
   @httpPatch('/:performerId')
@@ -74,7 +74,7 @@ export class PerformersController extends BaseHttpController {
       },
     );
 
-    return this._presenter.presentPerformer(performer, organization);
+    return this.json(this._presenter.presentPerformer(performer, organization));
   }
 
   @httpGet('/')
@@ -105,6 +105,6 @@ export class PerformersController extends BaseHttpController {
       organizationId: body.organizationId,
     });
 
-    return this._presenter.presentPerformer(performer, organization);
+    return this.json(this._presenter.presentPerformer(performer, organization));
   }
 }

@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import '../adapters/controllers/api/v1/performers';
 import '../adapters/controllers/api/v1/organizations';
 import '../adapters/controllers/api/v1/media';
@@ -14,11 +13,8 @@ import xmlParser from 'express-xml-bodyparser';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import swaggerUi from 'swagger-ui-express';
 
-import { IAppConfig } from '../app/services/AppConfig/AppConfig';
-import { TYPES } from '../types';
 import { container } from './inversify-config';
 
-const config = container.get<IAppConfig>(TYPES.AppConfig);
 const server = new InversifyExpressServer(container);
 
 server.setConfig((app) => {
@@ -47,9 +43,4 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   });
 });
 
-app.listen(config.entries.server.port, () => {
-  // eslint-disable-next-line no-console
-  console.log(
-    `server is ready at http://localhost:${config.entries.server.port}/api-docs`,
-  );
-});
+export { app };
