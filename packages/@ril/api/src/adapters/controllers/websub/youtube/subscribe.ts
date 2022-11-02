@@ -1,4 +1,4 @@
-import { RequestBody$resubscribeYoutubeWebsub } from '@ril/api-client';
+import { RequestBody$subscribeYoutubeWebsub } from '@ril/api-client';
 import { inject } from 'inversify';
 import {
   BaseHttpController,
@@ -21,7 +21,7 @@ export class YoutubeWebsubRefreshController extends BaseHttpController {
   @httpPost('/')
   public async refresh(
     @requestBody()
-    body: RequestBody$resubscribeYoutubeWebsub['application/json'],
+    body: RequestBody$subscribeYoutubeWebsub['application/json'],
   ) {
     await this._subscribeToYoutubeWebsub.invoke({
       performerId: body.performerId,

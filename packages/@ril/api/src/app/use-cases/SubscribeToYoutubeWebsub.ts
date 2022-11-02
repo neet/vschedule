@@ -34,6 +34,7 @@ export class SubscribeToYoutubeWebsub {
       );
     }
 
+    // TODO: ドメインモデルに書いてイベント的な感じで反映させたい
     await this._youtubeWebsubService.subscribeToChannel(
       actor.youtubeChannelId.value,
     );

@@ -5,11 +5,21 @@ import path from 'path';
 import { URLSearchParams } from 'url';
 
 import { IAppConfig } from '../../../src/app/services/AppConfig/AppConfig';
+import { IYoutubeWebsubService } from '../../../src/app/services/YoutubeWebsubService';
 import { container } from '../../../src/infra/inversify-config';
 import { TYPES } from '../../../src/types';
 import { client, request } from '../../test-utils/client';
 
+const websubService: IYoutubeWebsubService = {
+  subscribeToChannel: jest.fn().mockResolvedValue(undefined),
+};
+
 describe('YoutubeWebsubController', () => {
+  beforeAll(() => {
+    container.snapshot();
+    container.rebind(TYPES.YoutubeWebsubService).toConstantValue(websubService);
+  });
+
   afterEach(async () => {
     const prisma = new PrismaClient();
     const record = await prisma.stream.findFirst({
@@ -22,6 +32,10 @@ describe('YoutubeWebsubController', () => {
         where: { id: record.id },
       });
     }
+  });
+
+  afterAll(() => {
+    container.restore();
   });
 
   it('can verify WebSub subscription', async () => {
@@ -89,4 +103,17 @@ describe('YoutubeWebsubController', () => {
 
     expect(stream).toBeUndefined();
   });
+
+  // Seedで入るperformerIdがわからないせいで冗長になっている。
+  // seedスクリプトは普通にDBに入るデータ形式を書いたほうがいいんだろうか。
+
+  // it('can subscribe to a youtube websub topic', async () => {
+  //   await client.subscribeYoutubeWebsub({
+  //     requestBody: {
+  //       performerId: '---',
+  //     },
+  //   });
+  //   expect(websubService.subscribeToChannel).toBeCalledWith({
+  //   })
+  // });
 });
