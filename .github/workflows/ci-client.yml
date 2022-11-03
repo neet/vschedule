@@ -8,6 +8,8 @@ on:
     branches:
       - '*'
     paths:
+      - packages/@ril/api-client/**
+      - packages/@ril/api-spec/**
       - packages/@ril/client/**
       - packages/@ril/eslint-plugin/**
       - packages/@ril/tsconfig/**
@@ -21,30 +23,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 2
 
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'
-
-      # https://dev.to/mpocock1/how-to-cache-nodemodules-in-github-actions-with-yarn-24e
-      - name: Restore Yarn Caches
-        uses: actions/cache@v2.1.7
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-client-${{ hashFiles('**/yarn.lock') }}
+          node-version: '16'
 
       # c.f. https://github.com/vercel/next.js/blob/canary/errors/no-cache.md#github-actions
       - name: Restore Next.js Caches
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
-          path: ${{ github.workspace }}/packages/@ril/client/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/packages/@ril/client.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
       - name: Yarn
         run: |

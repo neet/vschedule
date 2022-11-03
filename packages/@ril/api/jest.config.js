@@ -1,18 +1,26 @@
-// const esModules = ['nanoid'].join('|');
-
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-  setupFilesAfterEnv: ['<rootDir>/test-utils/setup.ts'],
-  collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}'],
-
-  // Uncomment when you use ESM
-  // preset: 'ts-jest/presets/js-with-ts-esm',
-  // transformIgnorePatterns: [`/node_modules/(?!(${esModules}))`],
+  projects: [
+    {
+      displayName: 'Unit',
+      preset: 'ts-jest',
+      testEnvironment: 'node',
+      testMatch: ['<rootDir>/src/**/*.spec.ts'],
+      setupFilesAfterEnv: ['<rootDir>/test-utils/setup-unit.ts'],
+    },
+    {
+      displayName: 'E2E',
+      preset: 'ts-jest',
+      testEnvironment: 'node',
+      testMatch: ['<rootDir>/test/**/*.spec.{ts,tsx}'],
+      setupFilesAfterEnv: ['<rootDir>/test-utils/setup-e2e.ts'],
+    },
+  ],
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/**/*.d.ts',
+    '!src/**/*.spec.ts',
+    '!src/**/__mocks__/**',
+    '!src/**/__fixtures__/**',
+  ],
 };
-
-// TODO: runInBand しないと重い。
-// これ無効化するとか？
-// https://kulshekhar.github.io/ts-jest/docs/getting-started/options/diagnostics
-// runInBandはCLI引数渡さないと渡らないから、maxWorkers: 1?みたいなjest.configで設定できるやつ探す

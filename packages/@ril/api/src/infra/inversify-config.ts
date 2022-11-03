@@ -19,7 +19,7 @@ import { IYoutubeWebsubService } from '../app/services/YoutubeWebsubService';
 import { TYPES } from '../types';
 import { AppConfigEnvironment } from './services/AppConfigEnvironment';
 import { Storage } from './services/Storage';
-import { StorageInMemory } from './services/StorageInMemory';
+import { StorageFilesystem } from './services/StorageFilesystem';
 import { YoutubeApiService } from './services/YouTubeApiService';
 import { YoutubeWebsubService } from './services/YoutubeWebsubService';
 
@@ -78,7 +78,7 @@ const container = new Container({
 
   container
     .bind<IStorage>(TYPES.Storage)
-    .to(StorageInMemory)
+    .to(StorageFilesystem)
     .when(() => process.env.NODE_ENV === 'test');
 }
 

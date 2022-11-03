@@ -1,4 +1,4 @@
-import { client } from '../../test-utils/client';
+import { client } from '../../../test-utils/client';
 
 describe('Performer', () => {
   it('can create performer', async () => {

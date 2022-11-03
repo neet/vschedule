@@ -6,6 +6,8 @@ import { isNanoid } from '../../_core/isNanoid';
 export class InvalidPerformerIdError extends Error {}
 
 export class PerformerId extends ValueObject<string> {
+  readonly tag = Symbol();
+
   public constructor(value: string) {
     if (!isNanoid(value)) {
       throw new InvalidPerformerIdError('Invalid nanoid');

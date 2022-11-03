@@ -5,8 +5,8 @@ import {
 
 describe('MediaAttachmentFilename', () => {
   it('can be constructed', () => {
-    const bucket = new MediaAttachmentFilename('bucket');
-    expect(bucket.value).toBe('bucket');
+    const filename = new MediaAttachmentFilename('file.png');
+    expect(filename.value).toBe('file.png');
   });
 
   it('throws an error when characters are invalid', () => {
@@ -15,7 +15,7 @@ describe('MediaAttachmentFilename', () => {
     }).toThrowError(InvalidFilenameError);
   });
 
-  it('throws an error when the bucket name is too long', () => {
+  it('throws an error when the filename is too long', () => {
     expect(() => {
       new MediaAttachmentFilename('a'.repeat(300));
     }).toThrowError(InvalidFilenameError);

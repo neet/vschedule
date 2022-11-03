@@ -8,7 +8,11 @@ import {
 } from '../../app/repositories/OrganizationRepository';
 import { unwrap } from '../../domain/_core';
 import { YoutubeChannelId } from '../../domain/_shared';
-import { Organization, OrganizationId } from '../../domain/entities';
+import {
+  Organization,
+  OrganizationId,
+  PerformerId,
+} from '../../domain/entities';
 import { TYPES } from '../../types';
 import { rehydrateOrganizationFromPrisma } from '../mappers/PrismaMapper';
 
@@ -125,14 +129,12 @@ export class OrganizationRepository implements IOrganizationRepository {
     return rehydrateOrganizationFromPrisma(data);
   }
 
-  async findByPerformerId(id: OrganizationId): Promise<Organization | null> {
+  async findByPerformerId(id: PerformerId): Promise<Organization | null> {
     const data = await this._prisma.organization.findFirst({
       where: {
         performers: {
           some: {
-            actorId: {
-              equals: id.value,
-            },
+            id: id.value,
           },
         },
       },

@@ -9,6 +9,8 @@ on:
     branches:
       - '*'
     paths:
+      - packages/@ril/api-client/**
+      - packages/@ril/api-spec/**
       - packages/@ril/client/**
       - packages/@ril/eslint-plugin/**
       - packages/@ril/tsconfig/**
@@ -25,16 +27,9 @@ jobs:
           fetch-depth: 2
 
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'
-
-      # https://dev.to/mpocock1/how-to-cache-nodemodules-in-github-actions-with-yarn-24e
-      - name: Restore Yarn Caches
-        uses: actions/cache@v2.1.7
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-client-${{ hashFiles('**/yarn.lock') }}
+          node-version: '16'
 
       - name: Yarn
         run: |

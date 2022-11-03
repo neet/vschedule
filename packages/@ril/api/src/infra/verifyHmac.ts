@@ -39,14 +39,14 @@ export const verifyHmac = (
   }
   const theirDigest = Buffer.from(theirDigestStr, 'hex');
 
-  // make our digest
+  // Make our digest
   if (buf == null || !Buffer.isBuffer(buf)) {
     return reject();
   }
-
   const hmac = createHmac(ALGORITHM, secret);
   const ourDigest = hmac.update(buf).digest();
 
+  // Check equality
   if (!timingSafeEqual(theirDigest, ourDigest)) {
     return reject();
   }

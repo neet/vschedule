@@ -11,7 +11,7 @@ describe('ActorDescription', () => {
 
   it('throws and error when description is too long', () => {
     expect(() => {
-      new ActorDescription('a'.repeat(501));
+      new ActorDescription('a'.repeat(5001));
     }).toThrowError(InvalidActorDescriptionError);
   });
 });

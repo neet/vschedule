@@ -4,22 +4,12 @@ import fs from 'fs/promises';
 import path from 'path';
 import { URLSearchParams } from 'url';
 
-import { IAppConfig } from '../../../src/app/services/AppConfig/AppConfig';
-import { IYoutubeWebsubService } from '../../../src/app/services/YoutubeWebsubService';
-import { container } from '../../../src/infra/inversify-config';
-import { TYPES } from '../../../src/types';
-import { client, request } from '../../test-utils/client';
-
-const websubService: IYoutubeWebsubService = {
-  subscribeToChannel: jest.fn().mockResolvedValue(undefined),
-};
+import { IAppConfig } from '../src/app/services/AppConfig/AppConfig';
+import { TYPES } from '../src/types';
+import { client, request } from '../test-utils/client/client';
+import { container } from '../test-utils/inversify-config';
 
 describe('YoutubeWebsubController', () => {
-  beforeAll(() => {
-    container.snapshot();
-    container.rebind(TYPES.YoutubeWebsubService).toConstantValue(websubService);
-  });
-
   afterEach(async () => {
     const prisma = new PrismaClient();
     const record = await prisma.stream.findFirst({
@@ -32,10 +22,6 @@ describe('YoutubeWebsubController', () => {
         where: { id: record.id },
       });
     }
-  });
-
-  afterAll(() => {
-    container.restore();
   });
 
   it('can verify WebSub subscription', async () => {
@@ -56,7 +42,7 @@ describe('YoutubeWebsubController', () => {
 
   it('can receive Atom feed', async () => {
     const feed = await fs.readFile(
-      path.join(__dirname, '../../__fixtures__/yt-websub-entry.xml'),
+      path.join(__dirname, './__fixtures__/yt-websub-entry.xml'),
     );
     const config = container.get<IAppConfig>(TYPES.AppConfig);
     const hmac = createHmac(
@@ -77,14 +63,14 @@ describe('YoutubeWebsubController', () => {
       .filter((stream) => /0XnCry1Afzc/.test(stream.url))
       .at(0);
 
-    expect(stream?.title).toBe('テスト動画');
+    expect(stream?.title).toBe('Test');
     expect(stream?.owner?.name).toBe('都 -みやこ-');
-    expect(stream?.owner?.organization?.name).toBe('Google');
+    expect(stream?.owner?.organization?.name).toBe('Demo organization');
   });
 
   it('rejects receiving Atom feed when HMAC did not match', async () => {
     const feed = await fs.readFile(
-      path.join(__dirname, '../../__fixtures__/yt-websub-entry.xml'),
+      path.join(__dirname, './__fixtures__/yt-websub-entry.xml'),
     );
     const hmac = createHmac('sha1', 'some wrong secret');
     const digest = hmac.update(feed).digest().toString('hex');
