@@ -56,7 +56,7 @@ jobs:
 
       - name: Build
         run: |
-          yarn workspaces foreach -ptR --from @ril/api run build
+          yarn workspaces foreach -pR --topological-dev --from @ril/api run build
 
       - name: Tests
         run: |
