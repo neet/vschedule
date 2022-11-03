@@ -1,5 +1,5 @@
+import bodyParserXml from 'body-parser-xml';
 import { createHmac, timingSafeEqual } from 'crypto';
-import type { Request, Response } from 'express-serve-static-core';
 
 import { IAppConfig } from '../app/services/AppConfig/AppConfig';
 import { TYPES } from '../types';
@@ -15,12 +15,9 @@ const reject = () => {
   throw new Error('Invalid HMAC digest');
 };
 
-export const verifyHmac = (
-  req: Request,
-  _res: Response,
-  buf: Buffer,
-  _encoding: BufferEncoding,
-) => {
+type VerifyFunction = bodyParserXml.Options['verify'];
+
+export const verifyHmac: VerifyFunction = (req, _res, buf, _encoding) => {
   if (secret == null) {
     return reject();
   }
