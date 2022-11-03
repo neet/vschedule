@@ -10,7 +10,7 @@
     "@ril/eslint-plugin": "workspace:^",
     "@ril/tsconfig": "workspace:^",
     "@types/eslint": "^8",
-    "@types/mkdirp": "^1",
+    "@types/mkdirp": "^1.0.2",
     "@types/rimraf": "^3",
     "eslint": "^8.26.0",
     "mkdirp": "^1.0.4",
