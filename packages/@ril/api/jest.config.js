@@ -14,6 +14,11 @@ module.exports = {
       testEnvironment: 'node',
       testMatch: ['<rootDir>/test/**/*.spec.{ts,tsx}'],
       setupFilesAfterEnv: ['<rootDir>/test-utils/setup-e2e.ts'],
+      globals: {
+        'ts-jest': {
+          isolatedModules: true,
+        },
+      },
     },
   ],
   collectCoverageFrom: [
