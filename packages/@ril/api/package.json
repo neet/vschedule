@@ -4,7 +4,7 @@
     "build": "prisma generate && ncc build ./src/infra/app.ts",
     "start": "node ./dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only --exit-child ./src/infra/app",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand --coverage"
   },
   "dependencies": {
     "@google-cloud/storage": "^6.6.0",
