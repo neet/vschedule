@@ -3,22 +3,21 @@ module.exports = {
   projects: [
     {
       displayName: 'Unit',
-      preset: 'ts-jest',
       testEnvironment: 'node',
+      transform: {
+        '^.+\\.(t|j)sx?$': ['@swc/jest'],
+      },
       testMatch: ['<rootDir>/src/**/*.spec.ts'],
       setupFilesAfterEnv: ['<rootDir>/test-utils/setup-unit.ts'],
     },
     {
       displayName: 'E2E',
-      preset: 'ts-jest',
       testEnvironment: 'node',
+      transform: {
+        '^.+\\.(t|j)sx?$': ['@swc/jest'],
+      },
       testMatch: ['<rootDir>/test/**/*.spec.{ts,tsx}'],
       setupFilesAfterEnv: ['<rootDir>/test-utils/setup-e2e.ts'],
-      globals: {
-        'ts-jest': {
-          isolatedModules: true,
-        },
-      },
     },
   ],
   collectCoverageFrom: [

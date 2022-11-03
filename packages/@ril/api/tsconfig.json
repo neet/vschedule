@@ -2,12 +2,10 @@
   "extends": "@ril/tsconfig",
   "compilerOptions": {
     "outDir": "./dist",
-    "types": ["reflect-metadata", "jest"],
     "module": "CommonJS",
     "esModuleInterop": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "allowJs": true
+    "emitDecoratorMetadata": true
   }
 }
