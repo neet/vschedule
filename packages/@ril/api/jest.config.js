@@ -17,10 +17,10 @@ module.exports = {
     },
   ],
   collectCoverageFrom: [
-    'src/**/*.ts',
-    '!src/**/*.d.ts',
-    '!src/**/*.spec.ts',
-    '!src/**/__mocks__/**',
-    '!src/**/__fixtures__/**',
+    '<rootDir>/src/**/*.ts',
+    '!<rootDir>/src/**/*.d.ts',
+    '!<rootDir>/src/**/*.spec.ts',
+    '!<rootDir>/src/**/__mocks__/**',
+    '!<rootDir>/src/**/__fixtures__/**',
   ],
 };
