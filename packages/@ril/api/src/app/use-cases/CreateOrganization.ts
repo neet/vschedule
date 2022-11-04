@@ -7,8 +7,10 @@ import { URL } from 'url';
 import { Color } from '../../domain/_shared';
 import { MediaAttachmentFilename, Organization } from '../../domain/entities';
 import { TYPES } from '../../types';
+import { UnexpectedError } from '../errors/UnexpectedError';
 import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
 import { IOrganizationRepository } from '../repositories/OrganizationRepository';
+import { ILogger } from '../services/Logger';
 import { IYoutubeApiService } from '../services/YoutubeApiService';
 
 export interface CreateOrganizationParams {
@@ -31,6 +33,9 @@ export class CreateOrganization {
 
     @inject(TYPES.YoutubeApiService)
     private readonly _youtubeApiService: IYoutubeApiService,
+
+    @inject(TYPES.Logger)
+    private readonly _logger: ILogger,
   ) {}
 
   public async invoke(params: CreateOrganizationParams): Promise<Organization> {
@@ -59,6 +64,9 @@ export class CreateOrganization {
     });
 
     await this._organizationRepository.create(organization);
+
+    this._logger.info('Organization with ID %s is created', organization.id);
+
     return organization;
   }
 
@@ -80,7 +88,10 @@ export class CreateOrganization {
     );
     const primaryColor = shade[0];
     if (primaryColor == null) {
-      throw new Error('Could not find primary color');
+      this._logger.warning(
+        `Could not find primary color for ${channel.thumbnailUrl}`,
+      );
+      throw new UnexpectedError();
     }
 
     return { avatar, color: primaryColor };

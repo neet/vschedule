@@ -2,6 +2,7 @@ import { google, youtube_v3 } from 'googleapis';
 import { inject, injectable } from 'inversify';
 
 import { IAppConfig } from '../../app/services/AppConfig/AppConfig';
+import { ILogger } from '../../app/services/Logger';
 import {
   Channel,
   IYoutubeApiService,
@@ -21,6 +22,9 @@ export class YoutubeApiService implements IYoutubeApiService {
   constructor(
     @inject(TYPES.AppConfig)
     config: IAppConfig,
+
+    @inject(TYPES.Logger)
+    private readonly _logger: ILogger,
   ) {
     this._yt = google.youtube({
       version: 'v3',

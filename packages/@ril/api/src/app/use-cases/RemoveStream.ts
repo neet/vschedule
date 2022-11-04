@@ -3,6 +3,7 @@ import { URL } from 'url';
 
 import { TYPES } from '../../types';
 import { IStreamRepository } from '../repositories/StreamRepository';
+import { ILogger } from '../services/Logger';
 
 export interface RemoveStreamParams {
   readonly url: string;
@@ -13,6 +14,9 @@ export class RemoveStream {
   constructor(
     @inject(TYPES.StreamRepository)
     private readonly _streamRepository: IStreamRepository,
+
+    @inject(TYPES.Logger)
+    private readonly _logger: ILogger,
   ) {}
 
   async invoke(params: RemoveStreamParams): Promise<void> {
@@ -23,6 +27,7 @@ export class RemoveStream {
       throw new Error(`No stream found with ID ${url}`);
     }
 
-    return await this._streamRepository.remove(stream.id);
+    await this._streamRepository.remove(stream.id);
+    this._logger.info(`Stream with ID ${stream.id} is removed`);
   }
 }

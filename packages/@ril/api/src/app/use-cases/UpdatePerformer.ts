@@ -10,6 +10,7 @@ import {
 import { TYPES } from '../../types';
 import { IOrganizationRepository } from '../repositories/OrganizationRepository';
 import { IPerformerRepository } from '../repositories/PerformerRepository';
+import { ILogger } from '../services/Logger';
 
 export interface UpdatePerformerParams {
   readonly name?: string;
@@ -28,6 +29,9 @@ export class UpdatePerformer {
 
     @inject(TYPES.OrganizationRepository)
     private readonly _organizationRepository: IOrganizationRepository,
+
+    @inject(TYPES.Logger)
+    private readonly _logger: ILogger,
   ) {}
 
   public async invoke(
@@ -62,6 +66,8 @@ export class UpdatePerformer {
     });
 
     await this._performerRepository.update(newPerformer);
+    this._logger.info(`Performer with ${performer.id} is updated`);
+
     return [newPerformer, organization];
   }
 

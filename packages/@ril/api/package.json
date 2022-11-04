@@ -3,10 +3,11 @@
   "scripts": {
     "build": "prisma generate && ncc build ./src/infra/app.ts",
     "start": "node ./dist/index.js",
-    "dev": "ts-node-dev --respawn --transpile-only --exit-child ./src/infra/app",
+    "dev": "ts-node-dev --respawn --transpile-only --exit-child ./src/infra/server",
     "test": "jest --runInBand --coverage"
   },
   "dependencies": {
+    "@google-cloud/logging-winston": "^5.1.8",
     "@google-cloud/storage": "^6.6.0",
     "@google-cloud/tasks": "^3.0.4",
     "@prisma/client": "^4.5.0",
@@ -35,7 +36,8 @@
     "swagger-ui-express": "^4.5.0",
     "ts-mixer": "^6.0.1",
     "type-fest": "^3.1.0",
-    "validator": "^13.7.0"
+    "validator": "^13.7.0",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "@himenon/openapi-parameter-formatter": "^0.3.1",

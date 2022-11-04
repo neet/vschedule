@@ -13,6 +13,9 @@ import { Container } from 'inversify';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import swaggerUi from 'swagger-ui-express';
 
+import { ILogger } from '../app/services/Logger';
+import { TYPES } from '../types';
+
 /**
  * Create app by given container
  * @param container Inversify container
@@ -39,8 +42,8 @@ export const createApp = (container: Container): Application => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    // eslint-disable-next-line
-    console.error(err);
+    const logger = container.get<ILogger>(TYPES.Logger);
+    logger.error(`Fallback handler has called: ${err.message}`);
 
     res.status(err.status ?? 500).json({
       message: err.message,

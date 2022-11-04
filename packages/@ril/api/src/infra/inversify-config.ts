@@ -13,14 +13,17 @@ import { IOrganizationRepository } from '../app/repositories/OrganizationReposit
 import { IPerformerRepository } from '../app/repositories/PerformerRepository';
 import { IStreamRepository } from '../app/repositories/StreamRepository';
 import { IAppConfig } from '../app/services/AppConfig/AppConfig';
+import { ILogger } from '../app/services/Logger';
 import { IStorage } from '../app/services/Storage';
 import { IYoutubeApiService } from '../app/services/YoutubeApiService';
 import { IYoutubeWebsubService } from '../app/services/YoutubeWebsubService';
 import { TYPES } from '../types';
 import { AppConfigEnvironment } from './services/AppConfigEnvironment';
+import { logger } from './services/LoggerWinston';
 import { Storage } from './services/Storage';
 import { StorageFilesystem } from './services/StorageFilesystem';
 import { YoutubeApiService } from './services/YouTubeApiService';
+import { YoutubeWebsubParser } from './services/YoutubeWebsubParser';
 import { YoutubeWebsubService } from './services/YoutubeWebsubService';
 
 const container = new Container({
@@ -28,58 +31,79 @@ const container = new Container({
   skipBaseClassChecks: true,
 });
 
-{
-  container.bind<PrismaClient>(TYPES.PrismaClient).toConstantValue(
-    new PrismaClient({
-      log: ['query', 'info', 'warn', 'error'],
-    }),
-  );
+const prisma = new PrismaClient({
+  log: [
+    {
+      level: 'info',
+      emit: 'event',
+    },
+    {
+      level: 'query',
+      emit: 'event',
+    },
+    {
+      level: 'warn',
+      emit: 'event',
+    },
+    {
+      level: 'error',
+      emit: 'event',
+    },
+  ],
+});
 
-  container.bind<IAppConfig>(TYPES.AppConfig).to(AppConfigEnvironment);
+prisma.$on('query', (e) => logger.debug(e.query, e.params, e.duration));
+prisma.$on('info', (e) => logger.info(e.message));
+prisma.$on('warn', (e) => logger.warn(e.message));
+prisma.$on('error', (e) => logger.error(e.message));
 
-  container
-    .bind<IPerformerRepository>(TYPES.PerformerRepository)
-    .to(PerformerRepository);
+container.bind<PrismaClient>(TYPES.PrismaClient).toConstantValue(prisma);
+container.bind<ILogger>(TYPES.Logger).toConstantValue(logger);
 
-  container
-    .bind<IOrganizationRepository>(TYPES.OrganizationRepository)
-    .to(OrganizationRepository);
+container.bind<IAppConfig>(TYPES.AppConfig).to(AppConfigEnvironment);
 
-  container
-    .bind<IStreamRepository>(TYPES.StreamRepository)
-    .to(StreamRepository);
+container
+  .bind<IPerformerRepository>(TYPES.PerformerRepository)
+  .to(PerformerRepository);
 
-  container
-    .bind<IMediaAttachmentRepository>(TYPES.MediaAttachmentRepository)
-    .to(MediaAttachmentRepositoryPrismaImpl);
+container
+  .bind<IOrganizationRepository>(TYPES.OrganizationRepository)
+  .to(OrganizationRepository);
 
-  container
-    .bind<IJobRepository>(TYPES.JobRepository)
-    .to(JobRepository)
-    .when(() => process.env.NODE_ENV !== 'test');
+container.bind<IStreamRepository>(TYPES.StreamRepository).to(StreamRepository);
 
-  container
-    .bind<IJobRepository>(TYPES.JobRepository)
-    .to(JobRepositoryInMemory)
-    .when(() => process.env.NODE_ENV === 'test');
+container
+  .bind<IMediaAttachmentRepository>(TYPES.MediaAttachmentRepository)
+  .to(MediaAttachmentRepositoryPrismaImpl);
 
-  container
-    .bind<IYoutubeApiService>(TYPES.YoutubeApiService)
-    .to(YoutubeApiService);
+container
+  .bind<IJobRepository>(TYPES.JobRepository)
+  .to(JobRepository)
+  .when(() => process.env.NODE_ENV !== 'test');
 
-  container
-    .bind<IYoutubeWebsubService>(TYPES.YoutubeWebsubService)
-    .to(YoutubeWebsubService);
+container
+  .bind<IJobRepository>(TYPES.JobRepository)
+  .to(JobRepositoryInMemory)
+  .when(() => process.env.NODE_ENV === 'test');
 
-  container
-    .bind<IStorage>(TYPES.Storage)
-    .to(Storage)
-    .when(() => process.env.NODE_ENV !== 'test');
+container
+  .bind<IYoutubeApiService>(TYPES.YoutubeApiService)
+  .to(YoutubeApiService);
 
-  container
-    .bind<IStorage>(TYPES.Storage)
-    .to(StorageFilesystem)
-    .when(() => process.env.NODE_ENV === 'test');
-}
+container
+  .bind<IYoutubeWebsubService>(TYPES.YoutubeWebsubService)
+  .to(YoutubeWebsubService);
+
+container.bind(TYPES.YoutubeWebsubParser).to(YoutubeWebsubParser);
+
+container
+  .bind<IStorage>(TYPES.Storage)
+  .to(Storage)
+  .when(() => process.env.NODE_ENV !== 'test');
+
+container
+  .bind<IStorage>(TYPES.Storage)
+  .to(StorageFilesystem)
+  .when(() => process.env.NODE_ENV === 'test');
 
 export { container };

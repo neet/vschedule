@@ -10,6 +10,10 @@ export abstract class ValueObject<T = unknown> {
     return shallowEqual(this.value, that.value);
   }
 
+  public toString(): string {
+    return `${this.value}`;
+  }
+
   public toJSON(): T {
     return this.value;
   }

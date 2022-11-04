@@ -16,6 +16,7 @@ import { TYPES } from '../../types';
 import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
 import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { IStreamRepository } from '../repositories/StreamRepository';
+import { ILogger } from '../services/Logger';
 import { IYoutubeApiService } from '../services/YoutubeApiService';
 
 const YOUTUBE_CHANNEL_REGEXP =
@@ -39,6 +40,9 @@ export class CreateStream {
 
     @inject(TYPES.YoutubeApiService)
     private readonly _youtubeStreamService: IYoutubeApiService,
+
+    @inject(TYPES.Logger)
+    private readonly _logger: ILogger,
   ) {}
 
   async invoke(params: CreateStreamParams): Promise<Stream> {
@@ -74,6 +78,8 @@ export class CreateStream {
     });
 
     await this._streamRepository.save(stream);
+    this._logger.info(`Stream with ID ${stream.id} is created`);
+
     return stream;
   }
 

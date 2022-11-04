@@ -12,11 +12,12 @@ import {
   Performer,
 } from '../../domain/entities';
 import { TYPES } from '../../types';
+import { UnexpectedError } from '../errors/UnexpectedError';
 import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
 import { IOrganizationRepository } from '../repositories/OrganizationRepository';
 import { IPerformerRepository } from '../repositories/PerformerRepository';
+import { ILogger } from '../services/Logger';
 import { IYoutubeApiService } from '../services/YoutubeApiService';
-import { IYoutubeWebsubService } from '../services/YoutubeWebsubService';
 
 export interface CreatePerformerParams {
   readonly youtubeChannelId: string;
@@ -47,8 +48,8 @@ export class CreatePerformer {
     @inject(TYPES.OrganizationRepository)
     private readonly _organizationRepository: IOrganizationRepository,
 
-    @inject(TYPES.YoutubeWebsubService)
-    private readonly _youtubeWebsubService: IYoutubeWebsubService,
+    @inject(TYPES.Logger)
+    private readonly _logger: ILogger,
   ) {}
 
   public async invoke(
@@ -81,7 +82,8 @@ export class CreatePerformer {
     );
     const primaryColor = shade[0];
     if (primaryColor == null) {
-      throw new Error('Could not find primary color');
+      this._logger.warning('Could not find primary color');
+      throw new UnexpectedError();
     }
 
     // トランザクション貼りたいけどどうしよう..
@@ -102,6 +104,8 @@ export class CreatePerformer {
     });
 
     await this._performerRepository.create(performer);
+    this._logger.info('Performer with ID %s is created', performer.id);
+
     return [performer, organization ?? null];
   }
 
