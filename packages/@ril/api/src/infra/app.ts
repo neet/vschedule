@@ -7,14 +7,11 @@ import '../adapters/controllers/websub/youtube/subscribe';
 import './setup';
 
 import api from '@ril/api-spec';
-import bodyParser from 'body-parser';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import * as OpenApiValidator from 'express-openapi-validator';
 import { Container } from 'inversify';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import swaggerUi from 'swagger-ui-express';
-
-import { verifyHmac } from './verifyHmac';
 
 /**
  * Create app by given container
@@ -26,7 +23,6 @@ export const createApp = (container: Container): Application => {
   server.setConfig((app) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use(bodyParser.xml({ verify: verifyHmac }));
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(api));
     app.use(
       '/api',

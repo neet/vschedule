@@ -17,6 +17,7 @@ import {
 import { CreateStream } from '../../../app/use-cases/CreateStream';
 import { RemoveStream } from '../../../app/use-cases/RemoveStream';
 import { ScheduleYoutubeWebsubResubscription } from '../../../app/use-cases/ScheduleYoutubeWebsubResubscription';
+import { TYPES } from '../../../types';
 
 @controller('/websub/youtube')
 export class YoutubeWebsubController extends BaseHttpController {
@@ -47,7 +48,7 @@ export class YoutubeWebsubController extends BaseHttpController {
     return res.send(params['hub.challenge']);
   }
 
-  @httpPost('/')
+  @httpPost('/', TYPES.YoutubeWebsubParser)
   async notify(
     @requestBody()
     body: RequestBody$notifyYoutubeWebsub['application/atom+xml'],
