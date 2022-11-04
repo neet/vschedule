@@ -60,7 +60,7 @@ class Requester<RequestOption> implements ApiClient<RequestOption> {
         }
         // MODIFIED: Throw when status != 2XX
         if (!response.ok) {
-          reject(response.body);
+          reject(response);
         }
         resolve(response.body);
       });

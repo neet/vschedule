@@ -3,7 +3,10 @@ import { client } from '../../../test-utils/client';
 describe('StreamController', () => {
   it('can list streams', async () => {
     const data = await client.listStreams();
-    expect(data).toHaveLength(0);
+    expect(data).toHaveLength(1);
+    expect(data.at(0)?.title).toBe(
+      '【3Dお披露目】ファンボファンガに、最後まで最高のファンサ【#鷹宮リオン3D】',
+    );
   });
 
   // it('can create stream', async () => {

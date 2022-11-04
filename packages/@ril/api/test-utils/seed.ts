@@ -1,38 +1,74 @@
-import { IOrganizationRepository } from '../src/app/repositories/OrganizationRepository';
-import { CreateOrganization } from '../src/app/use-cases/CreateOrganization';
-import { CreatePerformer } from '../src/app/use-cases/CreatePerformer';
-import { YoutubeChannelId } from '../src/domain/_shared';
-import { container } from '../src/infra/inversify-config';
+import { PrismaClient } from '@prisma/client';
+import { nanoid } from 'nanoid';
+
 import { TYPES } from '../src/types';
+import { container } from './inversify-config';
 
-export const installSeed = async () => {
-  const createOrganization = container.get(CreateOrganization);
-  const organizationRepository = container.get<IOrganizationRepository>(
-    TYPES.OrganizationRepository,
-  );
+export const SEED_ORGANIZATION_ID = nanoid();
+export const SEED_PERFORMER_ID = nanoid();
+export const SEED_STREAM_ID = nanoid();
 
-  await createOrganization.invoke({
-    name: 'Demo organization',
-    url: null,
-    description: null,
-    color: null,
-    youtubeChannelId: 'UCIqEvFk7y5-VhSJopkjebMA',
-    twitterUsername: null,
+export const createSeed = async () => {
+  const client = container.get<PrismaClient>(TYPES.PrismaClient);
+
+  await client.organization.create({
+    data: {
+      id: SEED_ORGANIZATION_ID,
+      actor: {
+        create: {
+          id: nanoid(),
+          name: 'にじさんじ',
+          color: '#ffffff',
+          url: 'https://www.nijisanji.jp/',
+          description: `「にじさんじ」は、人気バーチャルライバー（VTuber）を始めとして、個性を存分に活かした多種多様なインフルエンサーが所属するバーチャルライバープロジェクトです。`,
+          youtubeChannelId: 'UCX7YkU9nEeaoZbkVLVajcMg',
+          twitterUsername: 'nijisanji_app',
+        },
+      },
+      createdAt: new Date('2022-11-03T12:06:13.481Z'),
+      updatedAt: new Date('2022-11-03T12:06:13.481Z'),
+    },
   });
 
-  const organization = await organizationRepository.findByYoutubeChannelId(
-    new YoutubeChannelId('UCIqEvFk7y5-VhSJopkjebMA'),
-  );
+  await client.performer.create({
+    data: {
+      id: SEED_PERFORMER_ID,
+      actor: {
+        create: {
+          id: nanoid(),
+          name: '鷹宮リオン',
+          color: '#ffffff',
+          description: `有数の金持ちが集う魔法学校、私立帝華高校の2年生 17歳。`,
+          url: 'https://marshmallow-qa.com/takamiyarion',
+          youtubeChannelId: 'UCV5ZZlLjk5MKGg3L0n0vbzw',
+          twitterUsername: 'TakamiyaRion',
+        },
+      },
+      organization: {
+        connect: {
+          id: SEED_ORGANIZATION_ID,
+        },
+      },
+      createdAt: new Date('2022-11-03T12:11:17.260Z'),
+      updatedAt: new Date('2022-11-03T12:11:17.260Z'),
+    },
+  });
 
-  if (organization == null) {
-    throw new Error('Unreachable');
-  }
-
-  const createPerformer = container.get(CreatePerformer);
-  await createPerformer.invoke({
-    youtubeChannelId: 'UCjXHjE-OBd--vYcT83XdzTA',
-    url: null,
-    twitterUsername: null,
-    organizationId: organization.id.value,
+  await client.stream.create({
+    data: {
+      id: SEED_STREAM_ID,
+      url: `https://www.youtube.com/watch?v=XXUNsT5gd_o`,
+      title: `【3Dお披露目】ファンボファンガに、最後まで最高のファンサ【#鷹宮リオン3D】`,
+      description: `忘れないで 特別な日になりますように\n共に歌おうずっと！共に歩もうずっと！`,
+      createdAt: new Date('2022-11-03T12:11:17.260Z'),
+      updatedAt: new Date('2022-11-03T12:11:17.260Z'),
+      startedAt: new Date('2022-11-03T12:11:17.260Z'),
+      endedAt: new Date('2022-11-03T12:11:17.260Z'),
+      owner: {
+        connect: {
+          id: SEED_PERFORMER_ID,
+        },
+      },
+    },
   });
 };

@@ -54,9 +54,9 @@ export class YoutubeWebsubController extends BaseHttpController {
   ) {
     if (
       'at:deleted-entry' in body.feed &&
-      body.feed['at:deleted-entry'].length > 0
+      body.feed['at:deleted-entry']?.[0]?.link?.[0]?.$?.href != null
     ) {
-      const href = body.feed['at:deleted-entry']?.[0]?.href;
+      const href = body.feed['at:deleted-entry'][0].link[0].$.href;
       if (href == null) {
         return this.statusCode(200);
       }
@@ -70,7 +70,6 @@ export class YoutubeWebsubController extends BaseHttpController {
       if (videoId == null) {
         return this.statusCode(200);
       }
-
       await this._createStream.invoke({ videoId });
       return this.statusCode(200);
     }

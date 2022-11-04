@@ -21,6 +21,9 @@ registry.registerPath({
         'application/json': { schema: Stream },
       },
     },
+    404: {
+      description: '配信が存在しないときのレスポンスです',
+    },
   },
 });
 

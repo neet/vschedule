@@ -4,8 +4,9 @@ describe('Performer', () => {
   it('can create performer', async () => {
     const { id } = await client.createPerformer({
       requestBody: {
-        youtubeChannelId: 'UCV5ZZlLjk5MKGg3L0n0vbzw',
-        twitterUsername: 'TakamiyaRion',
+        name: '天宮こころ',
+        twitterUsername: 'amamiya_kokoro',
+        youtubeChannelId: 'UCkIimWZ9gBJRamKF0rmPU8w',
         url: null,
         organizationId: null,
       },
@@ -15,8 +16,8 @@ describe('Performer', () => {
       parameter: { performerId: id },
     });
 
-    expect(performer.name).toMatch(/鷹宮リオン/);
-    expect(performer.twitterUsername).toBe('TakamiyaRion');
-    expect(performer.youtubeChannelId).toBe('UCV5ZZlLjk5MKGg3L0n0vbzw');
+    expect(performer.name).toMatch(/天宮こころ/);
+    expect(performer.twitterUsername).toBe('amamiya_kokoro');
+    expect(performer.youtubeChannelId).toBe('UCkIimWZ9gBJRamKF0rmPU8w');
   });
 });

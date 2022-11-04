@@ -6,10 +6,12 @@ import {
   httpGet,
   httpPost,
   requestBody,
+  requestParam,
 } from 'inversify-express-utils';
 
 import { CreateStream } from '../../../../app/use-cases/CreateStream';
 import { ListStreams } from '../../../../app/use-cases/ListStreams';
+import { ShowStream } from '../../../../app/use-cases/ShowStream';
 import { RestApiPresenter } from '../../../mappers/RestApiMapper';
 
 @controller('/api/v1/streams')
@@ -20,6 +22,9 @@ export class StreamsRestApiController extends BaseHttpController {
 
     @inject(CreateStream)
     private readonly _createStream: CreateStream,
+
+    @inject(ShowStream)
+    private readonly _showStream: ShowStream,
 
     @inject(RestApiPresenter)
     private readonly _presenter: RestApiPresenter,
@@ -34,6 +39,20 @@ export class StreamsRestApiController extends BaseHttpController {
       data.map(([stream, owner, ownerOrganization]) =>
         this._presenter.presentStream(stream, owner, ownerOrganization),
       ),
+    );
+  }
+
+  @httpGet('/:streamId')
+  async show(@requestParam('streamId') streamId: string) {
+    const data = await this._showStream.invoke(streamId);
+
+    if (data == null) {
+      return this.notFound();
+    }
+
+    const [stream, owner, ownerOrganization] = data;
+    return this.json(
+      this._presenter.presentStream(stream, owner, ownerOrganization),
     );
   }
 
