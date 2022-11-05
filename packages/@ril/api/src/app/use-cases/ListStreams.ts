@@ -2,6 +2,7 @@ import { inject, injectable } from 'inversify';
 
 import { Organization, Performer, Stream } from '../../domain/entities';
 import { TYPES } from '../../types';
+import { UnexpectedError } from '../errors/UnexpectedError';
 import { IOrganizationRepository } from '../repositories/OrganizationRepository';
 import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { IStreamRepository } from '../repositories/StreamRepository';
@@ -25,7 +26,7 @@ export class ListStreams {
     const owners = await Promise.all(
       streams.map(async (stream) => {
         const d = await this._performerRepository.findById(stream.ownerId);
-        if (d === null) throw new Error('unreachable');
+        if (d === null) throw new UnexpectedError();
         return d;
       }),
     );
@@ -39,7 +40,7 @@ export class ListStreams {
       const owner = owners[i];
       const organization = organizations[i];
       if (owner == null || organization === undefined)
-        throw new Error('unreachable');
+        throw new UnexpectedError();
       return [stream, owner, organization];
     });
   }

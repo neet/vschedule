@@ -1,10 +1,10 @@
+import Color from 'color';
 import getColors from 'get-image-colors';
 import { inject, injectable } from 'inversify';
 import fetch from 'node-fetch';
 import sharp from 'sharp';
 import { URL } from 'url';
 
-import { Color } from '../../domain/_shared';
 import { MediaAttachmentFilename, Organization } from '../../domain/entities';
 import { TYPES } from '../../types';
 import { UnexpectedError } from '../errors/UnexpectedError';
@@ -54,18 +54,17 @@ export class CreateOrganization {
       description: description === '' ? null : description,
       color:
         color != null
-          ? Color.fromHex(color)
+          ? new Color(color)
           : r?.color != null
-          ? Color.fromHex(r?.color.hex())
-          : Color.fromHex('#000000'),
+          ? new Color(r?.color.hex())
+          : new Color('#000000'),
       avatar: r?.avatar ?? null,
       youtubeChannelId,
       twitterUsername,
     });
 
     await this._organizationRepository.create(organization);
-
-    this._logger.info('Organization with ID %s is created', organization.id);
+    this._logger.info(`Organization with ID ${organization.id} is created`);
 
     return organization;
   }

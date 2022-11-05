@@ -64,13 +64,13 @@ export class MediaAttachment extends mixins implements ITimestamps {
     props: RehydrateParameters<MediaAttachmentProps>,
   ): MediaAttachment {
     return new MediaAttachment({
-      id: MediaAttachmentId.from(props.id),
-      base64: Base64.from(props.base64),
-      width: MediaAttachmentSize.from(props.width),
-      height: MediaAttachmentSize.from(props.height),
-      filename: MediaAttachmentFilename.from(props.filename),
+      id: new MediaAttachmentId(props.id),
+      base64: new Base64(props.base64),
+      width: new MediaAttachmentSize(props.width),
+      height: new MediaAttachmentSize(props.height),
+      filename: new MediaAttachmentFilename(props.filename),
       bucket:
-        props.bucket !== null ? MediaAttachmentBucket.from(props.bucket) : null,
+        props.bucket !== null ? new MediaAttachmentBucket(props.bucket) : null,
       timestamps: props.timestamps,
     });
   }
@@ -80,8 +80,8 @@ export class MediaAttachment extends mixins implements ITimestamps {
   ) {
     return MediaAttachment.rehydrate({
       ...props,
-      id: MediaAttachmentId.create(),
-      timestamps: Timestamps.create(),
+      id: new MediaAttachmentId(),
+      timestamps: new Timestamps(),
     });
   }
 }

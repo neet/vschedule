@@ -1,22 +1,29 @@
 import { nanoid } from 'nanoid';
 
-import { ValueObject } from '../../_core';
+import { DomainError, ValueObject } from '../../_core';
 import { isNanoid } from '../../_core/isNanoid';
 
-export class StreamIdError extends Error {}
+export class StreamIdInvalidError extends DomainError {
+  public readonly name = 'StreamIdInvalidError';
+
+  public constructor(public readonly value: string) {
+    super(`Invalid nanoid ${value} provided`);
+  }
+}
 
 export class StreamId extends ValueObject<string> {
-  public constructor(value: string) {
-    if (!isNanoid(value)) {
-      throw new StreamIdError(`Invalid nanoid ${value}`);
-    }
+  public readonly tag = Symbol();
 
+  public constructor(value?: string | StreamId) {
+    if (value instanceof StreamId) {
+      return value;
+    }
+    if (value == null) {
+      return new StreamId(nanoid());
+    }
+    if (!isNanoid(value)) {
+      throw new StreamIdInvalidError(value);
+    }
     super(value);
   }
-
-  public static create(): StreamId {
-    return new StreamId(nanoid());
-  }
-
-  public static from = ValueObject.createFactory(StreamId);
 }

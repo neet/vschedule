@@ -1,8 +1,8 @@
+import Color from 'color';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { URL } from 'url';
 
-import { Color } from '../../_shared';
 import { Timestamps } from '../../_shared/Timestamps';
 import { MediaAttachment } from '../MediaAttachment';
 import { Organization } from '../Organization';
@@ -11,7 +11,7 @@ export const organizationFixture = Organization.rehydrate({
   id: nanoid(),
   name: 'にじさんじ',
   url: new URL('https://example.com/'),
-  color: Color.fromHex('#ffffff'),
+  color: new Color('#ffffff'),
   description: null,
   twitterUsername: null,
   youtubeChannelId: null,

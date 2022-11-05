@@ -1,16 +1,21 @@
-import { ValueObject } from '../../_core';
+import { DomainError, ValueObject } from '../../_core';
 
-export class InvalidMediaAttachmentSizeError extends Error {}
+export class MediaAttachmentSizeRangeError extends DomainError {
+  public readonly name = 'MediaAttachmentSizeRangeError';
+
+  public constructor(public readonly value: number) {
+    super(`Media attachment size must be greater than zero. Got ${value}`);
+  }
+}
 
 export class MediaAttachmentSize extends ValueObject<number> {
-  public constructor(value: number) {
+  public constructor(value: number | MediaAttachmentSize) {
+    if (value instanceof MediaAttachmentSize) {
+      return value;
+    }
     if (value <= 0) {
-      throw new InvalidMediaAttachmentSizeError(
-        'Media attachment size must be greater than zero',
-      );
+      throw new MediaAttachmentSizeRangeError(value);
     }
     super(value);
   }
-
-  public static from = ValueObject.createFactory(MediaAttachmentSize);
 }

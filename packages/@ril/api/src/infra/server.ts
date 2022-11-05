@@ -13,6 +13,6 @@ const logger = container.get<ILogger>(TYPES.Logger);
 
 app.listen(config.entries.server.port, () => {
   logger.info(
-    `server is ready at http://localhost:${config.entries.server.port}/api-docs`,
+    `server is ready at http://localhost:${config.entries.server.port}/docs`,
   );
 });

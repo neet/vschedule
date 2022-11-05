@@ -10,6 +10,6 @@ describe('PerformerId', () => {
   });
 
   it('can be generated', () => {
-    expect(PerformerId.create().value).toHaveLength(21);
+    expect(new PerformerId().value).toHaveLength(21);
   });
 });

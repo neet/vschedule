@@ -48,7 +48,7 @@ export class RestApiPresenter {
     return {
       name: actor.name.value,
       url: actor.url === null ? null : actor.url.toString(),
-      color: actor.color.value,
+      color: actor.color.hex(),
       description: unwrap(actor.description),
       twitterUsername: unwrap(actor.twitterUsername),
       youtubeChannelId: unwrap(actor.youtubeChannelId),

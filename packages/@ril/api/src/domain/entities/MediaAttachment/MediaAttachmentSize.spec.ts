@@ -1,6 +1,6 @@
 import {
-  InvalidMediaAttachmentSizeError,
   MediaAttachmentSize,
+  MediaAttachmentSizeRangeError,
 } from './MediaAttachmentSize';
 
 describe('MediaAttachmentSize', () => {
@@ -12,6 +12,6 @@ describe('MediaAttachmentSize', () => {
   it('throws an error when the size is not a natural number', () => {
     expect(() => {
       new MediaAttachmentSize(0);
-    }).toThrowError(InvalidMediaAttachmentSizeError);
+    }).toThrowError(MediaAttachmentSizeRangeError);
   });
 });

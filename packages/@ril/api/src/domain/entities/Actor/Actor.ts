@@ -1,7 +1,8 @@
+import Color from 'color';
 import { URL } from 'url';
 
 import { RehydrateParameters } from '../../_core';
-import { Color, TwitterUsername, YoutubeChannelId } from '../../_shared';
+import { TwitterUsername, YoutubeChannelId } from '../../_shared';
 import { MediaAttachment } from '../MediaAttachment';
 import { ActorDescription } from './ActorDescription';
 import { ActorName } from './ActorName';
@@ -49,21 +50,21 @@ export abstract class Actor {
 
   public static rehydrate(props: RehydrateParameters<ActorProps>): ActorProps {
     return {
-      name: ActorName.from(props.name),
+      name: new ActorName(props.name),
       color: props.color,
       description:
         props.description !== null
-          ? ActorDescription.from(props.description)
+          ? new ActorDescription(props.description)
           : null,
       avatar: props.avatar,
       url: props.url,
       youtubeChannelId:
         props.youtubeChannelId !== null
-          ? YoutubeChannelId.from(props.youtubeChannelId)
+          ? new YoutubeChannelId(props.youtubeChannelId)
           : null,
       twitterUsername:
         props.twitterUsername !== null
-          ? TwitterUsername.from(props.twitterUsername)
+          ? new TwitterUsername(props.twitterUsername)
           : null,
     };
   }

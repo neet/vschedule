@@ -1,6 +1,5 @@
 import { immerable } from 'immer';
 
-import { Color } from '../_shared';
 import { DeepPrimitiveOf } from './PrimitiveOf';
 import { ValueObject, ValueOf } from './ValueObject';
 
@@ -46,10 +45,6 @@ export type PropsOf<T extends Entity> = T extends Entity<ValueObject, infer R>
   : never;
 
 /** 複数コンストラクタを持つVO */
-type PolymorphicCtor = Color;
-
 export type RehydrateParameters<T> = {
-  [key in keyof T]: T[key] extends PolymorphicCtor
-    ? T[key]
-    : ValueOf<T[key]> | T[key];
+  [key in keyof T]: ValueOf<T[key]> | T[key];
 };

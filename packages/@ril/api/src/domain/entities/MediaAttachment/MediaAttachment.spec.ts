@@ -22,7 +22,7 @@ describe('MediaAttachment', () => {
 
   it('can be rehydrated', () => {
     const media = MediaAttachment.rehydrate({
-      id: MediaAttachmentId.create().value,
+      id: new MediaAttachmentId(),
       filename: 'filename.png',
       base64: Buffer.from([123]).toString('base64'),
       width: 1,

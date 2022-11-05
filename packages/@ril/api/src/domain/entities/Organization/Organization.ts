@@ -15,8 +15,8 @@ export interface OrganizationProps extends ActorProps {
 }
 
 const mixins = Mixin(
-  Actor,
   Entity<OrganizationId, OrganizationProps>,
+  Actor,
   TimestampMixin,
 );
 
@@ -26,8 +26,8 @@ export class Organization extends mixins implements ITimestamps {
   ): Organization {
     return Organization.rehydrate({
       ...props,
-      id: OrganizationId.create(),
-      timestamps: Timestamps.create(),
+      id: new OrganizationId(),
+      timestamps: new Timestamps(),
     });
   }
 
@@ -36,7 +36,7 @@ export class Organization extends mixins implements ITimestamps {
   ): Organization {
     return new Organization({
       ...Actor.rehydrate(props),
-      id: OrganizationId.from(props.id),
+      id: new OrganizationId(props.id),
       timestamps: props.timestamps,
     });
   }

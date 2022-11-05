@@ -1,24 +1,32 @@
 import { nanoid } from 'nanoid';
 
-import { ValueObject } from '../../_core';
+import { DomainError, ValueObject } from '../../_core';
 import { isNanoid } from '../../_core/isNanoid';
 
-export class InvalidOrganizationIdError extends Error {}
+export class OrganizationIdInvalidError extends DomainError {
+  public readonly name = 'OrganizationIdInvalidError';
+
+  public constructor(public readonly value: string) {
+    super(`Malformed nanoid. Got ${value}`);
+  }
+}
 
 export class OrganizationId extends ValueObject<string> {
   public readonly tag = Symbol();
 
-  public constructor(value: string) {
+  public constructor(value?: string | OrganizationId) {
+    if (value instanceof OrganizationId) {
+      return value;
+    }
+
+    if (value == null) {
+      return new OrganizationId(nanoid());
+    }
+
     if (!isNanoid(value)) {
-      throw new InvalidOrganizationIdError('Invalid nanoid');
+      throw new OrganizationIdInvalidError(value);
     }
 
     super(value);
   }
-
-  public static create(): OrganizationId {
-    return new OrganizationId(nanoid());
-  }
-
-  public static from = ValueObject.createFactory(OrganizationId);
 }

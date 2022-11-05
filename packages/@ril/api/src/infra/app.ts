@@ -3,7 +3,6 @@ import '../adapters/controllers/api/v1/organizations';
 import '../adapters/controllers/api/v1/media';
 import '../adapters/controllers/api/v1/streams';
 import '../adapters/controllers/websub/youtube';
-import '../adapters/controllers/websub/youtube/subscribe';
 import './setup';
 
 import api from '@ril/api-spec';
@@ -15,6 +14,8 @@ import swaggerUi from 'swagger-ui-express';
 
 import { ILogger } from '../app/services/Logger';
 import { TYPES } from '../types';
+import { appErrorHandler } from './services/AppErrorHandler';
+import { domainErrorHandler } from './services/DomainErrorHandler';
 
 /**
  * Create app by given container
@@ -26,7 +27,7 @@ export const createApp = (container: Container): Application => {
   server.setConfig((app) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(api));
+    app.use('/docs', swaggerUi.serve, swaggerUi.setup(api));
     app.use(
       '/api',
       OpenApiValidator.middleware({
@@ -38,18 +39,22 @@ export const createApp = (container: Container): Application => {
     );
   });
 
-  const app = server.build();
+  server.setErrorConfig((app) => {
+    app.use(domainErrorHandler);
+    app.use(appErrorHandler);
+    app.use(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (err: any, _req: Request, res: Response, _next: NextFunction) => {
+        const logger = container.get<ILogger>(TYPES.Logger);
+        logger.error(`Fallback handler has called: ${err.message}`);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    const logger = container.get<ILogger>(TYPES.Logger);
-    logger.error(`Fallback handler has called: ${err.message}`);
-
-    res.status(err.status ?? 500).json({
-      message: err.message,
-      errors: err.errors,
-    });
+        res.status(err.status ?? 500).json({
+          message: err.message,
+          errors: err.errors,
+        });
+      },
+    );
   });
 
-  return app;
+  return server.build();
 };

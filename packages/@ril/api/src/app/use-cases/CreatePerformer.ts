@@ -1,10 +1,10 @@
+import Color from 'color';
 import getColors from 'get-image-colors';
 import { inject, injectable } from 'inversify';
 import fetch from 'node-fetch';
 import sharp from 'sharp';
 import { URL } from 'url';
 
-import { Color } from '../../domain/_shared';
 import {
   MediaAttachmentFilename,
   Organization,
@@ -12,12 +12,21 @@ import {
   Performer,
 } from '../../domain/entities';
 import { TYPES } from '../../types';
+import { AppError } from '../errors/AppError';
 import { UnexpectedError } from '../errors/UnexpectedError';
 import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
 import { IOrganizationRepository } from '../repositories/OrganizationRepository';
 import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { ILogger } from '../services/Logger';
 import { IYoutubeApiService } from '../services/YoutubeApiService';
+
+export class CreatePerformerOrganizationNotFoundError extends AppError {
+  public readonly name = 'CreatePerformerOrganizationNotFoundError';
+
+  public constructor(public readonly organizationId: OrganizationId) {
+    super(`No organization found with ID ${organizationId.value}`);
+  }
+}
 
 export interface CreatePerformerParams {
   readonly youtubeChannelId: string;
@@ -97,7 +106,7 @@ export class CreatePerformer {
       avatar,
       youtubeChannelId,
       description: description ?? channel.description ?? null,
-      color: Color.fromHex(color ?? primaryColor.hex()),
+      color: new Color(color ?? primaryColor.hex()),
       url: url != null ? new URL(url) : null,
       twitterUsername: twitterUsername ?? null,
       organizationId: organizationId ?? null,
@@ -110,16 +119,14 @@ export class CreatePerformer {
   }
 
   private async _fetchOrganization(
-    organizationId?: string | null,
+    rawId?: string | null,
   ): Promise<Organization | null> {
-    if (organizationId == null) {
-      return null;
-    }
+    if (rawId == null) return null;
+    const id = new OrganizationId(rawId);
 
-    const id = new OrganizationId(organizationId);
     const org = this._organizationRepository.findById(id);
     if (org == null) {
-      throw new Error(`No such organization ${organizationId}`);
+      throw new CreatePerformerOrganizationNotFoundError(id);
     }
 
     return org;

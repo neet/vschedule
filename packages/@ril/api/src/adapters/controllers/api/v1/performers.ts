@@ -1,5 +1,6 @@
 import {
   Parameter$listPerformers,
+  Params$subscribeToPerformer,
   RequestBody$createPerformer,
   RequestBody$updatePerformer,
 } from '@ril/api-client';
@@ -18,6 +19,7 @@ import {
 import { CreatePerformer } from '../../../../app/use-cases/CreatePerformer';
 import { ListPerformers } from '../../../../app/use-cases/ListPerformers';
 import { ShowPerformer } from '../../../../app/use-cases/ShowPerformer';
+import { SubscribeToPerformer } from '../../../../app/use-cases/SubscribeToYoutubeWebsub';
 import { UpdatePerformer } from '../../../../app/use-cases/UpdatePerformer';
 import { RestApiPresenter } from '../../../mappers/RestApiMapper';
 
@@ -35,6 +37,9 @@ export class PerformersController extends BaseHttpController {
 
     @inject(ListPerformers)
     private readonly _listPerformers: ListPerformers,
+
+    @inject(SubscribeToPerformer)
+    private readonly _subscribeToPerformer: SubscribeToPerformer,
 
     @inject(RestApiPresenter)
     private readonly _presenter: RestApiPresenter,
@@ -76,6 +81,15 @@ export class PerformersController extends BaseHttpController {
     );
 
     return this.json(this._presenter.presentPerformer(performer, organization));
+  }
+
+  @httpPost('/:performerId/subscribe')
+  public async refresh(
+    @requestParam() params: Params$subscribeToPerformer['parameter'],
+  ) {
+    await this._subscribeToPerformer.invoke({
+      performerId: params.performerId,
+    });
   }
 
   @httpGet('/')

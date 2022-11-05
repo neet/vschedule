@@ -1,20 +1,27 @@
 import validator from 'validator';
 
-import { ValueObject } from '../_core';
+import { DomainError, ValueObject } from '../_core';
 
-export class InvalidBase64Error extends Error {}
+export class Base64InvalidError extends DomainError {
+  public readonly name = 'Base64InvalidError';
+
+  public constructor(public readonly value: string) {
+    super(`Base 64 malformed. Got ${value}`);
+  }
+}
 
 export class Base64 extends ValueObject<string> {
-  public constructor(value: string) {
+  public constructor(value: string | Base64) {
+    if (value instanceof Base64) {
+      return value;
+    }
+
     const match = value.match(/^data:(.+?);base64,(.+?)$/);
     const base64 = match?.at(2);
-
     if (base64 != null && !validator.isBase64(base64)) {
-      throw new InvalidBase64Error(value);
+      throw new Base64InvalidError(value);
     }
 
     super(value);
   }
-
-  public static from = ValueObject.createFactory(Base64);
 }

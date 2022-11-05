@@ -10,6 +10,6 @@ describe('OrganizationId', () => {
   });
 
   it('can be generated', () => {
-    expect(OrganizationId.create().value).toHaveLength(21);
+    expect(new OrganizationId().value).toHaveLength(21);
   });
 });

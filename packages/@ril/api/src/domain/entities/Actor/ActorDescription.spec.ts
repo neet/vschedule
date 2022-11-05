@@ -1,6 +1,6 @@
 import {
   ActorDescription,
-  InvalidActorDescriptionError,
+  ActorDescriptionLengthError,
 } from './ActorDescription';
 
 describe('ActorDescription', () => {
@@ -12,6 +12,6 @@ describe('ActorDescription', () => {
   it('throws and error when description is too long', () => {
     expect(() => {
       new ActorDescription('a'.repeat(5001));
-    }).toThrowError(InvalidActorDescriptionError);
+    }).toThrowError(ActorDescriptionLengthError);
   });
 });

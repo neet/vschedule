@@ -1,3 +1,3 @@
 export abstract class AppError extends Error {
-  abstract name: string;
+  public abstract name: string;
 }

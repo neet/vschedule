@@ -1,6 +1,6 @@
+import Color from 'color';
 import { inject, injectable } from 'inversify';
 
-import { Color } from '../../domain/_shared';
 import {
   Organization,
   OrganizationId,
@@ -8,9 +8,26 @@ import {
   PerformerId,
 } from '../../domain/entities';
 import { TYPES } from '../../types';
+import { AppError } from '../errors/AppError';
 import { IOrganizationRepository } from '../repositories/OrganizationRepository';
 import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { ILogger } from '../services/Logger';
+
+export class UpdatePerformerNotFoundError extends AppError {
+  public readonly name = 'UpdatePerformerNotFoundError';
+
+  public constructor(public readonly value: PerformerId) {
+    super(`No performer found with ID ${value}`);
+  }
+}
+
+export class UpdatePerformerOrganizationNotFoundError extends AppError {
+  public readonly name = 'UpdatePerformerOrganizationNotFoundError';
+
+  public constructor(public readonly value: PerformerId) {
+    super(`No organization found with ID ${value}`);
+  }
+}
 
 export interface UpdatePerformerParams {
   readonly name?: string;
@@ -51,7 +68,7 @@ export class UpdatePerformer {
 
     const performer = await this._performerRepository.findById(performerId);
     if (performer == null) {
-      throw new Error(`No performer found with id ${performerId.value}`);
+      throw new UpdatePerformerNotFoundError(performerId);
     }
 
     const organization = await this._fetchOrganization(organizationId);
@@ -59,7 +76,7 @@ export class UpdatePerformer {
     const newPerformer = performer.update({
       name,
       description,
-      color: color !== undefined ? Color.fromHex(color) : undefined,
+      color: color !== undefined ? new Color(color) : undefined,
       youtubeChannelId,
       twitterUsername,
       organizationId,
@@ -81,7 +98,7 @@ export class UpdatePerformer {
     const id = new OrganizationId(organizationId);
     const org = this._organizationRepository.findById(id);
     if (org == null) {
-      throw new Error(`No such organization ${organizationId}`);
+      throw new UpdatePerformerOrganizationNotFoundError(id);
     }
 
     return org;

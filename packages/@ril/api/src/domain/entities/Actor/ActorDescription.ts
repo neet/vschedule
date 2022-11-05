@@ -1,17 +1,23 @@
 import validator from 'validator';
 
-import { ValueObject } from '../../_core';
+import { DomainError, ValueObject } from '../../_core';
 
-export class InvalidActorDescriptionError extends Error {}
+export class ActorDescriptionLengthError extends DomainError {
+  public readonly name = 'InvalidActorDescriptionError';
+
+  public constructor(public readonly value: string) {
+    super(`Description must be 1 to 5000 letters. Got ${value.length}`);
+  }
+}
 
 export class ActorDescription extends ValueObject<string> {
-  public constructor(value: string) {
-    if (!validator.isLength(value, { min: 1, max: 5000 })) {
-      throw new InvalidActorDescriptionError('Invalid actor description');
+  constructor(value: string | ActorDescription) {
+    if (value instanceof ActorDescription) {
+      return value;
     }
-
+    if (!validator.isLength(value, { min: 1, max: 5000 })) {
+      throw new ActorDescriptionLengthError(value);
+    }
     super(value);
   }
-
-  public static from = ValueObject.createFactory(ActorDescription);
 }

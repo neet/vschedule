@@ -3,13 +3,23 @@ import { inject, injectable } from 'inversify';
 import {
   Organization,
   Performer,
+  PerformerId,
   Stream,
   StreamId,
 } from '../../domain/entities';
 import { TYPES } from '../../types';
+import { AppError } from '../errors/AppError';
 import { IOrganizationRepository } from '../repositories/OrganizationRepository';
 import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { IStreamRepository } from '../repositories/StreamRepository';
+
+export class ShowStreamOwnerNotFoundError extends AppError {
+  public readonly name = 'ShowStreamOwnerNotFoundError';
+
+  public constructor(public readonly performerId: PerformerId) {
+    super(`Stream owner with ID ${performerId} was not found`);
+  }
+}
 
 @injectable()
 export class ShowStream {
@@ -34,7 +44,7 @@ export class ShowStream {
 
     const owner = await this._performerRepository.findById(stream.ownerId);
     if (owner == null) {
-      throw new Error(`No performer found with ID ${stream.ownerId}`);
+      throw new ShowStreamOwnerNotFoundError(stream.ownerId);
     }
 
     const organization =

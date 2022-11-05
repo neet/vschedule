@@ -1,20 +1,37 @@
 import validator from 'validator';
 
-import { ValueObject } from '../../_core';
+import { DomainError, ValueObject } from '../../_core';
 
-export class InvalidBucketError extends Error {}
+export class InvalidBucketNameError extends DomainError {
+  public readonly name = 'InvalidBucketNameError';
+
+  public constructor(public readonly value: string) {
+    super(`Bucket name ${value} is containing non-ascii letter`);
+  }
+}
+
+export class InvalidBucketNameLengthError extends DomainError {
+  public readonly name = 'InvalidBucketNameLengthError';
+
+  public constructor() {
+    super(`Bucket name must be 1 to 255 characters`);
+  }
+}
 
 export class MediaAttachmentBucket extends ValueObject<string> {
-  public constructor(value: string) {
-    if (
-      !validator.isAscii(value) ||
-      !validator.isLength(value, { min: 1, max: 255 })
-    ) {
-      throw new InvalidBucketError('Invalid Bucket');
+  public constructor(value: string | MediaAttachmentBucket) {
+    if (value instanceof MediaAttachmentBucket) {
+      return value;
+    }
+
+    if (!validator.isAscii(value)) {
+      throw new InvalidBucketNameError(value);
+    }
+
+    if (!validator.isLength(value, { min: 1, max: 255 })) {
+      throw new InvalidBucketNameLengthError();
     }
 
     super(value);
   }
-
-  public static from = ValueObject.createFactory(MediaAttachmentBucket);
 }

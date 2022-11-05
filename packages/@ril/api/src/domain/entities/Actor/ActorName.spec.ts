@@ -1,4 +1,4 @@
-import { ActorName, InvalidActorNameError } from './ActorName';
+import { ActorName, ActorNameLengthError } from './ActorName';
 
 describe('ActorName', () => {
   it('constructs', () => {
@@ -9,6 +9,6 @@ describe('ActorName', () => {
   it('throws and error when description is too long', () => {
     expect(() => {
       new ActorName('a'.repeat(51));
-    }).toThrowError(InvalidActorNameError);
+    }).toThrow(ActorNameLengthError);
   });
 });

@@ -1,4 +1,5 @@
-import { Color } from '../../_shared';
+import Color from 'color';
+
 import { Performer } from './Performer';
 
 describe('Performer', () => {
@@ -10,7 +11,7 @@ describe('Performer', () => {
       avatar: null,
       url: null,
       twitterUsername: null,
-      color: Color.fromHex('#ff0000'),
+      color: new Color('#ff0000'),
       youtubeChannelId: 'UC-lHJZR3Gqxm24_Vd_AJ5Yw',
     });
 
@@ -20,7 +21,7 @@ describe('Performer', () => {
   it('updates', () => {
     let performer = Performer.create({
       name: '鷹宮リオン',
-      color: Color.fromHex('#ff0000'),
+      color: new Color('#ff0000'),
       organizationId: null,
       description: null,
       avatar: null,
@@ -30,7 +31,7 @@ describe('Performer', () => {
     });
 
     performer = performer.update({
-      color: Color.fromHex('#00ff00'),
+      color: new Color('#00ff00'),
     });
 
     expect(performer.color.value).toBe('#00ff00');
@@ -40,7 +41,7 @@ describe('Performer', () => {
     let performer = Performer.create({
       name: '鷹宮リオン',
       description: 'これは説明です',
-      color: Color.fromHex('#ff0000'),
+      color: new Color('#ff0000'),
       organizationId: null,
       avatar: null,
       url: null,

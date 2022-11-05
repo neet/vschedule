@@ -10,6 +10,6 @@ describe('MediaAttachmentId', () => {
   });
 
   it('can be generated', () => {
-    expect(MediaAttachmentId.create().value).toHaveLength(21);
+    expect(new MediaAttachmentId().value).toHaveLength(21);
   });
 });

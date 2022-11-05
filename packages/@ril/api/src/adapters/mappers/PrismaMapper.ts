@@ -1,7 +1,7 @@
+import Color from 'color';
 import dayjs from 'dayjs';
 import { URL } from 'url';
 
-import { Color } from '../../domain/_shared';
 import { Timestamps } from '../../domain/_shared/Timestamps';
 import {
   Actor,
@@ -36,7 +36,7 @@ const rehydrateActorFromPrisma = (
     // id: actor.id
     name: actor.name,
     description: actor.description,
-    color: Color.fromHex(actor.color),
+    color: new Color(actor.color),
     twitterUsername: actor.twitterUsername,
     youtubeChannelId: actor.youtubeChannelId,
     avatar:

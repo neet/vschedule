@@ -13,6 +13,7 @@ import {
   Stream,
 } from '../../domain/entities';
 import { TYPES } from '../../types';
+import { AppError } from '../errors/AppError';
 import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
 import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { IStreamRepository } from '../repositories/StreamRepository';
@@ -24,6 +25,14 @@ const YOUTUBE_CHANNEL_REGEXP =
 
 export interface CreateStreamParams {
   readonly videoId: string;
+}
+
+export class CreateStreamOrganizationNotFoundError extends AppError {
+  public readonly name = 'CreateStreamOrganizationNotFoundError';
+
+  public constructor(public readonly channelId: string) {
+    super(`Performer was not found with channel ID ${channelId}`);
+  }
 }
 
 @injectable()
@@ -54,9 +63,7 @@ export class CreateStream {
     );
 
     if (performer == null) {
-      throw new Error(
-        `performer not found with channel id: ${video.channelId}`,
-      );
+      throw new CreateStreamOrganizationNotFoundError(video.channelId);
     }
 
     const thumbnail =

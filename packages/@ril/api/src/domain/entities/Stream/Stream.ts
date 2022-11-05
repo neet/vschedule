@@ -4,7 +4,7 @@ import { produce } from 'immer';
 import { Mixin } from 'ts-mixer';
 import { URL } from 'url';
 
-import { Entity, RehydrateParameters } from '../../_core';
+import { DomainError, Entity, RehydrateParameters } from '../../_core';
 import {
   ITimestamps,
   TimestampMixin,
@@ -16,8 +16,26 @@ import { StreamDescription } from './StreamDescription';
 import { StreamId } from './StreamId';
 import { StreamTitle } from './StreamTitle';
 
-export class InvalidStreamTimestampError extends Error {}
-export class InvalidStreamEndingError extends Error {}
+export class StreamInvalidTimestampError extends DomainError {
+  public readonly name = 'StreamInvalidTimestampError';
+
+  public constructor(
+    public readonly startedAt: Dayjs,
+    public readonly endedAt: Dayjs | null,
+  ) {
+    super(
+      `startedAt cannot be after endedAt. Got ${startedAt} as start and ${endedAt} as ended at`,
+    );
+  }
+}
+
+export class StreamAlreadyEndedError extends DomainError {
+  public readonly name = 'StreamInvalidEndingError';
+
+  public constructor(id: StreamId) {
+    super(`Stream ${id.value} has already ended`);
+  }
+}
 
 export interface StreamProps {
   readonly id: StreamId;
@@ -39,9 +57,7 @@ export class Stream extends mixins implements ITimestamps {
     super(props);
 
     if (props.startedAt.isAfter(props.endedAt)) {
-      throw new InvalidStreamTimestampError(
-        'startedAt cannot be after endedAt',
-      );
+      throw new StreamInvalidTimestampError(props.startedAt, props.endedAt);
     }
   }
 
@@ -91,7 +107,7 @@ export class Stream extends mixins implements ITimestamps {
 
   public end(endedAt: Dayjs): Stream {
     if (this.endedAt !== null) {
-      throw new InvalidStreamEndingError(`Stream ${this.id} has already ended`);
+      throw new StreamAlreadyEndedError(this.id);
     }
 
     return new Stream(
@@ -107,22 +123,22 @@ export class Stream extends mixins implements ITimestamps {
   ) {
     return Stream.rehydrate({
       ...props,
-      id: StreamId.create().value,
-      timestamps: Timestamps.create(),
+      id: new StreamId(),
+      timestamps: new Timestamps(),
     });
   }
 
   public static rehydrate(props: RehydrateParameters<StreamProps>): Stream {
     return new Stream({
-      id: StreamId.from(props.id),
-      title: StreamTitle.from(props.title),
+      id: new StreamId(props.id),
+      title: new StreamTitle(props.title),
       url: props.url,
-      ownerId: PerformerId.from(props.ownerId),
+      ownerId: new PerformerId(props.ownerId),
       castIds: props.castIds,
       thumbnail: props.thumbnail,
       description:
         props.description !== null
-          ? StreamDescription.from(props.description)
+          ? new StreamDescription(props.description)
           : null,
       timestamps: props.timestamps,
       startedAt: props.startedAt,

@@ -1,7 +1,7 @@
+import Color from 'color';
 import dayjs from 'dayjs';
 import { URL } from 'url';
 
-import { Color } from '../../_shared';
 import { Timestamps } from '../../_shared/Timestamps';
 import { Organization } from './Organization';
 import { OrganizationId } from './OrganizationId';
@@ -11,7 +11,7 @@ describe('Organization', () => {
     const organization = Organization.create({
       name: 'にじさんじ',
       url: new URL('https://www.nijisanji.jp/en'),
-      color: Color.fromHex('#ffffff'),
+      color: new Color('#ffffff'),
       description: null,
       avatar: null,
       twitterUsername: 'nijisanji',
@@ -22,12 +22,12 @@ describe('Organization', () => {
   });
 
   it('can be rehydrated', () => {
-    const id = OrganizationId.create().value;
+    const id = new OrganizationId();
     const organization = Organization.rehydrate({
       id,
       name: 'にじさんじ',
       url: new URL('https://www.nijisanji.jp/en'),
-      color: Color.fromHex('#ffffff'),
+      color: new Color('#ffffff'),
       twitterUsername: 'nijisanji',
       description: null,
       avatar: null,

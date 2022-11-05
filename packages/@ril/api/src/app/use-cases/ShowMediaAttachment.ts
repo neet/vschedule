@@ -5,9 +5,16 @@ import {
   MediaAttachmentFilename,
 } from '../../domain/entities';
 import { TYPES } from '../../types';
+import { AppError } from '../errors/AppError';
 import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
 
-export class NoSuchMediaAttachmentError extends Error {}
+export class ShowMediaAttachmentNotFoundError extends AppError {
+  public readonly name = 'ShowMediaAttachmentNotFoundError';
+
+  public constructor(public readonly filename: MediaAttachmentFilename) {
+    super(`MediaAttachment not found: ${filename}`);
+  }
+}
 
 @injectable()
 export class ShowMediaAttachment {
@@ -16,15 +23,12 @@ export class ShowMediaAttachment {
     private readonly _mediaRepository: IMediaAttachmentRepository,
   ) {}
 
-  async invoke(filename: string): Promise<MediaAttachment> {
-    const data = await this._mediaRepository.findByFilename(
-      new MediaAttachmentFilename(filename),
-    );
+  async invoke(rawFilename: string): Promise<MediaAttachment> {
+    const filename = new MediaAttachmentFilename(rawFilename);
+    const data = await this._mediaRepository.findByFilename(filename);
 
     if (data == null) {
-      throw new NoSuchMediaAttachmentError(
-        `MediaAttachment not found: ${filename}`,
-      );
+      throw new ShowMediaAttachmentNotFoundError(filename);
     }
 
     return data;

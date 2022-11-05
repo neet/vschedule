@@ -44,11 +44,11 @@ export class Performer extends mixins implements ITimestamps {
   public static rehydrate(props: RehydrateParameters<PerformerProps>) {
     return new Performer({
       ...Actor.rehydrate(props),
-      id: PerformerId.from(props.id),
+      id: new PerformerId(props.id),
       timestamps: props.timestamps,
       organizationId:
         props.organizationId !== null
-          ? OrganizationId.from(props.organizationId)
+          ? new OrganizationId(props.organizationId)
           : null,
     });
   }
@@ -59,8 +59,8 @@ export class Performer extends mixins implements ITimestamps {
     return Performer.rehydrate({
       // ...Actor.create(props),
       ...props,
-      id: PerformerId.create(),
-      timestamps: Timestamps.create(),
+      id: new PerformerId(),
+      timestamps: new Timestamps(),
     });
   }
 }

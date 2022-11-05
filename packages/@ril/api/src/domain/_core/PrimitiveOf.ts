@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/naming-convention */
+import type Color from 'color';
 import type { Dayjs } from 'dayjs';
 
 import type { Entity } from './Entity';
 import type { ValueObject, ValueOf } from './ValueObject';
 
 type Primitive = bigint | boolean | number | string | symbol | null | undefined;
-type Function_ = (...arguments_: readonly unknown[]) => unknown;
-type Builtin = Date | Dayjs | Error | Function_ | Primitive | RegExp;
+type Function = (...arguments_: readonly unknown[]) => unknown;
+type Builtin = Date | Dayjs | Color | Error | Function | Primitive | RegExp;
 
 export type PrimitiveOf<T> = { [key in keyof T]: ValueOf<T[key]> };
 

@@ -5,12 +5,12 @@ import { TYPES } from '../../types';
 import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { IYoutubeWebsubService } from '../services/YoutubeWebsubService';
 
-export interface ResubscribeToYoutubeWebsubParams {
+export interface ResubscribeToPerformerParams {
   readonly performerId: string;
 }
 
 @injectable()
-export class SubscribeToYoutubeWebsub {
+export class SubscribeToPerformer {
   constructor(
     @inject(TYPES.PerformerRepository)
     private readonly _performerRepository: IPerformerRepository,
@@ -19,16 +19,16 @@ export class SubscribeToYoutubeWebsub {
     private readonly _youtubeWebsubService: IYoutubeWebsubService,
   ) {}
 
-  async invoke(params: ResubscribeToYoutubeWebsubParams): Promise<void> {
-    const actor = await this._performerRepository.findById(
+  async invoke(params: ResubscribeToPerformerParams): Promise<void> {
+    const performer = await this._performerRepository.findById(
       new PerformerId(params.performerId),
     );
 
-    if (actor == null) {
+    if (performer == null) {
       throw new Error(`Actor with id ${params.performerId} not found`);
     }
 
-    if (actor.youtubeChannelId == null) {
+    if (performer.youtubeChannelId == null) {
       throw new Error(
         `Actor with id ${params.performerId} has no youtube channel`,
       );
@@ -36,7 +36,7 @@ export class SubscribeToYoutubeWebsub {
 
     // TODO: ドメインモデルに書いてイベント的な感じで反映させたい
     await this._youtubeWebsubService.subscribeToChannel(
-      actor.youtubeChannelId.value,
+      performer.youtubeChannelId.value,
     );
   }
 }

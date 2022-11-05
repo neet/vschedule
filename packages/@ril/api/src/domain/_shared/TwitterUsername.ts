@@ -1,12 +1,31 @@
 import validator from 'validator';
 
-import { ValueObject } from '../_core';
+import { DomainError, ValueObject } from '../_core';
 
-export class TwitterUsernameTooLongError extends Error {}
-export class TwitterUsernameInvalidCharacterError extends Error {}
+export class TwitterUsernameTooLongError extends DomainError {
+  public readonly name = 'TwitterUsernameTooLongError';
+
+  public constructor(public readonly value: string) {
+    super(
+      `Twitter username must be between 4 to 15 characters. Got ${value.length}`,
+    );
+  }
+}
+
+export class TwitterUsernameInvalidCharacterError extends DomainError {
+  public readonly name = 'TwitterUsernameInvalidCharacterError';
+
+  public constructor(public readonly value: string) {
+    super(`Username ${value} contains invalid character`);
+  }
+}
 
 export class TwitterUsername extends ValueObject<string> {
-  public constructor(value: string) {
+  public constructor(value: string | TwitterUsername) {
+    if (value instanceof TwitterUsername) {
+      return value;
+    }
+
     if (!validator.isLength(value, { min: 4, max: 15 })) {
       throw new TwitterUsernameTooLongError(value);
     }
@@ -18,6 +37,4 @@ export class TwitterUsername extends ValueObject<string> {
 
     super(value);
   }
-
-  public static from = ValueObject.createFactory(TwitterUsername);
 }

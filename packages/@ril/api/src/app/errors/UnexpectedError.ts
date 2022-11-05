@@ -1,7 +1,7 @@
 import { AppError } from './AppError';
 
 export class UnexpectedError extends AppError {
-  public name = 'UnexpectedError';
+  public readonly name = 'UnexpectedError';
 
   constructor(message = 'Unexpected error occurred') {
     super(message);
