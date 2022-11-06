@@ -1,6 +1,8 @@
 import { config, createLogger, format, transports } from 'winston';
 
-export const logger = createLogger({
+import { ILogger } from '../../app/services/Logger';
+
+export const loggerConsole: ILogger = createLogger({
   // どのレベルのエラーを出す？
   level: 'info',
   levels: config.syslog.levels,

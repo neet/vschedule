@@ -19,7 +19,8 @@ import { IYoutubeApiService } from '../app/services/YoutubeApiService';
 import { IYoutubeWebsubService } from '../app/services/YoutubeWebsubService';
 import { TYPES } from '../types';
 import { AppConfigEnvironment } from './services/AppConfigEnvironment';
-import { logger } from './services/LoggerConsole';
+import { loggerCloudLogging } from './services/LoggerCloudLogging';
+import { loggerConsole } from './services/LoggerConsole';
 import { Storage } from './services/Storage';
 import { StorageFilesystem } from './services/StorageFilesystem';
 import { YoutubeApiService } from './services/YouTubeApiService';
@@ -33,34 +34,34 @@ const container = new Container({
 
 const prisma = new PrismaClient({
   log: [
-    {
-      level: 'info',
-      emit: 'event',
-    },
-    {
-      level: 'query',
-      emit: 'event',
-    },
-    {
-      level: 'warn',
-      emit: 'event',
-    },
-    {
-      level: 'error',
-      emit: 'event',
-    },
+    { level: 'info', emit: 'event' },
+    { level: 'query', emit: 'event' },
+    { level: 'warn', emit: 'event' },
+    { level: 'error', emit: 'event' },
   ],
 });
 
+container.bind<PrismaClient>(TYPES.PrismaClient).toConstantValue(prisma);
+container.bind<IAppConfig>(TYPES.AppConfig).to(AppConfigEnvironment);
+
+const config = container.get<IAppConfig>(TYPES.AppConfig);
+
+container
+  .bind<ILogger>(TYPES.Logger)
+  .toConstantValue(loggerConsole)
+  .when(() => config.entries.logger.type === 'console');
+
+container
+  .bind<ILogger>(TYPES.Logger)
+  .toConstantValue(loggerCloudLogging)
+  .when(() => config.entries.logger.type === 'cloud-logging');
+
+const logger = container.get<ILogger>(TYPES.Logger);
+
 prisma.$on('query', (e) => logger.debug(e.query, e.params, e.duration));
 prisma.$on('info', (e) => logger.info(e.message));
-prisma.$on('warn', (e) => logger.warn(e.message));
+prisma.$on('warn', (e) => logger.warning(e.message));
 prisma.$on('error', (e) => logger.error(e.message));
-
-container.bind<PrismaClient>(TYPES.PrismaClient).toConstantValue(prisma);
-container.bind<ILogger>(TYPES.Logger).toConstantValue(logger);
-
-container.bind<IAppConfig>(TYPES.AppConfig).to(AppConfigEnvironment);
 
 container
   .bind<IPerformerRepository>(TYPES.PerformerRepository)

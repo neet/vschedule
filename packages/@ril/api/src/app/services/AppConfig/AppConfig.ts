@@ -16,10 +16,15 @@ export interface IAppConfigServer {
   readonly origin: string;
 }
 
+export interface IAppConfigLogger {
+  readonly type: 'console' | 'cloud-logging';
+}
+
 export interface IAppConfigEntries {
   readonly youtube: IAppConfigYoutube;
   readonly storage: IAppConfigStorage;
   readonly server: IAppConfigServer;
+  readonly logger: IAppConfigLogger;
 }
 
 export interface IAppConfig {

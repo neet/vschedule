@@ -27,6 +27,9 @@ export class AppConfigEnvironment extends AppConfigBase implements IAppConfig {
         })(),
         origin: env('ORIGIN'),
       },
+      logger: {
+        type: env('LOGGER_TYPE'),
+      },
     });
   }
 }

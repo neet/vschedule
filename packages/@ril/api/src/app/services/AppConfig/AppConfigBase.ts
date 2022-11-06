@@ -21,6 +21,9 @@ export abstract class AppConfigBase implements IAppConfig {
         port: entries.server?.port ?? 3000,
         origin: entries.server?.origin ?? 'http://localhost:3000',
       },
+      logger: {
+        type: entries.logger?.type ?? 'console',
+      },
     };
   }
 }
