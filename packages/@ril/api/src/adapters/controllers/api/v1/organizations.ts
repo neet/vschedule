@@ -51,7 +51,7 @@ export class OrganizationsController extends BaseHttpController {
 
     return this.json(
       organizations.map((organization) =>
-        this._presenter.presentActor(organization),
+        this._presenter.presentOrganization(organization),
       ),
     );
   }
