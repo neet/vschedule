@@ -29,7 +29,7 @@ export class PerformerRepository implements IPerformerRepository {
           id: nanoid(),
           name: performer.name.value,
           description: unwrap(performer.description),
-          color: performer.color.value,
+          color: performer.color.hex(),
           youtubeChannelId: unwrap(performer.youtubeChannelId),
           twitterUsername: unwrap(performer.twitterUsername),
           avatarId:
@@ -68,7 +68,7 @@ export class PerformerRepository implements IPerformerRepository {
       actor: {
         update: {
           name: performer.name.value,
-          color: performer.color.value,
+          color: performer.color.hex(),
           description: unwrap(performer.description),
           youtubeChannelId: unwrap(performer.youtubeChannelId),
           twitterUsername: unwrap(performer.twitterUsername),

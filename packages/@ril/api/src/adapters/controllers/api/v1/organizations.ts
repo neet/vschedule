@@ -62,11 +62,11 @@ export class OrganizationsController extends BaseHttpController {
   ) {
     const organization = await this._createOrganization.invoke({
       name: body.name,
-      url: body.url,
-      description: body.description,
-      color: body.color,
-      youtubeChannelId: body.youtubeChannelId,
-      twitterUsername: body.twitterUsername,
+      url: body.url ?? null,
+      description: body.description ?? null,
+      color: body.color ?? null,
+      youtubeChannelId: body.youtubeChannelId ?? null,
+      twitterUsername: body.twitterUsername ?? null,
     });
 
     return this.json(this._presenter.presentActor(organization));

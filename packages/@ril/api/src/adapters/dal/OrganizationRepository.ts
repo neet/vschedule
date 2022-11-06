@@ -32,7 +32,7 @@ export class OrganizationRepository implements IOrganizationRepository {
         create: {
           id: nanoid(),
           name: organization.name.value,
-          color: organization.color.value,
+          color: organization.color.hex(),
           description: unwrap(organization.description),
           url: organization.url === null ? null : organization.url.toString(),
           twitterUsername: unwrap(organization.twitterUsername),
@@ -64,7 +64,7 @@ export class OrganizationRepository implements IOrganizationRepository {
         update: {
           id: nanoid(),
           name: organization.name.value,
-          color: organization.color.value,
+          color: organization.color.hex(),
           description: unwrap(organization.description),
           url: organization.url === null ? null : organization.url.toString(),
           twitterUsername: unwrap(organization.twitterUsername),
