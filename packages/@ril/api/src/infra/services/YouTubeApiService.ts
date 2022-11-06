@@ -65,7 +65,7 @@ export class YoutubeApiService implements IYoutubeApiService {
       video.snippet.channelId == null ||
       video.snippet.description == null ||
       video.snippet.publishedAt == null ||
-      video.snippet.thumbnails?.default?.url == null
+      video.snippet.thumbnails?.maxres?.url == null
       // video.liveStreamingDetails?.actualStartTime == null
     ) {
       throw new Error(
@@ -77,7 +77,7 @@ export class YoutubeApiService implements IYoutubeApiService {
       id: video.id,
       title: video.snippet.title,
       description: video.snippet.description,
-      thumbnailUrl: video.snippet.thumbnails.default.url,
+      thumbnailUrl: video.snippet.thumbnails.maxres.url,
       url: `https://www.youtube.com/watch?v=${video.id}`,
       channelId: video.snippet.channelId,
       publishedAt: video.snippet.publishedAt,

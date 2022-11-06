@@ -19,7 +19,7 @@ import { IYoutubeApiService } from '../app/services/YoutubeApiService';
 import { IYoutubeWebsubService } from '../app/services/YoutubeWebsubService';
 import { TYPES } from '../types';
 import { AppConfigEnvironment } from './services/AppConfigEnvironment';
-import { logger } from './services/LoggerWinston';
+import { logger } from './services/LoggerConsole';
 import { Storage } from './services/Storage';
 import { StorageFilesystem } from './services/StorageFilesystem';
 import { YoutubeApiService } from './services/YouTubeApiService';

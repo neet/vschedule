@@ -3,8 +3,15 @@ import { ErrorRequestHandler, Response } from 'express';
 
 import { AppError } from '../../app/errors/AppError';
 import { UnexpectedError } from '../../app/errors/UnexpectedError';
-import { CreatePerformerOrganizationNotFoundError } from '../../app/use-cases/CreatePerformer';
-import { CreateStreamOrganizationNotFoundError } from '../../app/use-cases/CreateStream';
+import { CreateOrganizationChannelNotFoundError } from '../../app/use-cases/CreateOrganization';
+import {
+  CreatePerformerChannelNotFoundError,
+  CreatePerformerOrganizationNotFoundError,
+} from '../../app/use-cases/CreatePerformer';
+import {
+  CreateStreamFailedToFetchVideoError,
+  CreateStreamPerformerNotFoundWithChannelIdError,
+} from '../../app/use-cases/CreateStream';
 import { RemoveStreamNotFoundError } from '../../app/use-cases/RemoveStream';
 import {
   ScheduleYoutubeWebsubResubscriptionInvalidTopic,
@@ -26,7 +33,7 @@ export const appErrorHandler: ErrorRequestHandler = (
   next,
 ): Response | void => {
   if (!(error instanceof AppError)) {
-    return next();
+    return next(error);
   }
 
   if (error instanceof UnexpectedError) {
@@ -35,7 +42,16 @@ export const appErrorHandler: ErrorRequestHandler = (
   if (error instanceof CreatePerformerOrganizationNotFoundError) {
     res.status(404);
   }
-  if (error instanceof CreateStreamOrganizationNotFoundError) {
+  if (error instanceof CreateStreamFailedToFetchVideoError) {
+    res.status(404);
+  }
+  if (error instanceof CreatePerformerChannelNotFoundError) {
+    res.status(404);
+  }
+  if (error instanceof CreateStreamPerformerNotFoundWithChannelIdError) {
+    res.status(404);
+  }
+  if (error instanceof CreateOrganizationChannelNotFoundError) {
     res.status(404);
   }
   if (error instanceof RemoveStreamNotFoundError) {
@@ -71,5 +87,5 @@ export const appErrorHandler: ErrorRequestHandler = (
     message: error.message,
   };
 
-  return res.json(payload);
+  res.json(payload);
 };

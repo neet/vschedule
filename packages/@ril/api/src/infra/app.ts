@@ -6,16 +6,17 @@ import '../adapters/controllers/websub/youtube';
 import './setup';
 
 import api from '@ril/api-spec';
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, { Application } from 'express';
 import * as OpenApiValidator from 'express-openapi-validator';
+import expressWinston from 'express-winston';
 import { Container } from 'inversify';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import swaggerUi from 'swagger-ui-express';
 
-import { ILogger } from '../app/services/Logger';
-import { TYPES } from '../types';
-import { appErrorHandler } from './services/AppErrorHandler';
-import { domainErrorHandler } from './services/DomainErrorHandler';
+import { appErrorHandler } from './middlewares/AppErrorHandler';
+import { domainErrorHandler } from './middlewares/DomainErrorHandler';
+import { openapiErrorHandler } from './middlewares/OpenApiErrorHandler';
+import { logger } from './services/LoggerConsole';
 
 /**
  * Create app by given container
@@ -27,6 +28,7 @@ export const createApp = (container: Container): Application => {
   server.setConfig((app) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
+    app.use(expressWinston.logger({ winstonInstance: logger }));
     app.use('/docs', swaggerUi.serve, swaggerUi.setup(api));
     app.use(
       '/api',
@@ -34,7 +36,7 @@ export const createApp = (container: Container): Application => {
         apiSpec: require.resolve('@ril/api-spec'),
         validateApiSpec: true,
         validateRequests: true,
-        validateResponses: true,
+        validateResponses: false,
       }),
     );
   });
@@ -42,18 +44,8 @@ export const createApp = (container: Container): Application => {
   server.setErrorConfig((app) => {
     app.use(domainErrorHandler);
     app.use(appErrorHandler);
-    app.use(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (err: any, _req: Request, res: Response, _next: NextFunction) => {
-        const logger = container.get<ILogger>(TYPES.Logger);
-        logger.error(`Fallback handler has called: ${err.message}`);
-
-        res.status(err.status ?? 500).json({
-          message: err.message,
-          errors: err.errors,
-        });
-      },
-    );
+    app.use(expressWinston.errorLogger({ winstonInstance: logger }));
+    app.use(openapiErrorHandler);
   });
 
   return server.build();

@@ -10,7 +10,7 @@ export const domainErrorHandler: ErrorRequestHandler = (
   next,
 ) => {
   if (!(error instanceof DomainError)) {
-    return next();
+    return next(error);
   }
 
   const payload: Schemas.Error = {
@@ -19,5 +19,5 @@ export const domainErrorHandler: ErrorRequestHandler = (
   };
 
   // TODO: ドメインエラーが bad request じゃないことってあるの
-  return res.status(400).json(payload);
+  res.status(400).json(payload);
 };

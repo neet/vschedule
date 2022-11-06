@@ -20,6 +20,17 @@ import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { ILogger } from '../services/Logger';
 import { IYoutubeApiService } from '../services/YoutubeApiService';
 
+export class CreatePerformerChannelNotFoundError extends AppError {
+  public readonly name = 'CreatePerformerChannelNotFoundError ';
+
+  public constructor(
+    public readonly channelId: string,
+    public readonly cause: unknown,
+  ) {
+    super(`No channel found with ID ${channelId}`);
+  }
+}
+
 export class CreatePerformerOrganizationNotFoundError extends AppError {
   public readonly name = 'CreatePerformerOrganizationNotFoundError';
 
@@ -74,11 +85,8 @@ export class CreatePerformer {
       organizationId,
     } = params;
 
+    const channel = await this._fetchChannelById(youtubeChannelId);
     const organization = await this._fetchOrganization(organizationId);
-
-    const channel = await this._youtubeApiService.fetchChannel(
-      youtubeChannelId,
-    );
 
     // image
     const image = await fetch(channel.thumbnailUrl);
@@ -116,6 +124,15 @@ export class CreatePerformer {
     this._logger.info('Performer with ID %s is created', performer.id);
 
     return [performer, organization ?? null];
+  }
+
+  private async _fetchChannelById(channelId: string) {
+    try {
+      const channel = await this._youtubeApiService.fetchChannel(channelId);
+      return channel;
+    } catch (error) {
+      throw new CreatePerformerChannelNotFoundError(channelId, error);
+    }
   }
 
   private async _fetchOrganization(

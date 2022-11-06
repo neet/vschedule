@@ -18,7 +18,7 @@ import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepos
 import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { IStreamRepository } from '../repositories/StreamRepository';
 import { ILogger } from '../services/Logger';
-import { IYoutubeApiService } from '../services/YoutubeApiService';
+import { IYoutubeApiService, Video } from '../services/YoutubeApiService';
 
 const YOUTUBE_CHANNEL_REGEXP =
   /https:\/\/www\.youtube\.com\/channel\/(.+?)(\/|\s|\n|\?)/g;
@@ -27,8 +27,19 @@ export interface CreateStreamParams {
   readonly videoId: string;
 }
 
-export class CreateStreamOrganizationNotFoundError extends AppError {
-  public readonly name = 'CreateStreamOrganizationNotFoundError';
+export class CreateStreamFailedToFetchVideoError extends AppError {
+  public readonly name = 'CreateStreamFailedToFetchVideoError';
+
+  public constructor(
+    public readonly videoId: string,
+    public readonly cause: unknown,
+  ) {
+    super(`No video found with ID ${videoId}`);
+  }
+}
+
+export class CreateStreamPerformerNotFoundWithChannelIdError extends AppError {
+  public readonly name = 'CreateStreamPerformerNotFoundWithChannelIdError';
 
   public constructor(public readonly channelId: string) {
     super(`Performer was not found with channel ID ${channelId}`);
@@ -57,13 +68,16 @@ export class CreateStream {
   async invoke(params: CreateStreamParams): Promise<Stream> {
     const { videoId } = params;
 
-    const video = await this._youtubeStreamService.fetchVideo(videoId);
+    const video = await this._fetchVideoById(videoId);
+
     const performer = await this._performerRepository.findByYoutubeChannelId(
       new YoutubeChannelId(video.channelId),
     );
 
     if (performer == null) {
-      throw new CreateStreamOrganizationNotFoundError(video.channelId);
+      throw new CreateStreamPerformerNotFoundWithChannelIdError(
+        video.channelId,
+      );
     }
 
     const thumbnail =
@@ -88,6 +102,15 @@ export class CreateStream {
     this._logger.info(`Stream with ID ${stream.id} is created`);
 
     return stream;
+  }
+
+  private async _fetchVideoById(videoId: string): Promise<Video> {
+    try {
+      const video = await this._youtubeStreamService.fetchVideo(videoId);
+      return video;
+    } catch (error) {
+      throw new CreateStreamFailedToFetchVideoError(videoId, error);
+    }
   }
 
   private async _createThumbnail(url: string): Promise<MediaAttachment> {

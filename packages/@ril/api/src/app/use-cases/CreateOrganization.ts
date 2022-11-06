@@ -7,11 +7,23 @@ import { URL } from 'url';
 
 import { MediaAttachmentFilename, Organization } from '../../domain/entities';
 import { TYPES } from '../../types';
+import { AppError } from '../errors/AppError';
 import { UnexpectedError } from '../errors/UnexpectedError';
 import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
 import { IOrganizationRepository } from '../repositories/OrganizationRepository';
 import { ILogger } from '../services/Logger';
 import { IYoutubeApiService } from '../services/YoutubeApiService';
+
+export class CreateOrganizationChannelNotFoundError extends AppError {
+  public readonly name = 'CreateOrganizationChannelNotFoundError';
+
+  public constructor(
+    public readonly channelId: string,
+    public readonly cause: unknown,
+  ) {
+    super(`No channel found by ID ${channelId}`);
+  }
+}
 
 export interface CreateOrganizationParams {
   readonly name: string;
@@ -70,9 +82,7 @@ export class CreateOrganization {
   }
 
   private async _createAvatar(youtubeChannelId: string) {
-    const channel = await this._youtubeApiService.fetchChannel(
-      youtubeChannelId,
-    );
+    const channel = await this._fetchChannelById(youtubeChannelId);
     const image = await fetch(channel.thumbnailUrl);
     const imageBuffer = Buffer.from(await image.arrayBuffer());
     const avatar = await this._mediaAttachmentRepository.save(
@@ -94,5 +104,14 @@ export class CreateOrganization {
     }
 
     return { avatar, color: primaryColor };
+  }
+
+  private async _fetchChannelById(channelId: string) {
+    try {
+      const channel = await this._youtubeApiService.fetchChannel(channelId);
+      return channel;
+    } catch (error) {
+      throw new CreateOrganizationChannelNotFoundError(channelId, error);
+    }
   }
 }

@@ -21,6 +21,7 @@
     "dayjs": "^1.11.6",
     "express": "^4.18.2",
     "express-openapi-validator": "^4.13.8",
+    "express-winston": "^4.2.0",
     "get-image-colors": "^4.0.1",
     "googleapis": "^109.0.0",
     "immer": "^9.0.16",

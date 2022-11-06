@@ -12,7 +12,7 @@ export abstract class ValueObject<T = unknown> {
   }
 
   public toString(): string {
-    return `${this.constructor}(${this.value})`;
+    return `${this.value}`;
   }
 
   public toJSON(): T {
