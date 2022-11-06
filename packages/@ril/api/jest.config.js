@@ -17,7 +17,10 @@ module.exports = {
         '^.+\\.(t|j)sx?$': ['@swc/jest'],
       },
       testMatch: ['<rootDir>/test/**/*.spec.{ts,tsx}'],
-      setupFilesAfterEnv: ['<rootDir>/test-utils/setup-e2e.ts'],
+      setupFilesAfterEnv: [
+        '<rootDir>/test-utils/setup-e2e.ts',
+        'jest-date-mock',
+      ],
     },
   ],
   collectCoverageFrom: [

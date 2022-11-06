@@ -90,6 +90,7 @@ export class PerformersController extends BaseHttpController {
     await this._subscribeToPerformer.invoke({
       performerId: params.performerId,
     });
+    return this.statusCode(202);
   }
 
   @httpGet('/')

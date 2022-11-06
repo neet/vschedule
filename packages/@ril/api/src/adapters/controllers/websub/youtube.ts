@@ -29,7 +29,7 @@ export class YoutubeWebsubController extends BaseHttpController {
     private readonly _removeStream: RemoveStream,
 
     @inject(ScheduleYoutubeWebsubResubscription)
-    private readonly _queueYoutubeWebsubResubscription: ScheduleYoutubeWebsubResubscription,
+    private readonly _scheduleYoutubeWebsubResubscription: ScheduleYoutubeWebsubResubscription,
   ) {
     super();
   }
@@ -40,7 +40,7 @@ export class YoutubeWebsubController extends BaseHttpController {
     @queryParam() params: Parameter$verifyYoutubeWebsub,
   ) {
     // TODO: Unsubscribeのときのハンドリング
-    await this._queueYoutubeWebsubResubscription.invoke({
+    await this._scheduleYoutubeWebsubResubscription.invoke({
       topic: params['hub.topic'],
       leaseSeconds: params['hub.lease_seconds'],
     });

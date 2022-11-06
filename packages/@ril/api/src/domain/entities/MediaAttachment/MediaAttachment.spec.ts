@@ -8,7 +8,7 @@ describe('MediaAttachment', () => {
   it('can be created', () => {
     const media = MediaAttachment.create({
       filename: 'filename.png',
-      base64: Buffer.from([123]).toString('base64'),
+      base64: 'data:png;base64,' + Buffer.from([123]).toString('base64'),
       width: 1,
       height: 1,
       bucket: '123',
@@ -24,7 +24,7 @@ describe('MediaAttachment', () => {
     const media = MediaAttachment.rehydrate({
       id: new MediaAttachmentId(),
       filename: 'filename.png',
-      base64: Buffer.from([123]).toString('base64'),
+      base64: 'data:png;base64,' + Buffer.from([123]).toString('base64'),
       width: 1,
       height: 1,
       bucket: '123',

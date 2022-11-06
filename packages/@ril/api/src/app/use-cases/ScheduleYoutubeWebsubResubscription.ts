@@ -52,17 +52,17 @@ export class ScheduleYoutubeWebsubResubscription {
       throw new ScheduleYoutubeWebsubResubscriptionInvalidTopic(params.topic);
     }
 
-    const actor = await this._performerRepository.findByYoutubeChannelId(
+    const performer = await this._performerRepository.findByYoutubeChannelId(
       new YoutubeChannelId(channelId),
     );
 
-    if (actor == null) {
+    if (performer == null) {
       throw new ScheduleYoutubeWebsubResubscriptionUnknownActorError(channelId);
     }
 
     await this._jobRepository.queue({
       type: 'refresh',
-      actorId: actor.id.value,
+      actorId: performer.id.value,
       scheduledAt,
     });
   }

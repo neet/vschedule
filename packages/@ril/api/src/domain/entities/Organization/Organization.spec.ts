@@ -38,7 +38,7 @@ describe('Organization', () => {
       }),
     });
 
-    expect(organization.id.value).toBe(id);
+    expect(organization.id.value).toBe(id.value);
     expect(organization.name.value).toBe('にじさんじ');
   });
 });

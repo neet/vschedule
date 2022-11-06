@@ -1,5 +1,6 @@
 import {
   InvalidBucketNameError,
+  InvalidBucketNameLengthError,
   MediaAttachmentBucket,
 } from './MediaAttachmentBucket';
 
@@ -18,6 +19,6 @@ describe('MediaAttachmentBucket', () => {
   it('throws an error when the bucket name is too long', () => {
     expect(() => {
       new MediaAttachmentBucket('a'.repeat(300));
-    }).toThrowError(InvalidBucketNameError);
+    }).toThrowError(InvalidBucketNameLengthError);
   });
 });

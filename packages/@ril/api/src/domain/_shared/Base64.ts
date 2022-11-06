@@ -10,6 +10,7 @@ export class Base64InvalidError extends DomainError {
   }
 }
 
+// TODO: Data Url とかに改める
 export class Base64 extends ValueObject<string> {
   public constructor(value: string | Base64) {
     if (value instanceof Base64) {
@@ -18,7 +19,7 @@ export class Base64 extends ValueObject<string> {
 
     const match = value.match(/^data:(.+?);base64,(.+?)$/);
     const base64 = match?.at(2);
-    if (base64 != null && !validator.isBase64(base64)) {
+    if (base64 == null || !validator.isBase64(base64)) {
       throw new Base64InvalidError(value);
     }
 

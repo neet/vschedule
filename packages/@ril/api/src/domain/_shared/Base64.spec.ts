@@ -9,6 +9,6 @@ describe('Base64', () => {
   });
 
   it('throws an error for malformed', () => {
-    expect(new Base64('123123')).toThrow(Base64InvalidError);
+    expect(() => new Base64('あいうえお')).toThrowError(Base64InvalidError);
   });
 });

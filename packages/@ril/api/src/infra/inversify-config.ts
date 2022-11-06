@@ -2,7 +2,6 @@ import { PrismaClient } from '@prisma/client';
 import { Container } from 'inversify';
 
 import { JobRepository } from '../adapters/dal/JobRepository';
-import { JobRepositoryInMemory } from '../adapters/dal/JobRepositoryInMemory';
 import { MediaAttachmentRepositoryPrismaImpl } from '../adapters/dal/MediaAttachmentRepository';
 import { OrganizationRepository } from '../adapters/dal/OrganizationRepository';
 import { PerformerRepository } from '../adapters/dal/PerformerRepository';
@@ -22,7 +21,6 @@ import { AppConfigEnvironment } from './services/AppConfigEnvironment';
 import { loggerCloudLogging } from './services/LoggerCloudLogging';
 import { loggerConsole } from './services/LoggerConsole';
 import { Storage } from './services/Storage';
-import { StorageFilesystem } from './services/StorageFilesystem';
 import { YoutubeApiService } from './services/YouTubeApiService';
 import { YoutubeWebsubParser } from './services/YoutubeWebsubParser';
 import { YoutubeWebsubService } from './services/YoutubeWebsubService';
@@ -77,15 +75,7 @@ container
   .bind<IMediaAttachmentRepository>(TYPES.MediaAttachmentRepository)
   .to(MediaAttachmentRepositoryPrismaImpl);
 
-container
-  .bind<IJobRepository>(TYPES.JobRepository)
-  .to(JobRepository)
-  .when(() => process.env.NODE_ENV !== 'test');
-
-container
-  .bind<IJobRepository>(TYPES.JobRepository)
-  .to(JobRepositoryInMemory)
-  .when(() => process.env.NODE_ENV === 'test');
+container.bind<IJobRepository>(TYPES.JobRepository).to(JobRepository);
 
 container
   .bind<IYoutubeApiService>(TYPES.YoutubeApiService)
@@ -97,14 +87,6 @@ container
 
 container.bind(TYPES.YoutubeWebsubParser).to(YoutubeWebsubParser);
 
-container
-  .bind<IStorage>(TYPES.Storage)
-  .to(Storage)
-  .when(() => process.env.NODE_ENV !== 'test');
-
-container
-  .bind<IStorage>(TYPES.Storage)
-  .to(StorageFilesystem)
-  .when(() => process.env.NODE_ENV === 'test');
+container.bind<IStorage>(TYPES.Storage).to(Storage);
 
 export { container };

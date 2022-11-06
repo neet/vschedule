@@ -24,7 +24,7 @@ export class JobRepository implements IJobRepository {
 
   async queue(job: RefreshJob): Promise<void> {
     const origin = new URL(this._origin);
-    origin.pathname = '/api/webhook/refresh';
+    origin.pathname = `/api/v1/performers/${job.actorId}/subscribe`;
     const url = origin.toString();
 
     await this._tasks.createTask({

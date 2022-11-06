@@ -34,7 +34,7 @@ describe('Performer', () => {
       color: new Color('#00ff00'),
     });
 
-    expect(performer.color.value).toBe('#00ff00');
+    expect(performer.color.hex()).toBe('#00FF00');
   });
 
   it('removes field when null specified', () => {

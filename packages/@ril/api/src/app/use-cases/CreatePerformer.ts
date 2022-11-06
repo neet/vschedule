@@ -121,7 +121,7 @@ export class CreatePerformer {
     });
 
     await this._performerRepository.create(performer);
-    this._logger.info('Performer with ID %s is created', performer.id);
+    this._logger.info(`Performer with ID ${performer.id} is created`);
 
     return [performer, organization ?? null];
   }
