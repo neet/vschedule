@@ -1,0 +1,19 @@
+{
+  "name": "@neet/vschedule-seeds",
+  "packageManager": "yarn@3.1.1",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "outdent": "^0.8.0"
+  },
+  "devDependencies": {
+    "@neet/eslint-plugin-vschedule": "workspace:^",
+    "@neet/tsconfig-vschedule": "workspace:^",
+    "@types/eslint": "^8",
+    "eslint": "^8.26.0",
+    "typescript": "^4.8.4"
+  }
+}

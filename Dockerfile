@@ -7,8 +7,8 @@ COPY . /app/
 RUN apt-get update
 RUN apt-get -y install libssl-dev 
 
-RUN yarn workspaces focus @ril/api \
-  && yarn workspaces foreach -vR --topological-dev --from @ril/api run build
+RUN yarn workspaces focus @neet/vschedule-api \
+  && yarn workspaces foreach -vR --topological-dev --from @neet/vschedule-api run build
 
 # ---
 
@@ -22,4 +22,4 @@ COPY --from=build /app .
 
 EXPOSE ${PORT}
 
-ENTRYPOINT [ "yarn", "workspace", "@ril/api", "run", "start" ]
+ENTRYPOINT [ "yarn", "workspace", "@neet/vschedule-api", "run", "start" ]

@@ -1,12 +1,12 @@
 {
-  "name": "ril",
+  "name": "vschedule",
   "private": true,
-  "packageManager": "yarn@3.1.1",
+  "packageManager": "yarn@3.2.4",
   "scripts": {
-    "build:api": "yarn workspace @ril/api-spec run build && yarn workspace @ril/api-client run build"
+    "build:api": "yarn workspace @neet/vschedule-api-spec run build && yarn workspace @neet/vschedule-api-client run build"
   },
   "workspaces": [
-    "packages/@ril/*"
+    "packages/@neet/*"
   ],
   "devDependencies": {
     "@quramy/jest-prisma": "^1.1.2",

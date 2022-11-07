@@ -1,0 +1,21 @@
+{
+  "name": "@neet/vschedule-api-spec",
+  "version": "0.0.0",
+  "main": "./dist/api.json",
+  "scripts": {
+    "build": "./build.sh"
+  },
+  "devDependencies": {
+    "@asteasolutions/zod-to-openapi": "^2.3.0",
+    "@neet/eslint-plugin-vschedule": "workspace:^",
+    "@neet/tsconfig-vschedule": "workspace:^",
+    "@types/eslint": "^8",
+    "@types/mkdirp": "^1.0.2",
+    "@types/rimraf": "^3",
+    "eslint": "^8.26.0",
+    "mkdirp": "^1.0.4",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.8.4",
+    "zod": "^3.19.1"
+  }
+}

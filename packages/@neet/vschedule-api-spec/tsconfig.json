@@ -1,0 +1,12 @@
+{
+  "extends": "@neet/tsconfig-vschedule",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "declaration": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  }
+}

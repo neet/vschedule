@@ -112,7 +112,7 @@ dist
 .pnp.*
 
 data
-packages/@ril/api-client/src/*
+packages/@neet/vschedule-api-client/src/*
 .DS_Store
 storybook-static
 

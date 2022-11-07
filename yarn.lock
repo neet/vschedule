@@ -3484,6 +3484,226 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@neet/eslint-plugin-vschedule@workspace:^, @neet/eslint-plugin-vschedule@workspace:packages/@neet/eslint-plugin-vschedule":
+  version: 0.0.0-use.local
+  resolution: "@neet/eslint-plugin-vschedule@workspace:packages/@neet/eslint-plugin-vschedule"
+  dependencies:
+    "@typescript-eslint/eslint-plugin": ^5.41.0
+    "@typescript-eslint/parser": ^5.41.0
+    eslint-config-prettier: ^8.5.0
+    eslint-import-resolver-node: ^0.3.6
+    eslint-plugin-import: ^2.26.0
+    eslint-plugin-prettier: ^4.2.1
+    eslint-plugin-simple-import-sort: ^8.0.0
+  peerDependencies:
+    eslint: ^8.7.0
+  languageName: unknown
+  linkType: soft
+
+"@neet/tsconfig-vschedule@workspace:^, @neet/tsconfig-vschedule@workspace:packages/@neet/tsconfig-vschedule":
+  version: 0.0.0-use.local
+  resolution: "@neet/tsconfig-vschedule@workspace:packages/@neet/tsconfig-vschedule"
+  dependencies:
+    "@tsconfig/node14": ^1.0.1
+  languageName: unknown
+  linkType: soft
+
+"@neet/vschedule-api-client@workspace:^, @neet/vschedule-api-client@workspace:packages/@neet/vschedule-api-client":
+  version: 0.0.0-use.local
+  resolution: "@neet/vschedule-api-client@workspace:packages/@neet/vschedule-api-client"
+  dependencies:
+    "@himenon/openapi-typescript-code-generator": ^0.19.1
+    "@neet/tsconfig-vschedule": "workspace:^"
+    "@neet/vschedule-api-spec": "workspace:^"
+    "@types/eslint": ^8
+    eslint: ^8.26.0
+    ts-node: ^10.9.1
+    typescript: ^4.8.4
+  languageName: unknown
+  linkType: soft
+
+"@neet/vschedule-api-spec@workspace:^, @neet/vschedule-api-spec@workspace:packages/@neet/vschedule-api-spec":
+  version: 0.0.0-use.local
+  resolution: "@neet/vschedule-api-spec@workspace:packages/@neet/vschedule-api-spec"
+  dependencies:
+    "@asteasolutions/zod-to-openapi": ^2.3.0
+    "@neet/eslint-plugin-vschedule": "workspace:^"
+    "@neet/tsconfig-vschedule": "workspace:^"
+    "@types/eslint": ^8
+    "@types/mkdirp": ^1.0.2
+    "@types/rimraf": ^3
+    eslint: ^8.26.0
+    mkdirp: ^1.0.4
+    rimraf: ^3.0.2
+    typescript: ^4.8.4
+    zod: ^3.19.1
+  languageName: unknown
+  linkType: soft
+
+"@neet/vschedule-api@workspace:packages/@neet/vschedule-api":
+  version: 0.0.0-use.local
+  resolution: "@neet/vschedule-api@workspace:packages/@neet/vschedule-api"
+  dependencies:
+    "@google-cloud/logging-winston": ^5.1.8
+    "@google-cloud/storage": ^6.6.0
+    "@google-cloud/tasks": ^3.0.4
+    "@himenon/openapi-parameter-formatter": ^0.3.1
+    "@neet/eslint-plugin-vschedule": "workspace:^"
+    "@neet/tsconfig-vschedule": "workspace:^"
+    "@neet/vschedule-api-client": "workspace:^"
+    "@neet/vschedule-api-spec": "workspace:^"
+    "@neet/vschedule-seeds": "workspace:^"
+    "@prisma/client": ^4.5.0
+    "@swc/core": ^1.3.14
+    "@swc/jest": ^0.2.23
+    "@types/body-parser-xml": ^2.0.2
+    "@types/color": ^3.0.3
+    "@types/cors": ^2.8.12
+    "@types/express": ^4.17.14
+    "@types/get-image-colors": ^4.0.1
+    "@types/jest": ^29.2.1
+    "@types/mkdirp": ^1.0.2
+    "@types/node": ^18.11.9
+    "@types/node-fetch": ^2.6.2
+    "@types/sharp": ^0.31.0
+    "@types/supertest": ^2.0.12
+    "@types/swagger-ui-express": ^4.1.3
+    "@types/validator": ^13.7.10
+    body-parser-xml: ^2.0.3
+    color: ^4.2.3
+    cors: ^2.8.5
+    dayjs: ^1.11.6
+    execa: ^5.1.1
+    express: ^4.18.2
+    express-openapi-validator: ^4.13.8
+    express-winston: ^4.2.0
+    get-image-colors: ^4.0.1
+    googleapis: ^109.0.0
+    immer: ^9.0.16
+    inversify: ^6.0.1
+    inversify-express-utils: ^6.4.3
+    jest: ^29.2.2
+    jest-date-mock: ^1.0.8
+    mkdirp: ^1.0.4
+    nanoid: ^3.3.4
+    node-fetch: ^2.6.7
+    plaiceholder: ^2.5.0
+    prisma: ^4.5.0
+    reflect-metadata: ^0.1.13
+    shallow-equal-object: ^1.1.1
+    sharp: ^0.31.1
+    supertest: ^6.3.1
+    swagger-ui-express: ^4.5.0
+    ts-mixer: ^6.0.1
+    ts-node: ^10.9.1
+    ts-node-dev: ^2.0.0
+    type-fest: ^3.1.0
+    typescript: ^4.8.4
+    validator: ^13.7.0
+    winston: ^3.8.2
+  languageName: unknown
+  linkType: soft
+
+"@neet/vschedule-client@workspace:packages/@neet/vschedule-client":
+  version: 0.0.0-use.local
+  resolution: "@neet/vschedule-client@workspace:packages/@neet/vschedule-client"
+  dependencies:
+    "@fortawesome/fontawesome-svg-core": ^1.2.36
+    "@fortawesome/free-brands-svg-icons": ^5.15.4
+    "@fortawesome/free-regular-svg-icons": ^5.15.4
+    "@fortawesome/free-solid-svg-icons": ^5.15.4
+    "@fortawesome/react-fontawesome": ^0.1.17
+    "@headlessui/react": ^1.4.2
+    "@mdx-js/loader": ^1.6.22
+    "@mdx-js/react": ^1.6.22
+    "@neet/eslint-plugin-vschedule": "workspace:^"
+    "@neet/tsconfig-vschedule": "workspace:^"
+    "@next/mdx": ^12.0.7
+    "@popperjs/core": ^2.11.6
+    "@storybook/addon-essentials": ^6.5.13
+    "@storybook/addon-interactions": ^6.5.13
+    "@storybook/addon-knobs": ^6.4.0
+    "@storybook/addon-links": ^6.5.13
+    "@storybook/addon-postcss": ^2.0.0
+    "@storybook/builder-webpack5": ^6.5.13
+    "@storybook/cli": ^6.5.13
+    "@storybook/manager-webpack5": ^6.5.13
+    "@storybook/preset-typescript": ^3.0.0
+    "@storybook/react": ^6.5.13
+    "@storybook/theming": ^6.5.13
+    "@tailwindcss/aspect-ratio": ^0.4.0
+    "@tailwindcss/line-clamp": ^0.3.0
+    "@testing-library/jest-dom": ^5.16.1
+    "@testing-library/react": ^12.1.2
+    "@testing-library/react-hooks": ^7.0.2
+    "@types/classnames": ^2.3.1
+    "@types/fuzzy-search": ^2.1.2
+    "@types/gtag.js": ^0.0.8
+    "@types/jest": ^27.0.3
+    "@types/mdx-js__react": ^1.5.5
+    "@types/mousetrap": ^1.6.8
+    "@types/react": ^17.0.38
+    "@types/react-dom": ^17.0.11
+    "@types/throttle-debounce": ^2.1.0
+    "@typescript-eslint/eslint-plugin": ^5.41.0
+    "@typescript-eslint/parser": ^5.41.0
+    autoprefixer: ^10.4.0
+    babel-loader: ^8.2.3
+    chromatic: ^6.4.1
+    classnames: ^2.2.6
+    cspell: ^5.13.2
+    dayjs: ^1.11.6
+    eslint: ^8.26.0
+    eslint-config-prettier: ^8.5.0
+    eslint-plugin-import: ^2.26.0
+    eslint-plugin-jsx-a11y: ^6.6.1
+    eslint-plugin-prettier: ^4.2.1
+    eslint-plugin-react: ^7.31.10
+    eslint-plugin-react-hooks: ^4.6.0
+    eslint-plugin-simple-import-sort: ^8.0.0
+    eslint-plugin-storybook: ^0.6.6
+    fuzzy-search: ^3.2.1
+    identity-obj-proxy: ^3.0.0
+    isomorphic-unfetch: ^3.1.0
+    jest: ^27.4.4
+    jest-date-mock: ^1.0.8
+    mousetrap: ^1.6.5
+    next: 12.0.10
+    polished: ^4.1.3
+    postcss: ^8.4.4
+    prettier: ^2.7.1
+    react: 17.0.2
+    react-as-prop: ^1.0.1
+    react-docgen-typescript: ^2.2.2
+    react-dom: 17.0.2
+    react-headings: ^3.1.2
+    react-intersection-observer: ^8.33.1
+    react-popper: ^2.2.5
+    react-use: ^17.3.2
+    scaffdog: ^1.0.1
+    swr: ^1.2.1
+    tailwind-scrollbar: ^1.3.1
+    tailwindcss: ^3.0.1
+    throttle-debounce: ^3.0.1
+    ts-jest: ^27.1.2
+    ts-loader: ^9.2.6
+    typescript: ^4.8.4
+  languageName: unknown
+  linkType: soft
+
+"@neet/vschedule-seeds@workspace:^, @neet/vschedule-seeds@workspace:packages/@neet/vschedule-seeds":
+  version: 0.0.0-use.local
+  resolution: "@neet/vschedule-seeds@workspace:packages/@neet/vschedule-seeds"
+  dependencies:
+    "@neet/eslint-plugin-vschedule": "workspace:^"
+    "@neet/tsconfig-vschedule": "workspace:^"
+    "@types/eslint": ^8
+    eslint: ^8.26.0
+    outdent: ^0.8.0
+    typescript: ^4.8.4
+  languageName: unknown
+  linkType: soft
+
 "@next/env@npm:12.0.10":
   version: 12.0.10
   resolution: "@next/env@npm:12.0.10"
@@ -3803,226 +4023,6 @@ __metadata:
   checksum: 20d6c1aba20146564e60badbd239375ff70719bccc183f36101a7c40c60d5f87db9b6006fa9fafbd7645f5f570376db10a3b8b582afbab66656371c3a6916952
   languageName: node
   linkType: hard
-
-"@ril/api-client@workspace:^, @ril/api-client@workspace:packages/@ril/api-client":
-  version: 0.0.0-use.local
-  resolution: "@ril/api-client@workspace:packages/@ril/api-client"
-  dependencies:
-    "@himenon/openapi-typescript-code-generator": ^0.19.1
-    "@ril/api-spec": "workspace:^"
-    "@ril/tsconfig": "workspace:^"
-    "@types/eslint": ^8
-    eslint: ^8.26.0
-    ts-node: ^10.9.1
-    typescript: ^4.8.4
-  languageName: unknown
-  linkType: soft
-
-"@ril/api-spec@workspace:^, @ril/api-spec@workspace:packages/@ril/api-spec":
-  version: 0.0.0-use.local
-  resolution: "@ril/api-spec@workspace:packages/@ril/api-spec"
-  dependencies:
-    "@asteasolutions/zod-to-openapi": ^2.3.0
-    "@ril/eslint-plugin": "workspace:^"
-    "@ril/tsconfig": "workspace:^"
-    "@types/eslint": ^8
-    "@types/mkdirp": ^1.0.2
-    "@types/rimraf": ^3
-    eslint: ^8.26.0
-    mkdirp: ^1.0.4
-    rimraf: ^3.0.2
-    typescript: ^4.8.4
-    zod: ^3.19.1
-  languageName: unknown
-  linkType: soft
-
-"@ril/api@workspace:packages/@ril/api":
-  version: 0.0.0-use.local
-  resolution: "@ril/api@workspace:packages/@ril/api"
-  dependencies:
-    "@google-cloud/logging-winston": ^5.1.8
-    "@google-cloud/storage": ^6.6.0
-    "@google-cloud/tasks": ^3.0.4
-    "@himenon/openapi-parameter-formatter": ^0.3.1
-    "@prisma/client": ^4.5.0
-    "@ril/api-client": "workspace:^"
-    "@ril/api-spec": "workspace:^"
-    "@ril/eslint-plugin": "workspace:^"
-    "@ril/seeds": "workspace:^"
-    "@ril/tsconfig": "workspace:^"
-    "@swc/core": ^1.3.14
-    "@swc/jest": ^0.2.23
-    "@types/body-parser-xml": ^2.0.2
-    "@types/color": ^3.0.3
-    "@types/cors": ^2.8.12
-    "@types/express": ^4.17.14
-    "@types/get-image-colors": ^4.0.1
-    "@types/jest": ^29.2.1
-    "@types/mkdirp": ^1.0.2
-    "@types/node": ^18.11.9
-    "@types/node-fetch": ^2.6.2
-    "@types/sharp": ^0.31.0
-    "@types/supertest": ^2.0.12
-    "@types/swagger-ui-express": ^4.1.3
-    "@types/validator": ^13.7.10
-    body-parser-xml: ^2.0.3
-    color: ^4.2.3
-    cors: ^2.8.5
-    dayjs: ^1.11.6
-    execa: ^5.1.1
-    express: ^4.18.2
-    express-openapi-validator: ^4.13.8
-    express-winston: ^4.2.0
-    get-image-colors: ^4.0.1
-    googleapis: ^109.0.0
-    immer: ^9.0.16
-    inversify: ^6.0.1
-    inversify-express-utils: ^6.4.3
-    jest: ^29.2.2
-    jest-date-mock: ^1.0.8
-    mkdirp: ^1.0.4
-    nanoid: ^3.3.4
-    node-fetch: ^2.6.7
-    plaiceholder: ^2.5.0
-    prisma: ^4.5.0
-    reflect-metadata: ^0.1.13
-    shallow-equal-object: ^1.1.1
-    sharp: ^0.31.1
-    supertest: ^6.3.1
-    swagger-ui-express: ^4.5.0
-    ts-mixer: ^6.0.1
-    ts-node: ^10.9.1
-    ts-node-dev: ^2.0.0
-    type-fest: ^3.1.0
-    typescript: ^4.8.4
-    validator: ^13.7.0
-    winston: ^3.8.2
-  languageName: unknown
-  linkType: soft
-
-"@ril/client@workspace:packages/@ril/client":
-  version: 0.0.0-use.local
-  resolution: "@ril/client@workspace:packages/@ril/client"
-  dependencies:
-    "@fortawesome/fontawesome-svg-core": ^1.2.36
-    "@fortawesome/free-brands-svg-icons": ^5.15.4
-    "@fortawesome/free-regular-svg-icons": ^5.15.4
-    "@fortawesome/free-solid-svg-icons": ^5.15.4
-    "@fortawesome/react-fontawesome": ^0.1.17
-    "@headlessui/react": ^1.4.2
-    "@mdx-js/loader": ^1.6.22
-    "@mdx-js/react": ^1.6.22
-    "@next/mdx": ^12.0.7
-    "@popperjs/core": ^2.11.6
-    "@ril/eslint-plugin": "workspace:^"
-    "@ril/tsconfig": "workspace:^"
-    "@storybook/addon-essentials": ^6.5.13
-    "@storybook/addon-interactions": ^6.5.13
-    "@storybook/addon-knobs": ^6.4.0
-    "@storybook/addon-links": ^6.5.13
-    "@storybook/addon-postcss": ^2.0.0
-    "@storybook/builder-webpack5": ^6.5.13
-    "@storybook/cli": ^6.5.13
-    "@storybook/manager-webpack5": ^6.5.13
-    "@storybook/preset-typescript": ^3.0.0
-    "@storybook/react": ^6.5.13
-    "@storybook/theming": ^6.5.13
-    "@tailwindcss/aspect-ratio": ^0.4.0
-    "@tailwindcss/line-clamp": ^0.3.0
-    "@testing-library/jest-dom": ^5.16.1
-    "@testing-library/react": ^12.1.2
-    "@testing-library/react-hooks": ^7.0.2
-    "@types/classnames": ^2.3.1
-    "@types/fuzzy-search": ^2.1.2
-    "@types/gtag.js": ^0.0.8
-    "@types/jest": ^27.0.3
-    "@types/mdx-js__react": ^1.5.5
-    "@types/mousetrap": ^1.6.8
-    "@types/react": ^17.0.38
-    "@types/react-dom": ^17.0.11
-    "@types/throttle-debounce": ^2.1.0
-    "@typescript-eslint/eslint-plugin": ^5.41.0
-    "@typescript-eslint/parser": ^5.41.0
-    autoprefixer: ^10.4.0
-    babel-loader: ^8.2.3
-    chromatic: ^6.4.1
-    classnames: ^2.2.6
-    cspell: ^5.13.2
-    dayjs: ^1.11.6
-    eslint: ^8.26.0
-    eslint-config-prettier: ^8.5.0
-    eslint-plugin-import: ^2.26.0
-    eslint-plugin-jsx-a11y: ^6.6.1
-    eslint-plugin-prettier: ^4.2.1
-    eslint-plugin-react: ^7.31.10
-    eslint-plugin-react-hooks: ^4.6.0
-    eslint-plugin-simple-import-sort: ^8.0.0
-    eslint-plugin-storybook: ^0.6.6
-    fuzzy-search: ^3.2.1
-    identity-obj-proxy: ^3.0.0
-    isomorphic-unfetch: ^3.1.0
-    jest: ^27.4.4
-    jest-date-mock: ^1.0.8
-    mousetrap: ^1.6.5
-    next: 12.0.10
-    polished: ^4.1.3
-    postcss: ^8.4.4
-    prettier: ^2.7.1
-    react: 17.0.2
-    react-as-prop: ^1.0.1
-    react-docgen-typescript: ^2.2.2
-    react-dom: 17.0.2
-    react-headings: ^3.1.2
-    react-intersection-observer: ^8.33.1
-    react-popper: ^2.2.5
-    react-use: ^17.3.2
-    scaffdog: ^1.0.1
-    swr: ^1.2.1
-    tailwind-scrollbar: ^1.3.1
-    tailwindcss: ^3.0.1
-    throttle-debounce: ^3.0.1
-    ts-jest: ^27.1.2
-    ts-loader: ^9.2.6
-    typescript: ^4.8.4
-  languageName: unknown
-  linkType: soft
-
-"@ril/eslint-plugin@workspace:^, @ril/eslint-plugin@workspace:packages/@ril/eslint-plugin":
-  version: 0.0.0-use.local
-  resolution: "@ril/eslint-plugin@workspace:packages/@ril/eslint-plugin"
-  dependencies:
-    "@typescript-eslint/eslint-plugin": ^5.41.0
-    "@typescript-eslint/parser": ^5.41.0
-    eslint-config-prettier: ^8.5.0
-    eslint-import-resolver-node: ^0.3.6
-    eslint-plugin-import: ^2.26.0
-    eslint-plugin-prettier: ^4.2.1
-    eslint-plugin-simple-import-sort: ^8.0.0
-  peerDependencies:
-    eslint: ^8.7.0
-  languageName: unknown
-  linkType: soft
-
-"@ril/seeds@workspace:^, @ril/seeds@workspace:packages/@ril/seeds":
-  version: 0.0.0-use.local
-  resolution: "@ril/seeds@workspace:packages/@ril/seeds"
-  dependencies:
-    "@ril/eslint-plugin": "workspace:^"
-    "@ril/tsconfig": "workspace:^"
-    "@types/eslint": ^8
-    eslint: ^8.26.0
-    outdent: ^0.8.0
-    typescript: ^4.8.4
-  languageName: unknown
-  linkType: soft
-
-"@ril/tsconfig@workspace:^, @ril/tsconfig@workspace:packages/@ril/tsconfig":
-  version: 0.0.0-use.local
-  resolution: "@ril/tsconfig@workspace:packages/@ril/tsconfig"
-  dependencies:
-    "@tsconfig/node14": ^1.0.1
-  languageName: unknown
-  linkType: soft
 
 "@scaffdog/config@npm:1.1.0":
   version: 1.1.0
@@ -20966,16 +20966,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ril@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "ril@workspace:."
-  dependencies:
-    "@quramy/jest-prisma": ^1.1.2
-    "@types/prettier": ^2
-    prettier: ^2.7.1
-  languageName: unknown
-  linkType: soft
-
 "rimraf@npm:^2.2.8, rimraf@npm:^2.5.4, rimraf@npm:^2.6.1, rimraf@npm:^2.6.3":
   version: 2.7.1
   resolution: "rimraf@npm:2.7.1"
@@ -24051,6 +24041,16 @@ __metadata:
   checksum: 10a1c50aab54ff8b4c9042c15fc64aefccce8d2fb90c0640403242db0ee7fb269f9b102bdb69cfb435d7ef3180d61fd4fb004a043a12709abaf9056cfd7e039d
   languageName: node
   linkType: hard
+
+"vschedule@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "vschedule@workspace:."
+  dependencies:
+    "@quramy/jest-prisma": ^1.1.2
+    "@types/prettier": ^2
+    prettier: ^2.7.1
+  languageName: unknown
+  linkType: soft
 
 "vscode-uri@npm:^3.0.3":
   version: 3.0.3

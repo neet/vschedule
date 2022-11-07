@@ -9,11 +9,11 @@ on:
     branches:
       - '*'
     paths:
-      - packages/@ril/api-client/**
-      - packages/@ril/api-spec/**
-      - packages/@ril/client/**
-      - packages/@ril/eslint-plugin/**
-      - packages/@ril/tsconfig/**
+      - packages/@neet/vschedule-api-client/**
+      - packages/@neet/vschedule-api-spec/**
+      - packages/@neet/vschedule-client/**
+      - packages/@neet/vschedule-eslint-plugin/**
+      - packages/@neet/vschedule-tsconfig/**
 
 jobs:
   chromatic-deployment:
@@ -33,11 +33,11 @@ jobs:
 
       - name: Yarn
         run: |
-          yarn workspaces focus @ril/client
+          yarn workspaces focus @neet/vschedule-client
 
       - name: Build
         run: |
-          yarn workspace @ril/client build-storybook
+          yarn workspace @neet/vschedule-client build-storybook
 
       - name: Publish to Chromatic
         uses: chromaui/action@v1
@@ -46,5 +46,5 @@ jobs:
           exitZeroOnChanges: true
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           skip: 'dependabot/**'
-          storybookBuildDir: packages/@ril/client/storybook-static
+          storybookBuildDir: packages/@neet/vschedule-client/storybook-static
           token: ${{ secrets.GITHUB_TOKEN }}
