@@ -3,11 +3,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "module": "CommonJS",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
-    "declaration": true,
-    "emitDecoratorMetadata": true
+    "declaration": true
   },
   "include": ["./src/**/*"]
 }

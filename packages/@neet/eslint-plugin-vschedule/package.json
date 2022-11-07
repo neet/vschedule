@@ -1,5 +1,6 @@
 {
   "name": "@neet/eslint-plugin-vschedule",
+  "main": "./index.js",
   "exports": {
     ".": {
       "require": "./index.js"

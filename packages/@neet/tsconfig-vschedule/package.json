@@ -3,9 +3,10 @@
   "scripts": {
     "build": "exit 0"
   },
+  "main": "./tsconfig.json",
   "exports": {
     ".": {
-      "main": "./tsconfig.json"
+      "require": "./tsconfig.json"
     }
   },
   "dependencies": {

@@ -4,6 +4,7 @@
   "scripts": {
     "build": "./build.sh"
   },
+  "main": "./dist/api.json",
   "exports": {
     ".": {
       "require": "./dist/api.json"
