@@ -1,0 +1,8 @@
+# https://cloud.google.com/build/docs/building/store-artifacts-in-artifact-registry
+# https://github.com/GoogleCloudPlatform/cloud-builders/issues/670
+# https://github.com/GoogleCloudPlatform/cloud-builders/blob/master/docker/README.md
+steps:
+  - name: docker
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/vschedule/api', '.' ]
+images:
+  - us-central1-docker.pkg.dev/$PROJECT_ID/vschedule/api
