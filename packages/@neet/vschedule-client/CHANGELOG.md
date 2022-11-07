@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.2 (2022-11-07)
+
+### Bug Fixes
+
+* Rename to cloudbuild.yaml ([db70b4f](https://github.com/neet/vschedule/commit/db70b4f42daf898f364266b2fb03696e6972170d))
+
 ## 0.0.1 (2022-11-07)
 
 ### Bug Fixes
