@@ -1,5 +1,3 @@
-import '@quramy/jest-prisma';
-
 import { PrismaClient } from '@prisma/client';
 import winston from 'winston';
 
