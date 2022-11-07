@@ -12,5 +12,8 @@
     "@quramy/jest-prisma": "^1.1.2",
     "@types/prettier": "^2",
     "prettier": "^2.7.1"
+  },
+  "dependencies": {
+    "@lerna-lite/cli": "^1.12.0"
   }
 }
