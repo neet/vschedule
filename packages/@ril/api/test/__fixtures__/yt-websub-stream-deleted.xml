@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:at="http://purl.org/atompub/tombstones/1.0" xmlns="http://www.w3.org/2005/Atom">
+  <at:deleted-entry ref="yt:video:XXUNsT5gd_o" when="2022-11-03T09:41:19.824348+00:00">
+    <link href="https://www.youtube.com/watch?v=XXUNsT5gd_o" />
+    <at:by>
+      <name>鷹宮リオン</name>
+      <uri>https://www.youtube.com/channel/UCV5ZZlLjk5MKGg3L0n0vbzw</uri>
+    </at:by>
+  </at:deleted-entry>
+</feed>

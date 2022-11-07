@@ -1,34 +1,58 @@
-import 'reflect-metadata';
+import '../adapters/controllers/api/v1/performers';
+import '../adapters/controllers/api/v1/organizations';
+import '../adapters/controllers/api/v1/media';
+import '../adapters/controllers/api/v1/streams';
+import '../adapters/controllers/websub/youtube';
+import './setup';
 
-import dayjs from 'dayjs';
-import DurationPlugin from 'dayjs/plugin/duration';
-import express from 'express';
-import xmlParser from 'express-xml-bodyparser';
-import { useContainer, useExpressServer } from 'routing-controllers';
+import api from '@ril/api-spec';
+import express, { Application } from 'express';
+import * as OpenApiValidator from 'express-openapi-validator';
+import expressWinston from 'express-winston';
+import { Container } from 'inversify';
+import { InversifyExpressServer } from 'inversify-express-utils';
+import swaggerUi from 'swagger-ui-express';
+import winston from 'winston';
 
-import { MediaAttachmentController } from '../adapters/controllers/api/v1/media';
-import { StreamsRestApiController } from '../adapters/controllers/api/v1/streams';
-import { YoutubeWebhookController } from '../adapters/controllers/webhook/youtube';
-import { container } from './inversify.config';
-import { InversifyAdapter } from './inversify-adapter';
+import { ILogger } from '../app/services/Logger';
+import { TYPES } from '../types';
+import { appErrorHandler } from './middlewares/AppErrorHandler';
+import { domainErrorHandler } from './middlewares/DomainErrorHandler';
+import { openapiErrorHandler } from './middlewares/OpenApiErrorHandler';
 
-dayjs.extend(DurationPlugin);
+/**
+ * Create app by given container
+ * @param container Inversify container
+ */
+export const createApp = (container: Container): Application => {
+  const server = new InversifyExpressServer(container);
 
-const inversifyAdapter = new InversifyAdapter(container);
-useContainer(inversifyAdapter);
+  // TODO: キャストしてる
+  const logger = container.get<ILogger & winston.Logger>(TYPES.Logger);
 
-const app = express();
-app.use(express.json(), express.urlencoded({ extended: true }), xmlParser());
+  server.setConfig((app) => {
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+    app.use(expressWinston.logger({ winstonInstance: logger }));
 
-useExpressServer(app, {
-  controllers: [
-    YoutubeWebhookController,
-    StreamsRestApiController,
-    MediaAttachmentController,
-  ],
-});
+    app.use('/docs', swaggerUi.serve, swaggerUi.setup(api));
+    app.use(
+      '/api',
+      OpenApiValidator.middleware({
+        apiSpec: require.resolve('@ril/api-spec'),
+        validateApiSpec: true,
+        validateRequests: true,
+        validateResponses: false,
+      }),
+    );
+  });
 
-app.listen(process.env.PORT ?? 3000, () => {
-  // eslint-disable-next-line no-console
-  console.log('server is ready at http://localhost:3000');
-});
+  server.setErrorConfig((app) => {
+    app.use(domainErrorHandler);
+    app.use(appErrorHandler);
+    app.use(expressWinston.errorLogger({ winstonInstance: logger }));
+    app.use(openapiErrorHandler);
+  });
+
+  return server.build();
+};

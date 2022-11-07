@@ -2,58 +2,110 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model MediaAttachment {
-  id        String   @id @default(uuid())
+  id        String   @id @db.VarChar(21)
   filename  String
-  blur      String
+  width     Float
+  height    Float
+  base64    String   @db.Text
   bucket    String?
-  createdAt DateTime
-  updatedAt DateTime
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
 
   actor  Actor[]
   stream Stream[]
+
+  @@index([filename])
+  @@map("media_attachments")
 }
 
 model Stream {
-  id          String           @id @default(uuid())
+  id          String  @id @db.VarChar(21)
+  url         String  @unique
   title       String
-  url         String           @unique
-  description String?
-  createdAt   DateTime
-  updatedAt   DateTime
-  startedAt   DateTime
-  endedAt     DateTime?
-  actor       Actor            @relation(fields: [actorId], references: [id])
-  actorId     String
+  description String? @db.Text
+
+  createdAt DateTime  @map("created_at")
+  updatedAt DateTime  @map("updated_at")
+  startedAt DateTime  @map("started_at")
+  endedAt   DateTime? @map("ended_at")
+
+  ownerId String    @map("owner_id")
+  owner   Performer @relation(fields: [ownerId], references: [id])
+
   thumbnail   MediaAttachment? @relation(fields: [thumbnailId], references: [id])
-  thumbnailId String?
+  thumbnailId String?          @map("thumbnail_id")
+
+  @@index([url])
+  @@index([createdAt])
+  @@index([updatedAt])
+  @@index([startedAt])
+  @@index([endedAt])
+  @@index([ownerId])
+  @@map("streams")
 }
 
 model Actor {
-  id               String           @id @default(uuid())
-  name             String
-  color            String
-  description      String?
-  youtubeChannelId String           @unique
-  twitterUsername  String?          @unique
-  stream           Stream[]
-  organization     Organization?    @relation(fields: [organizationId], references: [id])
-  organizationId   String?
-  avatar           MediaAttachment? @relation(fields: [avatarId], references: [id])
-  avatarId         String?
+  // Actor.id won't appear on domain model, but presents for Class Table Inheritance
+  id String @id @db.VarChar(21)
+
+  name        String
+  color       String
+  url         String?
+  description String? @db.Text
+
+  youtubeChannelId String? @unique @map("youtube_channel_id")
+  twitterUsername  String? @unique @map("twitter_username")
+
+  avatar   MediaAttachment? @relation(fields: [avatarId], references: [id])
+  avatarId String?          @map("avatar_id")
+
+  // decendants
+  performer    Performer?
+  organization Organization?
+
+  @@index([youtubeChannelId])
+  @@index([twitterUsername])
+  @@map("actors")
+}
+
+model Performer {
+  id String @id @unique @db.VarChar(21)
+
+  actorId String @unique @map("actor_id")
+  actor   Actor  @relation(fields: [actorId], references: [id])
+
+  organizationId String?       @map("organization_id")
+  organization   Organization? @relation(fields: [organizationId], references: [actorId])
+
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
+
+  streams Stream[]
+
+  @@index([organizationId])
+  @@map("performers")
 }
 
 model Organization {
-  id     String  @id @default(uuid())
-  name   String
-  url    String?
-  actors Actor[]
+  id String @id @unique @db.VarChar(21)
+
+  actorId String @unique @map("actor_id")
+  actor   Actor  @relation(fields: [actorId], references: [id])
+
+  performers Performer[]
+
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
+
+  @@map("organizations")
 }

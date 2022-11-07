@@ -1,7 +1,19 @@
-import { MediaAttachment } from '@ril/core';
+import {
+  MediaAttachment,
+  MediaAttachmentFilename,
+  MediaAttachmentId,
+} from '../../domain/entities';
 
-export interface MediaAttachmentRepository {
-  findById(id: string): Promise<MediaAttachment | undefined>;
-  save(filename: string, buffer: Buffer): Promise<MediaAttachment>;
-  delete(id: string): Promise<void>;
+export interface IMediaAttachmentRepository {
+  findById(id: MediaAttachmentId): Promise<MediaAttachment | undefined>;
+  findByFilename(
+    filename: MediaAttachmentFilename,
+  ): Promise<MediaAttachment | undefined>;
+
+  save(
+    filename: MediaAttachmentFilename,
+    buffer: Buffer,
+  ): Promise<MediaAttachment>;
+
+  delete(id: MediaAttachmentId): Promise<void>;
 }

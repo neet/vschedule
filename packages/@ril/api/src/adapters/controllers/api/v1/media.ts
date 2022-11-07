@@ -1,51 +1,28 @@
-import { Response } from 'express';
-import { inject, injectable } from 'inversify';
-import fetch from 'node-fetch';
+import { inject } from 'inversify';
 import {
-  BadRequestError,
-  Controller,
-  Get,
-  InternalServerError,
-  NotFoundError,
-  Param,
-  Res,
-} from 'routing-controllers';
+  BaseHttpController,
+  controller,
+  httpGet,
+  requestParam,
+} from 'inversify-express-utils';
 
-import {
-  NoSuchMediaAttachmentError,
-  ShowMediaAttachment,
-} from '../../../../app/use-cases/ShowMediaAttachment';
+import { ShowMediaAttachment } from '../../../../app/use-cases/ShowMediaAttachment';
 
-@injectable()
-@Controller('/api/v1/media')
-export class MediaAttachmentController {
+@controller('/api/v1/media')
+export class MediaAttachmentController extends BaseHttpController {
   constructor(
     @inject(ShowMediaAttachment)
     private readonly _showMediaAttachment: ShowMediaAttachment,
-  ) {}
+  ) {
+    super();
+  }
 
-  @Get('/:id')
-  async show(@Param('id') _id: string, @Res() res: Response) {
-    try {
-      const id = _id.split('.')[0];
-      if (id == null) {
-        throw new BadRequestError('Invalid media attachment id');
-      }
+  @httpGet('/:filename')
+  async show(@requestParam('filename') filename: string) {
+    const media = await this._showMediaAttachment.invoke(filename);
 
-      const media = await this._showMediaAttachment.invoke(id);
-
-      const data = await fetch(
-        `https://storage.googleapis.com/${media.bucket}/${media.filename}`,
-      );
-
-      return res
-        .setHeader('Content-Type', data.headers.get('content-type') as string)
-        .send(await data.buffer());
-    } catch (e) {
-      if (e instanceof NoSuchMediaAttachmentError) {
-        throw new NotFoundError('No such media attachment');
-      }
-      throw new InternalServerError('Failed to show media attachment');
-    }
+    return this.redirect(
+      `https://storage.googleapis.com/${media.bucket?.value}/${media.filename.value}`,
+    );
   }
 }

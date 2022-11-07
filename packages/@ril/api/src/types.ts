@@ -1,11 +1,16 @@
 export const TYPES = Object.freeze({
-  YoutubeStreamService: Symbol.for('YoutubeStreamService'),
+  YoutubeApiService: Symbol('YoutubeApiService'),
+  YoutubeWebsubService: Symbol('YoutubeWebsubService'),
+  YoutubeWebsubParser: Symbol('YoutubeWebsubParser'),
 
-  ActorRepository: Symbol.for('ActorRepository'),
-  MediaAttachmentRepository: Symbol.for('MediaAttachmentRepository'),
-  StreamRepository: Symbol.for('StreamRepository'),
-  JobRepository: Symbol.for('JobRepository'),
+  PerformerRepository: Symbol('PerformerRepository'),
+  OrganizationRepository: Symbol('OrganizationRepository'),
+  MediaAttachmentRepository: Symbol('MediaAttachmentRepository'),
+  StreamRepository: Symbol('StreamRepository'),
+  JobRepository: Symbol('JobRepository'),
 
-  PrismaClient: Symbol.for('PrismaClient'),
-  Storage: Symbol.for('Storage'),
+  PrismaClient: Symbol('PrismaClient'),
+  Storage: Symbol('Storage'),
+  Logger: Symbol('Logger'),
+  AppConfig: Symbol('AppConfig'),
 });

@@ -1,4 +1,15 @@
 data
 dist
+.next
+.git
 node_modules
 coverage
+
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+

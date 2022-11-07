@@ -1,4 +1,3 @@
-
 # Logs
 logs
 *.log
@@ -113,6 +112,8 @@ dist
 .pnp.*
 
 data
-!.keep
+packages/@ril/api-client/src/*
 .DS_Store
 storybook-static
+
+!.keep

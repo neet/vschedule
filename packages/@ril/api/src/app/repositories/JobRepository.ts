@@ -1,9 +1,11 @@
+import { Dayjs } from 'dayjs';
+
 export interface RefreshJob {
   readonly type: 'refresh';
   readonly actorId: string;
-  readonly scheduledAt: Date;
+  readonly scheduledAt: Dayjs;
 }
 
-export interface JobRepository {
+export interface IJobRepository {
   queue(job: RefreshJob): Promise<void>;
 }
