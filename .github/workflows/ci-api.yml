@@ -8,11 +8,11 @@ on:
     branches:
       - '*'
     paths:
-      - packages/@ril/api-client/**
-      - packages/@ril/api-spec/**
-      - packages/@ril/api/**
-      - packages/@ril/eslint-plugin/**
-      - packages/@ril/tsconfig/**
+      - packages/@neet/vschedule-api-client/**
+      - packages/@neet/vschedule-api-spec/**
+      - packages/@neet/vschedule-api/**
+      - packages/@neet/vschedule-eslint-plugin/**
+      - packages/@neet/vschedule-tsconfig/**
 
 jobs:
   build:
@@ -52,15 +52,15 @@ jobs:
 
       - name: Yarn
         run: |
-          yarn workspaces focus @ril/api
+          yarn workspaces focus @neet/vschedule-api
 
       - name: Build
         run: |
-          yarn workspaces foreach -pR --topological-dev --from @ril/api run build
+          yarn workspaces foreach -pR --topological-dev --from @neet/vschedule-api run build
 
       - name: Tests
         run: |
-          yarn workspace @ril/api run test
+          yarn workspace @neet/vschedule-api run test
 
       - name: Codecov
         uses: codecov/codecov-action@v1.0.15

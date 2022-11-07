@@ -1,0 +1,15 @@
+{
+  "name": "@neet/tsconfig-vschedule",
+  "scripts": {
+    "build": "exit 0"
+  },
+  "main": "./tsconfig.json",
+  "exports": {
+    ".": {
+      "require": "./tsconfig.json"
+    }
+  },
+  "dependencies": {
+    "@tsconfig/node16": "^1.0.3"
+  }
+}

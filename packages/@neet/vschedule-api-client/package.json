@@ -1,0 +1,24 @@
+{
+  "name": "@neet/vschedule-api-client",
+  "packageManager": "yarn@3.2.4",
+  "scripts": {
+    "build": "ts-node codegen.ts && tsc"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "devDependencies": {
+    "@himenon/openapi-typescript-code-generator": "^0.19.1",
+    "@neet/tsconfig-vschedule": "workspace:^",
+    "@neet/vschedule-api-spec": "workspace:^",
+    "@types/eslint": "^8",
+    "eslint": "^8.26.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  }
+}

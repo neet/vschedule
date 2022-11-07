@@ -1,0 +1,7 @@
+{
+  "extends": "@neet/tsconfig-vschedule",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "module": "CommonJS",
+  }
+}

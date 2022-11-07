@@ -8,11 +8,11 @@ on:
     branches:
       - '*'
     paths:
-      - packages/@ril/api-client/**
-      - packages/@ril/api-spec/**
-      - packages/@ril/client/**
-      - packages/@ril/eslint-plugin/**
-      - packages/@ril/tsconfig/**
+      - packages/@neet/vschedule-api-client/**
+      - packages/@neet/vschedule-api-spec/**
+      - packages/@neet/vschedule-client/**
+      - packages/@neet/vschedule-eslint-plugin/**
+      - packages/@neet/vschedule-tsconfig/**
 
 env:
   TZ: 'Asia/Tokyo'
@@ -38,22 +38,22 @@ jobs:
         with:
           path: |
             ~/.npm
-            ${{ github.workspace }}/packages/@ril/client.next/cache
+            ${{ github.workspace }}/packages/@neet/vschedule-client/.next/cache
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
       - name: Yarn
         run: |
-          yarn workspaces focus @ril/client
+          yarn workspaces focus @neet/vschedule-client
 
       - name: Build
         run: |
-          yarn workspaces foreach -ptR --from @ril/client run build
+          yarn workspaces foreach -ptR --from @neet/vschedule-client run build
 
       - name: Tests
         run: |
-          yarn workspace @ril/client run test
+          yarn workspace @neet/vschedule-client run test
 
       - name: Codecov
         uses: codecov/codecov-action@v1.0.15

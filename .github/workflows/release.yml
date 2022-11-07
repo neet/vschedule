@@ -1,0 +1,51 @@
+# https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs
+    permissions:
+      issues: write
+      contents: write
+      packages: write
+      pull-requests: write
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # https://github.com/ghiscoding/lerna-lite/tree/main/packages/version#remote-client-auth-tokens
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # https://github.com/orgs/community/discussions/26560
+      - name: Setup user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@neet'
+
+      - name: Build Packages
+        run: |
+          yarn --immutable
+          yarn workspaces foreach -p --topological-dev run build
+
+      - name: Publish to GitHub Packages
+        run: yarn run lerna publish --yes --conventional-commits --create-release github

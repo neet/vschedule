@@ -45,7 +45,6 @@
     "protobuf",
     "quramy",
     "rerender",
-    "ril",
     "scaffdog",
     "semibold",
     "storyshots",
@@ -53,6 +52,7 @@
     "unfetch",
     "unmount",
     "vercel",
+    "vschedule",
     "wcag",
     "websub",
     "youtube"
