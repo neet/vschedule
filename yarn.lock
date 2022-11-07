@@ -4574,31 +4574,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@quramy/jest-prisma-core@npm:^1.0.0":
-  version: 1.1.2
-  resolution: "@quramy/jest-prisma-core@npm:1.1.2"
-  dependencies:
-    chalk: ^4.0.0
-  peerDependencies:
-    "@prisma/client": ^2.29.0 || ^3.0.0 || ^4.0.0
-    jest: ^28.0.0 || ^29.0.0
-  checksum: 9e6a79ed8938d32f249d2665eddf815d2e18988ad22bbe19597ee30a481608dc4d20942df65592fdfc7a52dad5fc72eafcc92a2731dd052640eeed916b92412f
-  languageName: node
-  linkType: hard
-
-"@quramy/jest-prisma@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "@quramy/jest-prisma@npm:1.1.2"
-  dependencies:
-    "@quramy/jest-prisma-core": ^1.0.0
-  peerDependencies:
-    "@prisma/client": ^2.29.0 || ^3.0.0 || ^4.0.0
-    jest: ^28.0.0 || ^29.0.0
-    jest-environment-jsdom: ^28.0.0 || ^29.0.0
-  checksum: 20d6c1aba20146564e60badbd239375ff70719bccc183f36101a7c40c60d5f87db9b6006fa9fafbd7645f5f570376db10a3b8b582afbab66656371c3a6916952
-  languageName: node
-  linkType: hard
-
 "@scaffdog/config@npm:1.1.0":
   version: 1.1.0
   resolution: "@scaffdog/config@npm:1.1.0"
@@ -26357,7 +26332,6 @@ __metadata:
   resolution: "vschedule@workspace:."
   dependencies:
     "@lerna-lite/cli": ^1.12.0
-    "@quramy/jest-prisma": ^1.1.2
     "@types/prettier": ^2
     prettier: ^2.7.1
   languageName: unknown

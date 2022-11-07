@@ -1,6 +1,6 @@
 {
   "name": "@neet/vschedule-seeds",
-  "packageManager": "yarn@3.2.4",
+  "version": "0.0.0",
   "scripts": {
     "build": "tsc"
   },
