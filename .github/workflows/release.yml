@@ -1,5 +1,5 @@
 # https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
-name: Publish
+name: Release
 
 on:
   workflow_dispatch:
@@ -40,12 +40,12 @@ jobs:
           node-version: 16
           cache: yarn
           registry-url: 'https://npm.pkg.github.com'
-          scope: '@withproton'
+          scope: '@neet'
 
       - name: Build Packages
         run: |
           yarn --immutable
-          yarn workspaces foreach -pt run build
+          yarn workspaces foreach -p --topological-dev run build
 
       - name: Publish to GitHub Packages
         run: yarn run lerna publish --yes --conventional-commits --create-release github

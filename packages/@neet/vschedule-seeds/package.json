@@ -1,10 +1,14 @@
 {
   "name": "@neet/vschedule-seeds",
-  "packageManager": "yarn@3.1.1",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "packageManager": "yarn@3.2.4",
   "scripts": {
     "build": "tsc"
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
   "dependencies": {
     "outdent": "^0.8.0"

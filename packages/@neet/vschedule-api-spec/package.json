@@ -1,9 +1,13 @@
 {
   "name": "@neet/vschedule-api-spec",
   "version": "0.0.0",
-  "main": "./dist/api.json",
   "scripts": {
     "build": "./build.sh"
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/api.json"
+    }
   },
   "devDependencies": {
     "@asteasolutions/zod-to-openapi": "^2.3.0",

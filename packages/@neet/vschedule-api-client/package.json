@@ -1,10 +1,14 @@
 {
   "name": "@neet/vschedule-api-client",
-  "packageManager": "yarn@3.1.1",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "packageManager": "yarn@3.2.4",
   "scripts": {
     "build": "ts-node codegen.ts && tsc"
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
   "devDependencies": {
     "@himenon/openapi-typescript-code-generator": "^0.19.1",

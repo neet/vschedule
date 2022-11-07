@@ -1,8 +1,9 @@
 {
   "name": "@neet/eslint-plugin-vschedule",
-  "main": "./index.js",
-  "publishConfig": {
-    "access": "restricted"
+  "exports": {
+    ".": {
+      "require": "./index.js"
+    }
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.41.0",
