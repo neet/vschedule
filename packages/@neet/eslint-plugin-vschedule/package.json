@@ -1,6 +1,6 @@
 {
   "name": "@neet/eslint-plugin-vschedule",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "scripts": {
     "build": "exit 0"
   },
