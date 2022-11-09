@@ -1,6 +1,6 @@
 {
   "name": "@neet/tsconfig-vschedule",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "build": "exit 0"
   },
