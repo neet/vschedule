@@ -38,7 +38,7 @@ const SpellPure = (props: SpellProps): JSX.Element => {
   const x = getItemX(date) - width / 2;
 
   return (
-    <div
+    <H
       id={date.toISOString()}
       className={classNames(
         'absolute',
@@ -70,27 +70,25 @@ const SpellPure = (props: SpellProps): JSX.Element => {
         )}
         aria-label={`${date.format('LLL')}以降の配信予定`}
       >
-        <H>
-          <Typography
-            as="time"
-            size="sm"
-            weight="semibold"
-            align="center"
-            className={classNames(
-              'block',
-              'grow-0',
-              'shrink-0',
-              'p-3',
-              'group-focus:text-primary-500',
-              'dark:group-focus:text-primary-400',
-              'text-gray-800',
-              'dark:text-neutral-200',
-            )}
-            dateTime={date.toISOString()}
-          >
-            {date.format('HH:mm')}
-          </Typography>
-        </H>
+        <Typography
+          as="time"
+          size="sm"
+          weight="semibold"
+          align="center"
+          className={classNames(
+            'block',
+            'grow-0',
+            'shrink-0',
+            'p-3',
+            'group-focus:text-primary-500',
+            'dark:group-focus:text-primary-400',
+            'text-gray-800',
+            'dark:text-neutral-200',
+          )}
+          dateTime={date.toISOString()}
+        >
+          {date.format('HH:mm')}
+        </Typography>
 
         <div
           role="presentation"
@@ -106,7 +104,7 @@ const SpellPure = (props: SpellProps): JSX.Element => {
           style={{ height: `${itemHeight * size}px` }}
         />
       </a>
-    </div>
+    </H>
   );
 };
 

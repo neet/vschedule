@@ -3960,7 +3960,7 @@ __metadata:
     react-as-prop: ^1.0.1
     react-docgen-typescript: ^2.2.2
     react-dom: 17.0.2
-    react-headings: ^3.1.2
+    react-headings: ^3.2.0
     react-intersection-observer: ^8.33.1
     react-popper: ^2.2.5
     react-use: ^17.3.2
@@ -23461,12 +23461,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-headings@npm:^3.1.2":
-  version: 3.1.2
-  resolution: "react-headings@npm:3.1.2"
+"react-headings@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "react-headings@npm:3.2.0"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 0e6030760404c3506f36275828c63c1ec9d00fc1929c9fced514743d8934a4077e39dde879f4e19ffafde80b81f3e0b6820fc78cf2fc1f62f6ea9bc4cbed71e6
+  checksum: cf268b9719f15ec93a5fb9ab52bdfec19080b9cd38c5bcea8f59eb23845c095ccf9d38bf2afb9318d6fd56751b41b36004c12286e22e44d175c919965a369423
   languageName: node
   linkType: hard
 
