@@ -13,8 +13,10 @@
     "bodyparser",
     "chromaui",
     "codecov",
+    "codegen",
     "compat",
     "darkmodejs",
+    "docgen",
     "execa",
     "fontawesome",
     "fortawesome",
@@ -40,7 +42,9 @@
     "openapi",
     "outdent",
     "overridable",
+    "picsum",
     "plaiceholder",
+    "popperjs",
     "postcss",
     "protobuf",
     "quramy",
@@ -51,10 +55,12 @@
     "tailwindcss",
     "unfetch",
     "unmount",
+    "unoptimized",
     "vercel",
     "vschedule",
     "wcag",
     "websub",
-    "youtube"
+    "youtube",
+    "ytimg"
   ]
 }

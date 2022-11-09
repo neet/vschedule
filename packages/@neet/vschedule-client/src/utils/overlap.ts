@@ -2,6 +2,7 @@ import type { Dayjs } from 'dayjs';
 
 type DayjsPair = readonly [Readonly<Dayjs>, Readonly<Dayjs>];
 
+// TODO: Simplify and add tests
 export const isOverlapping = (
   [xStartAt, xEndAt]: DayjsPair,
   [yStartAt, yEndAt]: DayjsPair,
@@ -38,6 +39,24 @@ export const isOverlapping = (
    * [ event y ]
    */
   if (xStartAt.isSame(yStartAt) && xEndAt.isSame(yEndAt)) {
+    return true;
+  }
+
+  /**
+   * case 4
+   * [      event x      ]
+   *      [ event y ]
+   */
+  if (yStartAt.isAfter(xStartAt) && yEndAt.isBefore(xEndAt)) {
+    return true;
+  }
+
+  /**
+   * case 5
+   *      [ event x ]
+   * [      event y      ]
+   */
+  if (yStartAt.isBefore(xStartAt) && yEndAt.isAfter(xEndAt)) {
     return true;
   }
 

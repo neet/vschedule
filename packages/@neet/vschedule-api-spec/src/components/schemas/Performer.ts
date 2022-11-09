@@ -8,8 +8,8 @@ export const Performer = registry.register(
   'Performer',
   Actor.extend({
     id: z.string(),
-    createdAt: z.string().openapi({ format: 'date-time' }),
-    updatedAt: z.string().openapi({ format: 'date-time' }),
+    createdAt: z.date(),
+    updatedAt: z.date(),
     organization: Organization.optional(),
   }),
 );

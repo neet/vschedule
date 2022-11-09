@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "TAILWIND_MODE=watch next dev",
-    "build": "next build",
+    "build": "yarn run codegen && next build",
     "start": "next start",
+    "codegen": "orval",
     "test": "yarn run jest && yarn run eslint && yarn run cspell",
     "jest": "jest --coverage",
-    "eslint": "eslint --cache './**/*.{js,json,ts,tsx}'",
-    "cspell": "cspell './**/*.{js.json,ts,tsx}'",
+    "eslint": "eslint --cache './**/*.{ts,tsx}'",
+    "cspell": "cspell './**/*.{js,json,ts,tsx}'",
     "storybook": "TAILWIND_MODE=watch start-storybook -p 9000 --no-manager-cache",
     "build-storybook": "build-storybook",
     "chromatic": "chromatic"
@@ -25,30 +26,33 @@
     "@mdx-js/react": "^1.6.22",
     "@neet/eslint-plugin-vschedule": "workspace:^",
     "@neet/tsconfig-vschedule": "workspace:^",
+    "@neet/vschedule-api-spec": "workspace:^",
     "@next/mdx": "^12.0.7",
     "@popperjs/core": "^2.11.6",
     "@tailwindcss/aspect-ratio": "^0.4.0",
-    "@tailwindcss/line-clamp": "^0.3.0",
-    "autoprefixer": "^10.4.0",
+    "@tailwindcss/line-clamp": "^0.4.2",
+    "autoprefixer": "^10.4.13",
+    "axios": "^1.1.3",
     "chromatic": "^6.4.1",
-    "classnames": "^2.2.6",
+    "classnames": "^2.3.2",
     "dayjs": "^1.11.6",
     "fuzzy-search": "^3.2.1",
     "isomorphic-unfetch": "^3.1.0",
     "mousetrap": "^1.6.5",
-    "next": "12.0.10",
+    "next": "12.3.3",
+    "orval": "^6.10.3",
     "polished": "^4.1.3",
-    "postcss": "^8.4.4",
+    "postcss": "^8.4.18",
     "react": "17.0.2",
     "react-as-prop": "^1.0.1",
     "react-dom": "17.0.2",
-    "react-headings": "^3.1.2",
+    "react-headings": "^3.2.0",
     "react-intersection-observer": "^8.33.1",
     "react-popper": "^2.2.5",
     "react-use": "^17.3.2",
-    "swr": "^1.2.1",
-    "tailwind-scrollbar": "^1.3.1",
-    "tailwindcss": "^3.0.1",
+    "swr": "^1.3.0",
+    "tailwind-scrollbar": "^2.0.1",
+    "tailwindcss": "^3.2.2",
     "throttle-debounce": "^3.0.1",
     "typescript": "^4.8.4"
   },
@@ -80,14 +84,9 @@
     "@typescript-eslint/parser": "^5.41.0",
     "babel-loader": "^8.2.3",
     "cspell": "^5.13.2",
-    "eslint": "^8.26.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint": "^8.27.0",
+    "eslint-config-next": "^13.0.2",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.31.10",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-simple-import-sort": "^8.0.0",
     "eslint-plugin-storybook": "^0.6.6",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.4",
@@ -95,31 +94,6 @@
     "prettier": "^2.7.1",
     "react-docgen-typescript": "^2.2.2",
     "scaffdog": "^1.0.1",
-    "ts-jest": "^27.1.2",
     "ts-loader": "^9.2.6"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "globals": {
-      "ts-jest": {
-        "tsconfig": {
-          "jsx": "react-jsx"
-        }
-      }
-    },
-    "testEnvironment": "jsdom",
-    "moduleNameMapper": {
-      "\\.(css)$": "identity-obj-proxy"
-    },
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}",
-      "!**/*.d.ts"
-    ],
-    "testMatch": [
-      "<rootDir>/src/**/*.spec.{ts,tsx}"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/scripts/test-setup.ts"
-    ]
   }
 }

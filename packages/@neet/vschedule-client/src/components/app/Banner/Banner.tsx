@@ -44,7 +44,7 @@ export const Banner = (): JSX.Element => {
         </Button>
 
         <H>
-          <Link href="/">
+          <Link href="/" passHref>
             <a
               className={classNames(
                 'block',

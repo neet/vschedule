@@ -5,7 +5,7 @@ import '../adapters/controllers/rest/v1/streams';
 import '../adapters/controllers/websub/youtube';
 import './setup';
 
-import api from '@neet/vschedule-api-spec';
+import apiSpec from '@neet/vschedule-api-spec';
 import cors from 'cors';
 import express, { Application } from 'express';
 import * as OpenApiValidator from 'express-openapi-validator';
@@ -36,7 +36,7 @@ export const createApp = (container: Container): Application => {
     app.use(express.urlencoded({ extended: true }));
     app.use(expressWinston.logger({ winstonInstance: logger }));
 
-    app.use('/docs', swaggerUi.serve, swaggerUi.setup(api));
+    app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSpec));
     app.use('/rest', cors());
     app.use(
       '/rest',

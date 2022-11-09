@@ -4,7 +4,7 @@ import { ILogger } from '../../app/services/Logger';
 
 export const loggerConsole: ILogger = createLogger({
   // どのレベルのエラーを出す？
-  level: 'info',
+  level: 'debug',
   levels: config.syslog.levels,
   // https://github.com/winstonjs/logform
   format: format.combine(format.metadata(), format.cli()),

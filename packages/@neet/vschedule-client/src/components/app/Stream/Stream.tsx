@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { memo } from 'react';
 
-import type { Event as APIEvent } from '../../../types';
+import type { Stream as StreamModel } from '../../../api/model/stream';
 import { useAutoplay } from '../../hooks/useAutoplay';
 import { useNow } from '../../hooks/useNow';
 import type { EntryVariant } from '../../ui/Entry';
@@ -9,30 +9,31 @@ import { Entry } from '../../ui/Entry';
 import type { EntryLayout } from '../../ui/Entry/Entry';
 
 export type EventProps = Readonly<JSX.IntrinsicElements['a']> & {
-  readonly event: APIEvent;
+  readonly stream: StreamModel;
   readonly variant?: EntryVariant;
   readonly layout?: EntryLayout;
   readonly embedType?: 'always' | 'interaction' | 'never';
   readonly pinned?: boolean;
 };
 
-const EventPure = (props: EventProps): JSX.Element => {
-  const { event, variant, embedType = 'interaction', layout, ...rest } = props;
+const StreamPure = (props: EventProps): JSX.Element => {
+  const { stream, variant, embedType = 'interaction', layout, ...rest } = props;
 
   const now = useNow();
   const { autoplayEnabled } = useAutoplay();
 
-  const startAt = dayjs(props.event.start_date);
-  const endAt = dayjs(props.event.end_date);
+  const startedAt = dayjs(props.stream.startedAt);
+  const endedAt = props.stream.endedAt ? dayjs(props.stream.endedAt) : null;
 
   const isStreaming =
-    (startAt.isBefore(now) || startAt.isSame(now)) &&
-    (endAt.isAfter(now) || endAt.isSame(now));
+    endedAt == null ||
+    ((startedAt.isBefore(now) || startedAt.isSame(now)) &&
+      (endedAt.isAfter(now) || endedAt.isSame(now)));
 
-  const videoId = event.url.split('?v=')[1];
+  const videoId = stream.url.split('?v=')[1];
   const embed = videoId && (
     <iframe
-      title={event.name}
+      title={stream.title}
       src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0`}
       frameBorder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -44,16 +45,17 @@ const EventPure = (props: EventProps): JSX.Element => {
     <Entry
       variant={variant}
       layout={layout}
-      title={event.name}
-      url={event.url}
-      author={event.livers.map((liver) => liver.name).join(', ')}
-      description={event.description}
+      title={stream.title}
+      url={stream.url}
+      author={stream.owner.name}
+      description={stream.description ?? ''}
       thumbnail={{
-        url: event.thumbnail,
-        alt: event.name,
+        url: stream.thumbnail?.url ?? '',
+        alt: stream.title,
+        blurDataUrl: stream.thumbnail?.base64,
       }}
-      tag={event.genre?.name}
-      date={new Date(event.start_date)}
+      tag={undefined}
+      date={new Date(stream.startedAt)}
       active={isStreaming}
       embed={embed}
       embedType={!autoplayEnabled ? 'never' : embedType}
@@ -62,4 +64,4 @@ const EventPure = (props: EventProps): JSX.Element => {
   );
 };
 
-export const Event = memo(EventPure);
+export const Stream = memo(StreamPure);

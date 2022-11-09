@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import Image, { ImageProps } from 'next/future/image';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
 import { H } from 'react-headings';
@@ -19,9 +20,9 @@ interface BaseEntryProps {
 const thumbnailClass = (layout: EntryLayout): string =>
   classNames(
     layout === 'horizontal' && 'w-40',
+    'relative',
     'rounded',
-    'aspect-w-16',
-    'aspect-h-9',
+    'aspect-video',
     'bg-gray-200',
     'dark:bg-neutral-800',
     'overflow-hidden',
@@ -59,9 +60,12 @@ type ReadyEntryProps = BaseEntryProps &
     readonly title: string;
     readonly url: string;
     readonly author: string;
-    readonly thumbnail: string;
     readonly description: string;
-    readonly thumbnailAlt: string;
+    readonly thumbnail: {
+      readonly url: string;
+      readonly alt: string;
+      readonly blurDataUrl?: string;
+    };
     readonly date: Readonly<Date>;
     readonly active: boolean;
     readonly tag?: string;
@@ -77,7 +81,6 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
     layout,
     url,
     thumbnail,
-    thumbnailAlt,
     active,
     title,
     author,
@@ -99,6 +102,11 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
   const showEmbed =
     embed != null &&
     ((embedType === 'interaction' && interacting) || embedType === 'always');
+
+  const blurProps: Partial<ImageProps> =
+    thumbnail.blurDataUrl != null
+      ? { blurDataURL: thumbnail.blurDataUrl, placeholder: 'blur' }
+      : {};
 
   return (
     <a
@@ -129,7 +137,13 @@ const ReadyEntry = (props: ReadyEntryProps): JSX.Element => {
           {showEmbed ? (
             embed
           ) : (
-            <img loading="lazy" src={thumbnail} alt={thumbnailAlt} />
+            <Image
+              loading="lazy"
+              fill
+              src={thumbnail.url}
+              alt={thumbnail.alt}
+              {...blurProps}
+            />
           )}
         </div>
 

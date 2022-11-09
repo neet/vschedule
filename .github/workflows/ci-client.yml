@@ -31,6 +31,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
+          cache: yarn
 
       # c.f. https://github.com/vercel/next.js/blob/canary/errors/no-cache.md#github-actions
       - name: Restore Next.js Caches

@@ -43,12 +43,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 3
+          fetch-depth: 2
 
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
+          cache: yarn
 
       - name: Yarn
         run: |

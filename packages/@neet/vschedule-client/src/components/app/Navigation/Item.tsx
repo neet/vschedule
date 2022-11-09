@@ -15,7 +15,7 @@ export const Item = (props: ItemProps): JSX.Element => {
   const active = router.pathname === href;
 
   return (
-    <Link href={href}>
+    <Link href={href} passHref>
       <a
         className={classNames(
           'flex',
