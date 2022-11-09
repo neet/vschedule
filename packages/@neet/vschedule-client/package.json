@@ -23,7 +23,7 @@
     "@fortawesome/react-fontawesome": "^0.1.17",
     "@headlessui/react": "^1.4.2",
     "@mdx-js/loader": "^1.6.22",
-    "@mdx-js/react": "^1.6.22",
+    "@mdx-js/react": "^2.1.5",
     "@neet/eslint-plugin-vschedule": "workspace:^",
     "@neet/tsconfig-vschedule": "workspace:^",
     "@neet/vschedule-api-spec": "workspace:^",
