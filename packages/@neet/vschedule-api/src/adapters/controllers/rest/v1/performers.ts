@@ -102,7 +102,9 @@ export class PerformersController extends BaseHttpController {
 
     // TODO: organizationが拾えてない
     return this.json(
-      performers.map((performer) => this._presenter.presentActor(performer)),
+      performers.map((performer) =>
+        this._presenter.presentPerformer(performer, null),
+      ),
     );
   }
 
