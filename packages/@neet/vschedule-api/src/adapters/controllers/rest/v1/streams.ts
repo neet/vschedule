@@ -64,14 +64,14 @@ export class StreamsRestApiController extends BaseHttpController {
     );
   }
 
-  @httpPost('/')
-  async create(
-    @requestBody() body: RequestBody$createStream['application/json'],
-  ) {
-    const data = await this._createStream.invoke({
-      videoId: body.videoId,
-    });
-    // TODO: むずすぎワロタ
-    return this.json(this._presenter.presentStream(data, null, null));
-  }
+  // @httpPost('/')
+  // async create(
+  //   @requestBody() body: RequestBody$createStream['application/json'],
+  // ) {
+  //   const data = await this._createStream.invoke({
+  //     videoId: body.videoId,
+  //   });
+  //   // TODO: むずすぎワロタ
+  //   return this.json(this._presenter.presentStream(data, null, null));
+  // }
 }

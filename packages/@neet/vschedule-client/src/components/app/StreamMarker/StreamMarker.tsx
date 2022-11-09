@@ -71,23 +71,25 @@ export const StreamMarker = (props: StreamProps): JSX.Element | null => {
           backgroundColor={stream.owner.color}
           appearance={isDark ? 'dark' : 'light'}
         >
-          <div className="shrink-0 mr-1">
-            <Image
-              loading="lazy"
-              className="h-10 w-10 rounded-full"
-              width={stream.owner.avatar.width}
-              height={stream.owner.avatar.height}
-              src={stream.owner.avatar.url}
-              placeholder="blur"
-              blurDataURL={stream.owner.avatar.base64}
-              alt={stream.owner.name}
-              style={{
-                backgroundColor: isDark
-                  ? setLightness(AVATAR_BG_BRIGHTNESS, stream.owner.color)
-                  : '#ffffff',
-              }}
-            />
-          </div>
+          {stream.owner.avatar != null && (
+            <div className="shrink-0 mr-1">
+              <Image
+                loading="lazy"
+                className="h-10 w-10 rounded-full"
+                width={stream.owner.avatar.width}
+                height={stream.owner.avatar.height}
+                src={stream.owner.avatar.url}
+                placeholder="blur"
+                blurDataURL={stream.owner.avatar.base64}
+                alt={stream.owner.name}
+                style={{
+                  backgroundColor: isDark
+                    ? setLightness(AVATAR_BG_BRIGHTNESS, stream.owner.color)
+                    : '#ffffff',
+                }}
+              />
+            </div>
+          )}
 
           <div className="flex flex-col min-w-0 justify-center">
             <H

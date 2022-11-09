@@ -86,7 +86,7 @@ export class RestApiPresenter {
 
   public presentStream(
     stream: Stream,
-    owner: Performer | null,
+    owner: Performer,
     ownerOrganization: Organization | null,
   ): Schemas.Stream {
     return {
@@ -98,10 +98,7 @@ export class RestApiPresenter {
       updatedAt: stream.updatedAt.toISOString(),
       startedAt: stream.startedAt.toISOString(),
       endedAt: stream.endedAt === null ? null : stream.endedAt.toISOString(),
-      owner:
-        owner === null
-          ? undefined
-          : this.presentPerformer(owner, ownerOrganization),
+      owner: this.presentPerformer(owner, ownerOrganization),
       duration: stream.duration === null ? null : stream.duration.toISOString(),
       casts: [], // TODO
       thumbnail:
