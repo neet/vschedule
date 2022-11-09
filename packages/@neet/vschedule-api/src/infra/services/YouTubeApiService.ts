@@ -66,10 +66,28 @@ export class YoutubeApiService implements IYoutubeApiService {
       video.snippet.description == null ||
       video.snippet.publishedAt == null ||
       video.snippet.thumbnails?.maxres?.url == null
-      // video.liveStreamingDetails?.actualStartTime == null
     ) {
       throw new Error(
         `Either videoId or publishedAt or actualStartTime is null`,
+      );
+    }
+
+    const startedAt =
+      video.liveStreamingDetails?.actualStartTime ??
+      video.liveStreamingDetails?.scheduledStartTime;
+
+    const endedAt =
+      video.liveStreamingDetails?.actualEndTime ??
+      video.liveStreamingDetails?.scheduledEndTime;
+
+    if (startedAt == null) {
+      this._logger.error(
+        `Failed to infer start time. Both actualStartTime and scheduledStartTime were null`,
+        { videoId, liveStreamingDetails: video.liveStreamingDetails },
+      );
+
+      throw new Error(
+        `Failed to infer start time. Both actualStartTime and scheduledStartTime were null`,
       );
     }
 
@@ -81,8 +99,8 @@ export class YoutubeApiService implements IYoutubeApiService {
       url: `https://www.youtube.com/watch?v=${video.id}`,
       channelId: video.snippet.channelId,
       publishedAt: video.snippet.publishedAt,
-      startedAt: video.liveStreamingDetails?.actualStartTime,
-      endedAt: video.liveStreamingDetails?.actualEndTime ?? undefined,
+      startedAt,
+      endedAt,
     };
   }
 
