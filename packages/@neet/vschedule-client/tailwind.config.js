@@ -21,20 +21,7 @@ module.exports = {
         },
       },
     },
-    truncate: {
-      lines: {
-        2: '2',
-      },
-    },
   },
 
-  variants: {
-    scrollbar: ['dark', 'rounded'],
-  },
-
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/line-clamp'),
-    require('tailwind-scrollbar'),
-  ],
+  plugins: [require('@tailwindcss/line-clamp'), require('tailwind-scrollbar')],
 };

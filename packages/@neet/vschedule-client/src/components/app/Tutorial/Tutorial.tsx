@@ -1,5 +1,11 @@
+import Image from 'next/future/image';
 import { H } from 'react-headings';
 
+import a11y from '../../../../public/a11y.png';
+import agenda from '../../../../public/agenda.png';
+import livers from '../../../../public/livers.png';
+import screenshot from '../../../../public/screenshot.png';
+import timetable from '../../../../public/timetable.png';
 import { useTutorial } from '../../hooks/useTutorial';
 import { Link } from '../../ui/Link';
 import { Modal } from '../../ui/Modal';
@@ -13,15 +19,18 @@ const Page1 = (): JSX.Element => {
       aria-labelledby="tutorial-1__title"
       aria-describedby="tutorial-1__description"
     >
-      <img
-        src="/screenshot.png"
-        alt="スクリーンショット"
-        className="bg-primary-500 object-contain w-full h-36 md:h-80"
-      />
+      <div className="aspect-video relative bg-primary-500 w-full">
+        <Image
+          src={screenshot}
+          alt="スクリーンショット"
+          fill
+          className="object-contain"
+        />
+      </div>
 
       <Modal.Body id="tutorial-1__description">
         <Typography.Xl as={H}>さあ、始めよう！</Typography.Xl>
-        <Typography.Base>
+        <Typography.Base className="h-20">
           Refined
           Itsukara.linkへようこそ！このwebサイトはバーチャルユーチューバー事務所「にじさんじ」が提供する公式スケジューラー「いつから.link」をファンが非公式にリデザインしたものです。これから使い方をご説明します！
         </Typography.Base>
@@ -37,15 +46,18 @@ const Page2 = (): JSX.Element => {
       aria-labelledby="tutorial-2__title"
       aria-describedby="tutorial-2__description"
     >
-      <img
-        src="/timetable.png"
-        alt="タイムテーブルのスクリーンショット"
-        className="bg-primary-500 object-contain w-full h-36 md:h-80"
-      />
+      <div className="aspect-video relative bg-primary-500 w-full">
+        <Image
+          src={timetable}
+          alt="タイムテーブルのスクリーンショット"
+          fill
+          className="object-contain"
+        />
+      </div>
 
       <Modal.Body id="tutorial-2__description">
         <Typography.Xl as={H}>配信をチェック</Typography.Xl>
-        <Typography.Base>
+        <Typography.Base className="h-20">
           画面中央には、過去の配信とこれから始まる配信が表示されています。各配信をタップすると
           YouTube
           の配信画面が表示されます。左右にスクロールすると時間を前後に移動させることが出来ます。
@@ -58,15 +70,18 @@ const Page2 = (): JSX.Element => {
 const Page3 = (): JSX.Element => {
   return (
     <div role="group" aria-describedby="tutorial-3__description">
-      <img
-        src="/livers.png"
-        alt="ライバーの一覧のスクリーンショット"
-        className="bg-primary-500 object-contain w-full h-36 md:h-80"
-      />
+      <div className="aspect-video relative bg-primary-500 w-full">
+        <Image
+          src={livers}
+          alt="ライバーの一覧のスクリーンショット"
+          fill
+          className="object-contain"
+        />
+      </div>
 
       <Modal.Body id="tutorial-3__description">
         <Typography.Xl as={H}>ライバー</Typography.Xl>
-        <Typography.Base>
+        <Typography.Base className="h-20">
           サイドバーやメニューからアクセスできるライバーの項目からは、現在配信中のライバーやライバーの一覧を表示することができます。
         </Typography.Base>
       </Modal.Body>
@@ -77,15 +92,18 @@ const Page3 = (): JSX.Element => {
 const Page4 = (): JSX.Element => {
   return (
     <div role="group" aria-describedby="tutorial-4__description">
-      <img
-        src="/a11y.png"
-        alt="丸と人の図形、アクセシビリティー"
-        className="bg-primary-500 object-contain w-full h-36 md:h-80"
-      />
+      <div className="aspect-video relative bg-primary-500 w-full">
+        <Image
+          src={a11y}
+          alt="丸と人の図形、アクセシビリティー"
+          fill
+          className="object-contain"
+        />
+      </div>
 
       <Modal.Body id="tutorial-4__description">
         <Typography.Xl as={H}>アクセシビリティー</Typography.Xl>
-        <Typography.Base>
+        <Typography.Base className="h-20">
           Refined Itsukara.linkはVoiceOverとキーボードでテストされており、WCAG
           2.1
           AAの準拠を基準としています。アクセシビリティーに関するフィードバックをお持ちの方は開発者までご連絡ください。
@@ -98,15 +116,18 @@ const Page4 = (): JSX.Element => {
 const Page5 = (): JSX.Element => {
   return (
     <div role="group" aria-describedby="tutorial-5__description">
-      <img
-        src="/agenda.png"
-        alt="いつから.linkとリファインドいつから.linkを並べた画像"
-        className="bg-primary-500 object-contain w-full h-36 md:h-80"
-      />
+      <div className="aspect-video relative bg-primary-500 w-full">
+        <Image
+          src={agenda}
+          alt="いつから.linkとリファインドいつから.linkを並べた画像"
+          fill
+          className="object-contain"
+        />
+      </div>
 
       <Modal.Body id="tutorial-5__description">
         <Typography.Xl as={H}>開発に参加</Typography.Xl>
-        <Typography.Base>
+        <Typography.Base className="h-20 overflow-scroll">
           使い方はお分かりいただけましたか？
           質問や機能のリクエスト、改善点、バグの報告はフィードバック用の
           <Link href="https://forms.gle/1tg2n5KB9fcroJcc7" target="_blank">

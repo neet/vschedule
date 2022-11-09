@@ -1,5 +1,6 @@
 const withMDX = require('@next/mdx')();
 
+/** @type {import('next').NextConfig} */
 module.exports = withMDX({
   env: {
     GA_MEASUREMENT_ID: process.env.GA_MEASUREMENT_ID,
@@ -9,6 +10,7 @@ module.exports = withMDX({
 
   images: {
     domains: [
+      'api.vschedule.app',
       'i.ytimg.com',
       'picsum.photos',
       's3-ap-northeast-1.amazonaws.com',

@@ -6,8 +6,10 @@ export default {
   component: Entry,
   args: {
     url: 'https://example.com',
-    thumbnail: 'https://picsum.photos/seed/ril/200',
-    thumbnailAlt: 'random image',
+    thumbnail: {
+      url: 'https://picsum.photos/seed/ril/200',
+      alt: 'random image',
+    },
     active: true,
     title: 'Example',
     author: 'Ryo Igarashi',

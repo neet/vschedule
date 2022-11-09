@@ -41,7 +41,7 @@ export const Avatar = (props: AvatarProps): JSX.Element => {
   if (pending) {
     return (
       <div
-        className={classNames(avatarClass(size), 'animate-pulse', classNames)}
+        className={classNames(avatarClass(size), 'animate-pulse', className)}
       />
     );
   }

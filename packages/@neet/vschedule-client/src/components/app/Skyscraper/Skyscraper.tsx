@@ -1,22 +1,26 @@
 import classNames from 'classnames';
 import { H, Section } from 'react-headings';
 
+import { Stream } from '../../../api/model';
 import type { Event } from '../../../types';
 import { isWindows } from '../../../utils/isWindows';
 import { ActiveLivers } from '../ActiveLivers';
 import { Clock } from '../Clock';
 import { SearchButton } from '../SearchButton';
 import { UpcomingEvents } from '../UpcomingEvents';
+import { UpcomingStreams } from '../UpcomingStreams';
 
 export interface SkyscraperProps {
   readonly events?: readonly Event[];
   readonly loading?: boolean;
   readonly pinnedEventId?: number;
   readonly upcomingEvents?: readonly Event[];
+  readonly upcomingStreams?: readonly Stream[];
 }
 
 export const Skyscraper = (props: SkyscraperProps): JSX.Element => {
-  const { events, loading, upcomingEvents, pinnedEventId } = props;
+  const { events, loading, upcomingEvents, upcomingStreams, pinnedEventId } =
+    props;
 
   return (
     <aside
@@ -64,13 +68,24 @@ export const Skyscraper = (props: SkyscraperProps): JSX.Element => {
         <ActiveLivers upcomingEvents={upcomingEvents} />
       </section>
 
-      <section aria-labelledby="skyscraper__upcoming">
-        <UpcomingEvents
-          id="skyscraper__upcoming"
-          pinnedEventId={pinnedEventId}
-          upcomingEvents={upcomingEvents}
-        />
-      </section>
+      {upcomingEvents != null && (
+        <section aria-labelledby="skyscraper__upcoming">
+          <UpcomingEvents
+            id="skyscraper__upcoming"
+            pinnedEventId={pinnedEventId}
+            upcomingEvents={upcomingEvents}
+          />
+        </section>
+      )}
+
+      {upcomingStreams != null && (
+        <section aria-labelledby="skyscraper__upcoming-s">
+          <UpcomingStreams
+            id="skyscraper__upcoming-s"
+            upcomingStreams={upcomingStreams}
+          />
+        </section>
+      )}
     </aside>
   );
 };

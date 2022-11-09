@@ -64,8 +64,8 @@ const chunkByInterval = (
   schedules: readonly OrderedSchedule[],
   interval: number,
 ): Segment[] => {
-  const head = schedules[0];
-  const tail = schedules[schedules.length - 1];
+  const head = schedules.at(0);
+  const tail = schedules.at(-1);
 
   const dates =
     head != null && tail != null
