@@ -52,8 +52,8 @@ export const createApp = (container: Container): Application => {
   server.setErrorConfig((app) => {
     app.use(domainErrorHandler);
     app.use(appErrorHandler);
-    app.use(expressWinston.errorLogger({ winstonInstance: logger }));
     app.use(openapiErrorHandler);
+    app.use(expressWinston.errorLogger({ winstonInstance: logger }));
   });
 
   return server.build();
