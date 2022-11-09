@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "TAILWIND_MODE=watch next dev",
-    "build": "next build",
+    "build": "yarn run codegen && next build",
     "start": "next start",
     "codegen": "orval",
     "test": "yarn run jest && yarn run eslint && yarn run cspell",
