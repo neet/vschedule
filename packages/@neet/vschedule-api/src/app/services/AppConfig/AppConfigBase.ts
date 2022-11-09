@@ -12,6 +12,11 @@ export abstract class AppConfigBase implements IAppConfig {
         type: entries.storage?.type ?? 'filesystem',
         bucket: entries.storage?.bucket ?? 'ril',
       },
+      tasks: {
+        resources: {
+          resubscription: entries.tasks?.resources?.resubscription ?? '',
+        },
+      },
       youtube: {
         dataApiKey: entries.youtube?.dataApiKey,
         websubEnabled: entries.youtube?.websubEnabled,

@@ -16,6 +16,13 @@ export interface IAppConfigServer {
   readonly origin: string;
 }
 
+export interface IAppConfigTasks {
+  readonly resources: {
+    /** パフォーマーを再講読するタスクのリソース名 */
+    readonly resubscription: string;
+  };
+}
+
 export interface IAppConfigLogger {
   readonly type: 'console' | 'cloud-logging';
 }
@@ -25,6 +32,7 @@ export interface IAppConfigEntries {
   readonly storage: IAppConfigStorage;
   readonly server: IAppConfigServer;
   readonly logger: IAppConfigLogger;
+  readonly tasks: IAppConfigTasks;
 }
 
 export interface IAppConfig {

@@ -27,6 +27,11 @@ export class AppConfigEnvironment extends AppConfigBase implements IAppConfig {
         })(),
         origin: env('ORIGIN'),
       },
+      tasks: {
+        resources: {
+          resubscription: env('TASKS_RESUBSCRIPTION_RESOURCE'),
+        },
+      },
       logger: {
         type: env('LOGGER_TYPE'),
       },
