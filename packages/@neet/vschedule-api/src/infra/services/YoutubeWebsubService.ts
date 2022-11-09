@@ -17,7 +17,7 @@ export class YoutubeWebsubService implements IYoutubeWebsubService {
   ) {
     {
       const origin = new URL(config.entries.server.origin);
-      origin.pathname = '/webhook/youtube';
+      origin.pathname = '/websub/youtube';
       this._callbackUrl = origin.toString();
     }
 
