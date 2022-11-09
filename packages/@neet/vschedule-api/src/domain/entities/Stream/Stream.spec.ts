@@ -28,7 +28,7 @@ describe('Stream', () => {
     expect(stream.duration?.humanize()).toBe('a day');
   });
 
-  it('can set an end time', () => {
+  it('can update', () => {
     let stream = Stream.create({
       title: 'test',
       url: new URL('https://example.com'),
@@ -41,8 +41,9 @@ describe('Stream', () => {
     });
 
     const endedAt = dayjs();
-    stream = stream.end(endedAt);
+    stream = stream.update({ title: 'test2', endedAt });
 
+    expect(stream.title.value).toBe('test2');
     expect(stream.endedAt).toBe(endedAt);
   });
 });

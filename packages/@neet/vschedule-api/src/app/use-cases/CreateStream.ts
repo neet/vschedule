@@ -67,9 +67,17 @@ export class CreateStream {
 
   async invoke(params: CreateStreamParams): Promise<Stream> {
     const { videoId } = params;
-
     const video = await this._fetchVideoById(videoId);
+    const stream = await this._streamRepository.findByUrl(new URL(video.url));
 
+    if (stream == null) {
+      return await this._create(video);
+    } else {
+      return await this._update(stream, video);
+    }
+  }
+
+  async _create(video: Video) {
     const performer = await this._performerRepository.findByYoutubeChannelId(
       new YoutubeChannelId(video.channelId),
     );
@@ -102,6 +110,41 @@ export class CreateStream {
     this._logger.info(`Stream with ID ${stream.id} is created`);
 
     return stream;
+  }
+
+  async _update(stream: Stream, video: Video) {
+    const performer = await this._performerRepository.findByYoutubeChannelId(
+      new YoutubeChannelId(video.channelId),
+    );
+
+    if (performer == null) {
+      throw new CreateStreamPerformerNotFoundWithChannelIdError(
+        video.channelId,
+      );
+    }
+
+    const thumbnail =
+      video.thumbnailUrl != null
+        ? await this._createThumbnail(video.thumbnailUrl)
+        : null;
+
+    const casts = await this._listCasts(video.description);
+
+    const updated = stream.update({
+      title: video.title,
+      url: new URL(video.url),
+      description: video.description,
+      startedAt: video.startedAt != null ? dayjs(video.startedAt) : dayjs(),
+      endedAt: video.endedAt != null ? dayjs(video.endedAt) : null,
+      ownerId: performer.id,
+      castIds: casts.map((cast) => cast.id),
+      thumbnail,
+    });
+
+    await this._streamRepository.update(updated);
+    this._logger.info(`Stream with ID ${updated.id} is updated`);
+
+    return updated;
   }
 
   private async _fetchVideoById(videoId: string): Promise<Video> {

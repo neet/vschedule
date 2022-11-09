@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { Duration } from 'dayjs/plugin/duration';
-import { produce } from 'immer';
+import { castDraft, produce } from 'immer';
 import { Mixin } from 'ts-mixer';
 import { URL } from 'url';
 
@@ -97,25 +97,27 @@ export class Stream extends mixins implements ITimestamps {
     return this._props.castIds;
   }
 
+  public update(
+    patch: Partial<Omit<RehydrateParameters<this>, 'id' | 'timestamp'>>,
+  ) {
+    const updated = produce(this._props, (draft) => {
+      Object.entries(patch).forEach(([key, value]) => {
+        if (value !== undefined) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (draft as any)[key] = castDraft(value);
+        }
+      });
+      draft.timestamps = draft.timestamps.update();
+    });
+    return Stream.rehydrate(updated);
+  }
+
   public get duration(): Duration | null {
     if (this.endedAt == null) {
       return null;
     }
 
     return dayjs.duration(this.endedAt.diff(this.startedAt));
-  }
-
-  public end(endedAt: Dayjs): Stream {
-    if (this.endedAt !== null) {
-      throw new StreamAlreadyEndedError(this.id);
-    }
-
-    return new Stream(
-      produce(this._props, (draft) => {
-        draft.endedAt = endedAt;
-        draft.timestamps = draft.timestamps.update();
-      }),
-    );
   }
 
   public static create(

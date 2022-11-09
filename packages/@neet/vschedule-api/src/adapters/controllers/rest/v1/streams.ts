@@ -1,4 +1,7 @@
-import { RequestBody$createStream } from '@neet/vschedule-api-client';
+import {
+  Params$listStreams,
+  RequestBody$createStream,
+} from '@neet/vschedule-api-client';
 import { inject } from 'inversify';
 import {
   BaseHttpController,
@@ -33,8 +36,13 @@ export class StreamsRestApiController extends BaseHttpController {
   }
 
   @httpGet('/')
-  async list() {
-    const data = await this._listStreams.invoke();
+  async list(@requestParam() params: Params$listStreams['parameter']) {
+    const data = await this._listStreams.invoke({
+      limit: params.limit,
+      offset: params.offset,
+      organizationId: params.organizationId,
+    });
+
     return this.json(
       data.map(([stream, owner, ownerOrganization]) =>
         this._presenter.presentStream(stream, owner, ownerOrganization),

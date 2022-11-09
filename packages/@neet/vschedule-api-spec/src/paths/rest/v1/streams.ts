@@ -59,7 +59,13 @@ registry.registerPath({
   path: '/rest/v1/streams',
   operationId: 'listStreams',
   summary: '配信を一覧',
-  request: {},
+  request: {
+    query: z.object({
+      limit: z.number().optional(),
+      offset: z.number().optional(),
+      organizationId: z.string().optional(),
+    }),
+  },
   responses: {
     200: {
       description: '成功時のレスポンスです',

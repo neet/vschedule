@@ -1,20 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <feed xmlns:yt="http://www.youtube.com/xml/schemas/2015" xmlns="http://www.w3.org/2005/Atom">
   <link rel="hub" href="https://pubsubhubbub.appspot.com" />
-  <link rel="self" href="https://www.youtube.com/xml/feeds/videos.xml?channel_id=UCjXHjE-OBd--vYcT83XdzTA" />
+  <link rel="self" href="https://www.youtube.com/xml/feeds/videos.xml?channel_id=UCV5ZZlLjk5MKGg3L0n0vbzw" />
   <title>YouTube video feed</title>
-  <updated>2022-11-03T09:13:57.96441994+00:00</updated>
+  <updated>2022-11-03T08:45:46.892538846+00:00</updated>
   <entry>
-    <id>yt:video:KWttVY6QY6Q</id>
-    <yt:videoId>KWttVY6QY6Q</yt:videoId>
-    <yt:channelId>UCjXHjE-OBd--vYcT83XdzTA</yt:channelId>
-    <title>Test stream 3</title>
-    <link rel="alternate" href="https://www.youtube.com/watch?v=KWttVY6QY6Q" />
+    <id>yt:video:pOXNZPi22yQ</id>
+    <yt:videoId>pOXNZPi22yQ</yt:videoId>
+    <yt:channelId>UCV5ZZlLjk5MKGg3L0n0vbzw</yt:channelId>
+    <title>new title</title>
+    <link rel="alternate" href="https://www.youtube.com/watch?v=pOXNZPi22yQ" />
     <author>
-      <name>都 -みやこ-</name>
-      <uri>https://www.youtube.com/channel/UCjXHjE-OBd--vYcT83XdzTA</uri>
+      <name>鷹宮リオン</name>
+      <uri>https://www.youtube.com/watch?v=pOXNZPi22yQ</uri>
     </author>
     <published>2022-11-03T08:42:06+00:00</published>
-    <updated>2022-11-03T09:13:57.96441994+00:00</updated>
+    <updated>2022-11-03T10:45:46.892538846+00:00</updated>
   </entry>
 </feed>
