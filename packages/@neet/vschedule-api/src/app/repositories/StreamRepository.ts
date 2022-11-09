@@ -13,5 +13,6 @@ export interface IStreamRepository {
   list(params: ListStreamsParams): Promise<Stream[]>;
 
   save(stream: Stream): Promise<Stream>;
+  update(stream: Stream): Promise<Stream>;
   remove(streamId: StreamId): Promise<void>;
 }

@@ -97,6 +97,40 @@ export class StreamRepository implements IStreamRepository {
     return rehydrateStreamFromPrisma(data);
   }
 
+  async update(stream: Stream): Promise<Stream> {
+    const data = await this._prisma.stream.update({
+      where: {
+        id: stream.id.value,
+      },
+      data: {
+        title: stream.title.value,
+        url: stream.url.toString(),
+        description: unwrap(stream.description),
+        updatedAt: stream.updatedAt.toDate(),
+        startedAt: stream.startedAt.toDate(),
+        endedAt: stream.endedAt === null ? null : stream.endedAt.toDate(),
+        thumbnailId:
+          stream.thumbnail === null ? null : stream.thumbnail.id.value,
+        ownerId: stream.ownerId.value,
+      },
+      include: {
+        thumbnail: true,
+        owner: {
+          include: {
+            organization: true,
+            actor: {
+              include: {
+                avatar: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return rehydrateStreamFromPrisma(data);
+  }
+
   async remove(id: StreamId): Promise<void> {
     await this._prisma.stream.delete({
       where: { id: id.value },

@@ -14,6 +14,9 @@ import { SEED_STREAM_ID } from '../test-utils/seed';
 const ytWebsubStreamScheduled = fs.readFileSync(
   path.join(__dirname, './__fixtures__/yt-websub-stream-scheduled.xml'),
 );
+const ytWebsubStreamTitleChanged = fs.readFileSync(
+  path.join(__dirname, './__fixtures__/yt-websub-stream-title-changed.xml'),
+);
 const ytWebsubStreamDeleted = fs.readFileSync(
   path.join(__dirname, './__fixtures__/yt-websub-stream-deleted.xml'),
 );
@@ -75,6 +78,36 @@ describe('/websub/youtube', () => {
     );
     expect(stream?.owner?.name).toBe('鷹宮リオン');
     expect(stream?.owner?.organization?.name).toBe('にじさんじ');
+  });
+
+  it('updates Atom feed', async () => {
+    const config = container.get<IAppConfig>(TYPES.AppConfig);
+    const hmac = createHmac(
+      'sha1',
+      config.entries.youtube.websubHmacSecret ?? '',
+    );
+    const digest = hmac
+      .update(ytWebsubStreamTitleChanged)
+      .digest()
+      .toString('hex');
+
+    const prev = (await client.listStreams())
+      .filter((stream) => /pOXNZPi22yQ/.test(stream.url))
+      .at(0);
+
+    const result = await request
+      .post('/websub/youtube')
+      .set('Content-Type', 'application/atom+xml')
+      .set('x-hub-signature', `sha1=${digest}`)
+      .send(ytWebsubStreamTitleChanged);
+
+    expect(result.status).toBe(200);
+
+    const current = (await client.listStreams())
+      .filter((stream) => /pOXNZPi22yQ/.test(stream.url))
+      .at(0);
+
+    expect(current?.updatedAt).not.toBe(prev?.updatedAt);
   });
 
   it('rejects receiving Atom feed when HMAC did not match', async () => {
