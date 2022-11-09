@@ -1,6 +1,6 @@
 {
   "name": "@neet/vschedule-api-spec",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "scripts": {
     "build": "./build.sh"
   },
