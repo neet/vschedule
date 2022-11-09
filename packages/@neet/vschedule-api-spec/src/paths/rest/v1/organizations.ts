@@ -88,6 +88,9 @@ registry.registerPath({
   operationId: 'updateOrganization',
   summary: '組織を作成',
   request: {
+    params: z.object({
+      organizationId: PathOrganizationId,
+    }),
     body: {
       required: true,
       description: '組織の情報です',
