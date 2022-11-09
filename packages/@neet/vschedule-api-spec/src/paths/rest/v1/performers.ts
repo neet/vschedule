@@ -46,15 +46,15 @@ registry.registerPath({
 });
 
 const CreatePerformer = z.object({
-  name: z.string().nullable().optional().openapi({
+  name: z.string().nullish().openapi({
     description:
       'Name for the performer. Set undefined to use YouTube channel name',
   }),
-  description: z.string().nullable().optional().openapi({
+  description: z.string().nullish().openapi({
     description:
       'Description for the performer. Set undefined to use YouTube channel description',
   }),
-  color: z.string().nullable().optional().openapi({
+  color: z.string().nullish().openapi({
     description:
       'Theme color for the performer. Set undefined to use auto generate from YouTube avatar',
   }),
