@@ -1,6 +1,6 @@
 {
   "name": "@neet/vschedule-api-client",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "scripts": {
     "build": "ts-node codegen.ts && tsc"
   },
