@@ -8,6 +8,7 @@ import {
   RefreshJob,
 } from '../../app/repositories/JobRepository';
 import { IAppConfig } from '../../app/services/AppConfig/AppConfig';
+import { ILogger } from '../../app/services/Logger';
 import { TYPES } from '../../types';
 
 @injectable()
@@ -18,6 +19,9 @@ export class JobRepository implements IJobRepository {
   public constructor(
     @inject(TYPES.AppConfig)
     config: IAppConfig,
+
+    @inject(TYPES.Logger)
+    private readonly _logger: ILogger,
   ) {
     this._origin = config.entries.server.origin;
   }
@@ -38,5 +42,7 @@ export class JobRepository implements IJobRepository {
         }),
       },
     });
+
+    this._logger.info(`Queued invocation of URL ${url}`, { url, job });
   }
 }
