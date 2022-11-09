@@ -10,7 +10,8 @@ export const Actor = registry.register(
     color: z.string(),
     url: z.string().url().nullable(),
     description: z.string().nullable(),
-    avatar: MediaAttachment.nullable(),
+    // TODO: Change to nullable
+    avatar: MediaAttachment.optional(),
     twitterUsername: z.string().nullable(),
     youtubeChannelId: z.string().nullable(),
   }),

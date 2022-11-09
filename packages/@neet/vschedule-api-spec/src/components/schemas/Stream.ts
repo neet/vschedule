@@ -17,7 +17,7 @@ export const Stream = registry.register(
     startedAt: z.date(),
     endedAt: z.date().nullable(),
     duration: z.string().nullable(),
-    owner: Performer.nullable(),
+    owner: Performer.optional(),
     casts: z.array(Performer),
   }),
 );

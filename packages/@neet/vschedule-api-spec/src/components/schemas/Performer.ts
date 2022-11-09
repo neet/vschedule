@@ -10,6 +10,6 @@ export const Performer = registry.register(
     id: z.string(),
     createdAt: z.date(),
     updatedAt: z.date(),
-    organization: Organization.nullable(),
+    organization: Organization.optional(),
   }),
 );
