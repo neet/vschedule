@@ -30,6 +30,7 @@ export class PerformerRepository implements IPerformerRepository {
           name: performer.name.value,
           description: unwrap(performer.description),
           color: performer.color.hex(),
+          url: performer.url?.toString(),
           youtubeChannelId: unwrap(performer.youtubeChannelId),
           twitterUsername: unwrap(performer.twitterUsername),
           avatarId:
@@ -70,6 +71,7 @@ export class PerformerRepository implements IPerformerRepository {
           name: performer.name.value,
           color: performer.color.hex(),
           description: unwrap(performer.description),
+          url: performer.url?.toString(),
           youtubeChannelId: unwrap(performer.youtubeChannelId),
           twitterUsername: unwrap(performer.twitterUsername),
           avatarId:
