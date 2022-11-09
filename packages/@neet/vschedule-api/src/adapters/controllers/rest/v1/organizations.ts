@@ -39,7 +39,7 @@ export class OrganizationsController extends BaseHttpController {
   @httpGet('/:organizationId')
   async show(@queryParam('organizationId') organizationId: string) {
     const organization = await this._showOrganization.invoke(organizationId);
-    return this.json(this._presenter.presentActor(organization));
+    return this.json(this._presenter.presentOrganization(organization));
   }
 
   @httpGet('/')
@@ -69,6 +69,6 @@ export class OrganizationsController extends BaseHttpController {
       twitterUsername: body.twitterUsername ?? null,
     });
 
-    return this.json(this._presenter.presentActor(organization));
+    return this.json(this._presenter.presentOrganization(organization));
   }
 }
