@@ -17,6 +17,7 @@ module.exports = withMDX({
       'liver-icons.s3.ap-northeast-1.amazonaws.com',
       'liver-icons.s3-ap-northeast-1.amazonaws.com',
     ],
+    unoptimized: true,
   },
 
   async redirects() {
