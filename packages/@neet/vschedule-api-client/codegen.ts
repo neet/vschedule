@@ -7,7 +7,7 @@ import type * as Types from '@himenon/openapi-typescript-code-generator/types';
 
 const main = () => {
   const codeGenerator = new CodeGenerator(
-    require.resolve('@neet/vschedule-api-spec/openapi'),
+    require.resolve('@neet/vschedule-api-spec'),
   );
 
   const apiClientGeneratorTemplate: Types.CodeGenerator.CustomGenerator<Templates.ApiClient.Option> =
