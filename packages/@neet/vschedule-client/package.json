@@ -9,8 +9,8 @@
     "codegen": "orval",
     "test": "yarn run jest && yarn run eslint && yarn run cspell",
     "jest": "jest --coverage",
-    "eslint": "eslint --cache './**/*.{js,json,ts,tsx}'",
-    "cspell": "cspell './**/*.{js.json,ts,tsx}'",
+    "eslint": "eslint --cache './**/*.{ts,tsx}'",
+    "cspell": "cspell './**/*.{js,json,ts,tsx}'",
     "storybook": "TAILWIND_MODE=watch start-storybook -p 9000 --no-manager-cache",
     "build-storybook": "build-storybook",
     "chromatic": "chromatic"
@@ -85,13 +85,8 @@
     "babel-loader": "^8.2.3",
     "cspell": "^5.13.2",
     "eslint": "^8.27.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-config-next": "^13.0.2",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.31.10",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-simple-import-sort": "^8.0.0",
     "eslint-plugin-storybook": "^0.6.6",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.4",
@@ -99,31 +94,6 @@
     "prettier": "^2.7.1",
     "react-docgen-typescript": "^2.2.2",
     "scaffdog": "^1.0.1",
-    "ts-jest": "^27.1.2",
     "ts-loader": "^9.2.6"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "globals": {
-      "ts-jest": {
-        "tsconfig": {
-          "jsx": "react-jsx"
-        }
-      }
-    },
-    "testEnvironment": "jsdom",
-    "moduleNameMapper": {
-      "\\.(css)$": "identity-obj-proxy"
-    },
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}",
-      "!**/*.d.ts"
-    ],
-    "testMatch": [
-      "<rootDir>/src/**/*.spec.{ts,tsx}"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/scripts/test-setup.ts"
-    ]
   }
 }

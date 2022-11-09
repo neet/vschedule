@@ -14,13 +14,20 @@ export interface SkyscraperProps {
   readonly events?: readonly Event[];
   readonly loading?: boolean;
   readonly pinnedEventId?: number;
+  readonly mode?: 'streams' | 'events';
   readonly upcomingEvents?: readonly Event[];
   readonly upcomingStreams?: readonly Stream[];
 }
 
 export const Skyscraper = (props: SkyscraperProps): JSX.Element => {
-  const { events, loading, upcomingEvents, upcomingStreams, pinnedEventId } =
-    props;
+  const {
+    mode = 'events',
+    events,
+    loading,
+    upcomingEvents,
+    upcomingStreams,
+    pinnedEventId,
+  } = props;
 
   return (
     <aside
@@ -68,7 +75,7 @@ export const Skyscraper = (props: SkyscraperProps): JSX.Element => {
         <ActiveLivers upcomingEvents={upcomingEvents} />
       </section>
 
-      {upcomingEvents != null && (
+      {mode === 'events' && (
         <section aria-labelledby="skyscraper__upcoming">
           <UpcomingEvents
             id="skyscraper__upcoming"
@@ -78,10 +85,10 @@ export const Skyscraper = (props: SkyscraperProps): JSX.Element => {
         </section>
       )}
 
-      {upcomingStreams != null && (
-        <section aria-labelledby="skyscraper__upcoming-s">
+      {mode === 'streams' && (
+        <section aria-labelledby="skyscraper__upcoming">
           <UpcomingStreams
-            id="skyscraper__upcoming-s"
+            id="skyscraper__upcoming"
             upcomingStreams={upcomingStreams}
           />
         </section>

@@ -135,9 +135,9 @@ const Streams = (props: StreamsProps): JSX.Element | null => {
           </div>
 
           <Skyscraper
+            mode="streams"
             events={upcomingEvents}
             loading={isValidating}
-            // pinnedEventId={54458}
             upcomingStreams={streams?.data}
           />
         </div>

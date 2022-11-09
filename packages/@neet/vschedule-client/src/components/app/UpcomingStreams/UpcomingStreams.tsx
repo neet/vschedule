@@ -31,17 +31,16 @@ const sortByPriority = (a: StreamModel, b: StreamModel): number => {
 
 export interface UpcomingStreamsProps {
   readonly id?: string;
-  readonly pinnedEventId?: number;
   readonly upcomingStreams?: readonly StreamModel[];
 }
 
 export const UpcomingStreams = (props: UpcomingStreamsProps): JSX.Element => {
-  const { id, pinnedEventId } = props;
+  const { id } = props;
 
   const upcomingStreams = useMemo(() => {
     if (props.upcomingStreams == null) return;
     return [...props.upcomingStreams].sort(sortByPriority);
-  }, [pinnedEventId, props.upcomingStreams]);
+  }, [props.upcomingStreams]);
 
   return (
     <Section

@@ -45,7 +45,7 @@ const Tags = (props: TagsProps): JSX.Element => {
 
       {genres?.map((genre) => (
         <Card key={genre.id} variant="wash">
-          <Link href={`/?genre=${genre.id}`}>
+          <Link href={`/?genre=${genre.id}`} passHref>
             <a className="block group">
               <div className={classNames('flex', 'items-center', 'space-x-4')}>
                 <div

@@ -2,6 +2,9 @@ const withMDX = require('@next/mdx')();
 
 /** @type {import('next').NextConfig} */
 module.exports = withMDX({
+  reactStrictMode: true,
+  swcMinify: true,
+
   env: {
     GA_MEASUREMENT_ID: process.env.GA_MEASUREMENT_ID,
   },
