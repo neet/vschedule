@@ -24,10 +24,12 @@ for (const module of modules) {
 }
 
 // --- 3. Generate document ---
-const document = new OpenAPIGenerator(registry.definitions).generateDocument({
-  openapi: '3.0.1',
+const document = new OpenAPIGenerator(
+  registry.definitions,
+  '3.0.3',
+).generateDocument({
   info: {
-    title: 'VSchedule Rest API',
+    title: 'VSchedule API',
     version: JSON.parse(
       fs.readFileSync(path.join(__dirname, '../package.json'), 'utf-8'),
     ).version,

@@ -11,7 +11,7 @@ export const MediaAttachment = registry.register(
     width: z.number(),
     height: z.number(),
     url: z.string().url(),
-    createdAt: z.string().openapi({ format: 'date-time' }),
-    updatedAt: z.string().openapi({ format: 'date-time' }),
+    createdAt: z.date(),
+    updatedAt: z.date(),
   }),
 );
