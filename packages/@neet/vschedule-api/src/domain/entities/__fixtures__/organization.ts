@@ -28,6 +28,7 @@ export const organizationFixture = Organization.rehydrate({
       updatedAt: dayjs(),
     }),
     bucket: null,
+    remoteUrl: null,
     filename: 'avatar.png',
     width: 1,
     height: 1,

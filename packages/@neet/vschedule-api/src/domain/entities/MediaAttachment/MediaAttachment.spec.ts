@@ -12,6 +12,7 @@ describe('MediaAttachment', () => {
       width: 1,
       height: 1,
       bucket: '123',
+      remoteUrl: null,
     });
 
     expect(media.filename.value).toBe('filename.png');
@@ -28,6 +29,7 @@ describe('MediaAttachment', () => {
       width: 1,
       height: 1,
       bucket: '123',
+      remoteUrl: null,
       timestamps: new Timestamps({
         createdAt: dayjs(),
         updatedAt: dayjs(),
