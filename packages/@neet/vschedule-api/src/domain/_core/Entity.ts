@@ -44,7 +44,8 @@ export type PropsOf<T extends Entity> = T extends Entity<ValueObject, infer R>
   ? R
   : never;
 
-/** 複数コンストラクタを持つVO */
 export type RehydrateParameters<T> = {
   [key in keyof T]: ValueOf<T[key]> | T[key];
 };
+
+export type Recipe<T> = RehydrateParameters<T>;
