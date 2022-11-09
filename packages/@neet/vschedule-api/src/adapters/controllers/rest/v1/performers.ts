@@ -23,7 +23,7 @@ import { SubscribeToPerformer } from '../../../../app/use-cases/SubscribeToYoutu
 import { UpdatePerformer } from '../../../../app/use-cases/UpdatePerformer';
 import { RestApiPresenter } from '../../../mappers/RestApiMapper';
 
-@controller('/api/v1/performers')
+@controller('/rest/v1/performers')
 export class PerformersController extends BaseHttpController {
   constructor(
     @inject(ShowPerformer)

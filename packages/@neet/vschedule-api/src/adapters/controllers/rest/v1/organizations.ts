@@ -18,7 +18,7 @@ import { ListOrganization } from '../../../../app/use-cases/ListOrganizations';
 import { ShowOrganization } from '../../../../app/use-cases/ShowOrganization';
 import { RestApiPresenter } from '../../../mappers/RestApiMapper';
 
-@controller('/api/v1/organizations')
+@controller('/rest/v1/organizations')
 export class OrganizationsController extends BaseHttpController {
   public constructor(
     @inject(ShowOrganization)

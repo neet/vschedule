@@ -7,6 +7,7 @@ import {
   NIJISANJI_YOUTUBE_CHANNEL_ID,
   organizations,
 } from '@neet/vschedule-seeds';
+import { PrismaClient } from '@prisma/client';
 
 import { IOrganizationRepository } from '../src/app/repositories/OrganizationRepository';
 import { IPerformerRepository } from '../src/app/repositories/PerformerRepository';
@@ -16,6 +17,7 @@ import { YoutubeChannelId } from '../src/domain/_shared';
 import { container } from '../src/infra/inversify-config';
 import { TYPES } from '../src/types';
 
+const prisma = container.get<PrismaClient>(TYPES.PrismaClient);
 const createOrganization = container.get(CreateOrganization);
 const createPerformer = container.get(CreatePerformer);
 const performerRepository = container.get<IPerformerRepository>(
@@ -105,6 +107,10 @@ const main = async (): Promise<void> => {
   }
 };
 
-main().catch((error) => {
-  throw error;
-});
+main()
+  .catch((error) => {
+    throw error;
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

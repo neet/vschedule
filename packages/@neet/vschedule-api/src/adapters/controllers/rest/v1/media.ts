@@ -8,7 +8,7 @@ import {
 
 import { ShowMediaAttachment } from '../../../../app/use-cases/ShowMediaAttachment';
 
-@controller('/api/v1/media')
+@controller('/rest/v1/media')
 export class MediaAttachmentController extends BaseHttpController {
   constructor(
     @inject(ShowMediaAttachment)

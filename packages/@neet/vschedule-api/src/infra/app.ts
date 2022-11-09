@@ -1,11 +1,12 @@
-import '../adapters/controllers/api/v1/performers';
-import '../adapters/controllers/api/v1/organizations';
-import '../adapters/controllers/api/v1/media';
-import '../adapters/controllers/api/v1/streams';
+import '../adapters/controllers/rest/v1/performers';
+import '../adapters/controllers/rest/v1/organizations';
+import '../adapters/controllers/rest/v1/media';
+import '../adapters/controllers/rest/v1/streams';
 import '../adapters/controllers/websub/youtube';
 import './setup';
 
 import api from '@neet/vschedule-api-spec';
+import cors from 'cors';
 import express, { Application } from 'express';
 import * as OpenApiValidator from 'express-openapi-validator';
 import expressWinston from 'express-winston';
@@ -36,8 +37,9 @@ export const createApp = (container: Container): Application => {
     app.use(expressWinston.logger({ winstonInstance: logger }));
 
     app.use('/docs', swaggerUi.serve, swaggerUi.setup(api));
+    app.use('/rest', cors());
     app.use(
-      '/api',
+      '/rest',
       OpenApiValidator.middleware({
         apiSpec: require.resolve('@neet/vschedule-api-spec'),
         validateApiSpec: true,
