@@ -139,6 +139,16 @@ export class StreamRepository implements IStreamRepository {
 
   async list(params: ListStreamsParams): Promise<Stream[]> {
     const streams = await this._prisma.stream.findMany({
+      take: params.limit,
+      skip: params.offset,
+      where: {
+        owner: {
+          organizationId: params.organizationId,
+        },
+      },
+      orderBy: {
+        startedAt: 'desc',
+      },
       include: {
         thumbnail: true,
         owner: {
@@ -152,7 +162,6 @@ export class StreamRepository implements IStreamRepository {
           },
         },
       },
-      take: params.limit ?? 10,
     });
 
     return streams.map((d) => rehydrateStreamFromPrisma(d));

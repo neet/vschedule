@@ -4,6 +4,8 @@ import { Stream, StreamId } from '../../domain/entities';
 
 export interface ListStreamsParams {
   readonly limit?: number;
+  readonly offset?: number;
+  readonly organizationId?: string;
 }
 
 export interface IStreamRepository {

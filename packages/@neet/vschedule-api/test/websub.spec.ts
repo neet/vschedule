@@ -68,7 +68,7 @@ describe('/websub/youtube', () => {
 
     expect(result.status).toBe(200);
 
-    const streams = await client.listStreams();
+    const streams = await client.listStreams({ parameter: {} });
     const stream = streams
       .filter((stream) => /pOXNZPi22yQ/.test(stream.url))
       .at(0);
@@ -91,7 +91,7 @@ describe('/websub/youtube', () => {
       .digest()
       .toString('hex');
 
-    const prev = (await client.listStreams())
+    const prev = (await client.listStreams({ parameter: {} }))
       .filter((stream) => /pOXNZPi22yQ/.test(stream.url))
       .at(0);
 
@@ -103,7 +103,7 @@ describe('/websub/youtube', () => {
 
     expect(result.status).toBe(200);
 
-    const current = (await client.listStreams())
+    const current = (await client.listStreams({ parameter: {} }))
       .filter((stream) => /pOXNZPi22yQ/.test(stream.url))
       .at(0);
 
@@ -124,7 +124,7 @@ describe('/websub/youtube', () => {
       .send(ytWebsubStreamScheduled);
     expect(res.ok).toBe(false);
 
-    const streams = await client.listStreams();
+    const streams = await client.listStreams({ parameter: {} });
     const stream = streams
       .filter((stream) => /0XnCry1Afzc/.test(stream.url))
       .at(0);
