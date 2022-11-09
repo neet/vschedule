@@ -6,7 +6,7 @@ import { Performer } from '../../../components/schemas/Performer';
 
 registry.registerPath({
   method: 'get',
-  path: '/api/v1/performers/{performerId}',
+  path: '/rest/v1/performers/{performerId}',
   operationId: 'showPerformer',
   summary: 'パフォーマーを表示',
   request: {
@@ -26,7 +26,7 @@ registry.registerPath({
 
 registry.registerPath({
   method: 'get',
-  path: '/api/v1/performers',
+  path: '/rest/v1/performers',
   operationId: 'listPerformers',
   summary: 'パフォーマーを一覧',
   request: {
@@ -67,7 +67,7 @@ const CreatePerformer = z.object({
 
 registry.registerPath({
   method: 'post',
-  path: '/api/v1/performers',
+  path: '/rest/v1/performers',
   operationId: 'createPerformer',
   summary: 'パフォーマーを作成',
   request: {
@@ -105,7 +105,7 @@ const UpdatePerformer = z
 
 registry.registerPath({
   method: 'patch',
-  path: '/api/v1/performers/{performerId}',
+  path: '/rest/v1/performers/{performerId}',
   operationId: 'updatePerformer',
   summary: 'パフォーマーを更新',
   request: {
@@ -134,7 +134,7 @@ registry.registerPath({
 
 registry.registerPath({
   method: 'post',
-  path: '/api/v1/performers/{performerId}/subscribe',
+  path: '/rest/v1/performers/{performerId}/subscribe',
   operationId: 'subscribeToPerformer',
   summary: 'パフォーマーを購読',
   request: {

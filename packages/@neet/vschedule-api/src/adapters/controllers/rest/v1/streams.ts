@@ -14,7 +14,7 @@ import { ListStreams } from '../../../../app/use-cases/ListStreams';
 import { ShowStream } from '../../../../app/use-cases/ShowStream';
 import { RestApiPresenter } from '../../../mappers/RestApiMapper';
 
-@controller('/api/v1/streams')
+@controller('/rest/v1/streams')
 export class StreamsRestApiController extends BaseHttpController {
   constructor(
     @inject(ListStreams)

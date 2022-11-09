@@ -27,7 +27,7 @@ for (const module of modules) {
 const document = new OpenAPIGenerator(registry.definitions).generateDocument({
   openapi: '3.0.1',
   info: {
-    title: 'Refined Itsukara.link',
+    title: 'VSchedule Rest API',
     version: JSON.parse(
       fs.readFileSync(path.join(__dirname, '../package.json'), 'utf-8'),
     ).version,
@@ -41,6 +41,10 @@ const document = new OpenAPIGenerator(registry.definitions).generateDocument({
     {
       url: 'http://localhost:3000',
       description: 'Development environment',
+    },
+    {
+      url: 'https://api.vschedule.app',
+      description: 'Production',
     },
   ],
 });

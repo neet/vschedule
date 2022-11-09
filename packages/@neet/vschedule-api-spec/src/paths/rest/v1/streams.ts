@@ -6,7 +6,7 @@ import { Stream } from '../../../components/schemas/Stream';
 
 registry.registerPath({
   method: 'get',
-  path: '/api/v1/streams/{streamId}',
+  path: '/rest/v1/streams/{streamId}',
   operationId: 'showStream',
   summary: '配信を表示',
   request: {
@@ -29,7 +29,7 @@ registry.registerPath({
 
 registry.registerPath({
   method: 'post',
-  path: '/api/v1/streams',
+  path: '/rest/v1/streams',
   operationId: 'createStream',
   summary: '配信を作成',
   request: {
@@ -56,7 +56,7 @@ registry.registerPath({
 
 registry.registerPath({
   method: 'get',
-  path: '/api/v1/streams',
+  path: '/rest/v1/streams',
   operationId: 'listStreams',
   summary: '配信を一覧',
   request: {},

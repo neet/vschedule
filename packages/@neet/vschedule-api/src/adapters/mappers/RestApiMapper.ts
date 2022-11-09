@@ -28,7 +28,7 @@ export class RestApiPresenter {
   public presentMediaAttachment(
     mediaAttachment: MediaAttachment,
   ): Schemas.MediaAttachment {
-    const pathname = `/api/v1/media/${mediaAttachment.filename.value}`;
+    const pathname = `/rest/v1/media/${mediaAttachment.filename.value}`;
     const url = new URL(this._origin);
     url.pathname = pathname;
 

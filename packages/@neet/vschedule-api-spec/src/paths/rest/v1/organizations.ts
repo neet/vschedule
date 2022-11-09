@@ -6,7 +6,7 @@ import { Organization } from '../../../components/schemas/Organization';
 
 registry.registerPath({
   method: 'get',
-  path: '/api/v1/organizations/{organizationId}',
+  path: '/rest/v1/organizations/{organizationId}',
   operationId: 'showOrganization',
   summary: '組織を表示',
   request: {
@@ -26,7 +26,7 @@ registry.registerPath({
 
 registry.registerPath({
   method: 'get',
-  path: '/api/v1/organizations',
+  path: '/rest/v1/organizations',
   operationId: 'listOrganizations',
   summary: '組織を一覧',
   request: {
@@ -56,7 +56,7 @@ const CreateOrganization = z.object({
 
 registry.registerPath({
   method: 'post',
-  path: '/api/v1/organizations',
+  path: '/rest/v1/organizations',
   operationId: 'createOrganization',
   summary: '組織を作成',
   request: {
@@ -84,7 +84,7 @@ const UpdateOrganization = CreateOrganization.partial();
 
 registry.registerPath({
   method: 'patch',
-  path: '/api/v1/organizations/{organizationId}',
+  path: '/rest/v1/organizations/{organizationId}',
   operationId: 'updateOrganization',
   summary: '組織を作成',
   request: {

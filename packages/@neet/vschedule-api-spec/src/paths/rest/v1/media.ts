@@ -4,7 +4,7 @@ import { registry } from '../../../api';
 import { PathMediaFilename } from '../../../components/parameters/PathMediaFilename';
 
 registry.registerPath({
-  path: '/api/v1/media/{mediaFilename}',
+  path: '/rest/v1/media/{mediaFilename}',
   method: 'get',
   operationId: 'showMedia',
   summary: 'メディアを表示',
