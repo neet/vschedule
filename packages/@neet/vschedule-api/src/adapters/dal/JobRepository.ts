@@ -13,6 +13,8 @@ import { TYPES } from '../../types';
 
 @injectable()
 export class JobRepository implements IJobRepository {
+  // Can be computed by tasks.queuePath();
+  private readonly _resource: string;
   private readonly _origin: string;
   private readonly _tasks = new CloudTasksClient();
 
@@ -24,6 +26,7 @@ export class JobRepository implements IJobRepository {
     private readonly _logger: ILogger,
   ) {
     this._origin = config.entries.server.origin;
+    this._resource = config.entries.tasks.resources.resubscription;
   }
 
   async queue(job: RefreshJob): Promise<void> {
@@ -32,6 +35,7 @@ export class JobRepository implements IJobRepository {
     const url = origin.toString();
 
     await this._tasks.createTask({
+      parent: this._resource,
       task: {
         httpRequest: new google.cloud.tasks.v2.HttpRequest({
           httpMethod: 'POST',
