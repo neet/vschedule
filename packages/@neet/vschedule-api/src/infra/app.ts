@@ -20,6 +20,7 @@ import { TYPES } from '../types';
 import { appErrorHandler } from './middlewares/AppErrorHandler';
 import { domainErrorHandler } from './middlewares/DomainErrorHandler';
 import { openapiErrorHandler } from './middlewares/OpenApiErrorHandler';
+import { provider } from './oidc';
 
 /**
  * Create app by given container
@@ -36,10 +37,15 @@ export const createApp = (container: Container): Application => {
     app.use(express.urlencoded({ extended: true }));
     app.use(expressWinston.logger({ winstonInstance: logger }));
 
+    // OpenID Connect
+    app.use('/oidc', provider.callback());
+
+    // OpenAPI Documentation
     app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSpec));
-    app.use('/rest', cors());
+
     app.use(
       '/rest',
+      cors(),
       OpenApiValidator.middleware({
         apiSpec: require.resolve('@neet/vschedule-api-spec'),
         validateApiSpec: true,
