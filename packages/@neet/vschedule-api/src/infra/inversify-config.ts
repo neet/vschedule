@@ -47,12 +47,12 @@ const config = container.get<IAppConfig>(TYPES.AppConfig);
 container
   .bind<ILogger>(TYPES.Logger)
   .toConstantValue(loggerConsole)
-  .when(() => config.entries.logger.type === 'console');
+  .when(() => config.logger.type === 'console');
 
 container
   .bind<ILogger>(TYPES.Logger)
   .toConstantValue(loggerCloudLogging)
-  .when(() => config.entries.logger.type === 'cloud-logging');
+  .when(() => config.logger.type === 'cloud-logging');
 
 const logger = container.get<ILogger>(TYPES.Logger);
 

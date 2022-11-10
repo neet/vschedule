@@ -13,7 +13,7 @@ export class Storage implements IStorage {
     @inject(TYPES.AppConfig)
     config: IAppConfig,
   ) {
-    this._bucket = config.entries.storage.bucket;
+    this._bucket = config.storage.bucket;
   }
 
   private readonly _storage = new CloudStorage();

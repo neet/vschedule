@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import fetch from 'node-fetch';
 import { URL, URLSearchParams } from 'url';
 
-import { IAppConfig } from '../../app/services/AppConfig/AppConfig';
+import { IAppConfig, utils } from '../../app/services/AppConfig/AppConfig';
 import { IYoutubeWebsubService } from '../../app/services/YoutubeWebsubService';
 import { TYPES } from '../../types';
 
@@ -15,13 +15,8 @@ export class YoutubeWebsubService implements IYoutubeWebsubService {
     @inject(TYPES.AppConfig)
     config: IAppConfig,
   ) {
-    {
-      const origin = new URL(config.entries.server.origin);
-      origin.pathname = '/websub/youtube';
-      this._callbackUrl = origin.toString();
-    }
-
-    this._hmacSecret = config.entries.youtube.websubHmacSecret ?? '';
+    this._callbackUrl = utils.resolvePath(config, '/websub/youtube');
+    this._hmacSecret = config.youtube.websubHmacSecret ?? '';
   }
 
   public async subscribeToChannel(channelId: string): Promise<void> {

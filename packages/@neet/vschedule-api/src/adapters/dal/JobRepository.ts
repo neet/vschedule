@@ -25,8 +25,8 @@ export class JobRepository implements IJobRepository {
     @inject(TYPES.Logger)
     private readonly _logger: ILogger,
   ) {
-    this._origin = config.entries.server.origin;
-    this._resource = config.entries.tasks.resources.resubscription;
+    this._origin = config.server.origin;
+    this._resource = config.tasks.resources.resubscription;
   }
 
   async queue(job: RefreshJob): Promise<void> {

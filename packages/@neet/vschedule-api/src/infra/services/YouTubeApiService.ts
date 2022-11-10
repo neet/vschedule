@@ -28,7 +28,7 @@ export class YoutubeApiService implements IYoutubeApiService {
   ) {
     this._yt = google.youtube({
       version: 'v3',
-      auth: config.entries.youtube.dataApiKey,
+      auth: config.youtube.dataApiKey,
     });
   }
 

@@ -51,10 +51,7 @@ describe('/websub/youtube', () => {
 
   it('receives Atom feed', async () => {
     const config = container.get<IAppConfig>(TYPES.AppConfig);
-    const hmac = createHmac(
-      'sha1',
-      config.entries.youtube.websubHmacSecret ?? '',
-    );
+    const hmac = createHmac('sha1', config.youtube.websubHmacSecret ?? '');
     const digest = hmac
       .update(ytWebsubStreamScheduled)
       .digest()
@@ -82,10 +79,7 @@ describe('/websub/youtube', () => {
 
   it('updates Atom feed', async () => {
     const config = container.get<IAppConfig>(TYPES.AppConfig);
-    const hmac = createHmac(
-      'sha1',
-      config.entries.youtube.websubHmacSecret ?? '',
-    );
+    const hmac = createHmac('sha1', config.youtube.websubHmacSecret ?? '');
     const digest = hmac
       .update(ytWebsubStreamTitleChanged)
       .digest()
@@ -134,10 +128,7 @@ describe('/websub/youtube', () => {
 
   it('deletes Atom feed when received deleted-entry', async () => {
     const config = container.get<IAppConfig>(TYPES.AppConfig);
-    const hmac = createHmac(
-      'sha1',
-      config.entries.youtube.websubHmacSecret ?? '',
-    );
+    const hmac = createHmac('sha1', config.youtube.websubHmacSecret ?? '');
     const digest = hmac.update(ytWebsubStreamDeleted).digest().toString('hex');
 
     const res = await request
