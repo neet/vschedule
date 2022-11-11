@@ -19,7 +19,6 @@ abstract class __AppConfigBase {
       },
       youtube: {
         dataApiKey: entries.youtube?.dataApiKey,
-        websubEnabled: entries.youtube?.websubEnabled,
         websubHmacSecret: entries.youtube?.websubHmacSecret,
       },
       server: {
