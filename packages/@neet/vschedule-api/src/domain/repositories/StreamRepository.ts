@@ -1,6 +1,6 @@
 import { URL } from 'url';
 
-import { Stream, StreamId } from '../../domain/entities';
+import { Stream, StreamId } from '../entities';
 
 export interface ListStreamsParams {
   readonly limit?: number;

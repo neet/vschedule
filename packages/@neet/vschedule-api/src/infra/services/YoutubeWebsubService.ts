@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import fetch from 'node-fetch';
-import { URL, URLSearchParams } from 'url';
+import { URLSearchParams } from 'url';
 
 import { IAppConfig, utils } from '../../app/services/AppConfig/AppConfig';
 import { IYoutubeWebsubService } from '../../app/services/YoutubeWebsubService';

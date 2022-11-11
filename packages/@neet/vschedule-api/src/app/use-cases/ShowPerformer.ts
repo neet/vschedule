@@ -1,10 +1,10 @@
 import { inject, injectable } from 'inversify';
 
 import { Organization, Performer, PerformerId } from '../../domain/entities';
+import { IOrganizationRepository } from '../../domain/repositories/OrganizationRepository';
+import { IPerformerRepository } from '../../domain/repositories/PerformerRepository';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/AppError';
-import { IOrganizationRepository } from '../repositories/OrganizationRepository';
-import { IPerformerRepository } from '../repositories/PerformerRepository';
 
 export class ShowPerformerNotFoundError extends AppError {
   public readonly name = 'ShowPerformerNotFoundError';

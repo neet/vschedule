@@ -1,8 +1,8 @@
 import { inject, injectable } from 'inversify';
 
 import { Performer } from '../../domain/entities';
+import { IPerformerRepository } from '../../domain/repositories/PerformerRepository';
 import { TYPES } from '../../types';
-import { IPerformerRepository } from '../repositories/PerformerRepository';
 
 export interface ListPerformersParams {
   readonly limit?: number;

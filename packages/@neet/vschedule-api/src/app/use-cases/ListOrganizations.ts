@@ -1,8 +1,8 @@
 import { inject, injectable } from 'inversify';
 
 import { Organization } from '../../domain/entities';
+import { IOrganizationRepository } from '../../domain/repositories/OrganizationRepository';
 import { TYPES } from '../../types';
-import { IOrganizationRepository } from '../repositories/OrganizationRepository';
 
 export interface ListOrganizationParams {
   readonly limit?: number;

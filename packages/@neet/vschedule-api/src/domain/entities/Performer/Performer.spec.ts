@@ -7,7 +7,6 @@ describe('Performer', () => {
     const performer = Performer.create({
       name: '鷹宮リオン',
       organizationId: null,
-      branchId: null,
       description: null,
       avatar: null,
       url: null,
@@ -24,7 +23,6 @@ describe('Performer', () => {
       name: '鷹宮リオン',
       color: new Color('#ff0000'),
       organizationId: null,
-      branchId: null,
       description: null,
       avatar: null,
       url: null,
@@ -45,7 +43,6 @@ describe('Performer', () => {
       description: 'これは説明です',
       color: new Color('#ff0000'),
       organizationId: null,
-      branchId: null,
       avatar: null,
       url: null,
       twitterUsername: null,

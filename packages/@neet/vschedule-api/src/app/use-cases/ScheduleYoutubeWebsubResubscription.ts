@@ -3,10 +3,12 @@ import { inject, injectable } from 'inversify';
 import { URL } from 'url';
 
 import { YoutubeChannelId } from '../../domain/_shared';
+import { ResubscriptionSchedule } from '../../domain/entities/ResubscriptionSchedule';
+import { Token } from '../../domain/entities/Token';
+import { IPerformerRepository } from '../../domain/repositories/PerformerRepository';
+import { IResubscriptionScheduleRepository } from '../../domain/repositories/ResubscriptionScheduleRepository';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/AppError';
-import { IJobRepository } from '../repositories/JobRepository';
-import { IPerformerRepository } from '../repositories/PerformerRepository';
 
 export class ScheduleYoutubeWebsubResubscriptionInvalidTopic extends AppError {
   // TODO: 長すぎ。モジュール化する
@@ -34,8 +36,8 @@ export interface ScheduleYoutubeWebsubResubscriptionParams {
 @injectable()
 export class ScheduleYoutubeWebsubResubscription {
   constructor(
-    @inject(TYPES.JobRepository)
-    private readonly _jobRepository: IJobRepository,
+    @inject(TYPES.ResubscriptionScheduleRepository)
+    private readonly _resubscriptionScheduleRepository: IResubscriptionScheduleRepository,
 
     @inject(TYPES.PerformerRepository)
     private readonly _performerRepository: IPerformerRepository,
@@ -45,7 +47,6 @@ export class ScheduleYoutubeWebsubResubscription {
     params: ScheduleYoutubeWebsubResubscriptionParams,
   ): Promise<void> {
     const topic = new URL(params.topic);
-    const scheduledAt = dayjs().add(params.leaseSeconds, 'seconds');
 
     const channelId = topic.searchParams.get('channel_id');
     if (channelId == null) {
@@ -60,10 +61,12 @@ export class ScheduleYoutubeWebsubResubscription {
       throw new ScheduleYoutubeWebsubResubscriptionUnknownActorError(channelId);
     }
 
-    await this._jobRepository.queue({
-      type: 'refresh',
-      actorId: performer.id.value,
-      scheduledAt,
+    const schedule = ResubscriptionSchedule.create({
+      performerId: performer.id,
+      scheduledAt: dayjs().add(params.leaseSeconds, 'seconds'),
+      token: Token.create(),
     });
+
+    await this._resubscriptionScheduleRepository.create(schedule);
   }
 }

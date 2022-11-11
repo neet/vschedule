@@ -1,9 +1,9 @@
 import { inject, injectable } from 'inversify';
 
 import { Organization, OrganizationId } from '../../domain/entities';
+import { IOrganizationRepository } from '../../domain/repositories/OrganizationRepository';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/AppError';
-import { IOrganizationRepository } from '../repositories/OrganizationRepository';
 
 export class ShowOrganizationNotFoundError extends AppError {
   public readonly name = 'ShowOrganizationNotFoundError';

@@ -109,3 +109,11 @@ model Organization {
 
   @@map("organizations")
 }
+
+model Token {
+  id        String   @id @unique @db.VarChar(64)
+  createdAt DateTime @map("created_at")
+  expiresAt DateTime @map("expires_at")
+
+  @@map("tokens")
+}

@@ -7,10 +7,10 @@ import {
   Performer,
   PerformerId,
 } from '../../domain/entities';
+import { IOrganizationRepository } from '../../domain/repositories/OrganizationRepository';
+import { IPerformerRepository } from '../../domain/repositories/PerformerRepository';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/AppError';
-import { IOrganizationRepository } from '../repositories/OrganizationRepository';
-import { IPerformerRepository } from '../repositories/PerformerRepository';
 import { ILogger } from '../services/Logger';
 
 export class UpdatePerformerNotFoundError extends AppError {

@@ -17,7 +17,7 @@ export interface IAppConfigServer {
 
 export interface IAppConfigTasks {
   readonly resources: {
-    /** パフォーマーを再講読するタスクのリソース名 */
+    /** パフォーマーを再講読するタスクのリソース名. Can be computed by tasks.queuePath() */
     readonly resubscription: string;
   };
 }

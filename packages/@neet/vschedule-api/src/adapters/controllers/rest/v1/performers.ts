@@ -21,6 +21,7 @@ import { ListPerformers } from '../../../../app/use-cases/ListPerformers';
 import { ShowPerformer } from '../../../../app/use-cases/ShowPerformer';
 import { SubscribeToPerformer } from '../../../../app/use-cases/SubscribeToYoutubeWebsub';
 import { UpdatePerformer } from '../../../../app/use-cases/UpdatePerformer';
+import { TYPES } from '../../../../types';
 import { RestApiPresenter } from '../../../mappers/RestApiMapper';
 
 @controller('/rest/v1/performers')
@@ -83,7 +84,7 @@ export class PerformersController extends BaseHttpController {
     return this.json(this._presenter.presentPerformer(performer, organization));
   }
 
-  @httpPost('/:performerId/subscribe')
+  @httpPost('/:performerId/subscribe', TYPES.UniqueTokenAuthenticator)
   public async refresh(
     @requestParam() params: Params$subscribeToPerformer['parameter'],
   ) {

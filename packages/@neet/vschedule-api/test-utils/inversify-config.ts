@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import winston from 'winston';
 
 import { JobRepositoryInMemory } from '../src/adapters/dal/JobRepositoryInMemory';
-import { IJobRepository } from '../src/app/repositories/JobRepository';
+import { IJobRepository } from '../src/domain/repositories/ResubscriptionScheduleRepository';
 import { IStorage } from '../src/app/services/Storage';
 import { IYoutubeWebsubService } from '../src/app/services/YoutubeWebsubService';
 import { container } from '../src/infra/inversify-config';

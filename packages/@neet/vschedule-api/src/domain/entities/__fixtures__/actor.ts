@@ -13,7 +13,6 @@ export const actorFixture = Performer.rehydrate({
   name: '鷹宮リオン',
   youtubeChannelId: 'UCV5ZZlLjk5MKGg3L0n0vbzw',
   organizationId: organizationFixture.id,
-  branchId: null,
   color: new Color('#ff0000'),
   url: null,
   twitterUsername: 'TakamiyaRion',

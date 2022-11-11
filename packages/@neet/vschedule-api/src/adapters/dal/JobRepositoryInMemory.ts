@@ -1,15 +1,15 @@
 import { injectable } from 'inversify';
 
-import {
-  IJobRepository,
-  RefreshJob,
-} from '../../app/repositories/JobRepository';
+import { ResubscriptionSchedule } from '../../domain/entities/ResubscriptionSchedule';
+import { IResubscriptionScheduleRepository } from '../../domain/repositories/ResubscriptionScheduleRepository';
 
 @injectable()
-export class JobRepositoryInMemory implements IJobRepository {
-  public readonly jobs: RefreshJob[] = [];
+export class ResubscriptionScheduleRepository
+  implements IResubscriptionScheduleRepository
+{
+  public readonly jobs: ResubscriptionSchedule[] = [];
 
-  public async queue(job: RefreshJob): Promise<void> {
+  public async create(job: ResubscriptionSchedule): Promise<void> {
     this.jobs.push(job);
   }
 }

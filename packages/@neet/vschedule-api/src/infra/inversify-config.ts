@@ -1,22 +1,23 @@
 import { PrismaClient } from '@prisma/client';
 import { Container } from 'inversify';
 
-import { JobRepository } from '../adapters/dal/JobRepository';
+import { ResubscriptionScheduleRepository } from '../adapters/dal/JobRepositoryInMemory';
 import { MediaAttachmentRepositoryPrismaImpl } from '../adapters/dal/MediaAttachmentRepository';
 import { OrganizationRepository } from '../adapters/dal/OrganizationRepository';
 import { PerformerRepository } from '../adapters/dal/PerformerRepository';
 import { StreamRepository } from '../adapters/dal/StreamRepository';
-import { IJobRepository } from '../app/repositories/JobRepository';
-import { IMediaAttachmentRepository } from '../app/repositories/MediaAttachmentRepository';
-import { IOrganizationRepository } from '../app/repositories/OrganizationRepository';
-import { IPerformerRepository } from '../app/repositories/PerformerRepository';
-import { IStreamRepository } from '../app/repositories/StreamRepository';
 import { IAppConfig } from '../app/services/AppConfig/AppConfig';
 import { ILogger } from '../app/services/Logger';
 import { IStorage } from '../app/services/Storage';
 import { IYoutubeApiService } from '../app/services/YoutubeApiService';
 import { IYoutubeWebsubService } from '../app/services/YoutubeWebsubService';
+import { IMediaAttachmentRepository } from '../domain/repositories/MediaAttachmentRepository';
+import { IOrganizationRepository } from '../domain/repositories/OrganizationRepository';
+import { IPerformerRepository } from '../domain/repositories/PerformerRepository';
+import { IResubscriptionScheduleRepository } from '../domain/repositories/ResubscriptionScheduleRepository';
+import { IStreamRepository } from '../domain/repositories/StreamRepository';
 import { TYPES } from '../types';
+import { TokenAuthenticator } from './middlewares/TokenAuthenticator';
 import { AppConfigEnvironment } from './services/AppConfigEnvironment';
 import { loggerCloudLogging } from './services/LoggerCloudLogging';
 import { loggerConsole } from './services/LoggerConsole';
@@ -75,7 +76,11 @@ container
   .bind<IMediaAttachmentRepository>(TYPES.MediaAttachmentRepository)
   .to(MediaAttachmentRepositoryPrismaImpl);
 
-container.bind<IJobRepository>(TYPES.JobRepository).to(JobRepository);
+container
+  .bind<IResubscriptionScheduleRepository>(
+    TYPES.ResubscriptionScheduleRepository,
+  )
+  .to(ResubscriptionScheduleRepository);
 
 container
   .bind<IYoutubeApiService>(TYPES.YoutubeApiService)
@@ -88,5 +93,9 @@ container
 container.bind(TYPES.YoutubeWebsubParser).to(YoutubeWebsubParser);
 
 container.bind<IStorage>(TYPES.Storage).to(Storage);
+
+container
+  .bind<TokenAuthenticator>(TYPES.TokenAuthenticator)
+  .to(TokenAuthenticator);
 
 export { container };

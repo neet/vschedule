@@ -8,14 +8,12 @@ import {
   Timestamps,
 } from '../../_shared/Timestamps';
 import { Actor, ActorProps } from '../Actor';
-import { BranchId } from '../Branch/BranchId';
 import { OrganizationId } from '../Organization';
 import { PerformerId } from './PerformerId';
 
 export interface PerformerProps extends ActorProps {
   readonly id: PerformerId;
   readonly timestamps: Timestamps;
-  readonly branchId: BranchId | null;
   readonly organizationId: OrganizationId | null;
 }
 
@@ -59,7 +57,6 @@ export class Performer extends mixins implements ITimestamps {
       ...Actor.rehydrate(props),
       id: new PerformerId(props.id),
       timestamps: props.timestamps,
-      branchId: props.branchId !== null ? new BranchId(props.branchId) : null,
       organizationId:
         props.organizationId !== null
           ? new OrganizationId(props.organizationId)
