@@ -12,10 +12,12 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "dependencies": {
+    "@neet/vschedule-api-spec": "workspace:^"
+  },
   "devDependencies": {
     "@himenon/openapi-typescript-code-generator": "^0.19.1",
     "@neet/tsconfig-vschedule": "workspace:^",
-    "@neet/vschedule-api-spec": "workspace:^",
     "@types/eslint": "^8.4.10",
     "eslint": "^8.27.0",
     "ts-node": "^10.9.1",
