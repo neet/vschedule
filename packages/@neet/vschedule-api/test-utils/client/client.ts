@@ -14,7 +14,11 @@ import { createApp } from '../../src/infra/app';
 import { container } from '../inversify-config';
 import { generateQueryString } from './generateQueryString';
 
-class Requester<RequestOption> implements ApiClient<RequestOption> {
+interface RequestOption {
+  readonly headers?: ObjectLike;
+}
+
+class Requester implements ApiClient<RequestOption> {
   public constructor(
     private readonly _request: supertest.SuperTest<supertest.Test>,
   ) {}
@@ -25,7 +29,7 @@ class Requester<RequestOption> implements ApiClient<RequestOption> {
     headers: ObjectLike | any,
     requestBody: ObjectLike | any,
     queryParameters: QueryParameters | undefined,
-    _options?: RequestOption,
+    options: RequestOption = {},
   ): Promise<T> {
     const query = generateQueryString(queryParameters);
     const requestUrl = query ? url + '?' + encodeURI(query) : url;
@@ -35,7 +39,9 @@ class Requester<RequestOption> implements ApiClient<RequestOption> {
     if (headers != null) {
       test.set(headers);
     }
-
+    if (options.headers != null) {
+      test.set(options.headers);
+    }
     if (requestBody != null) {
       test.send(requestBody);
     }
@@ -68,5 +74,8 @@ class Requester<RequestOption> implements ApiClient<RequestOption> {
   }
 }
 
-export const request = supertest(createApp(container));
-export const client = new Client(new Requester(request), '');
+export const createRequest = () => {
+  const request = supertest(createApp(container));
+  const client = new Client(new Requester(request), '');
+  return { request, client };
+};

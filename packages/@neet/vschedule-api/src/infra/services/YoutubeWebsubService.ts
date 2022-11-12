@@ -9,6 +9,7 @@ import { TYPES } from '../../types';
 @injectable()
 export class YoutubeWebsubService implements IYoutubeWebsubService {
   private readonly _hmacSecret: string;
+  private readonly _verifyToken: string;
   private readonly _callbackUrl: string;
 
   public constructor(
@@ -16,7 +17,8 @@ export class YoutubeWebsubService implements IYoutubeWebsubService {
     config: IAppConfig,
   ) {
     this._callbackUrl = utils.resolvePath(config, '/websub/youtube');
-    this._hmacSecret = config.youtube.websubHmacSecret ?? '';
+    this._hmacSecret = config.youtube.websubHmacSecret;
+    this._verifyToken = config.youtube.websubVerifyToken;
   }
 
   public async subscribeToChannel(channelId: string): Promise<void> {
@@ -26,12 +28,12 @@ export class YoutubeWebsubService implements IYoutubeWebsubService {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        'hub.callback': this._callbackUrl,
-        'hub.topic': `https://www.youtube.com/xml/feeds/videos.xml?channel_id=${channelId}`,
-        'hub.verify': 'async',
         'hub.mode': 'subscribe',
+        'hub.topic': `https://www.youtube.com/xml/feeds/videos.xml?channel_id=${channelId}`,
+        'hub.callback': this._callbackUrl,
+        'hub.verify': 'async',
         'hub.secret': this._hmacSecret,
-        'hub.verify_token': '',
+        'hub.verify_token': this._verifyToken,
         'hub.lease_seconds': '',
       }),
     });

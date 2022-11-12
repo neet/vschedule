@@ -23,7 +23,7 @@ export class YoutubeWebsubParser extends BaseMiddleware {
     config: IAppConfig,
   ) {
     super();
-    this._secret = config.youtube.websubHmacSecret ?? '';
+    this._secret = config.youtube.websubHmacSecret;
     this.handler = bodyParser.xml({ verify: this._verifyHmacDigest });
   }
 

@@ -27,6 +27,7 @@ export abstract class Entity<
       const _value = value as any;
       if (
         _value != null &&
+        typeof value === 'object' &&
         'toJSON' in _value &&
         typeof _value.toJSON === 'function'
       ) {

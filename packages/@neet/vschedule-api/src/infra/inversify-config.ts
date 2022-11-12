@@ -7,6 +7,7 @@ import { PerformerRepository } from '../adapters/dal/PerformerRepository';
 import { ResubscriptionTaskRepository } from '../adapters/dal/ResubscriptionTaskRepository';
 import { StreamRepository } from '../adapters/dal/StreamRepository';
 import { TokenRepository } from '../adapters/dal/TokenRepository';
+import { UserRepository } from '../adapters/dal/UserRepository';
 import { IAppConfig } from '../app/services/AppConfig/AppConfig';
 import { ILogger } from '../app/services/Logger';
 import { IStorage } from '../app/services/Storage';
@@ -18,8 +19,10 @@ import { IPerformerRepository } from '../domain/repositories/PerformerRepository
 import { IResubscriptionTaskRepository } from '../domain/repositories/ResubscriptionTaskRepository';
 import { IStreamRepository } from '../domain/repositories/StreamRepository';
 import { ITokenRepository } from '../domain/repositories/TokenRepository';
+import { IUserRepository } from '../domain/repositories/UserRepository';
 import { TYPES } from '../types';
-import { TokenAuthenticator } from './middlewares/TokenAuthenticator';
+import { Authenticate } from './middlewares/Authenticate';
+import { Authenticated } from './middlewares/Authenticated';
 import { AppConfigEnvironment } from './services/AppConfigEnvironment';
 import { loggerCloudLogging } from './services/LoggerCloudLogging';
 import { loggerConsole } from './services/LoggerConsole';
@@ -84,6 +87,8 @@ container
 
 container.bind<ITokenRepository>(TYPES.TokenRepository).to(TokenRepository);
 
+container.bind<IUserRepository>(TYPES.UserRepository).to(UserRepository);
+
 container
   .bind<IYoutubeApiService>(TYPES.YoutubeApiService)
   .to(YoutubeApiService);
@@ -96,8 +101,7 @@ container.bind(TYPES.YoutubeWebsubParser).to(YoutubeWebsubParser);
 
 container.bind<IStorage>(TYPES.Storage).to(Storage);
 
-container
-  .bind<TokenAuthenticator>(TYPES.TokenAuthenticator)
-  .to(TokenAuthenticator);
+container.bind(TYPES.Authenticate).to(Authenticate);
+container.bind(TYPES.Authenticated).to(Authenticated);
 
 export { container };

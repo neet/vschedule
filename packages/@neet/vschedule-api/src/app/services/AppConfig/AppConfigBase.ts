@@ -1,7 +1,15 @@
 /* eslint-disable import/no-unresolved */
+import { genSaltSync } from 'bcryptjs';
 import { PartialDeep } from 'type-fest';
 
 import { IAppConfig } from './AppConfig';
+
+// const nonNull = <T>(v: T | null | undefined, message?: string): T => {
+//   if (v == null) {
+//     throw new TypeError(message);
+//   }
+//   return v;
+// };
 
 abstract class __AppConfigBase {
   private readonly entries: IAppConfig;
@@ -14,19 +22,30 @@ abstract class __AppConfigBase {
       },
       tasks: {
         resources: {
-          resubscription: entries.tasks?.resources?.resubscription ?? '',
+          resubscription: entries.tasks?.resources?.resubscription ?? '/',
         },
       },
       youtube: {
         dataApiKey: entries.youtube?.dataApiKey,
-        websubHmacSecret: entries.youtube?.websubHmacSecret,
+        websubHmacSecret: entries.youtube?.websubHmacSecret ?? 'secret',
+        websubVerifyToken: entries.youtube?.websubVerifyToken ?? 'token',
       },
       server: {
         port: entries.server?.port ?? 3000,
         origin: entries.server?.origin ?? 'http://localhost:3000',
       },
+      secrets: {
+        passwordSalt: entries.secrets?.passwordSalt ?? genSaltSync(),
+      },
       logger: {
         type: entries.logger?.type ?? 'console',
+      },
+      admin: {
+        emails: entries.admin?.emails ?? [],
+      },
+      session: {
+        secret: entries.session?.secret ?? 'secret',
+        store: entries.session?.store ?? 'memory',
       },
     };
 

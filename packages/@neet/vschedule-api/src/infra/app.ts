@@ -3,6 +3,7 @@ import '../adapters/controllers/rest/v1/organizations';
 import '../adapters/controllers/rest/v1/media';
 import '../adapters/controllers/rest/v1/streams';
 import '../adapters/controllers/websub/youtube';
+import '../adapters/controllers/auth';
 import './setup';
 
 import apiSpec from '@neet/vschedule-api-spec';
@@ -15,11 +16,14 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 import swaggerUi from 'swagger-ui-express';
 import winston from 'winston';
 
+import { IAppConfig } from '../app/services/AppConfig/AppConfig';
 import { ILogger } from '../app/services/Logger';
 import { TYPES } from '../types';
 import { appErrorHandler } from './middlewares/AppErrorHandler';
 import { domainErrorHandler } from './middlewares/DomainErrorHandler';
 import { openapiErrorHandler } from './middlewares/OpenApiErrorHandler';
+import { passport } from './passport';
+import { createSession } from './session';
 
 /**
  * Create app by given container
@@ -28,6 +32,7 @@ import { openapiErrorHandler } from './middlewares/OpenApiErrorHandler';
 export const createApp = (container: Container): Application => {
   const server = new InversifyExpressServer(container);
 
+  const config = container.get<IAppConfig>(TYPES.AppConfig);
   // TODO: キャストしてる
   const logger = container.get<ILogger & winston.Logger>(TYPES.Logger);
 
@@ -35,10 +40,17 @@ export const createApp = (container: Container): Application => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(expressWinston.logger({ winstonInstance: logger }));
+    app.use(createSession(config.session));
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+    // Accept token based authentication
+    app.use(passport.authenticate('token', { session: false }));
 
     // OpenAPI Documentation
     app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSpec));
 
+    app.use('/auth', cors());
     app.use(
       '/rest',
       cors(),
