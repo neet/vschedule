@@ -11,7 +11,7 @@ import { ITokenRepository } from '../../domain/repositories/TokenRepository';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/AppError';
 
-export class CreateResubscriptionTaskInvalidTopic extends AppError {
+export class CreateResubscriptionTaskInvalidTopicError extends AppError {
   // TODO: 長すぎ。モジュール化する
   public readonly name = 'CreateResubscriptionTaskInvalidTopic';
 
@@ -52,7 +52,7 @@ export class CreateResubscriptionTask {
 
     const channelId = topic.searchParams.get('channel_id');
     if (channelId == null) {
-      throw new CreateResubscriptionTaskInvalidTopic(params.topic);
+      throw new CreateResubscriptionTaskInvalidTopicError(params.topic);
     }
 
     const performer = await this._performerRepository.findByYoutubeChannelId(
