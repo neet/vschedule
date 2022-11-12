@@ -1,11 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 import { Container } from 'inversify';
 
-import { ResubscriptionScheduleRepository } from '../adapters/dal/JobRepositoryInMemory';
 import { MediaAttachmentRepositoryPrismaImpl } from '../adapters/dal/MediaAttachmentRepository';
 import { OrganizationRepository } from '../adapters/dal/OrganizationRepository';
 import { PerformerRepository } from '../adapters/dal/PerformerRepository';
+import { ResubscriptionTaskRepository } from '../adapters/dal/ResubscriptionTaskRepository';
 import { StreamRepository } from '../adapters/dal/StreamRepository';
+import { TokenRepository } from '../adapters/dal/TokenRepository';
 import { IAppConfig } from '../app/services/AppConfig/AppConfig';
 import { ILogger } from '../app/services/Logger';
 import { IStorage } from '../app/services/Storage';
@@ -14,8 +15,9 @@ import { IYoutubeWebsubService } from '../app/services/YoutubeWebsubService';
 import { IMediaAttachmentRepository } from '../domain/repositories/MediaAttachmentRepository';
 import { IOrganizationRepository } from '../domain/repositories/OrganizationRepository';
 import { IPerformerRepository } from '../domain/repositories/PerformerRepository';
-import { IResubscriptionScheduleRepository } from '../domain/repositories/ResubscriptionScheduleRepository';
+import { IResubscriptionTaskRepository } from '../domain/repositories/ResubscriptionTaskRepository';
 import { IStreamRepository } from '../domain/repositories/StreamRepository';
+import { ITokenRepository } from '../domain/repositories/TokenRepository';
 import { TYPES } from '../types';
 import { TokenAuthenticator } from './middlewares/TokenAuthenticator';
 import { AppConfigEnvironment } from './services/AppConfigEnvironment';
@@ -77,10 +79,10 @@ container
   .to(MediaAttachmentRepositoryPrismaImpl);
 
 container
-  .bind<IResubscriptionScheduleRepository>(
-    TYPES.ResubscriptionScheduleRepository,
-  )
-  .to(ResubscriptionScheduleRepository);
+  .bind<IResubscriptionTaskRepository>(TYPES.ResubscriptionTaskRepository)
+  .to(ResubscriptionTaskRepository);
+
+container.bind<ITokenRepository>(TYPES.TokenRepository).to(TokenRepository);
 
 container
   .bind<IYoutubeApiService>(TYPES.YoutubeApiService)

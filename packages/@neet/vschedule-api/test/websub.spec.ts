@@ -4,7 +4,7 @@ import { advanceTo, clear } from 'jest-date-mock';
 import path from 'path';
 import { URLSearchParams } from 'url';
 
-import { JobRepositoryInMemory } from '../src/adapters/dal/JobRepositoryInMemory';
+import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/dal/ResubscriptionTaskRepositoryInMemory';
 import { IAppConfig } from '../src/app/services/AppConfig/AppConfig';
 import { TYPES } from '../src/types';
 import { client, request } from '../test-utils/client/client';
@@ -36,13 +36,12 @@ describe('/websub/youtube', () => {
       .get('/websub/youtube?' + searchParams.toString())
       .send();
 
-    const jobRepository = container.get<JobRepositoryInMemory>(
-      TYPES.JobRepository,
+    const repository = container.get<ResubscriptionTaskRepositoryInMemory>(
+      TYPES.ResubscriptionTaskRepository,
     );
 
     expect(result.statusCode).toBe(200);
-    expect(jobRepository.jobs.at(0)?.type).toBe('refresh');
-    expect(jobRepository.jobs.at(0)?.scheduledAt.toISOString()).toBe(
+    expect(repository.tasks.at(0)?.scheduledAt.toISOString()).toBe(
       '1970-01-06T00:00:00.000Z',
     );
 

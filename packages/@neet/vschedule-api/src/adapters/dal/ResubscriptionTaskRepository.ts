@@ -1,17 +1,16 @@
 import { CloudTasksClient } from '@google-cloud/tasks';
 import { google } from '@google-cloud/tasks/build/protos/protos';
-import { PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 
 import { IAppConfig, utils } from '../../app/services/AppConfig/AppConfig';
 import { ILogger } from '../../app/services/Logger';
-import { ResubscriptionSchedule } from '../../domain/entities/ResubscriptionSchedule';
-import { IResubscriptionScheduleRepository } from '../../domain/repositories/ResubscriptionScheduleRepository';
+import { ResubscriptionTask } from '../../domain/entities/ResubscriptionTask';
+import { IResubscriptionTaskRepository } from '../../domain/repositories/ResubscriptionTaskRepository';
 import { TYPES } from '../../types';
 
 @injectable()
-export class ResubscriptionScheduleRepository
-  implements IResubscriptionScheduleRepository
+export class ResubscriptionTaskRepository
+  implements IResubscriptionTaskRepository
 {
   private readonly _tasks = new CloudTasksClient();
 
@@ -19,26 +18,15 @@ export class ResubscriptionScheduleRepository
     @inject(TYPES.AppConfig)
     private readonly _config: IAppConfig,
 
-    @inject(TYPES.PrismaClient)
-    private readonly _prisma: PrismaClient,
-
     @inject(TYPES.Logger)
     private readonly _logger: ILogger,
   ) {}
 
-  async create(schedule: ResubscriptionSchedule): Promise<void> {
+  async create(task: ResubscriptionTask): Promise<void> {
     const url = utils.resolvePath(
       this._config,
-      `/rest/v1/performers/${schedule.performerId.value}/subscribe`,
+      `/rest/v1/performers/${task.performerId.value}/subscribe`,
     );
-
-    await this._prisma.token.create({
-      data: {
-        id: schedule.token.id.value,
-        createdAt: schedule.token.createdAt.toDate(),
-        expiresAt: schedule.token.expiresAt.toDate(),
-      },
-    });
 
     await this._tasks.createTask({
       parent: this._config.tasks.resources.resubscription,
@@ -47,15 +35,15 @@ export class ResubscriptionScheduleRepository
           httpMethod: 'POST',
           url,
           headers: {
-            'X-Authentication': schedule.token.id.value,
+            'X-Authentication': task.token.id.value,
           },
         }),
         scheduleTime: new google.protobuf.Timestamp({
-          seconds: schedule.scheduledAt.unix(),
+          seconds: task.scheduledAt.unix(),
         }),
       },
     });
 
-    this._logger.info(`Queued invocation of URL ${url}`, { url, schedule });
+    this._logger.info(`Queued invocation of URL ${url}`, { url, task });
   }
 }

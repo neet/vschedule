@@ -1,6 +1,7 @@
-import { Token } from '../entities/Token/Token';
+import { Token, TokenId } from '../entities/Token';
 
 export interface ITokenRepository {
-  findById(id: string): Promise<Token>;
-  remove(id: string): Promise<void>;
+  create(token: Token): Promise<Token>;
+  findById(id: TokenId): Promise<Token | null>;
+  drain(id: TokenId): Promise<void>;
 }

@@ -1,10 +1,10 @@
 import { PrismaClient } from '@prisma/client';
 import winston from 'winston';
 
-import { JobRepositoryInMemory } from '../src/adapters/dal/JobRepositoryInMemory';
-import { IJobRepository } from '../src/domain/repositories/ResubscriptionScheduleRepository';
+import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/dal/ResubscriptionTaskRepositoryInMemory';
 import { IStorage } from '../src/app/services/Storage';
 import { IYoutubeWebsubService } from '../src/app/services/YoutubeWebsubService';
+import { IResubscriptionTaskRepository } from '../src/domain/repositories/ResubscriptionTaskRepository';
 import { container } from '../src/infra/inversify-config';
 import { StorageFilesystem } from '../src/infra/services/StorageFilesystem';
 import { TYPES } from '../src/types';
@@ -18,8 +18,8 @@ container
   .toConstantValue(mockYoutubeWebsubService);
 
 container
-  .rebind<IJobRepository>(TYPES.JobRepository)
-  .to(JobRepositoryInMemory)
+  .rebind<IResubscriptionTaskRepository>(TYPES.ResubscriptionTaskRepository)
+  .to(ResubscriptionTaskRepositoryInMemory)
   .inSingletonScope();
 
 container.rebind<IStorage>(TYPES.Storage).to(StorageFilesystem);

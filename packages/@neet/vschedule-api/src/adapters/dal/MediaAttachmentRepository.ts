@@ -68,6 +68,7 @@ export class MediaAttachmentRepositoryPrismaImpl
       width: plaiceholder.img.width,
       height: plaiceholder.img.height,
       base64: plaiceholder.base64,
+      remoteUrl: null,
       bucket: file.bucket ?? null,
     });
 

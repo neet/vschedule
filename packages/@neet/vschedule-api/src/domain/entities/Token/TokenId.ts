@@ -20,9 +20,9 @@ export class TokenId extends ValueObject<string> {
       return value;
     }
     if (value == null) {
-      return new TokenId(crypto.randomBytes(48).toString('hex'));
+      return new TokenId(crypto.randomBytes(48).toString('base64'));
     }
-    if (validator.isBase64(value) && value.length === 64) {
+    if (!validator.isBase64(value) || value.length !== 64) {
       throw new TokenIdInvalidError(value);
     }
     super(value);

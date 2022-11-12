@@ -16,7 +16,7 @@ import { RemoveStreamNotFoundError } from '../../app/use-cases/RemoveStream';
 import {
   ScheduleYoutubeWebsubResubscriptionInvalidTopic,
   ScheduleYoutubeWebsubResubscriptionUnknownActorError,
-} from '../../app/use-cases/ScheduleYoutubeWebsubResubscription';
+} from '../../app/use-cases/CreateResubscriptionTask';
 import { ShowMediaAttachmentNotFoundError } from '../../app/use-cases/ShowMediaAttachment';
 import { ShowOrganizationNotFoundError } from '../../app/use-cases/ShowOrganization';
 import { ShowPerformerNotFoundError } from '../../app/use-cases/ShowPerformer';

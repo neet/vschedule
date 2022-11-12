@@ -18,18 +18,15 @@ export class TokenAuthenticator extends BaseMiddleware {
     res: Response,
     next: NextFunction,
   ): Promise<void> {
-    const id = req.headers['X-Authentication'];
+    const id = req.headers['x-authentication'];
     if (typeof id !== 'string') {
-      return void this._reject(res);
+      res.status(403).json({
+        message: "You don't have enough privilege to invoke this API",
+      });
+      return;
     }
 
     await this._drainToken.invoke(id);
     return next();
-  }
-
-  private _reject(res: Response) {
-    return res.status(403).json({
-      message: "You don't have enough privilege to invoke this API",
-    });
   }
 }

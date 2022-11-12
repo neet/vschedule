@@ -10,6 +10,7 @@ import {
   Performer,
   Stream,
 } from '../../domain/entities';
+import { Token } from '../../domain/entities/Token';
 import * as Prisma from '.prisma/client';
 
 export const rehydrateMediaAttachmentFromPrisma = (
@@ -22,6 +23,7 @@ export const rehydrateMediaAttachmentFromPrisma = (
     width: mediaAttachment.width,
     height: mediaAttachment.height,
     bucket: mediaAttachment.bucket,
+    remoteUrl: null,
     timestamps: new Timestamps({
       createdAt: dayjs(mediaAttachment.createdAt),
       updatedAt: dayjs(mediaAttachment.updatedAt),
@@ -116,5 +118,13 @@ export const rehydrateStreamFromPrisma = (
       stream.thumbnail !== null
         ? rehydrateMediaAttachmentFromPrisma(stream.thumbnail)
         : null,
+  });
+};
+
+export const rehydrateTokenFromPrisma = (token: Prisma.Token) => {
+  return Token.rehydrate({
+    id: token.id,
+    createdAt: dayjs(token.createdAt),
+    expiresAt: dayjs(token.expiresAt),
   });
 };

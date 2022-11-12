@@ -4,7 +4,7 @@ import { Entity, Recipe } from '../../_core';
 import { PerformerId } from '../Performer';
 import { Token, TokenId } from '../Token';
 
-export interface ResubscriptionScheduleProps {
+export interface ResubscriptionTaskProps {
   // 要らないと思う。
   readonly id: TokenId;
   // should rather be a DataSourceId or something
@@ -14,28 +14,37 @@ export interface ResubscriptionScheduleProps {
   // type: 'youtube'
 }
 
-export class ResubscriptionSchedule extends Entity<
+export class ResubscriptionTask extends Entity<
   TokenId,
-  ResubscriptionScheduleProps
+  ResubscriptionTaskProps
 > {
   get id(): TokenId {
-    return this.token.id;
+    return this._props.token.id;
   }
 
   get performerId(): PerformerId {
-    return this.performerId;
+    return this._props.performerId;
   }
 
   get token(): Token {
-    return this.token;
+    return this._props.token;
   }
 
   get scheduledAt(): Dayjs {
-    return this.scheduledAt;
+    return this._props.scheduledAt;
   }
 
-  public static create(props: Omit<Recipe<ResubscriptionScheduleProps>, 'id'>) {
-    return new ResubscriptionSchedule({
+  public static create(props: Omit<Recipe<ResubscriptionTaskProps>, 'id'>) {
+    return new ResubscriptionTask({
+      id: props.token.id,
+      performerId: new PerformerId(props.performerId),
+      token: props.token,
+      scheduledAt: props.scheduledAt,
+    });
+  }
+
+  public static rehydrate(props: Omit<Recipe<ResubscriptionTaskProps>, 'id'>) {
+    return new ResubscriptionTask({
       id: props.token.id,
       performerId: new PerformerId(props.performerId),
       token: props.token,
