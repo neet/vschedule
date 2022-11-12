@@ -7,10 +7,13 @@ export const TYPES = Object.freeze({
   OrganizationRepository: Symbol('OrganizationRepository'),
   MediaAttachmentRepository: Symbol('MediaAttachmentRepository'),
   StreamRepository: Symbol('StreamRepository'),
-  JobRepository: Symbol('JobRepository'),
+  ResubscriptionTaskRepository: Symbol('ResubscriptionTaskRepository'),
+  TokenRepository: Symbol('TokenRepository'),
 
   PrismaClient: Symbol('PrismaClient'),
   Storage: Symbol('Storage'),
   Logger: Symbol('Logger'),
   AppConfig: Symbol('AppConfig'),
+
+  TokenAuthenticator: Symbol('TokenAuthenticator'),
 });

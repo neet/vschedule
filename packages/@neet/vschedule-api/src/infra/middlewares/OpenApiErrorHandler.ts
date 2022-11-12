@@ -1,19 +1,19 @@
 import { ErrorRequestHandler } from 'express';
-
-import { ILogger } from '../../app/services/Logger';
-import { TYPES } from '../../types';
-import { container } from '../inversify-config';
+import { HttpError as OpenApiError } from 'express-openapi-validator/dist/framework/types';
 
 export const openapiErrorHandler: ErrorRequestHandler = (
   error,
   _req,
   res,
-  _next,
+  next,
 ) => {
-  const logger = container.get<ILogger>(TYPES.Logger);
-  logger.error(`Fallback handler has called: ${error.message}`);
+  // Check if the error was thrown from OpenApiValidator
+  // https://github.com/cdimascio/express-openapi-validator/blob/master/examples/9-nestjs/src/filters/openapi-exception.filter.ts#L5
+  if (!(error instanceof OpenApiError)) {
+    return next(error);
+  }
 
-  res.status(error.status ?? 500).json({
+  return res.status(error.status).json({
     message: error.message,
     errors: error.errors,
   });

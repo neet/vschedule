@@ -22,7 +22,7 @@ export class RestApiPresenter {
     @inject(TYPES.AppConfig)
     config: IAppConfig,
   ) {
-    this._origin = config.entries.server.origin;
+    this._origin = config.server.origin;
   }
 
   public presentMediaAttachment(

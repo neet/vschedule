@@ -2,13 +2,13 @@ import { PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 import { getPlaiceholder } from 'plaiceholder';
 
-import { IMediaAttachmentRepository } from '../../app/repositories/MediaAttachmentRepository';
 import { IStorage } from '../../app/services/Storage';
 import {
   MediaAttachment,
   MediaAttachmentFilename,
   MediaAttachmentId,
 } from '../../domain/entities';
+import { IMediaAttachmentRepository } from '../../domain/repositories/MediaAttachmentRepository';
 import { TYPES } from '../../types';
 import { rehydrateMediaAttachmentFromPrisma } from '../mappers/PrismaMapper';
 
@@ -68,6 +68,7 @@ export class MediaAttachmentRepositoryPrismaImpl
       width: plaiceholder.img.width,
       height: plaiceholder.img.height,
       base64: plaiceholder.base64,
+      remoteUrl: null,
       bucket: file.bucket ?? null,
     });
 

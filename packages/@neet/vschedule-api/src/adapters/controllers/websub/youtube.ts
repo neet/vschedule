@@ -14,9 +14,9 @@ import {
   response,
 } from 'inversify-express-utils';
 
+import { CreateResubscriptionTask } from '../../../app/use-cases/CreateResubscriptionTask';
 import { CreateStream } from '../../../app/use-cases/CreateStream';
 import { RemoveStream } from '../../../app/use-cases/RemoveStream';
-import { ScheduleYoutubeWebsubResubscription } from '../../../app/use-cases/ScheduleYoutubeWebsubResubscription';
 import { TYPES } from '../../../types';
 
 @controller('/websub/youtube')
@@ -28,8 +28,8 @@ export class YoutubeWebsubController extends BaseHttpController {
     @inject(RemoveStream)
     private readonly _removeStream: RemoveStream,
 
-    @inject(ScheduleYoutubeWebsubResubscription)
-    private readonly _scheduleYoutubeWebsubResubscription: ScheduleYoutubeWebsubResubscription,
+    @inject(CreateResubscriptionTask)
+    private readonly _createResubscriptionTask: CreateResubscriptionTask,
   ) {
     super();
   }
@@ -40,7 +40,7 @@ export class YoutubeWebsubController extends BaseHttpController {
     @queryParam() params: Parameter$verifyYoutubeWebsub,
   ) {
     // TODO: Unsubscribeのときのハンドリング
-    await this._scheduleYoutubeWebsubResubscription.invoke({
+    await this._createResubscriptionTask.invoke({
       topic: params['hub.topic'],
       leaseSeconds: params['hub.lease_seconds'],
     });

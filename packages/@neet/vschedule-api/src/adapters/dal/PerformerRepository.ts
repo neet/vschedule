@@ -2,13 +2,13 @@ import { Prisma, PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 import { nanoid } from 'nanoid';
 
-import {
-  FindPerformerParams,
-  IPerformerRepository,
-} from '../../app/repositories/PerformerRepository';
 import { unwrap } from '../../domain/_core';
 import { YoutubeChannelId } from '../../domain/_shared';
 import { Performer, PerformerId } from '../../domain/entities';
+import {
+  FindPerformerParams,
+  IPerformerRepository,
+} from '../../domain/repositories/PerformerRepository';
 import { TYPES } from '../../types';
 import { rehydratePerformerFromPrisma } from '../mappers/PrismaMapper';
 

@@ -30,6 +30,7 @@ export const actorFixture = Performer.rehydrate({
     }),
     bucket: null,
     filename: 'avatar.png',
+    remoteUrl: null,
     width: 1,
     height: 1,
   }),

@@ -36,10 +36,12 @@ export const createApp = (container: Container): Application => {
     app.use(express.urlencoded({ extended: true }));
     app.use(expressWinston.logger({ winstonInstance: logger }));
 
+    // OpenAPI Documentation
     app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSpec));
-    app.use('/rest', cors());
+
     app.use(
       '/rest',
+      cors(),
       OpenApiValidator.middleware({
         apiSpec: require.resolve('@neet/vschedule-api-spec'),
         validateApiSpec: true,
@@ -52,8 +54,8 @@ export const createApp = (container: Container): Application => {
   server.setErrorConfig((app) => {
     app.use(domainErrorHandler);
     app.use(appErrorHandler);
-    app.use(expressWinston.errorLogger({ winstonInstance: logger }));
     app.use(openapiErrorHandler);
+    app.use(expressWinston.errorLogger({ winstonInstance: logger }));
   });
 
   return server.build();

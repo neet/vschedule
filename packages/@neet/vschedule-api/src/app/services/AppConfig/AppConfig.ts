@@ -1,6 +1,5 @@
 export interface IAppConfigYoutube {
   readonly dataApiKey?: string;
-  readonly websubEnabled?: boolean;
   readonly websubHmacSecret?: string;
 }
 
@@ -18,7 +17,7 @@ export interface IAppConfigServer {
 
 export interface IAppConfigTasks {
   readonly resources: {
-    /** パフォーマーを再講読するタスクのリソース名 */
+    /** パフォーマーを再講読するタスクのリソース名. Can be computed by tasks.queuePath() */
     readonly resubscription: string;
   };
 }
@@ -27,7 +26,7 @@ export interface IAppConfigLogger {
   readonly type: 'console' | 'cloud-logging';
 }
 
-export interface IAppConfigEntries {
+export interface IAppConfig {
   readonly youtube: IAppConfigYoutube;
   readonly storage: IAppConfigStorage;
   readonly server: IAppConfigServer;
@@ -35,6 +34,13 @@ export interface IAppConfigEntries {
   readonly tasks: IAppConfigTasks;
 }
 
-export interface IAppConfig {
-  readonly entries: IAppConfigEntries;
-}
+// TODO: メソッドにしたい
+const resolvePath = (config: IAppConfig, pathname: string) => {
+  const origin = new URL(config.server.origin);
+  origin.pathname = pathname;
+  return origin.toString();
+};
+
+export const utils = {
+  resolvePath,
+};

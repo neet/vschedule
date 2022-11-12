@@ -9,14 +9,14 @@ import {
   CreatePerformerOrganizationNotFoundError,
 } from '../../app/use-cases/CreatePerformer';
 import {
+  CreateResubscriptionTaskInvalidTopicError,
+  CreateResubscriptionTaskUnknownActorError,
+} from '../../app/use-cases/CreateResubscriptionTask';
+import {
   CreateStreamFailedToFetchVideoError,
   CreateStreamPerformerNotFoundWithChannelIdError,
 } from '../../app/use-cases/CreateStream';
 import { RemoveStreamNotFoundError } from '../../app/use-cases/RemoveStream';
-import {
-  ScheduleYoutubeWebsubResubscriptionInvalidTopic,
-  ScheduleYoutubeWebsubResubscriptionUnknownActorError,
-} from '../../app/use-cases/ScheduleYoutubeWebsubResubscription';
 import { ShowMediaAttachmentNotFoundError } from '../../app/use-cases/ShowMediaAttachment';
 import { ShowOrganizationNotFoundError } from '../../app/use-cases/ShowOrganization';
 import { ShowPerformerNotFoundError } from '../../app/use-cases/ShowPerformer';
@@ -57,10 +57,10 @@ export const appErrorHandler: ErrorRequestHandler = (
   if (error instanceof RemoveStreamNotFoundError) {
     res.status(404);
   }
-  if (error instanceof ScheduleYoutubeWebsubResubscriptionInvalidTopic) {
+  if (error instanceof CreateResubscriptionTaskUnknownActorError) {
     res.status(403);
   }
-  if (error instanceof ScheduleYoutubeWebsubResubscriptionUnknownActorError) {
+  if (error instanceof CreateResubscriptionTaskInvalidTopicError) {
     res.status(403);
   }
   if (error instanceof ShowMediaAttachmentNotFoundError) {

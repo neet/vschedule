@@ -7,11 +7,11 @@ import {
   Stream,
   StreamId,
 } from '../../domain/entities';
+import { IOrganizationRepository } from '../../domain/repositories/OrganizationRepository';
+import { IPerformerRepository } from '../../domain/repositories/PerformerRepository';
+import { IStreamRepository } from '../../domain/repositories/StreamRepository';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/AppError';
-import { IOrganizationRepository } from '../repositories/OrganizationRepository';
-import { IPerformerRepository } from '../repositories/PerformerRepository';
-import { IStreamRepository } from '../repositories/StreamRepository';
 
 export class ShowStreamOwnerNotFoundError extends AppError {
   public readonly name = 'ShowStreamOwnerNotFoundError';

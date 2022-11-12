@@ -12,11 +12,11 @@ import {
   Performer,
   Stream,
 } from '../../domain/entities';
+import { IMediaAttachmentRepository } from '../../domain/repositories/MediaAttachmentRepository';
+import { IPerformerRepository } from '../../domain/repositories/PerformerRepository';
+import { IStreamRepository } from '../../domain/repositories/StreamRepository';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/AppError';
-import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
-import { IPerformerRepository } from '../repositories/PerformerRepository';
-import { IStreamRepository } from '../repositories/StreamRepository';
 import { ILogger } from '../services/Logger';
 import { IYoutubeApiService, Video } from '../services/YoutubeApiService';
 

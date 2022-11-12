@@ -4,9 +4,9 @@ import {
   MediaAttachment,
   MediaAttachmentFilename,
 } from '../../domain/entities';
+import { IMediaAttachmentRepository } from '../../domain/repositories/MediaAttachmentRepository';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/AppError';
-import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
 
 export class ShowMediaAttachmentNotFoundError extends AppError {
   public readonly name = 'ShowMediaAttachmentNotFoundError';

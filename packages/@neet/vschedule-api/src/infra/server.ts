@@ -11,8 +11,6 @@ const app = createApp(container);
 const config = container.get<IAppConfig>(TYPES.AppConfig);
 const logger = container.get<ILogger>(TYPES.Logger);
 
-app.listen(config.entries.server.port, () => {
-  logger.info(
-    `server is ready at http://localhost:${config.entries.server.port}/docs`,
-  );
+app.listen(config.server.port, () => {
+  logger.info(`server is ready at http://localhost:${config.server.port}/docs`);
 });

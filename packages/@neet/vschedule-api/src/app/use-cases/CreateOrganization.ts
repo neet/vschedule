@@ -6,11 +6,11 @@ import sharp from 'sharp';
 import { URL } from 'url';
 
 import { MediaAttachmentFilename, Organization } from '../../domain/entities';
+import { IMediaAttachmentRepository } from '../../domain/repositories/MediaAttachmentRepository';
+import { IOrganizationRepository } from '../../domain/repositories/OrganizationRepository';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/AppError';
 import { UnexpectedError } from '../errors/UnexpectedError';
-import { IMediaAttachmentRepository } from '../repositories/MediaAttachmentRepository';
-import { IOrganizationRepository } from '../repositories/OrganizationRepository';
 import { ILogger } from '../services/Logger';
 import { IYoutubeApiService } from '../services/YoutubeApiService';
 

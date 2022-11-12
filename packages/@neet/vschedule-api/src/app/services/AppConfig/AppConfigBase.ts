@@ -1,12 +1,12 @@
 /* eslint-disable import/no-unresolved */
 import { PartialDeep } from 'type-fest';
 
-import { IAppConfig, IAppConfigEntries } from './AppConfig';
+import { IAppConfig } from './AppConfig';
 
-export abstract class AppConfigBase implements IAppConfig {
-  public readonly entries: IAppConfigEntries;
+abstract class __AppConfigBase {
+  private readonly entries: IAppConfig;
 
-  public constructor(entries: PartialDeep<IAppConfigEntries>) {
+  public constructor(entries: PartialDeep<IAppConfig>) {
     this.entries = {
       storage: {
         type: entries.storage?.type ?? 'filesystem',
@@ -19,7 +19,6 @@ export abstract class AppConfigBase implements IAppConfig {
       },
       youtube: {
         dataApiKey: entries.youtube?.dataApiKey,
-        websubEnabled: entries.youtube?.websubEnabled,
         websubHmacSecret: entries.youtube?.websubHmacSecret,
       },
       server: {
@@ -30,5 +29,20 @@ export abstract class AppConfigBase implements IAppConfig {
         type: entries.logger?.type ?? 'console',
       },
     };
+
+    return new Proxy(this, {
+      get(target, property, _receiver) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return (target.entries as any)[property];
+      },
+    });
   }
 }
+
+// -- Cast for proxy --
+type AbstractCtor = abstract new (
+  ...args: ConstructorParameters<typeof __AppConfigBase>
+) => IAppConfig;
+
+const AppConfigBase = __AppConfigBase as unknown as AbstractCtor;
+export { AppConfigBase };

@@ -2,7 +2,7 @@ import {
   MediaAttachment,
   MediaAttachmentFilename,
   MediaAttachmentId,
-} from '../../domain/entities';
+} from '../entities';
 
 export interface IMediaAttachmentRepository {
   findById(id: MediaAttachmentId): Promise<MediaAttachment | undefined>;

@@ -2,10 +2,6 @@ import { Prisma, PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 import { nanoid } from 'nanoid';
 
-import {
-  FindOrganizationParams,
-  IOrganizationRepository,
-} from '../../app/repositories/OrganizationRepository';
 import { unwrap } from '../../domain/_core';
 import { YoutubeChannelId } from '../../domain/_shared';
 import {
@@ -13,6 +9,10 @@ import {
   OrganizationId,
   PerformerId,
 } from '../../domain/entities';
+import {
+  FindOrganizationParams,
+  IOrganizationRepository,
+} from '../../domain/repositories/OrganizationRepository';
 import { TYPES } from '../../types';
 import { rehydrateOrganizationFromPrisma } from '../mappers/PrismaMapper';
 

@@ -12,7 +12,6 @@ export class AppConfigEnvironment extends AppConfigBase implements IAppConfig {
   public constructor() {
     super({
       youtube: {
-        websubEnabled: env('YOUTUBE_WEBSUB_ENABLED'),
         websubHmacSecret: env('YOUTUBE_WEBSUB_HMAC_SECRET'),
         dataApiKey: env('YOUTUBE_DATA_API_KEY'),
       },
