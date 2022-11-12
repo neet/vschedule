@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/neet/vschedule/compare/@neet/vschedule-api-spec@0.0.10...@neet/vschedule-api-spec@0.1.0) (2022-11-12)
+
+### Features
+
+* Implement admin feature ([109562d](https://github.com/neet/vschedule/commit/109562d8623fda8cdff79c1dcab92153bad37afe))
+
 ## 0.0.10 (2022-11-09)
 
 **Note:** Version bump only for package @neet/vschedule-api-spec

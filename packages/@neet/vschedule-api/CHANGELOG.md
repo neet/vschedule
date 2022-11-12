@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/neet/vschedule/compare/@neet/vschedule-api@0.1.0...@neet/vschedule-api@0.2.0) (2022-11-12)
+
+### Bug Fixes
+
+* Move deps to leaf ([503fcb5](https://github.com/neet/vschedule/commit/503fcb5656cf0c190a2fbb31d5235cac871bebaa))
+
+### Features
+
+* Implement admin feature ([109562d](https://github.com/neet/vschedule/commit/109562d8623fda8cdff79c1dcab92153bad37afe))
+
 # [0.1.0](https://github.com/neet/vschedule/compare/@neet/vschedule-api@0.0.10...@neet/vschedule-api@0.1.0) (2022-11-12)
 
 ### Bug Fixes
