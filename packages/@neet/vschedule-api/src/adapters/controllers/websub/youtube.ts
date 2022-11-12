@@ -42,6 +42,7 @@ export class YoutubeWebsubController extends BaseHttpController {
     // TODO: Unsubscribeのときのハンドリング
     await this._createResubscriptionTask.invoke({
       topic: params['hub.topic'],
+      verifyToken: params['hub.verify_token'],
       leaseSeconds: params['hub.lease_seconds'],
     });
 

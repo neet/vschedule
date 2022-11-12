@@ -84,8 +84,8 @@ export class PerformersController extends BaseHttpController {
     return this.json(this._presenter.presentPerformer(performer, organization));
   }
 
-  @httpPost('/:performerId/subscribe', TYPES.TokenAuthenticator)
-  public async refresh(
+  @httpPost('/:performerId/subscribe', TYPES.Authenticated)
+  public async subscribe(
     @requestParam() params: Params$subscribeToPerformer['parameter'],
   ) {
     await this._subscribeToPerformer.invoke({
@@ -109,7 +109,7 @@ export class PerformersController extends BaseHttpController {
     );
   }
 
-  @httpPost('/')
+  @httpPost('/', TYPES.Authenticated)
   async create(
     @requestBody() body: RequestBody$createPerformer['application/json'],
   ) {

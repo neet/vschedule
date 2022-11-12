@@ -10,6 +10,17 @@ import { IResubscriptionTaskRepository } from '../../domain/repositories/Resubsc
 import { ITokenRepository } from '../../domain/repositories/TokenRepository';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/AppError';
+import { IAppConfig } from '../services/AppConfig/AppConfig';
+import { ILogger } from '../services/Logger';
+
+export class CreateResubscriptionInvalidVerifyToken extends AppError {
+  // TODO: 長すぎ。モジュール化する
+  public readonly name = 'CreateResubscriptionInvalidVerifyToken';
+
+  public constructor(public readonly token: string) {
+    super(`Invalid verify token ${token}`);
+  }
+}
 
 export class CreateResubscriptionTaskInvalidTopicError extends AppError {
   // TODO: 長すぎ。モジュール化する
@@ -32,6 +43,7 @@ export class CreateResubscriptionTaskUnknownActorError extends AppError {
 export interface CreateResubscriptionTaskParams {
   readonly topic: string;
   readonly leaseSeconds: number;
+  readonly verifyToken: string;
 }
 
 @injectable()
@@ -45,11 +57,20 @@ export class CreateResubscriptionTask {
 
     @inject(TYPES.ResubscriptionTaskRepository)
     private readonly _resubscriptionTaskRepository: IResubscriptionTaskRepository,
+
+    @inject(TYPES.Logger)
+    private readonly _logger: ILogger,
+
+    @inject(TYPES.AppConfig)
+    private readonly _config: IAppConfig,
   ) {}
 
   async invoke(params: CreateResubscriptionTaskParams): Promise<void> {
-    const topic = new URL(params.topic);
+    if (params.verifyToken !== this._config.youtube.websubVerifyToken) {
+      throw new CreateResubscriptionInvalidVerifyToken(params.verifyToken);
+    }
 
+    const topic = new URL(params.topic);
     const channelId = topic.searchParams.get('channel_id');
     if (channelId == null) {
       throw new CreateResubscriptionTaskInvalidTopicError(params.topic);
@@ -72,5 +93,9 @@ export class CreateResubscriptionTask {
       token: token,
     });
     await this._resubscriptionTaskRepository.create(task);
+
+    this._logger.info(
+      `Scheduled resubscription for ${topic} in ${params.leaseSeconds} secs`,
+    );
   }
 }

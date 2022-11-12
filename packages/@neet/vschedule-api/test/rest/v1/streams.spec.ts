@@ -1,6 +1,8 @@
-import { client } from '../../../test-utils/client';
+import { createRequest } from '../../../test-utils/client';
 
 describe('StreamController', () => {
+  const { client } = createRequest();
+
   it('can list streams', async () => {
     const data = await client.listStreams({ parameter: {} });
     expect(data).toHaveLength(1);

@@ -9,11 +9,11 @@ import {
 } from '@neet/vschedule-seeds';
 import { PrismaClient } from '@prisma/client';
 
-import { IOrganizationRepository } from '../src/domain/repositories/OrganizationRepository';
-import { IPerformerRepository } from '../src/domain/repositories/PerformerRepository';
 import { CreateOrganization } from '../src/app/use-cases/CreateOrganization';
 import { CreatePerformer } from '../src/app/use-cases/CreatePerformer';
 import { YoutubeChannelId } from '../src/domain/_shared';
+import { IOrganizationRepository } from '../src/domain/repositories/OrganizationRepository';
+import { IPerformerRepository } from '../src/domain/repositories/PerformerRepository';
 import { container } from '../src/infra/inversify-config';
 import { TYPES } from '../src/types';
 

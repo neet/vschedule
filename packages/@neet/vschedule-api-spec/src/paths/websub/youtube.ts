@@ -58,6 +58,7 @@ export const YoutubeWebsubVerification = z.object({
   'hub.challenge': z.string(),
   'hub.mode': z.union([z.literal('subscribe'), z.literal('unsubscribe')]),
   'hub.lease_seconds': z.number().int(),
+  'hub.verify_token': z.string(),
 });
 
 registry.registerPath({

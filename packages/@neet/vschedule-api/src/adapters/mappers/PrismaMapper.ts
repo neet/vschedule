@@ -1,3 +1,4 @@
+import * as Prisma from '@prisma/client';
 import Color from 'color';
 import dayjs from 'dayjs';
 import { URL } from 'url';
@@ -11,7 +12,7 @@ import {
   Stream,
 } from '../../domain/entities';
 import { Token } from '../../domain/entities/Token';
-import * as Prisma from '.prisma/client';
+import { User } from '../../domain/entities/User';
 
 export const rehydrateMediaAttachmentFromPrisma = (
   mediaAttachment: Prisma.MediaAttachment,
@@ -126,5 +127,17 @@ export const rehydrateTokenFromPrisma = (token: Prisma.Token) => {
     id: token.id,
     createdAt: dayjs(token.createdAt),
     expiresAt: dayjs(token.expiresAt),
+  });
+};
+
+export const rehydrateUserFromPrisma = (user: Prisma.User) => {
+  return User.rehydrate({
+    id: user.id,
+    email: user.email,
+    passwordHash: user.passwordHash,
+    timestamps: new Timestamps({
+      createdAt: dayjs(user.createdAt),
+      updatedAt: dayjs(user.updatedAt),
+    }),
   });
 };

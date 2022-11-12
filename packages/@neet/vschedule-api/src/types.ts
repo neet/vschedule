@@ -9,11 +9,13 @@ export const TYPES = Object.freeze({
   StreamRepository: Symbol('StreamRepository'),
   ResubscriptionTaskRepository: Symbol('ResubscriptionTaskRepository'),
   TokenRepository: Symbol('TokenRepository'),
+  UserRepository: Symbol('UserRepository'),
 
   PrismaClient: Symbol('PrismaClient'),
   Storage: Symbol('Storage'),
   Logger: Symbol('Logger'),
   AppConfig: Symbol('AppConfig'),
 
-  TokenAuthenticator: Symbol('TokenAuthenticator'),
+  Authenticated: Symbol('Authenticated'),
+  Authenticate: Symbol('Authenticate'),
 });

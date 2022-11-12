@@ -7,7 +7,7 @@ import { URLSearchParams } from 'url';
 import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/dal/ResubscriptionTaskRepositoryInMemory';
 import { IAppConfig } from '../src/app/services/AppConfig/AppConfig';
 import { TYPES } from '../src/types';
-import { client, request } from '../test-utils/client/client';
+import { createRequest } from '../test-utils/client/client';
 import { container } from '../test-utils/inversify-config';
 import { SEED_STREAM_ID } from '../test-utils/seed';
 
@@ -22,14 +22,19 @@ const ytWebsubStreamDeleted = fs.readFileSync(
 );
 
 describe('/websub/youtube', () => {
+  const config = container.get<IAppConfig>(TYPES.AppConfig);
+  const { request, client } = createRequest();
+
   it('verifies WebSub subscription', async () => {
     advanceTo(0);
 
+    const token = config.youtube.websubVerifyToken;
     const searchParams = new URLSearchParams({
       'hub.topic': `https://www.youtube.com/xml/feeds/videos.xml?channel_id=UCV5ZZlLjk5MKGg3L0n0vbzw`,
       'hub.challenge': '4605398436710972921',
       'hub.mode': 'subscribe',
       'hub.lease_seconds': '432000',
+      'hub.verify_token': token,
     });
 
     const result = await request
@@ -49,8 +54,7 @@ describe('/websub/youtube', () => {
   });
 
   it('receives Atom feed', async () => {
-    const config = container.get<IAppConfig>(TYPES.AppConfig);
-    const hmac = createHmac('sha1', config.youtube.websubHmacSecret ?? '');
+    const hmac = createHmac('sha1', config.youtube.websubHmacSecret);
     const digest = hmac
       .update(ytWebsubStreamScheduled)
       .digest()
@@ -77,8 +81,7 @@ describe('/websub/youtube', () => {
   });
 
   it('updates Atom feed', async () => {
-    const config = container.get<IAppConfig>(TYPES.AppConfig);
-    const hmac = createHmac('sha1', config.youtube.websubHmacSecret ?? '');
+    const hmac = createHmac('sha1', config.youtube.websubHmacSecret);
     const digest = hmac
       .update(ytWebsubStreamTitleChanged)
       .digest()
@@ -126,8 +129,7 @@ describe('/websub/youtube', () => {
   });
 
   it('deletes Atom feed when received deleted-entry', async () => {
-    const config = container.get<IAppConfig>(TYPES.AppConfig);
-    const hmac = createHmac('sha1', config.youtube.websubHmacSecret ?? '');
+    const hmac = createHmac('sha1', config.youtube.websubHmacSecret);
     const digest = hmac.update(ytWebsubStreamDeleted).digest().toString('hex');
 
     const res = await request

@@ -8,6 +8,8 @@
     "test": "jest --runInBand --coverage"
   },
   "dependencies": {
+    "@google-cloud/connect-firestore": "^2.0.2",
+    "@google-cloud/firestore": "^6.4.1",
     "@google-cloud/logging-winston": "^5.1.8",
     "@google-cloud/storage": "^6.6.0",
     "@google-cloud/tasks": "^3.0.4",

@@ -2715,6 +2715,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@google-cloud/connect-firestore@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@google-cloud/connect-firestore@npm:2.0.2"
+  peerDependencies:
+    "@google-cloud/firestore": ^4.0.0
+  checksum: dd9c91318f0f00c8110a9e8c127d52e71eeedf5fb8695c8a1ee328e596c39caec641a1b4be3cffe5bdaa82e43edc5e7396cc98a4f6043ec605b92c93f5af78b8
+  languageName: node
+  linkType: hard
+
+"@google-cloud/firestore@npm:^6.4.1":
+  version: 6.4.1
+  resolution: "@google-cloud/firestore@npm:6.4.1"
+  dependencies:
+    fast-deep-equal: ^3.1.1
+    functional-red-black-tree: ^1.0.1
+    google-gax: ^3.5.1
+    protobufjs: ^7.0.0
+  checksum: 7bd79d7444cefd8ffe8f768c28dbd1f0b32628ff5b611b4bdaa9b415428436f5368a8e258a002948d084381762b64501a574828c51c5cea7c054cc604f93b6d6
+  languageName: node
+  linkType: hard
+
 "@google-cloud/logging-winston@npm:^5.1.8":
   version: 5.1.8
   resolution: "@google-cloud/logging-winston@npm:5.1.8"
@@ -3828,6 +3849,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@neet/vschedule-api@workspace:packages/@neet/vschedule-api"
   dependencies:
+    "@google-cloud/connect-firestore": ^2.0.2
+    "@google-cloud/firestore": ^6.4.1
     "@google-cloud/logging-winston": ^5.1.8
     "@google-cloud/storage": ^6.6.0
     "@google-cloud/tasks": ^3.0.4
@@ -6888,6 +6911,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/bcryptjs@npm:^2":
+  version: 2.4.2
+  resolution: "@types/bcryptjs@npm:2.4.2"
+  checksum: 220dade7b0312b41e23ccfb15f2ddde7804eb3c7ef41db41a6c49054be1e19a15eb3dd8c8ef196494f0866307cce22ad6f3f272941387124707d81dc66155bbc
+  languageName: node
+  linkType: hard
+
 "@types/body-parser-xml@npm:^2.0.2":
   version: 2.0.2
   resolution: "@types/body-parser-xml@npm:2.0.2"
@@ -7054,6 +7084,15 @@ __metadata:
     "@types/qs": "*"
     "@types/range-parser": "*"
   checksum: 826489811a5b371c10f02443b4ca894ffc05813bfdf2b60c224f5c18ac9a30a2e518cb9ef9fdfcaa2a1bb17f8bfa4ed1859ccdb252e879c9276271b4ee2df5a9
+  languageName: node
+  linkType: hard
+
+"@types/express-session@npm:^1":
+  version: 1.17.5
+  resolution: "@types/express-session@npm:1.17.5"
+  dependencies:
+    "@types/express": "*"
+  checksum: f6995f7720a18546bcb10cc707cf8c9c92455eb4319c0c50c57e9b9b10ed20dc379d74d5e4c3323fe4e924238b75e13c97822c9d81a80fa064ddc71654c1059d
   languageName: node
   linkType: hard
 
@@ -7418,6 +7457,45 @@ __metadata:
   version: 5.0.3
   resolution: "@types/parse5@npm:5.0.3"
   checksum: d6b7495cb1850f9f2e9c5e103ede9f2d30a5320669707b105c403868adc9e4bf8d3a7ff314cc23f67826bbbbbc0e6147346ce9062ab429f099dba7a01f463919
+  languageName: node
+  linkType: hard
+
+"@types/passport-local@npm:^1":
+  version: 1.0.34
+  resolution: "@types/passport-local@npm:1.0.34"
+  dependencies:
+    "@types/express": "*"
+    "@types/passport": "*"
+    "@types/passport-strategy": "*"
+  checksum: c8e162f571c8685344f4496b1473645eb1244a2ecb1c810854d43ac8897145083ac7412b8d3a3231f72f27a22d57e526fc8421d8208c18cdff8f83266e875f37
+  languageName: node
+  linkType: hard
+
+"@types/passport-strategy@npm:*":
+  version: 0.2.35
+  resolution: "@types/passport-strategy@npm:0.2.35"
+  dependencies:
+    "@types/express": "*"
+    "@types/passport": "*"
+  checksum: e5949063ad8977ce1f7cf2a5df6bc379c4d43a959c9946bfed6570ef379c6c12d1713212a29b3b5aafc631c5ebe9bfe082116f3e75ca1bf45d79dd889671532d
+  languageName: node
+  linkType: hard
+
+"@types/passport@npm:*":
+  version: 1.0.11
+  resolution: "@types/passport@npm:1.0.11"
+  dependencies:
+    "@types/express": "*"
+  checksum: 7fea92aeb0d05bd872c17deadc1f1219dbdb23bae1b8f50e1c432ef755bce2b5f3fd60af76c38815f1fbaa047960d3638a4144221c4330457091be1f6e492168
+  languageName: node
+  linkType: hard
+
+"@types/passport@npm:^0":
+  version: 0.4.7
+  resolution: "@types/passport@npm:0.4.7"
+  dependencies:
+    "@types/express": "*"
+  checksum: c22a84226d763db30cc6d8b330022820d067ea4039dc625371825e0d2fb8e3d6e7387cf4619e79a4cc293e8c3f3420f3da3067c564da14c21fadb03b5f5c870f
   languageName: node
   linkType: hard
 
@@ -9627,6 +9705,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bcryptjs@npm:^2.4.3":
+  version: 2.4.3
+  resolution: "bcryptjs@npm:2.4.3"
+  checksum: 0e80ed852a41f5dfb1853f53ee14a7390b0ef263ce05dba6e2ef3cd919dfad025a7c21ebcfe5bc7fa04b100990edf90c7a877ff7fe623d3e479753253131b629
+  languageName: node
+  linkType: hard
+
 "before-after-hook@npm:^2.2.0":
   version: 2.2.3
   resolution: "before-after-hook@npm:2.2.3"
@@ -11365,6 +11450,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie@npm:0.4.2":
+  version: 0.4.2
+  resolution: "cookie@npm:0.4.2"
+  checksum: a00833c998bedf8e787b4c342defe5fa419abd96b32f4464f718b91022586b8f1bafbddd499288e75c037642493c83083da426c6a9080d309e3bd90fd11baa9b
+  languageName: node
+  linkType: hard
+
 "cookie@npm:0.5.0":
   version: 0.5.0
   resolution: "cookie@npm:0.5.0"
@@ -12242,7 +12334,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"depd@npm:2.0.0":
+"depd@npm:2.0.0, depd@npm:~2.0.0":
   version: 2.0.0
   resolution: "depd@npm:2.0.0"
   checksum: abbe19c768c97ee2eed6282d8ce3031126662252c58d711f646921c9623f9052e3e1906443066beec1095832f534e57c523b7333f8e7e0d93051ab6baef5ab3a
@@ -13947,6 +14039,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"express-session@npm:^1.17.3":
+  version: 1.17.3
+  resolution: "express-session@npm:1.17.3"
+  dependencies:
+    cookie: 0.4.2
+    cookie-signature: 1.0.6
+    debug: 2.6.9
+    depd: ~2.0.0
+    on-headers: ~1.0.2
+    parseurl: ~1.3.3
+    safe-buffer: 5.2.1
+    uid-safe: ~2.1.5
+  checksum: 1021a793433cbc6a1b32c803fcb2daa1e03a8f50dd907e8745ae57994370315a5cfde5b6ef7b062d9a9a0754ff268844bda211c08240b3a0e01014dcf1073ec5
+  languageName: node
+  linkType: hard
+
 "express-winston@npm:^4.2.0":
   version: 4.2.0
   resolution: "express-winston@npm:4.2.0"
@@ -14898,6 +15006,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"functional-red-black-tree@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "functional-red-black-tree@npm:1.0.1"
+  checksum: ca6c170f37640e2d94297da8bb4bf27a1d12bea3e00e6a3e007fd7aa32e37e000f5772acf941b4e4f3cf1c95c3752033d0c509af157ad8f526e7f00723b9eb9f
+  languageName: node
+  linkType: hard
+
 "functions-have-names@npm:^1.2.2":
   version: 1.2.2
   resolution: "functions-have-names@npm:1.2.2"
@@ -15549,7 +15664,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"google-gax@npm:^3.3.0, google-gax@npm:^3.5.2":
+"google-gax@npm:^3.3.0, google-gax@npm:^3.5.1, google-gax@npm:^3.5.2":
   version: 3.5.2
   resolution: "google-gax@npm:3.5.2"
   dependencies:
@@ -22259,6 +22374,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"passport-local@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "passport-local@npm:1.0.0"
+  dependencies:
+    passport-strategy: 1.x.x
+  checksum: 86dc08b12f05f0ce1bb109780ccb0377eff45bbba70aa9c0d65f092b3ef476d344c0443517db2e9f3e5ec0ca849171ab25fb622164e0f69a677173af42b9bba7
+  languageName: node
+  linkType: hard
+
+"passport-strategy@npm:1.x.x":
+  version: 1.0.0
+  resolution: "passport-strategy@npm:1.0.0"
+  checksum: 5086693f2508e538dffa55a338c89fe8192fb5f4478c71f80cd5890b8573419a098f4fec88b505374f60bbe9049f6f24b9f3992678612528a3370b4dc73354a2
+  languageName: node
+  linkType: hard
+
+"passport@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "passport@npm:0.6.0"
+  dependencies:
+    passport-strategy: 1.x.x
+    pause: 0.0.1
+    utils-merge: ^1.0.1
+  checksum: ef932ad671d50de34765c7a53cd1e058d8331a82a6df09265a9c6c1168911aee4a7b5215803d0101110ab7f317e096b4954ca7e18fb2c33b9929f0bd17dbe159
+  languageName: node
+  linkType: hard
+
 "path-browserify@npm:0.0.1":
   version: 0.0.1
   resolution: "path-browserify@npm:0.0.1"
@@ -22389,6 +22531,13 @@ __metadata:
     process: ^0.11.1
     util: ^0.10.3
   checksum: 5dedb71e78fc008fcba797defc0b4e1cf06c1f18e0a631e03ba5bb505136f587ff017afc14f9a3d481cbe77aeedff7dc0c1d2ce4d820c1ebf3c4281ca49423a1
+  languageName: node
+  linkType: hard
+
+"pause@npm:0.0.1":
+  version: 0.0.1
+  resolution: "pause@npm:0.0.1"
+  checksum: e96ee581b68085e6f2ba5adbcb4d4a41fe88e5b514061e76df2fe1905f0f65f4fe5a843b538e9551122c6b9184ff4be266c2ee0ea4614702f9a3d04466d9f462
   languageName: node
   linkType: hard
 
@@ -23403,6 +23552,13 @@ __metadata:
   version: 0.21.0
   resolution: "ramda@npm:0.21.0"
   checksum: e08d63c12ed4bab70bfd700a843901d9fa340d1a88c50085a6ef0ecf25f528e5ac7c71848481270923491e7315a34301bb35905d45861cb13cc75b8ca05add32
+  languageName: node
+  linkType: hard
+
+"random-bytes@npm:~1.0.0":
+  version: 1.0.0
+  resolution: "random-bytes@npm:1.0.0"
+  checksum: 09faa256394aa2ca9754aa57e92a27c452c3e97ffb266e98bebb517332e9df7168fea393159f88d884febce949ba8bec8ddb02f03342da6c6023ecc7b155e0ae
   languageName: node
   linkType: hard
 
@@ -27294,6 +27450,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"uid-safe@npm:~2.1.5":
+  version: 2.1.5
+  resolution: "uid-safe@npm:2.1.5"
+  dependencies:
+    random-bytes: ~1.0.0
+  checksum: 07536043da9a026f4a2bc397543d0ace7587449afa1d9d2c4fd3ce76af8a5263a678788bcc429dff499ef29d45843cd5ee9d05434450fcfc19cc661229f703d1
+  languageName: node
+  linkType: hard
+
 "unbox-primitive@npm:^1.0.1":
   version: 1.0.1
   resolution: "unbox-primitive@npm:1.0.1"
@@ -27814,7 +27979,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"utils-merge@npm:1.0.1":
+"utils-merge@npm:1.0.1, utils-merge@npm:^1.0.1":
   version: 1.0.1
   resolution: "utils-merge@npm:1.0.1"
   checksum: c81095493225ecfc28add49c106ca4f09cdf56bc66731aa8dabc2edbbccb1e1bfe2de6a115e5c6a380d3ea166d1636410b62ef216bb07b3feb1cfde1d95d5080
@@ -28008,7 +28173,15 @@ __metadata:
   resolution: "vschedule@workspace:."
   dependencies:
     "@lerna-lite/cli": ^1.12.0
+    "@types/bcryptjs": ^2
+    "@types/express-session": ^1
+    "@types/passport": ^0
+    "@types/passport-local": ^1
     "@types/prettier": ^2
+    bcryptjs: ^2.4.3
+    express-session: ^1.17.3
+    passport: ^0.6.0
+    passport-local: ^1.0.0
     prettier: ^2.7.1
   languageName: unknown
   linkType: soft

@@ -12,8 +12,9 @@ export class AppConfigEnvironment extends AppConfigBase implements IAppConfig {
   public constructor() {
     super({
       youtube: {
-        websubHmacSecret: env('YOUTUBE_WEBSUB_HMAC_SECRET'),
         dataApiKey: env('YOUTUBE_DATA_API_KEY'),
+        websubHmacSecret: env('YOUTUBE_WEBSUB_HMAC_SECRET'),
+        websubVerifyToken: env('YOUTUBE_WEBSUB_VERIFY_TOKEN'),
       },
       storage: {
         type: env('STORAGE_TYPE'),
@@ -31,8 +32,18 @@ export class AppConfigEnvironment extends AppConfigBase implements IAppConfig {
           resubscription: env('TASKS_RESUBSCRIPTION_RESOURCE'),
         },
       },
+      secrets: {
+        passwordSalt: env('PASSWORD_SALT'),
+      },
       logger: {
         type: env('LOGGER_TYPE'),
+      },
+      admin: {
+        emails: env('ADMIN_EMAILS')?.split(','),
+      },
+      session: {
+        store: env('SESSION_STORE'),
+        secret: env('SESSION_SECRET'),
       },
     });
   }
