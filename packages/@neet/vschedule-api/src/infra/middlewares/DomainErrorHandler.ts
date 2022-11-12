@@ -1,7 +1,7 @@
 import { Schemas } from '@neet/vschedule-api-client';
 import { ErrorRequestHandler } from 'express';
 
-import { DomainError } from '../../domain/_core';
+import { DomainError } from '../../modules/_core';
 
 export const domainErrorHandler: ErrorRequestHandler = (
   error,

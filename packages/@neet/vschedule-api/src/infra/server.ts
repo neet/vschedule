@@ -1,14 +1,13 @@
 import 'reflect-metadata';
 
-import { IAppConfig } from '../app/services/AppConfig/AppConfig';
-import { ILogger } from '../app/services/Logger';
+import { IConfig, ILogger } from '../modules/_shared';
 import { TYPES } from '../types';
 import { createApp } from './app';
 import { container } from './inversify-config';
 
 const app = createApp(container);
 
-const config = container.get<IAppConfig>(TYPES.AppConfig);
+const config = container.get<IConfig>(TYPES.Config);
 const logger = container.get<ILogger>(TYPES.Logger);
 
 app.listen(config.server.port, () => {

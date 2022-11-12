@@ -1,10 +1,10 @@
 import { PrismaClient } from '@prisma/client';
 import winston from 'winston';
 
-import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/dal/ResubscriptionTaskRepositoryInMemory';
+import { ResubscriptionTaskRepositoryInMemory } from '../src/)adapters/dal/ResubscriptionTaskRepositoryInMemory';
 import { IStorage } from '../src/app/services/Storage';
 import { IYoutubeWebsubService } from '../src/app/services/YoutubeWebsubService';
-import { IResubscriptionTaskRepository } from '../src/domain/repositories/ResubscriptionTaskRepository';
+import { IResubscriptionTaskRepository } from '../src/modules/resubscription-tasks/domain/resubscription-task-repository';
 import { container } from '../src/infra/inversify-config';
 import { StorageFilesystem } from '../src/infra/services/StorageFilesystem';
 import { TYPES } from '../src/types';

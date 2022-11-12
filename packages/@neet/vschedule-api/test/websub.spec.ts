@@ -4,8 +4,8 @@ import { advanceTo, clear } from 'jest-date-mock';
 import path from 'path';
 import { URLSearchParams } from 'url';
 
-import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/dal/ResubscriptionTaskRepositoryInMemory';
-import { IAppConfig } from '../src/app/services/AppConfig/AppConfig';
+import { ResubscriptionTaskRepositoryInMemory } from '../src/)adapters/dal/ResubscriptionTaskRepositoryInMemory';
+import { IAppConfig } from '../src/modules/_shared/app/services/config/config';
 import { TYPES } from '../src/types';
 import { createRequest } from '../test-utils/client/client';
 import { container } from '../test-utils/inversify-config';

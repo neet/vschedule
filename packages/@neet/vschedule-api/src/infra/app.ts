@@ -1,9 +1,3 @@
-import '../adapters/controllers/rest/v1/performers';
-import '../adapters/controllers/rest/v1/organizations';
-import '../adapters/controllers/rest/v1/media';
-import '../adapters/controllers/rest/v1/streams';
-import '../adapters/controllers/websub/youtube';
-import '../adapters/controllers/auth';
 import './setup';
 
 import apiSpec from '@neet/vschedule-api-spec';
@@ -16,8 +10,7 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 import swaggerUi from 'swagger-ui-express';
 import winston from 'winston';
 
-import { IAppConfig } from '../app/services/AppConfig/AppConfig';
-import { ILogger } from '../app/services/Logger';
+import { IConfig, ILogger } from '../modules/_shared';
 import { TYPES } from '../types';
 import { appErrorHandler } from './middlewares/AppErrorHandler';
 import { domainErrorHandler } from './middlewares/DomainErrorHandler';
@@ -31,23 +24,25 @@ import { createSession } from './session';
  */
 export const createApp = (container: Container): Application => {
   const server = new InversifyExpressServer(container);
-
-  const config = container.get<IAppConfig>(TYPES.AppConfig);
-  // TODO: キャストしてる
-  const logger = container.get<ILogger & winston.Logger>(TYPES.Logger);
+  const config = container.get<IConfig>(TYPES.Config);
+  const logger = container.get<ILogger>(TYPES.Logger);
 
   server.setConfig((app) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use(expressWinston.logger({ winstonInstance: logger }));
+    app.use(
+      expressWinston.logger({ winstonInstance: logger as winston.Logger }),
+    );
     app.use(createSession(config.session));
     app.use(passport.initialize());
     app.use(passport.session());
-
-    // Accept token based authentication
     app.use(passport.authenticate('token', { session: false }));
 
     // OpenAPI Documentation
+    app.use(
+      '/openapi.json',
+      express.static(require.resolve('@neet/vschedule-api-spec')),
+    );
     app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSpec));
 
     app.use('/auth', cors());
@@ -67,7 +62,9 @@ export const createApp = (container: Container): Application => {
     app.use(domainErrorHandler);
     app.use(appErrorHandler);
     app.use(openapiErrorHandler);
-    app.use(expressWinston.errorLogger({ winstonInstance: logger }));
+    app.use(
+      expressWinston.errorLogger({ winstonInstance: logger as winston.Logger }),
+    );
   });
 
   return server.build();

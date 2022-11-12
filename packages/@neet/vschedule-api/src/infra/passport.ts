@@ -6,11 +6,10 @@ import {
   DrainToken,
   DrainTokenExpiredError,
   DrainTokenNotFoundError,
-} from '../app/use-cases/DrainToken';
-import { Login } from '../app/use-cases/Login';
-import { ShowUser } from '../app/use-cases/ShowUser';
-import { TokenIdInvalidError } from '../domain/entities/Token';
-import { User } from '../domain/entities/User';
+} from '../modules/tokens/app/drain-token';
+import { TokenIdInvalidError } from '../modules/tokens/domain';
+import { Login, ShowUser } from '../modules/users';
+import { User } from '../modules/users/domain';
 import { container } from './inversify-config';
 
 const TOKEN_USER = Symbol();

@@ -1,30 +1,29 @@
 import { Schemas } from '@neet/vschedule-api-client';
 import { ErrorRequestHandler, Response } from 'express';
 
-import { AppError } from '../../app/errors/AppError';
-import { UnexpectedError } from '../../app/errors/UnexpectedError';
-import { CreateOrganizationChannelNotFoundError } from '../../app/use-cases/CreateOrganization';
+import { AppError, UnexpectedError } from '../../modules/_shared';
+import { ShowMediaAttachmentNotFoundError } from '../../modules/media-attachments';
+import {
+  CreateOrganizationChannelNotFoundError,
+  ShowOrganization,
+} from '../../modules/organizations';
 import {
   CreatePerformerChannelNotFoundError,
   CreatePerformerOrganizationNotFoundError,
-} from '../../app/use-cases/CreatePerformer';
+  ShowPerformerNotFoundError,
+  UpdatePerformerNotFoundError,
+  UpdatePerformerOrganizationNotFoundError,
+} from '../../modules/performers';
 import {
   CreateResubscriptionTaskInvalidTopicError,
   CreateResubscriptionTaskUnknownActorError,
-} from '../../app/use-cases/CreateResubscriptionTask';
+} from '../../modules/resubscription-tasks';
 import {
   CreateStreamFailedToFetchVideoError,
   CreateStreamPerformerNotFoundWithChannelIdError,
-} from '../../app/use-cases/CreateStream';
-import { RemoveStreamNotFoundError } from '../../app/use-cases/RemoveStream';
-import { ShowMediaAttachmentNotFoundError } from '../../app/use-cases/ShowMediaAttachment';
-import { ShowOrganizationNotFoundError } from '../../app/use-cases/ShowOrganization';
-import { ShowPerformerNotFoundError } from '../../app/use-cases/ShowPerformer';
-import { ShowStreamOwnerNotFoundError } from '../../app/use-cases/ShowStream';
-import {
-  UpdatePerformerNotFoundError,
-  UpdatePerformerOrganizationNotFoundError,
-} from '../../app/use-cases/UpdatePerformer';
+  RemoveStreamNotFoundError,
+  ShowStreamOwnerNotFoundError,
+} from '../../modules/streams';
 
 export const appErrorHandler: ErrorRequestHandler = (
   error,
@@ -37,7 +36,7 @@ export const appErrorHandler: ErrorRequestHandler = (
   }
 
   if (error instanceof UnexpectedError) {
-    res.status(503);
+    res.status(500);
   }
   if (error instanceof CreatePerformerOrganizationNotFoundError) {
     res.status(404);
@@ -66,7 +65,7 @@ export const appErrorHandler: ErrorRequestHandler = (
   if (error instanceof ShowMediaAttachmentNotFoundError) {
     res.status(404);
   }
-  if (error instanceof ShowOrganizationNotFoundError) {
+  if (error instanceof ShowOrganization) {
     res.status(404);
   }
   if (error instanceof ShowPerformerNotFoundError) {
