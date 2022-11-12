@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/neet/vschedule/compare/@neet/vschedule-api@0.0.10...@neet/vschedule-api@0.1.0) (2022-11-12)
+
+### Bug Fixes
+
+* Filter OpenAPI errors ([fa4df31](https://github.com/neet/vschedule/commit/fa4df31cac242b185ece540526cfc07329b39ea3))
+* Fix tsc error ([9a6d395](https://github.com/neet/vschedule/commit/9a6d395b2e981cf971143c964b99494edcbf4184))
+
+### Features
+
+* Add identifier token based auth ([29ceade](https://github.com/neet/vschedule/commit/29ceadebd2f7b3cf455d1f6aa520d33767ab0d9f))
+
 ## 0.0.10 (2022-11-09)
 
 **Note:** Version bump only for package @neet/vschedule-api
