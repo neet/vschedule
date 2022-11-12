@@ -107,7 +107,7 @@ export class CreateStream {
     });
 
     await this._streamRepository.save(stream);
-    this._logger.info(`Stream with ID ${stream.id} is created`);
+    this._logger.info(`Stream with ID ${stream.id} is created`, { stream });
 
     return stream;
   }

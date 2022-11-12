@@ -1,11 +1,20 @@
 import { hashSync } from 'bcryptjs';
 import { inject, injectable } from 'inversify';
 
-import { User } from '../../domain/entities/User';
+import { User, UserEmail } from '../../domain/entities/User';
 import { IUserRepository } from '../../domain/repositories/UserRepository';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/AppError';
 import { IAppConfig } from '../services/AppConfig/AppConfig';
+import { ILogger } from '../services/Logger';
+
+export class CreateUserAlreadyExists extends AppError {
+  readonly name = 'CreateUserAlreadyExists';
+
+  constructor(email: string) {
+    super(`User with email ${email} is already existing`);
+  }
+}
 
 export class CreateUserNotAllowedEmail extends AppError {
   readonly name = 'CreateUserNotAllowedEmail';
@@ -26,6 +35,9 @@ export class CreateUser {
     @inject(TYPES.UserRepository)
     private readonly _userRepository: IUserRepository,
 
+    @inject(TYPES.Logger)
+    private readonly _logger: ILogger,
+
     @inject(TYPES.AppConfig)
     private readonly _config: IAppConfig,
   ) {}
@@ -35,8 +47,13 @@ export class CreateUser {
       throw new CreateUserNotAllowedEmail(params.email);
     }
 
+    const email = new UserEmail(params.email);
+    if ((await this._userRepository.findByEmail(email)) != null) {
+      throw new CreateUserAlreadyExists(params.email);
+    }
+
     const user = User.create({
-      email: params.email,
+      email,
       passwordHash: hashSync(
         params.password,
         this._config.secrets.passwordSalt,
@@ -44,6 +61,7 @@ export class CreateUser {
     });
 
     await this._userRepository.create(user);
+    this._logger.info(`User ${user.email} is created`, { user });
     return user;
   }
 }

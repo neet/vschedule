@@ -12,6 +12,7 @@ import {
   Performer,
   Stream,
 } from '../../domain/entities';
+import { User } from '../../domain/entities/User';
 import { TYPES } from '../../types';
 
 @injectable()
@@ -105,6 +106,15 @@ export class RestApiPresenter {
         stream.thumbnail !== null
           ? this.presentMediaAttachment(stream.thumbnail)
           : undefined,
+    };
+  }
+
+  public presentUser(user: User): Schemas.User {
+    return {
+      id: user.id.value,
+      email: user.email.value,
+      createdAt: user.createdAt.toISOString(),
+      updatedAt: user.updatedAt.toISOString(),
     };
   }
 }

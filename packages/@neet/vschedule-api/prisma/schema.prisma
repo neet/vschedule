@@ -120,7 +120,7 @@ model Token {
 
 model User {
   id           String   @id @unique @db.VarChar(21)
-  email        String
+  email        String   @unique
   passwordHash String   @map("password_hash")
   createdAt    DateTime @map("created_at")
   updatedAt    DateTime @map("updated_at")

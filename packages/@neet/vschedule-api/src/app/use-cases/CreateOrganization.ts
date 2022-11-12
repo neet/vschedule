@@ -76,7 +76,9 @@ export class CreateOrganization {
     });
 
     await this._organizationRepository.create(organization);
-    this._logger.info(`Organization with ID ${organization.id} is created`);
+    this._logger.info(`Organization with ID ${organization.id} is created`, {
+      organization,
+    });
 
     return organization;
   }
