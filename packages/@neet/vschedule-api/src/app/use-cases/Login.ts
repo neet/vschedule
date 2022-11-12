@@ -4,6 +4,7 @@ import { User, UserEmail } from '../../domain/entities/User';
 import { IUserRepository } from '../../domain/repositories/UserRepository';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/AppError';
+import { ILogger } from '../services/Logger';
 
 export class LoginAccountNotFoundError extends AppError {
   public readonly name = 'LoginAccountNotFoundError';
@@ -31,6 +32,9 @@ export class Login {
   constructor(
     @inject(TYPES.UserRepository)
     private readonly _userRepository: IUserRepository,
+
+    @inject(TYPES.Logger)
+    private readonly _logger: ILogger,
   ) {}
 
   async invoke(params: LoginParams): Promise<User> {
@@ -46,6 +50,10 @@ export class Login {
       throw new LoginIncorrectPasswordError();
     }
 
-    return user;
+    try {
+      return user;
+    } finally {
+      this._logger.info(`User ${user.email} in logged in`, { user });
+    }
   }
 }

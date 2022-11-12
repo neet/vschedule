@@ -96,6 +96,7 @@ export class CreateResubscriptionTask {
 
     this._logger.info(
       `Scheduled resubscription for ${topic} in ${params.leaseSeconds} secs`,
+      { task },
     );
   }
 }

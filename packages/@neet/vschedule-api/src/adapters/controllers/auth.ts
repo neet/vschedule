@@ -1,3 +1,4 @@
+import { RequestBody$signup } from '@neet/vschedule-api-client';
 import { Request } from 'express';
 import { inject } from 'inversify';
 import {
@@ -10,19 +11,23 @@ import {
 
 import { CreateUser } from '../../app/use-cases/CreateUser';
 import { TYPES } from '../../types';
+import { RestApiPresenter } from '../mappers/RestApiMapper';
 
 @controller('/auth')
 export class AuthController extends BaseHttpController {
   constructor(
     @inject(CreateUser)
     private readonly _createUser: CreateUser,
+
+    @inject(RestApiPresenter)
+    private readonly _presenter: RestApiPresenter,
   ) {
     super();
   }
 
   @httpPost('/login', TYPES.Authenticate)
-  public login(): void {
-    this.ok();
+  public login(@request() req: Request) {
+    return this.json(this._presenter.presentUser(req.user));
   }
 
   @httpPost('/logout')
@@ -31,14 +36,22 @@ export class AuthController extends BaseHttpController {
       if (error != null) {
         throw error;
       }
-      this.ok();
+      return this.statusCode(204);
     });
+  }
+
+  @httpPost('/verify_credentials')
+  public verifyCredentials(@request() req: Request) {
+    if (req.user != null) {
+      return this.json(this._presenter.presentUser(req.user));
+    }
+    return this.statusCode(204);
   }
 
   @httpPost('/signup')
   public async signup(
     @request() req: Request,
-    @requestBody() body: { email: string; password: string },
+    @requestBody() body: RequestBody$signup['application/json'],
   ) {
     const user = await this._createUser.invoke({
       email: body.email,
@@ -48,7 +61,7 @@ export class AuthController extends BaseHttpController {
       if (error != null) {
         throw error;
       }
-      this.ok();
+      return this.json(this._presenter.presentUser(user));
     });
   }
 }

@@ -4,6 +4,7 @@ import { TokenId } from '../../domain/entities/Token';
 import { ITokenRepository } from '../../domain/repositories/TokenRepository';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/AppError';
+import { ILogger } from '../services/Logger';
 
 export class DrainTokenNotFoundError extends AppError {
   public readonly name = 'DrainTokenNotFoundError';
@@ -26,6 +27,9 @@ export class DrainToken {
   constructor(
     @inject(TYPES.TokenRepository)
     private readonly _tokenRepository: ITokenRepository,
+
+    @inject(TYPES.Logger)
+    private readonly _logger: ILogger,
   ) {}
 
   async invoke(id: string): Promise<void> {
@@ -41,5 +45,6 @@ export class DrainToken {
     }
 
     await this._tokenRepository.drain(tokenId);
+    this._logger.info(`Token ${token.id} was drained`, { token });
   }
 }
