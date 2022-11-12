@@ -1,6 +1,6 @@
 {
   "name": "@neet/vschedule-client",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "private": true,
   "scripts": {
     "dev": "TAILWIND_MODE=watch next dev",
