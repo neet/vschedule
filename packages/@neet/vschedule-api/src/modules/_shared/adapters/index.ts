@@ -1,6 +1,4 @@
 export * from './config-environment';
-export * from './logger-cloud-logging';
-export * from './logger-console';
 export * from './prisma-dto-mapper';
 export * from './prisma-entity-mapper';
 export * from './rest-presenter';

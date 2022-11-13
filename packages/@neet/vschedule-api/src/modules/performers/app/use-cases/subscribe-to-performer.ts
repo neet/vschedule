@@ -1,6 +1,5 @@
-import { IYoutubeWebsubService } from '../../../app/services/YoutubeWebsubService';
-import { PerformerId } from '../domain';
-import { IPerformerRepository } from '../domain/performer-repository';
+import { IYoutubeWebsubService } from '../../../_shared';
+import { IPerformerRepository, PerformerId } from '../../domain';
 
 export interface ResubscribeToPerformerParams {
   readonly performerId: string;

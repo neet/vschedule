@@ -1,13 +1,14 @@
+import assert from 'assert';
 import Color from 'color';
 
-import { ILogger } from '../../../app/services/Logger';
-import { AppError } from '../../_shared/app';
+import { AppError, ILogger } from '../../../_shared';
 import {
   IOrganizationRepository,
-  Organization,
   OrganizationId,
-} from '../../organizations/domain';
-import { IPerformerRepository, Performer, PerformerId } from '../domain';
+} from '../../../organizations/domain';
+import { IPerformerRepository, PerformerId } from '../../domain';
+import { PerformerDto } from '../performer-dto';
+import { IPerformerQueryService } from '../performer-query-service';
 
 export class UpdatePerformerNotFoundError extends AppError {
   public readonly name = 'UpdatePerformerNotFoundError';
@@ -37,6 +38,7 @@ export interface UpdatePerformerParams {
 export class UpdatePerformer {
   constructor(
     private readonly _performerRepository: IPerformerRepository,
+    private readonly _performerQueryService: IPerformerQueryService,
     private readonly _organizationRepository: IOrganizationRepository,
     private readonly _logger: ILogger,
   ) {}
@@ -44,7 +46,7 @@ export class UpdatePerformer {
   public async invoke(
     id: string,
     params: UpdatePerformerParams,
-  ): Promise<[Performer, Organization | null]> {
+  ): Promise<PerformerDto> {
     const {
       name,
       color,
@@ -56,14 +58,16 @@ export class UpdatePerformer {
 
     const performerId = new PerformerId(id);
 
-    const performer = await this._performerRepository.findById(performerId);
+    let performer = await this._performerRepository.findById(performerId);
     if (performer == null) {
       throw new UpdatePerformerNotFoundError(performerId);
     }
 
-    const organization = await this._fetchOrganization(organizationId);
+    if (organizationId != null) {
+      this.checkIfOrganizationExist(organizationId);
+    }
 
-    const newPerformer = performer.update({
+    performer = performer.update({
       name,
       description,
       color: color !== undefined ? new Color(color) : undefined,
@@ -72,25 +76,20 @@ export class UpdatePerformer {
       organizationId,
     });
 
-    await this._performerRepository.update(newPerformer);
+    await this._performerRepository.update(performer);
     this._logger.info(`Performer with ${performer.id} is updated`);
 
-    return [newPerformer, organization];
+    const dto = await this._performerQueryService.query(performer.id);
+    assert(dto !== undefined);
+
+    return dto;
   }
 
-  private async _fetchOrganization(
-    organizationId?: string | null,
-  ): Promise<Organization | null> {
-    if (organizationId == null) {
-      return null;
-    }
-
-    const id = new OrganizationId(organizationId);
-    const org = this._organizationRepository.findById(id);
+  private async checkIfOrganizationExist(organizationId: string) {
+    const orgId = new OrganizationId(organizationId);
+    const org = await this._organizationRepository.findById(orgId);
     if (org == null) {
-      throw new UpdatePerformerOrganizationNotFoundError(id);
+      throw new UpdatePerformerOrganizationNotFoundError(orgId);
     }
-
-    return org;
   }
 }

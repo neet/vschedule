@@ -11,7 +11,8 @@ import {
 import supertest from 'supertest';
 
 import { createApp } from '../../src/infra/app';
-import { container } from '../inversify-config';
+import { createLogger } from '../../src/infra/factories';
+import { ConfigEnvironment } from '../../src/modules/_shared';
 import { generateQueryString } from './generateQueryString';
 
 interface RequestOption {
@@ -75,7 +76,9 @@ class Requester implements ApiClient<RequestOption> {
 }
 
 export const createRequest = () => {
-  const request = supertest(createApp(container));
+  const request = supertest(
+    createApp(new ConfigEnvironment(), createLogger({ type: 'console' })),
+  );
   const client = new Client(new Requester(request), '');
   return { request, client };
 };

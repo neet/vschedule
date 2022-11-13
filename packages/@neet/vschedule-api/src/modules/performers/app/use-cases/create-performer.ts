@@ -1,19 +1,20 @@
+import assert from 'assert';
 import Color from 'color';
 import getColors from 'get-image-colors';
 import fetch from 'node-fetch';
 import sharp from 'sharp';
 import { URL } from 'url';
 
+import { ILogger, IYoutubeApiService, UnexpectedError } from '../../../_shared';
 import { AppError } from '../../../_shared/app/errors/app-error';
-import { UnexpectedError } from '../../../_shared/app/unexpected-error';
-import { ILogger } from '../../../app/services/Logger';
-import { IYoutubeApiService } from '../../../app/services/YoutubeApiService';
 import { MediaAttachmentFilename } from '../../../media-attachments/domain';
 import { IMediaAttachmentRepository } from '../../../media-attachments/domain/media-attachment-repository';
-import { Organization, OrganizationId } from '../../../organizations/domain';
+import { OrganizationId } from '../../../organizations/domain';
 import { IOrganizationRepository } from '../../../organizations/domain/organization-repository';
 import { Performer } from '../../domain';
 import { IPerformerRepository } from '../../domain/performer-repository';
+import { PerformerDto } from '../performer-dto';
+import { IPerformerQueryService } from '../performer-query-service';
 
 export class CreatePerformerChannelNotFoundError extends AppError {
   public readonly name = 'CreatePerformerChannelNotFoundError ';
@@ -51,15 +52,14 @@ export interface CreatePerformerParams {
 export class CreatePerformer {
   constructor(
     private readonly _performerRepository: IPerformerRepository,
+    private readonly _performerQueryService: IPerformerQueryService,
     private readonly _mediaAttachmentRepository: IMediaAttachmentRepository,
     private readonly _youtubeApiService: IYoutubeApiService,
     private readonly _organizationRepository: IOrganizationRepository,
     private readonly _logger: ILogger,
   ) {}
 
-  public async invoke(
-    params: CreatePerformerParams,
-  ): Promise<[Performer, OrganizationId | null]> {
+  public async invoke(params: CreatePerformerParams): Promise<PerformerDto> {
     const {
       name,
       youtubeChannelId,
@@ -71,7 +71,9 @@ export class CreatePerformer {
     } = params;
 
     const channel = await this._fetchChannelById(youtubeChannelId);
-    const organization = await this._fetchOrganization(organizationId);
+    if (organizationId != null) {
+      await this._checkIfOrganizationExists(organizationId);
+    }
 
     // image
     const image = await fetch(channel.thumbnailUrl);
@@ -110,7 +112,9 @@ export class CreatePerformer {
       performer,
     });
 
-    return [performer, organization ?? null];
+    const dto = await this._performerQueryService.query(performer.id);
+    assert(dto !== undefined);
+    return dto;
   }
 
   private async _fetchChannelById(channelId: string) {
@@ -122,17 +126,11 @@ export class CreatePerformer {
     }
   }
 
-  private async _fetchOrganization(
-    rawId?: string | null,
-  ): Promise<Organization | null> {
-    if (rawId == null) return null;
+  private async _checkIfOrganizationExists(rawId: string) {
     const id = new OrganizationId(rawId);
-
     const org = this._organizationRepository.findById(id);
     if (org == null) {
       throw new CreatePerformerOrganizationNotFoundError(id);
     }
-
-    return org;
   }
 }

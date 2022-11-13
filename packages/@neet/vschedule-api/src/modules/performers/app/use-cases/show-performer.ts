@@ -1,9 +1,7 @@
-import { AppError } from '../../_shared/app';
-import {
-  IOrganizationRepository,
-  Organization,
-} from '../../organizations/domain';
-import { IPerformerRepository, Performer, PerformerId } from '../domain';
+import { AppError } from '../../../_shared';
+import { Performer, PerformerId } from '../../domain';
+import { PerformerDto } from '../performer-dto';
+import { IPerformerQueryService } from '../performer-query-service';
 
 export class ShowPerformerNotFoundError extends AppError {
   public readonly name = 'ShowPerformerNotFoundError';
@@ -15,22 +13,17 @@ export class ShowPerformerNotFoundError extends AppError {
 
 export class ShowPerformer {
   constructor(
-    private readonly _performerRepository: IPerformerRepository,
-    private readonly _organizationRepository: IOrganizationRepository,
+    private readonly _performerQueryService: IPerformerQueryService,
   ) {}
 
-  async invoke(id: string): Promise<[Performer, Organization | null]> {
+  async invoke(id: string): Promise<PerformerDto> {
     const performerId = new PerformerId(id);
 
-    const performer = await this._performerRepository.findById(performerId);
+    const performer = await this._performerQueryService.query(performerId);
     if (!(performer instanceof Performer)) {
       throw new ShowPerformerNotFoundError(performerId);
     }
 
-    const organization = await this._organizationRepository.findByPerformerId(
-      performerId,
-    );
-
-    return [performer, organization];
+    return performer;
   }
 }

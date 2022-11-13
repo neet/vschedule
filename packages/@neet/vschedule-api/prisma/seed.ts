@@ -9,25 +9,53 @@ import {
 } from '@neet/vschedule-seeds';
 import { PrismaClient } from '@prisma/client';
 
-import { CreateOrganization } from '../src/modules/organizations/app/use-cases/create-organization';
-import { CreatePerformer } from '../src/modules/performers/app/use-cases/create-performer';
-import { YoutubeChannelId } from '../src/domain/_shared';
-import { IOrganizationRepository } from '../src/modules/organizations/domain/organization-repository';
-import { IPerformerRepository } from '../src/modules/performers/domain/performer-repository';
-import { container } from '../src/infra/inversify-config';
-import { TYPES } from '../src/types';
+import { createLogger, createStorage } from '../src/infra/factories';
+import { createQueryServices } from '../src/infra/factories/query-services';
+import { createRepositories } from '../src/infra/factories/repositories';
+import {
+  ConfigEnvironment,
+  YoutubeApiService,
+  YoutubeChannelId,
+} from '../src/modules/_shared';
+import { CreateOrganization } from '../src/modules/organizations';
+import { CreatePerformer } from '../src/modules/performers';
 
-const prisma = container.get<PrismaClient>(TYPES.PrismaClient);
-const createOrganization = container.get(CreateOrganization);
-const createPerformer = container.get(CreatePerformer);
-const performerRepository = container.get<IPerformerRepository>(
-  TYPES.PerformerRepository,
-);
-const organizationRepository = container.get<IOrganizationRepository>(
-  TYPES.OrganizationRepository,
-);
+const prisma = new PrismaClient();
 
 const main = async (): Promise<void> => {
+  const config = new ConfigEnvironment();
+  const logger = createLogger(config.logger);
+  const repositories = createRepositories({
+    prisma,
+    config,
+    storage: createStorage(config.storage),
+    logger,
+  });
+  const queryServices = createQueryServices(prisma);
+  const {
+    organizationRepository,
+    mediaAttachmentRepository,
+    performerRepository,
+  } = repositories;
+  const youtubeApiService = new YoutubeApiService(
+    config.youtube.dataApiKey ?? '',
+    logger,
+  );
+  const createOrganization = new CreateOrganization(
+    organizationRepository,
+    mediaAttachmentRepository,
+    youtubeApiService,
+    logger,
+  );
+  const createPerformer = new CreatePerformer(
+    performerRepository,
+    queryServices.performerQueryService,
+    mediaAttachmentRepository,
+    youtubeApiService,
+    organizationRepository,
+    logger,
+  );
+
   for (const organization of organizations) {
     if (organization.youtubeChannelId == null) {
       continue;

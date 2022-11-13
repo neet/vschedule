@@ -1,28 +1,19 @@
 import { google, youtube_v3 } from 'googleapis';
-import { inject, injectable } from 'inversify';
 
-import { TYPES } from '../../../types';
-import { Channel, IConfig, ILogger, IYoutubeApiService, Video } from '../app';
+import { Channel, ILogger, IYoutubeApiService, Video } from '../app';
 
 export interface FetchStreamsByChannelIdParams {
   readonly channelId: string;
   readonly sinceId: string;
 }
 
-@injectable()
 export class YoutubeApiService implements IYoutubeApiService {
   private readonly _yt: youtube_v3.Youtube;
 
-  constructor(
-    @inject(TYPES.AppConfig)
-    config: IConfig,
-
-    @inject(TYPES.Logger)
-    private readonly _logger: ILogger,
-  ) {
+  constructor(dataApiKey: string, private readonly _logger: ILogger) {
     this._yt = google.youtube({
       version: 'v3',
-      auth: config.youtube.dataApiKey,
+      auth: dataApiKey,
     });
   }
 

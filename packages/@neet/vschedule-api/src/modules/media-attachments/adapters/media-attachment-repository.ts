@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import { getPlaiceholder } from 'plaiceholder';
+import { IStorage } from '../../_shared';
 
 import { rehydrateMediaAttachmentFromPrisma } from '../../_shared/adapters/prisma-entity-mapper';
-import { IStorage } from '../../_shared/app/storage';
 import {
   IMediaAttachmentRepository,
   MediaAttachment,
@@ -10,7 +10,7 @@ import {
   MediaAttachmentId,
 } from '../domain';
 
-export class MediaAttachmentRepositoryPrismaImpl
+export class MediaAttachmentRepositoryPrisma
   implements IMediaAttachmentRepository
 {
   constructor(
@@ -18,7 +18,7 @@ export class MediaAttachmentRepositoryPrismaImpl
     private readonly _storage: IStorage,
   ) {}
 
-  async findById(id: MediaAttachment): Promise<MediaAttachment | undefined> {
+  async findById(id: MediaAttachmentId): Promise<MediaAttachment | undefined> {
     const data = await this._prisma.mediaAttachment.findFirst({
       where: {
         id: id.value,

@@ -1,19 +1,18 @@
-import { IOrganizationRepository, Organization } from '../../domain';
+import { Organization } from '../../domain';
+import { IOrganizationQueryService } from '../organization-query-service';
 
 export interface ListOrganizationParams {
   readonly limit?: number;
-  readonly offset?: number;
 }
 
 export class ListOrganization {
   constructor(
-    private readonly _organizationRepository: IOrganizationRepository,
+    private readonly _organizationQueryService: IOrganizationQueryService,
   ) {}
 
   async invoke(params?: ListOrganizationParams): Promise<Organization[]> {
-    const actors = await this._organizationRepository.find({
+    const actors = await this._organizationQueryService.queryMany({
       limit: params?.limit,
-      offset: params?.offset,
     });
 
     return actors;

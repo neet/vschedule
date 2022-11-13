@@ -1,19 +1,20 @@
-import { IPerformerRepository, Performer } from '../domain';
+import { PerformerDto } from '../performer-dto';
+import { IPerformerQueryService } from '../performer-query-service';
 
 export interface ListPerformersParams {
   readonly limit?: number;
-  readonly offset?: number;
 }
 
 export class ListPerformers {
-  constructor(private readonly _performerRepository: IPerformerRepository) {}
+  constructor(
+    private readonly _performerQueryService: IPerformerQueryService,
+  ) {}
 
-  async invoke(params?: ListPerformersParams): Promise<Performer[]> {
-    const actors = await this._performerRepository.find({
+  async invoke(params?: ListPerformersParams): Promise<PerformerDto[]> {
+    const performers = await this._performerQueryService.queryMany({
       limit: params?.limit,
-      offset: params?.offset,
     });
 
-    return actors;
+    return performers;
   }
 }

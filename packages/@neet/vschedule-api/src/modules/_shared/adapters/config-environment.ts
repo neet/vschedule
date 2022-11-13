@@ -1,12 +1,9 @@
-import { injectable } from 'inversify';
-
 import { ConfigBase, IConfig } from '../app';
 
 const env = <T = string>(name: string): T | undefined => {
   return process.env[name] as T | undefined;
 };
 
-@injectable()
 export class ConfigEnvironment extends ConfigBase implements IConfig {
   public constructor() {
     super({

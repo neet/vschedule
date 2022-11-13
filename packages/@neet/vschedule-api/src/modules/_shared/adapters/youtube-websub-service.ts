@@ -1,20 +1,14 @@
-import { inject, injectable } from 'inversify';
 import fetch from 'node-fetch';
 import { URLSearchParams } from 'url';
 
-import { TYPES } from '../../../types';
 import { IConfig, IYoutubeWebsubService, utils } from '../app';
 
-@injectable()
 export class YoutubeWebsubService implements IYoutubeWebsubService {
   private readonly _hmacSecret: string;
   private readonly _verifyToken: string;
   private readonly _callbackUrl: string;
 
-  public constructor(
-    @inject(TYPES.AppConfig)
-    config: IConfig,
-  ) {
+  public constructor(config: IConfig) {
     this._callbackUrl = utils.resolvePath(config, '/websub/youtube');
     this._hmacSecret = config.youtube.websubHmacSecret;
     this._verifyToken = config.youtube.websubVerifyToken;

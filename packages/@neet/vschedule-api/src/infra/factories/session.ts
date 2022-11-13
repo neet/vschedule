@@ -2,7 +2,7 @@ import { FirestoreStore } from '@google-cloud/connect-firestore';
 import { Firestore } from '@google-cloud/firestore';
 import session, { Store } from 'express-session';
 
-import { IConfigSession } from '../modules/_shared';
+import { IConfigSession } from '../../modules/_shared';
 
 const createStore = (storeType: IConfigSession['store']): Store | undefined => {
   if (storeType === 'firestore') {

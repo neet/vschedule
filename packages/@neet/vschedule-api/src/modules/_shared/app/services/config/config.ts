@@ -4,10 +4,10 @@ export interface IConfigYoutube {
   readonly websubVerifyToken: string;
 }
 
-export type CookieStorageType = 'cloud-storage' | 'filesystem';
+export type StorageType = 'cloud-storage' | 'filesystem';
 
 export interface IConfigStorage {
-  readonly type: CookieStorageType;
+  readonly type: StorageType;
   readonly bucket: string;
 }
 
@@ -23,8 +23,10 @@ export interface IConfigTasks {
   };
 }
 
+export type LoggerType = 'console' | 'cloud-logging';
+
 export interface IConfigLogger {
-  readonly type: 'console' | 'cloud-logging';
+  readonly type: LoggerType;
 }
 
 export interface IConfigSecrets {
@@ -35,8 +37,10 @@ export interface IConfigAdmin {
   readonly emails: string[];
 }
 
+export type SessionStore = 'firestore' | 'memory';
+
 export interface IConfigSession {
-  readonly store: 'firestore' | 'memory';
+  readonly store: SessionStore;
   readonly secret: string;
 }
 

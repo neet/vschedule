@@ -1,11 +1,9 @@
 import fs from 'fs/promises';
-import { injectable } from 'inversify';
 import mkdirp from 'mkdirp';
 import path from 'path';
 
 import { File, IStorage } from '../app';
 
-@injectable()
 export class StorageFilesystem implements IStorage {
   private readonly _baseDir = path.join(__dirname, '../../../data');
 

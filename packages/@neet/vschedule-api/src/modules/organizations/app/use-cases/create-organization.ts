@@ -4,9 +4,12 @@ import fetch from 'node-fetch';
 import sharp from 'sharp';
 import { URL } from 'url';
 
-import { AppError, UnexpectedError } from '../../../_shared/app';
-import { ILogger } from '../../../_shared/app/logger';
-import { IYoutubeApiService } from '../../../_shared/app/youtube-api-service';
+import {
+  AppError,
+  ILogger,
+  IYoutubeApiService,
+  UnexpectedError,
+} from '../../../_shared/app';
 import {
   IMediaAttachmentRepository,
   MediaAttachmentFilename,

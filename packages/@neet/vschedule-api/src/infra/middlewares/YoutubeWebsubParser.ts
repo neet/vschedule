@@ -2,15 +2,12 @@ import bodyParser from 'body-parser';
 import bodyParserXml from 'body-parser-xml';
 import { createHmac, timingSafeEqual } from 'crypto';
 import { Handler } from 'express';
-import { inject, injectable } from 'inversify';
 import { BaseMiddleware } from 'inversify-express-utils';
 
-import { IConfig } from '../../modules/_shared/app/services/config/config';
-import { TYPES } from '../../types';
+import { IConfig } from '../../modules/_shared';
 
 type VerifyFunction = bodyParserXml.Options['verify'];
 
-@injectable()
 export class YoutubeWebsubParser extends BaseMiddleware {
   public readonly handler: Handler;
 
@@ -18,10 +15,7 @@ export class YoutubeWebsubParser extends BaseMiddleware {
   private readonly _algorithm = 'sha1';
   private readonly _headerName = 'x-hub-signature';
 
-  constructor(
-    @inject(TYPES.AppConfig)
-    config: IConfig,
-  ) {
+  constructor(config: IConfig) {
     super();
     this._secret = config.youtube.websubHmacSecret;
     this.handler = bodyParser.xml({ verify: this._verifyHmacDigest });

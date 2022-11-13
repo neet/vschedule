@@ -3,20 +3,15 @@ import { URL } from 'node:url';
 import { Schemas } from '@neet/vschedule-api-client';
 
 import { unwrap } from '../../../modules/_core';
-import { ActorDto } from '../app';
-import { IConfigServer } from '../app/services/config/config';
 import { MediaAttachment } from '../../../modules/media-attachments/domain';
 import { OrganizationDto } from '../../../modules/organizations/app';
 import { PerformerDto } from '../../../modules/performers/app/performer-dto';
 import { StreamDto } from '../../../modules/streams/app/stream-dto';
 import { User } from '../../../modules/users/domain';
+import { ActorDto } from '../app';
 
 export class RestPresenter {
-  private readonly _origin: string;
-
-  public constructor(server: IConfigServer) {
-    this._origin = server.origin;
-  }
+  public constructor(private readonly _origin: string) {}
 
   public presentMediaAttachment(
     mediaAttachment: MediaAttachment,
@@ -28,7 +23,7 @@ export class RestPresenter {
     return {
       id: mediaAttachment.id.value,
       url: url.toString(),
-      base64: mediaAttachment.base64.value,
+      base64: mediaAttachment.blurDataUri.value,
       width: mediaAttachment.width.value,
       height: mediaAttachment.height.value,
       filename: mediaAttachment.filename.value,

@@ -4,11 +4,7 @@ import { advanceTo, clear } from 'jest-date-mock';
 import path from 'path';
 import { URLSearchParams } from 'url';
 
-import { ResubscriptionTaskRepositoryInMemory } from '../src/)adapters/dal/ResubscriptionTaskRepositoryInMemory';
-import { IAppConfig } from '../src/modules/_shared/app/services/config/config';
-import { TYPES } from '../src/types';
 import { createRequest } from '../test-utils/client/client';
-import { container } from '../test-utils/inversify-config';
 import { SEED_STREAM_ID } from '../test-utils/seed';
 
 const ytWebsubStreamScheduled = fs.readFileSync(
@@ -22,7 +18,6 @@ const ytWebsubStreamDeleted = fs.readFileSync(
 );
 
 describe('/websub/youtube', () => {
-  const config = container.get<IAppConfig>(TYPES.AppConfig);
   const { request, client } = createRequest();
 
   it('verifies WebSub subscription', async () => {
@@ -40,10 +35,6 @@ describe('/websub/youtube', () => {
     const result = await request
       .get('/websub/youtube?' + searchParams.toString())
       .send();
-
-    const repository = container.get<ResubscriptionTaskRepositoryInMemory>(
-      TYPES.ResubscriptionTaskRepository,
-    );
 
     expect(result.statusCode).toBe(200);
     expect(repository.tasks.at(0)?.scheduledAt.toISOString()).toBe(

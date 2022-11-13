@@ -1,6 +1,6 @@
 import validator from 'validator';
 
-import { DomainError, ValueObject } from '../_core';
+import { DomainError, ValueObject } from '../../_core';
 
 export class DataUriInvalidError extends DomainError {
   public readonly name = 'DataUrlInvalidError';

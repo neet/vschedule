@@ -1,12 +1,9 @@
 /* eslint-disable no-console */
 import 'reflect-metadata';
 
-import { PrismaClient } from '@prisma/client';
 import execa from 'execa';
 import path from 'path';
 
-import { TYPES } from '../src/types';
-import { container } from './inversify-config';
 import { createSeed } from './seed';
 
 // For some reasons, testTimeout in jest.config did not work
@@ -29,6 +26,4 @@ beforeAll(async () => {
   await createSeed();
 });
 
-afterAll(async () => {
-  await container.get<PrismaClient>(TYPES.PrismaClient).$disconnect();
-});
+// afterAll(async () => {});

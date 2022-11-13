@@ -1,8 +1,6 @@
 import { hashSync } from 'bcryptjs';
 
-import { IAppConfig } from '../../_shared/app/services/config/config';
-import { ILogger } from '../../../app/services/Logger';
-import { AppError } from '../../_shared/app/errors/app-error';
+import { AppError, IConfig, ILogger } from '../../_shared';
 import { IUserRepository, User, UserEmail } from '../domain';
 
 export class CreateUserAlreadyExists extends AppError {
@@ -30,7 +28,7 @@ export class CreateUser {
   constructor(
     private readonly _userRepository: IUserRepository,
     private readonly _logger: ILogger,
-    private readonly _config: IAppConfig,
+    private readonly _config: IConfig,
   ) {}
 
   async invoke(params: CreateUserParams): Promise<User> {

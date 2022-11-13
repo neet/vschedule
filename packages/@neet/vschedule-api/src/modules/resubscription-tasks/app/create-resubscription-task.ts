@@ -1,13 +1,9 @@
 import dayjs from 'dayjs';
 import { URL } from 'url';
 
-import { IAppConfig } from '../../_shared/app/services/config/config';
-import { ILogger } from '../../../app/services/Logger';
-import { AppError } from '../../_shared/app/errors/app-error';
-import { YoutubeChannelId } from '../../_shared/domain';
-import { IPerformerRepository } from '../../performers/domain/performer-repository';
-import { Token } from '../../tokens/domain';
-import { ITokenRepository } from '../../tokens/domain/token-repository';
+import { AppError, IConfig, ILogger, YoutubeChannelId } from '../../_shared';
+import { IPerformerRepository } from '../../performers';
+import { ITokenRepository, Token } from '../../tokens';
 import { ResubscriptionTask } from '../domain';
 import { IResubscriptionTaskRepository } from '../domain/resubscription-task-repository';
 
@@ -50,7 +46,7 @@ export class CreateResubscriptionTask {
     private readonly _performerRepository: IPerformerRepository,
     private readonly _resubscriptionTaskRepository: IResubscriptionTaskRepository,
     private readonly _logger: ILogger,
-    private readonly _config: IAppConfig,
+    private readonly _config: IConfig,
   ) {}
 
   async invoke(params: CreateResubscriptionTaskParams): Promise<void> {
