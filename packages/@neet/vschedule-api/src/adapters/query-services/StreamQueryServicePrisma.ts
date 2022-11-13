@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 
 import {
@@ -55,18 +55,34 @@ export class StreamQueryServicePrisma implements IStreamQueryService {
   }
 
   async queryMany(params: StreamQueryManyParams): Promise<StreamDto[]> {
-    const data = await this._prisma.stream.findMany({
-      where: {
-        AND: {
-          owner: {
-            organizationId: params.organizationId?.value,
-          },
-          startedAt: {
-            gte: params.since?.toDate(),
-            lte: params.until?.toDate(),
-          },
+    const where: Prisma.StreamWhereInput & { AND: unknown[] } = { AND: [] };
+
+    if (params.organizationId != null) {
+      where.AND.push({
+        owner: {
+          organizationId: params.organizationId?.value,
         },
-      },
+      });
+    }
+
+    if (params.since != null) {
+      where.AND.push({
+        startedAt: {
+          gte: params.since?.toDate(),
+        },
+      });
+    }
+
+    if (params.until != null) {
+      where.AND.push({
+        startedAt: {
+          lte: params.until?.toDate(),
+        },
+      });
+    }
+
+    const data = await this._prisma.stream.findMany({
+      where,
       take: Math.max(params.limit ?? 60, 300),
       include: SHARED_INCLUDE,
     });
