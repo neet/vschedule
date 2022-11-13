@@ -4,14 +4,15 @@ import { inject, injectable } from 'inversify';
 import {
   Organization,
   OrganizationId,
-  Performer,
   PerformerId,
-} from '../../domain/entities';
-import { IOrganizationRepository } from '../../domain/repositories/OrganizationRepository';
-import { IPerformerRepository } from '../../domain/repositories/PerformerRepository';
-import { TYPES } from '../../types';
-import { AppError } from '../errors/AppError';
-import { ILogger } from '../services/Logger';
+} from '../../../domain/entities';
+import { IOrganizationRepository } from '../../../domain/repositories/OrganizationRepository';
+import { IPerformerRepository } from '../../../domain/repositories/PerformerRepository';
+import { TYPES } from '../../../types';
+import { AppError } from '../../errors/AppError';
+import { UnexpectedError } from '../../errors/UnexpectedError';
+import { IPerformerQueryService, PerformerDto } from '../../query-services';
+import { ILogger } from '../../services/Logger';
 
 export class UpdatePerformerNotFoundError extends AppError {
   public readonly name = 'UpdatePerformerNotFoundError';
@@ -41,6 +42,9 @@ export interface UpdatePerformerParams {
 @injectable()
 export class UpdatePerformer {
   constructor(
+    @inject(TYPES.PerformerQueryService)
+    private readonly _performerQueryService: IPerformerQueryService,
+
     @inject(TYPES.PerformerRepository)
     private readonly _performerRepository: IPerformerRepository,
 
@@ -54,7 +58,7 @@ export class UpdatePerformer {
   public async invoke(
     id: string,
     params: UpdatePerformerParams,
-  ): Promise<[Performer, Organization | null]> {
+  ): Promise<PerformerDto> {
     const {
       name,
       color,
@@ -66,14 +70,16 @@ export class UpdatePerformer {
 
     const performerId = new PerformerId(id);
 
-    const performer = await this._performerRepository.findById(performerId);
+    let performer = await this._performerRepository.findById(performerId);
     if (performer == null) {
       throw new UpdatePerformerNotFoundError(performerId);
     }
 
-    const organization = await this._fetchOrganization(organizationId);
+    if (organizationId != null) {
+      await this._checkIfOrganizationExists(organizationId);
+    }
 
-    const newPerformer = performer.update({
+    performer = performer.update({
       name,
       description,
       color: color !== undefined ? new Color(color) : undefined,
@@ -82,19 +88,19 @@ export class UpdatePerformer {
       organizationId,
     });
 
-    await this._performerRepository.update(newPerformer);
+    await this._performerRepository.update(performer);
     this._logger.info(`Performer with ${performer.id} is updated`);
 
-    return [newPerformer, organization];
+    const result = await this._performerQueryService.query(performer.id);
+    if (result == null) {
+      throw new UnexpectedError();
+    }
+    return result;
   }
 
-  private async _fetchOrganization(
-    organizationId?: string | null,
+  private async _checkIfOrganizationExists(
+    organizationId: string,
   ): Promise<Organization | null> {
-    if (organizationId == null) {
-      return null;
-    }
-
     const id = new OrganizationId(organizationId);
     const org = this._organizationRepository.findById(id);
     if (org == null) {

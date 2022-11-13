@@ -1,9 +1,9 @@
 import { inject, injectable } from 'inversify';
 
-import { PerformerId } from '../../domain/entities';
-import { IPerformerRepository } from '../../domain/repositories/PerformerRepository';
-import { TYPES } from '../../types';
-import { IYoutubeWebsubService } from '../services/YoutubeWebsubService';
+import { PerformerId } from '../../../domain/entities';
+import { IPerformerRepository } from '../../../domain/repositories/PerformerRepository';
+import { TYPES } from '../../../types';
+import { IYoutubeWebsubService } from '../../services/YoutubeWebsubService';
 
 export interface ResubscribeToPerformerParams {
   readonly performerId: string;

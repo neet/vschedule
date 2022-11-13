@@ -5,20 +5,22 @@ import fetch from 'node-fetch';
 import sharp from 'sharp';
 import { URL } from 'url';
 
-import { YoutubeChannelId } from '../../domain/_shared';
+import { YoutubeChannelId } from '../../../domain/_shared';
 import {
   MediaAttachment,
   MediaAttachmentFilename,
   Performer,
   Stream,
-} from '../../domain/entities';
-import { IMediaAttachmentRepository } from '../../domain/repositories/MediaAttachmentRepository';
-import { IPerformerRepository } from '../../domain/repositories/PerformerRepository';
-import { IStreamRepository } from '../../domain/repositories/StreamRepository';
-import { TYPES } from '../../types';
-import { AppError } from '../errors/AppError';
-import { ILogger } from '../services/Logger';
-import { IYoutubeApiService, Video } from '../services/YoutubeApiService';
+} from '../../../domain/entities';
+import { IMediaAttachmentRepository } from '../../../domain/repositories/MediaAttachmentRepository';
+import { IPerformerRepository } from '../../../domain/repositories/PerformerRepository';
+import { IStreamRepository } from '../../../domain/repositories/StreamRepository';
+import { TYPES } from '../../../types';
+import { AppError } from '../../errors/AppError';
+import { UnexpectedError } from '../../errors/UnexpectedError';
+import { IStreamQueryService, StreamDto } from '../../query-services';
+import { ILogger } from '../../services/Logger';
+import { IYoutubeApiService, Video } from '../../services/YoutubeApiService';
 
 const YOUTUBE_CHANNEL_REGEXP =
   /https:\/\/www\.youtube\.com\/channel\/(.+?)(\/|\s|\n|\?)/g;
@@ -49,6 +51,9 @@ export class CreateStreamPerformerNotFoundWithChannelIdError extends AppError {
 @injectable()
 export class CreateStream {
   constructor(
+    @inject(TYPES.StreamQueryService)
+    private readonly _streamQueryService: IStreamQueryService,
+
     @inject(TYPES.StreamRepository)
     private readonly _streamRepository: IStreamRepository,
 
@@ -65,7 +70,7 @@ export class CreateStream {
     private readonly _logger: ILogger,
   ) {}
 
-  async invoke(params: CreateStreamParams): Promise<Stream> {
+  async invoke(params: CreateStreamParams): Promise<StreamDto> {
     const { videoId } = params;
     const video = await this._fetchVideoById(videoId);
     const stream = await this._streamRepository.findByUrl(new URL(video.url));
@@ -109,7 +114,11 @@ export class CreateStream {
     await this._streamRepository.save(stream);
     this._logger.info(`Stream with ID ${stream.id} is created`, { stream });
 
-    return stream;
+    const result = await this._streamQueryService.query(stream.id);
+    if (result == null) {
+      throw new UnexpectedError();
+    }
+    return result;
   }
 
   async _update(stream: Stream, video: Video) {
@@ -130,7 +139,7 @@ export class CreateStream {
 
     const casts = await this._listCasts(video.description);
 
-    const updated = stream.update({
+    stream = stream.update({
       title: video.title,
       url: new URL(video.url),
       description: video.description,
@@ -141,10 +150,14 @@ export class CreateStream {
       thumbnail,
     });
 
-    await this._streamRepository.update(updated);
-    this._logger.info(`Stream with ID ${updated.id} is updated`);
+    await this._streamRepository.update(stream);
+    this._logger.info(`Stream with ID ${stream.id} is updated`);
 
-    return updated;
+    const result = await this._streamQueryService.query(stream.id);
+    if (result == null) {
+      throw new UnexpectedError();
+    }
+    return result;
   }
 
   private async _fetchVideoById(videoId: string): Promise<Video> {

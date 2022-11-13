@@ -11,6 +11,10 @@ export const TYPES = Object.freeze({
   TokenRepository: Symbol('TokenRepository'),
   UserRepository: Symbol('UserRepository'),
 
+  StreamQueryService: Symbol('StreamQueryService'),
+  PerformerQueryService: Symbol('PerformerQueryService'),
+  OrganizationQueryService: Symbol('OrganizationQueryService'),
+
   PrismaClient: Symbol('PrismaClient'),
   Storage: Symbol('Storage'),
   Logger: Symbol('Logger'),

@@ -16,7 +16,7 @@ import { User } from '../../domain/entities/User';
 
 export const rehydrateMediaAttachmentFromPrisma = (
   mediaAttachment: Prisma.MediaAttachment,
-) => {
+): MediaAttachment => {
   return MediaAttachment.rehydrate({
     id: mediaAttachment.id,
     base64: mediaAttachment.base64,

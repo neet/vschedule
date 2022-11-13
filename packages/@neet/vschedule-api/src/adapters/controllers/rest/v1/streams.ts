@@ -7,9 +7,9 @@ import {
   requestParam,
 } from 'inversify-express-utils';
 
-import { ListStreams } from '../../../../app/use-cases/ListStreams';
-import { ShowStream } from '../../../../app/use-cases/ShowStream';
-import { RestApiPresenter } from '../../../mappers/RestApiMapper';
+import { ListStreams } from '../../../../app/use-cases/stream/ListStreams';
+import { ShowStream } from '../../../../app/use-cases/stream/ShowStream';
+import { RestPresenter } from '../../../mappers/RestApiMapper';
 
 @controller('/rest/v1/streams')
 export class StreamsRestApiController extends BaseHttpController {
@@ -20,8 +20,8 @@ export class StreamsRestApiController extends BaseHttpController {
     @inject(ShowStream)
     private readonly _showStream: ShowStream,
 
-    @inject(RestApiPresenter)
-    private readonly _presenter: RestApiPresenter,
+    @inject(RestPresenter)
+    private readonly _presenter: RestPresenter,
   ) {
     super();
   }
@@ -30,14 +30,11 @@ export class StreamsRestApiController extends BaseHttpController {
   async list(@requestParam() params: Params$listStreams['parameter']) {
     const data = await this._listStreams.invoke({
       limit: params.limit,
-      offset: params.offset,
       organizationId: params.organizationId,
     });
 
     return this.json(
-      data.map(([stream, owner, ownerOrganization]) =>
-        this._presenter.presentStream(stream, owner, ownerOrganization),
-      ),
+      data.map((stream) => this._presenter.presentStream(stream)),
     );
   }
 
@@ -49,9 +46,7 @@ export class StreamsRestApiController extends BaseHttpController {
       return this.notFound();
     }
 
-    const [stream, owner, ownerOrganization] = data;
-    return this.json(
-      this._presenter.presentStream(stream, owner, ownerOrganization),
-    );
+    const stream = data;
+    return this.json(this._presenter.presentStream(stream));
   }
 }

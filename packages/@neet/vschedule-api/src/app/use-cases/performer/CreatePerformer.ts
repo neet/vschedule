@@ -7,18 +7,18 @@ import { URL } from 'url';
 
 import {
   MediaAttachmentFilename,
-  Organization,
   OrganizationId,
   Performer,
-} from '../../domain/entities';
-import { IMediaAttachmentRepository } from '../../domain/repositories/MediaAttachmentRepository';
-import { IOrganizationRepository } from '../../domain/repositories/OrganizationRepository';
-import { IPerformerRepository } from '../../domain/repositories/PerformerRepository';
-import { TYPES } from '../../types';
-import { AppError } from '../errors/AppError';
-import { UnexpectedError } from '../errors/UnexpectedError';
-import { ILogger } from '../services/Logger';
-import { IYoutubeApiService } from '../services/YoutubeApiService';
+} from '../../../domain/entities';
+import { IMediaAttachmentRepository } from '../../../domain/repositories/MediaAttachmentRepository';
+import { IOrganizationRepository } from '../../../domain/repositories/OrganizationRepository';
+import { IPerformerRepository } from '../../../domain/repositories/PerformerRepository';
+import { TYPES } from '../../../types';
+import { AppError } from '../../errors/AppError';
+import { UnexpectedError } from '../../errors/UnexpectedError';
+import { IPerformerQueryService, PerformerDto } from '../../query-services';
+import { ILogger } from '../../services/Logger';
+import { IYoutubeApiService } from '../../services/YoutubeApiService';
 
 export class CreatePerformerChannelNotFoundError extends AppError {
   public readonly name = 'CreatePerformerChannelNotFoundError ';
@@ -56,6 +56,9 @@ export interface CreatePerformerParams {
 @injectable()
 export class CreatePerformer {
   constructor(
+    @inject(TYPES.PerformerQueryService)
+    private readonly _performerQueryService: IPerformerQueryService,
+
     @inject(TYPES.PerformerRepository)
     private readonly _performerRepository: IPerformerRepository,
 
@@ -72,9 +75,7 @@ export class CreatePerformer {
     private readonly _logger: ILogger,
   ) {}
 
-  public async invoke(
-    params: CreatePerformerParams,
-  ): Promise<[Performer, Organization | null]> {
+  public async invoke(params: CreatePerformerParams): Promise<PerformerDto> {
     const {
       name,
       youtubeChannelId,
@@ -86,7 +87,9 @@ export class CreatePerformer {
     } = params;
 
     const channel = await this._fetchChannelById(youtubeChannelId);
-    const organization = await this._fetchOrganization(organizationId);
+    if (organizationId != null) {
+      await this._checkIfOrganizationExists(organizationId);
+    }
 
     // image
     const image = await fetch(channel.thumbnailUrl);
@@ -125,7 +128,11 @@ export class CreatePerformer {
       performer,
     });
 
-    return [performer, organization ?? null];
+    const result = await this._performerQueryService.query(performer.id);
+    if (result == null) {
+      throw new UnexpectedError();
+    }
+    return result;
   }
 
   private async _fetchChannelById(channelId: string) {
@@ -137,17 +144,12 @@ export class CreatePerformer {
     }
   }
 
-  private async _fetchOrganization(
-    rawId?: string | null,
-  ): Promise<Organization | null> {
-    if (rawId == null) return null;
-    const id = new OrganizationId(rawId);
+  private async _checkIfOrganizationExists(orgId: string): Promise<void> {
+    const id = new OrganizationId(orgId);
 
     const org = this._organizationRepository.findById(id);
     if (org == null) {
       throw new CreatePerformerOrganizationNotFoundError(id);
     }
-
-    return org;
   }
 }

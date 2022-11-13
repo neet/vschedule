@@ -11,7 +11,7 @@ import {
 
 import { CreateUser } from '../../app/use-cases/CreateUser';
 import { TYPES } from '../../types';
-import { RestApiPresenter } from '../mappers/RestApiMapper';
+import { RestPresenter } from '../mappers/RestApiMapper';
 
 @controller('/auth')
 export class AuthController extends BaseHttpController {
@@ -19,8 +19,8 @@ export class AuthController extends BaseHttpController {
     @inject(CreateUser)
     private readonly _createUser: CreateUser,
 
-    @inject(RestApiPresenter)
-    private readonly _presenter: RestApiPresenter,
+    @inject(RestPresenter)
+    private readonly _presenter: RestPresenter,
   ) {
     super();
   }

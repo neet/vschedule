@@ -1,9 +1,12 @@
 import { inject, injectable } from 'inversify';
 
-import { Organization, OrganizationId } from '../../domain/entities';
-import { IOrganizationRepository } from '../../domain/repositories/OrganizationRepository';
-import { TYPES } from '../../types';
-import { AppError } from '../errors/AppError';
+import { OrganizationId } from '../../../domain/entities';
+import { TYPES } from '../../../types';
+import { AppError } from '../../errors/AppError';
+import {
+  IOrganizationQueryService,
+  OrganizationDto,
+} from '../../query-services';
 
 export class ShowOrganizationNotFoundError extends AppError {
   public readonly name = 'ShowOrganizationNotFoundError';
@@ -16,13 +19,13 @@ export class ShowOrganizationNotFoundError extends AppError {
 @injectable()
 export class ShowOrganization {
   constructor(
-    @inject(TYPES.OrganizationRepository)
-    private readonly _organizationRepository: IOrganizationRepository,
+    @inject(TYPES.OrganizationQueryService)
+    private readonly _organizationQueryService: IOrganizationQueryService,
   ) {}
 
-  async invoke(id: string): Promise<Organization> {
+  async invoke(id: string): Promise<OrganizationDto> {
     const organizationId = new OrganizationId(id);
-    const organization = await this._organizationRepository.findById(
+    const organization = await this._organizationQueryService.query(
       organizationId,
     );
 
