@@ -83,6 +83,9 @@ export class StreamQueryServicePrisma implements IStreamQueryService {
 
     const data = await this._prisma.stream.findMany({
       where,
+      orderBy: {
+        startedAt: 'desc',
+      },
       take: Math.max(params.limit ?? 60, 300),
       include: SHARED_INCLUDE,
     });

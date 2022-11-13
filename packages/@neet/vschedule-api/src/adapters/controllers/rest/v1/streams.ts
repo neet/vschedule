@@ -5,6 +5,7 @@ import {
   BaseHttpController,
   controller,
   httpGet,
+  queryParam,
   requestParam,
 } from 'inversify-express-utils';
 
@@ -28,7 +29,7 @@ export class StreamsRestApiController extends BaseHttpController {
   }
 
   @httpGet('/')
-  async list(@requestParam() params: Params$listStreams['parameter']) {
+  async list(@queryParam() params: Params$listStreams['parameter']) {
     const data = await this._listStreams.invoke({
       limit: params.limit,
       since: params.since != null ? dayjs(params.since) : undefined,
