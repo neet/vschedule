@@ -11,7 +11,8 @@ import { TableData } from './TableData';
 import { useTimetable } from './useTimetable';
 
 export interface ScheduleListProps {
-  readonly schedules: readonly Schedule[];
+  // intentionally requiring writable array
+  readonly schedules: Schedule[];
 }
 
 // let A = schedule[]
@@ -61,7 +62,7 @@ const createDateSequence = (
 
 // 垂直方向にチャンクにするイメージ。
 const chunkByInterval = (
-  schedules: readonly OrderedSchedule[],
+  schedules: OrderedSchedule[],
   interval: number,
 ): Segment[] => {
   const head = schedules.at(0);
@@ -156,7 +157,11 @@ const ScheduleListPure = (props: ScheduleListProps): JSX.Element => {
   const { interval } = useTimetable();
 
   const segments = useMemo(() => {
-    const ordered = orderSchedule(schedules).sort((a, b) =>
+    const ordered = orderSchedule(
+      schedules.sort(
+        (a, b) => a.startAt.diff(a.endAt) - b.startAt.diff(b.endAt),
+      ),
+    ).sort((a, b) =>
       a.schedule.startAt.diff(b.schedule.startAt, 'millisecond'),
     );
 

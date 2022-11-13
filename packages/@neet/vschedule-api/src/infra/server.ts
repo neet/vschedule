@@ -1,5 +1,9 @@
 import 'reflect-metadata';
 
+import dayjs from 'dayjs';
+import DurationPlugin from 'dayjs/plugin/duration';
+dayjs.extend(DurationPlugin);
+
 import { IAppConfig } from '../app/services/AppConfig/AppConfig';
 import { ILogger } from '../app/services/Logger';
 import { TYPES } from '../types';

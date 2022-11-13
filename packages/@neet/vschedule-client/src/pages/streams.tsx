@@ -1,4 +1,3 @@
-import axios from 'axios';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import type { GetStaticProps } from 'next';
@@ -7,9 +6,10 @@ import Head from 'next/head';
 import { useMemo, useState } from 'react';
 import { Section } from 'react-headings';
 import { useSearchParam } from 'react-use';
+import useSWR from 'swr';
 
 import { api } from '../api';
-import { useListStreams } from '../api/endpoints/vschedule';
+import { Stream } from '../api/model';
 import { ChangeLog } from '../components/app/ChangeLog';
 import { Crown } from '../components/app/Crown';
 import { Skyscraper } from '../components/app/Skyscraper';
@@ -51,15 +51,19 @@ export const getStaticProps: GetStaticProps<StreamsProps> = async () => {
   };
 };
 
-const since = encodeURIComponent(dayjs().subtract(1, 'day').toISOString());
-const until = encodeURIComponent(dayjs().add(1, 'day').toISOString());
-const Streams = (props: StreamsProps): JSX.Element | null => {
-  axios.defaults.baseURL = 'https://api.vschedule.app';
-
-  const { data: streams, isValidating } = useListStreams({
-    since,
-    until,
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
+const key =
+  'https://api.vschedule.app/rest/v1/streams?' +
+  new URLSearchParams({
+    since: dayjs().subtract(1, 'day').toISOString(),
+    until: dayjs().add(1, 'day').toISOString(),
+    // その日の最初から最後まで
+    // since: dayjs().set('hours', 0).set('minute', 0).toISOString(),
+    // until: dayjs().set('hours', 23).set('minute', 59).toISOString(),
   });
+
+const Streams = (props: StreamsProps): JSX.Element | null => {
+  const { data: streams, isValidating } = useSWR<Stream[]>(key, fetcher);
   const upcomingEvents = useUpcomingEvents();
   const genreQuery = useGenreQueryParam();
   const [genre, setGenre] = useState(genreQuery ?? GENRE_ALL);
@@ -68,9 +72,9 @@ const Streams = (props: StreamsProps): JSX.Element | null => {
 
   // prettier-ignore
   const schedules = useMemo(() => (
-   streams?.data
+   streams
       // ?.filter((stream) => genre === GENRE_ALL || stream.genre?.id === genre)
-      .map((stream) => ({
+      ?.map((stream) => ({
         startAt: dayjs(stream.startedAt),
         endAt: stream.endedAt != null ? dayjs(stream.endedAt) : dayjs(stream.startedAt).add(1, 'hour'),
         node: <StreamMarker stream={stream} />,
@@ -78,8 +82,8 @@ const Streams = (props: StreamsProps): JSX.Element | null => {
     ?? []
   ), [streams]);
 
-  const head = streams?.data.at(-1);
-  const tail = streams?.data.at(0);
+  const head = streams?.at(-1);
+  const tail = streams?.at(0);
   const startAt = head != null ? dayjs(head.startedAt) : dayjs();
   const endedAt =
     tail?.endedAt != null
@@ -143,7 +147,7 @@ const Streams = (props: StreamsProps): JSX.Element | null => {
             mode="streams"
             events={upcomingEvents}
             loading={isValidating}
-            upcomingStreams={streams?.data}
+            upcomingStreams={streams}
           />
         </div>
       </TimetableProvider>

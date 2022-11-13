@@ -6,7 +6,7 @@ import {
   Stream,
 } from '@prisma/client';
 import Color from 'color';
-import dayjs from 'dayjs';
+import dayjs, { duration } from 'dayjs';
 
 import { UnexpectedError } from '../../app/errors/UnexpectedError';
 import {
@@ -135,6 +135,9 @@ export const transferStreamFromPrisma = (
     updatedAt: dayjs(stream.updatedAt),
 
     // TODO: どうするか考える
-    duration: null,
+    duration:
+      stream.endedAt != null
+        ? duration(dayjs(stream.endedAt).diff(stream.startedAt))
+        : null,
   };
 };

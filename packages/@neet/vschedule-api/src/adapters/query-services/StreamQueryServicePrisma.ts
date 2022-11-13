@@ -6,6 +6,7 @@ import {
   StreamDto,
   StreamQueryManyParams,
 } from '../../app/query-services';
+import { ILogger } from '../../app/services/Logger';
 import { StreamId } from '../../domain/entities';
 import { TYPES } from '../../types';
 import { transferStreamFromPrisma } from '../mappers/PrismaDtoMapper';
@@ -37,6 +38,9 @@ export class StreamQueryServicePrisma implements IStreamQueryService {
   constructor(
     @inject(TYPES.PrismaClient)
     private readonly _prisma: PrismaClient,
+
+    @inject(TYPES.Logger)
+    private readonly _logger: ILogger,
   ) {}
 
   async query(id: StreamId): Promise<StreamDto | undefined> {
@@ -60,7 +64,7 @@ export class StreamQueryServicePrisma implements IStreamQueryService {
     if (params.organizationId != null) {
       where.AND.push({
         owner: {
-          organizationId: params.organizationId?.value,
+          organizationId: params.organizationId.value,
         },
       });
     }
@@ -68,7 +72,7 @@ export class StreamQueryServicePrisma implements IStreamQueryService {
     if (params.since != null) {
       where.AND.push({
         startedAt: {
-          gte: params.since?.toDate(),
+          gte: params.since.toDate(),
         },
       });
     }
@@ -76,10 +80,12 @@ export class StreamQueryServicePrisma implements IStreamQueryService {
     if (params.until != null) {
       where.AND.push({
         startedAt: {
-          lte: params.until?.toDate(),
+          lte: params.until.toDate(),
         },
       });
     }
+
+    this._logger.debug(JSON.stringify(where));
 
     const data = await this._prisma.stream.findMany({
       where,
