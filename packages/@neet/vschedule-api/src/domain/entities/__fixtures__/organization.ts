@@ -3,9 +3,9 @@ import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { URL } from 'url';
 
-import { Timestamps } from '../../_shared/Timestamps';
-import { MediaAttachment } from '../MediaAttachment';
-import { Organization } from '../Organization';
+import { Timestamps } from '../../_shared/timestamps';
+import { MediaAttachment } from '../media-attachment';
+import { Organization } from '../organization';
 
 export const organizationFixture = Organization.rehydrate({
   id: nanoid(),
@@ -21,7 +21,7 @@ export const organizationFixture = Organization.rehydrate({
   }),
   avatar: MediaAttachment.rehydrate({
     id: nanoid(),
-    base64:
+    blurDataUri:
       'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAACCAIAAADwyuo0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAI0lEQVR4nGPgZTDeNLFnb5lTrqwlQ5GH0/+3p2xYFA/17gYAeW8KZZGWAkQAAAAASUVORK5CYII=',
     timestamps: new Timestamps({
       createdAt: dayjs(),

@@ -4,8 +4,8 @@ import dayjs from 'dayjs';
 import DurationPlugin from 'dayjs/plugin/duration';
 dayjs.extend(DurationPlugin);
 
-import { IAppConfig } from '../app/services/AppConfig/AppConfig';
-import { ILogger } from '../app/services/Logger';
+import { IAppConfig } from '../app/services/app-config/app-config';
+import { ILogger } from '../app/services/logger';
 import { TYPES } from '../types';
 import { createApp } from './app';
 import { container } from './inversify-config';

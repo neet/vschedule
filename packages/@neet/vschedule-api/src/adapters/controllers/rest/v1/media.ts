@@ -6,7 +6,7 @@ import {
   requestParam,
 } from 'inversify-express-utils';
 
-import { ShowMediaAttachment } from '../../../../app/use-cases/ShowMediaAttachment';
+import { ShowMediaAttachment } from '../../../../app/use-cases/show-media-attachment';
 
 @controller('/rest/v1/media')
 export class MediaAttachmentController extends BaseHttpController {

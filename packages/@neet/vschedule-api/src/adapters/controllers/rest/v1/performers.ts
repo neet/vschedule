@@ -16,13 +16,13 @@ import {
   requestParam,
 } from 'inversify-express-utils';
 
-import { CreatePerformer } from '../../../../app/use-cases/performer/CreatePerformer';
-import { ListPerformers } from '../../../../app/use-cases/performer/ListPerformers';
-import { ShowPerformer } from '../../../../app/use-cases/performer/ShowPerformer';
-import { SubscribeToPerformer } from '../../../../app/use-cases/performer/SubscribeToPerformer';
-import { UpdatePerformer } from '../../../../app/use-cases/performer/UpdatePerformer';
+import { CreatePerformer } from '../../../../app/use-cases/performer/create-performer';
+import { ListPerformers } from '../../../../app/use-cases/performer/list-performers';
+import { ShowPerformer } from '../../../../app/use-cases/performer/show-performer';
+import { SubscribeToPerformer } from '../../../../app/use-cases/performer/subscribe-to-performer';
+import { UpdatePerformer } from '../../../../app/use-cases/performer/update-performer';
 import { TYPES } from '../../../../types';
-import { RestPresenter } from '../../../mappers/RestApiMapper';
+import { RestPresenter } from '../../../mappers/rest-presenter';
 
 @controller('/rest/v1/performers')
 export class PerformersController extends BaseHttpController {

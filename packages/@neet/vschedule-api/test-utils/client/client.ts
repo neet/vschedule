@@ -12,7 +12,7 @@ import supertest from 'supertest';
 
 import { createApp } from '../../src/infra/app';
 import { container } from '../inversify-config';
-import { generateQueryString } from './generateQueryString';
+import { generateQueryString } from './generate-query-string';
 
 interface RequestOption {
   readonly headers?: ObjectLike;

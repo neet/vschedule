@@ -14,9 +14,9 @@ import {
   response,
 } from 'inversify-express-utils';
 
-import { CreateResubscriptionTask } from '../../../app/use-cases/CreateResubscriptionTask';
-import { CreateStream } from '../../../app/use-cases/stream/CreateStream';
-import { RemoveStream } from '../../../app/use-cases/stream/RemoveStream';
+import { CreateResubscriptionTask } from '../../../app/use-cases/create-resubscription-task';
+import { CreateStream } from '../../../app/use-cases/stream/create-stream';
+import { RemoveStream } from '../../../app/use-cases/stream/remove-stream';
 import { TYPES } from '../../../types';
 
 @controller('/websub/youtube')

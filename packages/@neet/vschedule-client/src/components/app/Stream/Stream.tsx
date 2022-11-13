@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { memo } from 'react';
 
-import type { Stream as StreamModel } from '../../../api/model/stream';
+import type { Stream as StreamModel } from '../../../api/@types';
 import { useAutoplay } from '../../hooks/useAutoplay';
 import { useNow } from '../../hooks/useNow';
 import type { EntryVariant } from '../../ui/Entry';
@@ -52,7 +52,7 @@ const StreamPure = (props: EventProps): JSX.Element => {
       thumbnail={{
         url: stream.thumbnail?.url ?? '',
         alt: stream.title,
-        blurDataUrl: stream.thumbnail?.base64,
+        blurDataUrl: stream.thumbnail?.blurDataUri,
       }}
       tag={undefined}
       date={new Date(stream.startedAt)}

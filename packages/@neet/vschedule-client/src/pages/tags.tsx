@@ -6,7 +6,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { H, Section } from 'react-headings';
 
-import { api } from '../api';
+import { api } from '../api-legacy';
 import { useGenres } from '../components/hooks/useGenres';
 import Article from '../components/layouts/Article';
 import { Card } from '../components/ui/Card';

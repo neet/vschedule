@@ -7,7 +7,7 @@ export const MediaAttachment = registry.register(
   z.object({
     id: z.string(),
     filename: z.string(),
-    base64: z.string(),
+    blurDataUri: z.string(),
     width: z.number(),
     height: z.number(),
     url: z.string().url(),

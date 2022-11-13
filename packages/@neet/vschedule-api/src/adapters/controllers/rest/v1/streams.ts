@@ -9,9 +9,9 @@ import {
   requestParam,
 } from 'inversify-express-utils';
 
-import { ListStreams } from '../../../../app/use-cases/stream/ListStreams';
-import { ShowStream } from '../../../../app/use-cases/stream/ShowStream';
-import { RestPresenter } from '../../../mappers/RestApiMapper';
+import { ListStreams } from '../../../../app/use-cases/stream/list-streams';
+import { ShowStream } from '../../../../app/use-cases/stream/show-stream';
+import { RestPresenter } from '../../../mappers/rest-presenter';
 
 @controller('/rest/v1/streams')
 export class StreamsRestApiController extends BaseHttpController {

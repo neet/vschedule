@@ -3,7 +3,7 @@
 import type { SWRConfiguration } from 'swr';
 import useSWR from 'swr';
 
-import { proxyAPI } from '../../api';
+import { proxyAPI } from '../../api-legacy';
 import type { LiversResponse } from '../../types';
 
 export const useLivers = (config?: SWRConfiguration<LiversResponse>) => {

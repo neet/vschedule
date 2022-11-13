@@ -8,7 +8,7 @@ import { createPortal } from 'react-dom';
 import { H } from 'react-headings';
 import { usePopper } from 'react-popper';
 
-import type { Stream as StreamModel } from '../../../api/model/stream';
+import type { Stream as StreamModel } from '../../../api/@types';
 import { useDelayedHover } from '../../hooks/useDelayedHover';
 import { usePrefersColorScheme } from '../../hooks/usePrefersColorScheme';
 import { Card } from '../../ui/Card';
@@ -80,7 +80,7 @@ export const StreamMarker = (props: StreamProps): JSX.Element | null => {
                 height={stream.owner.avatar.height}
                 src={stream.owner.avatar.url}
                 placeholder="blur"
-                blurDataURL={stream.owner.avatar.base64}
+                blurDataURL={stream.owner.avatar.blurDataUri}
                 alt={stream.owner.name}
                 style={{
                   backgroundColor: isDark

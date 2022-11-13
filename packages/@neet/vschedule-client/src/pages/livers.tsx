@@ -2,7 +2,7 @@ import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { H, Section } from 'react-headings';
 
-import { api } from '../api';
+import { api } from '../api-legacy';
 import { Liver } from '../components/app/Liver';
 import { useLivers } from '../components/hooks/useLivers';
 import Article from '../components/layouts/Article';
