@@ -1,10 +1,10 @@
 import { inject, injectable } from 'inversify';
 import { URL } from 'url';
 
-import { IStreamRepository } from '../../domain/repositories/StreamRepository';
-import { TYPES } from '../../types';
-import { AppError } from '../errors/AppError';
-import { ILogger } from '../services/Logger';
+import { IStreamRepository } from '../../../domain/repositories/StreamRepository';
+import { TYPES } from '../../../types';
+import { AppError } from '../../errors/AppError';
+import { ILogger } from '../../services/Logger';
 
 export class RemoveStreamNotFoundError extends AppError {
   public readonly name = 'RemoveStreamNotFoundError';

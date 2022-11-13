@@ -1,13 +1,21 @@
 import { PrismaClient } from '@prisma/client';
 import { Container } from 'inversify';
 
-import { MediaAttachmentRepositoryPrismaImpl } from '../adapters/dal/MediaAttachmentRepository';
-import { OrganizationRepository } from '../adapters/dal/OrganizationRepository';
-import { PerformerRepository } from '../adapters/dal/PerformerRepository';
-import { ResubscriptionTaskRepository } from '../adapters/dal/ResubscriptionTaskRepository';
-import { StreamRepository } from '../adapters/dal/StreamRepository';
-import { TokenRepository } from '../adapters/dal/TokenRepository';
-import { UserRepository } from '../adapters/dal/UserRepository';
+import { OrganizationQueryServicePrisma } from '../adapters/query-services/OrganizationQueryServicePrisma';
+import { PerformerQueryService } from '../adapters/query-services/PerformerQueryService';
+import { StreamQueryServicePrisma } from '../adapters/query-services/StreamQueryServicePrisma';
+import { MediaAttachmentRepositoryPrismaImpl } from '../adapters/repositories/MediaAttachmentRepository';
+import { OrganizationRepository } from '../adapters/repositories/OrganizationRepository';
+import { PerformerRepository } from '../adapters/repositories/PerformerRepository';
+import { ResubscriptionTaskRepository } from '../adapters/repositories/ResubscriptionTaskRepository';
+import { StreamRepository } from '../adapters/repositories/StreamRepository';
+import { TokenRepository } from '../adapters/repositories/TokenRepository';
+import { UserRepository } from '../adapters/repositories/UserRepository';
+import {
+  IOrganizationQueryService,
+  IPerformerQueryService,
+  IStreamQueryService,
+} from '../app/query-services';
 import { IAppConfig } from '../app/services/AppConfig/AppConfig';
 import { ILogger } from '../app/services/Logger';
 import { IStorage } from '../app/services/Storage';
@@ -96,6 +104,18 @@ container
 container
   .bind<IYoutubeWebsubService>(TYPES.YoutubeWebsubService)
   .to(YoutubeWebsubService);
+
+container
+  .bind<IOrganizationQueryService>(TYPES.OrganizationQueryService)
+  .to(OrganizationQueryServicePrisma);
+
+container
+  .bind<IStreamQueryService>(TYPES.StreamQueryService)
+  .to(StreamQueryServicePrisma);
+
+container
+  .bind<IPerformerQueryService>(TYPES.PerformerQueryService)
+  .to(PerformerQueryService);
 
 container.bind(TYPES.YoutubeWebsubParser).to(YoutubeWebsubParser);
 

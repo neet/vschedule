@@ -3,20 +3,20 @@ import { URL } from 'node:url';
 import { Schemas } from '@neet/vschedule-api-client';
 import { inject, injectable } from 'inversify';
 
+import {
+  ActorDto,
+  OrganizationDto,
+  PerformerDto,
+  StreamDto,
+} from '../../app/query-services';
 import { IAppConfig } from '../../app/services/AppConfig/AppConfig';
 import { unwrap } from '../../domain/_core';
-import {
-  Actor,
-  MediaAttachment,
-  Organization,
-  Performer,
-  Stream,
-} from '../../domain/entities';
+import { MediaAttachment } from '../../domain/entities';
 import { User } from '../../domain/entities/User';
 import { TYPES } from '../../types';
 
 @injectable()
-export class RestApiPresenter {
+export class RestPresenter {
   private readonly _origin: string;
 
   public constructor(
@@ -45,7 +45,7 @@ export class RestApiPresenter {
     };
   }
 
-  public presentActor(actor: Actor): Schemas.Actor {
+  public presentActor(actor: ActorDto): Schemas.Actor {
     return {
       name: actor.name.value,
       url: actor.url === null ? null : actor.url.toString(),
@@ -60,7 +60,9 @@ export class RestApiPresenter {
     };
   }
 
-  public presentOrganization(organization: Organization): Schemas.Organization {
+  public presentOrganization(
+    organization: OrganizationDto,
+  ): Schemas.Organization {
     return {
       ...this.presentActor(organization),
       id: organization.id.value,
@@ -69,27 +71,20 @@ export class RestApiPresenter {
     };
   }
 
-  public presentPerformer(
-    performer: Performer,
-    organization: Organization | null,
-  ): Schemas.Performer {
+  public presentPerformer(performer: PerformerDto): Schemas.Performer {
     return {
       ...this.presentActor(performer),
       id: performer.id.value,
       createdAt: performer.createdAt.toISOString(),
       updatedAt: performer.updatedAt.toISOString(),
       organization:
-        organization !== null
-          ? this.presentOrganization(organization)
+        performer.organization !== null
+          ? this.presentOrganization(performer.organization)
           : undefined,
     };
   }
 
-  public presentStream(
-    stream: Stream,
-    owner: Performer,
-    ownerOrganization: Organization | null,
-  ): Schemas.Stream {
+  public presentStream(stream: StreamDto): Schemas.Stream {
     return {
       id: stream.id.value,
       title: stream.title.value,
@@ -99,7 +94,7 @@ export class RestApiPresenter {
       updatedAt: stream.updatedAt.toISOString(),
       startedAt: stream.startedAt.toISOString(),
       endedAt: stream.endedAt === null ? null : stream.endedAt.toISOString(),
-      owner: this.presentPerformer(owner, ownerOrganization),
+      owner: this.presentPerformer(stream.owner),
       duration: stream.duration === null ? null : stream.duration.toISOString(),
       casts: [], // TODO
       thumbnail:

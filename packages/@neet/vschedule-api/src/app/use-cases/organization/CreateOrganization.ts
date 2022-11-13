@@ -5,14 +5,21 @@ import fetch from 'node-fetch';
 import sharp from 'sharp';
 import { URL } from 'url';
 
-import { MediaAttachmentFilename, Organization } from '../../domain/entities';
-import { IMediaAttachmentRepository } from '../../domain/repositories/MediaAttachmentRepository';
-import { IOrganizationRepository } from '../../domain/repositories/OrganizationRepository';
-import { TYPES } from '../../types';
-import { AppError } from '../errors/AppError';
-import { UnexpectedError } from '../errors/UnexpectedError';
-import { ILogger } from '../services/Logger';
-import { IYoutubeApiService } from '../services/YoutubeApiService';
+import {
+  MediaAttachmentFilename,
+  Organization,
+} from '../../../domain/entities';
+import { IMediaAttachmentRepository } from '../../../domain/repositories/MediaAttachmentRepository';
+import { IOrganizationRepository } from '../../../domain/repositories/OrganizationRepository';
+import { TYPES } from '../../../types';
+import { AppError } from '../../errors/AppError';
+import { UnexpectedError } from '../../errors/UnexpectedError';
+import {
+  IOrganizationQueryService,
+  OrganizationDto,
+} from '../../query-services';
+import { ILogger } from '../../services/Logger';
+import { IYoutubeApiService } from '../../services/YoutubeApiService';
 
 export class CreateOrganizationChannelNotFoundError extends AppError {
   public readonly name = 'CreateOrganizationChannelNotFoundError';
@@ -37,6 +44,9 @@ export interface CreateOrganizationParams {
 @injectable()
 export class CreateOrganization {
   public constructor(
+    @inject(TYPES.OrganizationQueryService)
+    private readonly _organizationQueryService: IOrganizationQueryService,
+
     @inject(TYPES.OrganizationRepository)
     private readonly _organizationRepository: IOrganizationRepository,
 
@@ -50,7 +60,9 @@ export class CreateOrganization {
     private readonly _logger: ILogger,
   ) {}
 
-  public async invoke(params: CreateOrganizationParams): Promise<Organization> {
+  public async invoke(
+    params: CreateOrganizationParams,
+  ): Promise<OrganizationDto> {
     const { name, url, description, color, youtubeChannelId, twitterUsername } =
       params;
 
@@ -80,7 +92,11 @@ export class CreateOrganization {
       organization,
     });
 
-    return organization;
+    const result = await this._organizationQueryService.query(organization.id);
+    if (result == null) {
+      throw new UnexpectedError();
+    }
+    return result;
   }
 
   private async _createAvatar(youtubeChannelId: string) {

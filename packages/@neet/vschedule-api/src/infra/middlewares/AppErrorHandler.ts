@@ -3,28 +3,28 @@ import { ErrorRequestHandler, Response } from 'express';
 
 import { AppError } from '../../app/errors/AppError';
 import { UnexpectedError } from '../../app/errors/UnexpectedError';
-import { CreateOrganizationChannelNotFoundError } from '../../app/use-cases/CreateOrganization';
 import {
-  CreatePerformerChannelNotFoundError,
-  CreatePerformerOrganizationNotFoundError,
-} from '../../app/use-cases/CreatePerformer';
+  CreateStreamFailedToFetchVideoError,
+  CreateStreamPerformerNotFoundWithChannelIdError,
+} from '../../app/use-cases//stream/CreateStream';
 import {
   CreateResubscriptionTaskInvalidTopicError,
   CreateResubscriptionTaskUnknownActorError,
 } from '../../app/use-cases/CreateResubscriptionTask';
+import { CreateOrganizationChannelNotFoundError } from '../../app/use-cases/organization/CreateOrganization';
+import { ShowOrganizationNotFoundError } from '../../app/use-cases/organization/ShowOrganization';
 import {
-  CreateStreamFailedToFetchVideoError,
-  CreateStreamPerformerNotFoundWithChannelIdError,
-} from '../../app/use-cases/CreateStream';
-import { RemoveStreamNotFoundError } from '../../app/use-cases/RemoveStream';
-import { ShowMediaAttachmentNotFoundError } from '../../app/use-cases/ShowMediaAttachment';
-import { ShowOrganizationNotFoundError } from '../../app/use-cases/ShowOrganization';
-import { ShowPerformerNotFoundError } from '../../app/use-cases/ShowPerformer';
-import { ShowStreamOwnerNotFoundError } from '../../app/use-cases/ShowStream';
+  CreatePerformerChannelNotFoundError,
+  CreatePerformerOrganizationNotFoundError,
+} from '../../app/use-cases/performer/CreatePerformer';
+import { ShowPerformerNotFoundError } from '../../app/use-cases/performer/ShowPerformer';
 import {
   UpdatePerformerNotFoundError,
   UpdatePerformerOrganizationNotFoundError,
-} from '../../app/use-cases/UpdatePerformer';
+} from '../../app/use-cases/performer/UpdatePerformer';
+import { ShowMediaAttachmentNotFoundError } from '../../app/use-cases/ShowMediaAttachment';
+import { RemoveStreamNotFoundError } from '../../app/use-cases/stream/RemoveStream';
+import { ShowStreamNotFoundError } from '../../app/use-cases/stream/ShowStream';
 
 export const appErrorHandler: ErrorRequestHandler = (
   error,
@@ -37,7 +37,7 @@ export const appErrorHandler: ErrorRequestHandler = (
   }
 
   if (error instanceof UnexpectedError) {
-    res.status(503);
+    res.status(500);
   }
   if (error instanceof CreatePerformerOrganizationNotFoundError) {
     res.status(404);
@@ -72,8 +72,8 @@ export const appErrorHandler: ErrorRequestHandler = (
   if (error instanceof ShowPerformerNotFoundError) {
     res.status(404);
   }
-  if (error instanceof ShowStreamOwnerNotFoundError) {
-    res.status(403);
+  if (error instanceof ShowStreamNotFoundError) {
+    res.status(404);
   }
   if (error instanceof UpdatePerformerOrganizationNotFoundError) {
     res.status(403);

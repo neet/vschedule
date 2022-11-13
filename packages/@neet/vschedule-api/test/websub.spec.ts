@@ -4,7 +4,7 @@ import { advanceTo, clear } from 'jest-date-mock';
 import path from 'path';
 import { URLSearchParams } from 'url';
 
-import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/dal/ResubscriptionTaskRepositoryInMemory';
+import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/repositories/ResubscriptionTaskRepositoryInMemory';
 import { IAppConfig } from '../src/app/services/AppConfig/AppConfig';
 import { TYPES } from '../src/types';
 import { createRequest } from '../test-utils/client/client';
@@ -139,7 +139,7 @@ describe('/websub/youtube', () => {
       .send(ytWebsubStreamDeleted);
     expect(res.ok).toBe(true);
 
-    expect(
+    await expect(
       client.showStream({
         parameter: {
           streamId: SEED_STREAM_ID,

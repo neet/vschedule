@@ -13,11 +13,11 @@ import {
   requestParam,
 } from 'inversify-express-utils';
 
-import { CreateOrganization } from '../../../../app/use-cases/CreateOrganization';
-import { ListOrganization } from '../../../../app/use-cases/ListOrganizations';
-import { ShowOrganization } from '../../../../app/use-cases/ShowOrganization';
+import { CreateOrganization } from '../../../../app/use-cases/organization/CreateOrganization';
+import { ListOrganization } from '../../../../app/use-cases/organization/ListOrganizations';
+import { ShowOrganization } from '../../../../app/use-cases/organization/ShowOrganization';
 import { TYPES } from '../../../../types';
-import { RestApiPresenter } from '../../../mappers/RestApiMapper';
+import { RestPresenter } from '../../../mappers/RestApiMapper';
 
 @controller('/rest/v1/organizations')
 export class OrganizationsController extends BaseHttpController {
@@ -31,8 +31,8 @@ export class OrganizationsController extends BaseHttpController {
     @inject(ListOrganization)
     private readonly _listOrganization: ListOrganization,
 
-    @inject(RestApiPresenter)
-    private readonly _presenter: RestApiPresenter,
+    @inject(RestPresenter)
+    private readonly _presenter: RestPresenter,
   ) {
     super();
   }

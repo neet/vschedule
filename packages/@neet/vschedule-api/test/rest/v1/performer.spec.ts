@@ -10,17 +10,14 @@ import {
   container,
   mockYoutubeWebsubService,
 } from '../../../test-utils/inversify-config';
+import { login } from '../../../test-utils/login';
 import { SEED_PERFORMER_ID } from '../../../test-utils/seed';
 
 describe('Performer', () => {
   const { client, request } = createRequest();
 
   it('can create performer', async () => {
-    const res = await request
-      .post(`/auth/login`)
-      .send({ email: 'test@example.com', password: 'password' });
-    const cookie = res.headers['set-cookie'];
-
+    const headers = await login(request);
     const { id } = await client.createPerformer(
       {
         requestBody: {
@@ -31,7 +28,7 @@ describe('Performer', () => {
           organizationId: null,
         },
       },
-      { headers: { Cookie: cookie } },
+      { headers },
     );
 
     const performer = await client.showPerformer({

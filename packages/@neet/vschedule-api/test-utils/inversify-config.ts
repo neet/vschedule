@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import winston from 'winston';
 
-import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/dal/ResubscriptionTaskRepositoryInMemory';
+import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/repositories/ResubscriptionTaskRepositoryInMemory';
 import { IStorage } from '../src/app/services/Storage';
 import { IYoutubeWebsubService } from '../src/app/services/YoutubeWebsubService';
 import { IResubscriptionTaskRepository } from '../src/domain/repositories/ResubscriptionTaskRepository';

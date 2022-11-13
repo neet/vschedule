@@ -16,13 +16,13 @@ import {
   requestParam,
 } from 'inversify-express-utils';
 
-import { CreatePerformer } from '../../../../app/use-cases/CreatePerformer';
-import { ListPerformers } from '../../../../app/use-cases/ListPerformers';
-import { ShowPerformer } from '../../../../app/use-cases/ShowPerformer';
-import { SubscribeToPerformer } from '../../../../app/use-cases/SubscribeToYoutubeWebsub';
-import { UpdatePerformer } from '../../../../app/use-cases/UpdatePerformer';
+import { CreatePerformer } from '../../../../app/use-cases/performer/CreatePerformer';
+import { ListPerformers } from '../../../../app/use-cases/performer/ListPerformers';
+import { ShowPerformer } from '../../../../app/use-cases/performer/ShowPerformer';
+import { SubscribeToPerformer } from '../../../../app/use-cases/performer/SubscribeToPerformer';
+import { UpdatePerformer } from '../../../../app/use-cases/performer/UpdatePerformer';
 import { TYPES } from '../../../../types';
-import { RestApiPresenter } from '../../../mappers/RestApiMapper';
+import { RestPresenter } from '../../../mappers/RestApiMapper';
 
 @controller('/rest/v1/performers')
 export class PerformersController extends BaseHttpController {
@@ -42,17 +42,15 @@ export class PerformersController extends BaseHttpController {
     @inject(SubscribeToPerformer)
     private readonly _subscribeToPerformer: SubscribeToPerformer,
 
-    @inject(RestApiPresenter)
-    private readonly _presenter: RestApiPresenter,
+    @inject(RestPresenter)
+    private readonly _presenter: RestPresenter,
   ) {
     super();
   }
 
   @httpGet('/:performerId')
   async show(@requestParam('performerId') performerId: string) {
-    const [performer, organization] = await this._showPerformer.invoke(
-      performerId,
-    );
+    const performer = await this._showPerformer.invoke(performerId);
 
     if (performer == null) {
       return this.json(
@@ -61,7 +59,7 @@ export class PerformersController extends BaseHttpController {
       );
     }
 
-    return this.json(this._presenter.presentPerformer(performer, organization));
+    return this.json(this._presenter.presentPerformer(performer));
   }
 
   @httpPatch('/:performerId')
@@ -69,19 +67,16 @@ export class PerformersController extends BaseHttpController {
     @requestParam('performerId') performerId: string,
     @requestBody() body: RequestBody$updatePerformer['application/json'],
   ) {
-    const [performer, organization] = await this._updatePerformer.invoke(
-      performerId,
-      {
-        name: body.name,
-        color: body.color,
-        description: body.description,
-        youtubeChannelId: body.youtubeChannelId,
-        twitterUsername: body.twitterUsername,
-        organizationId: body.organizationId,
-      },
-    );
+    const performer = await this._updatePerformer.invoke(performerId, {
+      name: body.name,
+      color: body.color,
+      description: body.description,
+      youtubeChannelId: body.youtubeChannelId,
+      twitterUsername: body.twitterUsername,
+      organizationId: body.organizationId,
+    });
 
-    return this.json(this._presenter.presentPerformer(performer, organization));
+    return this.json(this._presenter.presentPerformer(performer));
   }
 
   @httpPost('/:performerId/subscribe', TYPES.Authenticated)
@@ -101,10 +96,9 @@ export class PerformersController extends BaseHttpController {
       offset: params.offset,
     });
 
-    // TODO: organizationが拾えてない
     return this.json(
       performers.map((performer) =>
-        this._presenter.presentPerformer(performer, null),
+        this._presenter.presentPerformer(performer),
       ),
     );
   }
@@ -113,7 +107,7 @@ export class PerformersController extends BaseHttpController {
   async create(
     @requestBody() body: RequestBody$createPerformer['application/json'],
   ) {
-    const [performer, organization] = await this._createPerformer.invoke({
+    const performer = await this._createPerformer.invoke({
       youtubeChannelId: body.youtubeChannelId,
       name: body.name,
       description: body.description,
@@ -123,6 +117,6 @@ export class PerformersController extends BaseHttpController {
       organizationId: body.organizationId,
     });
 
-    return this.json(this._presenter.presentPerformer(performer, organization));
+    return this.json(this._presenter.presentPerformer(performer));
   }
 }
