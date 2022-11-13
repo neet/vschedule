@@ -54,7 +54,10 @@ export const getStaticProps: GetStaticProps<StreamsProps> = async () => {
 const Streams = (props: StreamsProps): JSX.Element | null => {
   axios.defaults.baseURL = 'https://api.vschedule.app';
 
-  const { data: streams, isValidating } = useListStreams();
+  const { data: streams, isValidating } = useListStreams({
+    since: dayjs().subtract(1, 'day').toISOString(),
+    until: dayjs().add(1, 'day').toISOString(),
+  });
   const upcomingEvents = useUpcomingEvents();
   const genreQuery = useGenreQueryParam();
   const [genre, setGenre] = useState(genreQuery ?? GENRE_ALL);

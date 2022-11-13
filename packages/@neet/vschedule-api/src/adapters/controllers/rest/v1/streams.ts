@@ -1,4 +1,5 @@
 import { Params$listStreams } from '@neet/vschedule-api-client';
+import dayjs from 'dayjs';
 import { inject } from 'inversify';
 import {
   BaseHttpController,
@@ -30,6 +31,8 @@ export class StreamsRestApiController extends BaseHttpController {
   async list(@requestParam() params: Params$listStreams['parameter']) {
     const data = await this._listStreams.invoke({
       limit: params.limit,
+      since: params.since != null ? dayjs(params.since) : undefined,
+      until: params.until != null ? dayjs(params.until) : undefined,
       organizationId: params.organizationId,
     });
 

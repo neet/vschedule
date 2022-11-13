@@ -62,7 +62,8 @@ registry.registerPath({
   request: {
     query: z.object({
       limit: z.number().optional(),
-      offset: z.number().optional(),
+      since: z.date().optional(),
+      until: z.date().optional(),
       organizationId: z.string().optional(),
     }),
   },
