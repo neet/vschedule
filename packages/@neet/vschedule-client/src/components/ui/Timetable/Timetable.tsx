@@ -14,7 +14,7 @@ import { useSwapWheel } from './useSwapWheel';
 import { useTimetable } from './useTimetable';
 
 export interface TimetableProps {
-  readonly schedules: readonly Schedule[];
+  readonly schedules: Schedule[];
   readonly swapDelta?: boolean;
   readonly loading?: boolean;
 }
