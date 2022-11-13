@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.15](https://github.com/neet/vschedule/compare/@neet/vschedule-client@0.0.14...@neet/vschedule-client@0.0.15) (2022-11-13)
+
+### Bug Fixes
+
+* Add write to schedules object ([9bce30e](https://github.com/neet/vschedule/commit/9bce30e8069465d114b1ca0c451364ccfdaf1a89))
+
 ## [0.0.14](https://github.com/neet/vschedule/compare/@neet/vschedule-client@0.0.13...@neet/vschedule-client@0.0.14) (2022-11-13)
 
 **Note:** Version bump only for package @neet/vschedule-client
