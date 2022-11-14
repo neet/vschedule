@@ -2,12 +2,12 @@ import { Prisma, PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 
 import {
+  ILogger,
   IStreamQueryService,
   StreamDto,
   StreamQueryManyParams,
-} from '../../app/query-services';
-import { ILogger } from '../../app/services/logger';
-import { StreamId } from '../../domain/entities';
+} from '../../app';
+import { StreamId } from '../../domain';
 import { TYPES } from '../../types';
 import { transferStreamFromPrisma } from '../mappers/prisma-dto-mapper';
 

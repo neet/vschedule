@@ -2,13 +2,13 @@ import { PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 import { getPlaiceholder } from 'plaiceholder';
 
-import { IStorage } from '../../app/services/storage';
+import { IStorage } from '../../app';
 import {
+  IMediaAttachmentRepository,
   MediaAttachment,
   MediaAttachmentFilename,
   MediaAttachmentId,
-} from '../../domain/entities';
-import { IMediaAttachmentRepository } from '../../domain/entities/media-attachment';
+} from '../../domain';
 import { TYPES } from '../../types';
 import { rehydrateMediaAttachmentFromPrisma } from '../mappers/prisma-entity-mapper';
 

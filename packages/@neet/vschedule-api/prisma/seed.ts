@@ -9,8 +9,8 @@ import {
 } from '@neet/vschedule-seeds';
 import { PrismaClient } from '@prisma/client';
 
-import { CreateOrganization } from '../src/app/use-cases/organization/create-organization';
-import { CreatePerformer } from '../src/app/use-cases/performer/create-performer';
+import { CreateOrganization } from '../src/app/organization/create-organization';
+import { CreatePerformer } from '../src/app/performer/create-performer';
 import {
   IOrganizationRepository,
   IPerformerRepository,

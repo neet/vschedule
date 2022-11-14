@@ -5,7 +5,7 @@ import {
   IPerformerQueryService,
   PerformerDto,
   PerformerQueryManyParams,
-} from '../../app/query-services';
+} from '../../app';
 import { PerformerId } from '../../domain/entities';
 import { TYPES } from '../../types';
 import { transferPerformerFromPrisma } from '../mappers/prisma-dto-mapper';
@@ -28,7 +28,7 @@ const DEFAULT_INCLUDE = {
 };
 
 @injectable()
-export class PerformerQueryService implements IPerformerQueryService {
+export class PerformerQueryServicePrisma implements IPerformerQueryService {
   constructor(
     @inject(TYPES.PrismaClient)
     private readonly _prisma: PrismaClient,

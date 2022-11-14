@@ -5,7 +5,7 @@ import { Handler } from 'express';
 import { inject, injectable } from 'inversify';
 import { BaseMiddleware } from 'inversify-express-utils';
 
-import { IAppConfig } from '../../app/services/app-config/app-config';
+import { IAppConfig } from '../../app';
 import { TYPES } from '../../types';
 
 type VerifyFunction = bodyParserXml.Options['verify'];

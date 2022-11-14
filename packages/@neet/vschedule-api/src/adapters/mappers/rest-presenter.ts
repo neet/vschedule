@@ -5,14 +5,12 @@ import { inject, injectable } from 'inversify';
 
 import {
   ActorDto,
+  IAppConfig,
   OrganizationDto,
   PerformerDto,
   StreamDto,
-} from '../../app/query-services';
-import { IAppConfig } from '../../app/services/app-config/app-config';
-import { unwrap } from '../../domain/_core';
-import { MediaAttachment } from '../../domain/entities';
-import { User } from '../../domain/entities/user';
+} from '../../app';
+import { MediaAttachment, unwrap, User } from '../../domain';
 import { TYPES } from '../../types';
 
 @injectable()

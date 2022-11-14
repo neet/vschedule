@@ -5,7 +5,7 @@ import path from 'path';
 import { URLSearchParams } from 'url';
 
 import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/repositories/resubscirpiton-task-repository-in-memory';
-import { IAppConfig } from '../src/app/services/app-config/app-config';
+import { IAppConfig } from '../src/app/_shared/app-config/app-config';
 import { TYPES } from '../src/types';
 import { createRequest } from '../test-utils/client/client';
 import { container } from '../test-utils/inversify-config';

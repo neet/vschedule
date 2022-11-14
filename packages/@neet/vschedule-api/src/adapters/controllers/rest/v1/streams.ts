@@ -9,8 +9,7 @@ import {
   requestParam,
 } from 'inversify-express-utils';
 
-import { ListStreams } from '../../../../app/use-cases/stream/list-streams';
-import { ShowStream } from '../../../../app/use-cases/stream/show-stream';
+import { ListStreams, ShowStream } from '../../../../app';
 import { RestPresenter } from '../../../mappers/rest-presenter';
 
 @controller('/rest/v1/streams')

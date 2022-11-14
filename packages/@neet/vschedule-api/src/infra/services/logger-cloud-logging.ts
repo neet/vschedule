@@ -1,7 +1,7 @@
 import { LoggingWinston } from '@google-cloud/logging-winston';
 import { config, createLogger } from 'winston';
 
-import { ILogger } from '../../app/services/logger';
+import { ILogger } from '../../app';
 
 const loggingWinston = new LoggingWinston();
 

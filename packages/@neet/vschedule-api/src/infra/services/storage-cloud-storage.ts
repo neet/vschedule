@@ -1,8 +1,7 @@
 import { Storage as CloudStorage } from '@google-cloud/storage';
 import { inject, injectable } from 'inversify';
 
-import { IAppConfig } from '../../app/services/app-config/app-config';
-import { File, IStorage } from '../../app/services/storage';
+import { File, IAppConfig, IStorage } from '../../app';
 import { TYPES } from '../../types';
 
 @injectable()

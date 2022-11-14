@@ -9,7 +9,7 @@ import {
   requestBody,
 } from 'inversify-express-utils';
 
-import { CreateUser } from '../../app/use-cases/create-user';
+import { CreateUser } from '../../app';
 import { TYPES } from '../../types';
 import { RestPresenter } from '../mappers/rest-presenter';
 

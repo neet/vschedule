@@ -2,14 +2,14 @@ import { Prisma, PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 import { nanoid } from 'nanoid';
 
-import { unwrap } from '../../domain/_core';
 import {
   FindPerformerParams,
   IPerformerRepository,
   Performer,
   PerformerId,
-} from '../../domain/entities';
-import { YoutubeChannelId } from '../../domain/entities/_shared';
+  unwrap,
+  YoutubeChannelId,
+} from '../../domain';
 import { TYPES } from '../../types';
 import { rehydratePerformerFromPrisma } from '../mappers/prisma-entity-mapper';
 

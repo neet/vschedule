@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { hashSync } from 'bcryptjs';
 import { nanoid } from 'nanoid';
 
-import { IAppConfig } from '../src/app/services/app-config/app-config';
+import { IAppConfig } from '../src/app/_shared/app-config/app-config';
 import { TYPES } from '../src/types';
 import { container } from './inversify-config';
 

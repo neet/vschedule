@@ -2,8 +2,7 @@ import { inject, injectable } from 'inversify';
 import fetch from 'node-fetch';
 import { URLSearchParams } from 'url';
 
-import { IAppConfig, utils } from '../../app/services/app-config/app-config';
-import { IYoutubeWebsubService } from '../../app/services/youtube-websub-service';
+import { IAppConfig, IYoutubeWebsubService, utils } from '../../app';
 import { TYPES } from '../../types';
 
 @injectable()

@@ -3,7 +3,7 @@ import { injectable } from 'inversify';
 import mkdirp from 'mkdirp';
 import path from 'path';
 
-import { File, IStorage } from '../../app/services/storage';
+import { File, IStorage } from '../../app';
 
 @injectable()
 export class StorageFilesystem implements IStorage {
