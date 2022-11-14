@@ -28,7 +28,7 @@ export class UpsertStream {
 
   async invoke(command: UpsertStreamCommand): Promise<StreamDto> {
     const stream = await this._streamFactory.createFromVideoId(command.videoId);
-    await this._streamRepository.save(stream);
+    await this._streamRepository.upsert(stream);
 
     this._logger.info(`Stream ${stream.id} "${stream.title}" is created`, {
       stream,

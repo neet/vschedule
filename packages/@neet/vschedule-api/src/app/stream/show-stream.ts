@@ -10,7 +10,7 @@ export class ShowStreamNotFoundError extends AppError {
   public readonly name = 'ShowStreamNotFoundError';
 
   public constructor(public readonly streamId: StreamId) {
-    super(`Stream owner with ID ${streamId} was not found`);
+    super(`Stream with ID ${streamId} was not found`);
   }
 }
 
