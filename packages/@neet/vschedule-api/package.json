@@ -1,6 +1,6 @@
 {
   "name": "@neet/vschedule-api",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "scripts": {
     "build": "prisma generate && tsc",
     "start": "node ./dist/src/infra/server.js",
