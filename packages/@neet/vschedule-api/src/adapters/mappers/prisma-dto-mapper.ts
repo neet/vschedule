@@ -16,7 +16,7 @@ import {
   PerformerDto,
   StreamDto,
 } from '../../app/query-services';
-import { TwitterUsername, YoutubeChannelId } from '../../domain/_shared';
+import { TwitterUsername, YoutubeChannelId } from '../../domain/entities/_shared';
 import {
   ActorDescription,
   ActorName,

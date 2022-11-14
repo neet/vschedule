@@ -2,7 +2,7 @@ import Color from 'color';
 import dayjs from 'dayjs';
 import { URL } from 'url';
 
-import { Timestamps } from '../../_shared/timestamps';
+import { Timestamps } from '../_shared/timestamps';
 import { Organization } from './organization';
 import { OrganizationId } from './organization-id';
 

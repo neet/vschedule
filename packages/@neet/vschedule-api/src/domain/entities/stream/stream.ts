@@ -4,14 +4,10 @@ import { castDraft, produce } from 'immer';
 import { Mixin } from 'ts-mixer';
 import { URL } from 'url';
 
-import { DomainError, Entity, RehydrateParameters } from '../../_core';
-import {
-  ITimestamps,
-  TimestampMixin,
-  Timestamps,
-} from '../../_shared/timestamps';
+import { AggregateRoot, DomainError, RehydrateParameters } from '../../_core';
+import { ITimestamps, TimestampMixin, Timestamps } from '../_shared';
 import { MediaAttachment } from '../media-attachment';
-import { PerformerId } from '../performer/performer-id';
+import { PerformerId } from '../performer';
 import { StreamDescription } from './stream-description';
 import { StreamId } from './stream-id';
 import { StreamTitle } from './stream-title';
@@ -50,7 +46,7 @@ export interface StreamProps {
   readonly endedAt: Dayjs | null;
 }
 
-const mixins = Mixin(Entity<StreamId, StreamProps>, TimestampMixin);
+const mixins = Mixin(AggregateRoot<StreamId, StreamProps>, TimestampMixin);
 
 export class Stream extends mixins implements ITimestamps {
   public constructor(props: StreamProps) {

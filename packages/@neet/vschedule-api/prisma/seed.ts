@@ -11,9 +11,11 @@ import { PrismaClient } from '@prisma/client';
 
 import { CreateOrganization } from '../src/app/use-cases/organization/create-organization';
 import { CreatePerformer } from '../src/app/use-cases/performer/create-performer';
-import { YoutubeChannelId } from '../src/domain/_shared';
-import { IOrganizationRepository } from '../src/domain/repositories/organization-repository';
-import { IPerformerRepository } from '../src/domain/repositories/performer-repository';
+import {
+  IOrganizationRepository,
+  IPerformerRepository,
+  YoutubeChannelId,
+} from '../src/domain';
 import { container } from '../src/infra/inversify-config';
 import { TYPES } from '../src/types';
 

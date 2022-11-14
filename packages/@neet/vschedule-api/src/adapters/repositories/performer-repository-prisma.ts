@@ -3,12 +3,13 @@ import { inject, injectable } from 'inversify';
 import { nanoid } from 'nanoid';
 
 import { unwrap } from '../../domain/_core';
-import { YoutubeChannelId } from '../../domain/_shared';
-import { Performer, PerformerId } from '../../domain/entities';
 import {
   FindPerformerParams,
   IPerformerRepository,
-} from '../../domain/repositories/performer-repository';
+  Performer,
+  PerformerId,
+} from '../../domain/entities';
+import { YoutubeChannelId } from '../../domain/entities/_shared';
 import { TYPES } from '../../types';
 import { rehydratePerformerFromPrisma } from '../mappers/prisma-entity-mapper';
 

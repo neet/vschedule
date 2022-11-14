@@ -1,9 +1,9 @@
 import Color from 'color';
 import { URL } from 'url';
 
-import { RehydrateParameters } from '../../_core';
-import { TwitterUsername, YoutubeChannelId } from '../../_shared';
-import { MediaAttachment } from '../media-attachment';
+import { RehydrateParameters } from '../../../_core';
+import { TwitterUsername, YoutubeChannelId } from '..';
+import { MediaAttachment } from '../../media-attachment';
 import { ActorDescription } from './actor-description';
 import { ActorName } from './actor-name';
 

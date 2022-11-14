@@ -9,8 +9,8 @@ import {
   MediaAttachmentFilename,
   Organization,
 } from '../../../domain/entities';
-import { IMediaAttachmentRepository } from '../../../domain/repositories/media-attachment-repository';
-import { IOrganizationRepository } from '../../../domain/repositories/organization-repository';
+import { IMediaAttachmentRepository } from '../../../domain/entities/media-attachment';
+import { IOrganizationRepository } from '../../../domain/entities/organization';
 import { TYPES } from '../../../types';
 import { AppError } from '../../errors/app-error';
 import { UnexpectedError } from '../../errors/unexpected-error';

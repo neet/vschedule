@@ -8,7 +8,7 @@ import {
   MediaAttachmentFilename,
   MediaAttachmentId,
 } from '../../domain/entities';
-import { IMediaAttachmentRepository } from '../../domain/repositories/media-attachment-repository';
+import { IMediaAttachmentRepository } from '../../domain/entities/media-attachment';
 import { TYPES } from '../../types';
 import { rehydrateMediaAttachmentFromPrisma } from '../mappers/prisma-entity-mapper';
 

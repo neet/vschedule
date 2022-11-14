@@ -4,7 +4,7 @@ import {
   MediaAttachment,
   MediaAttachmentFilename,
 } from '../../domain/entities';
-import { IMediaAttachmentRepository } from '../../domain/repositories/media-attachment-repository';
+import { IMediaAttachmentRepository } from '../../domain/entities/media-attachment';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/app-error';
 

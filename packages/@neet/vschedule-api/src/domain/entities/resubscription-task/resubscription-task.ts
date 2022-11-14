@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs';
 
-import { Entity, Recipe } from '../../_core';
+import { AggregateRoot, Recipe } from '../../_core';
 import { PerformerId } from '../performer';
 import { Token, TokenId } from '../token';
 
@@ -14,7 +14,7 @@ export interface ResubscriptionTaskProps {
   // type: 'youtube'
 }
 
-export class ResubscriptionTask extends Entity<
+export class ResubscriptionTask extends AggregateRoot<
   TokenId,
   ResubscriptionTaskProps
 > {

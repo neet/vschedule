@@ -1,7 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import { DomainError, ValueObject } from '../../_core';
-import { isNanoid } from '../../_core/is-nanoid';
+import { DomainError, isNanoid, ValueObject } from '../../_core';
 
 export class PerformerIdInvalidError extends DomainError {
   public readonly name = 'PerformerIdInvalidError';

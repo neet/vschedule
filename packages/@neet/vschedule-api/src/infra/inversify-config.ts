@@ -21,13 +21,15 @@ import { ILogger } from '../app/services/logger';
 import { IStorage } from '../app/services/storage';
 import { IYoutubeApiService } from '../app/services/youtube-api-service';
 import { IYoutubeWebsubService } from '../app/services/youtube-websub-service';
-import { IMediaAttachmentRepository } from '../domain/repositories/media-attachment-repository';
-import { IOrganizationRepository } from '../domain/repositories/organization-repository';
-import { IPerformerRepository } from '../domain/repositories/performer-repository';
-import { IResubscriptionTaskRepository } from '../domain/repositories/resubscription-task-repository';
-import { IStreamRepository } from '../domain/repositories/stream-repository';
-import { ITokenRepository } from '../domain/repositories/token-repository';
-import { IUserRepository } from '../domain/repositories/user-repository';
+import {
+  IMediaAttachmentRepository,
+  IOrganizationRepository,
+  IPerformerRepository,
+  IResubscriptionTaskRepository,
+  IStreamRepository,
+  ITokenRepository,
+  IUserRepository,
+} from '../domain';
 import { TYPES } from '../types';
 import { Authenticate } from './middlewares/authenticate';
 import { Authenticated } from './middlewares/authenticated';

@@ -1,4 +1,6 @@
-import { User, UserEmail, UserId } from '../entities/user';
+import { User } from './user';
+import { UserEmail } from './user-email';
+import { UserId } from './user-id';
 
 export interface IUserRepository {
   findById(id: UserId): Promise<User | null>;

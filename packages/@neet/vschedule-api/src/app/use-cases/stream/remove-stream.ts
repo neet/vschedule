@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { URL } from 'url';
 
-import { IStreamRepository } from '../../../domain/repositories/stream-repository';
+import { IStreamRepository } from '../../../domain';
 import { TYPES } from '../../../types';
 import { AppError } from '../../errors/app-error';
 import { ILogger } from '../../services/logger';

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { Timestamps } from '../../_shared/timestamps';
+import { Timestamps } from '../_shared/timestamps';
 import { MediaAttachment } from './media-attachment';
 import { MediaAttachmentId } from './media-attachment-id';
 

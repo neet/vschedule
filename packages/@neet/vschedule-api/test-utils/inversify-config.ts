@@ -4,7 +4,7 @@ import winston from 'winston';
 import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/repositories/resubscirpiton-task-repository-in-memory';
 import { IStorage } from '../src/app/services/storage';
 import { IYoutubeWebsubService } from '../src/app/services/youtube-websub-service';
-import { IResubscriptionTaskRepository } from '../src/domain/repositories/resubscription-task-repository';
+import { IResubscriptionTaskRepository } from '../src/domain';
 import { container } from '../src/infra/inversify-config';
 import { StorageFilesystem } from '../src/infra/services/storage-filesystem';
 import { TYPES } from '../src/types';

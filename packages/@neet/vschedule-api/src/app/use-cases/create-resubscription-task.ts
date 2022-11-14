@@ -2,12 +2,14 @@ import dayjs from 'dayjs';
 import { inject, injectable } from 'inversify';
 import { URL } from 'url';
 
-import { YoutubeChannelId } from '../../domain/_shared';
-import { ResubscriptionTask } from '../../domain/entities/resubscription-task';
-import { Token } from '../../domain/entities/token';
-import { IPerformerRepository } from '../../domain/repositories/performer-repository';
-import { IResubscriptionTaskRepository } from '../../domain/repositories/resubscription-task-repository';
-import { ITokenRepository } from '../../domain/repositories/token-repository';
+import {
+  IPerformerRepository,
+  IResubscriptionTaskRepository,
+  ITokenRepository,
+  ResubscriptionTask,
+  Token,
+  YoutubeChannelId,
+} from '../../domain';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/app-error';
 import { IAppConfig } from '../services/app-config/app-config';

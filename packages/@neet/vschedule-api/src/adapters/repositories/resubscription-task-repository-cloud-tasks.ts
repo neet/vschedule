@@ -4,8 +4,10 @@ import { inject, injectable } from 'inversify';
 
 import { IAppConfig, utils } from '../../app/services/app-config/app-config';
 import { ILogger } from '../../app/services/logger';
-import { ResubscriptionTask } from '../../domain/entities/resubscription-task';
-import { IResubscriptionTaskRepository } from '../../domain/repositories/resubscription-task-repository';
+import {
+  IResubscriptionTaskRepository,
+  ResubscriptionTask,
+} from '../../domain';
 import { TYPES } from '../../types';
 
 @injectable()

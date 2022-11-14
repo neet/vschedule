@@ -1,8 +1,6 @@
-import {
-  MediaAttachment,
-  MediaAttachmentFilename,
-  MediaAttachmentId,
-} from '../entities';
+import { MediaAttachment } from './media-attachment';
+import { MediaAttachmentFilename } from './media-attachment-filename';
+import { MediaAttachmentId } from './media-attachment-id';
 
 export interface IMediaAttachmentRepository {
   findById(id: MediaAttachmentId): Promise<MediaAttachment | undefined>;

@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { immerable, produce } from 'immer';
 
-import { DomainError } from '../_core';
+import { DomainError } from '../../_core';
 
 export class InvalidTimestampError extends DomainError {
   public readonly name = 'InvalidTimestampError';

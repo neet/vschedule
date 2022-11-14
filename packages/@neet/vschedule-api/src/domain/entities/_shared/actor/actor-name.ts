@@ -1,6 +1,6 @@
 import validator from 'validator';
 
-import { DomainError, ValueObject } from '../../_core';
+import { DomainError, ValueObject } from '../../../_core';
 
 export class ActorNameLengthError extends DomainError {
   public readonly name = 'InvalidActorNameError';

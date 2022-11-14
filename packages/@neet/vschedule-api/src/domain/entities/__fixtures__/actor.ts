@@ -2,7 +2,7 @@ import Color from 'color';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 
-import { Timestamps } from '../../_shared/timestamps';
+import { Timestamps } from '../_shared/timestamps';
 import { MediaAttachment } from '../media-attachment';
 import { Performer } from '../performer';
 import { organizationFixture } from './organization';

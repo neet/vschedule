@@ -1,8 +1,8 @@
 import { compareSync } from 'bcryptjs';
 import { Mixin } from 'ts-mixer';
 
-import { Entity, Recipe } from '../../_core';
-import { TimestampMixin, Timestamps } from '../../_shared';
+import { AggregateRoot, Recipe } from '../../_core';
+import { TimestampMixin, Timestamps } from '../_shared';
 import { UserEmail } from './user-email';
 import { UserId } from './user-id';
 
@@ -13,7 +13,7 @@ export interface UserProps {
   readonly timestamps: Timestamps;
 }
 
-const mixins = Mixin(Entity<UserId, UserProps>, TimestampMixin);
+const mixins = Mixin(AggregateRoot<UserId, UserProps>, TimestampMixin);
 
 export class User extends mixins {
   get email() {

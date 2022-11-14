@@ -2,7 +2,7 @@ import { hashSync } from 'bcryptjs';
 import { inject, injectable } from 'inversify';
 
 import { User, UserEmail } from '../../domain/entities/user';
-import { IUserRepository } from '../../domain/repositories/user-repository';
+import { IUserRepository } from '../../domain/entities/user/user-repository';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/app-error';
 import { IAppConfig } from '../services/app-config/app-config';

@@ -2,12 +2,12 @@ import Color from 'color';
 import { inject, injectable } from 'inversify';
 
 import {
+  IOrganizationRepository,
+  IPerformerRepository,
   Organization,
   OrganizationId,
   PerformerId,
-} from '../../../domain/entities';
-import { IOrganizationRepository } from '../../../domain/repositories/organization-repository';
-import { IPerformerRepository } from '../../../domain/repositories/performer-repository';
+} from '../../../domain';
 import { TYPES } from '../../../types';
 import { AppError } from '../../errors/app-error';
 import { UnexpectedError } from '../../errors/unexpected-error';

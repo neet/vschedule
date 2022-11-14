@@ -6,13 +6,13 @@ import sharp from 'sharp';
 import { URL } from 'url';
 
 import {
+  IMediaAttachmentRepository,
+  IOrganizationRepository,
+  IPerformerRepository,
   MediaAttachmentFilename,
   OrganizationId,
   Performer,
-} from '../../../domain/entities';
-import { IMediaAttachmentRepository } from '../../../domain/repositories/media-attachment-repository';
-import { IOrganizationRepository } from '../../../domain/repositories/organization-repository';
-import { IPerformerRepository } from '../../../domain/repositories/performer-repository';
+} from '../../../domain';
 import { TYPES } from '../../../types';
 import { AppError } from '../../errors/app-error';
 import { UnexpectedError } from '../../errors/unexpected-error';

@@ -1,7 +1,6 @@
 import { inject, injectable } from 'inversify';
 
-import { TokenId } from '../../domain/entities/token';
-import { ITokenRepository } from '../../domain/repositories/token-repository';
+import { ITokenRepository, TokenId } from '../../domain';
 import { TYPES } from '../../types';
 import { AppError } from '../errors/app-error';
 import { ILogger } from '../services/logger';

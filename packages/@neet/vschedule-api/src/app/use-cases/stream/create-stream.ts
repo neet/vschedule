@@ -5,16 +5,16 @@ import fetch from 'node-fetch';
 import sharp from 'sharp';
 import { URL } from 'url';
 
-import { YoutubeChannelId } from '../../../domain/_shared';
 import {
+  IMediaAttachmentRepository,
+  IPerformerRepository,
+  IStreamRepository,
   MediaAttachment,
   MediaAttachmentFilename,
   Performer,
   Stream,
-} from '../../../domain/entities';
-import { IMediaAttachmentRepository } from '../../../domain/repositories/media-attachment-repository';
-import { IPerformerRepository } from '../../../domain/repositories/performer-repository';
-import { IStreamRepository } from '../../../domain/repositories/stream-repository';
+  YoutubeChannelId,
+} from '../../../domain';
 import { TYPES } from '../../../types';
 import { AppError } from '../../errors/app-error';
 import { UnexpectedError } from '../../errors/unexpected-error';

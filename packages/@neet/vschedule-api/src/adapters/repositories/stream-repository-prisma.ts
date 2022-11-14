@@ -2,12 +2,13 @@ import { PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 import { URL } from 'url';
 
-import { unwrap } from '../../domain/_core';
-import { Stream, StreamId } from '../../domain/entities';
 import {
   IStreamRepository,
   ListStreamsParams,
-} from '../../domain/repositories/stream-repository';
+  Stream,
+  StreamId,
+  unwrap,
+} from '../../domain';
 import { TYPES } from '../../types';
 import { rehydrateStreamFromPrisma } from '../mappers/prisma-entity-mapper';
 

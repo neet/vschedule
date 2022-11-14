@@ -1,5 +1,7 @@
 import { YoutubeChannelId } from '../_shared';
-import { Organization, OrganizationId, PerformerId } from '../entities';
+import { PerformerId } from '../performer';
+import { Organization } from './organization';
+import { OrganizationId } from './organization-id';
 
 export interface FindOrganizationParams {
   readonly limit?: number;
