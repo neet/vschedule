@@ -6,7 +6,7 @@ import {
   PerformerDto,
   PerformerQueryManyParams,
 } from '../../app';
-import { PerformerId } from '../../domain/entities';
+import { PerformerId } from '../../domain';
 import { TYPES } from '../../types';
 import { transferPerformerFromPrisma } from '../mappers/prisma-dto-mapper';
 
