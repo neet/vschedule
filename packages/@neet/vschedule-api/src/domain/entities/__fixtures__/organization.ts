@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { URL } from 'url';
 
-import { Timestamps } from '../../_shared/timestamps';
+import { Timestamps } from '../_shared/timestamps';
 import { MediaAttachment } from '../media-attachment';
 import { Organization } from '../organization';
 

@@ -1,7 +1,6 @@
 import { injectable } from 'inversify';
 
-import { IAppConfig } from '../../app/services/app-config/app-config';
-import { AppConfigBase } from '../../app/services/app-config/app-config-base';
+import { AppConfigBase, IAppConfig } from '../../app';
 
 const env = <T = string>(name: string): T | undefined => {
   return process.env[name] as T | undefined;

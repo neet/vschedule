@@ -1,13 +1,13 @@
 import { google, youtube_v3 } from 'googleapis';
 import { inject, injectable } from 'inversify';
 
-import { IAppConfig } from '../../app/services/app-config/app-config';
-import { ILogger } from '../../app/services/logger';
 import {
   Channel,
+  IAppConfig,
+  ILogger,
   IYoutubeApiService,
   Video,
-} from '../../app/services/youtube-api-service';
+} from '../../app';
 import { TYPES } from '../../types';
 
 export interface FetchStreamsByChannelIdParams {

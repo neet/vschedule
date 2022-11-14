@@ -1,8 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 
-import { User, UserEmail, UserId } from '../../domain/entities/user';
-import { IUserRepository } from '../../domain/repositories/user-repository';
+import { IUserRepository, User, UserEmail, UserId } from '../../domain';
 import { TYPES } from '../../types';
 import { rehydrateUserFromPrisma } from '../mappers/prisma-entity-mapper';
 

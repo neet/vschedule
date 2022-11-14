@@ -1,9 +1,11 @@
 import dayjs from 'dayjs';
 
+import {
+  IResubscriptionTaskRepository,
+  ITokenRepository,
+} from '../../../src/domain';
 import { ResubscriptionTask } from '../../../src/domain/entities/resubscription-task';
 import { Token } from '../../../src/domain/entities/token';
-import { IResubscriptionTaskRepository } from '../../../src/domain/repositories/resubscription-task-repository';
-import { ITokenRepository } from '../../../src/domain/repositories/token-repository';
 import { TYPES } from '../../../src/types';
 import { createRequest } from '../../../test-utils/client';
 import {

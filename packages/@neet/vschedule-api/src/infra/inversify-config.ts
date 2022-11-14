@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { Container } from 'inversify';
 
 import { OrganizationQueryServicePrisma } from '../adapters/query-services/organization-query-service-prisma';
-import { PerformerQueryService } from '../adapters/query-services/performer-query-service-prisma';
+import { PerformerQueryServicePrisma } from '../adapters/query-services/performer-query-service-prisma';
 import { StreamQueryServicePrisma } from '../adapters/query-services/stream-query-service-prisma';
 import { MediaAttachmentRepositoryPrismaImpl } from '../adapters/repositories/media-attachment-repository-prisma';
 import { OrganizationRepositoryPrisma } from '../adapters/repositories/organization-repository-prisma';
@@ -12,22 +12,30 @@ import { StreamRepositoryPrisma } from '../adapters/repositories/stream-reposito
 import { TokenRepositoryPrisma } from '../adapters/repositories/token-repository-prisma';
 import { UserRepositoryPrisma } from '../adapters/repositories/user-repository-prisma';
 import {
+  IAppConfig,
+  ILogger,
   IOrganizationQueryService,
   IPerformerQueryService,
+  IStorage,
   IStreamQueryService,
-} from '../app/query-services';
-import { IAppConfig } from '../app/services/app-config/app-config';
-import { ILogger } from '../app/services/logger';
-import { IStorage } from '../app/services/storage';
-import { IYoutubeApiService } from '../app/services/youtube-api-service';
-import { IYoutubeWebsubService } from '../app/services/youtube-websub-service';
-import { IMediaAttachmentRepository } from '../domain/repositories/media-attachment-repository';
-import { IOrganizationRepository } from '../domain/repositories/organization-repository';
-import { IPerformerRepository } from '../domain/repositories/performer-repository';
-import { IResubscriptionTaskRepository } from '../domain/repositories/resubscription-task-repository';
-import { IStreamRepository } from '../domain/repositories/stream-repository';
-import { ITokenRepository } from '../domain/repositories/token-repository';
-import { IUserRepository } from '../domain/repositories/user-repository';
+  IYoutubeApiService,
+  IYoutubeWebsubService,
+} from '../app';
+import { OrganizationFactory } from '../app/organization/organization-factory-impl';
+import { PerformerFactoryImpl } from '../app/performer/performer-factory-impl';
+import { StreamFactoryImpl } from '../app/stream/stream-factory-impl';
+import {
+  IMediaAttachmentRepository,
+  IOrganizationFactory,
+  IOrganizationRepository,
+  IPerformerFactory,
+  IPerformerRepository,
+  IResubscriptionTaskRepository,
+  IStreamFactory,
+  IStreamRepository,
+  ITokenRepository,
+  IUserRepository,
+} from '../domain';
 import { TYPES } from '../types';
 import { Authenticate } from './middlewares/authenticate';
 import { Authenticated } from './middlewares/authenticated';
@@ -119,7 +127,17 @@ container
 
 container
   .bind<IPerformerQueryService>(TYPES.PerformerQueryService)
-  .to(PerformerQueryService);
+  .to(PerformerQueryServicePrisma);
+
+container.bind<IStreamFactory>(TYPES.StreamFactory).to(StreamFactoryImpl);
+
+container
+  .bind<IPerformerFactory>(TYPES.PerformerFactory)
+  .to(PerformerFactoryImpl);
+
+container
+  .bind<IOrganizationFactory>(TYPES.OrganizationFactory)
+  .to(OrganizationFactory);
 
 container.bind(TYPES.YoutubeWebsubParser).to(YoutubeWebsubParser);
 

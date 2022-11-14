@@ -1,17 +1,13 @@
 import dayjs, { Dayjs } from 'dayjs';
 import { Duration } from 'dayjs/plugin/duration';
-import { castDraft, produce } from 'immer';
+import { produce } from 'immer';
 import { Mixin } from 'ts-mixer';
 import { URL } from 'url';
 
-import { DomainError, Entity, RehydrateParameters } from '../../_core';
-import {
-  ITimestamps,
-  TimestampMixin,
-  Timestamps,
-} from '../../_shared/timestamps';
+import { AggregateRoot, DomainError, RehydrateParameters } from '../../_core';
+import { ITimestamps, TimestampMixin, Timestamps } from '../_shared';
 import { MediaAttachment } from '../media-attachment';
-import { PerformerId } from '../performer/performer-id';
+import { PerformerId } from '../performer';
 import { StreamDescription } from './stream-description';
 import { StreamId } from './stream-id';
 import { StreamTitle } from './stream-title';
@@ -50,7 +46,7 @@ export interface StreamProps {
   readonly endedAt: Dayjs | null;
 }
 
-const mixins = Mixin(Entity<StreamId, StreamProps>, TimestampMixin);
+const mixins = Mixin(AggregateRoot<StreamId, StreamProps>, TimestampMixin);
 
 export class Stream extends mixins implements ITimestamps {
   public constructor(props: StreamProps) {
@@ -93,23 +89,57 @@ export class Stream extends mixins implements ITimestamps {
     return this._props.ownerId;
   }
 
+  // TODO: participantsとかにすればよかった。
   public get castIds(): readonly PerformerId[] {
     return this._props.castIds;
   }
 
-  public update(
-    patch: Partial<Omit<RehydrateParameters<this>, 'id' | 'timestamp'>>,
-  ) {
-    const updated = produce(this._props, (draft) => {
-      Object.entries(patch).forEach(([key, value]) => {
-        if (value !== undefined) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (draft as any)[key] = castDraft(value);
-        }
-      });
+  setTitle(title: StreamTitle) {
+    const props = produce(this._props, (draft) => {
+      draft.title = title;
       draft.timestamps = draft.timestamps.update();
     });
-    return Stream.rehydrate(updated);
+    return new Stream(props);
+  }
+
+  setDescription(description: StreamDescription) {
+    const props = produce(this._props, (draft) => {
+      draft.description = description;
+      draft.timestamps = draft.timestamps.update();
+    });
+    return new Stream(props);
+  }
+
+  setThumbnail(thumbnail: MediaAttachment) {
+    const props = produce(this._props, (draft) => {
+      draft.thumbnail = thumbnail;
+      draft.timestamps = draft.timestamps.update();
+    });
+    return new Stream(props);
+  }
+
+  start(startedAt: Dayjs) {
+    const props = produce(this._props, (draft) => {
+      draft.startedAt = startedAt;
+      draft.timestamps = draft.timestamps.update();
+    });
+    return new Stream(props);
+  }
+
+  end(endedAt: Dayjs) {
+    const props = produce(this._props, (draft) => {
+      draft.endedAt = endedAt;
+      draft.timestamps = draft.timestamps.update();
+    });
+    return new Stream(props);
+  }
+
+  setCasts(castIds: PerformerId[]) {
+    const props = produce(this._props, (draft) => {
+      draft.castIds = castIds;
+      draft.timestamps = draft.timestamps.update();
+    });
+    return new Stream(props);
   }
 
   public get duration(): Duration | null {

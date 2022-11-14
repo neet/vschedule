@@ -19,6 +19,8 @@ export class InvalidBucketNameLengthError extends DomainError {
 }
 
 export class MediaAttachmentBucket extends ValueObject<string> {
+  readonly #brand!: never;
+
   public constructor(value: string | MediaAttachmentBucket) {
     if (value instanceof MediaAttachmentBucket) {
       return value;

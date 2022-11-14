@@ -3,16 +3,16 @@ import Color from 'color';
 import dayjs from 'dayjs';
 import { URL } from 'url';
 
-import { Timestamps } from '../../domain/_shared/timestamps';
 import {
   Actor,
   MediaAttachment,
   Organization,
   Performer,
   Stream,
-} from '../../domain/entities';
-import { Token } from '../../domain/entities/token';
-import { User } from '../../domain/entities/user';
+  Timestamps,
+  Token,
+  User,
+} from '../../domain';
 
 export const rehydrateMediaAttachmentFromPrisma = (
   mediaAttachment: Prisma.MediaAttachment,

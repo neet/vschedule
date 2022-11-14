@@ -1,30 +1,23 @@
 import { Schemas } from '@neet/vschedule-api-client';
 import { ErrorRequestHandler, Response } from 'express';
 
-import { AppError } from '../../app/errors/app-error';
-import { UnexpectedError } from '../../app/errors/unexpected-error';
 import {
-  CreateStreamFailedToFetchVideoError,
-  CreateStreamPerformerNotFoundWithChannelIdError,
-} from '../../app/use-cases/stream/create-stream';
-import {
-  CreateResubscriptionTaskInvalidTopicError,
-  CreateResubscriptionTaskUnknownActorError,
-} from '../../app/use-cases/create-resubscription-task';
-import { CreateOrganizationChannelNotFoundError } from '../../app/use-cases/organization/create-organization';
-import { ShowOrganizationNotFoundError } from '../../app/use-cases/organization/show-organization';
-import {
+  AppError,
   CreatePerformerChannelNotFoundError,
   CreatePerformerOrganizationNotFoundError,
-} from '../../app/use-cases/performer/create-performer';
-import { ShowPerformerNotFoundError } from '../../app/use-cases/performer/show-performer';
-import {
+  CreateResubscriptionTaskInvalidTopicError,
+  CreateResubscriptionTaskUnknownActorError,
+  DrainTokenNotFoundError,
+  RemoveStreamNotFoundError,
+  ShowMediaAttachmentNotFoundError,
+  ShowOrganizationNotFoundError,
+  ShowPerformerNotFoundError,
+  ShowStreamNotFoundError,
+  ShowUserNotFoundError,
+  UnexpectedError,
   UpdatePerformerNotFoundError,
   UpdatePerformerOrganizationNotFoundError,
-} from '../../app/use-cases/performer/update-performer';
-import { ShowMediaAttachmentNotFoundError } from '../../app/use-cases/show-media-attachment';
-import { RemoveStreamNotFoundError } from '../../app/use-cases/stream/remove-stream';
-import { ShowStreamNotFoundError } from '../../app/use-cases/stream/show-stream';
+} from '../../app';
 
 export const appErrorHandler: ErrorRequestHandler = (
   error,
@@ -42,16 +35,13 @@ export const appErrorHandler: ErrorRequestHandler = (
   if (error instanceof CreatePerformerOrganizationNotFoundError) {
     res.status(404);
   }
-  if (error instanceof CreateStreamFailedToFetchVideoError) {
+  if (error instanceof DrainTokenNotFoundError) {
     res.status(404);
   }
   if (error instanceof CreatePerformerChannelNotFoundError) {
     res.status(404);
   }
-  if (error instanceof CreateStreamPerformerNotFoundWithChannelIdError) {
-    res.status(404);
-  }
-  if (error instanceof CreateOrganizationChannelNotFoundError) {
+  if (error instanceof ShowUserNotFoundError) {
     res.status(404);
   }
   if (error instanceof RemoveStreamNotFoundError) {

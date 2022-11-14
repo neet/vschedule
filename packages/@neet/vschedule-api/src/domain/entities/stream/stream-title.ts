@@ -1,7 +1,6 @@
 import validator from 'validator';
 
-import { DomainError } from '../../_core';
-import { ValueObject } from '../../_core/value-object';
+import { DomainError, ValueObject } from '../../_core';
 
 export class StreamTitleLengthError extends DomainError {
   public readonly name = 'StreamTitleLengthError';
@@ -12,6 +11,8 @@ export class StreamTitleLengthError extends DomainError {
 }
 
 export class StreamTitle extends ValueObject<string> {
+  readonly #brand!: never;
+
   public constructor(value: string | StreamTitle) {
     if (value instanceof StreamTitle) {
       return value;

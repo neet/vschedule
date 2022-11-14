@@ -13,6 +13,8 @@ export class StreamDescriptionLengthError extends DomainError {
 }
 
 export class StreamDescription extends ValueObject<string> {
+  readonly #brand!: never;
+
   public constructor(value: string | StreamDescription) {
     if (value instanceof StreamDescription) {
       return value;

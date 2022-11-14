@@ -1,12 +1,13 @@
 import { Mixin } from 'ts-mixer';
 
-import { Entity, RehydrateParameters } from '../../_core';
+import { AggregateRoot, RehydrateParameters } from '../../_core';
 import {
+  Actor,
+  ActorProps,
   ITimestamps,
   TimestampMixin,
   Timestamps,
-} from '../../_shared/timestamps';
-import { Actor, ActorProps } from '../actor';
+} from '../_shared';
 import { OrganizationId } from './organization-id';
 
 export interface OrganizationProps extends ActorProps {
@@ -15,7 +16,7 @@ export interface OrganizationProps extends ActorProps {
 }
 
 const mixins = Mixin(
-  Entity<OrganizationId, OrganizationProps>,
+  AggregateRoot<OrganizationId, OrganizationProps>,
   Actor,
   TimestampMixin,
 );

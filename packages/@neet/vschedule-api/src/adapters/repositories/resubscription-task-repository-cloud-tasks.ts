@@ -2,10 +2,11 @@ import { CloudTasksClient } from '@google-cloud/tasks';
 import { google } from '@google-cloud/tasks/build/protos/protos';
 import { inject, injectable } from 'inversify';
 
-import { IAppConfig, utils } from '../../app/services/app-config/app-config';
-import { ILogger } from '../../app/services/logger';
-import { ResubscriptionTask } from '../../domain/entities/resubscription-task';
-import { IResubscriptionTaskRepository } from '../../domain/repositories/resubscription-task-repository';
+import { IAppConfig, ILogger, utils } from '../../app';
+import {
+  IResubscriptionTaskRepository,
+  ResubscriptionTask,
+} from '../../domain';
 import { TYPES } from '../../types';
 
 @injectable()

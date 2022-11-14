@@ -5,11 +5,14 @@ export const TYPES = Object.freeze({
 
   PerformerRepository: Symbol('PerformerRepository'),
   OrganizationRepository: Symbol('OrganizationRepository'),
+  OrganizationFactory: Symbol('OrganizationFactory'),
+  PerformerFactory: Symbol('PerformerFactory'),
   MediaAttachmentRepository: Symbol('MediaAttachmentRepository'),
   StreamRepository: Symbol('StreamRepository'),
   ResubscriptionTaskRepository: Symbol('ResubscriptionTaskRepository'),
   TokenRepository: Symbol('TokenRepository'),
   UserRepository: Symbol('UserRepository'),
+  StreamFactory: Symbol('StreamFactory'),
 
   StreamQueryService: Symbol('StreamQueryService'),
   PerformerQueryService: Symbol('PerformerQueryService'),

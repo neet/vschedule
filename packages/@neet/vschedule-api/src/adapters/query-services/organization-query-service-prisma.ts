@@ -5,8 +5,8 @@ import {
   IOrganizationQueryService,
   OrganizationDto,
   OrganizationQueryManyParams,
-} from '../../app/query-services';
-import { OrganizationId } from '../../domain/entities';
+} from '../../app';
+import { OrganizationId } from '../../domain';
 import { TYPES } from '../../types';
 import { transferOrganizationFromPrisma } from '../mappers/prisma-dto-mapper';
 

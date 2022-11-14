@@ -13,7 +13,7 @@ export class TokenIdInvalidError extends DomainError {
 }
 
 export class TokenId extends ValueObject<string> {
-  public readonly brand = Symbol();
+  readonly #brand!: never;
 
   public constructor(value?: string | TokenId) {
     if (value instanceof TokenId) {

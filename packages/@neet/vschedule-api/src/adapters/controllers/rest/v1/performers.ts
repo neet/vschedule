@@ -16,11 +16,13 @@ import {
   requestParam,
 } from 'inversify-express-utils';
 
-import { CreatePerformer } from '../../../../app/use-cases/performer/create-performer';
-import { ListPerformers } from '../../../../app/use-cases/performer/list-performers';
-import { ShowPerformer } from '../../../../app/use-cases/performer/show-performer';
-import { SubscribeToPerformer } from '../../../../app/use-cases/performer/subscribe-to-performer';
-import { UpdatePerformer } from '../../../../app/use-cases/performer/update-performer';
+import {
+  CreatePerformer,
+  ListPerformers,
+  ShowPerformer,
+  SubscribeToPerformer,
+  UpdatePerformer,
+} from '../../../../app';
 import { TYPES } from '../../../../types';
 import { RestPresenter } from '../../../mappers/rest-presenter';
 
@@ -109,9 +111,9 @@ export class PerformersController extends BaseHttpController {
   ) {
     const performer = await this._createPerformer.invoke({
       youtubeChannelId: body.youtubeChannelId,
-      name: body.name,
-      description: body.description,
-      color: body.color,
+      name: body.name ?? null,
+      description: body.description ?? null,
+      color: body.color ?? null,
       twitterUsername: body.twitterUsername,
       url: body.url,
       organizationId: body.organizationId,

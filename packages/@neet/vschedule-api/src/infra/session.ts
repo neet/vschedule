@@ -2,7 +2,7 @@ import { FirestoreStore } from '@google-cloud/connect-firestore';
 import { Firestore } from '@google-cloud/firestore';
 import session from 'express-session';
 
-import { IAppSession } from '../app/services/app-config/app-config';
+import { IAppSession } from '../app';
 
 export const createSession = (config: IAppSession) => {
   const store =

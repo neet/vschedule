@@ -1,7 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import { DomainError, ValueObject } from '../../_core';
-import { isNanoid } from '../../_core/is-nanoid';
+import { DomainError, isNanoid, ValueObject } from '../../_core';
 
 export class PerformerIdInvalidError extends DomainError {
   public readonly name = 'PerformerIdInvalidError';
@@ -12,7 +11,7 @@ export class PerformerIdInvalidError extends DomainError {
 }
 
 export class PerformerId extends ValueObject<string> {
-  readonly tag = Symbol();
+  readonly #brand!: never;
 
   public constructor(value?: string | PerformerId) {
     if (value instanceof PerformerId) {

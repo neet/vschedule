@@ -13,9 +13,11 @@ import {
   requestParam,
 } from 'inversify-express-utils';
 
-import { CreateOrganization } from '../../../../app/use-cases/organization/create-organization';
-import { ListOrganization } from '../../../../app/use-cases/organization/list-organizations';
-import { ShowOrganization } from '../../../../app/use-cases/organization/show-organization';
+import {
+  CreateOrganization,
+  ListOrganization,
+  ShowOrganization,
+} from '../../../../app';
 import { TYPES } from '../../../../types';
 import { RestPresenter } from '../../../mappers/rest-presenter';
 

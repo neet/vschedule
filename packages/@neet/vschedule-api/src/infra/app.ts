@@ -16,8 +16,7 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 import swaggerUi from 'swagger-ui-express';
 import winston from 'winston';
 
-import { IAppConfig } from '../app/services/app-config/app-config';
-import { ILogger } from '../app/services/logger';
+import { IAppConfig, ILogger } from '../app';
 import { TYPES } from '../types';
 import { appErrorHandler } from './middlewares/app-error-handler';
 import { domainErrorHandler } from './middlewares/domain-error-handler';

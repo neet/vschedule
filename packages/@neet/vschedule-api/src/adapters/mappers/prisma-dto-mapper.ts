@@ -9,14 +9,13 @@ import Color from 'color';
 import dayjs from 'dayjs';
 import Duration from 'dayjs/plugin/duration';
 
-import { UnexpectedError } from '../../app/errors/unexpected-error';
 import {
   ActorDto,
   OrganizationDto,
   PerformerDto,
   StreamDto,
-} from '../../app/query-services';
-import { TwitterUsername, YoutubeChannelId } from '../../domain/_shared';
+  UnexpectedError,
+} from '../../app';
 import {
   ActorDescription,
   ActorName,
@@ -25,7 +24,9 @@ import {
   StreamDescription,
   StreamId,
   StreamTitle,
-} from '../../domain/entities';
+  TwitterUsername,
+  YoutubeChannelId,
+} from '../../domain';
 import { rehydrateMediaAttachmentFromPrisma } from './prisma-entity-mapper';
 
 dayjs.extend(Duration);

@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from 'dayjs';
 
-import { Entity, Recipe } from '../../_core';
+import { AggregateRoot, Recipe } from '../../_core';
 import { TokenId } from './token-id';
 
 export interface TokenProps {
@@ -9,7 +9,7 @@ export interface TokenProps {
   readonly expiresAt: Dayjs;
 }
 
-export class Token extends Entity<TokenId, TokenProps> {
+export class Token extends AggregateRoot<TokenId, TokenProps> {
   public get createdAt(): Dayjs {
     return this._props.createdAt;
   }

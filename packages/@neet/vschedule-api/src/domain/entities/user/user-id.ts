@@ -1,7 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import { ValueObject } from '../../_core';
-import { isNanoid } from '../../_core/is-nanoid';
+import { isNanoid, ValueObject } from '../../_core';
 
 export class UserIdInvalidError extends Error {
   public constructor(public readonly value: string) {
@@ -10,6 +9,8 @@ export class UserIdInvalidError extends Error {
 }
 
 export class UserId extends ValueObject<string> {
+  readonly #brand!: never;
+
   public constructor(value?: string | UserId) {
     if (value instanceof UserId) {
       return value;

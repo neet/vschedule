@@ -2,12 +2,13 @@ import { PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 import { URL } from 'url';
 
-import { unwrap } from '../../domain/_core';
-import { Stream, StreamId } from '../../domain/entities';
 import {
   IStreamRepository,
   ListStreamsParams,
-} from '../../domain/repositories/stream-repository';
+  Stream,
+  StreamId,
+  unwrap,
+} from '../../domain';
 import { TYPES } from '../../types';
 import { rehydrateStreamFromPrisma } from '../mappers/prisma-entity-mapper';
 
@@ -64,14 +65,27 @@ export class StreamRepositoryPrisma implements IStreamRepository {
     return rehydrateStreamFromPrisma(stream);
   }
 
-  async save(stream: Stream): Promise<Stream> {
-    const data = await this._prisma.stream.create({
-      data: {
+  async upsert(stream: Stream): Promise<Stream> {
+    const data = await this._prisma.stream.upsert({
+      where: {
+        id: stream.id.value,
+      },
+      create: {
         id: stream.id.value,
         title: stream.title.value,
         url: stream.url.toString(),
         description: unwrap(stream.description),
         createdAt: stream.createdAt.toDate(),
+        updatedAt: stream.updatedAt.toDate(),
+        startedAt: stream.startedAt.toDate(),
+        endedAt: stream.endedAt === null ? null : stream.endedAt.toDate(),
+        thumbnailId:
+          stream.thumbnail === null ? null : stream.thumbnail.id.value,
+        ownerId: stream.ownerId.value,
+      },
+      update: {
+        title: stream.title.value,
+        description: unwrap(stream.description),
         updatedAt: stream.updatedAt.toDate(),
         startedAt: stream.startedAt.toDate(),
         endedAt: stream.endedAt === null ? null : stream.endedAt.toDate(),

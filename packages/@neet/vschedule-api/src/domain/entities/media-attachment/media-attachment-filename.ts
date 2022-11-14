@@ -23,6 +23,8 @@ export class MediaAttachmentFilenameLengthError extends DomainError {
 }
 
 export class MediaAttachmentFilename extends ValueObject<string> {
+  readonly #brand!: never;
+
   public constructor(value: string | MediaAttachmentFilename) {
     if (value instanceof MediaAttachmentFilename) {
       return value;

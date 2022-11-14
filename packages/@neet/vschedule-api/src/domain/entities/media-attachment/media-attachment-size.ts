@@ -9,6 +9,8 @@ export class MediaAttachmentSizeRangeError extends DomainError {
 }
 
 export class MediaAttachmentSize extends ValueObject<number> {
+  readonly #brand!: never;
+
   public constructor(value: number | MediaAttachmentSize) {
     if (value instanceof MediaAttachmentSize) {
       return value;

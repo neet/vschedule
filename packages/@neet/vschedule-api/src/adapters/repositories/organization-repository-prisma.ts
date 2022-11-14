@@ -2,17 +2,15 @@ import { Prisma, PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 import { nanoid } from 'nanoid';
 
-import { unwrap } from '../../domain/_core';
-import { YoutubeChannelId } from '../../domain/_shared';
-import {
-  Organization,
-  OrganizationId,
-  PerformerId,
-} from '../../domain/entities';
 import {
   FindOrganizationParams,
   IOrganizationRepository,
-} from '../../domain/repositories/organization-repository';
+  Organization,
+  OrganizationId,
+  PerformerId,
+  unwrap,
+  YoutubeChannelId,
+} from '../../domain';
 import { TYPES } from '../../types';
 import { rehydrateOrganizationFromPrisma } from '../mappers/prisma-entity-mapper';
 
