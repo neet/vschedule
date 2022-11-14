@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { H, Section } from 'react-headings';
 
-import type { Stream as StreamModel } from '../../../api/model';
+import type { Stream as StreamModel } from '../../../api/@types';
 import { Card } from '../../ui/Card';
 import { Entry } from '../../ui/Entry';
 import { Stream } from '../Stream';

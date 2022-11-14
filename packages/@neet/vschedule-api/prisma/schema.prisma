@@ -12,14 +12,14 @@ datasource db {
 }
 
 model MediaAttachment {
-  id        String   @id @db.VarChar(21)
-  filename  String
-  width     Float
-  height    Float
-  base64    String   @db.Text
-  bucket    String?
-  createdAt DateTime @map("created_at")
-  updatedAt DateTime @map("updated_at")
+  id          String   @id @db.VarChar(21)
+  filename    String
+  width       Float
+  height      Float
+  blurDataUri String   @map("blur_data_uri") @db.Text
+  bucket      String?
+  createdAt   DateTime @map("created_at")
+  updatedAt   DateTime @map("updated_at")
 
   actor  Actor[]
   stream Stream[]

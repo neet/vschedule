@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { H, Section } from 'react-headings';
 
-import { Stream } from '../../../api/model';
+import { Stream } from '../../../api/@types';
 import type { Event } from '../../../types';
 import { isWindows } from '../../../utils/isWindows';
 import { ActiveLivers } from '../ActiveLivers';

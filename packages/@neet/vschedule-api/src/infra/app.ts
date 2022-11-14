@@ -16,12 +16,12 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 import swaggerUi from 'swagger-ui-express';
 import winston from 'winston';
 
-import { IAppConfig } from '../app/services/AppConfig/AppConfig';
-import { ILogger } from '../app/services/Logger';
+import { IAppConfig } from '../app/services/app-config/app-config';
+import { ILogger } from '../app/services/logger';
 import { TYPES } from '../types';
-import { appErrorHandler } from './middlewares/AppErrorHandler';
-import { domainErrorHandler } from './middlewares/DomainErrorHandler';
-import { openapiErrorHandler } from './middlewares/OpenApiErrorHandler';
+import { appErrorHandler } from './middlewares/app-error-handler';
+import { domainErrorHandler } from './middlewares/domain-error-handler';
+import { openapiErrorHandler } from './middlewares/openapi-error-handler';
 import { passport } from './passport';
 import { createSession } from './session';
 

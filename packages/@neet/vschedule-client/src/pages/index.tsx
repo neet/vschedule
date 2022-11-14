@@ -7,7 +7,7 @@ import { useMemo, useState } from 'react';
 import { Section } from 'react-headings';
 import { useSearchParam } from 'react-use';
 
-import { api } from '../api';
+import { api } from '../api-legacy';
 import { ChangeLog } from '../components/app/ChangeLog';
 import { Crown } from '../components/app/Crown';
 import { EventMarker } from '../components/app/EventMarker';

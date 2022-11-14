@@ -3,7 +3,7 @@
 import type { SWRConfiguration } from 'swr';
 import useSWR from 'swr';
 
-import { proxyAPI } from '../../api';
+import { proxyAPI } from '../../api-legacy';
 import type { EventsResponse } from '../../types';
 
 export const useEvents = (config?: SWRConfiguration<EventsResponse>) => {

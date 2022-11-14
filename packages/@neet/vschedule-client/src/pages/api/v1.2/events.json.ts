@@ -1,6 +1,6 @@
 import type { NextApiHandler } from 'next';
 
-import { api } from '../../../api';
+import { api } from '../../../api-legacy';
 
 const events: NextApiHandler = async (_req, res) => {
   const data = await api.fetchEvents();

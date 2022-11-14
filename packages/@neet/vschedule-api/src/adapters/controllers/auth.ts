@@ -9,9 +9,9 @@ import {
   requestBody,
 } from 'inversify-express-utils';
 
-import { CreateUser } from '../../app/use-cases/CreateUser';
+import { CreateUser } from '../../app/use-cases/create-user';
 import { TYPES } from '../../types';
-import { RestPresenter } from '../mappers/RestApiMapper';
+import { RestPresenter } from '../mappers/rest-presenter';
 
 @controller('/auth')
 export class AuthController extends BaseHttpController {

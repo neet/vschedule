@@ -1,43 +1,43 @@
 import { PrismaClient } from '@prisma/client';
 import { Container } from 'inversify';
 
-import { OrganizationQueryServicePrisma } from '../adapters/query-services/OrganizationQueryServicePrisma';
-import { PerformerQueryService } from '../adapters/query-services/PerformerQueryService';
-import { StreamQueryServicePrisma } from '../adapters/query-services/StreamQueryServicePrisma';
-import { MediaAttachmentRepositoryPrismaImpl } from '../adapters/repositories/MediaAttachmentRepository';
-import { OrganizationRepository } from '../adapters/repositories/OrganizationRepository';
-import { PerformerRepository } from '../adapters/repositories/PerformerRepository';
-import { ResubscriptionTaskRepository } from '../adapters/repositories/ResubscriptionTaskRepository';
-import { StreamRepository } from '../adapters/repositories/StreamRepository';
-import { TokenRepository } from '../adapters/repositories/TokenRepository';
-import { UserRepository } from '../adapters/repositories/UserRepository';
+import { OrganizationQueryServicePrisma } from '../adapters/query-services/organization-query-service-prisma';
+import { PerformerQueryService } from '../adapters/query-services/performer-query-service-prisma';
+import { StreamQueryServicePrisma } from '../adapters/query-services/stream-query-service-prisma';
+import { MediaAttachmentRepositoryPrismaImpl } from '../adapters/repositories/media-attachment-repository-prisma';
+import { OrganizationRepositoryPrisma } from '../adapters/repositories/organization-repository-prisma';
+import { PerformerRepositoryPrisma } from '../adapters/repositories/performer-repository-prisma';
+import { ResubscriptionTaskRepositoryCloudTasks } from '../adapters/repositories/resubscription-task-repository-cloud-tasks';
+import { StreamRepositoryPrisma } from '../adapters/repositories/stream-repository-prisma';
+import { TokenRepositoryPrisma } from '../adapters/repositories/token-repository-prisma';
+import { UserRepositoryPrisma } from '../adapters/repositories/user-repository-prisma';
 import {
   IOrganizationQueryService,
   IPerformerQueryService,
   IStreamQueryService,
 } from '../app/query-services';
-import { IAppConfig } from '../app/services/AppConfig/AppConfig';
-import { ILogger } from '../app/services/Logger';
-import { IStorage } from '../app/services/Storage';
-import { IYoutubeApiService } from '../app/services/YoutubeApiService';
-import { IYoutubeWebsubService } from '../app/services/YoutubeWebsubService';
-import { IMediaAttachmentRepository } from '../domain/repositories/MediaAttachmentRepository';
-import { IOrganizationRepository } from '../domain/repositories/OrganizationRepository';
-import { IPerformerRepository } from '../domain/repositories/PerformerRepository';
-import { IResubscriptionTaskRepository } from '../domain/repositories/ResubscriptionTaskRepository';
-import { IStreamRepository } from '../domain/repositories/StreamRepository';
-import { ITokenRepository } from '../domain/repositories/TokenRepository';
-import { IUserRepository } from '../domain/repositories/UserRepository';
+import { IAppConfig } from '../app/services/app-config/app-config';
+import { ILogger } from '../app/services/logger';
+import { IStorage } from '../app/services/storage';
+import { IYoutubeApiService } from '../app/services/youtube-api-service';
+import { IYoutubeWebsubService } from '../app/services/youtube-websub-service';
+import { IMediaAttachmentRepository } from '../domain/repositories/media-attachment-repository';
+import { IOrganizationRepository } from '../domain/repositories/organization-repository';
+import { IPerformerRepository } from '../domain/repositories/performer-repository';
+import { IResubscriptionTaskRepository } from '../domain/repositories/resubscription-task-repository';
+import { IStreamRepository } from '../domain/repositories/stream-repository';
+import { ITokenRepository } from '../domain/repositories/token-repository';
+import { IUserRepository } from '../domain/repositories/user-repository';
 import { TYPES } from '../types';
-import { Authenticate } from './middlewares/Authenticate';
-import { Authenticated } from './middlewares/Authenticated';
-import { AppConfigEnvironment } from './services/AppConfigEnvironment';
-import { loggerCloudLogging } from './services/LoggerCloudLogging';
-import { loggerConsole } from './services/LoggerConsole';
-import { Storage } from './services/Storage';
-import { YoutubeApiService } from './services/YouTubeApiService';
-import { YoutubeWebsubParser } from './services/YoutubeWebsubParser';
-import { YoutubeWebsubService } from './services/YoutubeWebsubService';
+import { Authenticate } from './middlewares/authenticate';
+import { Authenticated } from './middlewares/authenticated';
+import { AppConfigEnvironment } from './services/app-config-environment';
+import { loggerCloudLogging } from './services/logger-cloud-logging';
+import { loggerConsole } from './services/logger-console';
+import { StorageCloudStorage } from './services/storage-cloud-storage';
+import { YoutubeApiService } from './services/youtube-api-service';
+import { YoutubeWebsubParser } from './services/youtube-websub-parser';
+import { YoutubeWebsubService } from './services/youtube-websub-service';
 
 const container = new Container({
   autoBindInjectable: true,
@@ -77,13 +77,15 @@ prisma.$on('error', (e) => logger.error(e.message));
 
 container
   .bind<IPerformerRepository>(TYPES.PerformerRepository)
-  .to(PerformerRepository);
+  .to(PerformerRepositoryPrisma);
 
 container
   .bind<IOrganizationRepository>(TYPES.OrganizationRepository)
-  .to(OrganizationRepository);
+  .to(OrganizationRepositoryPrisma);
 
-container.bind<IStreamRepository>(TYPES.StreamRepository).to(StreamRepository);
+container
+  .bind<IStreamRepository>(TYPES.StreamRepository)
+  .to(StreamRepositoryPrisma);
 
 container
   .bind<IMediaAttachmentRepository>(TYPES.MediaAttachmentRepository)
@@ -91,11 +93,13 @@ container
 
 container
   .bind<IResubscriptionTaskRepository>(TYPES.ResubscriptionTaskRepository)
-  .to(ResubscriptionTaskRepository);
+  .to(ResubscriptionTaskRepositoryCloudTasks);
 
-container.bind<ITokenRepository>(TYPES.TokenRepository).to(TokenRepository);
+container
+  .bind<ITokenRepository>(TYPES.TokenRepository)
+  .to(TokenRepositoryPrisma);
 
-container.bind<IUserRepository>(TYPES.UserRepository).to(UserRepository);
+container.bind<IUserRepository>(TYPES.UserRepository).to(UserRepositoryPrisma);
 
 container
   .bind<IYoutubeApiService>(TYPES.YoutubeApiService)
@@ -119,7 +123,7 @@ container
 
 container.bind(TYPES.YoutubeWebsubParser).to(YoutubeWebsubParser);
 
-container.bind<IStorage>(TYPES.Storage).to(Storage);
+container.bind<IStorage>(TYPES.Storage).to(StorageCloudStorage);
 
 container.bind(TYPES.Authenticate).to(Authenticate);
 container.bind(TYPES.Authenticated).to(Authenticated);

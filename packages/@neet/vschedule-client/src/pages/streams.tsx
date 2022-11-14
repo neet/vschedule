@@ -1,3 +1,4 @@
+import useAspidaSWR from '@aspida/swr';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import type { GetStaticProps } from 'next';
@@ -6,10 +7,9 @@ import Head from 'next/head';
 import { useMemo, useState } from 'react';
 import { Section } from 'react-headings';
 import { useSearchParam } from 'react-use';
-import useSWR from 'swr';
 
 import { api } from '../api';
-import { Stream } from '../api/model';
+import { api as apiLegacy } from '../api-legacy';
 import { ChangeLog } from '../components/app/ChangeLog';
 import { Crown } from '../components/app/Crown';
 import { Skyscraper } from '../components/app/Skyscraper';
@@ -45,25 +45,20 @@ export interface StreamsProps {
 export const getStaticProps: GetStaticProps<StreamsProps> = async () => {
   return {
     props: {
-      data: await api.fetchGenres(),
+      data: await apiLegacy.fetchGenres(),
     },
     revalidate: DAILY,
   };
 };
 
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
-const key =
-  'https://api.vschedule.app/rest/v1/streams?' +
-  new URLSearchParams({
-    since: dayjs().subtract(1, 'day').toISOString(),
-    until: dayjs().add(1, 'day').toISOString(),
-    // その日の最初から最後まで
-    // since: dayjs().set('hours', 0).set('minute', 0).toISOString(),
-    // until: dayjs().set('hours', 23).set('minute', 59).toISOString(),
-  });
+const since = dayjs().subtract(1, 'day').toISOString();
+const until = dayjs().add(1, 'day').toISOString();
 
 const Streams = (props: StreamsProps): JSX.Element | null => {
-  const { data: streams, isValidating } = useSWR<Stream[]>(key, fetcher);
+  const { data: streams, isValidating } = useAspidaSWR(api.rest.v1.streams, {
+    query: { since, until },
+  });
+
   const upcomingEvents = useUpcomingEvents();
   const genreQuery = useGenreQueryParam();
   const [genre, setGenre] = useState(genreQuery ?? GENRE_ALL);

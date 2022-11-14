@@ -2,9 +2,9 @@ import Color from 'color';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 
-import { Timestamps } from '../../_shared/Timestamps';
-import { MediaAttachment } from '../MediaAttachment';
-import { Performer } from '../Performer';
+import { Timestamps } from '../../_shared/timestamps';
+import { MediaAttachment } from '../media-attachment';
+import { Performer } from '../performer';
 import { organizationFixture } from './organization';
 
 export const actorFixture = Performer.rehydrate({
@@ -22,7 +22,7 @@ export const actorFixture = Performer.rehydrate({
   }),
   avatar: MediaAttachment.rehydrate({
     id: nanoid(),
-    base64:
+    blurDataUri:
       'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAACCAIAAADwyuo0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAI0lEQVR4nGPgZTDeNLFnb5lTrqwlQ5GH0/+3p2xYFA/17gYAeW8KZZGWAkQAAAAASUVORK5CYII=',
     timestamps: new Timestamps({
       createdAt: dayjs(),
