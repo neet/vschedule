@@ -1,9 +1,10 @@
 import Color from 'color';
 import { URL } from 'url';
 
-import { RehydrateParameters } from '../../../_core';
-import { TwitterUsername, YoutubeChannelId } from '..';
+import { Recipe } from '../../../_core';
 import { MediaAttachment } from '../../media-attachment';
+import { TwitterUsername } from '../twitter-username';
+import { YoutubeChannelId } from '../youtube-channel-id';
 import { ActorDescription } from './actor-description';
 import { ActorName } from './actor-name';
 
@@ -48,7 +49,11 @@ export abstract class Actor {
     return this._props.youtubeChannelId;
   }
 
-  public static rehydrate(props: RehydrateParameters<ActorProps>): ActorProps {
+  // public canSubscribeTo(): this.youtubeChannelId is YoutubeChannelId {
+  //   return this.youtubeChannelId != null;
+  // }
+
+  public static rehydrate(props: Recipe<ActorProps>): ActorProps {
     return {
       name: new ActorName(props.name),
       color: props.color,

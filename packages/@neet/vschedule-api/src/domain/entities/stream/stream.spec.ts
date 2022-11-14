@@ -5,6 +5,7 @@ import { actorFixture } from '../__fixtures__/actor';
 import { Timestamps } from '../_shared';
 import { Stream } from './stream';
 import { StreamId } from './stream-id';
+import { StreamTitle } from './stream-title';
 
 describe('Stream', () => {
   it('constructs', () => {
@@ -41,7 +42,7 @@ describe('Stream', () => {
     });
 
     const endedAt = dayjs();
-    stream = stream.update({ title: 'test2', endedAt });
+    stream = stream.setTitle(new StreamTitle('test2')).end(endedAt);
 
     expect(stream.title.value).toBe('test2');
     expect(stream.endedAt).toBe(endedAt);

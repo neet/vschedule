@@ -9,6 +9,8 @@ export class MediaAttachmentIdInvalidError extends Error {
 }
 
 export class MediaAttachmentId extends ValueObject<string> {
+  readonly #brand!: never;
+
   public constructor(value?: string | MediaAttachmentId) {
     if (value instanceof MediaAttachmentId) {
       return value;

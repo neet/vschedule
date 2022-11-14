@@ -4,7 +4,7 @@ import { TYPES } from '../../types';
 import { OrganizationDto } from '../dto';
 import { IOrganizationQueryService } from './organization-query-service';
 
-export interface ListOrganizationParams {
+export interface ListOrganizationCommand {
   readonly limit?: number;
   readonly offset?: number;
 }
@@ -16,9 +16,9 @@ export class ListOrganization {
     private readonly _organizationQueryService: IOrganizationQueryService,
   ) {}
 
-  async invoke(params?: ListOrganizationParams): Promise<OrganizationDto[]> {
+  async invoke(command?: ListOrganizationCommand): Promise<OrganizationDto[]> {
     const actors = await this._organizationQueryService.queryMany({
-      limit: params?.limit,
+      limit: command?.limit,
     });
 
     return actors;

@@ -11,6 +11,8 @@ export class UserEmailMalformedError extends DomainError {
 }
 
 export class UserEmail extends ValueObject<string> {
+  readonly #brand!: never;
+
   public constructor(value: UserEmail | string) {
     if (value instanceof UserEmail) {
       return value;

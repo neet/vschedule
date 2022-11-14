@@ -11,7 +11,7 @@ export class StreamIdInvalidError extends DomainError {
 }
 
 export class StreamId extends ValueObject<string> {
-  public readonly tag = Symbol();
+  readonly #brand!: never;
 
   public constructor(value?: string | StreamId) {
     if (value instanceof StreamId) {

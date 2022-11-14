@@ -3,18 +3,17 @@ import { ErrorRequestHandler, Response } from 'express';
 
 import {
   AppError,
-  CreateOrganizationChannelNotFoundError,
   CreatePerformerChannelNotFoundError,
   CreatePerformerOrganizationNotFoundError,
   CreateResubscriptionTaskInvalidTopicError,
   CreateResubscriptionTaskUnknownActorError,
-  CreateStreamFailedToFetchVideoError,
-  CreateStreamPerformerNotFoundWithChannelIdError,
+  DrainTokenNotFoundError,
   RemoveStreamNotFoundError,
   ShowMediaAttachmentNotFoundError,
   ShowOrganizationNotFoundError,
   ShowPerformerNotFoundError,
   ShowStreamNotFoundError,
+  ShowUserNotFoundError,
   UnexpectedError,
   UpdatePerformerNotFoundError,
   UpdatePerformerOrganizationNotFoundError,
@@ -36,16 +35,13 @@ export const appErrorHandler: ErrorRequestHandler = (
   if (error instanceof CreatePerformerOrganizationNotFoundError) {
     res.status(404);
   }
-  if (error instanceof CreateStreamFailedToFetchVideoError) {
+  if (error instanceof DrainTokenNotFoundError) {
     res.status(404);
   }
   if (error instanceof CreatePerformerChannelNotFoundError) {
     res.status(404);
   }
-  if (error instanceof CreateStreamPerformerNotFoundWithChannelIdError) {
-    res.status(404);
-  }
-  if (error instanceof CreateOrganizationChannelNotFoundError) {
+  if (error instanceof ShowUserNotFoundError) {
     res.status(404);
   }
   if (error instanceof RemoveStreamNotFoundError) {

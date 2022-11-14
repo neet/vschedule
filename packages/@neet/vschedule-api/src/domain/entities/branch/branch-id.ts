@@ -10,6 +10,8 @@ export class BranchIdInvalidError extends Error {
 }
 
 export class BranchId extends ValueObject<string> {
+  readonly #brand!: never;
+
   public constructor(value?: string | BranchId) {
     if (value instanceof BranchId) {
       return value;

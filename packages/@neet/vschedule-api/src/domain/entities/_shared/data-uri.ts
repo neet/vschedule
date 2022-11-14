@@ -11,6 +11,8 @@ export class DataUriInvalidError extends DomainError {
 }
 
 export class DataUri extends ValueObject<string> {
+  readonly #brand!: never;
+
   public constructor(value: string | DataUri) {
     if (value instanceof DataUri) {
       return value;

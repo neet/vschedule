@@ -111,9 +111,9 @@ export class PerformersController extends BaseHttpController {
   ) {
     const performer = await this._createPerformer.invoke({
       youtubeChannelId: body.youtubeChannelId,
-      name: body.name,
-      description: body.description,
-      color: body.color,
+      name: body.name ?? null,
+      description: body.description ?? null,
+      color: body.color ?? null,
       twitterUsername: body.twitterUsername,
       url: body.url,
       organizationId: body.organizationId,

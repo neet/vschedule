@@ -11,7 +11,7 @@ export class OrganizationIdInvalidError extends DomainError {
 }
 
 export class OrganizationId extends ValueObject<string> {
-  public readonly tag = Symbol();
+  readonly #brand!: never;
 
   public constructor(value?: string | OrganizationId) {
     if (value instanceof OrganizationId) {

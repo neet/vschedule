@@ -1,25 +1,18 @@
 import Color from 'color';
-import getColors from 'get-image-colors';
 import { inject, injectable } from 'inversify';
-import fetch from 'node-fetch';
-import sharp from 'sharp';
-import { URL } from 'url';
 
 import {
-  IMediaAttachmentRepository,
-  IOrganizationRepository,
+  ActorDescription,
+  ActorName,
+  IPerformerFactory,
   IPerformerRepository,
-  MediaAttachmentFilename,
   OrganizationId,
-  Performer,
+  OrganizationService,
+  TwitterUsername,
+  YoutubeChannelId,
 } from '../../domain';
 import { TYPES } from '../../types';
-import {
-  AppError,
-  ILogger,
-  IYoutubeApiService,
-  UnexpectedError,
-} from '../_shared';
+import { AppError, ILogger, UnexpectedError } from '../_shared';
 import { PerformerDto } from '../dto';
 import { IPerformerQueryService } from './performer-query-service';
 
@@ -42,18 +35,18 @@ export class CreatePerformerOrganizationNotFoundError extends AppError {
   }
 }
 
-export interface CreatePerformerParams {
+export interface CreatePerformerCommand {
   readonly youtubeChannelId: string;
   readonly url: string | null;
   readonly twitterUsername: string | null;
   readonly organizationId: string | null;
 
   /** @default string Generated from Youtube avatar  */
-  readonly color?: string | null;
+  readonly color: string | null;
   /** @default string YouTube channel name  */
-  readonly name?: string | null;
+  readonly name: string | null;
   /** @default string YouTube channel description  */
-  readonly description?: string | null;
+  readonly description: string | null;
 }
 
 @injectable()
@@ -65,68 +58,43 @@ export class CreatePerformer {
     @inject(TYPES.PerformerRepository)
     private readonly _performerRepository: IPerformerRepository,
 
-    @inject(TYPES.MediaAttachmentRepository)
-    private readonly _mediaAttachmentRepository: IMediaAttachmentRepository,
+    @inject(TYPES.PerformerFactory)
+    private readonly _performerFactory: IPerformerFactory,
 
-    @inject(TYPES.YoutubeApiService)
-    private readonly _youtubeApiService: IYoutubeApiService,
-
-    @inject(TYPES.OrganizationRepository)
-    private readonly _organizationRepository: IOrganizationRepository,
+    @inject(OrganizationService)
+    private readonly _organizationService: OrganizationService,
 
     @inject(TYPES.Logger)
     private readonly _logger: ILogger,
   ) {}
 
-  public async invoke(params: CreatePerformerParams): Promise<PerformerDto> {
-    const {
-      name,
-      youtubeChannelId,
-      description,
-      color,
-      url,
-      twitterUsername,
-      organizationId,
-    } = params;
-
-    const channel = await this._fetchChannelById(youtubeChannelId);
-    if (organizationId != null) {
-      await this._checkIfOrganizationExists(organizationId);
-    }
-
-    // image
-    const image = await fetch(channel.thumbnailUrl);
-    const imageBuffer = Buffer.from(await image.arrayBuffer());
-
-    // make color
-    const shade = await getColors(
-      imageBuffer,
-      image.headers.get('Content-Type') as string,
-    );
-    const primaryColor = shade[0];
-    if (primaryColor == null) {
-      this._logger.warning('Could not find primary color');
-      throw new UnexpectedError();
-    }
-
-    // トランザクション貼りたいけどどうしよう..
-    const avatar = await this._mediaAttachmentRepository.save(
-      new MediaAttachmentFilename(`${youtubeChannelId}_avatar.webp`),
-      await sharp(imageBuffer).webp().toBuffer(),
-    );
-
-    const performer = Performer.create({
-      name: name ?? channel.name,
-      avatar,
-      youtubeChannelId,
-      description: description ?? channel.description ?? null,
-      color: new Color(color ?? primaryColor.hex()),
-      url: url != null ? new URL(url) : null,
-      twitterUsername: twitterUsername ?? null,
-      organizationId: organizationId ?? null,
+  public async invoke(command: CreatePerformerCommand): Promise<PerformerDto> {
+    const performer = await this._performerFactory.create({
+      url: command.url != null ? new URL(command.url) : null,
+      youtubeChannelId: new YoutubeChannelId(command.youtubeChannelId),
+      twitterUsername:
+        command.twitterUsername != null
+          ? new TwitterUsername(command.twitterUsername)
+          : null,
+      organizationId:
+        command.organizationId != null
+          ? new OrganizationId(command.organizationId)
+          : null,
+      description:
+        command.description != null
+          ? new ActorDescription(command.description)
+          : null,
+      name: command.name != null ? new ActorName(command.name) : null,
+      color: command.color != null ? new Color(command.color) : null,
     });
-
     await this._performerRepository.create(performer);
+
+    if (performer.organizationId != null) {
+      await this._organizationService.addPerformer(
+        performer,
+        performer.organizationId,
+      );
+    }
     this._logger.info(`Performer with ID ${performer.id} is created`, {
       performer,
     });
@@ -136,23 +104,5 @@ export class CreatePerformer {
       throw new UnexpectedError();
     }
     return result;
-  }
-
-  private async _fetchChannelById(channelId: string) {
-    try {
-      const channel = await this._youtubeApiService.fetchChannel(channelId);
-      return channel;
-    } catch (error) {
-      throw new CreatePerformerChannelNotFoundError(channelId, error);
-    }
-  }
-
-  private async _checkIfOrganizationExists(orgId: string): Promise<void> {
-    const id = new OrganizationId(orgId);
-
-    const org = this._organizationRepository.findById(id);
-    if (org == null) {
-      throw new CreatePerformerOrganizationNotFoundError(id);
-    }
   }
 }

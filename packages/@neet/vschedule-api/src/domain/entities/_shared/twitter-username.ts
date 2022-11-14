@@ -21,6 +21,8 @@ export class TwitterUsernameInvalidCharacterError extends DomainError {
 }
 
 export class TwitterUsername extends ValueObject<string> {
+  readonly #brand!: never;
+
   public constructor(value: string | TwitterUsername) {
     if (value instanceof TwitterUsername) {
       return value;

@@ -11,6 +11,8 @@ export class ActorDescriptionLengthError extends DomainError {
 }
 
 export class ActorDescription extends ValueObject<string> {
+  readonly #brand!: never;
+
   constructor(value: string | ActorDescription) {
     if (value instanceof ActorDescription) {
       return value;

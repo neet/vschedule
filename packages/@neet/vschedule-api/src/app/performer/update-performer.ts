@@ -2,11 +2,14 @@ import Color from 'color';
 import { inject, injectable } from 'inversify';
 
 import {
-  IOrganizationRepository,
+  ActorDescription,
+  ActorName,
   IPerformerRepository,
-  Organization,
   OrganizationId,
+  OrganizationService,
   PerformerId,
+  TwitterUsername,
+  YoutubeChannelId,
 } from '../../domain';
 import { TYPES } from '../../types';
 import { AppError, ILogger, UnexpectedError } from '../_shared';
@@ -29,7 +32,7 @@ export class UpdatePerformerOrganizationNotFoundError extends AppError {
   }
 }
 
-export interface UpdatePerformerParams {
+export interface UpdatePerformerCommand {
   readonly name?: string;
   readonly description?: string | null;
   readonly color?: string;
@@ -47,8 +50,8 @@ export class UpdatePerformer {
     @inject(TYPES.PerformerRepository)
     private readonly _performerRepository: IPerformerRepository,
 
-    @inject(TYPES.OrganizationRepository)
-    private readonly _organizationRepository: IOrganizationRepository,
+    @inject(OrganizationService)
+    private readonly _organizationService: OrganizationService,
 
     @inject(TYPES.Logger)
     private readonly _logger: ILogger,
@@ -56,38 +59,49 @@ export class UpdatePerformer {
 
   public async invoke(
     id: string,
-    params: UpdatePerformerParams,
+    command: UpdatePerformerCommand,
   ): Promise<PerformerDto> {
-    const {
-      name,
-      color,
-      description,
-      youtubeChannelId,
-      twitterUsername,
-      organizationId,
-    } = params;
-
     const performerId = new PerformerId(id);
-
     let performer = await this._performerRepository.findById(performerId);
     if (performer == null) {
       throw new UpdatePerformerNotFoundError(performerId);
     }
 
-    if (organizationId != null) {
-      await this._checkIfOrganizationExists(organizationId);
+    if (command.name != null) {
+      performer = performer.setName(new ActorName(command.name));
     }
 
-    performer = performer.update({
-      name,
-      description,
-      color: color !== undefined ? new Color(color) : undefined,
-      youtubeChannelId,
-      twitterUsername,
-      organizationId,
-    });
+    if (command.description != null) {
+      performer = performer.setDescription(
+        new ActorDescription(command.description),
+      );
+    }
+
+    if (command.color != null) {
+      performer = performer.setColor(new Color(command.color));
+    }
+
+    if (command.youtubeChannelId != null) {
+      performer = performer.setYoutubeChannelId(
+        new YoutubeChannelId(command.youtubeChannelId),
+      );
+    }
+
+    if (command.twitterUsername != null) {
+      performer = performer.setTwitterUsername(
+        new TwitterUsername(command.twitterUsername),
+      );
+    }
 
     await this._performerRepository.update(performer);
+
+    if (command.organizationId != null) {
+      await this._organizationService.addPerformer(
+        performer,
+        new OrganizationId(command.organizationId),
+      );
+    }
+
     this._logger.info(`Performer with ${performer.id} is updated`);
 
     const result = await this._performerQueryService.query(performer.id);
@@ -95,17 +109,5 @@ export class UpdatePerformer {
       throw new UnexpectedError();
     }
     return result;
-  }
-
-  private async _checkIfOrganizationExists(
-    organizationId: string,
-  ): Promise<Organization | null> {
-    const id = new OrganizationId(organizationId);
-    const org = this._organizationRepository.findById(id);
-    if (org == null) {
-      throw new UpdatePerformerOrganizationNotFoundError(id);
-    }
-
-    return org;
   }
 }

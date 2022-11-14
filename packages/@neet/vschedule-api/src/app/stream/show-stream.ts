@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 
-import { PerformerId, StreamId } from '../../domain';
+import { StreamId } from '../../domain';
 import { TYPES } from '../../types';
 import { AppError } from '../_shared';
 import { StreamDto } from '../dto';
@@ -9,8 +9,8 @@ import { IStreamQueryService } from './stream-query-service';
 export class ShowStreamNotFoundError extends AppError {
   public readonly name = 'ShowStreamNotFoundError';
 
-  public constructor(public readonly performerId: PerformerId) {
-    super(`Stream owner with ID ${performerId} was not found`);
+  public constructor(public readonly streamId: StreamId) {
+    super(`Stream owner with ID ${streamId} was not found`);
   }
 }
 

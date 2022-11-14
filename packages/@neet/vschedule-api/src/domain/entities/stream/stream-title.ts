@@ -11,6 +11,8 @@ export class StreamTitleLengthError extends DomainError {
 }
 
 export class StreamTitle extends ValueObject<string> {
+  readonly #brand!: never;
+
   public constructor(value: string | StreamTitle) {
     if (value instanceof StreamTitle) {
       return value;

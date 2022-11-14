@@ -9,6 +9,8 @@ export class UserIdInvalidError extends Error {
 }
 
 export class UserId extends ValueObject<string> {
+  readonly #brand!: never;
+
   public constructor(value?: string | UserId) {
     if (value instanceof UserId) {
       return value;
