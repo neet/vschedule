@@ -6,12 +6,12 @@ import { ILogger, UnexpectedError } from '../_shared';
 import { StreamDto } from '../dto';
 import { IStreamQueryService } from './stream-query-service';
 
-export interface CreateStreamCommand {
+export interface UpsertStreamCommand {
   readonly videoId: string;
 }
 
 @injectable()
-export class CreateStream {
+export class UpsertStream {
   constructor(
     @inject(TYPES.StreamQueryService)
     private readonly _streamQueryService: IStreamQueryService,
@@ -26,7 +26,7 @@ export class CreateStream {
     private readonly _logger: ILogger,
   ) {}
 
-  async invoke(command: CreateStreamCommand): Promise<StreamDto> {
+  async invoke(command: UpsertStreamCommand): Promise<StreamDto> {
     const stream = await this._streamFactory.createFromVideoId(command.videoId);
     await this._streamRepository.save(stream);
 

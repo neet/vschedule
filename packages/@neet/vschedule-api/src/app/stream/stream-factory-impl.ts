@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { nanoid } from 'nanoid';
 import fetch from 'node-fetch';
 import sharp from 'sharp';
@@ -41,6 +41,8 @@ export class CreateStreamPerformerNotFoundWithChannelIdError extends AppError {
     super(`Performer was not found with channel ID ${channelId}`);
   }
 }
+
+@injectable()
 export class StreamFactoryImpl implements IStreamFactory {
   public constructor(
     @inject(TYPES.YoutubeApiService)

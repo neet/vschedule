@@ -16,16 +16,16 @@ import {
 
 import {
   CreateResubscriptionTask,
-  CreateStream,
   RemoveStream,
+  UpsertStream,
 } from '../../../app';
 import { TYPES } from '../../../types';
 
 @controller('/websub/youtube')
 export class YoutubeWebsubController extends BaseHttpController {
   constructor(
-    @inject(CreateStream)
-    private readonly _createStream: CreateStream,
+    @inject(UpsertStream)
+    private readonly _upsertStream: UpsertStream,
 
     @inject(RemoveStream)
     private readonly _removeStream: RemoveStream,
@@ -74,7 +74,7 @@ export class YoutubeWebsubController extends BaseHttpController {
       if (videoId == null) {
         return this.statusCode(200);
       }
-      await this._createStream.invoke({ videoId });
+      await this._upsertStream.invoke({ videoId });
       return this.statusCode(200);
     }
 

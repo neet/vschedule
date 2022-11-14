@@ -83,7 +83,7 @@ export class PerformerFactoryImpl implements IPerformerFactory {
     const imageBuffer = Buffer.from(await image.arrayBuffer());
 
     const mediaAttachment = await this._mediaAttachmentRepository.save(
-      new MediaAttachmentFilename(`${YoutubeChannelId}_avatar.webp`),
+      new MediaAttachmentFilename(`${id.value}_avatar.webp`),
       await sharp(imageBuffer).webp().toBuffer(),
     );
 

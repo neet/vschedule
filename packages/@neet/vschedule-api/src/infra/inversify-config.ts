@@ -21,11 +21,17 @@ import {
   IYoutubeApiService,
   IYoutubeWebsubService,
 } from '../app';
+import { OrganizationFactory } from '../app/organization/organization-factory-impl';
+import { PerformerFactoryImpl } from '../app/performer/performer-factory-impl';
+import { StreamFactoryImpl } from '../app/stream/stream-factory-impl';
 import {
   IMediaAttachmentRepository,
+  IOrganizationFactory,
   IOrganizationRepository,
+  IPerformerFactory,
   IPerformerRepository,
   IResubscriptionTaskRepository,
+  IStreamFactory,
   IStreamRepository,
   ITokenRepository,
   IUserRepository,
@@ -122,6 +128,16 @@ container
 container
   .bind<IPerformerQueryService>(TYPES.PerformerQueryService)
   .to(PerformerQueryServicePrisma);
+
+container.bind<IStreamFactory>(TYPES.StreamFactory).to(StreamFactoryImpl);
+
+container
+  .bind<IPerformerFactory>(TYPES.PerformerFactory)
+  .to(PerformerFactoryImpl);
+
+container
+  .bind<IOrganizationFactory>(TYPES.OrganizationFactory)
+  .to(OrganizationFactory);
 
 container.bind(TYPES.YoutubeWebsubParser).to(YoutubeWebsubParser);
 
