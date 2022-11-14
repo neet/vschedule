@@ -39,7 +39,7 @@ import {
 import { TYPES } from '../types';
 import { Authenticate } from './middlewares/authenticate';
 import { Authenticated } from './middlewares/authenticated';
-import { AppConfigEnvironment } from './services/app-config-environment';
+import { AppConfigConsmiconfig } from './services/app-config-cosmiconfig';
 import { loggerCloudLogging } from './services/logger-cloud-logging';
 import { loggerConsole } from './services/logger-console';
 import { StorageCloudStorage } from './services/storage-cloud-storage';
@@ -62,7 +62,7 @@ const prisma = new PrismaClient({
 });
 
 container.bind<PrismaClient>(TYPES.PrismaClient).toConstantValue(prisma);
-container.bind<IAppConfig>(TYPES.AppConfig).to(AppConfigEnvironment);
+container.bind<IAppConfig>(TYPES.AppConfig).to(AppConfigConsmiconfig);
 
 const config = container.get<IAppConfig>(TYPES.AppConfig);
 

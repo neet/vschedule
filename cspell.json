@@ -16,6 +16,7 @@
     "codecov",
     "codegen",
     "compat",
+    "Consmiconfig",
     "darkmodejs",
     "docgen",
     "execa",

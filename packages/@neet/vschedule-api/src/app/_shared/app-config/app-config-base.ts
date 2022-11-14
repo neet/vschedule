@@ -4,48 +4,41 @@ import { PartialDeep } from 'type-fest';
 
 import { IAppConfig } from './app-config';
 
-// const nonNull = <T>(v: T | null | undefined, message?: string): T => {
-//   if (v == null) {
-//     throw new TypeError(message);
-//   }
-//   return v;
-// };
-
-abstract class __AppConfigBase {
+abstract class $AppConfigBase {
   private readonly entries: IAppConfig;
 
-  public constructor(entries: PartialDeep<IAppConfig>) {
+  public constructor(input: PartialDeep<IAppConfig>) {
     this.entries = {
       storage: {
-        type: entries.storage?.type ?? 'filesystem',
-        bucket: entries.storage?.bucket ?? 'ril',
+        type: input.storage?.type ?? 'filesystem',
+        bucket: input.storage?.bucket ?? 'ril',
       },
       tasks: {
         resources: {
-          resubscription: entries.tasks?.resources?.resubscription ?? '/',
+          resubscription: input.tasks?.resources?.resubscription ?? '/',
         },
       },
       youtube: {
-        dataApiKey: entries.youtube?.dataApiKey,
-        websubHmacSecret: entries.youtube?.websubHmacSecret ?? 'secret',
-        websubVerifyToken: entries.youtube?.websubVerifyToken ?? 'token',
+        dataApiKey: input.youtube?.dataApiKey,
+        websubHmacSecret: input.youtube?.websubHmacSecret ?? 'secret',
+        websubVerifyToken: input.youtube?.websubVerifyToken ?? 'token',
       },
       server: {
-        port: entries.server?.port ?? 3000,
-        origin: entries.server?.origin ?? 'http://localhost:3000',
+        port: input.server?.port ?? 3000,
+        origin: input.server?.origin ?? 'http://localhost:3000',
       },
       secrets: {
-        passwordSalt: entries.secrets?.passwordSalt ?? genSaltSync(),
+        passwordSalt: input.secrets?.passwordSalt ?? genSaltSync(),
       },
       logger: {
-        type: entries.logger?.type ?? 'console',
+        type: input.logger?.type ?? 'console',
       },
       admin: {
-        emails: entries.admin?.emails ?? [],
+        emails: input.admin?.emails ?? [],
       },
       session: {
-        secret: entries.session?.secret ?? 'secret',
-        store: entries.session?.store ?? 'memory',
+        secret: input.session?.secret ?? 'secret',
+        store: input.session?.store ?? 'memory',
       },
     };
 
@@ -60,8 +53,8 @@ abstract class __AppConfigBase {
 
 // -- Cast for proxy --
 type AbstractCtor = abstract new (
-  ...args: ConstructorParameters<typeof __AppConfigBase>
+  ...args: ConstructorParameters<typeof $AppConfigBase>
 ) => IAppConfig;
 
-const AppConfigBase = __AppConfigBase as unknown as AbstractCtor;
+const AppConfigBase = $AppConfigBase as unknown as AbstractCtor;
 export { AppConfigBase };

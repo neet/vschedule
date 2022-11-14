@@ -116,5 +116,6 @@ packages/@neet/vschedule-api-client/src/*
 packages/@neet/vschedule-client/src/api/*
 .DS_Store
 storybook-static
+.vschedulerc.toml
 
 !.keep

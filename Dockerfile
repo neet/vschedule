@@ -20,6 +20,7 @@ RUN apt-get -y install libssl-dev
 
 COPY --from=build /app .
 
+VOLUME [ "/.vschedulerc.toml" ]
 EXPOSE ${PORT}
 
 ENTRYPOINT [ "yarn", "workspace", "@neet/vschedule-api", "run", "start" ]
