@@ -8,7 +8,6 @@ on:
     branches:
       - '*'
     paths:
-      - packages/@neet/vschedule-api-client/**
       - packages/@neet/vschedule-api-spec/**
       - packages/@neet/vschedule-client/**
       - packages/@neet/vschedule-eslint-plugin/**

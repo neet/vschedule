@@ -1,6 +1,6 @@
-import { Schemas } from '@neet/vschedule-api-client';
 import { ErrorRequestHandler, Response } from 'express';
 
+import * as Rest from '../../adapters/generated/@types';
 import {
   AppError,
   CreatePerformerChannelNotFoundError,
@@ -72,7 +72,7 @@ export const appErrorHandler: ErrorRequestHandler = (
     res.status(404);
   }
 
-  const payload: Schemas.Error = {
+  const payload: Rest.Error = {
     error: error.name,
     message: error.message,
   };
