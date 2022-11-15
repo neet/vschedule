@@ -1,7 +1,3 @@
-import {
-  Parameter$verifyYoutubeWebsub,
-  RequestBody$notifyYoutubeWebsub,
-} from '@neet/vschedule-api-client';
 import { Response } from 'express';
 import { inject } from 'inversify';
 import {
@@ -20,6 +16,7 @@ import {
   UpsertStream,
 } from '../../../app';
 import { TYPES } from '../../../types';
+import { Methods } from '../../generated/websub/youtube';
 
 @controller('/websub/youtube')
 export class YoutubeWebsubController extends BaseHttpController {
@@ -39,7 +36,7 @@ export class YoutubeWebsubController extends BaseHttpController {
   @httpGet('/')
   async verify(
     @response() res: Response,
-    @queryParam() params: Parameter$verifyYoutubeWebsub,
+    @queryParam() params: Methods['get']['query'],
   ) {
     // TODO: Unsubscribeのときのハンドリング
     await this._createResubscriptionTask.invoke({
@@ -54,7 +51,7 @@ export class YoutubeWebsubController extends BaseHttpController {
   @httpPost('/', TYPES.YoutubeWebsubParser)
   async notify(
     @requestBody()
-    body: RequestBody$notifyYoutubeWebsub['application/atom+xml'],
+    body: Required<Methods['post']['reqBody']>,
   ) {
     if (
       'at:deleted-entry' in body.feed &&

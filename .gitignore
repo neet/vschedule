@@ -114,7 +114,9 @@ dist
 data
 packages/@neet/vschedule-api-client/src/*
 packages/@neet/vschedule-client/src/api/*
+packages/@neet/vschedule-api/src/adapters/generated/*
 .DS_Store
 storybook-static
+.vschedulerc.toml
 
 !.keep

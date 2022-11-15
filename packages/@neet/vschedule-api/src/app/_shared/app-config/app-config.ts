@@ -1,55 +1,40 @@
-export interface IAppConfigYoutube {
-  readonly dataApiKey?: string;
-  readonly websubHmacSecret: string;
-  readonly websubVerifyToken: string;
-}
+import { TypeOf, z } from 'zod';
 
-export type CookieStorageType = 'cloud-storage' | 'filesystem';
+export const configSchema = z.object({
+  youtube: z.object({
+    dataApiKey: z.string(),
+    websubHmacSecret: z.string(),
+    websubVerifyToken: z.string(),
+  }),
+  storage: z.object({
+    type: z.union([z.literal('cloud-storage'), z.literal('filesystem')]),
+    bucket: z.string(),
+  }),
+  server: z.object({
+    port: z.number().int(),
+    origin: z.string().url(),
+  }),
+  tasks: z.object({
+    resources: z.object({
+      resubscription: z.string(),
+    }),
+  }),
+  logger: z.object({
+    type: z.union([z.literal('console'), z.literal('cloud-logging')]),
+  }),
+  secrets: z.object({
+    passwordSalt: z.string(),
+  }),
+  admin: z.object({
+    emails: z.array(z.string()),
+  }),
+  session: z.object({
+    store: z.union([z.literal('firestore'), z.literal('memory')]),
+    secret: z.string(),
+  }),
+});
 
-export interface IAppConfigStorage {
-  readonly type: CookieStorageType;
-  readonly bucket: string;
-}
-
-export interface IAppConfigServer {
-  readonly port: number;
-  readonly origin: string;
-}
-
-export interface IAppConfigTasks {
-  readonly resources: {
-    /** パフォーマーを再講読するタスクのリソース名. Can be computed by tasks.queuePath() */
-    readonly resubscription: string;
-  };
-}
-
-export interface IAppConfigLogger {
-  readonly type: 'console' | 'cloud-logging';
-}
-
-export interface IAppSecrets {
-  readonly passwordSalt: string;
-}
-
-export interface IAppAdmin {
-  readonly emails: string[];
-}
-
-export interface IAppSession {
-  readonly store: 'firestore' | 'memory';
-  readonly secret: string;
-}
-
-export interface IAppConfig {
-  readonly youtube: IAppConfigYoutube;
-  readonly storage: IAppConfigStorage;
-  readonly server: IAppConfigServer;
-  readonly logger: IAppConfigLogger;
-  readonly tasks: IAppConfigTasks;
-  readonly secrets: IAppSecrets;
-  readonly admin: IAppAdmin;
-  readonly session: IAppSession;
-}
+export type IAppConfig = TypeOf<typeof configSchema>;
 
 // TODO: メソッドにしたい
 const resolvePath = (config: IAppConfig, pathname: string) => {

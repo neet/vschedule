@@ -1,6 +1,6 @@
-import { Schemas } from '@neet/vschedule-api-client';
 import { ErrorRequestHandler } from 'express';
 
+import * as Rest from '../../adapters/generated/@types';
 import { DomainError } from '../../domain';
 
 export const domainErrorHandler: ErrorRequestHandler = (
@@ -13,7 +13,7 @@ export const domainErrorHandler: ErrorRequestHandler = (
     return next(error);
   }
 
-  const payload: Schemas.Error = {
+  const payload: Rest.Error = {
     error: error.name,
     message: error.message,
   };

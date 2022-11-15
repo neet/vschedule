@@ -18,7 +18,8 @@ import {
   YoutubeChannelId,
 } from '../../domain';
 import { TYPES } from '../../types';
-import { AppError, IYoutubeApiService, Video } from '../_shared';
+import { IYoutubeApiService, Video } from '../_external';
+import { AppError } from '../_shared';
 
 const YOUTUBE_CHANNEL_REGEXP =
   /https:\/\/www\.youtube\.com\/channel\/(.+?)(\/|\s|\n|\?)/g;

@@ -13,7 +13,7 @@ import { TYPES } from '../../types';
 import { rehydrateMediaAttachmentFromPrisma } from '../mappers/prisma-entity-mapper';
 
 @injectable()
-export class MediaAttachmentRepositoryPrismaImpl
+export class MediaAttachmentRepositoryPrisma
   implements IMediaAttachmentRepository
 {
   constructor(

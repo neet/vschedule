@@ -8,6 +8,9 @@ describe('AppConfigBase', () => {
       logger: {
         type: 'cloud-logging',
       },
+      youtube: {
+        dataApiKey: 'TEST_STRING',
+      },
     });
 
     expect(test.logger.type).toBe('cloud-logging');

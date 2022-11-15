@@ -1,7 +1,3 @@
-import {
-  Parameter$listOrganizations,
-  RequestBody$createOrganization,
-} from '@neet/vschedule-api-client';
 import { inject } from 'inversify';
 import {
   BaseHttpController,
@@ -10,7 +6,6 @@ import {
   httpPost,
   queryParam,
   requestBody,
-  requestParam,
 } from 'inversify-express-utils';
 
 import {
@@ -19,6 +14,7 @@ import {
   ShowOrganization,
 } from '../../../../app';
 import { TYPES } from '../../../../types';
+import { Methods } from '../../../generated/rest/v1/organizations';
 import { RestPresenter } from '../../../mappers/rest-presenter';
 
 @controller('/rest/v1/organizations')
@@ -46,10 +42,10 @@ export class OrganizationsController extends BaseHttpController {
   }
 
   @httpGet('/')
-  async list(@requestParam() params: Parameter$listOrganizations) {
+  async list(@queryParam() query: Methods['get']['query'] = {}) {
     const organizations = await this._listOrganization.invoke({
-      limit: params.limit,
-      offset: params.offset,
+      limit: query.limit,
+      offset: query.offset,
     });
 
     return this.json(
@@ -60,9 +56,7 @@ export class OrganizationsController extends BaseHttpController {
   }
 
   @httpPost('/', TYPES.Authenticated)
-  async create(
-    @requestBody() body: RequestBody$createOrganization['application/json'],
-  ) {
+  async create(@requestBody() body: Methods['post']['reqBody']) {
     const organization = await this._createOrganization.invoke({
       name: body.name,
       url: body.url ?? null,

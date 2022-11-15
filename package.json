@@ -3,7 +3,7 @@
   "private": true,
   "packageManager": "yarn@3.2.4",
   "scripts": {
-    "build:api": "yarn workspace @neet/vschedule-api-spec run build && yarn workspace @neet/vschedule-api-client run build && yarn workspace @neet/vschedule-client run codegen"
+    "build:api": "yarn workspace @neet/vschedule-api-spec run build && yarn workspace @neet/vschedule-client run codegen && @neet/vschedule-api run codegen"
   },
   "workspaces": [
     "packages/@neet/*"

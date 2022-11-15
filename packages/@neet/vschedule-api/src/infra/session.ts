@@ -2,9 +2,9 @@ import { FirestoreStore } from '@google-cloud/connect-firestore';
 import { Firestore } from '@google-cloud/firestore';
 import session from 'express-session';
 
-import { IAppSession } from '../app';
+import { IAppConfig } from '../app';
 
-export const createSession = (config: IAppSession) => {
+export const createSession = (config: IAppConfig['session']) => {
   const store =
     config.store === 'firestore'
       ? new FirestoreStore({

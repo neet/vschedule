@@ -12,7 +12,7 @@ module.exports = {
     },
     {
       displayName: 'E2E',
-      testEnvironment: 'node',
+      testEnvironment: '@quramy/jest-prisma-node/environment',
       transform: {
         '^.+\\.(t|j)sx?$': ['@swc/jest'],
       },

@@ -2861,15 +2861,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@himenon/openapi-parameter-formatter@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "@himenon/openapi-parameter-formatter@npm:0.3.1"
-  dependencies:
-    flat: 5.0.2
-  checksum: c248eea32248d38f1d1109ae85909d67fe2d7a0059a0d08bf7d1237d594132a4840e88dd997c0d23c5aba658689300cd0b6c7431267f08c99498c7ddfa0e7435
-  languageName: node
-  linkType: hard
-
 "@himenon/openapi-typescript-code-generator@npm:^0.19.1":
   version: 0.19.1
   resolution: "@himenon/openapi-typescript-code-generator@npm:0.19.1"
@@ -2919,6 +2910,13 @@ __metadata:
   version: 3.0.2
   resolution: "@hutson/parse-repository-url@npm:3.0.2"
   checksum: 39992c5f183c5ca3d761d6ed9dfabcb79b5f3750bf1b7f3532e1dc439ca370138bbd426ee250fdaba460bc948e6761fbefd484b8f4f36885d71ded96138340d1
+  languageName: node
+  linkType: hard
+
+"@iarna/toml@npm:^2.2.5":
+  version: 2.2.5
+  resolution: "@iarna/toml@npm:2.2.5"
+  checksum: b63b2b2c4fd67969a6291543ada0303d45593801ee744b60f5390f183c03d9192bc67a217abb24be945158f1935f02840d9ffff40c0142aa171b5d3b6b6a3ea5
   languageName: node
   linkType: hard
 
@@ -3768,7 +3766,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@neet/vschedule-api-client@workspace:^, @neet/vschedule-api-client@workspace:packages/@neet/vschedule-api-client":
+"@neet/vschedule-api-client@workspace:packages/@neet/vschedule-api-client":
   version: 0.0.0-use.local
   resolution: "@neet/vschedule-api-client@workspace:packages/@neet/vschedule-api-client"
   dependencies:
@@ -3809,13 +3807,12 @@ __metadata:
     "@google-cloud/logging-winston": ^5.1.8
     "@google-cloud/storage": ^6.6.0
     "@google-cloud/tasks": ^3.0.4
-    "@himenon/openapi-parameter-formatter": ^0.3.1
     "@neet/eslint-plugin-vschedule": "workspace:^"
     "@neet/tsconfig-vschedule": "workspace:^"
-    "@neet/vschedule-api-client": "workspace:^"
     "@neet/vschedule-api-spec": "workspace:^"
     "@neet/vschedule-seeds": "workspace:^"
     "@prisma/client": ^4.5.0
+    "@quramy/jest-prisma-node": ^1.1.2
     "@swc/core": ^1.3.14
     "@swc/jest": ^0.2.23
     "@types/bcryptjs": ^2
@@ -3840,6 +3837,8 @@ __metadata:
     body-parser-xml: ^2.0.3
     color: ^4.2.3
     cors: ^2.8.5
+    cosmiconfig: ^7.1.0
+    cosmiconfig-toml-loader: ^1.0.0
     dayjs: ^1.11.6
     eslint: ^8.27.0
     execa: ^5.1.1
@@ -3857,6 +3856,7 @@ __metadata:
     mkdirp: ^1.0.4
     nanoid: ^3.3.4
     node-fetch: ^2.6.7
+    openapi2aspida: ^0.19.0
     passport: ^0.6.0
     passport-local: ^1.0.0
     plaiceholder: ^2.5.0
@@ -3873,6 +3873,7 @@ __metadata:
     typescript: ^4.8.4
     validator: ^13.7.0
     winston: ^3.8.2
+    zod: ^3.19.1
   languageName: unknown
   linkType: soft
 
@@ -4683,6 +4684,31 @@ __metadata:
   version: 1.1.0
   resolution: "@protobufjs/utf8@npm:1.1.0"
   checksum: f9bf3163d13aaa3b6f5e6fbf37a116e094ea021c0e1f2a7ccd0e12a29e2ce08dafba4e8b36e13f8ed7397e1591610ce880ed1289af4d66cf4ace8a36a9557278
+  languageName: node
+  linkType: hard
+
+"@quramy/jest-prisma-core@npm:^1.0.0":
+  version: 1.1.2
+  resolution: "@quramy/jest-prisma-core@npm:1.1.2"
+  dependencies:
+    chalk: ^4.0.0
+  peerDependencies:
+    "@prisma/client": ^2.29.0 || ^3.0.0 || ^4.0.0
+    jest: ^28.0.0 || ^29.0.0
+  checksum: 9e6a79ed8938d32f249d2665eddf815d2e18988ad22bbe19597ee30a481608dc4d20942df65592fdfc7a52dad5fc72eafcc92a2731dd052640eeed916b92412f
+  languageName: node
+  linkType: hard
+
+"@quramy/jest-prisma-node@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@quramy/jest-prisma-node@npm:1.1.2"
+  dependencies:
+    "@quramy/jest-prisma-core": ^1.0.0
+  peerDependencies:
+    "@prisma/client": ^2.29.0 || ^3.0.0 || ^4.0.0
+    jest: ^28.0.0 || ^29.0.0
+    jest-environment-node: ^28.0.0 || ^29.0.0
+  checksum: cde3a0a25d37b0cd8abff5b44ba6cca40d5fbac72190b6affdc286916ece551694b7e43e1522aed7d40b8cda035d2028b264964c607c7c783c87633076718f4e
   languageName: node
   linkType: hard
 
@@ -11051,6 +11077,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cosmiconfig-toml-loader@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "cosmiconfig-toml-loader@npm:1.0.0"
+  dependencies:
+    "@iarna/toml": ^2.2.5
+  checksum: 00836a57c3c029a0d23f4eeeafc59a0be45cdf2707c5a6859020f545d50f939bfb01bc047fa41118faa92e69e25001f34d7687b05a97a469ed59fc870528b875
+  languageName: node
+  linkType: hard
+
 "cosmiconfig@npm:^6.0.0":
   version: 6.0.0
   resolution: "cosmiconfig@npm:6.0.0"
@@ -11074,6 +11109,19 @@ __metadata:
     path-type: ^4.0.0
     yaml: ^1.10.0
   checksum: 4be63e7117955fd88333d7460e4c466a90f556df6ef34efd59034d2463484e339666c41f02b523d574a797ec61f4a91918c5b89a316db2ea2f834e0d2d09465b
+  languageName: node
+  linkType: hard
+
+"cosmiconfig@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "cosmiconfig@npm:7.1.0"
+  dependencies:
+    "@types/parse-json": ^4.0.0
+    import-fresh: ^3.2.1
+    parse-json: ^5.0.0
+    path-type: ^4.0.0
+    yaml: ^1.10.0
+  checksum: c53bf7befc1591b2651a22414a5e786cd5f2eeaa87f3678a3d49d6069835a9d8d1aef223728e98aa8fec9a95bf831120d245096db12abe019fecb51f5696c96f
   languageName: node
   linkType: hard
 
@@ -13772,15 +13820,6 @@ __metadata:
     flatted: ^3.1.0
     rimraf: ^3.0.2
   checksum: 4fdd10ecbcbf7d520f9040dd1340eb5dfe951e6f0ecf2252edeec03ee68d989ec8b9a20f4434270e71bcfd57800dc09b3344fca3966b2eb8f613072c7d9a2365
-  languageName: node
-  linkType: hard
-
-"flat@npm:5.0.2":
-  version: 5.0.2
-  resolution: "flat@npm:5.0.2"
-  bin:
-    flat: cli.js
-  checksum: 12a1536ac746db74881316a181499a78ef953632ddd28050b7a3a43c62ef5462e3357c8c29d76072bb635f147f7a9a1f0c02efef6b4be28f8db62ceb3d5c7f5d
   languageName: node
   linkType: hard
 

@@ -66,7 +66,7 @@ registry.registerPath({
   path: '/websub/youtube',
   operationId: 'verifyYoutubeWebsub',
   request: {
-    params: YoutubeWebsubVerification,
+    query: YoutubeWebsubVerification,
   },
   responses: {
     200: {

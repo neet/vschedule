@@ -13,12 +13,8 @@ import {
   YoutubeChannelId,
 } from '../../domain';
 import { TYPES } from '../../types';
-import {
-  AppError,
-  ILogger,
-  IYoutubeApiService,
-  UnexpectedError,
-} from '../_shared';
+import { IYoutubeApiService } from '../_external';
+import { AppError, ILogger, UnexpectedError } from '../_shared';
 
 export class OrganizationFactoryChannelNotFoundError extends AppError {
   public readonly name = 'OrganizationFactoryChannelNotFoundError';

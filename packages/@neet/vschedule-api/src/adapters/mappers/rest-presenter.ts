@@ -1,6 +1,5 @@
 import { URL } from 'node:url';
 
-import { Schemas } from '@neet/vschedule-api-client';
 import { inject, injectable } from 'inversify';
 
 import {
@@ -12,6 +11,7 @@ import {
 } from '../../app';
 import { MediaAttachment, unwrap, User } from '../../domain';
 import { TYPES } from '../../types';
+import * as Rest from '../generated/@types';
 
 @injectable()
 export class RestPresenter {
@@ -26,7 +26,7 @@ export class RestPresenter {
 
   public presentMediaAttachment(
     mediaAttachment: MediaAttachment,
-  ): Schemas.MediaAttachment {
+  ): Rest.MediaAttachment {
     const pathname = `/rest/v1/media/${mediaAttachment.filename.value}`;
     const url = new URL(this._origin);
     url.pathname = pathname;
@@ -43,7 +43,7 @@ export class RestPresenter {
     };
   }
 
-  public presentActor(actor: ActorDto): Schemas.Actor {
+  public presentActor(actor: ActorDto): Rest.Actor {
     return {
       name: actor.name.value,
       url: actor.url === null ? null : actor.url.toString(),
@@ -58,9 +58,7 @@ export class RestPresenter {
     };
   }
 
-  public presentOrganization(
-    organization: OrganizationDto,
-  ): Schemas.Organization {
+  public presentOrganization(organization: OrganizationDto): Rest.Organization {
     return {
       ...this.presentActor(organization),
       id: organization.id.value,
@@ -69,7 +67,7 @@ export class RestPresenter {
     };
   }
 
-  public presentPerformer(performer: PerformerDto): Schemas.Performer {
+  public presentPerformer(performer: PerformerDto): Rest.Performer {
     return {
       ...this.presentActor(performer),
       id: performer.id.value,
@@ -82,7 +80,7 @@ export class RestPresenter {
     };
   }
 
-  public presentStream(stream: StreamDto): Schemas.Stream {
+  public presentStream(stream: StreamDto): Rest.Stream {
     return {
       id: stream.id.value,
       title: stream.title.value,
@@ -102,7 +100,7 @@ export class RestPresenter {
     };
   }
 
-  public presentUser(user: User): Schemas.User {
+  public presentUser(user: User): Rest.User {
     return {
       id: user.id.value,
       email: user.email.value,

@@ -1,5 +1,7 @@
+export * from './_external';
 export * from './_shared';
 export * from './dto';
+export * from './factories';
 export * from './media-attachment';
 export * from './organization';
 export * from './performer';

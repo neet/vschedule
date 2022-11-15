@@ -1,4 +1,3 @@
-import { RequestBody$signup } from '@neet/vschedule-api-client';
 import { Request } from 'express';
 import { inject } from 'inversify';
 import {
@@ -11,6 +10,7 @@ import {
 
 import { CreateUser } from '../../app';
 import { TYPES } from '../../types';
+import { Methods } from '../generated/auth/signup';
 import { RestPresenter } from '../mappers/rest-presenter';
 
 @controller('/auth')
@@ -51,7 +51,7 @@ export class AuthController extends BaseHttpController {
   @httpPost('/signup')
   public async signup(
     @request() req: Request,
-    @requestBody() body: RequestBody$signup['application/json'],
+    @requestBody() body: Methods['post']['reqBody'],
   ) {
     const user = await this._createUser.invoke({
       email: body.email,
