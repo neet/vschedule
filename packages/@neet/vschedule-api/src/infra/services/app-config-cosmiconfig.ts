@@ -9,7 +9,7 @@ export class AppConfigConsmiconfig extends AppConfigBase implements IAppConfig {
   constructor() {
     const moduleName = 'vschedule';
     const result = cosmiconfigSync(moduleName, {
-      searchPlaces: [`.${moduleName}rc.toml`],
+      searchPlaces: [`.${moduleName}rc.toml`, `.config/${moduleName}rc.toml`],
       loaders: {
         '.toml': loadToml,
       },
