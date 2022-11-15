@@ -1,6 +1,6 @@
 {
   "name": "@neet/vschedule-api",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "scripts": {
     "codegen": "prisma generate && rm -rf ./src/adapters/generated && openapi2aspida",
     "build": "yarn run codegen && tsc",
