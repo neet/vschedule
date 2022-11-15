@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createHmac } from 'crypto';
 import fs from 'fs';
 import { advanceTo, clear } from 'jest-date-mock';
 import path from 'path';
-import { URLSearchParams } from 'url';
+import supertest from 'supertest';
 
-import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/repositories/resubscirpiton-task-repository-in-memory';
+import { ApiInstance } from '../src/adapters/generated/$api';
+import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/repositories/resubscription-task-repository-in-memory';
 import { IAppConfig } from '../src/app/_shared/app-config/app-config';
 import { TYPES } from '../src/types';
-import { createRequest } from '../test-utils/client/client';
+import { createRequest } from '../test-utils/api';
 import { container } from '../test-utils/inversify-config';
 import { SEED_STREAM_ID } from '../test-utils/seed';
 
@@ -22,30 +24,36 @@ const ytWebsubStreamDeleted = fs.readFileSync(
 );
 
 describe('/websub/youtube', () => {
-  const config = container.get<IAppConfig>(TYPES.AppConfig);
-  const { request, client } = createRequest();
+  let config: IAppConfig;
+  let api!: ApiInstance;
+  let request!: supertest.SuperTest<supertest.Test>;
+
+  beforeAll(() => {
+    config = container.get<IAppConfig>(TYPES.AppConfig);
+    const req = createRequest(container);
+    api = req.api;
+    request = req.request;
+  });
 
   it('verifies WebSub subscription', async () => {
     advanceTo(0);
 
-    const token = config.youtube.websubVerifyToken;
-    const searchParams = new URLSearchParams({
-      'hub.topic': `https://www.youtube.com/xml/feeds/videos.xml?channel_id=UCV5ZZlLjk5MKGg3L0n0vbzw`,
-      'hub.challenge': '4605398436710972921',
-      'hub.mode': 'subscribe',
-      'hub.lease_seconds': '432000',
-      'hub.verify_token': token,
+    const token = config.youtube.websubVerifyToken ?? '';
+    const result = await api.websub.youtube.get({
+      query: {
+        'hub.topic': `https://www.youtube.com/xml/feeds/videos.xml?channel_id=UCV5ZZlLjk5MKGg3L0n0vbzw`,
+        'hub.challenge': '4605398436710972921',
+        'hub.mode': 'subscribe',
+        'hub.lease_seconds': 432000,
+        'hub.verify_token': token,
+      } as any,
     });
-
-    const result = await request
-      .get('/websub/youtube?' + searchParams.toString())
-      .send();
 
     const repository = container.get<ResubscriptionTaskRepositoryInMemory>(
       TYPES.ResubscriptionTaskRepository,
     );
 
-    expect(result.statusCode).toBe(200);
+    expect(result.status).toBe(200);
     expect(repository.tasks.at(0)?.scheduledAt.toISOString()).toBe(
       '1970-01-06T00:00:00.000Z',
     );
@@ -68,7 +76,7 @@ describe('/websub/youtube', () => {
 
     expect(result.status).toBe(200);
 
-    const streams = await client.listStreams({ parameter: {} });
+    const streams = await api.rest.v1.streams.$get();
     const stream = streams
       .filter((stream) => /pOXNZPi22yQ/.test(stream.url))
       .at(0);
@@ -87,7 +95,7 @@ describe('/websub/youtube', () => {
       .digest()
       .toString('hex');
 
-    const prev = (await client.listStreams({ parameter: {} }))
+    const prev = (await api.rest.v1.streams.$get())
       .filter((stream) => /pOXNZPi22yQ/.test(stream.url))
       .at(0);
 
@@ -99,7 +107,7 @@ describe('/websub/youtube', () => {
 
     expect(result.status).toBe(200);
 
-    const current = (await client.listStreams({ parameter: {} }))
+    const current = (await api.rest.v1.streams.$get())
       .filter((stream) => /pOXNZPi22yQ/.test(stream.url))
       .at(0);
 
@@ -120,7 +128,7 @@ describe('/websub/youtube', () => {
       .send(ytWebsubStreamScheduled);
     expect(res.ok).toBe(false);
 
-    const streams = await client.listStreams({ parameter: {} });
+    const streams = await api.rest.v1.streams.$get();
     const stream = streams
       .filter((stream) => /0XnCry1Afzc/.test(stream.url))
       .at(0);
@@ -140,11 +148,7 @@ describe('/websub/youtube', () => {
     expect(res.ok).toBe(true);
 
     await expect(
-      client.showStream({
-        parameter: {
-          streamId: SEED_STREAM_ID,
-        },
-      }),
+      api.rest.v1.streams._streamId(SEED_STREAM_ID).get(),
     ).rejects.toMatchObject({
       status: 404,
     });

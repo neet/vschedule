@@ -1,9 +1,3 @@
-import {
-  Parameter$listPerformers,
-  Params$subscribeToPerformer,
-  RequestBody$createPerformer,
-  RequestBody$updatePerformer,
-} from '@neet/vschedule-api-client';
 import { inject } from 'inversify';
 import {
   BaseHttpController,
@@ -24,6 +18,8 @@ import {
   UpdatePerformer,
 } from '../../../../app';
 import { TYPES } from '../../../../types';
+import { Methods } from '../../../generated/rest/v1/performers';
+import { Methods as MethodsId } from '../../../generated/rest/v1/performers/_performerId@string';
 import { RestPresenter } from '../../../mappers/rest-presenter';
 
 @controller('/rest/v1/performers')
@@ -67,7 +63,7 @@ export class PerformersController extends BaseHttpController {
   @httpPatch('/:performerId')
   async update(
     @requestParam('performerId') performerId: string,
-    @requestBody() body: RequestBody$updatePerformer['application/json'],
+    @requestBody() body: MethodsId['patch']['reqBody'],
   ) {
     const performer = await this._updatePerformer.invoke(performerId, {
       name: body.name,
@@ -82,17 +78,15 @@ export class PerformersController extends BaseHttpController {
   }
 
   @httpPost('/:performerId/subscribe', TYPES.Authenticated)
-  public async subscribe(
-    @requestParam() params: Params$subscribeToPerformer['parameter'],
-  ) {
+  public async subscribe(@requestParam('performerId') performerId: string) {
     await this._subscribeToPerformer.invoke({
-      performerId: params.performerId,
+      performerId,
     });
     return this.statusCode(202);
   }
 
   @httpGet('/')
-  async list(@queryParam() params: Parameter$listPerformers) {
+  async list(@queryParam() params: Methods['get']['query'] = {}) {
     const performers = await this._listPerformers.invoke({
       limit: params.limit,
       offset: params.offset,
@@ -106,9 +100,7 @@ export class PerformersController extends BaseHttpController {
   }
 
   @httpPost('/', TYPES.Authenticated)
-  async create(
-    @requestBody() body: RequestBody$createPerformer['application/json'],
-  ) {
+  async create(@requestBody() body: Methods['post']['reqBody']) {
     const performer = await this._createPerformer.invoke({
       youtubeChannelId: body.youtubeChannelId,
       name: body.name ?? null,

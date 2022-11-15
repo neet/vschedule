@@ -1,4 +1,5 @@
 /* eslint-disable import/no-unresolved */
+import assert from 'assert';
 import { genSaltSync } from 'bcryptjs';
 import { PartialDeep } from 'type-fest';
 
@@ -8,6 +9,11 @@ abstract class $AppConfigBase {
   private readonly entries: IAppConfig;
 
   public constructor(input: PartialDeep<IAppConfig>) {
+    assert(
+      input.youtube?.dataApiKey != null,
+      'youtube.dataApiKey cannot be null ',
+    );
+
     this.entries = {
       storage: {
         type: input.storage?.type ?? 'filesystem',
@@ -19,9 +25,9 @@ abstract class $AppConfigBase {
         },
       },
       youtube: {
-        dataApiKey: input.youtube?.dataApiKey,
-        websubHmacSecret: input.youtube?.websubHmacSecret ?? 'secret',
-        websubVerifyToken: input.youtube?.websubVerifyToken ?? 'token',
+        dataApiKey: input.youtube.dataApiKey,
+        websubHmacSecret: input.youtube.websubHmacSecret ?? 'secret',
+        websubVerifyToken: input.youtube.websubVerifyToken ?? 'token',
       },
       server: {
         port: input.server?.port ?? 3000,

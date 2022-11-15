@@ -10,12 +10,14 @@ import { IAppConfig, ILogger } from '../app';
 import { TYPES } from '../types';
 import { App } from './app';
 import { container } from './inversify-config';
+import { configurePassport } from './passport';
 
 const logger = container.get<ILogger>(TYPES.Logger);
 const config = container.get<IAppConfig>(TYPES.AppConfig);
 const app = container.resolve<App>(App);
 const server = new InversifyExpressServer(container);
-app.configure(server);
+const passport = configurePassport(container);
+app.configure(server, passport);
 const express = server.build();
 
 express.listen(config.server.port, () => {

@@ -8,8 +8,8 @@ import { useMemo, useState } from 'react';
 import { Section } from 'react-headings';
 import { useSearchParam } from 'react-use';
 
-import { api } from '../api';
 import { api as apiLegacy } from '../api-legacy';
+import { client } from '../client';
 import { ChangeLog } from '../components/app/ChangeLog';
 import { Crown } from '../components/app/Crown';
 import { Skyscraper } from '../components/app/Skyscraper';
@@ -55,7 +55,7 @@ const since = dayjs().subtract(1, 'day').toISOString();
 const until = dayjs().add(1, 'day').toISOString();
 
 const Streams = (props: StreamsProps): JSX.Element | null => {
-  const { data: streams, isValidating } = useAspidaSWR(api.rest.v1.streams, {
+  const { data: streams, isValidating } = useAspidaSWR(client.rest.v1.streams, {
     query: { since, until },
   });
 

@@ -1,7 +1,6 @@
 import { injectable } from 'inversify';
 import { BaseMiddleware } from 'inversify-express-utils';
-
-import { passport } from '../passport';
+import passport from 'passport';
 
 @injectable()
 export class Authenticate extends BaseMiddleware {

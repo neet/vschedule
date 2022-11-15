@@ -13,6 +13,7 @@ import * as OpenApiValidator from 'express-openapi-validator';
 import expressWinston from 'express-winston';
 import { inject, injectable } from 'inversify';
 import { InversifyExpressServer } from 'inversify-express-utils';
+import Passport from 'passport';
 import swaggerUi from 'swagger-ui-express';
 import winston from 'winston';
 
@@ -21,7 +22,6 @@ import { TYPES } from '../types';
 import { appErrorHandler } from './middlewares/app-error-handler';
 import { domainErrorHandler } from './middlewares/domain-error-handler';
 import { openapiErrorHandler } from './middlewares/openapi-error-handler';
-import { passport } from './passport';
 import { createSession } from './session';
 
 @injectable()
@@ -34,7 +34,10 @@ export class App {
     private readonly _logger: ILogger,
   ) {}
 
-  public configure(server: InversifyExpressServer): void {
+  public configure(
+    server: InversifyExpressServer,
+    passport: typeof Passport,
+  ): void {
     const winstonInstance = this._logger as winston.Logger;
 
     server.setConfig((app) => {

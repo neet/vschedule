@@ -2,9 +2,9 @@ import { TypeOf, z } from 'zod';
 
 export const configSchema = z.object({
   youtube: z.object({
-    dataApiKey: z.string().nullish(),
-    websubHmacSecret: z.string().nullish(),
-    websubVerifyToken: z.string().nullish(),
+    dataApiKey: z.string(),
+    websubHmacSecret: z.string(),
+    websubVerifyToken: z.string(),
   }),
   storage: z.object({
     type: z.union([z.literal('cloud-storage'), z.literal('filesystem')]),

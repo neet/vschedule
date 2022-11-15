@@ -1,4 +1,3 @@
-import { Params$listStreams } from '@neet/vschedule-api-client';
 import dayjs from 'dayjs';
 import { inject } from 'inversify';
 import {
@@ -10,6 +9,7 @@ import {
 } from 'inversify-express-utils';
 
 import { ListStreams, ShowStream } from '../../../../app';
+import { Methods } from '../../../generated/rest/v1/streams';
 import { RestPresenter } from '../../../mappers/rest-presenter';
 
 @controller('/rest/v1/streams')
@@ -28,12 +28,12 @@ export class StreamsRestApiController extends BaseHttpController {
   }
 
   @httpGet('/')
-  async list(@queryParam() params: Params$listStreams['parameter']) {
+  async list(@queryParam() query: Methods['get']['query'] = {}) {
     const data = await this._listStreams.invoke({
-      limit: params.limit,
-      since: params.since != null ? dayjs(params.since) : undefined,
-      until: params.until != null ? dayjs(params.until) : undefined,
-      organizationId: params.organizationId,
+      limit: query.limit,
+      since: query.since != null ? dayjs(query.since) : undefined,
+      until: query.until != null ? dayjs(query.until) : undefined,
+      organizationId: query.organizationId,
     });
 
     return this.json(
