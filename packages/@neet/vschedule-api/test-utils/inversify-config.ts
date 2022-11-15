@@ -11,6 +11,7 @@ import {
 } from '../src/app';
 import { mw } from '../src/infra/middlewares';
 import { AppConfigConsmiconfig } from '../src/infra/services/app-config-cosmiconfig';
+import { AppConfigEnvironment } from '../src/infra/services/app-config-environment';
 import { loggerSilent } from '../src/infra/services/logger-silent';
 import { StorageFilesystem } from '../src/infra/services/storage-filesystem';
 import { YoutubeApiService } from '../src/infra/services/youtube-api-service';
@@ -26,7 +27,15 @@ container
   .bind<PrismaClient>(TYPES.PrismaClient)
   .toConstantValue(new PrismaClient());
 
-container.bind<IAppConfig>(TYPES.AppConfig).to(AppConfigConsmiconfig);
+container
+  .bind<IAppConfig>(TYPES.AppConfig)
+  .to(AppConfigConsmiconfig)
+  .when(() => !process.env.CI);
+
+container
+  .bind<IAppConfig>(TYPES.AppConfig)
+  .to(AppConfigEnvironment)
+  .when(() => !!process.env.CI);
 
 container
   .bind(TYPES.YoutubeWebsubService)
