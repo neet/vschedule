@@ -32,16 +32,16 @@ jobs:
           node-version: '16'
           cache: yarn
 
-      # c.f. https://github.com/vercel/next.js/blob/canary/errors/no-cache.md#github-actions
+      # https://nextjs.org/docs/advanced-features/ci-build-caching#github-actions
       - name: Restore Next.js Caches
         uses: actions/cache@v3
         with:
           path: |
             ~/.npm
             ${{ github.workspace }}/packages/@neet/vschedule-client/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
 
       - name: Yarn
         run: |

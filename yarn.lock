@@ -2861,26 +2861,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@himenon/openapi-typescript-code-generator@npm:^0.19.1":
-  version: 0.19.1
-  resolution: "@himenon/openapi-typescript-code-generator@npm:0.19.1"
-  dependencies:
-    "@himenon/path-oriented-data-structure": 0.1.3
-    "@types/json-schema": 7.0.7
-    ajv: 8.0.5
-    dot-prop: 6.0.1
-    js-yaml: 4.0.0
-  checksum: 941121c7af1a4cb4ad4b040b9b628de1cc497662f87e35d24e3129352989b8c9cc94625d7e1e82dc81a66dc7e11ebf903d24784c3c5e552e96ca4a6b02f482ec
-  languageName: node
-  linkType: hard
-
-"@himenon/path-oriented-data-structure@npm:0.1.3":
-  version: 0.1.3
-  resolution: "@himenon/path-oriented-data-structure@npm:0.1.3"
-  checksum: 2096fb84824637ac809d22a3be6d7f571fa31bfcc5c9490c5be6e69dfe2e30cfd952fa0c04f4484e2e12fae2a136d85d3d21b0f2d9c4bd1dd36e1eab866a2242
-  languageName: node
-  linkType: hard
-
 "@humanwhocodes/config-array@npm:^0.11.6":
   version: 0.11.6
   resolution: "@humanwhocodes/config-array@npm:0.11.6"
@@ -3763,20 +3743,6 @@ __metadata:
   resolution: "@neet/tsconfig-vschedule@workspace:packages/@neet/tsconfig-vschedule"
   dependencies:
     "@tsconfig/node16": ^1.0.3
-  languageName: unknown
-  linkType: soft
-
-"@neet/vschedule-api-client@workspace:packages/@neet/vschedule-api-client":
-  version: 0.0.0-use.local
-  resolution: "@neet/vschedule-api-client@workspace:packages/@neet/vschedule-api-client"
-  dependencies:
-    "@himenon/openapi-typescript-code-generator": ^0.19.1
-    "@neet/tsconfig-vschedule": "workspace:^"
-    "@neet/vschedule-api-spec": "workspace:^"
-    "@types/eslint": ^8.4.10
-    eslint: ^8.27.0
-    ts-node: ^10.9.1
-    typescript: ^4.8.4
   languageName: unknown
   linkType: soft
 
@@ -6879,13 +6845,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/json-schema@npm:7.0.7":
-  version: 7.0.7
-  resolution: "@types/json-schema@npm:7.0.7"
-  checksum: ea3b409235862d28122751158f4054e729e31ad844bd7b8b23868f38c518047b1c0e8e4e7cc293e02c31a2fb8cfc8a4506c2de2a745cf78b218e064fb8898cd4
-  languageName: node
-  linkType: hard
-
 "@types/json-schema@npm:^7.0.6":
   version: 7.0.11
   resolution: "@types/json-schema@npm:7.0.11"
@@ -8272,18 +8231,6 @@ __metadata:
   peerDependencies:
     ajv: ^6.9.1
   checksum: 7dc5e5931677a680589050f79dcbe1fefbb8fea38a955af03724229139175b433c63c68f7ae5f86cf8f65d55eb7c25f75a046723e2e58296707617ca690feae9
-  languageName: node
-  linkType: hard
-
-"ajv@npm:8.0.5":
-  version: 8.0.5
-  resolution: "ajv@npm:8.0.5"
-  dependencies:
-    fast-deep-equal: ^3.1.1
-    json-schema-traverse: ^1.0.0
-    require-from-string: ^2.0.2
-    uri-js: ^4.2.2
-  checksum: c4f62f00590806db08117b48115b5a84569d717515c591314dfbe76549c41f4837372cbb9d2658b9becc17ae938b434f6edd921973f919a02d87f3e181d2c5e6
   languageName: node
   linkType: hard
 
@@ -12209,21 +12156,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dot-prop@npm:6.0.1, dot-prop@npm:^6.0.0":
-  version: 6.0.1
-  resolution: "dot-prop@npm:6.0.1"
-  dependencies:
-    is-obj: ^2.0.0
-  checksum: 0f47600a4b93e1dc37261da4e6909652c008832a5d3684b5bf9a9a0d3f4c67ea949a86dceed9b72f5733ed8e8e6383cc5958df3bbd0799ee317fd181f2ece700
-  languageName: node
-  linkType: hard
-
 "dot-prop@npm:^5.1.0, dot-prop@npm:^5.2.0":
   version: 5.3.0
   resolution: "dot-prop@npm:5.3.0"
   dependencies:
     is-obj: ^2.0.0
   checksum: d5775790093c234ef4bfd5fbe40884ff7e6c87573e5339432870616331189f7f5d86575c5b5af2dcf0f61172990f4f734d07844b1f23482fff09e3c4bead05ea
+  languageName: node
+  linkType: hard
+
+"dot-prop@npm:^6.0.0":
+  version: 6.0.1
+  resolution: "dot-prop@npm:6.0.1"
+  dependencies:
+    is-obj: ^2.0.0
+  checksum: 0f47600a4b93e1dc37261da4e6909652c008832a5d3684b5bf9a9a0d3f4c67ea949a86dceed9b72f5733ed8e8e6383cc5958df3bbd0799ee317fd181f2ece700
   languageName: node
   linkType: hard
 
@@ -17708,17 +17655,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:4.0.0":
-  version: 4.0.0
-  resolution: "js-yaml@npm:4.0.0"
-  dependencies:
-    argparse: ^2.0.1
-  bin:
-    js-yaml: bin/js-yaml.js
-  checksum: 931d6dddb3589fa272c8273366c6dffa99fd6bd26ac7b70f9bac925c28cb7ae352b964192df84f90ecd7a2ff50ab87e6d58e2148eb19c89aa155c73ed847ab92
-  languageName: node
-  linkType: hard
-
 "js-yaml@npm:^3.13.1":
   version: 3.14.1
   resolution: "js-yaml@npm:3.14.1"
@@ -17922,13 +17858,6 @@ __metadata:
   version: 0.4.1
   resolution: "json-schema-traverse@npm:0.4.1"
   checksum: 7486074d3ba247769fda17d5181b345c9fb7d12e0da98b22d1d71a5db9698d8b4bd900a3ec1a4ffdd60846fc2556274a5c894d0c48795f14cb03aeae7b55260b
-  languageName: node
-  linkType: hard
-
-"json-schema-traverse@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "json-schema-traverse@npm:1.0.0"
-  checksum: 02f2f466cdb0362558b2f1fd5e15cce82ef55d60cd7f8fa828cf35ba74330f8d767fcae5c5c2adb7851fa811766c694b9405810879bc4e1ddd78a7c0e03658ad
   languageName: node
   linkType: hard
 
@@ -23313,13 +23242,6 @@ __metadata:
   version: 2.1.1
   resolution: "require-directory@npm:2.1.1"
   checksum: fb47e70bf0001fdeabdc0429d431863e9475e7e43ea5f94ad86503d918423c1543361cc5166d713eaa7029dd7a3d34775af04764bebff99ef413111a5af18c80
-  languageName: node
-  linkType: hard
-
-"require-from-string@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "require-from-string@npm:2.0.2"
-  checksum: a03ef6895445f33a4015300c426699bc66b2b044ba7b670aa238610381b56d3f07c686251740d575e22f4c87531ba662d06937508f0f3c0f1ddc04db3130560b
   languageName: node
   linkType: hard
 
