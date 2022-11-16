@@ -8,6 +8,7 @@ import {
   IAppConfig,
   IStorage,
   IYoutubeApiService,
+  IYoutubeWebsubService,
 } from '../src/app';
 import { mw } from '../src/infra/middlewares';
 import { AppConfigConsmiconfig } from '../src/infra/services/app-config-cosmiconfig';
@@ -21,6 +22,8 @@ import { TYPES } from '../src/types';
 const container = new Container({
   autoBindInjectable: true,
   skipBaseClassChecks: true,
+  // more than one time references to `jestPrisma.client` breaks tests
+  defaultScope: 'Singleton',
 });
 
 container
@@ -38,7 +41,7 @@ container
   .when(() => !!process.env.CI);
 
 container
-  .bind(TYPES.YoutubeWebsubService)
+  .bind<IYoutubeWebsubService>(TYPES.YoutubeWebsubService)
   .toConstantValue(mockYoutubeWebsubService);
 
 container
@@ -52,4 +55,5 @@ container.load(repositories.withoutGcp);
 container.load(queryServices.prisma);
 container.load(factories);
 container.load(mw);
+
 export { container };

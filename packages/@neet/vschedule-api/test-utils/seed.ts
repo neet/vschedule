@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { hashSync } from 'bcryptjs';
 import { nanoid } from 'nanoid';
 
-import { IAppConfig } from '../src/app/_shared/app-config/app-config';
+import { IAppConfig } from '../src/app';
 import { TYPES } from '../src/types';
 import { container } from './inversify-config';
 
@@ -12,7 +12,7 @@ export const SEED_STREAM_ID = nanoid();
 export const SEED_USER_ID = nanoid();
 
 export const createSeed = async () => {
-  const client = container.get<PrismaClient>(TYPES.PrismaClient);
+  const client = new PrismaClient();
   const config = container.get<IAppConfig>(TYPES.AppConfig);
 
   await client.user.create({

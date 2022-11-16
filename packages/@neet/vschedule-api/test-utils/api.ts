@@ -1,26 +1,22 @@
-import { Container } from 'inversify';
 import { InversifyExpressServer } from 'inversify-express-utils';
-import supertest from 'supertest';
+import supertest, { SuperTest, Test } from 'supertest';
 
 import api, { ApiInstance } from '../src/adapters/generated/$api';
 import { App } from '../src/infra/app';
-import { configurePassport } from '../src/infra/passport';
 import { aspidaSupertestClient } from './aspida-supertest-client';
+import { container } from './inversify-config';
 
-interface Config {
-  api: ApiInstance;
-  request: supertest.SuperTest<supertest.Test>;
+const server = new InversifyExpressServer(container);
+container.resolve(App).configure(server);
+const app = server.build();
+
+interface ApiContext {
+  readonly api: ApiInstance;
+  readonly request: SuperTest<Test>;
 }
 
-export const createRequest = (container: Container): Config => {
-  const app = new InversifyExpressServer(container);
-  const builder = container.resolve(App);
-  const passport = configurePassport(container);
-  builder.configure(app, passport);
-  const request = supertest(app.build());
-
-  return {
-    api: api(aspidaSupertestClient(request)),
-    request,
-  };
+export const getAPI = (): ApiContext => {
+  const request = supertest.agent(app);
+  const client = api(aspidaSupertestClient(request));
+  return { api: client, request };
 };
