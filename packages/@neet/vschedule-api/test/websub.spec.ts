@@ -1,41 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createHmac } from 'crypto';
-import fs from 'fs';
 import { advanceTo, clear } from 'jest-date-mock';
-import path from 'path';
-import supertest from 'supertest';
 
-import { ApiInstance } from '../src/adapters/generated/$api';
 import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/repositories/resubscription-task-repository-in-memory';
 import { IAppConfig } from '../src/app/_shared/app-config/app-config';
 import { TYPES } from '../src/types';
-import { createRequest } from '../test-utils/api';
+import { getAPI } from '../test-utils/api';
 import { container } from '../test-utils/inversify-config';
 import { SEED_STREAM_ID } from '../test-utils/seed';
-
-const ytWebsubStreamScheduled = fs.readFileSync(
-  path.join(__dirname, './__fixtures__/yt-websub-stream-scheduled.xml'),
-);
-const ytWebsubStreamTitleChanged = fs.readFileSync(
-  path.join(__dirname, './__fixtures__/yt-websub-stream-title-changed.xml'),
-);
-const ytWebsubStreamDeleted = fs.readFileSync(
-  path.join(__dirname, './__fixtures__/yt-websub-stream-deleted.xml'),
-);
+import {
+  ytWebsubStreamDeleted,
+  ytWebsubStreamScheduled,
+  ytWebsubStreamTitleChanged,
+} from './__fixtures__';
 
 describe('/websub/youtube', () => {
   let config: IAppConfig;
-  let api!: ApiInstance;
-  let request!: supertest.SuperTest<supertest.Test>;
 
   beforeAll(() => {
     config = container.get<IAppConfig>(TYPES.AppConfig);
-    const req = createRequest(container);
-    api = req.api;
-    request = req.request;
   });
 
   it('verifies WebSub subscription', async () => {
+    const { api } = getAPI();
     advanceTo(0);
 
     const token = config.youtube.websubVerifyToken ?? '';
@@ -62,6 +49,7 @@ describe('/websub/youtube', () => {
   });
 
   it('receives Atom feed', async () => {
+    const { api, request } = getAPI();
     const hmac = createHmac('sha1', config.youtube.websubHmacSecret);
     const digest = hmac
       .update(ytWebsubStreamScheduled)
@@ -89,6 +77,7 @@ describe('/websub/youtube', () => {
   });
 
   it('updates Atom feed', async () => {
+    const { api, request } = getAPI();
     const hmac = createHmac('sha1', config.youtube.websubHmacSecret);
     const digest = hmac
       .update(ytWebsubStreamTitleChanged)
@@ -115,6 +104,7 @@ describe('/websub/youtube', () => {
   });
 
   it('rejects receiving Atom feed when HMAC did not match', async () => {
+    const { api, request } = getAPI();
     const hmac = createHmac('sha1', 'some wrong secret');
     const digest = hmac
       .update(ytWebsubStreamScheduled)
@@ -137,6 +127,7 @@ describe('/websub/youtube', () => {
   });
 
   it('deletes Atom feed when received deleted-entry', async () => {
+    const { api, request } = getAPI();
     const hmac = createHmac('sha1', config.youtube.websubHmacSecret);
     const digest = hmac.update(ytWebsubStreamDeleted).digest().toString('hex');
 

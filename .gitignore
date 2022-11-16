@@ -118,5 +118,6 @@ packages/@neet/vschedule-api/src/adapters/generated/*
 .DS_Store
 storybook-static
 .vschedulerc.toml
+.config/vschedulerc.toml
 
 !.keep

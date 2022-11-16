@@ -13,7 +13,6 @@ import * as OpenApiValidator from 'express-openapi-validator';
 import expressWinston from 'express-winston';
 import { inject, injectable } from 'inversify';
 import { InversifyExpressServer } from 'inversify-express-utils';
-import Passport from 'passport';
 import swaggerUi from 'swagger-ui-express';
 import winston from 'winston';
 
@@ -22,6 +21,7 @@ import { TYPES } from '../types';
 import { appErrorHandler } from './middlewares/app-error-handler';
 import { domainErrorHandler } from './middlewares/domain-error-handler';
 import { openapiErrorHandler } from './middlewares/openapi-error-handler';
+import { Passport } from './passport';
 import { createSession } from './session';
 
 @injectable()
@@ -32,12 +32,12 @@ export class App {
 
     @inject(TYPES.Logger)
     private readonly _logger: ILogger,
+
+    @inject(Passport)
+    private readonly _passport: Passport,
   ) {}
 
-  public configure(
-    server: InversifyExpressServer,
-    passport: typeof Passport,
-  ): void {
+  public configure(server: InversifyExpressServer): void {
     const winstonInstance = this._logger as winston.Logger;
 
     server.setConfig((app) => {
@@ -45,11 +45,7 @@ export class App {
       app.use(express.urlencoded({ extended: true }));
       app.use(expressWinston.logger({ winstonInstance }));
       app.use(createSession(this._config.session));
-      app.use(passport.initialize());
-      app.use(passport.session());
-
-      // Accept token based authentication
-      app.use(passport.authenticate('token', { session: false }));
+      app.use(this._passport.configure());
 
       // OpenAPI Documentation
       app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSpec));
