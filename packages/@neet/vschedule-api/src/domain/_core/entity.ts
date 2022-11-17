@@ -17,7 +17,7 @@ export abstract class Entity<
     return this._props.id;
   }
 
-  public equals(that: typeof this): boolean {
+  public equals<T extends Entity>(that: T): boolean {
     return this.id.equals(that.id);
   }
 

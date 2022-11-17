@@ -3,7 +3,7 @@ import { inject, injectable } from 'inversify';
 
 import {
   Channel,
-  IAppConfig,
+  IConfig,
   ILogger,
   IYoutubeApiService,
   Video,
@@ -20,8 +20,8 @@ export class YoutubeApiService implements IYoutubeApiService {
   private readonly _yt: youtube_v3.Youtube;
 
   constructor(
-    @inject(TYPES.AppConfig)
-    config: IAppConfig,
+    @inject(TYPES.Config)
+    config: IConfig,
 
     @inject(TYPES.Logger)
     private readonly _logger: ILogger,

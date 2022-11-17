@@ -21,7 +21,7 @@ export const TYPES = Object.freeze({
   PrismaClient: Symbol('PrismaClient'),
   Storage: Symbol('Storage'),
   Logger: Symbol('Logger'),
-  AppConfig: Symbol('AppConfig'),
+  Config: Symbol('Config'),
 
   Authenticated: Symbol('Authenticated'),
   Authenticate: Symbol('Authenticate'),

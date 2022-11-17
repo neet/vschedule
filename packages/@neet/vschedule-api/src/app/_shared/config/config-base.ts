@@ -3,12 +3,12 @@ import assert from 'assert';
 import { genSaltSync } from 'bcryptjs';
 import { PartialDeep } from 'type-fest';
 
-import { IAppConfig } from './app-config';
+import { IConfig } from './config';
 
-abstract class $AppConfigBase {
-  private readonly entries: IAppConfig;
+abstract class $ConfigBase {
+  private readonly entries: IConfig;
 
-  public constructor(input: PartialDeep<IAppConfig>) {
+  public constructor(input: PartialDeep<IConfig>) {
     assert(
       input.youtube?.dataApiKey != null,
       'youtube.dataApiKey cannot be null ',
@@ -59,8 +59,8 @@ abstract class $AppConfigBase {
 
 // -- Cast for proxy --
 type AbstractCtor = abstract new (
-  ...args: ConstructorParameters<typeof $AppConfigBase>
-) => IAppConfig;
+  ...args: ConstructorParameters<typeof $ConfigBase>
+) => IConfig;
 
-const AppConfigBase = $AppConfigBase as unknown as AbstractCtor;
-export { AppConfigBase };
+const ConfigBase = $ConfigBase as unknown as AbstractCtor;
+export { ConfigBase };

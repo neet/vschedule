@@ -4,7 +4,7 @@ import { Container } from 'inversify';
 import { queryServices } from '../adapters/query-services';
 import { repositories } from '../adapters/repositories';
 import {
-  IAppConfig,
+  IConfig,
   ILogger,
   IStorage,
   IYoutubeApiService,
@@ -12,11 +12,11 @@ import {
 } from '../app';
 import { factories } from '../app/factories';
 import { TYPES } from '../types';
-import { mw } from './middlewares';
-import { AppConfigConsmiconfig } from './services/app-config-cosmiconfig';
+import { ConfigConsmiconfig } from './services/config-cosmiconfig';
 import { loggerCloudLogging } from './services/logger-cloud-logging';
 import { loggerConsole } from './services/logger-console';
 import { StorageCloudStorage } from './services/storage-cloud-storage';
+import { StorageFilesystem } from './services/storage-filesystem';
 import { YoutubeApiService } from './services/youtube-api-service';
 import { YoutubeWebsubService } from './services/youtube-websub-service';
 
@@ -25,14 +25,13 @@ const container = new Container({
   skipBaseClassChecks: true,
 });
 
-container.bind<IAppConfig>(TYPES.AppConfig).to(AppConfigConsmiconfig);
+container.bind<IConfig>(TYPES.Config).to(ConfigConsmiconfig);
 container.load(repositories.prisma);
 container.load(queryServices.prisma);
 container.load(factories);
-container.load(mw);
 
 {
-  const config = container.get<IAppConfig>(TYPES.AppConfig);
+  const config = container.get<IConfig>(TYPES.Config);
   container
     .bind<ILogger>(TYPES.Logger)
     .toConstantValue(loggerConsole)
@@ -42,6 +41,16 @@ container.load(mw);
     .bind<ILogger>(TYPES.Logger)
     .toConstantValue(loggerCloudLogging)
     .when(() => config.logger.type === 'cloud-logging');
+
+  container
+    .bind<IStorage>(TYPES.Storage)
+    .to(StorageCloudStorage)
+    .when(() => config.storage.type === 'cloud-storage');
+
+  container
+    .bind<IStorage>(TYPES.Storage)
+    .to(StorageFilesystem)
+    .when(() => config.storage.type === 'filesystem');
 }
 
 {
@@ -70,7 +79,5 @@ container
 container
   .bind<IYoutubeWebsubService>(TYPES.YoutubeWebsubService)
   .to(YoutubeWebsubService);
-
-container.bind<IStorage>(TYPES.Storage).to(StorageCloudStorage);
 
 export { container };

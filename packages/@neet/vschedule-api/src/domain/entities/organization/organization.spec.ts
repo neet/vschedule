@@ -1,5 +1,6 @@
 import Color from 'color';
 import dayjs from 'dayjs';
+import { nanoid } from 'nanoid';
 import { URL } from 'url';
 
 import { Timestamps } from '../_shared/timestamps';
@@ -22,7 +23,7 @@ describe('Organization', () => {
   });
 
   it('can be rehydrated', () => {
-    const id = new OrganizationId();
+    const id = new OrganizationId(nanoid());
     const organization = Organization.rehydrate({
       id,
       name: 'にじさんじ',

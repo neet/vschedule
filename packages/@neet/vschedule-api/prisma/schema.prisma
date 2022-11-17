@@ -18,6 +18,7 @@ model MediaAttachment {
   height      Float
   blurDataUri String   @map("blur_data_uri") @db.Text
   bucket      String?
+  remoteUrl   String?  @map("remote_url")
   createdAt   DateTime @map("created_at")
   updatedAt   DateTime @map("updated_at")
 
@@ -85,7 +86,7 @@ model Performer {
   actor   Actor  @relation(fields: [actorId], references: [id])
 
   organizationId String?       @map("organization_id")
-  organization   Organization? @relation(fields: [organizationId], references: [actorId])
+  organization   Organization? @relation(fields: [organizationId], references: [id])
 
   createdAt DateTime @map("created_at")
   updatedAt DateTime @map("updated_at")

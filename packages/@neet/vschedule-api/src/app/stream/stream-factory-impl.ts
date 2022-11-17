@@ -78,6 +78,7 @@ export class StreamFactoryImpl implements IStreamFactory {
 
     const casts = await this._listCasts(video.description);
 
+    // FIXME オブジェクトの作成以上の責務を負っている気がする
     let stream = await this._streamRepository.findByUrl(new URL(video.url));
     if (stream == null) {
       return Stream.create({
@@ -110,13 +111,15 @@ export class StreamFactoryImpl implements IStreamFactory {
     return stream;
   }
 
-  private async _createThumbnail(url: string): Promise<MediaAttachment> {
+  private async _createThumbnail(urlStr: string): Promise<MediaAttachment> {
+    const url = new URL(urlStr);
     const image = await fetch(url);
     const imageBuffer = Buffer.from(await image.arrayBuffer());
 
     return await this._mediaAttachmentRepository.save(
       new MediaAttachmentFilename(`${nanoid()}_thumbnail.webp`),
       await sharp(imageBuffer).webp().toBuffer(),
+      url,
     );
   }
 

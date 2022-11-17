@@ -1,73 +1,104 @@
-import '../adapters/controllers/rest/v1/performers';
-import '../adapters/controllers/rest/v1/organizations';
-import '../adapters/controllers/rest/v1/media';
-import '../adapters/controllers/rest/v1/streams';
-import '../adapters/controllers/websub/youtube';
-import '../adapters/controllers/auth';
+/* eslint-disable react-hooks/rules-of-hooks */
 import './setup';
 
 import apiSpec from '@neet/vschedule-api-spec';
-import cors from 'cors';
-import express from 'express';
+import express, { Application } from 'express';
 import * as OpenApiValidator from 'express-openapi-validator';
 import expressWinston from 'express-winston';
 import { inject, injectable } from 'inversify';
-import { InversifyExpressServer } from 'inversify-express-utils';
+import { useExpressServer } from 'routing-controllers';
 import swaggerUi from 'swagger-ui-express';
 import winston from 'winston';
 
-import { IAppConfig, ILogger } from '../app';
+import { AuthController } from '../adapters/controllers/auth';
+import { MediaAttachmentController } from '../adapters/controllers/rest/v1/media';
+import { OrganizationsController } from '../adapters/controllers/rest/v1/organizations';
+import { PerformersController } from '../adapters/controllers/rest/v1/performers';
+import { StreamsController } from '../adapters/controllers/rest/v1/streams';
+import { YoutubeWebsubController } from '../adapters/controllers/websub/youtube';
+import { IConfig, ILogger } from '../app';
 import { TYPES } from '../types';
 import { appErrorHandler } from './middlewares/app-error-handler';
 import { domainErrorHandler } from './middlewares/domain-error-handler';
 import { openapiErrorHandler } from './middlewares/openapi-error-handler';
+import { routingControllerErrorHandler } from './middlewares/routing-controller-error-handler';
 import { Passport } from './passport';
+import { YoutubeWebsubParser } from './services/youtube-websub-parser';
 import { createSession } from './session';
 
 @injectable()
 export class App {
   constructor(
-    @inject(TYPES.AppConfig)
-    private readonly _config: IAppConfig,
+    @inject(TYPES.Config)
+    private readonly _config: IConfig,
 
     @inject(TYPES.Logger)
     private readonly _logger: ILogger,
 
     @inject(Passport)
     private readonly _passport: Passport,
+
+    @inject(YoutubeWebsubParser)
+    private readonly _youtubeWebsubParser: YoutubeWebsubParser,
   ) {}
 
-  public configure(server: InversifyExpressServer): void {
+  public configure(): Application {
+    const app = express();
     const winstonInstance = this._logger as winston.Logger;
 
-    server.setConfig((app) => {
-      app.use(express.json());
-      app.use(express.urlencoded({ extended: true }));
-      app.use(expressWinston.logger({ winstonInstance }));
-      app.use(createSession(this._config.session));
-      app.use(this._passport.configure());
+    // parser
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+    app.use(expressWinston.logger({ winstonInstance }));
+    app.use(this._youtubeWebsubParser.handler);
 
-      // OpenAPI Documentation
-      app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSpec));
+    // session
+    app.use(createSession(this._config.session));
+    app.use(this._passport.configure());
 
-      app.use('/auth', cors());
-      app.use(
-        '/rest',
-        cors(),
-        OpenApiValidator.middleware({
-          apiSpec: require.resolve('@neet/vschedule-api-spec'),
-          validateApiSpec: true,
-          validateRequests: true,
-          validateResponses: false,
-        }),
-      );
+    // OpenAPI Documentation
+    app.use('/docs', swaggerUi.serve, swaggerUi.setup(apiSpec));
+
+    // OpenAPI
+    app.use(
+      '/rest',
+      OpenApiValidator.middleware({
+        apiSpec: require.resolve('@neet/vschedule-api-spec'),
+        validateApiSpec: true,
+        validateRequests: true,
+        validateResponses: false,
+      }),
+    );
+
+    // Controllers
+    useExpressServer(app, {
+      cors: true,
+      validation: false,
+      classTransformer: false,
+      defaultErrorHandler: false,
+      controllers: [
+        AuthController,
+        MediaAttachmentController,
+        OrganizationsController,
+        PerformersController,
+        StreamsController,
+        YoutubeWebsubController,
+      ],
+      authorizationChecker: (action) => {
+        return action.request.isAuthenticated();
+      },
+      currentUserChecker: (action) => {
+        return action.request.user;
+      },
     });
 
-    server.setErrorConfig((app) => {
-      app.use(domainErrorHandler);
-      app.use(appErrorHandler);
-      app.use(openapiErrorHandler);
-      app.use(expressWinston.errorLogger({ winstonInstance }));
-    });
+    // Default Error handlers
+    app.use(domainErrorHandler);
+    app.use(appErrorHandler);
+    app.use(openapiErrorHandler);
+    app.use(routingControllerErrorHandler);
+    app.use(expressWinston.errorLogger({ winstonInstance }));
+
+    return app;
   }
 }

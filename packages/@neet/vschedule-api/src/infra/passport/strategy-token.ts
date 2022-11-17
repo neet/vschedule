@@ -30,14 +30,12 @@ export class TokenStrategy extends passport.Strategy {
       }
 
       if (typeof id !== 'string') {
-        console.log(`No token provided`);
         return this.fail('No token provided', 400);
       }
 
       await this._drainToken.invoke(id);
       this.success({ TOKEN_USER });
     } catch (error) {
-      console.log(error);
       if (error instanceof TokenIdInvalidError) {
         this.fail(error.message, 400);
       }

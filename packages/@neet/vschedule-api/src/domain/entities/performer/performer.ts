@@ -52,15 +52,15 @@ export class Performer extends mixins implements ITimestamps {
     return new Performer(props);
   }
 
-  setDescription(name: ActorDescription) {
+  setDescription(name: ActorDescription | null) {
     const props = produce(this._props, (draft) => {
-      draft.name = name;
+      draft.description = name;
       draft.timestamps = draft.timestamps.update();
     });
     return new Performer(props);
   }
 
-  setYoutubeChannelId(id: YoutubeChannelId) {
+  setYoutubeChannelId(id: YoutubeChannelId | null) {
     const props = produce(this._props, (draft) => {
       draft.youtubeChannelId = id;
       draft.timestamps = draft.timestamps.update();
@@ -68,7 +68,7 @@ export class Performer extends mixins implements ITimestamps {
     return new Performer(props);
   }
 
-  setTwitterUsername(username: TwitterUsername) {
+  setTwitterUsername(username: TwitterUsername | null) {
     const props = produce(this._props, (draft) => {
       draft.twitterUsername = username;
       draft.timestamps = draft.timestamps.update();
@@ -79,6 +79,14 @@ export class Performer extends mixins implements ITimestamps {
   setColor(color: Color) {
     const props = produce(this._props, (draft) => {
       draft.color = color;
+      draft.timestamps = draft.timestamps.update();
+    });
+    return new Performer(props);
+  }
+
+  setUrl(url: URL | null) {
+    const props = produce(this._props, (draft) => {
+      draft.url = url;
       draft.timestamps = draft.timestamps.update();
     });
     return new Performer(props);

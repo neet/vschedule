@@ -1,5 +1,3 @@
-import { nanoid } from 'nanoid';
-
 import { DomainError, isNanoid, ValueObject } from '../../_core';
 
 export class OrganizationIdInvalidError extends DomainError {
@@ -13,13 +11,9 @@ export class OrganizationIdInvalidError extends DomainError {
 export class OrganizationId extends ValueObject<string> {
   readonly #brand!: never;
 
-  public constructor(value?: string | OrganizationId) {
+  public constructor(value: string | OrganizationId) {
     if (value instanceof OrganizationId) {
       return value;
-    }
-
-    if (value == null) {
-      return new OrganizationId(nanoid());
     }
 
     if (!isNanoid(value)) {

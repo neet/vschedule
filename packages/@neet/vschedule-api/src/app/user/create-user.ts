@@ -3,7 +3,7 @@ import { inject, injectable } from 'inversify';
 
 import { IUserRepository, User, UserEmail } from '../../domain';
 import { TYPES } from '../../types';
-import { AppError, IAppConfig, ILogger } from '../_shared';
+import { AppError, IConfig, ILogger } from '../_shared';
 
 export class CreateUserAlreadyExists extends AppError {
   readonly name = 'CreateUserAlreadyExists';
@@ -35,8 +35,8 @@ export class CreateUser {
     @inject(TYPES.Logger)
     private readonly _logger: ILogger,
 
-    @inject(TYPES.AppConfig)
-    private readonly _config: IAppConfig,
+    @inject(TYPES.Config)
+    private readonly _config: IConfig,
   ) {}
 
   async invoke(params: CreateUserParams): Promise<User> {

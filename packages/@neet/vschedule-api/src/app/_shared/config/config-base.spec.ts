@@ -1,8 +1,8 @@
-import { AppConfigBase } from './app-config-base';
+import { ConfigBase } from './config-base';
 
-describe('AppConfigBase', () => {
+describe('ConfigBase', () => {
   it('proxies constructor argument', () => {
-    class Test extends AppConfigBase {}
+    class Test extends ConfigBase {}
 
     const test = new Test({
       logger: {

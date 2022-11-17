@@ -1,0 +1,13 @@
+[[organizations]]
+name = "にじさんじ"
+color = "#2d4b70"
+url = "https://www.nijisanji.jp/"
+twitterUsername = "nijisanji_app"
+youtubeChannelId = "UCX7YkU9nEeaoZbkVLVajcMg"
+
+[[organizations]]
+name = 'ホロライブ'
+color = '#43c5f5'
+url = "https://hololive.hololivepro.com/"
+twitterUsername = "hololivetv"
+youtubeChannelId = "UCJFZiqLMntJufDCHc6bQixg"
