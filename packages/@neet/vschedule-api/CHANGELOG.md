@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.14](https://github.com/neet/vschedule/compare/@neet/vschedule-api@0.2.13...@neet/vschedule-api@0.2.14) (2022-11-19)
+
+### Bug Fixes
+
+* Create test DB ([5affd3c](https://github.com/neet/vschedule/commit/5affd3cc8c07a6f257a83e042435ec4a2fcc2c5d))
+
 ## [0.2.13](https://github.com/neet/vschedule/compare/@neet/vschedule-api@0.2.12...@neet/vschedule-api@0.2.13) (2022-11-19)
 
 **Note:** Version bump only for package @neet/vschedule-api
