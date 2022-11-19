@@ -52,6 +52,7 @@ steps:
   - id: seed
     name: $_IMAGE_NAME
     entrypoint: bash
+    dir: .
     args:
       - '-c'
       - |
