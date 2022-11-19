@@ -45,7 +45,9 @@ steps:
     dir: ./packages/@neet/vschedule-api
     args:
       - '-c'
-      - npx prisma db seed
+      - >
+        gcloud secrets versions access latest --secret=${_VSCHEDULERC_KEY} > .vschedulerc.toml
+        yarn run prisma db seed
 
   - id: deploy
     name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
