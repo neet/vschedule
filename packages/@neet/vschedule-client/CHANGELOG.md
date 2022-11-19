@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.18](https://github.com/neet/vschedule/compare/@neet/vschedule-client@0.0.17...@neet/vschedule-client@0.0.18) (2022-11-19)
+
+**Note:** Version bump only for package @neet/vschedule-client
+
 ## [0.0.17](https://github.com/neet/vschedule/compare/@neet/vschedule-client@0.0.16...@neet/vschedule-client@0.0.17) (2022-11-15)
 
 **Note:** Version bump only for package @neet/vschedule-client

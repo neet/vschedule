@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.11 (2022-11-19)
+
+**Note:** Version bump only for package @neet/vschedule-seed
+
 ## 0.0.10 (2022-11-09)
 
 **Note:** Version bump only for package @neet/vschedule-seeds
