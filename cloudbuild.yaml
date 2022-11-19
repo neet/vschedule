@@ -52,12 +52,11 @@ steps:
   - id: seed
     name: $_IMAGE_NAME
     entrypoint: bash
-    dir: ./packages/@neet/vschedule-api
     args:
       - '-c'
       - |
         cp /workspace/.vschedulerc.toml .vschedulerc.toml
-        yarn run prisma db seed
+        yarn workspace @neet/vschedule-api run prisma db seed
 
   - id: deploy
     name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
