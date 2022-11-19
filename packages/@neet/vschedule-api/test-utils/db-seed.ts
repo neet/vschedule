@@ -3,17 +3,14 @@ import { hashSync } from 'bcryptjs';
 import { nanoid } from 'nanoid';
 
 import { IConfig } from '../src/app';
-import { TYPES } from '../src/types';
-import { container } from './inversify-config';
 
 export const SEED_ORGANIZATION_ID = 'x8WCU1lK79smcYy_mk_1V';
 export const SEED_PERFORMER_ID = '1ebCtG0ZwzyfEuMCE3iyE';
 export const SEED_STREAM_ID = '7HQVgnsDEOorzKgjNKJ6n';
 export const SEED_USER_ID = 'rrCoMB5uaoqjDNU79_oFT';
 
-export const createSeed = async () => {
+export const createSeed = async (config: IConfig): Promise<void> => {
   const client = new PrismaClient();
-  const config = container.get<IConfig>(TYPES.Config);
 
   await client.user.create({
     data: {
@@ -85,4 +82,6 @@ export const createSeed = async () => {
       },
     },
   });
+
+  await client.$disconnect();
 };

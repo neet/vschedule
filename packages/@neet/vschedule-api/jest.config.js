@@ -1,6 +1,7 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
   globalSetup: '<rootDir>/test-utils/jest-global-setup.ts',
+  globalTeardown: '<rootDir>/test-utils/jest-global-teardown.ts',
   projects: [
     {
       displayName: 'Unit',
@@ -20,9 +21,6 @@ module.exports = {
         '^.+\\.(t|j)sx?$': ['@swc/jest'],
       },
       testMatch: ['<rootDir>/test/**/*.spec.{ts,tsx}'],
-      // testEnvironmentOptions: {
-      //   verboseQuery: true,
-      // },
       setupFilesAfterEnv: [
         '<rootDir>/test-utils/jest-setup-after-env-shared.ts',
         '<rootDir>/test-utils/jest-setup-after-env-e2e.ts',

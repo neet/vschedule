@@ -6,8 +6,8 @@ import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/repositori
 import { IConfig } from '../src/app';
 import { TYPES } from '../src/types';
 import { createAPI } from '../test-utils/api';
+import { SEED_STREAM_ID } from '../test-utils/db-seed';
 import { container } from '../test-utils/inversify-config';
-import { SEED_STREAM_ID } from '../test-utils/seed';
 import {
   ytWebsubStreamDeleted,
   ytWebsubStreamScheduled,
