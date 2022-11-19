@@ -46,7 +46,7 @@ steps:
     args:
       - '-c'
       - >
-        gcloud secrets versions access latest --secret=${_VSCHEDULERC_KEY} \
+        gcloud secrets versions access latest --secret=${_VSCHEDULERC_KEY}
         > /workspace/.vschedulerc.toml
 
   - id: seed
