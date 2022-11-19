@@ -39,6 +39,18 @@ steps:
       - push
       - $_IMAGE_NAME
 
+  # https://cloud.google.com/build/docs/configuring-builds/pass-data-between-steps
+  - id: add-config
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    entrypoint: gcloud
+    args:
+      - secrets
+      - versions
+      - access
+      - latest
+      - '--secret=${_VSCHEDULERC_KEY}'
+      - '> /workspace/.vschedulerc.toml'
+
   - id: seed
     name: $_IMAGE_NAME
     entrypoint: bash
@@ -46,7 +58,7 @@ steps:
     args:
       - '-c'
       - >
-        gcloud secrets versions access latest --secret=${_VSCHEDULERC_KEY} > .vschedulerc.toml
+        cp /workspace/.vschedulerc.toml .vschedulerc.toml
         yarn run prisma db seed
 
   - id: deploy
