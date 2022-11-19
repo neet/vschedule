@@ -51,7 +51,9 @@ steps:
 
   - id: seed
     name: $_IMAGE_NAME
+    secretEnv: ['DATABASE_URL']
     entrypoint: bash
+    dir: .
     args:
       - '-c'
       - |
