@@ -1,6 +1,6 @@
 import { ShowPerformer, UpsertPerformer } from '../src/app';
+import { SEED_ORGANIZATION_ID } from '../test-utils/db-seed';
 import { container } from '../test-utils/inversify-config';
-import { SEED_ORGANIZATION_ID } from '../test-utils/seed';
 
 describe('UpsertPerformer', () => {
   it('creates performer', async () => {
