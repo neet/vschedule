@@ -40,7 +40,7 @@ export class PerformerRepositoryPrisma implements IPerformerRepository {
       },
     };
 
-    if (performer.organizationId) {
+    if (performer.organizationId != null) {
       entry.organization = {
         connect: {
           id: performer.organizationId.value,
@@ -81,11 +81,15 @@ export class PerformerRepositoryPrisma implements IPerformerRepository {
       },
     };
 
-    if (performer.organizationId) {
+    if (performer.organizationId != null) {
       entry.organization = {
-        update: {
+        connect: {
           id: performer.organizationId.value,
         },
+      };
+    } else {
+      entry.organization = {
+        disconnect: true,
       };
     }
 

@@ -1,13 +1,13 @@
 import { injectable } from 'inversify';
 
-import { AppConfigBase, IAppConfig } from '../../app';
+import { ConfigBase, IConfig } from '../../app';
 
 const env = <T = string>(name: string): T | undefined => {
   return process.env[name] as T | undefined;
 };
 
 @injectable()
-export class AppConfigEnvironment extends AppConfigBase implements IAppConfig {
+export class ConfigEnvironment extends ConfigBase implements IConfig {
   public constructor() {
     super({
       youtube: {

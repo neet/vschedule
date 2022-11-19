@@ -2,7 +2,7 @@ import { CloudTasksClient } from '@google-cloud/tasks';
 import { google } from '@google-cloud/tasks/build/protos/protos';
 import { inject, injectable } from 'inversify';
 
-import { IAppConfig, ILogger, utils } from '../../app';
+import { IConfig, ILogger, utils } from '../../app';
 import {
   IResubscriptionTaskRepository,
   ResubscriptionTask,
@@ -16,8 +16,8 @@ export class ResubscriptionTaskRepositoryCloudTasks
   private readonly _tasks = new CloudTasksClient();
 
   public constructor(
-    @inject(TYPES.AppConfig)
-    private readonly _config: IAppConfig,
+    @inject(TYPES.Config)
+    private readonly _config: IConfig,
 
     @inject(TYPES.Logger)
     private readonly _logger: ILogger,

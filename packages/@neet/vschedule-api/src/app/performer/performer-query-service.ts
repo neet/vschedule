@@ -1,4 +1,4 @@
-import { PerformerId } from '../../domain';
+import { PerformerId, YoutubeChannelId } from '../../domain';
 import { PerformerDto } from '../dto';
 
 export interface PerformerQueryManyParams {
@@ -7,5 +7,8 @@ export interface PerformerQueryManyParams {
 
 export interface IPerformerQueryService {
   query(performerId: PerformerId): Promise<PerformerDto | undefined>;
+  queryByYoutubeChannelId(
+    youtubeChannelId: YoutubeChannelId,
+  ): Promise<PerformerDto | undefined>;
   queryMany(params: PerformerQueryManyParams): Promise<PerformerDto[]>;
 }

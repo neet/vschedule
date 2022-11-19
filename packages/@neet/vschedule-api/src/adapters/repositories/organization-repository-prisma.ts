@@ -60,7 +60,6 @@ export class OrganizationRepositoryPrisma implements IOrganizationRepository {
       updatedAt: organization.updatedAt.toISOString(),
       actor: {
         update: {
-          id: nanoid(),
           name: organization.name.value,
           color: organization.color.hex(),
           description: unwrap(organization.description),

@@ -2,16 +2,10 @@ import dayjs from 'dayjs';
 import { inject, injectable } from 'inversify';
 import { URL } from 'url';
 
-import {
-  IPerformerRepository,
-  IResubscriptionTaskRepository,
-  ITokenRepository,
-  ResubscriptionTask,
-  Token,
-  YoutubeChannelId,
-} from '../../domain';
+import { IPerformerRepository, YoutubeChannelId } from '../../domain';
+import { TaskService } from '../../domain/services/task-service';
 import { TYPES } from '../../types';
-import { AppError, IAppConfig, ILogger } from '../_shared';
+import { AppError, IConfig, ILogger } from '../_shared';
 
 export class CreateResubscriptionInvalidVerifyToken extends AppError {
   // TODO: 長すぎ。モジュール化する
@@ -49,20 +43,17 @@ export interface CreateResubscriptionTaskParams {
 @injectable()
 export class CreateResubscriptionTask {
   constructor(
-    @inject(TYPES.TokenRepository)
-    private readonly _tokenRepository: ITokenRepository,
-
     @inject(TYPES.PerformerRepository)
     private readonly _performerRepository: IPerformerRepository,
 
-    @inject(TYPES.ResubscriptionTaskRepository)
-    private readonly _resubscriptionTaskRepository: IResubscriptionTaskRepository,
+    @inject(TaskService)
+    private readonly _taskService: TaskService,
 
     @inject(TYPES.Logger)
     private readonly _logger: ILogger,
 
-    @inject(TYPES.AppConfig)
-    private readonly _config: IAppConfig,
+    @inject(TYPES.Config)
+    private readonly _config: IConfig,
   ) {}
 
   async invoke(params: CreateResubscriptionTaskParams): Promise<void> {
@@ -84,15 +75,10 @@ export class CreateResubscriptionTask {
       throw new CreateResubscriptionTaskUnknownActorError(channelId);
     }
 
-    // 集約にしたい
-    const token = Token.create();
-    await this._tokenRepository.create(token);
-    const task = ResubscriptionTask.create({
-      performerId: performer.id,
-      scheduledAt: dayjs().add(params.leaseSeconds, 'seconds'),
-      token: token,
-    });
-    await this._resubscriptionTaskRepository.create(task);
+    const task = await this._taskService.createTask(
+      performer.id,
+      dayjs.unix(params.leaseSeconds),
+    );
 
     this._logger.info(
       `Scheduled resubscription for ${topic} in ${params.leaseSeconds} secs`,

@@ -1,5 +1,6 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
+  globalSetup: '<rootDir>/test-utils/jest-global-setup.ts',
   projects: [
     {
       displayName: 'Unit',
@@ -8,7 +9,9 @@ module.exports = {
         '^.+\\.(t|j)sx?$': ['@swc/jest'],
       },
       testMatch: ['<rootDir>/src/**/*.spec.ts'],
-      setupFilesAfterEnv: ['<rootDir>/test-utils/setup-unit.ts'],
+      setupFilesAfterEnv: [
+        '<rootDir>/test-utils/jest-setup-after-env-shared.ts',
+      ],
     },
     {
       displayName: 'E2E',
@@ -17,8 +20,12 @@ module.exports = {
         '^.+\\.(t|j)sx?$': ['@swc/jest'],
       },
       testMatch: ['<rootDir>/test/**/*.spec.{ts,tsx}'],
+      // testEnvironmentOptions: {
+      //   verboseQuery: true,
+      // },
       setupFilesAfterEnv: [
-        '<rootDir>/test-utils/setup-e2e.ts',
+        '<rootDir>/test-utils/jest-setup-after-env-shared.ts',
+        '<rootDir>/test-utils/jest-setup-after-env-e2e.ts',
         'jest-date-mock',
       ],
     },
@@ -27,6 +34,7 @@ module.exports = {
     '<rootDir>/src/**/*.ts',
     '!<rootDir>/src/**/*.d.ts',
     '!<rootDir>/src/**/*.spec.ts',
+    '!<rootDir>/src/**/generated/**',
     '!<rootDir>/src/**/__mocks__/**',
     '!<rootDir>/src/**/__fixtures__/**',
   ],

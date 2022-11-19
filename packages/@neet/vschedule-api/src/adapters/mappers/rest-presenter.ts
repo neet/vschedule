@@ -4,7 +4,7 @@ import { inject, injectable } from 'inversify';
 
 import {
   ActorDto,
-  IAppConfig,
+  IConfig,
   OrganizationDto,
   PerformerDto,
   StreamDto,
@@ -18,8 +18,8 @@ export class RestPresenter {
   private readonly _origin: string;
 
   public constructor(
-    @inject(TYPES.AppConfig)
-    config: IAppConfig,
+    @inject(TYPES.Config)
+    config: IConfig,
   ) {
     this._origin = config.server.origin;
   }

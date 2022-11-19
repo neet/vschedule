@@ -24,7 +24,10 @@ export const rehydrateMediaAttachmentFromPrisma = (
     width: mediaAttachment.width,
     height: mediaAttachment.height,
     bucket: mediaAttachment.bucket,
-    remoteUrl: null,
+    remoteUrl:
+      mediaAttachment.remoteUrl !== null
+        ? new URL(mediaAttachment.remoteUrl)
+        : null,
     timestamps: new Timestamps({
       createdAt: dayjs(mediaAttachment.createdAt),
       updatedAt: dayjs(mediaAttachment.updatedAt),

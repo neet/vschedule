@@ -1,19 +1,20 @@
 import dayjs from 'dayjs';
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import {
-  BaseHttpController,
-  controller,
-  httpGet,
-  queryParam,
-  requestParam,
-} from 'inversify-express-utils';
+  Controller,
+  Get,
+  OnUndefined,
+  Param,
+  QueryParams,
+} from 'routing-controllers';
 
 import { ListStreams, ShowStream } from '../../../../app';
 import { Methods } from '../../../generated/rest/v1/streams';
 import { RestPresenter } from '../../../mappers/rest-presenter';
 
-@controller('/rest/v1/streams')
-export class StreamsRestApiController extends BaseHttpController {
+@injectable()
+@Controller('/rest/v1/streams')
+export class StreamsController {
   constructor(
     @inject(ListStreams)
     private readonly _listStreams: ListStreams,
@@ -23,12 +24,12 @@ export class StreamsRestApiController extends BaseHttpController {
 
     @inject(RestPresenter)
     private readonly _presenter: RestPresenter,
-  ) {
-    super();
-  }
+  ) {}
 
-  @httpGet('/')
-  async list(@queryParam() query: Methods['get']['query'] = {}) {
+  @Get('/')
+  async list(
+    @QueryParams() query: Methods['get']['query'] = {},
+  ): Promise<Methods['get']['resBody']> {
     const data = await this._listStreams.invoke({
       limit: query.limit,
       since: query.since != null ? dayjs(query.since) : undefined,
@@ -36,20 +37,19 @@ export class StreamsRestApiController extends BaseHttpController {
       organizationId: query.organizationId,
     });
 
-    return this.json(
-      data.map((stream) => this._presenter.presentStream(stream)),
-    );
+    return data.map((stream) => this._presenter.presentStream(stream));
   }
 
-  @httpGet('/:streamId')
-  async show(@requestParam('streamId') streamId: string) {
+  @Get('/:streamId')
+  @OnUndefined(404)
+  async show(@Param('streamId') streamId: string) {
     const data = await this._showStream.invoke(streamId);
 
     if (data == null) {
-      return this.notFound();
+      return;
     }
 
     const stream = data;
-    return this.json(this._presenter.presentStream(stream));
+    return this._presenter.presentStream(stream);
   }
 }

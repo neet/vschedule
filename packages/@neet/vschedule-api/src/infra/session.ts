@@ -3,10 +3,10 @@ import { Firestore } from '@google-cloud/firestore';
 import { RequestHandler } from 'express';
 import session from 'express-session';
 
-import { IAppConfig } from '../app';
+import { IConfig } from '../app';
 
 export const createSession = (
-  config: IAppConfig['session'],
+  config: IConfig['session'],
 ): RequestHandler => {
   const store =
     config.store === 'firestore'

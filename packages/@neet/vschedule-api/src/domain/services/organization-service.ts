@@ -48,7 +48,7 @@ export class OrganizationService {
       );
     }
 
-    performer = performer.joinOrganization(organizationId);
-    await this._performerRepository.update(performer);
+    const newPerformer = performer.joinOrganization(organizationId);
+    await this._performerRepository.update(newPerformer);
   }
 }

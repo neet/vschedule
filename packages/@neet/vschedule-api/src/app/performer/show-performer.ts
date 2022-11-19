@@ -1,8 +1,8 @@
 import { inject, injectable } from 'inversify';
 
-import { PerformerId } from '../../domain';
+import { PerformerId, YoutubeChannelId } from '../../domain';
 import { TYPES } from '../../types';
-import { AppError } from '../_shared';
+import { AppError, UnexpectedError } from '../_shared';
 import { PerformerDto } from '../dto';
 import { IPerformerQueryService } from './performer-query-service';
 
@@ -14,6 +14,20 @@ export class ShowPerformerNotFoundError extends AppError {
   }
 }
 
+export class ShowPerformerYoutubeChannelIdNotFoundError extends AppError {
+  public readonly name = 'ShowPerformerYoutubeChannelIdNotFoundError';
+
+  public constructor(public readonly youtubeChannelId: YoutubeChannelId) {
+    super(
+      `Performer with YouTube Channel ID ${youtubeChannelId} was not found`,
+    );
+  }
+}
+
+type ShowPerformerCommand =
+  | { readonly id: string }
+  | { readonly youtubeChannelId: string };
+
 @injectable()
 export class ShowPerformer {
   constructor(
@@ -21,14 +35,32 @@ export class ShowPerformer {
     private readonly _performerQueryService: IPerformerQueryService,
   ) {}
 
-  async invoke(id: string): Promise<PerformerDto> {
-    const performerId = new PerformerId(id);
-    const performer = await this._performerQueryService.query(performerId);
+  async invoke(command: ShowPerformerCommand): Promise<PerformerDto> {
+    if ('id' in command) {
+      const performerId = new PerformerId(command.id);
+      const performer = await this._performerQueryService.query(performerId);
 
-    if (performer == null) {
-      throw new ShowPerformerNotFoundError(performerId);
+      if (performer == null) {
+        throw new ShowPerformerNotFoundError(performerId);
+      }
+
+      return performer;
     }
 
-    return performer;
+    if ('youtubeChannelId' in command) {
+      const youtubeChannelId = new YoutubeChannelId(command.youtubeChannelId);
+      const performer =
+        await this._performerQueryService.queryByYoutubeChannelId(
+          youtubeChannelId,
+        );
+
+      if (performer == null) {
+        throw new ShowPerformerYoutubeChannelIdNotFoundError(youtubeChannelId);
+      }
+
+      return performer;
+    }
+
+    throw new UnexpectedError();
   }
 }

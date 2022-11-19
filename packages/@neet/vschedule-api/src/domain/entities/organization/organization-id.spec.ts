@@ -8,8 +8,4 @@ describe('OrganizationId', () => {
     const id = new OrganizationId(value);
     expect(id.value).toBe(value);
   });
-
-  it('can be generated', () => {
-    expect(new OrganizationId().value).toHaveLength(21);
-  });
 });

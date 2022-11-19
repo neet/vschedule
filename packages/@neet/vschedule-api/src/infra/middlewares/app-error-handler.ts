@@ -3,8 +3,6 @@ import { ErrorRequestHandler, Response } from 'express';
 import * as Rest from '../../adapters/generated/@types';
 import {
   AppError,
-  CreatePerformerChannelNotFoundError,
-  CreatePerformerOrganizationNotFoundError,
   CreateResubscriptionTaskInvalidTopicError,
   CreateResubscriptionTaskUnknownActorError,
   DrainTokenNotFoundError,
@@ -15,8 +13,6 @@ import {
   ShowStreamNotFoundError,
   ShowUserNotFoundError,
   UnexpectedError,
-  UpdatePerformerNotFoundError,
-  UpdatePerformerOrganizationNotFoundError,
 } from '../../app';
 
 export const appErrorHandler: ErrorRequestHandler = (
@@ -32,13 +28,7 @@ export const appErrorHandler: ErrorRequestHandler = (
   if (error instanceof UnexpectedError) {
     res.status(500);
   }
-  if (error instanceof CreatePerformerOrganizationNotFoundError) {
-    res.status(404);
-  }
   if (error instanceof DrainTokenNotFoundError) {
-    res.status(404);
-  }
-  if (error instanceof CreatePerformerChannelNotFoundError) {
     res.status(404);
   }
   if (error instanceof ShowUserNotFoundError) {
@@ -63,12 +53,6 @@ export const appErrorHandler: ErrorRequestHandler = (
     res.status(404);
   }
   if (error instanceof ShowStreamNotFoundError) {
-    res.status(404);
-  }
-  if (error instanceof UpdatePerformerOrganizationNotFoundError) {
-    res.status(403);
-  }
-  if (error instanceof UpdatePerformerNotFoundError) {
     res.status(404);
   }
 

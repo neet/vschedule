@@ -79,12 +79,14 @@ export class OrganizationFactory implements IOrganizationFactory {
     }
 
     const channel = await this._fetchYoutubeChannelById(id);
-    const image = await fetch(channel.thumbnailUrl);
+    const url = new URL(channel.thumbnailUrl);
+    const image = await fetch(url);
     const imageBuffer = Buffer.from(await image.arrayBuffer());
 
     const mediaAttachment = await this._mediaAttachmentRepository.save(
-      new MediaAttachmentFilename(`${YoutubeChannelId}_avatar.webp`),
+      new MediaAttachmentFilename(`${id.value}_avatar.webp`),
       await sharp(imageBuffer).webp().toBuffer(),
+      url,
     );
 
     const shade = await getColors(

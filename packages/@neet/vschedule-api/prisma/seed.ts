@@ -1,108 +1,70 @@
 import 'reflect-metadata';
 
-import {
-  hololive as hololivePerformers,
-  HOLOLIVE_YOUTUBE_CHANNEL_ID,
-  nijisanji as nijisanjiPerformers,
-  NIJISANJI_YOUTUBE_CHANNEL_ID,
-  organizations,
-} from '@neet/vschedule-seeds';
+// なんか exports みてくれない
+import { performers as hololive } from '@neet/vschedule-seed/dist/hololive.json';
+import { performers as nijisanji } from '@neet/vschedule-seed/dist/nijisanji.json';
+import { organizations } from '@neet/vschedule-seed/dist/organizations.json';
 import { PrismaClient } from '@prisma/client';
 
-import { CreateOrganization } from '../src/app/organization/create-organization';
-import { CreatePerformer } from '../src/app/performer/create-performer';
 import {
-  IOrganizationRepository,
-  IPerformerRepository,
-  YoutubeChannelId,
-} from '../src/domain';
+  ILogger,
+  ShowOrganization,
+  UpsertOrganization,
+  UpsertPerformer,
+} from '../src/app';
 import { container } from '../src/infra/inversify-config';
 import { TYPES } from '../src/types';
 
 const prisma = container.get<PrismaClient>(TYPES.PrismaClient);
-const createOrganization = container.get(CreateOrganization);
-const createPerformer = container.get(CreatePerformer);
-const performerRepository = container.get<IPerformerRepository>(
-  TYPES.PerformerRepository,
-);
-const organizationRepository = container.get<IOrganizationRepository>(
-  TYPES.OrganizationRepository,
-);
+const logger = container.get<ILogger>(TYPES.Logger);
+const showOrganization = container.get(ShowOrganization);
+const upsertOrganization = container.get(UpsertOrganization);
+const upsertPerformer = container.get(UpsertPerformer);
 
 const main = async (): Promise<void> => {
+  logger.info(`Seeding ${organizations.length} organizations...`);
   for (const organization of organizations) {
-    if (organization.youtubeChannelId == null) {
-      continue;
-    }
-
-    const record = await organizationRepository.findByYoutubeChannelId(
-      new YoutubeChannelId(organization.youtubeChannelId),
-    );
-    if (record != null) {
-      continue;
-    }
-
-    await createOrganization.invoke({
+    await upsertOrganization.invoke({
       name: organization.name,
-      color: organization.color,
-      youtubeChannelId: organization.youtubeChannelId,
+      // description: organization.description ?? null,
+      description: null,
       url: organization.url ?? null,
-      description: organization.description ?? null,
+      color: organization.color,
       twitterUsername: organization.twitterUsername ?? null,
+      youtubeChannelId: organization.youtubeChannelId,
     });
   }
 
-  const nijisanji = await organizationRepository.findByYoutubeChannelId(
-    new YoutubeChannelId(NIJISANJI_YOUTUBE_CHANNEL_ID),
-  );
-  if (nijisanji == null) throw new Error();
+  const nijisanjiOrg = await showOrganization.invoke({
+    youtubeChannelId: 'UCX7YkU9nEeaoZbkVLVajcMg',
+  });
+  const hololiveOrg = await showOrganization.invoke({
+    youtubeChannelId: 'UCJFZiqLMntJufDCHc6bQixg',
+  });
 
-  const hololive = await organizationRepository.findByYoutubeChannelId(
-    new YoutubeChannelId(HOLOLIVE_YOUTUBE_CHANNEL_ID),
-  );
-  if (hololive == null) throw new Error();
-
-  for (const performer of nijisanjiPerformers) {
-    if (performer.youtubeChannelId == null) {
-      continue;
-    }
-
-    const record = await performerRepository.findByYoutubeChannelId(
-      new YoutubeChannelId(performer.youtubeChannelId),
-    );
-    if (record != null) {
-      continue;
-    }
-
-    await createPerformer.invoke({
+  logger.info(`Seeding ${nijisanji.length} performers...`);
+  for (const performer of nijisanji) {
+    await upsertPerformer.invoke({
       name: performer.name,
       color: performer.color,
       youtubeChannelId: performer.youtubeChannelId,
-      organizationId: nijisanji.id.value,
+      organizationId: nijisanjiOrg.id.value,
       description: performer.description ?? null,
-      url: performer.url ?? null,
+      // url: performer.url ?? null,
+      url: null,
       twitterUsername: performer.twitterUsername ?? null,
     });
   }
 
-  for (const performer of hololivePerformers) {
-    if (performer.youtubeChannelId == null) {
-      continue;
-    }
-
-    const record = await performerRepository.findByYoutubeChannelId(
-      new YoutubeChannelId(performer.youtubeChannelId),
-    );
-    if (record != null) {
-      continue;
-    }
-
-    await createPerformer.invoke({
+  logger.info(`Seeding ${hololive.length} performers...`);
+  for (const performer of hololive) {
+    await upsertPerformer.invoke({
       name: performer.name,
       color: performer.color,
       youtubeChannelId: performer.youtubeChannelId,
-      organizationId: hololive.id.value,
-      description: performer.description ?? null,
+      organizationId: hololiveOrg.id.value,
+      // description: performer.description ?? null,
+      description: null,
       url: performer.url ?? null,
       twitterUsername: performer.twitterUsername ?? null,
     });
@@ -111,7 +73,8 @@ const main = async (): Promise<void> => {
 
 main()
   .catch((error) => {
-    throw error;
+    // eslint-disable-next-line no-console
+    console.error(error);
   })
   .finally(async () => {
     await prisma.$disconnect();

@@ -1,0 +1,75 @@
+# https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values
+
+steps:
+  - id: migration
+    name: node
+    secretEnv: ['DATABASE_URL']
+    entrypoint: bash
+    dir: ./packages/@neet/vschedule-api
+    args:
+      - '-c'
+      - >
+        wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O
+        cloud_sql_proxy
+
+        chmod +x cloud_sql_proxy
+
+        mkdir /cloudsql
+
+        ./cloud_sql_proxy -instances=${_SQL_CONNECTION_NAME} -dir=/cloudsql
+        & sleep 2;
+
+        echo /cloudsql/${_SQL_CONNECTION_NAME}
+        ls -al /cloudsql/${_SQL_CONNECTION_NAME}
+
+        npx prisma migrate deploy
+
+  - id: build-api
+    name: docker
+    args:
+      - build
+      - '--no-cache'
+      - '-t'
+      - $_IMAGE_NAME
+      - .
+
+  - id: push
+    name: docker
+    args:
+      - push
+      - $_IMAGE_NAME
+
+  - id: seed
+    name: $_IMAGE_NAME
+    entrypoint: bash
+    dir: ./packages/@neet/vschedule-api
+    args:
+      - '-c'
+      - >
+        gcloud secrets versions access latest --secret=${_VSCHEDULERC_KEY} > .vschedulerc.toml
+        yarn run prisma db seed
+
+  - id: deploy
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    entrypoint: gcloud
+    args:
+      - run
+      - services
+      - update
+      - $_SERVICE_NAME
+      - '--platform=managed'
+      - '--image=$_IMAGE_NAME'
+      - '--region=$_DEPLOY_REGION'
+      - '--quiet'
+
+images:
+  - $_IMAGE_NAME
+
+options:
+  substitutionOption: ALLOW_LOOSE
+  dynamicSubstitutions: true
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/$PROJECT_ID/secrets/${_DATABASE_URL_KEY}/versions/latest
+      env: DATABASE_URL

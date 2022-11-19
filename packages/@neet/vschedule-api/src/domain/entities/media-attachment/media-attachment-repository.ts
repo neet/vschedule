@@ -11,6 +11,7 @@ export interface IMediaAttachmentRepository {
   save(
     filename: MediaAttachmentFilename,
     buffer: Buffer,
+    remoteUrl?: URL,
   ): Promise<MediaAttachment>;
 
   delete(id: MediaAttachmentId): Promise<void>;

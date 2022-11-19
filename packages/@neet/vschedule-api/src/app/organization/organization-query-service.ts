@@ -1,4 +1,4 @@
-import { OrganizationId } from '../../domain';
+import { OrganizationId, YoutubeChannelId } from '../../domain';
 import { OrganizationDto } from '../dto';
 
 export interface OrganizationQueryManyParams {
@@ -7,5 +7,8 @@ export interface OrganizationQueryManyParams {
 
 export interface IOrganizationQueryService {
   query(id: OrganizationId): Promise<OrganizationDto | undefined>;
+  queryByYoutubeChannelId(
+    id: YoutubeChannelId,
+  ): Promise<OrganizationDto | undefined>;
   queryMany(params: OrganizationQueryManyParams): Promise<OrganizationDto[]>;
 }

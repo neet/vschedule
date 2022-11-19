@@ -6,9 +6,9 @@ import { ILogger, UnexpectedError } from '../_shared';
 import { StreamDto } from '../dto';
 import { IStreamQueryService } from './stream-query-service';
 
-export interface UpsertStreamCommand {
+export type UpsertStreamCommand = {
   readonly videoId: string;
-}
+};
 
 @injectable()
 export class UpsertStream {

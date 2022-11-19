@@ -1,0 +1,20 @@
+{
+  "name": "@neet/vschedule-seed",
+  "version": "0.0.10",
+  "scripts": {
+    "build": "ts-node ./build.ts"
+  },
+  "devDependencies": {
+    "@neet/eslint-plugin-vschedule": "workspace:^",
+    "@neet/tsconfig-vschedule": "workspace:^",
+    "@types/eslint": "^8.4.10",
+    "@types/mkdirp": "^1.0.2",
+    "@types/rimraf": "^3.0.2",
+    "eslint": "^8.27.0",
+    "mkdirp": "^1.0.4",
+    "rimraf": "^3.0.2",
+    "toml": "^3.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  }
+}

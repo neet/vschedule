@@ -2,10 +2,10 @@ import { cosmiconfigSync } from 'cosmiconfig';
 import { loadToml } from 'cosmiconfig-toml-loader';
 import { injectable } from 'inversify';
 
-import { AppConfigBase, configSchema, IAppConfig } from '../../app';
+import { ConfigBase, configSchema, IConfig } from '../../app';
 
 @injectable()
-export class AppConfigConsmiconfig extends AppConfigBase implements IAppConfig {
+export class ConfigConsmiconfig extends ConfigBase implements IConfig {
   constructor() {
     const moduleName = 'vschedule';
     const result = cosmiconfigSync(moduleName, {

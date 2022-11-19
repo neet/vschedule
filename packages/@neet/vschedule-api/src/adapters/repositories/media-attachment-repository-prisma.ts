@@ -57,6 +57,7 @@ export class MediaAttachmentRepositoryPrisma
   async save(
     filename: MediaAttachmentFilename,
     buffer: Buffer,
+    remoteUrl: URL | null = null,
   ): Promise<MediaAttachment> {
     const file = await this._storage.create(filename.value, buffer);
 
@@ -68,7 +69,7 @@ export class MediaAttachmentRepositoryPrisma
       width: plaiceholder.img.width,
       height: plaiceholder.img.height,
       blurDataUri: plaiceholder.base64,
-      remoteUrl: null,
+      remoteUrl,
       bucket: file.bucket ?? null,
     });
 
@@ -79,6 +80,7 @@ export class MediaAttachmentRepositoryPrisma
         width: mediaAttachment.width.value,
         height: mediaAttachment.height.value,
         blurDataUri: mediaAttachment.blurDataUri.value,
+        remoteUrl: mediaAttachment.remoteUrl?.toString(),
         bucket: file.bucket,
         createdAt: mediaAttachment.createdAt.toDate(),
         updatedAt: mediaAttachment.updatedAt.toDate(),

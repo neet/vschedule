@@ -6,7 +6,7 @@ import {
   PerformerDto,
   PerformerQueryManyParams,
 } from '../../app';
-import { PerformerId } from '../../domain';
+import { PerformerId, YoutubeChannelId } from '../../domain';
 import { TYPES } from '../../types';
 import { transferPerformerFromPrisma } from '../mappers/prisma-dto-mapper';
 
@@ -38,6 +38,25 @@ export class PerformerQueryServicePrisma implements IPerformerQueryService {
     const performer = await this._prisma.performer.findFirst({
       where: {
         id: performerId.value,
+      },
+      include: DEFAULT_INCLUDE,
+    });
+
+    if (performer == null) {
+      return;
+    }
+
+    return transferPerformerFromPrisma(performer);
+  }
+
+  async queryByYoutubeChannelId(
+    youtubeChannelId: YoutubeChannelId,
+  ): Promise<PerformerDto | undefined> {
+    const performer = await this._prisma.performer.findFirst({
+      where: {
+        actor: {
+          youtubeChannelId: youtubeChannelId.value,
+        },
       },
       include: DEFAULT_INCLUDE,
     });

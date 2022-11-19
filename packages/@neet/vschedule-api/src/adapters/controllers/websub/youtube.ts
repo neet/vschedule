@@ -1,25 +1,26 @@
 import { Response } from 'express';
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import {
-  BaseHttpController,
-  controller,
-  httpGet,
-  httpPost,
-  queryParam,
-  requestBody,
-  response,
-} from 'inversify-express-utils';
+  Body,
+  Controller,
+  Get,
+  OnUndefined,
+  Post,
+  QueryParams,
+  Res,
+  UseBefore,
+} from 'routing-controllers';
 
 import {
   CreateResubscriptionTask,
   RemoveStream,
   UpsertStream,
 } from '../../../app';
-import { TYPES } from '../../../types';
 import { Methods } from '../../generated/websub/youtube';
 
-@controller('/websub/youtube')
-export class YoutubeWebsubController extends BaseHttpController {
+@injectable()
+@Controller('/websub/youtube')
+export class YoutubeWebsubController {
   constructor(
     @inject(UpsertStream)
     private readonly _upsertStream: UpsertStream,
@@ -29,52 +30,46 @@ export class YoutubeWebsubController extends BaseHttpController {
 
     @inject(CreateResubscriptionTask)
     private readonly _createResubscriptionTask: CreateResubscriptionTask,
-  ) {
-    super();
-  }
+  ) {}
 
-  @httpGet('/')
+  @Get('/')
   async verify(
-    @response() res: Response,
-    @queryParam() params: Methods['get']['query'],
+    @Res() res: Response,
+    @QueryParams() query: Methods['get']['query'],
   ) {
     // TODO: Unsubscribeのときのハンドリング
     await this._createResubscriptionTask.invoke({
-      topic: params['hub.topic'],
-      verifyToken: params['hub.verify_token'],
-      leaseSeconds: params['hub.lease_seconds'],
+      topic: query['hub.topic'],
+      verifyToken: query['hub.verify_token'],
+      leaseSeconds: query['hub.lease_seconds'],
     });
 
-    return res.send(params['hub.challenge']);
+    return res.send(query['hub.challenge']);
   }
 
-  @httpPost('/', TYPES.YoutubeWebsubParser)
-  async notify(
-    @requestBody()
-    body: Required<Methods['post']['reqBody']>,
-  ) {
+  @Post('/')
+  @UseBefore()
+  @OnUndefined(200)
+  async notify(@Body() body: Required<Methods['post']['reqBody']>) {
     if (
       'at:deleted-entry' in body.feed &&
       body.feed['at:deleted-entry']?.[0]?.link?.[0]?.$?.href != null
     ) {
       const href = body.feed['at:deleted-entry'][0].link[0].$.href;
       if (href == null) {
-        return this.statusCode(200);
+        return;
       }
 
       await this._removeStream.invoke({ url: href });
-      return this.statusCode(200);
     }
 
     if ('entry' in body.feed && body.feed.entry != null) {
       const videoId = body.feed.entry[0]?.['yt:videoId']?.[0];
       if (videoId == null) {
-        return this.statusCode(200);
+        return;
       }
       await this._upsertStream.invoke({ videoId });
-      return this.statusCode(200);
+      return;
     }
-
-    return this.statusCode(200);
   }
 }

@@ -1,27 +1,22 @@
-import { inject } from 'inversify';
-import {
-  BaseHttpController,
-  controller,
-  httpGet,
-  requestParam,
-} from 'inversify-express-utils';
+import { Response } from 'express';
+import { inject, injectable } from 'inversify';
+import { Get, JsonController, Param, Res } from 'routing-controllers';
 
 import { ShowMediaAttachment } from '../../../../app';
 
-@controller('/rest/v1/media')
-export class MediaAttachmentController extends BaseHttpController {
+@injectable()
+@JsonController('/rest/v1/media')
+export class MediaAttachmentController {
   constructor(
     @inject(ShowMediaAttachment)
     private readonly _showMediaAttachment: ShowMediaAttachment,
-  ) {
-    super();
-  }
+  ) {}
 
-  @httpGet('/:filename')
-  async show(@requestParam('filename') filename: string) {
+  @Get('/:filename')
+  async show(@Param('filename') filename: string, @Res() res: Response) {
     const media = await this._showMediaAttachment.invoke(filename);
 
-    return this.redirect(
+    return res.redirect(
       `https://storage.googleapis.com/${media.bucket?.value}/${media.filename.value}`,
     );
   }

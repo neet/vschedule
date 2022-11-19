@@ -1,7 +1,7 @@
 import { Storage as CloudStorage } from '@google-cloud/storage';
 import { inject, injectable } from 'inversify';
 
-import { File, IAppConfig, IStorage } from '../../app';
+import { File, IConfig, IStorage } from '../../app';
 import { TYPES } from '../../types';
 
 @injectable()
@@ -9,8 +9,8 @@ export class StorageCloudStorage implements IStorage {
   private readonly _bucket: string;
 
   constructor(
-    @inject(TYPES.AppConfig)
-    config: IAppConfig,
+    @inject(TYPES.Config)
+    config: IConfig,
   ) {
     this._bucket = config.storage.bucket;
   }

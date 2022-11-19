@@ -1,20 +1,21 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import 'reflect-metadata';
 
-import { InversifyExpressServer } from 'inversify-express-utils';
+import { useContainer } from 'routing-controllers';
 
-import { IAppConfig, ILogger } from '../app';
+import { IConfig, ILogger } from '../app';
 import { TYPES } from '../types';
 import { App } from './app';
+import { InversifyAdapter } from './inversify-adapter';
 import { container } from './inversify-config';
 
 const logger = container.get<ILogger>(TYPES.Logger);
-const config = container.get<IAppConfig>(TYPES.AppConfig);
-const app = container.resolve<App>(App);
-const server = new InversifyExpressServer(container);
-app.configure(server);
-const express = server.build();
+const config = container.get<IConfig>(TYPES.Config);
+const inversifyAdapter = new InversifyAdapter(container);
+useContainer(inversifyAdapter);
+const express = container.resolve(App);
 
-express.listen(config.server.port, () => {
+express.configure().listen(config.server.port, () => {
   logger.info(
     `server is ready at http://localhost:${config.server.port}/docs`,
     { config },

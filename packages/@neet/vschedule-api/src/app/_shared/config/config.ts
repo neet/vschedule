@@ -34,10 +34,10 @@ export const configSchema = z.object({
   }),
 });
 
-export type IAppConfig = TypeOf<typeof configSchema>;
+export type IConfig = TypeOf<typeof configSchema>;
 
 // TODO: メソッドにしたい
-const resolvePath = (config: IAppConfig, pathname: string) => {
+const resolvePath = (config: IConfig, pathname: string) => {
   const origin = new URL(config.server.origin);
   origin.pathname = pathname;
   return origin.toString();
