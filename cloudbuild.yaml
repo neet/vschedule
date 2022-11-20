@@ -1,6 +1,21 @@
 # https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values
 
 steps:
+  - id: build-api
+    name: docker
+    args:
+      - build
+      - '--no-cache'
+      - '-t'
+      - $_IMAGE_NAME
+      - .
+
+  - id: push
+    name: docker
+    args:
+      - push
+      - $_IMAGE_NAME
+
   # https://cloud.google.com/build/docs/configuring-builds/pass-data-between-steps
   - id: add-config
     name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
@@ -35,23 +50,9 @@ steps:
         ls -al /cloudsql/${_SQL_CONNECTION_NAME}
 
         yarn workspaces focus @neet/vschedule-api
+        yarn workspaces foreach -pR --topological-dev --from @neet/vschedule-api run build
         yarn workspace @neet/vschedule-api run prisma db seed
         yarn workspace @neet/vschedule-api run prisma migrate deploy
-
-  - id: build-api
-    name: docker
-    args:
-      - build
-      - '--no-cache'
-      - '-t'
-      - $_IMAGE_NAME
-      - .
-
-  - id: push
-    name: docker
-    args:
-      - push
-      - $_IMAGE_NAME
 
   - id: deploy
     name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
