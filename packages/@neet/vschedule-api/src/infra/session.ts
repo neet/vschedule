@@ -5,9 +5,7 @@ import session from 'express-session';
 
 import { IConfig } from '../app';
 
-export const createSession = (
-  config: IConfig['session'],
-): RequestHandler => {
+export const createSession = (config: IConfig['session']): RequestHandler => {
   const store =
     config.store === 'firestore'
       ? new FirestoreStore({

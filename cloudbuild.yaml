@@ -28,7 +28,7 @@ steps:
 
   # https://cloud.google.com/sql/docs/mysql/connect-build#connect_to
   - id: migration
-    name: node
+    name: $_IMAGE_NAME
     secretEnv: ['DATABASE_URL']
     entrypoint: bash
     dir: .
@@ -49,10 +49,8 @@ steps:
         echo /cloudsql/${_SQL_CONNECTION_NAME}
         ls -al /cloudsql/${_SQL_CONNECTION_NAME}
 
-        yarn workspaces focus @neet/vschedule-api
-        yarn workspaces foreach -pR --topological-dev --from @neet/vschedule-api run build
-        yarn workspace @neet/vschedule-api run prisma db seed
         yarn workspace @neet/vschedule-api run prisma migrate deploy
+        yarn workspace @neet/vschedule-api run prisma db seed
 
   - id: deploy
     name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
