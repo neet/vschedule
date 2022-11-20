@@ -16,7 +16,7 @@ FROM node:16-slim AS production
 WORKDIR /app
 
 RUN apt-get update
-RUN apt-get -y install libssl-dev 
+RUN apt-get -y install libssl-dev wget
 
 COPY --from=build /app .
 RUN mkdir /app/.config

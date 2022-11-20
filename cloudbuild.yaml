@@ -31,7 +31,7 @@ steps:
     name: $_IMAGE_NAME
     secretEnv: ['DATABASE_URL']
     entrypoint: bash
-    dir: .
+    dir: /app
     args:
       - '-c'
       - |
