@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { URL } from 'url';
 
-import { actorFixture } from '../__fixtures__/actor';
+import { actorFixture } from '../__fixtures__';
 import { Timestamps } from '../_shared';
 import { Stream } from './stream';
 import { StreamId } from './stream-id';

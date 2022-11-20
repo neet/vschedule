@@ -1,7 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import { ValueObject } from '../../_core';
-import { isNanoid } from '../../_core/is-nanoid';
+import { isNanoid, ValueObject } from '../../_core';
 
 export class BranchIdInvalidError extends Error {
   public constructor(public readonly value: string) {

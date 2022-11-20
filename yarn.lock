@@ -3822,6 +3822,7 @@ __metadata:
     "@types/supertest": ^2.0.12
     "@types/swagger-ui-express": ^4.1.3
     "@types/validator": ^13.7.10
+    barrelsby: ^2.5.1
     bcryptjs: ^2.4.3
     body-parser-xml: ^2.0.3
     class-transformer: ^0.5.1
@@ -7401,7 +7402,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/yargs@npm:^17.0.8":
+"@types/yargs@npm:^17.0.10, @types/yargs@npm:^17.0.8":
   version: 17.0.13
   resolution: "@types/yargs@npm:17.0.13"
   dependencies:
@@ -9208,6 +9209,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"barrelsby@npm:^2.5.1":
+  version: 2.5.1
+  resolution: "barrelsby@npm:2.5.1"
+  dependencies:
+    "@types/yargs": ^17.0.10
+    signale: ^1.4.0
+    yargs: ^17.4.1
+  bin:
+    barrelsby: bin/cli.js
+  checksum: 65701e640df5ed439c6343de5174699be970859978f1d4f612f619f38e71b4d438f5539a36b38e56617b6bb5bedd7572a4671a499480c643a7300d3d5dcf7445
+  languageName: node
+  linkType: hard
+
 "base64-js@npm:^1.0.2, base64-js@npm:^1.3.0, base64-js@npm:^1.3.1":
   version: 1.5.1
   resolution: "base64-js@npm:1.5.1"
@@ -10052,7 +10066,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^2.0.0, chalk@npm:^2.4.1, chalk@npm:^2.4.2":
+"chalk@npm:^2.0.0, chalk@npm:^2.3.2, chalk@npm:^2.4.1, chalk@npm:^2.4.2":
   version: 2.4.2
   resolution: "chalk@npm:2.4.2"
   dependencies:
@@ -13729,6 +13743,15 @@ __metadata:
   version: 3.5.2
   resolution: "figgy-pudding@npm:3.5.2"
   checksum: 4090bd66193693dcda605e44d6b8715d8fb5c92a67acd57826e55cf816a342f550d57e5638f822b39366e1b2fdb244e99b3068a37213aa1d6c1bf602b8fde5ae
+  languageName: node
+  linkType: hard
+
+"figures@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "figures@npm:2.0.0"
+  dependencies:
+    escape-string-regexp: ^1.0.5
+  checksum: 081beb16ea57d1716f8447c694f637668322398b57017b20929376aaf5def9823b35245b734cdd87e4832dc96e9c6f46274833cada77bfe15e5f980fea1fd21f
   languageName: node
   linkType: hard
 
@@ -21820,6 +21843,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pkg-conf@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "pkg-conf@npm:2.1.0"
+  dependencies:
+    find-up: ^2.0.0
+    load-json-file: ^4.0.0
+  checksum: b50775157262abd1bfb4d3d948f3fc6c009d10266c6507d4de296af4e2cbb6d2738310784432185886d83144466fbb286b6e8ff0bc23dc5ee7d81810dc6c4788
+  languageName: node
+  linkType: hard
+
 "pkg-dir@npm:^3.0.0":
   version: 3.0.0
   resolution: "pkg-dir@npm:3.0.0"
@@ -24581,6 +24614,17 @@ __metadata:
   version: 3.0.7
   resolution: "signal-exit@npm:3.0.7"
   checksum: a2f098f247adc367dffc27845853e9959b9e88b01cb301658cfe4194352d8d2bb32e18467c786a7fe15f1d44b233ea35633d076d5e737870b7139949d1ab6318
+  languageName: node
+  linkType: hard
+
+"signale@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "signale@npm:1.4.0"
+  dependencies:
+    chalk: ^2.3.2
+    figures: ^2.0.0
+    pkg-conf: ^2.1.0
+  checksum: a6a540e054096a1f4cf8b1f21fea62ca3e44a19faa63bd486723b736348609caab1fa59a87f16559de347dde8ae1fdebfc25a8b6723c88ae8239f176ffb0dda5
   languageName: node
   linkType: hard
 
@@ -28060,7 +28104,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^17.0.1, yargs@npm:^17.6.0":
+"yargs@npm:^17.0.1, yargs@npm:^17.4.1, yargs@npm:^17.6.0":
   version: 17.6.2
   resolution: "yargs@npm:17.6.2"
   dependencies:

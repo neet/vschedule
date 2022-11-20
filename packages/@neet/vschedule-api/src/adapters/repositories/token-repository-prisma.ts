@@ -3,7 +3,7 @@ import { inject, injectable } from 'inversify';
 
 import { ITokenRepository, Token, TokenId } from '../../domain';
 import { TYPES } from '../../types';
-import { rehydrateTokenFromPrisma } from '../mappers/prisma-entity-mapper';
+import { rehydrateTokenFromPrisma } from '../mappers';
 
 @injectable()
 export class TokenRepositoryPrisma implements ITokenRepository {

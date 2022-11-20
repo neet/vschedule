@@ -9,7 +9,7 @@ import {
 } from '../../app';
 import { StreamId } from '../../domain';
 import { TYPES } from '../../types';
-import { transferStreamFromPrisma } from '../mappers/prisma-dto-mapper';
+import { transferStreamFromPrisma } from '../mappers';
 
 const SHARED_INCLUDE = {
   thumbnail: true,

@@ -8,7 +8,7 @@ import {
 } from '../../app';
 import { PerformerId, YoutubeChannelId } from '../../domain';
 import { TYPES } from '../../types';
-import { transferPerformerFromPrisma } from '../mappers/prisma-dto-mapper';
+import { transferPerformerFromPrisma } from '../mappers';
 
 const DEFAULT_INCLUDE = {
   actor: {

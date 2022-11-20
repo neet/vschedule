@@ -10,20 +10,24 @@ import { useExpressServer } from 'routing-controllers';
 import swaggerUi from 'swagger-ui-express';
 import winston from 'winston';
 
-import { AuthController } from '../adapters/controllers/auth';
-import { MediaAttachmentController } from '../adapters/controllers/rest/v1/media';
-import { OrganizationsController } from '../adapters/controllers/rest/v1/organizations';
-import { PerformersController } from '../adapters/controllers/rest/v1/performers';
-import { StreamsController } from '../adapters/controllers/rest/v1/streams';
-import { YoutubeWebsubController } from '../adapters/controllers/websub/youtube';
+import {
+  AuthController,
+  MediaAttachmentController,
+  OrganizationsController,
+  PerformersController,
+  StreamsController,
+  YoutubeWebsubController,
+} from '../adapters';
 import { IConfig, ILogger } from '../app';
 import { TYPES } from '../types';
-import { appErrorHandler } from './middlewares/app-error-handler';
-import { domainErrorHandler } from './middlewares/domain-error-handler';
-import { openapiErrorHandler } from './middlewares/openapi-error-handler';
-import { routingControllerErrorHandler } from './middlewares/routing-controller-error-handler';
+import {
+  appErrorHandler,
+  domainErrorHandler,
+  openapiErrorHandler,
+  routingControllerErrorHandler,
+} from './middlewares';
 import { Passport } from './passport';
-import { YoutubeWebsubParser } from './services/youtube-websub-parser';
+import { YoutubeWebsubParser } from './services';
 import { createSession } from './session';
 
 @injectable()

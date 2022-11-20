@@ -1,8 +1,13 @@
 import { Mixin } from 'ts-mixer';
 
 import { AggregateRoot, Recipe } from '../../_core';
-import { ITimestamps, TimestampMixin, Timestamps } from '../_shared';
-import { Actor, ActorProps } from '../_shared/actor';
+import {
+  Actor,
+  ActorProps,
+  ITimestamps,
+  TimestampMixin,
+  Timestamps,
+} from '../_shared';
 import { OrganizationId } from '../organization';
 import { BranchId } from './branch-id';
 

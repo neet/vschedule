@@ -4,21 +4,23 @@ import { Container } from 'inversify';
 import { queryServices } from '../adapters/query-services';
 import { repositories } from '../adapters/repositories';
 import {
+  factories,
   IConfig,
   ILogger,
   IStorage,
   IYoutubeApiService,
   IYoutubeWebsubService,
 } from '../app';
-import { factories } from '../app/factories';
 import { TYPES } from '../types';
-import { ConfigConsmiconfig } from './services/config-cosmiconfig';
-import { loggerCloudLogging } from './services/logger-cloud-logging';
-import { loggerConsole } from './services/logger-console';
-import { StorageCloudStorage } from './services/storage-cloud-storage';
-import { StorageFilesystem } from './services/storage-filesystem';
-import { YoutubeApiService } from './services/youtube-api-service';
-import { YoutubeWebsubService } from './services/youtube-websub-service';
+import {
+  ConfigConsmiconfig,
+  loggerCloudLogging,
+  loggerConsole,
+  StorageCloudStorage,
+  StorageFilesystem,
+  YoutubeApiService,
+  YoutubeWebsubService,
+} from './services';
 
 const container = new Container({
   autoBindInjectable: true,

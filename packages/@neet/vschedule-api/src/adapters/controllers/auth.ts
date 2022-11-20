@@ -12,7 +12,7 @@ import {
 
 import { CreateUser } from '../../app';
 import { Methods } from '../generated/auth/signup';
-import { RestPresenter } from '../mappers/rest-presenter';
+import { RestPresenter } from '../mappers';
 
 @injectable()
 @JsonController('/auth')

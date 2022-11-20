@@ -12,7 +12,7 @@ import {
   YoutubeChannelId,
 } from '../../domain';
 import { TYPES } from '../../types';
-import { rehydrateOrganizationFromPrisma } from '../mappers/prisma-entity-mapper';
+import { rehydrateOrganizationFromPrisma } from '../mappers';
 
 @injectable()
 export class OrganizationRepositoryPrisma implements IOrganizationRepository {

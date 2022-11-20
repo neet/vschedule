@@ -2,8 +2,11 @@ import dayjs from 'dayjs';
 import { inject, injectable } from 'inversify';
 import { URL } from 'url';
 
-import { IPerformerRepository, YoutubeChannelId } from '../../domain';
-import { TaskService } from '../../domain/services/task-service';
+import {
+  IPerformerRepository,
+  TaskService,
+  YoutubeChannelId,
+} from '../../domain';
 import { TYPES } from '../../types';
 import { AppError, IConfig, ILogger } from '../_shared';
 

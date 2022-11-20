@@ -10,7 +10,7 @@ import {
   MediaAttachmentId,
 } from '../../domain';
 import { TYPES } from '../../types';
-import { rehydrateMediaAttachmentFromPrisma } from '../mappers/prisma-entity-mapper';
+import { rehydrateMediaAttachmentFromPrisma } from '../mappers';
 
 @injectable()
 export class MediaAttachmentRepositoryPrisma
