@@ -1,28 +1,42 @@
 # https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values
 
 steps:
+  # https://cloud.google.com/build/docs/configuring-builds/pass-data-between-steps
+  - id: add-config
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        gcloud secrets versions access latest --secret=${_VSCHEDULERC_KEY} \
+        > /workspace/.vschedulerc.toml
+
+  # https://cloud.google.com/sql/docs/mysql/connect-build#connect_to
   - id: migration
     name: node
     secretEnv: ['DATABASE_URL']
     entrypoint: bash
-    dir: ./packages/@neet/vschedule-api
+    dir: .
     args:
       - '-c'
-      - >
-        wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O
-        cloud_sql_proxy
+      - |
+        cp /workspace/.vschedulerc.toml .vschedulerc.toml
+
+        wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O \
+          cloud_sql_proxy
 
         chmod +x cloud_sql_proxy
-
         mkdir /cloudsql
 
-        ./cloud_sql_proxy -instances=${_SQL_CONNECTION_NAME} -dir=/cloudsql
-        & sleep 2;
+        ./cloud_sql_proxy -instances=${_SQL_CONNECTION_NAME} -dir=/cloudsql \
+          & sleep 2;
 
         echo /cloudsql/${_SQL_CONNECTION_NAME}
         ls -al /cloudsql/${_SQL_CONNECTION_NAME}
 
-        npx prisma migrate deploy
+        yarn workspaces focus @neet/vschedule-api
+        yarn workspace @neet/vschedule-api run prisma db seed
+        yarn workspace @neet/vschedule-api run prisma migrate deploy
 
   - id: build-api
     name: docker
@@ -38,27 +52,6 @@ steps:
     args:
       - push
       - $_IMAGE_NAME
-
-  # https://cloud.google.com/build/docs/configuring-builds/pass-data-between-steps
-  - id: add-config
-    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
-    entrypoint: bash
-    args:
-      - '-c'
-      - >
-        gcloud secrets versions access latest --secret=${_VSCHEDULERC_KEY}
-        > /workspace/.vschedulerc.toml
-
-  - id: seed
-    name: $_IMAGE_NAME
-    secretEnv: ['DATABASE_URL']
-    entrypoint: bash
-    dir: .
-    args:
-      - '-c'
-      - |
-        cp /workspace/.vschedulerc.toml .vschedulerc.toml
-        yarn workspace @neet/vschedule-api run prisma db seed
 
   - id: deploy
     name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
