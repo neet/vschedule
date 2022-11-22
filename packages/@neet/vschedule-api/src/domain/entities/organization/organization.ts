@@ -67,6 +67,9 @@ export class Organization extends mixins implements ITimestamps {
   }
 
   setName(name: OrganizationName) {
+    if (this.name.equals(name)) {
+      return this;
+    }
     const props = produce(this._props, (draft) => {
       draft.name = name;
       draft.timestamps = draft.timestamps.update();
@@ -75,6 +78,12 @@ export class Organization extends mixins implements ITimestamps {
   }
 
   setDescription(description: OrganizationDescription | null) {
+    if (this.description === null && description === null) {
+      return this;
+    }
+    if (this.description?.equals(description)) {
+      return this;
+    }
     const props = produce(this._props, (draft) => {
       draft.description = description;
       draft.timestamps = draft.timestamps.update();
@@ -83,6 +92,12 @@ export class Organization extends mixins implements ITimestamps {
   }
 
   setUrl(url: URL | null) {
+    if (this.url === null && url === null) {
+      return this;
+    }
+    if (this.url?.toString() === url?.toString()) {
+      return this;
+    }
     const props = produce(this._props, (draft) => {
       draft.url = url;
       draft.timestamps = draft.timestamps.update();
@@ -91,6 +106,12 @@ export class Organization extends mixins implements ITimestamps {
   }
 
   setYoutubeChannelId(id: YoutubeChannelId) {
+    if (this.youtubeChannelId === null && id === null) {
+      return this;
+    }
+    if (this.youtubeChannelId?.equals(id)) {
+      return this;
+    }
     const props = produce(this._props, (draft) => {
       draft.youtubeChannelId = id;
       draft.timestamps = draft.timestamps.update();
@@ -99,6 +120,12 @@ export class Organization extends mixins implements ITimestamps {
   }
 
   setTwitterUsername(username: TwitterUsername | null) {
+    if (this.twitterUsername === null && username === null) {
+      return this;
+    }
+    if (this.twitterUsername?.equals(username)) {
+      return this;
+    }
     const props = produce(this._props, (draft) => {
       draft.twitterUsername = username;
       draft.timestamps = draft.timestamps.update();
@@ -107,6 +134,9 @@ export class Organization extends mixins implements ITimestamps {
   }
 
   setColor(color: Color) {
+    if (this.color.hex() === color.hex()) {
+      return this;
+    }
     const props = produce(this._props, (draft) => {
       draft.color = color;
       draft.timestamps = draft.timestamps.update();

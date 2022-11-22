@@ -37,7 +37,7 @@ steps:
       - |
         cp /workspace/.vschedulerc.toml .vschedulerc.toml
 
-        wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O \
+        wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 --quiet -O \
           cloud_sql_proxy
 
         chmod +x cloud_sql_proxy

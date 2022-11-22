@@ -102,8 +102,18 @@ export class UpsertPerformer {
       )
       .setYoutubeChannelId(new YoutubeChannelId(command.youtubeChannelId));
 
-    await this._performerRepository.update(performer);
-    this._logger.info(`Updated performer ${performer.name}`, { performer });
+    if (newPerformer.updatedAt.isSame(performer.updatedAt)) {
+      this._logger.info(
+        `Performer ${performer.name} is not updated. Skipping`,
+        { performer },
+      );
+      return performer;
+    }
+
+    await this._performerRepository.update(newPerformer);
+    this._logger.info(`Updated performer ${newPerformer.name}`, {
+      newPerformer,
+    });
     return newPerformer;
   }
 }

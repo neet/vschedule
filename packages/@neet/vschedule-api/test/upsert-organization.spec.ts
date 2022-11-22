@@ -24,7 +24,7 @@ describe('UpsertOrganization', () => {
       youtubeChannelId: 'UCjXHjE-OBd--vYcT83XdzTA',
     });
 
-    expect(record?.name.value).toBe('Hololive');
+    expect(record?.name).toBe('Hololive');
   });
 
   it('updates organization', async () => {
@@ -59,6 +59,6 @@ describe('UpsertOrganization', () => {
       youtubeChannelId: 'UCjXHjE-OBd--vYcT83XdzTA',
     });
 
-    expect(record?.name.value).toBe('にじさんじ2');
+    expect(record?.name).toBe('にじさんじ2');
   });
 });
