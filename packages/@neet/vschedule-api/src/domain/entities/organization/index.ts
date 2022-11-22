@@ -3,6 +3,8 @@
  */
 
 export * from './organization';
+export * from './organization-description';
 export * from './organization-factory';
 export * from './organization-id';
+export * from './organization-name';
 export * from './organization-repository';

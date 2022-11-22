@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 import { PerformerId } from '../../../src/domain';
 import { TaskService } from '../../../src/domain/services/task-service';
-import { mockYoutubeWebsubService } from '../../../src/infra/services/youtube-websub-service-mock';
+import { mockYoutubeWebsubService } from '../../../test-utils/mock-youtube-websub-service';
 import { createAPI } from '../../../test-utils/api';
 import { SEED_PERFORMER_ID } from '../../../test-utils/db-seed';
 import { container } from '../../../test-utils/inversify-config';

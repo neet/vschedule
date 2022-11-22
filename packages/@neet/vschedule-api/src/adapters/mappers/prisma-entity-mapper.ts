@@ -1,10 +1,8 @@
 import * as Prisma from '@prisma/client';
 import Color from 'color';
 import dayjs from 'dayjs';
-import { URL } from 'url';
 
 import {
-  Actor,
   MediaAttachment,
   Organization,
   Performer,
@@ -35,40 +33,23 @@ export const rehydrateMediaAttachmentFromPrisma = (
   });
 };
 
-const rehydrateActorFromPrisma = (
-  actor: Prisma.Actor & { avatar: Prisma.MediaAttachment | null },
-) => {
-  return Actor.rehydrate({
-    // id: actor.id
-    name: actor.name,
-    description: actor.description,
-    color: new Color(actor.color),
-    twitterUsername: actor.twitterUsername,
-    youtubeChannelId: actor.youtubeChannelId,
-    avatar:
-      actor.avatar !== null
-        ? rehydrateMediaAttachmentFromPrisma(actor.avatar)
-        : null,
-    url: actor.url !== null ? new URL(actor.url) : null,
-  });
-};
-
 export const rehydratePerformerFromPrisma = (
   performer: Prisma.Performer & {
-    actor:
-      | (Prisma.Actor & {
-          avatar: Prisma.MediaAttachment | null;
-        })
-      | null;
+    avatar: Prisma.MediaAttachment | null;
   },
 ): Performer => {
-  if (performer.actor === null) {
-    throw new Error(`isolated performer ${performer.id}`);
-  }
-
   return Performer.rehydrate({
-    ...rehydrateActorFromPrisma(performer.actor),
     id: performer.id,
+    name: performer.name,
+    description: performer.description,
+    color: new Color(performer.color),
+    twitterUsername: performer.twitterUsername,
+    youtubeChannelId: performer.youtubeChannelId,
+    avatar:
+      performer.avatar !== null
+        ? rehydrateMediaAttachmentFromPrisma(performer.avatar)
+        : null,
+    url: performer.url !== null ? new URL(performer.url) : null,
     organizationId: performer.organizationId,
     timestamps: new Timestamps({
       createdAt: dayjs(performer.createdAt),
@@ -79,20 +60,21 @@ export const rehydratePerformerFromPrisma = (
 
 export const rehydrateOrganizationFromPrisma = (
   organization: Prisma.Organization & {
-    actor:
-      | (Prisma.Actor & {
-          avatar: Prisma.MediaAttachment | null;
-        })
-      | null;
+    avatar: Prisma.MediaAttachment | null;
   },
 ): Organization => {
-  if (organization.actor == null) {
-    throw new Error(`isolated organization ${organization.id}`);
-  }
-
   return Organization.rehydrate({
-    ...rehydrateActorFromPrisma(organization.actor),
     id: organization.id,
+    name: organization.name,
+    description: organization.description,
+    color: new Color(organization.color),
+    twitterUsername: organization.twitterUsername,
+    youtubeChannelId: organization.youtubeChannelId,
+    avatar:
+      organization.avatar !== null
+        ? rehydrateMediaAttachmentFromPrisma(organization.avatar)
+        : null,
+    url: organization.url !== null ? new URL(organization.url) : null,
     timestamps: new Timestamps({
       createdAt: dayjs(organization.createdAt),
       updatedAt: dayjs(organization.updatedAt),

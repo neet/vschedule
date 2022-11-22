@@ -4,11 +4,13 @@ import { Duration } from 'dayjs/plugin/duration';
 import { URL } from 'url';
 
 import {
-  ActorDescription,
-  ActorName,
   MediaAttachment,
+  OrganizationDescription,
   OrganizationId,
+  OrganizationName,
+  PerformerDescription,
   PerformerId,
+  PerformerName,
   StreamDescription,
   StreamId,
   StreamTitle,
@@ -16,42 +18,44 @@ import {
   YoutubeChannelId,
 } from '../domain';
 
-export interface ActorDto {
-  readonly name: ActorName;
+export type OrganizationDto = {
+  readonly id: OrganizationId;
+  readonly name: OrganizationName;
   readonly color: Color;
-  readonly description: ActorDescription | null;
+  readonly description: OrganizationDescription | null;
   readonly avatar: MediaAttachment | null;
   readonly url: URL | null;
   readonly twitterUsername: TwitterUsername | null;
   readonly youtubeChannelId: YoutubeChannelId | null;
-}
-
-export interface OrganizationDto extends ActorDto {
-  readonly id: OrganizationId;
   readonly createdAt: Dayjs;
   readonly updatedAt: Dayjs;
-}
+};
 
-export interface PerformerDto extends ActorDto {
+export type PerformerDto = {
   readonly id: PerformerId;
+  readonly name: PerformerName;
+  readonly color: Color;
+  readonly description: PerformerDescription | null;
+  readonly avatar: MediaAttachment | null;
+  readonly url: URL | null;
+  readonly twitterUsername: TwitterUsername | null;
+  readonly youtubeChannelId: YoutubeChannelId | null;
   readonly organization: OrganizationDto | null;
   readonly createdAt: Dayjs;
   readonly updatedAt: Dayjs;
-}
+};
 
-export interface StreamDto {
+export type StreamDto = {
   readonly id: StreamId;
   readonly title: StreamTitle;
   readonly description: StreamDescription | null;
   readonly url: URL;
   readonly thumbnail: MediaAttachment | null;
-
   readonly owner: PerformerDto;
   readonly casts: readonly PerformerDto[];
-
   readonly startedAt: Dayjs;
   readonly endedAt: Dayjs | null;
   readonly createdAt: Dayjs;
   readonly updatedAt: Dayjs;
   readonly duration: Duration | null;
-}
+};

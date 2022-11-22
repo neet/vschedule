@@ -11,11 +11,7 @@ import { TYPES } from '../../types';
 import { transferOrganizationFromPrisma } from '../mappers';
 
 const DEFAULT_INCLUDE = Object.freeze({
-  actor: {
-    include: {
-      avatar: true,
-    },
-  },
+  avatar: true,
 });
 
 @injectable()
@@ -47,9 +43,7 @@ export class OrganizationQueryServicePrisma
   ): Promise<OrganizationDto | undefined> {
     const data = await this._prisma.organization.findFirst({
       where: {
-        actor: {
-          youtubeChannelId: id.value,
-        },
+        youtubeChannelId: id.value,
       },
       include: DEFAULT_INCLUDE,
     });

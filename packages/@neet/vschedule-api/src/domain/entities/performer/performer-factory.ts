@@ -1,29 +1,26 @@
 import Color from 'color';
 
-import {
-  ActorDescription,
-  ActorName,
-  TwitterUsername,
-  YoutubeChannelId,
-} from '../_shared';
+import { TwitterUsername, YoutubeChannelId } from '../_shared';
 import { OrganizationId } from '../organization';
 import { Performer } from './performer';
+import { PerformerDescription } from './performer-description';
+import { PerformerName } from './performer-name';
 
-export interface PerformerFactoryCreateParams {
+export type PerformerFactoryCreateParams = {
   readonly url: URL | null;
   readonly youtubeChannelId: YoutubeChannelId;
   readonly twitterUsername: TwitterUsername | null;
   readonly organizationId: OrganizationId | null;
 
   /** @default string YouTube channel name  */
-  readonly name?: ActorName | null;
+  readonly name?: PerformerName | null;
 
   /** @default string YouTube channel description  */
-  readonly description: ActorDescription | null;
+  readonly description: PerformerDescription | null;
 
   /** @default string Generated from Youtube avatar  */
   readonly color: Color | null;
-}
+};
 
 export interface IPerformerFactory {
   create(params: PerformerFactoryCreateParams): Promise<Performer>;

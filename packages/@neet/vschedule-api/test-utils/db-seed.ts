@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 import { hashSync } from 'bcryptjs';
-import { nanoid } from 'nanoid';
 
 import { IConfig } from '../src/app';
 
@@ -25,17 +24,12 @@ export const createSeed = async (config: IConfig): Promise<void> => {
   await client.organization.create({
     data: {
       id: SEED_ORGANIZATION_ID,
-      actor: {
-        create: {
-          id: nanoid(),
-          name: 'にじさんじ',
-          color: '#ffffff',
-          url: 'https://www.nijisanji.jp/',
-          description: `「にじさんじ」は、人気バーチャルライバー（VTuber）を始めとして、個性を存分に活かした多種多様なインフルエンサーが所属するバーチャルライバープロジェクトです。`,
-          youtubeChannelId: 'UCX7YkU9nEeaoZbkVLVajcMg',
-          twitterUsername: 'nijisanji_app',
-        },
-      },
+      name: 'にじさんじ',
+      color: '#ffffff',
+      url: 'https://www.nijisanji.jp/',
+      description: `「にじさんじ」は、人気バーチャルライバー（VTuber）を始めとして、個性を存分に活かした多種多様なインフルエンサーが所属するバーチャルライバープロジェクトです。`,
+      youtubeChannelId: 'UCX7YkU9nEeaoZbkVLVajcMg',
+      twitterUsername: 'nijisanji_app',
       createdAt: new Date('2022-11-03T12:06:13.481Z'),
       updatedAt: new Date('2022-11-03T12:06:13.481Z'),
     },
@@ -44,17 +38,12 @@ export const createSeed = async (config: IConfig): Promise<void> => {
   await client.performer.create({
     data: {
       id: SEED_PERFORMER_ID,
-      actor: {
-        create: {
-          id: nanoid(),
-          name: '鷹宮リオン',
-          color: '#ffffff',
-          description: `有数の金持ちが集う魔法学校、私立帝華高校の2年生 17歳。`,
-          url: 'https://marshmallow-qa.com/takamiyarion',
-          youtubeChannelId: 'UCV5ZZlLjk5MKGg3L0n0vbzw',
-          twitterUsername: 'TakamiyaRion',
-        },
-      },
+      name: '鷹宮リオン',
+      color: '#ffffff',
+      description: `有数の金持ちが集う魔法学校、私立帝華高校の2年生 17歳。`,
+      url: 'https://marshmallow-qa.com/takamiyarion',
+      youtubeChannelId: 'UCV5ZZlLjk5MKGg3L0n0vbzw',
+      twitterUsername: 'TakamiyaRion',
       organization: {
         connect: {
           id: SEED_ORGANIZATION_ID,

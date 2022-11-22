@@ -2,13 +2,13 @@ import Color from 'color';
 import { inject, injectable } from 'inversify';
 
 import {
-  ActorDescription,
-  ActorName,
   IPerformerFactory,
   IPerformerRepository,
   OrganizationId,
   OrganizationService,
   Performer,
+  PerformerDescription,
+  PerformerName,
   TwitterUsername,
   YoutubeChannelId,
 } from '../../domain';
@@ -71,9 +71,9 @@ export class UpsertPerformer {
       organizationId: null,
       description:
         command.description != null
-          ? new ActorDescription(command.description)
+          ? new PerformerDescription(command.description)
           : null,
-      name: command.name != null ? new ActorName(command.name) : null,
+      name: command.name != null ? new PerformerName(command.name) : null,
       color: command.color != null ? new Color(command.color) : null,
     });
 
@@ -87,10 +87,10 @@ export class UpsertPerformer {
     command: UpsertPerformerCommand,
   ) {
     const newPerformer = performer
-      .setName(new ActorName(command.name))
+      .setName(new PerformerName(command.name))
       .setDescription(
         command.description != null
-          ? new ActorDescription(command.description)
+          ? new PerformerDescription(command.description)
           : null,
       )
       .setColor(new Color(command.color))

@@ -13,4 +13,3 @@ export * from './storage-in-memory';
 export * from './youtube-api-service';
 export * from './youtube-websub-parser';
 export * from './youtube-websub-service';
-export * from './youtube-websub-service-mock';

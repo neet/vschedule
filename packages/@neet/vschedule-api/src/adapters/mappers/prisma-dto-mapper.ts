@@ -1,5 +1,4 @@
 import {
-  Actor,
   MediaAttachment,
   Organization,
   Performer,
@@ -9,18 +8,14 @@ import Color from 'color';
 import dayjs from 'dayjs';
 import Duration from 'dayjs/plugin/duration';
 
+import { OrganizationDto, PerformerDto, StreamDto } from '../../app';
 import {
-  ActorDto,
-  OrganizationDto,
-  PerformerDto,
-  StreamDto,
-  UnexpectedError,
-} from '../../app';
-import {
-  ActorDescription,
-  ActorName,
+  OrganizationDescription,
   OrganizationId,
+  OrganizationName,
+  PerformerDescription,
   PerformerId,
+  PerformerName,
   StreamDescription,
   StreamId,
   StreamTitle,
@@ -31,49 +26,31 @@ import { rehydrateMediaAttachmentFromPrisma } from './prisma-entity-mapper';
 
 dayjs.extend(Duration);
 
-export const transferActorFromPrisma = (
-  actor: Actor & { avatar: MediaAttachment | null },
-): ActorDto => {
-  return {
-    name: new ActorName(actor.name),
-    color: new Color(actor.color),
-
-    description:
-      actor.description != null
-        ? new ActorDescription(actor.description)
-        : null,
-
-    avatar:
-      actor.avatar != null
-        ? rehydrateMediaAttachmentFromPrisma(actor.avatar)
-        : null,
-
-    url: actor.url != null ? new URL(actor.url) : null,
-
-    twitterUsername:
-      actor.twitterUsername != null
-        ? new TwitterUsername(actor.twitterUsername)
-        : null,
-
-    youtubeChannelId:
-      actor.youtubeChannelId != null
-        ? new YoutubeChannelId(actor.youtubeChannelId)
-        : null,
-  };
-};
-
 export const transferOrganizationFromPrisma = (
-  organization: Organization & {
-    actor: (Actor & { avatar: MediaAttachment | null }) | null;
-  },
+  organization: Organization & { avatar: MediaAttachment | null },
 ): OrganizationDto => {
-  if (organization.actor == null) {
-    throw new UnexpectedError();
-  }
-
   return {
-    ...transferActorFromPrisma(organization.actor),
     id: new OrganizationId(organization.id),
+    name: new OrganizationName(organization.name),
+    color: new Color(organization.color),
+    description:
+      organization.description != null
+        ? new OrganizationDescription(organization.description)
+        : null,
+    avatar:
+      organization.avatar != null
+        ? rehydrateMediaAttachmentFromPrisma(organization.avatar)
+        : null,
+
+    url: organization.url != null ? new URL(organization.url) : null,
+    twitterUsername:
+      organization.twitterUsername != null
+        ? new TwitterUsername(organization.twitterUsername)
+        : null,
+    youtubeChannelId:
+      organization.youtubeChannelId != null
+        ? new YoutubeChannelId(organization.youtubeChannelId)
+        : null,
     createdAt: dayjs(organization.createdAt),
     updatedAt: dayjs(organization.updatedAt),
   };
@@ -81,21 +58,35 @@ export const transferOrganizationFromPrisma = (
 
 export const transferPerformerFromPrisma = (
   performer: Performer & {
-    actor: (Actor & { avatar: MediaAttachment | null }) | null;
+    avatar: MediaAttachment | null;
     organization:
       | (Organization & {
-          actor: (Actor & { avatar: MediaAttachment | null }) | null;
+          avatar: MediaAttachment | null;
         })
       | null;
   },
 ): PerformerDto => {
-  if (performer.actor == null) {
-    throw new UnexpectedError();
-  }
-
   return {
-    ...transferActorFromPrisma(performer.actor),
     id: new PerformerId(performer.id),
+    name: new PerformerName(performer.name),
+    color: new Color(performer.color),
+    description:
+      performer.description != null
+        ? new PerformerDescription(performer.description)
+        : null,
+    avatar:
+      performer.avatar != null
+        ? rehydrateMediaAttachmentFromPrisma(performer.avatar)
+        : null,
+    url: performer.url != null ? new URL(performer.url) : null,
+    twitterUsername:
+      performer.twitterUsername != null
+        ? new TwitterUsername(performer.twitterUsername)
+        : null,
+    youtubeChannelId:
+      performer.youtubeChannelId != null
+        ? new YoutubeChannelId(performer.youtubeChannelId)
+        : null,
     organization:
       performer.organization != null
         ? transferOrganizationFromPrisma(performer.organization)
@@ -108,10 +99,10 @@ export const transferPerformerFromPrisma = (
 export const transferStreamFromPrisma = (
   stream: Stream & {
     owner: Performer & {
-      actor: (Actor & { avatar: MediaAttachment | null }) | null;
+      avatar: MediaAttachment | null;
       organization:
         | (Organization & {
-            actor: (Actor & { avatar: MediaAttachment | null }) | null;
+            avatar: MediaAttachment | null;
           })
         | null;
     };
