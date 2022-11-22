@@ -48,6 +48,10 @@ export class OrganizationService {
       );
     }
 
+    if (performer.hasJoinedToOrganization(organization.id)) {
+      return;
+    }
+
     const newPerformer = performer.joinOrganization(organizationId);
     await this._performerRepository.update(newPerformer);
   }

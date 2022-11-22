@@ -7,7 +7,8 @@ export abstract class ValueObject<T = unknown> {
 
   protected constructor(public readonly value: T) {}
 
-  public equals(that: ValueObject<T>): boolean {
+  public equals(that: unknown): boolean {
+    if (!(that instanceof ValueObject)) return false;
     return shallowEqual(this.value, that.value);
   }
 
