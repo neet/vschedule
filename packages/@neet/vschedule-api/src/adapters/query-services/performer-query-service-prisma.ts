@@ -11,18 +11,10 @@ import { TYPES } from '../../types';
 import { transferPerformerFromPrisma } from '../mappers';
 
 const DEFAULT_INCLUDE = {
-  actor: {
-    include: {
-      avatar: true,
-    },
-  },
+  avatar: true,
   organization: {
     include: {
-      actor: {
-        include: {
-          avatar: true,
-        },
-      },
+      avatar: true,
     },
   },
 };
@@ -54,9 +46,7 @@ export class PerformerQueryServicePrisma implements IPerformerQueryService {
   ): Promise<PerformerDto | undefined> {
     const performer = await this._prisma.performer.findFirst({
       where: {
-        actor: {
-          youtubeChannelId: youtubeChannelId.value,
-        },
+        youtubeChannelId: youtubeChannelId.value,
       },
       include: DEFAULT_INCLUDE,
     });

@@ -17,9 +17,9 @@ import {
 import { loggerSilent } from '../src/infra/services/logger-silent';
 import { StorageInMemory } from '../src/infra/services/storage-in-memory';
 import { YoutubeApiService } from '../src/infra/services/youtube-api-service';
-import { mockYoutubeWebsubService } from '../src/infra/services/youtube-websub-service-mock';
 import { TYPES } from '../src/types';
 import { container } from './inversify-config';
+import { mockYoutubeWebsubService } from './mock-youtube-websub-service';
 
 // For some reasons, testTimeout in jest.config did not work
 // https://github.com/facebook/jest/issues/9696

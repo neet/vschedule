@@ -2,13 +2,7 @@ import { URL } from 'node:url';
 
 import { inject, injectable } from 'inversify';
 
-import {
-  ActorDto,
-  IConfig,
-  OrganizationDto,
-  PerformerDto,
-  StreamDto,
-} from '../../app';
+import { IConfig, OrganizationDto, PerformerDto, StreamDto } from '../../app';
 import { MediaAttachment, unwrap, User } from '../../domain';
 import { TYPES } from '../../types';
 import * as Rest from '../generated/@types';
@@ -43,25 +37,19 @@ export class RestPresenter {
     };
   }
 
-  public presentActor(actor: ActorDto): Rest.Actor {
-    return {
-      name: actor.name.value,
-      url: actor.url === null ? null : actor.url.toString(),
-      color: actor.color.hex(),
-      description: unwrap(actor.description),
-      twitterUsername: unwrap(actor.twitterUsername),
-      youtubeChannelId: unwrap(actor.youtubeChannelId),
-      avatar:
-        actor.avatar !== null
-          ? this.presentMediaAttachment(actor.avatar)
-          : undefined,
-    };
-  }
-
   public presentOrganization(organization: OrganizationDto): Rest.Organization {
     return {
-      ...this.presentActor(organization),
       id: organization.id.value,
+      name: organization.name.value,
+      url: organization.url === null ? null : organization.url.toString(),
+      color: organization.color.hex(),
+      description: unwrap(organization.description),
+      twitterUsername: unwrap(organization.twitterUsername),
+      youtubeChannelId: unwrap(organization.youtubeChannelId),
+      avatar:
+        organization.avatar !== null
+          ? this.presentMediaAttachment(organization.avatar)
+          : undefined,
       createdAt: organization.createdAt.toISOString(),
       updatedAt: organization.updatedAt.toISOString(),
     };
@@ -69,8 +57,17 @@ export class RestPresenter {
 
   public presentPerformer(performer: PerformerDto): Rest.Performer {
     return {
-      ...this.presentActor(performer),
       id: performer.id.value,
+      name: performer.name.value,
+      url: performer.url === null ? null : performer.url.toString(),
+      color: performer.color.hex(),
+      description: unwrap(performer.description),
+      twitterUsername: unwrap(performer.twitterUsername),
+      youtubeChannelId: unwrap(performer.youtubeChannelId),
+      avatar:
+        performer.avatar !== null
+          ? this.presentMediaAttachment(performer.avatar)
+          : undefined,
       createdAt: performer.createdAt.toISOString(),
       updatedAt: performer.updatedAt.toISOString(),
       organization:

@@ -35,17 +35,12 @@ describe('UpsertOrganization', () => {
     await prisma.organization.create({
       data: {
         id: nanoid(),
-        actor: {
-          create: {
-            id: nanoid(),
-            name: 'にじさんじ',
-            color: '#ffffff',
-            url: 'https://www.nijisanji.jp/',
-            description: `「にじさんじ」は、人気バーチャルライバー（VTuber）を始めとして、個性を存分に活かした多種多様なインフルエンサーが所属するバーチャルライバープロジェクトです。`,
-            youtubeChannelId: 'UCjXHjE-OBd--vYcT83XdzTA',
-            twitterUsername: null,
-          },
-        },
+        name: 'にじさんじ',
+        color: '#ffffff',
+        url: 'https://www.nijisanji.jp/',
+        description: `「にじさんじ」は、人気バーチャルライバー（VTuber）を始めとして、個性を存分に活かした多種多様なインフルエンサーが所属するバーチャルライバープロジェクトです。`,
+        youtubeChannelId: 'UCjXHjE-OBd--vYcT83XdzTA',
+        twitterUsername: null,
         createdAt: new Date('2022-11-03T12:06:13.481Z'),
         updatedAt: new Date('2022-11-03T12:06:13.481Z'),
       },

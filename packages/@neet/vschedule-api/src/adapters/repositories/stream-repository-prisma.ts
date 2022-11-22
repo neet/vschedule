@@ -27,11 +27,7 @@ export class StreamRepositoryPrisma implements IStreamRepository {
         owner: {
           include: {
             organization: true,
-            actor: {
-              include: {
-                avatar: true,
-              },
-            },
+            avatar: true,
           },
         },
       },
@@ -50,11 +46,7 @@ export class StreamRepositoryPrisma implements IStreamRepository {
         owner: {
           include: {
             organization: true,
-            actor: {
-              include: {
-                avatar: true,
-              },
-            },
+            avatar: true,
           },
         },
       },
@@ -98,11 +90,7 @@ export class StreamRepositoryPrisma implements IStreamRepository {
         owner: {
           include: {
             organization: true,
-            actor: {
-              include: {
-                avatar: true,
-              },
-            },
+            avatar: true,
           },
         },
       },
@@ -132,11 +120,7 @@ export class StreamRepositoryPrisma implements IStreamRepository {
         owner: {
           include: {
             organization: true,
-            actor: {
-              include: {
-                avatar: true,
-              },
-            },
+            avatar: true,
           },
         },
       },
@@ -168,11 +152,7 @@ export class StreamRepositoryPrisma implements IStreamRepository {
         owner: {
           include: {
             organization: true,
-            actor: {
-              include: {
-                avatar: true,
-              },
-            },
+            avatar: true,
           },
         },
       },

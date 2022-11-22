@@ -15,18 +15,10 @@ const SHARED_INCLUDE = {
   thumbnail: true,
   owner: {
     include: {
-      actor: {
-        include: {
-          avatar: true,
-        },
-      },
+      avatar: true,
       organization: {
         include: {
-          actor: {
-            include: {
-              avatar: true,
-            },
-          },
+          avatar: true,
         },
       },
     },

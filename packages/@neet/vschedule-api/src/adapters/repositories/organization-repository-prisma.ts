@@ -1,6 +1,5 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
-import { nanoid } from 'nanoid';
 
 import {
   FindOrganizationParams,
@@ -22,33 +21,24 @@ export class OrganizationRepositoryPrisma implements IOrganizationRepository {
   ) {}
 
   async create(organization: Organization): Promise<Organization> {
-    const entry: Prisma.OrganizationCreateInput = {
+    const entry: Prisma.OrganizationUncheckedCreateInput = {
       id: organization.id.value,
       createdAt: organization.createdAt.toISOString(),
       updatedAt: organization.updatedAt.toISOString(),
-      actor: {
-        create: {
-          id: nanoid(),
-          name: organization.name.value,
-          color: organization.color.hex(),
-          description: unwrap(organization.description),
-          url: organization.url === null ? null : organization.url.toString(),
-          twitterUsername: unwrap(organization.twitterUsername),
-          youtubeChannelId: unwrap(organization.youtubeChannelId),
-          avatarId:
-            organization.avatar !== null ? organization.avatar.id.value : null,
-        },
-      },
+      name: organization.name.value,
+      color: organization.color.hex(),
+      description: unwrap(organization.description),
+      url: organization.url === null ? null : organization.url.toString(),
+      twitterUsername: unwrap(organization.twitterUsername),
+      youtubeChannelId: unwrap(organization.youtubeChannelId),
+      avatarId:
+        organization.avatar !== null ? organization.avatar.id.value : null,
     };
 
     const data = await this._prisma.organization.create({
       data: entry,
       include: {
-        actor: {
-          include: {
-            avatar: true,
-          },
-        },
+        avatar: true,
       },
     });
 
@@ -56,20 +46,16 @@ export class OrganizationRepositoryPrisma implements IOrganizationRepository {
   }
 
   async update(organization: Organization): Promise<Organization> {
-    const entry: Prisma.OrganizationUpdateInput = {
+    const entry: Prisma.OrganizationUncheckedUpdateInput = {
       updatedAt: organization.updatedAt.toISOString(),
-      actor: {
-        update: {
-          name: organization.name.value,
-          color: organization.color.hex(),
-          description: unwrap(organization.description),
-          url: organization.url === null ? null : organization.url.toString(),
-          twitterUsername: unwrap(organization.twitterUsername),
-          youtubeChannelId: unwrap(organization.youtubeChannelId),
-          avatarId:
-            organization.avatar !== null ? organization.avatar.id.value : null,
-        },
-      },
+      name: organization.name.value,
+      color: organization.color.hex(),
+      description: unwrap(organization.description),
+      url: organization.url === null ? null : organization.url.toString(),
+      twitterUsername: unwrap(organization.twitterUsername),
+      youtubeChannelId: unwrap(organization.youtubeChannelId),
+      avatarId:
+        organization.avatar !== null ? organization.avatar.id.value : null,
     };
 
     const data = await this._prisma.organization.update({
@@ -78,11 +64,7 @@ export class OrganizationRepositoryPrisma implements IOrganizationRepository {
       },
       data: entry,
       include: {
-        actor: {
-          include: {
-            avatar: true,
-          },
-        },
+        avatar: true,
       },
     });
 
@@ -94,11 +76,7 @@ export class OrganizationRepositoryPrisma implements IOrganizationRepository {
       skip: params.offset,
       take: params.limit,
       include: {
-        actor: {
-          include: {
-            avatar: true,
-          },
-        },
+        avatar: true,
       },
     });
 
@@ -111,11 +89,7 @@ export class OrganizationRepositoryPrisma implements IOrganizationRepository {
         id: id.value,
       },
       include: {
-        actor: {
-          include: {
-            avatar: true,
-          },
-        },
+        avatar: true,
       },
     });
 
@@ -136,11 +110,7 @@ export class OrganizationRepositoryPrisma implements IOrganizationRepository {
         },
       },
       include: {
-        actor: {
-          include: {
-            avatar: true,
-          },
-        },
+        avatar: true,
       },
     });
 
@@ -156,16 +126,10 @@ export class OrganizationRepositoryPrisma implements IOrganizationRepository {
   ): Promise<Organization | null> {
     const data = await this._prisma.organization.findFirst({
       where: {
-        actor: {
-          youtubeChannelId: id.value,
-        },
+        youtubeChannelId: id.value,
       },
       include: {
-        actor: {
-          include: {
-            avatar: true,
-          },
-        },
+        avatar: true,
       },
     });
 

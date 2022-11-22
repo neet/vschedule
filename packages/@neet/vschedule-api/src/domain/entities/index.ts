@@ -4,7 +4,6 @@
 
 export * from './__fixtures__/index';
 export * from './_shared/index';
-export * from './branch/index';
 export * from './media-attachment/index';
 export * from './organization/index';
 export * from './performer/index';

@@ -2,10 +2,10 @@ import Color from 'color';
 import { inject, injectable } from 'inversify';
 
 import {
-  ActorDescription,
-  ActorName,
   IOrganizationFactory,
   IOrganizationRepository,
+  OrganizationDescription,
+  OrganizationName,
   TwitterUsername,
   YoutubeChannelId,
 } from '../../domain';
@@ -42,11 +42,11 @@ export class UpsertOrganization {
 
     if (existingOrganization == null) {
       const organization = await this._organizationFactory.create({
-        name: new ActorName(command.name),
+        name: new OrganizationName(command.name),
         url: command.url != null ? new URL(command.url) : null,
         description:
           command.description != null
-            ? new ActorDescription(command.description)
+            ? new OrganizationDescription(command.description)
             : null,
         color: command.color != null ? new Color(command.color) : null,
         youtubeChannelId:
@@ -64,10 +64,10 @@ export class UpsertOrganization {
       });
     } else {
       const organization = existingOrganization
-        .setName(new ActorName(command.name))
+        .setName(new OrganizationName(command.name))
         .setDescription(
           command.description != null
-            ? new ActorDescription(command.description)
+            ? new OrganizationDescription(command.description)
             : null,
         )
         .setUrl(command.url != null ? new URL(command.url) : null)
