@@ -8,49 +8,49 @@ import Color from 'color';
 import dayjs from 'dayjs';
 import Duration from 'dayjs/plugin/duration';
 
-import { OrganizationDto, PerformerDto, StreamDto } from '../../app';
 import {
-  OrganizationDescription,
-  OrganizationId,
-  OrganizationName,
-  PerformerDescription,
-  PerformerId,
-  PerformerName,
-  StreamDescription,
-  StreamId,
-  StreamTitle,
-  TwitterUsername,
-  YoutubeChannelId,
-} from '../../domain';
-import { rehydrateMediaAttachmentFromPrisma } from './prisma-entity-mapper';
+  MediaAttachmentDto,
+  OrganizationDto,
+  PerformerDto,
+  StreamDto,
+} from '../../app';
 
 dayjs.extend(Duration);
+
+export const transferMediaAttachmentFromPrisma = (
+  mediaAttachment: MediaAttachment,
+): MediaAttachmentDto => {
+  return {
+    id: mediaAttachment.id,
+    filename: mediaAttachment.filename,
+    width: mediaAttachment.width,
+    height: mediaAttachment.height,
+    blurDataUri: mediaAttachment.blurDataUri,
+    bucket: mediaAttachment.bucket,
+    remoteUrl:
+      mediaAttachment.remoteUrl != null
+        ? new URL(mediaAttachment.remoteUrl)
+        : null,
+    createdAt: dayjs(mediaAttachment.createdAt),
+    updatedAt: dayjs(mediaAttachment.updatedAt),
+  };
+};
 
 export const transferOrganizationFromPrisma = (
   organization: Organization & { avatar: MediaAttachment | null },
 ): OrganizationDto => {
   return {
-    id: new OrganizationId(organization.id),
-    name: new OrganizationName(organization.name),
+    id: organization.id,
+    name: organization.name,
     color: new Color(organization.color),
-    description:
-      organization.description != null
-        ? new OrganizationDescription(organization.description)
-        : null,
+    description: organization.description,
     avatar:
       organization.avatar != null
-        ? rehydrateMediaAttachmentFromPrisma(organization.avatar)
+        ? transferMediaAttachmentFromPrisma(organization.avatar)
         : null,
-
     url: organization.url != null ? new URL(organization.url) : null,
-    twitterUsername:
-      organization.twitterUsername != null
-        ? new TwitterUsername(organization.twitterUsername)
-        : null,
-    youtubeChannelId:
-      organization.youtubeChannelId != null
-        ? new YoutubeChannelId(organization.youtubeChannelId)
-        : null,
+    twitterUsername: organization.twitterUsername,
+    youtubeChannelId: organization.youtubeChannelId,
     createdAt: dayjs(organization.createdAt),
     updatedAt: dayjs(organization.updatedAt),
   };
@@ -67,26 +67,17 @@ export const transferPerformerFromPrisma = (
   },
 ): PerformerDto => {
   return {
-    id: new PerformerId(performer.id),
-    name: new PerformerName(performer.name),
+    id: performer.id,
+    name: performer.name,
     color: new Color(performer.color),
-    description:
-      performer.description != null
-        ? new PerformerDescription(performer.description)
-        : null,
+    description: performer.description,
     avatar:
       performer.avatar != null
-        ? rehydrateMediaAttachmentFromPrisma(performer.avatar)
+        ? transferMediaAttachmentFromPrisma(performer.avatar)
         : null,
     url: performer.url != null ? new URL(performer.url) : null,
-    twitterUsername:
-      performer.twitterUsername != null
-        ? new TwitterUsername(performer.twitterUsername)
-        : null,
-    youtubeChannelId:
-      performer.youtubeChannelId != null
-        ? new YoutubeChannelId(performer.youtubeChannelId)
-        : null,
+    twitterUsername: performer.twitterUsername,
+    youtubeChannelId: performer.youtubeChannelId,
     organization:
       performer.organization != null
         ? transferOrganizationFromPrisma(performer.organization)
@@ -110,16 +101,13 @@ export const transferStreamFromPrisma = (
   },
 ): StreamDto => {
   return {
-    id: new StreamId(stream.id),
-    title: new StreamTitle(stream.title),
-    description:
-      stream.description != null
-        ? new StreamDescription(stream.description)
-        : null,
+    id: stream.id,
+    title: stream.title,
+    description: stream.description,
     url: new URL(stream.url),
     thumbnail:
       stream.thumbnail != null
-        ? rehydrateMediaAttachmentFromPrisma(stream.thumbnail)
+        ? transferMediaAttachmentFromPrisma(stream.thumbnail)
         : null,
     owner: transferPerformerFromPrisma(stream.owner),
     casts: [], // TODO

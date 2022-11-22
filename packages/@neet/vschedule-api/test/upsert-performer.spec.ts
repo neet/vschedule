@@ -20,7 +20,7 @@ describe('UpsertPerformer', () => {
     const res = await show.invoke({
       youtubeChannelId: 'UCD-miitqNY3nyukJ4Fnf4_A',
     });
-    expect(res.name.value).toBe('月ノ美兎');
+    expect(res.name).toBe('月ノ美兎');
   });
 
   it('updates performer', async () => {
@@ -40,6 +40,6 @@ describe('UpsertPerformer', () => {
     const res = await show.invoke({
       youtubeChannelId: 'UCV5ZZlLjk5MKGg3L0n0vbzw',
     });
-    expect(res.name.value).toBe('鷹宮リオン2');
+    expect(res.name).toBe('鷹宮リオン2');
   });
 });

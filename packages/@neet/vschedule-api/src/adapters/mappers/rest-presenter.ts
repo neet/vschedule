@@ -2,8 +2,14 @@ import { URL } from 'node:url';
 
 import { inject, injectable } from 'inversify';
 
-import { IConfig, OrganizationDto, PerformerDto, StreamDto } from '../../app';
-import { MediaAttachment, unwrap, User } from '../../domain';
+import {
+  IConfig,
+  MediaAttachmentDto,
+  OrganizationDto,
+  PerformerDto,
+  StreamDto,
+} from '../../app';
+import { User } from '../../domain';
 import { TYPES } from '../../types';
 import * as Rest from '../generated/@types';
 
@@ -19,19 +25,19 @@ export class RestPresenter {
   }
 
   public presentMediaAttachment(
-    mediaAttachment: MediaAttachment,
+    mediaAttachment: MediaAttachmentDto,
   ): Rest.MediaAttachment {
-    const pathname = `/rest/v1/media/${mediaAttachment.filename.value}`;
+    const pathname = `/rest/v1/media/${mediaAttachment.filename}`;
     const url = new URL(this._origin);
     url.pathname = pathname;
 
     return {
-      id: mediaAttachment.id.value,
+      id: mediaAttachment.id,
       url: url.toString(),
-      blurDataUri: mediaAttachment.blurDataUri.value,
-      width: mediaAttachment.width.value,
-      height: mediaAttachment.height.value,
-      filename: mediaAttachment.filename.value,
+      blurDataUri: mediaAttachment.blurDataUri,
+      width: mediaAttachment.width,
+      height: mediaAttachment.height,
+      filename: mediaAttachment.filename,
       createdAt: mediaAttachment.createdAt.toISOString(),
       updatedAt: mediaAttachment.updatedAt.toISOString(),
     };
@@ -39,13 +45,13 @@ export class RestPresenter {
 
   public presentOrganization(organization: OrganizationDto): Rest.Organization {
     return {
-      id: organization.id.value,
-      name: organization.name.value,
+      id: organization.id,
+      name: organization.name,
       url: organization.url === null ? null : organization.url.toString(),
       color: organization.color.hex(),
-      description: unwrap(organization.description),
-      twitterUsername: unwrap(organization.twitterUsername),
-      youtubeChannelId: unwrap(organization.youtubeChannelId),
+      description: organization.description,
+      twitterUsername: organization.twitterUsername,
+      youtubeChannelId: organization.youtubeChannelId,
       avatar:
         organization.avatar !== null
           ? this.presentMediaAttachment(organization.avatar)
@@ -57,13 +63,13 @@ export class RestPresenter {
 
   public presentPerformer(performer: PerformerDto): Rest.Performer {
     return {
-      id: performer.id.value,
-      name: performer.name.value,
+      id: performer.id,
+      name: performer.name,
       url: performer.url === null ? null : performer.url.toString(),
       color: performer.color.hex(),
-      description: unwrap(performer.description),
-      twitterUsername: unwrap(performer.twitterUsername),
-      youtubeChannelId: unwrap(performer.youtubeChannelId),
+      description: performer.description,
+      twitterUsername: performer.twitterUsername,
+      youtubeChannelId: performer.youtubeChannelId,
       avatar:
         performer.avatar !== null
           ? this.presentMediaAttachment(performer.avatar)
@@ -79,10 +85,10 @@ export class RestPresenter {
 
   public presentStream(stream: StreamDto): Rest.Stream {
     return {
-      id: stream.id.value,
-      title: stream.title.value,
+      id: stream.id,
+      title: stream.title,
       url: stream.url.toString(),
-      description: unwrap(stream.description),
+      description: stream.description,
       createdAt: stream.createdAt.toISOString(),
       updatedAt: stream.updatedAt.toISOString(),
       startedAt: stream.startedAt.toISOString(),
