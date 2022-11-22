@@ -1,9 +1,8 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 
+import { FindOrganizationParams, IOrganizationRepository } from '../../app';
 import {
-  FindOrganizationParams,
-  IOrganizationRepository,
   Organization,
   OrganizationId,
   PerformerId,

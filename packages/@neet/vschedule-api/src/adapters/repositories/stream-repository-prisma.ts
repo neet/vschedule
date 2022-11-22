@@ -2,13 +2,8 @@ import { PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 import { URL } from 'url';
 
-import {
-  IStreamRepository,
-  ListStreamsParams,
-  Stream,
-  StreamId,
-  unwrap,
-} from '../../domain';
+import { IStreamRepository, ListStreamsParams } from '../../app';
+import { Stream, StreamId, unwrap } from '../../domain';
 import { TYPES } from '../../types';
 import { rehydrateStreamFromPrisma } from '../mappers';
 
@@ -73,6 +68,7 @@ export class StreamRepositoryPrisma implements IStreamRepository {
         endedAt: stream.endedAt === null ? null : stream.endedAt.toDate(),
         thumbnailId:
           stream.thumbnail === null ? null : stream.thumbnail.id.value,
+        channelId: stream.channelId.value,
         ownerId: stream.ownerId.value,
       },
       update: {

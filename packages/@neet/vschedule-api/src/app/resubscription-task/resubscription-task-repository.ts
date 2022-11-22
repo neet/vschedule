@@ -1,4 +1,4 @@
-import { ResubscriptionTask } from './resubscription-task';
+import { ResubscriptionTask } from '../../domain';
 
 export interface IResubscriptionTaskRepository {
   create(task: ResubscriptionTask): Promise<void>;

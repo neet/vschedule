@@ -41,6 +41,9 @@ model Stream {
   startedAt DateTime  @map("started_at")
   endedAt   DateTime? @map("ended_at")
 
+  channelId String  @map("channel_id")
+  channel   Channel @relation(fields: [channelId], references: [id])
+
   ownerId String    @map("owner_id")
   owner   Performer @relation(fields: [ownerId], references: [id])
 
@@ -75,7 +78,8 @@ model Performer {
   createdAt DateTime @map("created_at")
   updatedAt DateTime @map("updated_at")
 
-  streams Stream[]
+  streams  Stream[]
+  channels Channel[]
 
   @@index([organizationId])
   @@index([youtubeChannelId])
@@ -98,12 +102,40 @@ model Organization {
 
   performers Performer[]
 
-  createdAt DateTime @map("created_at")
-  updatedAt DateTime @map("updated_at")
+  createdAt DateTime  @map("created_at")
+  updatedAt DateTime  @map("updated_at")
+  channels  Channel[]
 
   @@index([youtubeChannelId])
   @@index([twitterUsername])
   @@map("organizations")
+}
+
+model Channel {
+  id          String  @id @db.VarChar(21)
+  name        String
+  status      String
+  description String? @db.Text
+
+  performerId    String?       @map("performer_id")
+  performer      Performer?    @relation(fields: [performerId], references: [id])
+  organizationId String?       @map("organization_id")
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+
+  youtubeChannel YoutubeChannel?
+  streams        Stream[]
+
+  @@index([performerId, organizationId])
+  @@map("channels")
+}
+
+model YoutubeChannel {
+  id               String  @id @db.VarChar(21)
+  youtubeChannelId String  @unique
+  channel          Channel @relation(fields: [id], references: [id])
+
+  @@index([youtubeChannelId])
+  @@map("youtube_channels")
 }
 
 model Token {

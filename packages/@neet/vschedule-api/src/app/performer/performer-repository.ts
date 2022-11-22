@@ -1,6 +1,4 @@
-import { YoutubeChannelId } from '../_shared';
-import { Performer } from './performer';
-import { PerformerId } from './performer-id';
+import { Performer, PerformerId, YoutubeChannelId } from '../../domain';
 
 export interface FindPerformerParams {
   readonly limit?: number;

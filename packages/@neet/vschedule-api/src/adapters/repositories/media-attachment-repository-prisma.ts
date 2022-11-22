@@ -2,9 +2,8 @@ import { PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 import { getPlaiceholder } from 'plaiceholder';
 
-import { IStorage } from '../../app';
+import { IMediaAttachmentRepository, IStorage } from '../../app';
 import {
-  IMediaAttachmentRepository,
   MediaAttachment,
   MediaAttachmentFilename,
   MediaAttachmentId,
@@ -44,6 +43,20 @@ export class MediaAttachmentRepositoryPrisma
     const data = await this._prisma.mediaAttachment.findFirst({
       where: {
         filename: filename.value,
+      },
+    });
+
+    if (data == null) {
+      return;
+    }
+
+    return rehydrateMediaAttachmentFromPrisma(data);
+  }
+
+  async findByRemoteUrl(url: URL): Promise<MediaAttachment | undefined> {
+    const data = await this._prisma.mediaAttachment.findFirst({
+      where: {
+        remoteUrl: url.toString(),
       },
     });
 

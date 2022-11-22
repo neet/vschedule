@@ -1,14 +1,8 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 
-import {
-  FindPerformerParams,
-  IPerformerRepository,
-  Performer,
-  PerformerId,
-  unwrap,
-  YoutubeChannelId,
-} from '../../domain';
+import { FindPerformerParams, IPerformerRepository } from '../../app';
+import { Performer, PerformerId, unwrap, YoutubeChannelId } from '../../domain';
 import { TYPES } from '../../types';
 import { rehydratePerformerFromPrisma } from '../mappers';
 

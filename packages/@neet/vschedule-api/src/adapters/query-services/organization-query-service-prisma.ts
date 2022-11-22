@@ -12,6 +12,11 @@ import { transferOrganizationFromPrisma } from '../mappers';
 
 const DEFAULT_INCLUDE = Object.freeze({
   avatar: true,
+  channels: {
+    include: {
+      youtubeChannel: true,
+    },
+  },
 });
 
 @injectable()

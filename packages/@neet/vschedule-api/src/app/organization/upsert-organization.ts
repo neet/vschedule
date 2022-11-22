@@ -3,7 +3,6 @@ import { inject, injectable } from 'inversify';
 
 import {
   IOrganizationFactory,
-  IOrganizationRepository,
   Organization,
   OrganizationDescription,
   OrganizationName,
@@ -12,6 +11,7 @@ import {
 } from '../../domain';
 import { TYPES } from '../../types';
 import { ILogger } from '../_shared';
+import { IOrganizationRepository } from './organization-repository';
 
 export type UpsertOrganizationCommand = {
   readonly name: string;

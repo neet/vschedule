@@ -1,9 +1,7 @@
 import { injectable } from 'inversify';
 
-import {
-  IResubscriptionTaskRepository,
-  ResubscriptionTask,
-} from '../../domain';
+import { IResubscriptionTaskRepository } from '../../app';
+import { ResubscriptionTask } from '../../domain';
 
 @injectable()
 export class ResubscriptionTaskRepositoryInMemory

@@ -4,11 +4,13 @@
 
 export * from './_external/index';
 export * from './_shared/index';
+export * from './channel/index';
 export * from './dto';
 export * from './factories';
 export * from './media-attachment/index';
 export * from './organization/index';
 export * from './performer/index';
+export * from './resubscription-task/index';
 export * from './stream/index';
 export * from './token/index';
 export * from './user/index';

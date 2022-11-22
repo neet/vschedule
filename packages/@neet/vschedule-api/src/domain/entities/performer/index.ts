@@ -7,4 +7,3 @@ export * from './performer-description';
 export * from './performer-factory';
 export * from './performer-id';
 export * from './performer-name';
-export * from './performer-repository';

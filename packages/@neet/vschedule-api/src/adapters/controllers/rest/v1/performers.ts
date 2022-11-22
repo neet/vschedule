@@ -1,19 +1,7 @@
 import { inject, injectable } from 'inversify';
-import {
-  Authorized,
-  Get,
-  JsonController,
-  OnUndefined,
-  Param,
-  Params,
-  Post,
-} from 'routing-controllers';
+import { Get, JsonController, Param, Params } from 'routing-controllers';
 
-import {
-  ListPerformers,
-  ShowPerformer,
-  SubscribeToPerformer,
-} from '../../../../app';
+import { ListPerformers, ShowPerformer } from '../../../../app';
 import { Methods } from '../../../generated/rest/v1/performers';
 import { RestPresenter } from '../../../mappers';
 
@@ -26,9 +14,6 @@ export class PerformersController {
 
     @inject(ListPerformers)
     private readonly _listPerformers: ListPerformers,
-
-    @inject(SubscribeToPerformer)
-    private readonly _subscribeToPerformer: SubscribeToPerformer,
 
     @inject(RestPresenter)
     private readonly _presenter: RestPresenter,
@@ -44,16 +29,6 @@ export class PerformersController {
     }
 
     return this._presenter.presentPerformer(performer);
-  }
-
-  @Post('/:performerId/subscribe')
-  @Authorized()
-  @OnUndefined(202)
-  public async subscribe(@Param('performerId') performerId: string) {
-    await this._subscribeToPerformer.invoke({
-      performerId,
-    });
-    // return this.statusCode(202);
   }
 
   @Get('/')

@@ -12,7 +12,7 @@ export const TYPES = Object.freeze({
   ResubscriptionTaskRepository: Symbol('ResubscriptionTaskRepository'),
   TokenRepository: Symbol('TokenRepository'),
   UserRepository: Symbol('UserRepository'),
-  StreamFactory: Symbol('StreamFactory'),
+  ChannelRepository: Symbol('ChannelRepository'),
 
   StreamQueryService: Symbol('StreamQueryService'),
   PerformerQueryService: Symbol('PerformerQueryService'),

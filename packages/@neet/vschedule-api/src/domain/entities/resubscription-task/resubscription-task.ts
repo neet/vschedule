@@ -1,17 +1,15 @@
 import { Dayjs } from 'dayjs';
 
 import { AggregateRoot, Recipe } from '../../_core';
-import { PerformerId } from '../performer';
+import { ChannelId } from '../channel';
 import { Token, TokenId } from '../token';
 
 export interface ResubscriptionTaskProps {
   // 要らないと思う。
   readonly id: TokenId;
-  // should rather be a DataSourceId or something
-  readonly performerId: PerformerId;
+  readonly channelId: ChannelId;
   readonly token: Token;
   readonly scheduledAt: Dayjs;
-  // type: 'youtube'
 }
 
 export class ResubscriptionTask extends AggregateRoot<
@@ -22,8 +20,8 @@ export class ResubscriptionTask extends AggregateRoot<
     return this._props.token.id;
   }
 
-  get performerId(): PerformerId {
-    return this._props.performerId;
+  get channelId(): ChannelId {
+    return this._props.channelId;
   }
 
   get token(): Token {
@@ -37,7 +35,7 @@ export class ResubscriptionTask extends AggregateRoot<
   public static create(props: Omit<Recipe<ResubscriptionTaskProps>, 'id'>) {
     return new ResubscriptionTask({
       id: props.token.id,
-      performerId: new PerformerId(props.performerId),
+      channelId: new ChannelId(props.channelId),
       token: props.token,
       scheduledAt: props.scheduledAt,
     });
@@ -46,7 +44,7 @@ export class ResubscriptionTask extends AggregateRoot<
   public static rehydrate(props: Omit<Recipe<ResubscriptionTaskProps>, 'id'>) {
     return new ResubscriptionTask({
       id: props.token.id,
-      performerId: new PerformerId(props.performerId),
+      channelId: new ChannelId(props.channelId),
       token: props.token,
       scheduledAt: props.scheduledAt,
     });

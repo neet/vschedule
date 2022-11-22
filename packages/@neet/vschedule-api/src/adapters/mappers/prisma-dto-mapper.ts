@@ -1,14 +1,17 @@
 import {
+  Channel,
   MediaAttachment,
   Organization,
   Performer,
   Stream,
+  YoutubeChannel,
 } from '@prisma/client';
 import Color from 'color';
 import dayjs from 'dayjs';
 import Duration from 'dayjs/plugin/duration';
 
 import {
+  ChannelDto,
   MediaAttachmentDto,
   OrganizationDto,
   PerformerDto,
@@ -36,8 +39,29 @@ export const transferMediaAttachmentFromPrisma = (
   };
 };
 
+export const transferChannelFromPrisma = (
+  channel: Channel & { youtubeChannel: YoutubeChannel | null },
+): ChannelDto => {
+  if (channel.youtubeChannel != null) {
+    return {
+      type: 'youtube',
+      id: channel.id,
+      name: channel.name,
+      description: channel.description,
+      youtubeChannelId: channel.youtubeChannel.youtubeChannelId,
+    };
+  }
+
+  throw new Error('inexhaustible');
+};
+
 export const transferOrganizationFromPrisma = (
-  organization: Organization & { avatar: MediaAttachment | null },
+  organization: Organization & {
+    avatar: MediaAttachment | null;
+    channels: (Channel & {
+      youtubeChannel: YoutubeChannel | null;
+    })[];
+  },
 ): OrganizationDto => {
   return {
     id: organization.id,
@@ -51,6 +75,9 @@ export const transferOrganizationFromPrisma = (
     url: organization.url != null ? new URL(organization.url) : null,
     twitterUsername: organization.twitterUsername,
     youtubeChannelId: organization.youtubeChannelId,
+    channels: organization.channels.map((channel) =>
+      transferChannelFromPrisma(channel),
+    ),
     createdAt: dayjs(organization.createdAt),
     updatedAt: dayjs(organization.updatedAt),
   };
@@ -62,8 +89,14 @@ export const transferPerformerFromPrisma = (
     organization:
       | (Organization & {
           avatar: MediaAttachment | null;
+          channels: (Channel & {
+            youtubeChannel: YoutubeChannel | null;
+          })[];
         })
       | null;
+    channels: (Channel & {
+      youtubeChannel: YoutubeChannel | null;
+    })[];
   },
 ): PerformerDto => {
   return {
@@ -82,6 +115,9 @@ export const transferPerformerFromPrisma = (
       performer.organization != null
         ? transferOrganizationFromPrisma(performer.organization)
         : null,
+    channels: performer.channels.map((channel) =>
+      transferChannelFromPrisma(channel),
+    ),
     createdAt: dayjs(performer.createdAt),
     updatedAt: dayjs(performer.updatedAt),
   };
@@ -94,8 +130,14 @@ export const transferStreamFromPrisma = (
       organization:
         | (Organization & {
             avatar: MediaAttachment | null;
+            channels: (Channel & {
+              youtubeChannel: YoutubeChannel | null;
+            })[];
           })
         | null;
+      channels: (Channel & {
+        youtubeChannel: YoutubeChannel | null;
+      })[];
     };
     thumbnail: MediaAttachment | null;
   },
@@ -110,7 +152,8 @@ export const transferStreamFromPrisma = (
         ? transferMediaAttachmentFromPrisma(stream.thumbnail)
         : null,
     owner: transferPerformerFromPrisma(stream.owner),
-    casts: [], // TODO
+    participants: [], // TODO
+    channelId: stream.channelId,
 
     startedAt: dayjs(stream.startedAt),
     endedAt: stream.endedAt != null ? dayjs(stream.endedAt) : null,

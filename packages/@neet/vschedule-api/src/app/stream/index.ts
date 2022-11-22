@@ -7,4 +7,5 @@ export * from './remove-stream';
 export * from './show-stream';
 export * from './stream-factory-impl';
 export * from './stream-query-service';
+export * from './stream-repository';
 export * from './upsert-stream';

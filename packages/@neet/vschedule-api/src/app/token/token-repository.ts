@@ -1,5 +1,5 @@
-import { Token } from './token';
-import { TokenId } from './token-id';
+import { Token } from '../../domain/entities/token/token';
+import { TokenId } from '../../domain/entities/token/token-id';
 
 export interface ITokenRepository {
   create(token: Token): Promise<Token>;

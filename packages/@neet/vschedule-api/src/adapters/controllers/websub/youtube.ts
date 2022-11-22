@@ -11,11 +11,8 @@ import {
   UseBefore,
 } from 'routing-controllers';
 
-import {
-  CreateResubscriptionTask,
-  RemoveStream,
-  UpsertStream,
-} from '../../../app';
+import { RemoveStream, UpsertStream } from '../../../app';
+import { VerifyYoutubeChannelSubscription } from '../../../app/channel';
 import { Methods } from '../../generated/websub/youtube';
 
 @injectable()
@@ -28,8 +25,8 @@ export class YoutubeWebsubController {
     @inject(RemoveStream)
     private readonly _removeStream: RemoveStream,
 
-    @inject(CreateResubscriptionTask)
-    private readonly _createResubscriptionTask: CreateResubscriptionTask,
+    @inject(VerifyYoutubeChannelSubscription)
+    private readonly _verifyChannelSubscription: VerifyYoutubeChannelSubscription,
   ) {}
 
   @Get('/')
@@ -38,9 +35,8 @@ export class YoutubeWebsubController {
     @QueryParams() query: Methods['get']['query'],
   ) {
     // TODO: Unsubscribeのときのハンドリング
-    await this._createResubscriptionTask.invoke({
+    await this._verifyChannelSubscription.invoke({
       topic: query['hub.topic'],
-      verifyToken: query['hub.verify_token'],
       leaseSeconds: query['hub.lease_seconds'],
     });
 

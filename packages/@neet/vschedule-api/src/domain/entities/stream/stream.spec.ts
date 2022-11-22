@@ -1,8 +1,10 @@
 import dayjs from 'dayjs';
+import { nanoid } from 'nanoid';
 import { URL } from 'url';
 
 import { actorFixture } from '../__fixtures__';
 import { Timestamps } from '../_shared';
+import { ChannelId } from '../channel';
 import { Stream } from './stream';
 import { StreamId } from './stream-id';
 import { StreamTitle } from './stream-title';
@@ -15,7 +17,8 @@ describe('Stream', () => {
       url: new URL('https://www.youtube.com/watch?v=TT5b3BzsZyI'),
       description: `総勢58名のライバーが出演するにじさんじのユニット歌謡祭です。いつもお馴染みのユニットや少しレアなユニットも…？`,
       ownerId: actorFixture.id,
-      castIds: [],
+      participantIds: [],
+      channelId: new ChannelId(nanoid()),
       timestamps: new Timestamps({
         createdAt: dayjs('2021-01-01T00:00:00+09:00'),
         updatedAt: dayjs('2021-01-01T00:00:00+09:00'),
@@ -34,7 +37,8 @@ describe('Stream', () => {
       title: 'test',
       url: new URL('https://example.com'),
       ownerId: actorFixture.id,
-      castIds: [],
+      participantIds: [],
+      channelId: new ChannelId(nanoid()),
       description: null,
       thumbnail: null,
       endedAt: null,
