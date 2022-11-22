@@ -11,6 +11,7 @@ import {
 } from 'routing-controllers';
 
 import { CreateUser } from '../../app';
+import { User } from '../../domain';
 import { Methods } from '../generated/auth/signup';
 import { RestPresenter } from '../mappers';
 
@@ -27,8 +28,11 @@ export class AuthController {
 
   @Post('/login')
   @Authorized()
-  public login(@Req() req: Request) {
-    return this._presenter.presentUser(req.user);
+  public login(@Req() req: Request, @Res() res: Response) {
+    if (req.user == null) {
+      return res.status(500);
+    }
+    return this._presenter.presentUser(req.user as User);
   }
 
   @Post('/logout')
@@ -45,7 +49,7 @@ export class AuthController {
   @OnUndefined(204)
   public verifyCredentials(@Req() req: Request) {
     if (req.user != null) {
-      return this._presenter.presentUser(req.user);
+      return this._presenter.presentUser(req.user as User);
     }
   }
 

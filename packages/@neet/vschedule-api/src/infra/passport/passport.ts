@@ -21,8 +21,8 @@ export class Passport {
   ) {}
 
   configure(): RequestHandler[] {
-    passport.serializeUser((user: User, done) => {
-      done(null, user.id);
+    passport.serializeUser((user, done) => {
+      done(null, (user as User).id);
     });
     passport.deserializeUser(async (id: string, done) => {
       const user = await this._showUser.invoke(id);
