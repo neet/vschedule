@@ -4,7 +4,7 @@ import { Get, JsonController, Param, QueryParams } from 'routing-controllers';
 import { ListOrganization, ShowOrganization } from '../../../../app';
 import { Methods } from '../../../generated/rest/v1/organizations';
 import { Methods as MethodsId } from '../../../generated/rest/v1/organizations/_organizationId@string';
-import { RestPresenter } from '../../../mappers/rest-presenter';
+import { RestPresenter } from '../../../mappers';
 
 @injectable()
 @JsonController()

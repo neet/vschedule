@@ -11,7 +11,7 @@ import {
   YoutubeChannelId,
 } from '../../domain';
 import { TYPES } from '../../types';
-import { rehydratePerformerFromPrisma } from '../mappers/prisma-entity-mapper';
+import { rehydratePerformerFromPrisma } from '../mappers';
 
 @injectable()
 export class PerformerRepositoryPrisma implements IPerformerRepository {

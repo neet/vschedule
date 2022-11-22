@@ -1,0 +1,12 @@
+{
+  "directory": ["./src/domain", "./src/app", "./src/adapters", "./src/infra"],
+  "delete": true,
+  "exclude": [
+    "(.+?)\\.spec\\.(tsx?|jsx?)",
+    "(.+?)\\.stories\\.(tsx?|jsx?)",
+    "generated",
+    "./src/infra/setup.ts",
+    "./src/infra/server.ts"
+  ],
+  "location": "all"
+}

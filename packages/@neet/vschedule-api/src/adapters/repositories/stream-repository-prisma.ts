@@ -10,7 +10,7 @@ import {
   unwrap,
 } from '../../domain';
 import { TYPES } from '../../types';
-import { rehydrateStreamFromPrisma } from '../mappers/prisma-entity-mapper';
+import { rehydrateStreamFromPrisma } from '../mappers';
 
 @injectable()
 export class StreamRepositoryPrisma implements IStreamRepository {

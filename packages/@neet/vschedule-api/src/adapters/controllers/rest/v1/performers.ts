@@ -15,7 +15,7 @@ import {
   SubscribeToPerformer,
 } from '../../../../app';
 import { Methods } from '../../../generated/rest/v1/performers';
-import { RestPresenter } from '../../../mappers/rest-presenter';
+import { RestPresenter } from '../../../mappers';
 
 @injectable()
 @JsonController('/rest/v1/performers')

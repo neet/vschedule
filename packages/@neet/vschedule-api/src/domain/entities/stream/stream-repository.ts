@@ -3,11 +3,11 @@ import { URL } from 'url';
 import { Stream } from './stream';
 import { StreamId } from './stream-id';
 
-export interface ListStreamsParams {
+export type ListStreamsParams = {
   readonly limit?: number;
   readonly offset?: number;
   readonly organizationId?: string;
-}
+};
 
 export interface IStreamRepository {
   findById(id: StreamId): Promise<Stream | null>;

@@ -8,7 +8,7 @@ import {
 } from '../../app';
 import { OrganizationId, YoutubeChannelId } from '../../domain';
 import { TYPES } from '../../types';
-import { transferOrganizationFromPrisma } from '../mappers/prisma-dto-mapper';
+import { transferOrganizationFromPrisma } from '../mappers';
 
 const DEFAULT_INCLUDE = Object.freeze({
   actor: {

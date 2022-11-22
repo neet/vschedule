@@ -7,12 +7,12 @@ import { ILogger } from '../_shared';
 import { StreamDto } from '../dto';
 import { IStreamQueryService } from './stream-query-service';
 
-export interface ListStreamsParams {
+export type ListStreamsCommand = {
   readonly limit?: number;
   readonly since?: Dayjs;
   readonly until?: Dayjs;
   readonly organizationId?: string;
-}
+};
 
 @injectable()
 export class ListStreams {
@@ -24,7 +24,7 @@ export class ListStreams {
     private readonly _logger: ILogger,
   ) {}
 
-  async invoke(params: ListStreamsParams = {}): Promise<StreamDto[]> {
+  async invoke(params: ListStreamsCommand = {}): Promise<StreamDto[]> {
     this._logger.debug(JSON.stringify(params));
 
     const streams = await this._streamQueryService.queryMany({

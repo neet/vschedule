@@ -10,7 +10,7 @@ import {
 
 import { ListStreams, ShowStream } from '../../../../app';
 import { Methods } from '../../../generated/rest/v1/streams';
-import { RestPresenter } from '../../../mappers/rest-presenter';
+import { RestPresenter } from '../../../mappers';
 
 @injectable()
 @Controller('/rest/v1/streams')
