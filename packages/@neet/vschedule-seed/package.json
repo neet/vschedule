@@ -10,7 +10,7 @@
     "@types/eslint": "^8.4.10",
     "@types/mkdirp": "^1.0.2",
     "@types/rimraf": "^3.0.2",
-    "eslint": "^8.27.0",
+    "eslint": "^8.28.0",
     "mkdirp": "^1.0.4",
     "rimraf": "^3.0.2",
     "toml": "^3.0.0",

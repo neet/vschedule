@@ -1,5 +1,5 @@
 {
-  "directory": ["./src"],
+  "directory": ["./src/domain", "./src/app", "./src/adapters", "./src/infra"],
   "delete": true,
   "exclude": [
     "(.+?)\\.spec\\.(tsx?|jsx?)",
