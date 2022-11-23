@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.16](https://github.com/neet/vschedule/compare/@neet/vschedule-api@0.2.15...@neet/vschedule-api@0.2.16) (2022-11-23)
+
+### Bug Fixes
+
+* Fix tsc error ([e25b2b6](https://github.com/neet/vschedule/commit/e25b2b6ed315b516bed7171bcb03feda30b2a25c))
+
 ## [0.2.15](https://github.com/neet/vschedule/compare/@neet/vschedule-api@0.2.14...@neet/vschedule-api@0.2.15) (2022-11-22)
 
 ### Bug Fixes

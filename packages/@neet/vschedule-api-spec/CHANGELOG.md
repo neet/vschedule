@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.7](https://github.com/neet/vschedule/compare/@neet/vschedule-api-spec@0.1.6...@neet/vschedule-api-spec@0.1.7) (2022-11-23)
+
+**Note:** Version bump only for package @neet/vschedule-api-spec
+
 ## [0.1.6](https://github.com/neet/vschedule/compare/@neet/vschedule-api-spec@0.1.5...@neet/vschedule-api-spec@0.1.6) (2022-11-22)
 
 **Note:** Version bump only for package @neet/vschedule-api-spec
