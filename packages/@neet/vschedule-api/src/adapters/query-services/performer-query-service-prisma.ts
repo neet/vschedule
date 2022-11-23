@@ -10,14 +10,24 @@ import { PerformerId, YoutubeChannelId } from '../../domain';
 import { TYPES } from '../../types';
 import { transferPerformerFromPrisma } from '../mappers';
 
-const DEFAULT_INCLUDE = {
+const DEFAULT_INCLUDE = Object.freeze({
   avatar: true,
+  channels: {
+    include: {
+      youtubeChannel: true,
+    },
+  },
   organization: {
     include: {
       avatar: true,
+      channels: {
+        include: {
+          youtubeChannel: true,
+        },
+      },
     },
   },
-};
+});
 
 @injectable()
 export class PerformerQueryServicePrisma implements IPerformerQueryService {

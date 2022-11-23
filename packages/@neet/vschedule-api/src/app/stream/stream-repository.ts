@@ -1,7 +1,7 @@
 import { URL } from 'url';
 
-import { Stream } from './stream';
-import { StreamId } from './stream-id';
+import { Stream } from '../../domain/entities/stream/stream';
+import { StreamId } from '../../domain/entities/stream/stream-id';
 
 export type ListStreamsParams = {
   readonly limit?: number;

@@ -1,16 +1,31 @@
+import assert from 'node:assert';
+
 import * as Prisma from '@prisma/client';
 import Color from 'color';
 import dayjs from 'dayjs';
 
 import {
+  Channel,
+  ChannelDescription,
+  ChannelId,
+  ChannelName,
+  ChannelStatus,
+  ChannelYoutube,
   MediaAttachment,
   Organization,
+  OrganizationId,
   Performer,
+  PerformerId,
   Stream,
   Timestamps,
   Token,
   User,
+  YoutubeChannelId,
 } from '../../domain';
+
+const panic = (error: unknown): never => {
+  throw error;
+};
 
 export const rehydrateMediaAttachmentFromPrisma = (
   mediaAttachment: Prisma.MediaAttachment,
@@ -96,7 +111,8 @@ export const rehydrateStreamFromPrisma = (
       updatedAt: dayjs(stream.updatedAt),
     }),
     ownerId: stream.ownerId,
-    castIds: [], // TODO キャスト
+    participantIds: [], // TODO キャスト
+    channelId: stream.channelId,
     description: stream.description,
     title: stream.title,
     endedAt: stream.endedAt !== null ? dayjs(stream.endedAt) : null,
@@ -125,4 +141,37 @@ export const rehydrateUserFromPrisma = (user: Prisma.User) => {
       updatedAt: dayjs(user.updatedAt),
     }),
   });
+};
+
+export const rehydrateYoutubeChannelFromPrisma = (
+  channel: Prisma.Channel & { youtubeChannel: Prisma.YoutubeChannel | null },
+): Channel => {
+  assert(channel.youtubeChannel != null);
+  return ChannelYoutube.rehydrate({
+    id: new ChannelId(channel.id),
+    name: new ChannelName(channel.name),
+    description:
+      channel.description != null
+        ? new ChannelDescription(channel.description)
+        : null,
+    status: channel.status as ChannelStatus,
+    ownerId:
+      channel.performerId != null
+        ? new PerformerId(channel.performerId)
+        : channel.organizationId != null
+        ? new OrganizationId(channel.organizationId)
+        : panic('unexpected'),
+    youtubeChannelId: new YoutubeChannelId(
+      channel.youtubeChannel.youtubeChannelId,
+    ),
+  });
+};
+
+export const rehydrateChannelFromPrisma = (
+  channel: Prisma.Channel & { youtubeChannel: Prisma.YoutubeChannel | null },
+): Channel => {
+  if (channel.youtubeChannel != null) {
+    return rehydrateYoutubeChannelFromPrisma(channel);
+  }
+  throw new Error('inexhaustible');
 };

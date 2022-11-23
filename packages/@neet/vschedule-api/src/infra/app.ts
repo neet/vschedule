@@ -12,6 +12,7 @@ import winston from 'winston';
 
 import {
   AuthController,
+  ChannelController,
   MediaAttachmentController,
   OrganizationsController,
   PerformersController,
@@ -82,6 +83,7 @@ export class App {
       defaultErrorHandler: false,
       controllers: [
         AuthController,
+        ChannelController,
         MediaAttachmentController,
         OrganizationsController,
         PerformersController,

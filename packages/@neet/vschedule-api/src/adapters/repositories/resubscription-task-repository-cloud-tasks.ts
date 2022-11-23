@@ -2,11 +2,13 @@ import { CloudTasksClient } from '@google-cloud/tasks';
 import { google } from '@google-cloud/tasks/build/protos/protos';
 import { inject, injectable } from 'inversify';
 
-import { IConfig, ILogger, utils } from '../../app';
 import {
+  IConfig,
+  ILogger,
   IResubscriptionTaskRepository,
-  ResubscriptionTask,
-} from '../../domain';
+  utils,
+} from '../../app';
+import { ResubscriptionTask } from '../../domain';
 import { TYPES } from '../../types';
 
 @injectable()
@@ -26,7 +28,7 @@ export class ResubscriptionTaskRepositoryCloudTasks
   async create(task: ResubscriptionTask): Promise<void> {
     const url = utils.resolvePath(
       this._config,
-      `/rest/v1/performers/${task.performerId.value}/subscribe`,
+      `/rest/v1/performers/${task.channelId.value}/subscribe`,
     );
 
     await this._tasks.createTask({

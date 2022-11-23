@@ -5,6 +5,6 @@
 export * from './list-performers';
 export * from './performer-factory-impl';
 export * from './performer-query-service';
+export * from './performer-repository';
 export * from './show-performer';
-export * from './subscribe-to-performer';
 export * from './upsert-performer';

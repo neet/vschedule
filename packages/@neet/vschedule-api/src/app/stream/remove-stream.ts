@@ -1,9 +1,9 @@
 import { inject, injectable } from 'inversify';
 import { URL } from 'url';
 
-import { IStreamRepository } from '../../domain';
 import { TYPES } from '../../types';
 import { AppError, ILogger } from '../_shared';
+import { IStreamRepository } from './stream-repository';
 
 export class RemoveStreamNotFoundError extends AppError {
   public readonly name = 'RemoveStreamNotFoundError';

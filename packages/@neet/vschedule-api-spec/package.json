@@ -12,7 +12,7 @@
     }
   },
   "devDependencies": {
-    "@asteasolutions/zod-to-openapi": "^3.0.0",
+    "@asteasolutions/zod-to-openapi": "^3.1.0",
     "@neet/eslint-plugin-vschedule": "workspace:^",
     "@neet/tsconfig-vschedule": "workspace:^",
     "@types/eslint": "^8.4.10",

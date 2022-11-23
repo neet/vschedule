@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { registry } from '../../api';
+import { Channel } from './Channel';
 import { MediaAttachment } from './MediaAttachment';
 
 export const Actor = registry.register(
@@ -14,5 +15,6 @@ export const Actor = registry.register(
     avatar: MediaAttachment.optional(),
     twitterUsername: z.string().nullable(),
     youtubeChannelId: z.string().nullable(),
+    channels: z.array(Channel),
   }),
 );

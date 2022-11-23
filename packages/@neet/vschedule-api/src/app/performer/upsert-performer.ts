@@ -3,7 +3,6 @@ import { inject, injectable } from 'inversify';
 
 import {
   IPerformerFactory,
-  IPerformerRepository,
   OrganizationId,
   OrganizationService,
   Performer,
@@ -13,7 +12,17 @@ import {
   YoutubeChannelId,
 } from '../../domain';
 import { TYPES } from '../../types';
-import { ILogger } from '../_shared';
+import { AppError, ILogger } from '../_shared';
+import { IOrganizationRepository } from '../organization';
+import { IPerformerRepository } from './performer-repository';
+
+export class UpsertPerformerOrganizationNotFoundError extends AppError {
+  readonly name = 'UpsertPerformerOrganizationNotFoundError';
+
+  constructor(id: OrganizationId) {
+    super(`Organization with ID ${id} was not found`);
+  }
+}
 
 export type UpsertPerformerCommand = {
   readonly youtubeChannelId: string;
@@ -37,6 +46,9 @@ export class UpsertPerformer {
     @inject(OrganizationService)
     private readonly _organizationService: OrganizationService,
 
+    @inject(TYPES.OrganizationRepository)
+    private readonly _organizationRepository: IOrganizationRepository,
+
     @inject(TYPES.Logger)
     private readonly _logger: ILogger,
   ) {}
@@ -53,10 +65,18 @@ export class UpsertPerformer {
         : await this.updatePerformer(existingPerformer, command);
 
     if (command.organizationId != null) {
-      await this._organizationService.addPerformer(
-        performer,
-        new OrganizationId(command.organizationId),
+      const organizationId = new OrganizationId(command.organizationId);
+      const existingOrganization = await this._organizationRepository.findById(
+        organizationId,
       );
+      if (existingOrganization == null) {
+        throw new UpsertPerformerOrganizationNotFoundError(organizationId);
+      }
+      const updatedPerformer = this._organizationService.addPerformer(
+        performer,
+        existingOrganization,
+      );
+      await this._performerRepository.update(updatedPerformer);
     }
   }
 

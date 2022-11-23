@@ -3,6 +3,7 @@ import { URL } from 'node:url';
 import { inject, injectable } from 'inversify';
 
 import {
+  ChannelDto,
   IConfig,
   MediaAttachmentDto,
   OrganizationDto,
@@ -43,6 +44,19 @@ export class RestPresenter {
     };
   }
 
+  public presentChannel(channel: ChannelDto): Rest.Channel {
+    if (channel.type === 'youtube') {
+      return {
+        type: 'youtube',
+        id: channel.id,
+        name: channel.name,
+        description: channel.description,
+        url: `https://youtube.com/channel/${channel.youtubeChannelId}`,
+      };
+    }
+    throw new Error('unknown type');
+  }
+
   public presentOrganization(organization: OrganizationDto): Rest.Organization {
     return {
       id: organization.id,
@@ -56,6 +70,9 @@ export class RestPresenter {
         organization.avatar !== null
           ? this.presentMediaAttachment(organization.avatar)
           : undefined,
+      channels: organization.channels.map((channel) =>
+        this.presentChannel(channel),
+      ),
       createdAt: organization.createdAt.toISOString(),
       updatedAt: organization.updatedAt.toISOString(),
     };
@@ -76,6 +93,9 @@ export class RestPresenter {
           : undefined,
       createdAt: performer.createdAt.toISOString(),
       updatedAt: performer.updatedAt.toISOString(),
+      channels: performer.channels.map((channel) =>
+        this.presentChannel(channel),
+      ),
       organization:
         performer.organization !== null
           ? this.presentOrganization(performer.organization)
@@ -95,7 +115,8 @@ export class RestPresenter {
       endedAt: stream.endedAt === null ? null : stream.endedAt.toISOString(),
       owner: this.presentPerformer(stream.owner),
       duration: stream.duration === null ? null : stream.duration.toISOString(),
-      casts: [], // TODO
+      participants: [], // TODO
+      channelId: stream.channelId,
       thumbnail:
         stream.thumbnail !== null
           ? this.presentMediaAttachment(stream.thumbnail)

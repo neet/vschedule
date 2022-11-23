@@ -1,12 +1,14 @@
-import { YoutubeChannelId } from '../_shared';
-import { PerformerId } from '../performer';
-import { Organization } from './organization';
-import { OrganizationId } from './organization-id';
+import {
+  Organization,
+  OrganizationId,
+  PerformerId,
+  YoutubeChannelId,
+} from '../../domain';
 
-export interface FindOrganizationParams {
+export type FindOrganizationParams = {
   readonly limit?: number;
   readonly offset?: number;
-}
+};
 
 export interface IOrganizationRepository {
   create(organization: Organization): Promise<Organization>;

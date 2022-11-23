@@ -44,23 +44,3 @@ registry.registerPath({
     },
   },
 });
-
-registry.registerPath({
-  method: 'post',
-  path: '/rest/v1/performers/{performerId}/subscribe',
-  operationId: 'subscribeToPerformer',
-  summary: 'パフォーマーを購読',
-  request: {
-    params: z.object({
-      performerId: PathPerformerId,
-    }),
-  },
-  responses: {
-    200: {
-      description: '成功時のレスポンスです',
-      // content: {
-      //   'application/json': { schema: Performer },
-      // },
-    },
-  },
-});

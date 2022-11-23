@@ -13,7 +13,6 @@ export class ConfigEnvironment extends ConfigBase implements IConfig {
       youtube: {
         dataApiKey: env('YOUTUBE_DATA_API_KEY'),
         websubHmacSecret: env('YOUTUBE_WEBSUB_HMAC_SECRET'),
-        websubVerifyToken: env('YOUTUBE_WEBSUB_VERIFY_TOKEN'),
       },
       storage: {
         type: env('STORAGE_TYPE'),

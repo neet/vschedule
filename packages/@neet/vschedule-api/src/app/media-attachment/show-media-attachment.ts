@@ -1,12 +1,9 @@
 import { inject, injectable } from 'inversify';
 
-import {
-  IMediaAttachmentRepository,
-  MediaAttachment,
-  MediaAttachmentFilename,
-} from '../../domain';
+import { MediaAttachment, MediaAttachmentFilename } from '../../domain';
 import { TYPES } from '../../types';
 import { AppError } from '../_shared';
+import { IMediaAttachmentRepository } from './media-attachment-repository';
 
 export class ShowMediaAttachmentNotFoundError extends AppError {
   public readonly name = 'ShowMediaAttachmentNotFoundError';

@@ -14,6 +14,23 @@ export type MediaAttachmentDto = {
   readonly updatedAt: Dayjs;
 };
 
+export type BaseChannelDto<T> = {
+  readonly type: T;
+  readonly id: string;
+  readonly name: string;
+  readonly description: string | null;
+};
+
+export type YoutubeChannelDto = BaseChannelDto<'youtube'> & {
+  readonly youtubeChannelId: string;
+};
+
+export type TwicastingChannelDto = BaseChannelDto<'twicasting'> & {
+  readonly twicastingScreenName: string;
+};
+
+export type ChannelDto = YoutubeChannelDto | TwicastingChannelDto;
+
 export type OrganizationDto = {
   readonly id: string;
   readonly name: string;
@@ -21,6 +38,7 @@ export type OrganizationDto = {
   readonly description: string | null;
   readonly avatar: MediaAttachmentDto | null;
   readonly url: URL | null;
+  readonly channels: ChannelDto[];
   readonly twitterUsername: string | null;
   readonly youtubeChannelId: string | null;
   readonly createdAt: Dayjs;
@@ -34,6 +52,7 @@ export type PerformerDto = {
   readonly description: string | null;
   readonly avatar: MediaAttachmentDto | null;
   readonly url: URL | null;
+  readonly channels: ChannelDto[];
   readonly twitterUsername: string | null;
   readonly youtubeChannelId: string | null;
   readonly organization: OrganizationDto | null;
@@ -48,7 +67,8 @@ export type StreamDto = {
   readonly url: URL;
   readonly thumbnail: MediaAttachmentDto | null;
   readonly owner: PerformerDto;
-  readonly casts: readonly PerformerDto[];
+  readonly channelId: string;
+  readonly participants: readonly PerformerDto[];
   readonly startedAt: Dayjs;
   readonly endedAt: Dayjs | null;
   readonly createdAt: Dayjs;

@@ -1,7 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import { inject, injectable } from 'inversify';
 
-import { ITokenRepository, Token, TokenId } from '../../domain';
+import { ITokenRepository } from '../../app';
+import { Token, TokenId } from '../../domain';
 import { TYPES } from '../../types';
 import { rehydrateTokenFromPrisma } from '../mappers';
 

@@ -5,7 +5,6 @@ import fetch from 'node-fetch';
 import sharp from 'sharp';
 
 import {
-  IMediaAttachmentRepository,
   IPerformerFactory,
   MediaAttachmentFilename,
   Performer,
@@ -15,6 +14,7 @@ import {
 import { TYPES } from '../../types';
 import { IYoutubeApiService } from '../_external';
 import { AppError, ILogger, UnexpectedError } from '../_shared';
+import { IMediaAttachmentRepository } from '../media-attachment';
 
 export class PerformerFactoryChannelNotFoundError extends AppError {
   public readonly name = 'PerformerFactoryChannelNotFoundError';

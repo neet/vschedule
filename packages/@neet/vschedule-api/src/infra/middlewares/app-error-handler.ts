@@ -3,8 +3,6 @@ import { ErrorRequestHandler, Response } from 'express';
 import * as Rest from '../../adapters/generated/@types';
 import {
   AppError,
-  CreateResubscriptionTaskInvalidTopicError,
-  CreateResubscriptionTaskUnknownActorError,
   DrainTokenNotFoundError,
   RemoveStreamNotFoundError,
   ShowMediaAttachmentNotFoundError,
@@ -36,12 +34,6 @@ export const appErrorHandler: ErrorRequestHandler = (
   }
   if (error instanceof RemoveStreamNotFoundError) {
     res.status(404);
-  }
-  if (error instanceof CreateResubscriptionTaskUnknownActorError) {
-    res.status(403);
-  }
-  if (error instanceof CreateResubscriptionTaskInvalidTopicError) {
-    res.status(403);
   }
   if (error instanceof ShowMediaAttachmentNotFoundError) {
     res.status(404);

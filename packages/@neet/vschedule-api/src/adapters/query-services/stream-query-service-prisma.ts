@@ -16,9 +16,19 @@ const SHARED_INCLUDE = {
   owner: {
     include: {
       avatar: true,
+      channels: {
+        include: {
+          youtubeChannel: true,
+        },
+      },
       organization: {
         include: {
           avatar: true,
+          channels: {
+            include: {
+              youtubeChannel: true,
+            },
+          },
         },
       },
     },

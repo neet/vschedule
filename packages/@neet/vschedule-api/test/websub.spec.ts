@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createHmac } from 'crypto';
-import { advanceTo, clear } from 'jest-date-mock';
 
-import { ResubscriptionTaskRepositoryInMemory } from '../src/adapters/repositories';
 import { IConfig } from '../src/app';
 import { TYPES } from '../src/types';
 import { createAPI } from '../test-utils/api';
-import { SEED_STREAM_ID } from '../test-utils/db-seed';
+import {
+  SEED_PERFORMER_CHANNEL_ID,
+  SEED_STREAM_ID,
+} from '../test-utils/db-seed';
 import { container } from '../test-utils/inversify-config';
 import {
   ytWebsubStreamDeleted,
@@ -19,33 +20,6 @@ describe('/websub/youtube', () => {
 
   beforeAll(() => {
     config = container.get<IConfig>(TYPES.Config);
-  });
-
-  it('verifies WebSub subscription', async () => {
-    const { api } = createAPI();
-    advanceTo(0);
-
-    const token = config.youtube.websubVerifyToken ?? '';
-    const result = await api.websub.youtube.get({
-      query: {
-        'hub.topic': `https://www.youtube.com/xml/feeds/videos.xml?channel_id=UCV5ZZlLjk5MKGg3L0n0vbzw`,
-        'hub.challenge': '4605398436710972921',
-        'hub.mode': 'subscribe',
-        'hub.lease_seconds': 432000,
-        'hub.verify_token': token,
-      } as any,
-    });
-
-    const repository = container.get<ResubscriptionTaskRepositoryInMemory>(
-      TYPES.ResubscriptionTaskRepository,
-    );
-
-    expect(result.status).toBe(200);
-    expect(repository.tasks.at(0)?.scheduledAt.toISOString()).toBe(
-      '1970-01-06T00:00:00.000Z',
-    );
-
-    clear();
   });
 
   it('receives Atom feed', async () => {
@@ -73,6 +47,7 @@ describe('/websub/youtube', () => {
     );
     expect(stream?.owner?.name).toBe('鷹宮リオン');
     expect(stream?.owner?.organization?.name).toBe('にじさんじ');
+    expect(stream?.channelId).toBe(SEED_PERFORMER_CHANNEL_ID);
   });
 
   it('updates Atom feed', async () => {

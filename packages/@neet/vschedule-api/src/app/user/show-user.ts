@@ -1,8 +1,9 @@
 import { inject, injectable } from 'inversify';
 
-import { IUserRepository, User, UserId } from '../../domain';
+import { User, UserId } from '../../domain';
 import { TYPES } from '../../types';
 import { AppError } from '../_shared';
+import { IUserRepository } from './user-repository';
 
 export class ShowUserNotFoundError extends AppError {
   public readonly name = 'ShowUserNotFoundError';

@@ -27,7 +27,6 @@ abstract class $ConfigBase {
       youtube: {
         dataApiKey: input.youtube.dataApiKey,
         websubHmacSecret: input.youtube.websubHmacSecret ?? 'secret',
-        websubVerifyToken: input.youtube.websubVerifyToken ?? 'token',
       },
       server: {
         port: input.server?.port ?? 3000,

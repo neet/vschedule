@@ -6,6 +6,7 @@ import { URL } from 'url';
 
 import { AggregateRoot, DomainError, RehydrateParameters } from '../../_core';
 import { ITimestamps, TimestampMixin, Timestamps } from '../_shared';
+import { ChannelId } from '../channel';
 import { MediaAttachment } from '../media-attachment';
 import { PerformerId } from '../performer';
 import { StreamDescription } from './stream-description';
@@ -33,18 +34,19 @@ export class StreamAlreadyEndedError extends DomainError {
   }
 }
 
-export interface StreamProps {
+export type StreamProps = {
   readonly id: StreamId;
   readonly title: StreamTitle;
   readonly url: URL;
+  readonly channelId: ChannelId;
   readonly ownerId: PerformerId;
-  readonly castIds: readonly PerformerId[];
+  readonly participantIds: readonly PerformerId[];
   readonly startedAt: Dayjs;
   readonly timestamps: Timestamps;
   readonly description: StreamDescription | null;
   readonly thumbnail: MediaAttachment | null;
   readonly endedAt: Dayjs | null;
-}
+};
 
 const mixins = Mixin(AggregateRoot<StreamId, StreamProps>, TimestampMixin);
 
@@ -89,9 +91,12 @@ export class Stream extends mixins implements ITimestamps {
     return this._props.ownerId;
   }
 
-  // TODO: participantsとかにすればよかった。
-  public get castIds(): readonly PerformerId[] {
-    return this._props.castIds;
+  public get channelId(): ChannelId {
+    return this._props.channelId;
+  }
+
+  public get participantIds(): readonly PerformerId[] {
+    return this._props.participantIds;
   }
 
   setTitle(title: StreamTitle) {
@@ -134,9 +139,9 @@ export class Stream extends mixins implements ITimestamps {
     return new Stream(props);
   }
 
-  setCasts(castIds: PerformerId[]) {
+  setParticipantIds(participantIds: PerformerId[]) {
     const props = produce(this._props, (draft) => {
-      draft.castIds = castIds;
+      draft.participantIds = participantIds;
       draft.timestamps = draft.timestamps.update();
     });
     return new Stream(props);
@@ -166,7 +171,8 @@ export class Stream extends mixins implements ITimestamps {
       title: new StreamTitle(props.title),
       url: props.url,
       ownerId: new PerformerId(props.ownerId),
-      castIds: props.castIds,
+      participantIds: props.participantIds,
+      channelId: new ChannelId(props.channelId),
       thumbnail: props.thumbnail,
       description:
         props.description !== null

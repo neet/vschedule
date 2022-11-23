@@ -5,35 +5,25 @@ import fetch from 'node-fetch';
 import sharp from 'sharp';
 
 import {
-  IMediaAttachmentRepository,
-  IPerformerRepository,
-  IStreamFactory,
-  IStreamRepository,
   MediaAttachment,
   MediaAttachmentFilename,
   Performer,
+  PerformerId,
   Stream,
   StreamDescription,
   StreamTitle,
   YoutubeChannelId,
 } from '../../domain';
 import { TYPES } from '../../types';
-import { IYoutubeApiService, Video } from '../_external';
+import { Video } from '../_external';
 import { AppError } from '../_shared';
+import { IChannelRepository } from '../channel';
+import { IMediaAttachmentRepository } from '../media-attachment';
+import { IPerformerRepository } from '../performer';
+import { IStreamRepository } from './stream-repository';
 
 const YOUTUBE_CHANNEL_REGEXP =
   /https:\/\/www\.youtube\.com\/channel\/(.+?)(\/|\s|\n|\?)/g;
-
-export class CreateStreamFailedToFetchVideoError extends AppError {
-  public readonly name = 'CreateStreamFailedToFetchVideoError';
-
-  public constructor(
-    public readonly videoId: string,
-    public readonly cause: unknown,
-  ) {
-    super(`No video found with ID ${videoId}`);
-  }
-}
 
 export class CreateStreamPerformerNotFoundWithChannelIdError extends AppError {
   public readonly name = 'CreateStreamPerformerNotFoundWithChannelIdError';
@@ -44,39 +34,43 @@ export class CreateStreamPerformerNotFoundWithChannelIdError extends AppError {
 }
 
 @injectable()
-export class StreamFactoryImpl implements IStreamFactory {
+export class StreamFactory {
   public constructor(
-    @inject(TYPES.YoutubeApiService)
-    private readonly _youtubeApiService: IYoutubeApiService,
-
     @inject(TYPES.PerformerRepository)
     private readonly _performerRepository: IPerformerRepository,
 
     @inject(TYPES.MediaAttachmentRepository)
     private readonly _mediaAttachmentRepository: IMediaAttachmentRepository,
 
+    @inject(TYPES.ChannelRepository)
+    private readonly _channelRepository: IChannelRepository,
+
     @inject(TYPES.StreamRepository)
     private readonly _streamRepository: IStreamRepository,
   ) {}
 
-  public async createFromVideoId(videoId: string): Promise<Stream> {
-    const video = await this._fetchVideoById(videoId);
-    const performer = await this._performerRepository.findByYoutubeChannelId(
-      new YoutubeChannelId(video.channelId),
+  public async createFromVideo(video: Video): Promise<Stream> {
+    const youtubeChannelId = new YoutubeChannelId(video.channelId);
+    const channel = await this._fetchChannelFromYoutubeChannel(
+      youtubeChannelId,
     );
+    const thumbnail =
+      video.thumbnailUrl != null
+        ? await this._createThumbnail(video.thumbnailUrl)
+        : null;
 
+    if (!(channel.ownerId instanceof PerformerId)) {
+      throw new Error('Unexpected');
+    }
+
+    const performer = await this._performerRepository.findById(channel.ownerId);
     if (performer == null) {
       throw new CreateStreamPerformerNotFoundWithChannelIdError(
         video.channelId,
       );
     }
 
-    const thumbnail =
-      video.thumbnailUrl != null
-        ? await this._createThumbnail(video.thumbnailUrl)
-        : null;
-
-    const casts = await this._listCasts(video.description);
+    const participants = await this._listParticipants(video.description);
 
     // FIXME オブジェクトの作成以上の責務を負っている気がする
     let stream = await this._streamRepository.findByUrl(new URL(video.url));
@@ -88,15 +82,16 @@ export class StreamFactoryImpl implements IStreamFactory {
         startedAt: video.startedAt != null ? dayjs(video.startedAt) : dayjs(),
         endedAt: video.endedAt != null ? dayjs(video.endedAt) : null,
         ownerId: performer.id,
-        castIds: casts.map((cast) => cast.id),
+        participantIds: participants.map((participant) => participant.id),
         thumbnail,
+        channelId: channel.id,
       });
     }
 
     stream = stream
       .setTitle(new StreamTitle(video.title))
       .setDescription(new StreamDescription(video.description))
-      .setCasts(casts.map((cast) => cast.id));
+      .setParticipantIds(participants.map((participant) => participant.id));
 
     if (thumbnail != null) {
       stream = stream.setThumbnail(thumbnail);
@@ -111,11 +106,24 @@ export class StreamFactoryImpl implements IStreamFactory {
     return stream;
   }
 
+  private async _fetchChannelFromYoutubeChannel(id: YoutubeChannelId) {
+    const channel = await this._channelRepository.findByYoutubeChannelId(id);
+    if (channel == null) {
+      throw new CreateStreamPerformerNotFoundWithChannelIdError(id.value);
+    }
+    return channel;
+  }
+
   private async _createThumbnail(urlStr: string): Promise<MediaAttachment> {
     const url = new URL(urlStr);
+
+    const existing = await this._mediaAttachmentRepository.findByRemoteUrl(url);
+    if (existing) {
+      return existing;
+    }
+
     const image = await fetch(url);
     const imageBuffer = Buffer.from(await image.arrayBuffer());
-
     return await this._mediaAttachmentRepository.save(
       new MediaAttachmentFilename(`${nanoid()}_thumbnail.webp`),
       await sharp(imageBuffer).webp().toBuffer(),
@@ -123,20 +131,10 @@ export class StreamFactoryImpl implements IStreamFactory {
     );
   }
 
-  private async _fetchVideoById(videoId: string): Promise<Video> {
-    try {
-      const video = await this._youtubeApiService.fetchVideo(videoId);
-      return video;
-    } catch (error) {
-      throw new CreateStreamFailedToFetchVideoError(videoId, error);
-    }
-  }
-
-  private async _listCasts(description: string): Promise<Performer[]> {
+  private async _listParticipants(description: string): Promise<Performer[]> {
     const channelIds = [...description.matchAll(YOUTUBE_CHANNEL_REGEXP)]
       .map((match) => match.at(1))
       .filter((match): match is string => match != null);
-
     return this._performerRepository.find({ channelIds });
   }
 }

@@ -1,9 +1,10 @@
 import { hashSync } from 'bcryptjs';
 import { inject, injectable } from 'inversify';
 
-import { IUserRepository, User, UserEmail } from '../../domain';
+import { User, UserEmail } from '../../domain';
 import { TYPES } from '../../types';
 import { AppError, IConfig, ILogger } from '../_shared';
+import { IUserRepository } from './user-repository';
 
 export class CreateUserAlreadyExists extends AppError {
   readonly name = 'CreateUserAlreadyExists';

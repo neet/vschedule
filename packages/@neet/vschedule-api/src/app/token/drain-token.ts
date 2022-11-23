@@ -1,8 +1,9 @@
 import { inject, injectable } from 'inversify';
 
-import { ITokenRepository, TokenId } from '../../domain';
+import { TokenId } from '../../domain';
 import { TYPES } from '../../types';
 import { AppError, ILogger } from '../_shared';
+import { ITokenRepository } from './token-repository';
 
 export class DrainTokenNotFoundError extends AppError {
   public readonly name = 'DrainTokenNotFoundError';
