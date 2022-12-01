@@ -3899,7 +3899,7 @@ __metadata:
     "@neet/eslint-plugin-vschedule": "workspace:^"
     "@neet/tsconfig-vschedule": "workspace:^"
     "@neet/vschedule-api-spec": "workspace:^"
-    "@next/mdx": ^12.0.7
+    "@next/mdx": ^13.0.5
     "@popperjs/core": ^2.11.6
     "@storybook/addon-essentials": ^6.5.13
     "@storybook/addon-interactions": ^6.5.13
@@ -4001,13 +4001,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/mdx@npm:^12.0.7":
-  version: 12.0.8
-  resolution: "@next/mdx@npm:12.0.8"
+"@next/mdx@npm:^13.0.5":
+  version: 13.0.5
+  resolution: "@next/mdx@npm:13.0.5"
+  dependencies:
+    source-map: ^0.7.0
   peerDependencies:
     "@mdx-js/loader": ">=0.15.0"
     "@mdx-js/react": "*"
-  checksum: 5a7a0a61e1bfd754d2f24bc12de3b5be8f934687edabf596581f30cfc0a4a9bae27810a7dfee97db2e4cbcc71a18c5c892790f3bab88a74a07853062a3febda7
+  checksum: 3b08084e451f31658edb49cf5e9f9916db498ceeb27608c88cd26832ac8eef5fea67152f5d8a923bc56616666c596e48c0af8dbdaa07af41bce1e2f892908860
   languageName: node
   linkType: hard
 
@@ -24942,6 +24944,13 @@ __metadata:
   version: 0.6.1
   resolution: "source-map@npm:0.6.1"
   checksum: 59ce8640cf3f3124f64ac289012c2b8bd377c238e316fb323ea22fbfe83da07d81e000071d7242cad7a23cd91c7de98e4df8830ec3f133cb6133a5f6e9f67bc2
+  languageName: node
+  linkType: hard
+
+"source-map@npm:^0.7.0":
+  version: 0.7.4
+  resolution: "source-map@npm:0.7.4"
+  checksum: 01cc5a74b1f0e1d626a58d36ad6898ea820567e87f18dfc9d24a9843a351aaa2ec09b87422589906d6ff1deed29693e176194dc88bcae7c9a852dc74b311dbf5
   languageName: node
   linkType: hard
 
