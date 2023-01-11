@@ -21,7 +21,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser-xml": "^2.0.3",
     "class-transformer": "^0.5.1",
-    "class-validator": "^0.13.2",
+    "class-validator": "^0.14.0",
     "color": "^4.2.3",
     "cors": "^2.8.5",
     "cosmiconfig": "^8.0.0",
