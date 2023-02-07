@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 
 // なんか exports みてくれない
-import { performers as hololive } from '@neet/vschedule-seed/dist/hololive.json';
+// import { performers as hololive } from '@neet/vschedule-seed/dist/hololive.json';
 import { performers as nijisanji } from '@neet/vschedule-seed/dist/nijisanji.json';
 import { organizations } from '@neet/vschedule-seed/dist/organizations.json';
 import { PrismaClient } from '@prisma/client';
@@ -38,9 +38,9 @@ const main = async (): Promise<void> => {
   const nijisanjiOrg = await showOrganization.invoke({
     youtubeChannelId: 'UCX7YkU9nEeaoZbkVLVajcMg',
   });
-  const hololiveOrg = await showOrganization.invoke({
-    youtubeChannelId: 'UCJFZiqLMntJufDCHc6bQixg',
-  });
+  // const hololiveOrg = await showOrganization.invoke({
+  //   youtubeChannelId: 'UCJFZiqLMntJufDCHc6bQixg',
+  // });
 
   logger.info(`Seeding ${nijisanji.length} performers...`);
   for (const performer of nijisanji) {
@@ -56,19 +56,19 @@ const main = async (): Promise<void> => {
     });
   }
 
-  logger.info(`Seeding ${hololive.length} performers...`);
-  for (const performer of hololive) {
-    await upsertPerformer.invoke({
-      name: performer.name,
-      color: performer.color,
-      youtubeChannelId: performer.youtubeChannelId,
-      organizationId: hololiveOrg.id,
-      // description: performer.description ?? null,
-      description: null,
-      url: performer.url ?? null,
-      twitterUsername: performer.twitterUsername ?? null,
-    });
-  }
+  // logger.info(`Seeding ${hololive.length} performers...`);
+  // for (const performer of hololive) {
+  //   await upsertPerformer.invoke({
+  //     name: performer.name,
+  //     color: performer.color,
+  //     youtubeChannelId: performer.youtubeChannelId,
+  //     organizationId: hololiveOrg.id,
+  //     // description: performer.description ?? null,
+  //     description: null,
+  //     url: performer.url ?? null,
+  //     twitterUsername: performer.twitterUsername ?? null,
+  //   });
+  // }
 };
 
 main()
