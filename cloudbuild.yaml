@@ -63,7 +63,6 @@ steps:
       - '--platform=managed'
       - '--image=$_IMAGE_NAME'
       - '--region=$_DEPLOY_REGION'
-      - '--allow-unauthenticated'
       - '--quiet'
 
 images:

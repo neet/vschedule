@@ -45,7 +45,7 @@ export interface StreamsProps {
 export const getStaticProps: GetStaticProps<StreamsProps> = async () => {
   return {
     props: {
-      data: await apiLegacy.fetchGenres(),
+      // data: await apiLegacy.fetchGenres(),
     },
     revalidate: DAILY,
   };
@@ -62,7 +62,7 @@ const Streams = (props: StreamsProps): JSX.Element | null => {
   const upcomingEvents = useUpcomingEvents();
   const genreQuery = useGenreQueryParam();
   const [genre, setGenre] = useState(genreQuery ?? GENRE_ALL);
-  const { genres } = useGenres({ fallbackData: props.data });
+  // const { genres } = useGenres({ fallbackData: props.data });
   const [swapDelta] = useSwapDelta();
 
   // prettier-ignore
@@ -126,7 +126,7 @@ const Streams = (props: StreamsProps): JSX.Element | null => {
                   genre={genre}
                   loading={isValidating}
                   onGenreChange={setGenre}
-                  genres={genres}
+                  genres={[]}
                 />
               }
             >
