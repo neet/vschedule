@@ -29,7 +29,7 @@
     "@neet/eslint-plugin-vschedule": "workspace:^",
     "@neet/tsconfig-vschedule": "workspace:^",
     "@neet/vschedule-api-spec": "workspace:^",
-    "@next/mdx": "^12.0.7",
+    "@next/mdx": "^13.2.3",
     "@popperjs/core": "^2.11.6",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/line-clamp": "^0.4.2",
